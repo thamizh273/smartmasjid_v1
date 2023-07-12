@@ -23,6 +23,7 @@ abstract class Routes {
   static const PRAYERPAGE = _Paths.PRAYERPAGE;
   static const SPECIALDAYSPAGE = _Paths.SPECIALDAYSPAGE;
   static const HIJRIPAGE = _Paths.HIJRIPAGE;
+  static const REQUEST_MASJID = _Paths.REQUEST_MASJID;
 }
 
 abstract class _Paths {
@@ -47,4 +48,5 @@ abstract class _Paths {
   static const PRAYERPAGE = '/prayerpage';
   static const SPECIALDAYSPAGE = '/specialdayspage';
   static const HIJRIPAGE = '/hijripage';
+  static const REQUEST_MASJID = '/request_masjid';
 }
