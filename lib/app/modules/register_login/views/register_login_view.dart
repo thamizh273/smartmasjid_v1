@@ -31,7 +31,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
               ElevatedButton(
                   onPressed: (){
 
-                    Get.offAllNamed(Routes.FACE_AUTH);
+                    Get.toNamed(Routes.FACE_AUTH);
                     // Navigator.of(context).push(MaterialPageRoute(builder: (_) => FaceAuth()));
                     // Navigator.push(
                     //   context,
@@ -64,7 +64,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
               OutlinedButton(
                   onPressed: (){
                     // Navigator.of(context).push(MaterialPageRoute(builder: (_) => const LoginPage()));
-                    Get.offAllNamed(Routes.LOGIN_PAGE);
+                    Get.toNamed(Routes.LOGIN_PAGE);
                     // Navigator.push(
                     //   context,
                     //   PageRouteBuilder(

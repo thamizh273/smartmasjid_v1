@@ -6,6 +6,7 @@ MasjidFinderModel masjidFinderModelFromJson(String str) => MasjidFinderModel.fro
 
 String masjidFinderModelToJson(MasjidFinderModel data) => json.encode(data.toJson());
 
+
 class MasjidFinderModel {
   String? sTypename;
   List<GetMasjidFilter>? getMasjidFilter;
@@ -35,29 +36,49 @@ class MasjidFinderModel {
 
 class GetMasjidFilter {
   String? sTypename;
-  String? id;
-  String? masjidName;
-  String? masjidImage;
   String? area;
+  String? id;
+  String? masjidImage;
+  String? masjidName;
+  String? pinCode;
+  String? city;
+  String? district;
+  String? state;
 
   GetMasjidFilter(
-      {this.sTypename, this.id, this.masjidName, this.masjidImage, this.area});
+      {this.sTypename,
+        this.area,
+        this.id,
+        this.masjidImage,
+        this.masjidName,
+        this.pinCode,
+        this.city,
+        this.district,
+        this.state});
 
   GetMasjidFilter.fromJson(Map<String, dynamic> json) {
     sTypename = json['__typename'];
-    id = json['id'];
-    masjidName = json['masjid_name'];
-    masjidImage = json['masjid_image'];
     area = json['area'];
+    id = json['id'];
+    masjidImage = json['masjid_image'];
+    masjidName = json['masjid_name'];
+    pinCode = json['pin_code'];
+    city = json['city'];
+    district = json['district'];
+    state = json['state'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['__typename'] = this.sTypename;
-    data['id'] = this.id;
-    data['masjid_name'] = this.masjidName;
-    data['masjid_image'] = this.masjidImage;
     data['area'] = this.area;
+    data['id'] = this.id;
+    data['masjid_image'] = this.masjidImage;
+    data['masjid_name'] = this.masjidName;
+    data['pin_code'] = this.pinCode;
+    data['city'] = this.city;
+    data['district'] = this.district;
+    data['state'] = this.state;
     return data;
   }
 }

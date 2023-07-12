@@ -36,12 +36,14 @@ class SignupPageView extends GetView<SignupPageController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Safa_textfield(
+                         Safa_textfield(
+                          controller: controller.firstNameCtrl.value,
                           hint: ' First Name',
                           width: .43,
                         ),
                         12.horizontalSpace,
-                        const Safa_textfield(
+                         Safa_textfield(
+                          controller: controller.lastNameCtrl.value,
                           hint: ' Last Name',
                           width: .43,
                         ),
@@ -165,9 +167,8 @@ class SignupPageView extends GetView<SignupPageController> {
                           // //  //   return OtpPage(phoneNumber: '+91' + phoneController.text,);
                           //  // // }));
                           ///
+                          controller.verifyPhoneNumber();
 
-                          controller.signUpWithEmailAndPassword();
-                          controller.update();
                           Get.toNamed(Routes.OTP_PAGE);
                           // Get.dialog(Padding(
                           //   padding:  EdgeInsets.symmetric(vertical: 20.h),

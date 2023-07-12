@@ -67,8 +67,14 @@ class restCallController extends GetxController {
       //     primaryColor: Colors.red,
       //   ).show(Get.context);
       //   break;
+
     }
+
+
+
+
   }
+
 
   Future gql_query(header, body) async {
     GraphQLConfig graphQLConfiguration = GraphQLConfig();
@@ -85,7 +91,19 @@ class restCallController extends GetxController {
         snakbar(type: "ERROR", msg: "Network Error");
 
         return;
-      } else {
+      }
+      else if( result.exception!.graphqlErrors[0].message.contains("Data Empty!")){ }
+      // else if(result.hasException) {
+      //   if (result.exception!.graphqlErrors.isNotEmpty) {
+      //     final graphQLError = result.exception!.graphqlErrors[0];
+      //     final errorMessage = graphQLError.message;
+      //     // Handle the error message here
+      //     print(errorMessage);
+      //     snakbar(type: "ERROR", msg: errorMessage);
+      //   }
+      // }
+
+      else {
         print("graphqll error ${result.exception}");
 
         snakbar(type: "ERROR", msg: "Server Error");

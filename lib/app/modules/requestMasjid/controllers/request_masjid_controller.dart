@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
 
-class LanguagePageController extends GetxController {
-  //TODO: Implement LanguagePageController
+class RequestMasjidController extends GetxController {
+  //TODO: Implement RequestMasjidController
 
-  RxString selectedLang="".obs;
+  final count = 0.obs;
   @override
   void onInit() {
-    selectedLang.value="English";
     super.onInit();
   }
 
@@ -20,4 +19,5 @@ class LanguagePageController extends GetxController {
     super.onClose();
   }
 
+  void increment() => count.value++;
 }

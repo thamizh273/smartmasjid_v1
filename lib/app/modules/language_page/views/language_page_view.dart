@@ -61,6 +61,9 @@ class LanguagePageView extends GetView<LanguagePageController> {
                           dropdownItems:  ["Tamil", "English", "Arabic", "Hindi"],
                           onChanged: (String? value) {
                             controller.selectedLang.value = value!;
+
+                            print( controller.selectedLang.value);
+                            controller.update();
                           },
                         );
                       }),
@@ -76,7 +79,7 @@ class LanguagePageView extends GetView<LanguagePageController> {
                     Space(16),
                     ElevatedButton(
                         onPressed: () {
-                          Get.offNamed(Routes.REGISTER_LOGIN);
+                          Get.toNamed(Routes.REGISTER_LOGIN);
                           // Navigator.of(context).push(MaterialPageRoute(builder: (_) => RegisterLogin()));
                         },
                         style: ElevatedButton.styleFrom(
