@@ -9,6 +9,7 @@ class OtpPageController extends GetxController {
   Rx<TextEditingController> phoneCtrl = TextEditingController().obs;
   List<String> otpDigits = List.filled(6, ''); // Change the number of digits as per your requirement
   List<FocusNode> focusNodes = List.generate(6, (index) => FocusNode());
+  RxList otps=[].obs;
   @override
   void onInit() {
     RawKeyboard.instance.addListener(_onKeyPressed);
@@ -30,7 +31,7 @@ class OtpPageController extends GetxController {
   void onDigitChanged(int index, String value) {
 
       otpDigits[index] = value;
-
+      otps.add(value);
 
     // Automatically move focus to the next digit
     if (value.isNotEmpty && index < otpDigits.length - 1) {

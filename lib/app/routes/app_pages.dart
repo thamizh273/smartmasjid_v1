@@ -14,6 +14,8 @@ import '../modules/otp_page/bindings/otp_page_binding.dart';
 import '../modules/otp_page/views/otp_page_view.dart';
 import '../modules/register_login/bindings/register_login_binding.dart';
 import '../modules/register_login/views/register_login_view.dart';
+import '../modules/requestMasjid/bindings/request_masjid_binding.dart';
+import '../modules/requestMasjid/views/request_masjid_view.dart';
 import '../modules/signup_page/bindings/signup_page_binding.dart';
 import '../modules/signup_page/views/signup_page_view.dart';
 import '../modules/splashScreen/bindings/splash_screen_binding.dart';
@@ -60,7 +62,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.OTP_PAGE,
-      page: () => const OtpPageView(),
+      page: () =>  OtpPageView(),
       binding: OtpPageBinding(),
     ),
     GetPage(
@@ -70,8 +72,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MASJID_FINDER,
-      page: () =>  MasjidFinderView(),
+      page: () => MasjidFinderView(),
       binding: MasjidFinderBinding(),
+    ),
+    GetPage(
+      name: _Paths.REQUEST_MASJID,
+      page: () => const RequestMasjidView(),
+      binding: RequestMasjidBinding(),
     ),
   ];
 }

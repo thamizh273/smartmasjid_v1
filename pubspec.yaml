@@ -49,6 +49,7 @@ flutter:
     - assets/lottie/
     - assets/icons/
     - assets/svg/
+    - assets/gif/
   uses-material-design: true
 
 

@@ -1,19 +1,25 @@
 import 'dart:convert';
 
-
+import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
+import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
 import '../Model/masjidFinderModel.dart';
 
 class MasjidFinderController extends GetxController {
+  final _signctrl = Get.find<SignupPageController>();
+  final _langctrl = Get.find<LanguagePageController>();
   final _restCallController = Get.put(restCallController());
+  var masjidListdata = MasjidFinderModel().obs;
+
+  // RxList filteredMasjidList = [].obs;
   //TODO: Implement MasjidFinderController
- // var seller_list_model=SelllerListModel().obs;
+  // var seller_list_model=SelllerListModel().obs;
   @override
   void onInit() {
-    masjidFinder_get();
-    filteredMasjidList = masjidList.obs;
+
+    //filteredMasjidList = masjidListdata.value.getMasjidFilter.obs;
     super.onInit();
   }
 
@@ -27,59 +33,91 @@ class MasjidFinderController extends GetxController {
     super.onClose();
   }
 
-
   FocusNode searchFocusNode = FocusNode();
-  Rx<TextEditingController> textEditingController = TextEditingController().obs;
+  Rx<TextEditingController> searchctrl_ = TextEditingController().obs;
   RxString selectedCountry = ''.obs;
   RxString selectedState = ''.obs;
   RxString selectedCity = ''.obs;
 
-  RxBool isLoading =true.obs;
-
-  var masjidListdata =MasjidFinderModel().obs;
+  RxBool isLoading = false.obs;
+  RxBool isLoadings = false.obs;
 
   RxString searchQuery = ''.obs;
-  List<Masjid> masjidList = [
-    Masjid(name: 'Masjid-e-Nooraniah', location: 'Muthiyalpet', imagePath: 'assets/images/masjidselc.png'),
-    Masjid(name: 'Masjid Al-Falah', location: 'New Town', imagePath: 'assets/images/masjidselc.png'),
-    Masjid(name: 'Masjid Al-Huda', location: 'City Center', imagePath: 'assets/images/masjidselc.png'),
-    Masjid(name: 'Masjid Al-Hakh', location: 'City Center', imagePath: 'assets/images/masjidselc.png'),
-  ];
 
-  RxList filteredMasjidList = [].obs;
-  RxList<Masjid> filterMasjidsByName(String query) {
-    return masjidList.where((masjid) => masjid.name.toLowerCase().contains(query.toLowerCase())).toList().obs;
-  }
+  // List<Masjid> masjidList = [
+  //   Masjid(name: 'Masjid-e-Nooraniah', location: 'Muthiyalpet', imagePath: 'assets/images/masjidselc.png'),
+  //   Masjid(name: 'Masjid Al-Falah', location: 'New Town', imagePath: 'assets/images/masjidselc.png'),
+  //   Masjid(name: 'Masjid Al-Huda', location: 'City Center', imagePath: 'assets/images/masjidselc.png'),
+  //   Masjid(name: 'Masjid Al-Hakh', location: 'City Center', imagePath: 'assets/images/masjidselc.png'),
+  // ];
 
-  masjidFinder_get() async {
+  //
+  // RxList<GetMasjidFilter> filterMasjidsByName(String query) {
+  //   return masjidList.where((masjid) => masjid.name.toLowerCase().contains(query.toLowerCase())).toList().obs;
+  // }
+
+  masjidFinder_get(String value) async {
+    masjidListdata.value.getMasjidFilter=null;
     isLoading.value = true;
     var header = """
-query Query(\$state: String) {
-  get_masjid_filter(state_: \$state) {
-    id
-    masjid_name
-    masjid_image
+query Get_masjid_filter(\$searchBy: String) {
+  get_masjid_filter(search_by: \$searchBy) {
     area
+    id
+    masjid_image
+    masjid_name
+    pin_code
+    city
+    district
+    state
   }
 }
     """;
-    var body = {
-      "state": "pudhucherry"
-    };
-    var res =await _restCallController.gql_query(header, body);
-    print("lllll");
-    print(json.encode(res));
-    print("lllll");
+    var body = {"searchBy": "${value}"};
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
     isLoading.value = false;
-    masjidListdata.value=masjidFinderModelFromJson(json.encode(res));
+    update();
+    masjidListdata.value = masjidFinderModelFromJson(json.encode(res));
 
+    update();
   }
 
+  signUpComplete(String? id) async {
+    isLoadings.value = true;
+    var header = """
+mutation Register_User(\$masjidid: String, \$profileImage: Buffer, \$firstName: String, \$lastName: String, \$phoneNumber: String, \$emailId: String, \$passWord: String, \$language: String, \$userType: String, \$authUid: String) {
+  Register_User(masjidid: \$masjidid, profile_image: \$profileImage, first_name: \$firstName, last_name: \$lastName, phone_number: \$phoneNumber, email_id: \$emailId, pass_word: \$passWord, language: \$language, user_type: \$userType, auth_uid_: \$authUid)
 }
-class Masjid {
-  final String name;
-  final String location;
-  final String imagePath;
+    """;
 
-  Masjid({required this.name, required this.location, required this.imagePath});
+    var body = {
+      "masjidid": "${id}",
+      "profileImage": "dsf",
+      "firstName": _signctrl.firstNameCtrl.value.text,
+      "lastName": _signctrl.lastNameCtrl.value.text,
+      "phoneNumber": _signctrl.phoneCtrl.value.text,
+      "emailId": "${_signctrl.emailCtrl.value.text}",
+      "passWord": _signctrl.passwordCtrl.value.text,
+      "language": _langctrl.selectedLang.value,
+      "userType": "member",
+    "authUid": ""
+    };
+    var res = await _restCallController.gql_mutation(header, body);
+    print("data sign ${json.encode(res)}");
+    isLoadings.value = false;
+    update();
+
+    return res;
+  }
 }
+
+// class Masjid {
+//   final String name;
+//   final String location;
+//   final String imagePath;
+//
+//   Masjid({required this.name, required this.location, required this.imagePath});
+// }

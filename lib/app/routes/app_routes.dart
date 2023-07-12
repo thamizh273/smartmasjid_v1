@@ -12,6 +12,7 @@ abstract class Routes {
   static const OTP_PAGE = _Paths.OTP_PAGE;
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
   static const MASJID_FINDER = _Paths.MASJID_FINDER;
+  static const REQUEST_MASJID = _Paths.REQUEST_MASJID;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const OTP_PAGE = '/otp-page';
   static const LOGIN_PAGE = '/login-page';
   static const MASJID_FINDER = '/masjid-finder';
+  static const REQUEST_MASJID = '/request-masjid';
 }
