@@ -82,7 +82,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.OTP_PAGE,
-      page: () => const OtpPageView(),
+      page: () =>  OtpPageView(),
       binding: OtpPageBinding(),
     ),
     GetPage(
@@ -122,7 +122,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PRAYERTIMES,
-      page: () => const PrayertimesView(),
+      page: () =>  PrayertimesView(),
       binding: PrayertimesBinding(),
     ),
     GetPage(
@@ -137,7 +137,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PRAYERPAGE,
-      page: () => const PrayerpageView(),
+      page: () =>  PrayerpageView(),
       binding: PrayerpageBinding(),
     ),
     GetPage(

@@ -47,30 +47,31 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCbGXuKZa9laM9gIL67K5cpRuPNiJ0y-yQ',
-    appId: '1:1049767581944:web:34bfb050d405f44db1c30d',
-    messagingSenderId: '1049767581944',
-    projectId: 'smasjid-v1',
-    authDomain: 'smasjid-v1.firebaseapp.com',
-    storageBucket: 'smasjid-v1.appspot.com',
-    measurementId: 'G-SKXE870NSF',
+    apiKey: 'AIzaSyD21_QPrlP2N-YaEwvDEGvrdHdFi75FVwA',
+    appId: '1:231830520319:web:fe3d02c1e896bcfd53e7ca',
+    messagingSenderId: '231830520319',
+    projectId: 'smart-masjid-371016',
+    authDomain: 'smart-masjid-371016.firebaseapp.com',
+    storageBucket: 'smart-masjid-371016.appspot.com',
+    measurementId: 'G-Z57495P39W',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAZBn1xzcEwk-5PK89AK5GJ99RYT8_Y7To',
-    appId: '1:1049767581944:android:eb5449ab082549f0b1c30d',
-    messagingSenderId: '1049767581944',
-    projectId: 'smasjid-v1',
-    storageBucket: 'smasjid-v1.appspot.com',
+    apiKey: 'AIzaSyBwEp25O_n2RkVfTPW8tM0mofplU0tDQtY',
+    appId: '1:231830520319:android:d2c5a1623403283453e7ca',
+    messagingSenderId: '231830520319',
+    projectId: 'smart-masjid-371016',
+    storageBucket: 'smart-masjid-371016.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDHF5ZuUbxpy_2ej55DJ5DngGlkVdpKA6E',
-    appId: '1:1049767581944:ios:42aa80fa14917e5fb1c30d',
-    messagingSenderId: '1049767581944',
-    projectId: 'smasjid-v1',
-    storageBucket: 'smasjid-v1.appspot.com',
-    iosClientId: '1049767581944-o0emqcos4aoqg7c8nej94bhojpke9oqi.apps.googleusercontent.com',
+    apiKey: 'AIzaSyAayOjj7R0iSUdQqLiF-mtwjHHKWBL9XFg',
+    appId: '1:231830520319:ios:76373730dabdf98b53e7ca',
+    messagingSenderId: '231830520319',
+    projectId: 'smart-masjid-371016',
+    storageBucket: 'smart-masjid-371016.appspot.com',
+    androidClientId: '231830520319-bsu5rdi5k7cirdj2tr4n8bp87pi90d1v.apps.googleusercontent.com',
+    iosClientId: '231830520319-ssae890oohpgp3n4pg6ur8c5jqulqenl.apps.googleusercontent.com',
     iosBundleId: 'com.safatech.smartmasjidV1',
   );
 }

@@ -49,7 +49,7 @@ class SignupPageController extends GetxController {
   RxInt resendOtp = 0.obs;
   RxString verificationid = "".obs;
   RxString otp1 = "".obs;
-  late var uids;
+  // late var uids;
 
 
 
@@ -91,41 +91,7 @@ class SignupPageController extends GetxController {
           await firebaseAuth.signInWithCredential(credential);
         final  uids = userCredential.user?.uid;
           if (uids != null) {
-            // if (otp1.value.isNotEmpty) {
-            //
-            //    update();
-            //     Get.dialog(Padding(
-            //       padding:
-            //       EdgeInsets.symmetric(vertical: 20.h),
-            //       child: AlertDialog(
-            //         backgroundColor:
-            //         Get.theme.colorScheme.primary,
-            //         shape: RoundedRectangleBorder(
-            //             borderRadius:
-            //             BorderRadius.circular(10)),
-            //
-            //         // contentPadding: EdgeInsets.symmetric(vertical: 20.h,),
-            //         content: Stxt(
-            //           text: "OTP Verified successfully",
-            //           size: f3,
-            //           weight: FontWeight.bold,
-            //           color: Colors.white,
-            //           textAlign: TextAlign.center,
-            //         ),
-            //         icon: Icon(
-            //           Icons.check_circle,
-            //           size: 80.r,
-            //         ),
-            //         iconColor: Colors.green,
-            //         //iconPadding: EdgeInsets.all(20),
-            //       ),
-            //     ));
-            //     Future.delayed(Duration(seconds: 2), () {
-            //       Get.toNamed(Routes.MASJID_FINDER,arguments: [uid]);
-            //     });
-            //   }
-            // OTP verification successful, navigate to the homepage
-            // Replace `HOME` with the actual route name for your homepage
+
           } else {
             // OTP verification failed, show an error message and stay on the same page
             Get.snackbar(
@@ -222,45 +188,4 @@ class SignupPageController extends GetxController {
 
 ///
 
-  // FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  //
-  // Future<UserCredential?> createUserWithEmailAndPassword() async {
-  //   try {
-  //     final UserCredential userCredential =
-  //         await firebaseAuth.createUserWithEmailAndPassword(
-  //       email: emailCtrl.value.text,
-  //       password: passCtrl.value.text,
-  //     );
-  //
-  //     return userCredential;
-  //   } catch (error) {
-  //     // Handle error
-  //     print('Error signing up: $error');
-  //     return null;
-  //   }
-  //
-  //
-  // }
-  //
-  // void signUpWithEmailAndPassword() async {
-  //   final userCredential = await createUserWithEmailAndPassword();
-  //
-  //   if (userCredential != null) {
-  //     final uid = userCredential.user?.uid;
-  //     if (uid != null) {
-  //       // UID retrieved successfully, do something with it
-  //       print('User UID: $uid');
-  //     }
-  //     // Sign-up successful, navigate to the next screen
-  //     // You can use Get.to or Navigator.push for navigation
-  //   } else {
-  //     // Sign-up failed, show an error message
-  //     Get.snackbar(
-  //       'Error',
-  //       'Failed to sign up. Please try again.',
-  //       snackPosition: SnackPosition.BOTTOM,
-  //     );
-  //   }
-  //   update();
-  // }
 
