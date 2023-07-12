@@ -37,6 +37,7 @@ void main() async{
         return GraphQLProvider(
           client: client,
           child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
             title: "Application",
             theme: ThemeService().lightTheme,
             darkTheme: ThemeService().darkTheme,

@@ -1,6 +1,16 @@
 
 import 'package:flutter/gestures.dart';
+import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
+import 'package:smartmasjid_v1/app/modules/messagepage/views/messagepage_view.dart';
+import 'package:smartmasjid_v1/app/modules/notificationpage/views/notificationpage_view.dart';
+import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
+import 'package:smartmasjid_v1/app/modules/qiblafinderpage/views/qiblafinderpage_view.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/quranpage_view.dart';
+import 'package:smartmasjid_v1/app/modules/settingspage/views/settingspage_view.dart';
+import 'package:smartmasjid_v1/app/modules/specialdayspage/views/specialdayspage_view.dart';
+import 'package:smartmasjid_v1/app/modules/weatherpage/views/weatherpage_view.dart';
+import 'package:smartmasjid_v1/app/modules/zakathpage/views/zakathpage_view.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
@@ -106,26 +116,36 @@ class HomeView extends GetView<HomeController> {
                         children: [
                           GestureDetector(
                             onTap: (){
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => NotificationPage(),
-                              //   ));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => NotificationpageView(),
+                                ));
                             },
                             child: SvgPicture.asset("assets/svg/notification.svg",
                                 height: 60.h),
                           ),
                           GestureDetector(
                             onTap: (){
-                              // Navigator.of(context).push(MaterialPageRoute(builder: (_) => WeatherApp()));
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => WeatherpageView()));
                             },
                             child: SvgPicture.asset("assets/svg/weather.svg",
                                 height: 60.h),
                           ),
-                          SvgPicture.asset("assets/svg/message.svg",
-                              height: 60.h),
-                          SvgPicture.asset("assets/svg/settings.svg",
-                              height: 60.h),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => MessagepageView()));
+                            },
+                            child: SvgPicture.asset("assets/svg/message.svg",
+                                height: 60.h),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => SettingspageView()));
+                            },
+                            child: SvgPicture.asset("assets/svg/settings.svg",
+                                height: 60.h),
+                          ),
                         ],
                       ),
                       PrayerTimes(),
@@ -149,10 +169,10 @@ class HomeView extends GetView<HomeController> {
                       buildDivider(themeData),
                       GestureDetector(
                         onTap: (){
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => QuranPage()),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => QuranpageView()),
+                          );
                         },
                         child: LargerCard(
                           quranImg: quranImg,
@@ -172,6 +192,7 @@ class HomeView extends GetView<HomeController> {
                             color: themeData.colorScheme.secondary,
                             title: 'Masjid Near me',
                             image: 'masjidFinder',
+                            onTap: () {  },
                           ),
                           Column(
                             children: [
@@ -179,7 +200,7 @@ class HomeView extends GetView<HomeController> {
                                 color: themeData.colorScheme.secondary,
                                 image: 'qibla_finder',
                                 title: 'Qibla\nFinder', onTap: () {
-                                //  Navigator.of(context).push(MaterialPageRoute(builder: (_) => QiblaFinder()));
+                                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => QiblafinderpageView()));
                               },
                               ),
                               SmallCard(
@@ -188,7 +209,7 @@ class HomeView extends GetView<HomeController> {
                                 image: 'prayer_time',
                                 title: 'Prayer\nTime', onTap: () {
 
-                                //   Navigator.push(context, MaterialPageRoute(builder: (context) => PrayerTime(),));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => PrayerpageView(),));
                               },
                               )
                             ],
@@ -211,13 +232,19 @@ class HomeView extends GetView<HomeController> {
                             color: themeData.colorScheme.secondary,
                             title: 'Special Days',
                             image: 'special_days',
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => SpecialdayspageView()));
+                            },
                           ),
                           Column(
                             children: [
                               SmallCard(
                                 color: themeData.colorScheme.secondary,
                                 image: 'hijri_calender',
-                                title: 'Hijri\nCalender', onTap: () {  },
+                                title: 'Hijri\nCalender',
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (_) => HijripageView()));
+                                },
                               ),
                               SmallCard(
                                 color: themeData.colorScheme.secondary,
@@ -243,7 +270,7 @@ class HomeView extends GetView<HomeController> {
                         children: [
                           MediumCard(
                             title: 'Services',
-                            image: 'donation',
+                            image: 'donation', onTap: () {  },
 
                           ),
                           Column(
@@ -266,9 +293,11 @@ class HomeView extends GetView<HomeController> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const MediumCard(
+                           MediumCard(
                             title: 'Zakath\nCalculator',
-                            image: 'zakath',
+                            image: 'zakath', onTap: () {
+                             Navigator.of(context).push(MaterialPageRoute(builder: (_) => ZakathpageView()));
+                           },
 
                           ),
                           Column(
