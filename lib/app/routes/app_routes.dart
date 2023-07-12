@@ -12,6 +12,17 @@ abstract class Routes {
   static const OTP_PAGE = _Paths.OTP_PAGE;
   static const LOGIN_PAGE = _Paths.LOGIN_PAGE;
   static const MASJID_FINDER = _Paths.MASJID_FINDER;
+  static const ZAKATHPAGE = _Paths.ZAKATHPAGE;
+  static const NOTIFICATIONPAGE = _Paths.NOTIFICATIONPAGE;
+  static const WEATHERPAGE = _Paths.WEATHERPAGE;
+  static const MESSAGEPAGE = _Paths.MESSAGEPAGE;
+  static const SETTINGSPAGE = _Paths.SETTINGSPAGE;
+  static const PRAYERTIMES = _Paths.PRAYERTIMES;
+  static const QURANPAGE = _Paths.QURANPAGE;
+  static const QIBLAFINDERPAGE = _Paths.QIBLAFINDERPAGE;
+  static const PRAYERPAGE = _Paths.PRAYERPAGE;
+  static const SPECIALDAYSPAGE = _Paths.SPECIALDAYSPAGE;
+  static const HIJRIPAGE = _Paths.HIJRIPAGE;
 }
 
 abstract class _Paths {
@@ -25,4 +36,15 @@ abstract class _Paths {
   static const OTP_PAGE = '/otp-page';
   static const LOGIN_PAGE = '/login-page';
   static const MASJID_FINDER = '/masjid-finder';
+  static const ZAKATHPAGE = '/zakathpage';
+  static const NOTIFICATIONPAGE = '/notificationpage';
+  static const WEATHERPAGE = '/weatherpage';
+  static const MESSAGEPAGE = '/messagepage';
+  static const SETTINGSPAGE = '/settingspage';
+  static const PRAYERTIMES = '/prayertimes';
+  static const QURANPAGE = '/quranpage';
+  static const QIBLAFINDERPAGE = '/qiblafinderpage';
+  static const PRAYERPAGE = '/prayerpage';
+  static const SPECIALDAYSPAGE = '/specialdayspage';
+  static const HIJRIPAGE = '/hijripage';
 }
