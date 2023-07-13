@@ -22,6 +22,8 @@ import '../modules/notificationpage/bindings/notificationpage_binding.dart';
 import '../modules/notificationpage/views/notificationpage_view.dart';
 import '../modules/otp_page/bindings/otp_page_binding.dart';
 import '../modules/otp_page/views/otp_page_view.dart';
+import '../modules/prayerdetailspage/bindings/prayerdetailspage_binding.dart';
+import '../modules/prayerdetailspage/views/prayerdetailspage_view.dart';
 import '../modules/prayerpage/bindings/prayerpage_binding.dart';
 import '../modules/prayerpage/views/prayerpage_view.dart';
 import '../modules/prayertimes/bindings/prayertimes_binding.dart';
@@ -117,7 +119,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.WEATHERPAGE,
-      page: () =>  WeatherpageView(),
+      page: () => WeatherpageView(),
       binding: WeatherpageBinding(),
     ),
     GetPage(
@@ -127,7 +129,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SETTINGSPAGE,
-      page: () =>  SettingspageView(),
+      page: () => SettingspageView(),
       binding: SettingspageBinding(),
     ),
     GetPage(
@@ -137,7 +139,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.QURANPAGE,
-      page: () =>  QuranpageView(),
+      page: () => QuranpageView(),
       binding: QuranpageBinding(),
     ),
     GetPage(
@@ -147,12 +149,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PRAYERPAGE,
-      page: () =>  PrayerpageView(),
+      page: () => PrayerpageView(),
       binding: PrayerpageBinding(),
     ),
     GetPage(
       name: _Paths.SPECIALDAYSPAGE,
-      page: () =>  SpecialdayspageView(),
+      page: () => SpecialdayspageView(),
       binding: SpecialdayspageBinding(),
     ),
     GetPage(
@@ -177,13 +179,18 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SLIDERDOT,
-      page: () =>   SliderdotView(true),
+      page: () => SliderdotView(true),
       binding: SliderdotBinding(),
     ),
     GetPage(
       name: _Paths.SINGLEWEATHER,
-      page: () =>  SingleweatherView(),
+      page: () => SingleweatherView(),
       binding: SingleweatherBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRAYERDETAILSPAGE,
+      page: () =>  PrayerdetailspageView(),
+      binding: PrayerdetailspageBinding(),
     ),
   ];
 }

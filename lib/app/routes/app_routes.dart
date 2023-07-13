@@ -29,6 +29,7 @@ abstract class Routes {
   static const ADDWEATHER = _Paths.ADDWEATHER;
   static const SLIDERDOT = _Paths.SLIDERDOT;
   static const SINGLEWEATHER = _Paths.SINGLEWEATHER;
+  static const PRAYERDETAILSPAGE = _Paths.PRAYERDETAILSPAGE;
 }
 
 abstract class _Paths {
@@ -59,4 +60,5 @@ abstract class _Paths {
   static const ADDWEATHER = '/addweather';
   static const SLIDERDOT = '/sliderdot';
   static const SINGLEWEATHER = '/singleweather';
+  static const PRAYERDETAILSPAGE = '/prayerdetailspage';
 }

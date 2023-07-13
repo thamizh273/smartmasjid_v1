@@ -1,12 +1,18 @@
+import 'package:floating_frosted_bottom_bar/app/frosted_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:hijri/hijri_calendar.dart';
 import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/home/views/home_view.dart';
+import 'package:smartmasjid_v1/widgets/Sbottom_bar.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../widgets/custom_card.dart';
 import '../../../../widgets/space.dart';
+import '../../../routes/app_pages.dart';
 
 
 class HijripageView extends StatefulWidget {
@@ -81,27 +87,62 @@ class _HijriCalendarState extends State<HijripageView> {
           ),
         ),
       ),
-      body: Column(
-        children: [
-          // Image.asset("assets/images/hijri.png"),
-          // Space(16),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Space(16),
-                // counter("", focusedDay.month),
-                // counters("", focusedDay.year, year: true)
-              ],
-            ),
-          ),
-          Space(8),
-          SHijiriCalender(onChanged: (d){
-            focusedDay = d;
-          },),
-        ],
-      ),
+      body: FrostedBottomBar(
+          width: 330.w,
+          opacity: .8,
+          sigmaX: 10,
+          sigmaY: 10,
+          bottomBarColor: Theme.of(context).colorScheme.primary,
+          borderRadius: BorderRadius.circular(500),
+          duration: const Duration(milliseconds: 800),
+          hideOnScroll: true,
+        body: (BuildContext context, ScrollController controller) {
+          return Column(
+            children: [
+              // Image.asset("assets/images/hijri.png"),
+              // Space(16),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Space(16),
+                    // counter("", focusedDay.month),
+                    // counters("", focusedDay.year, year: true)
+                  ],
+                ),
+              ),
+              Space(8),
+              SHijiriCalender(onChanged: (d){
+                focusedDay = d;
+              },),
+            ],
+          );
+        }, child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SvgPicture.asset("assets/svg/masjidbot.svg"),
+            Space(8),
+            GestureDetector(
+                onTap: (){
+                  Get.toNamed(Routes.QURANPAGE);
+                },
+                child: SvgPicture.asset("assets/svg/quranbot.svg")),
+            Space(8),
+            GestureDetector(
+                onTap: (){
+                  Navigator.of(context).pop(MaterialPageRoute(builder: (_) => HomeView()));
+                },
+                child: SvgPicture.asset("assets/svg/homebot.svg")),
+            Space(8),
+            SvgPicture.asset("assets/svg/mediabot.svg"),
+            Space(8),
+            SvgPicture.asset("assets/svg/donatebot.svg"),
+          ],
+        ),
+      ),)
     );
   }
 
@@ -663,7 +704,7 @@ class _SHijiriCalenderState extends State<SHijiriCalender> {
   }
   Widget counter(String label, int value, {bool year = false} ) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           '  $label  ',
@@ -712,7 +753,7 @@ class _SHijiriCalenderState extends State<SHijiriCalender> {
                     color: Theme.of(context).primaryColor, // Set the desired color of the divider
                   ),
                   Space(8),
-                  Text(
+                   Text(
                     '${focusedDay.year}',
                     style: TextStyle(
                         color:Theme.of(context).colorScheme.primary,
@@ -733,7 +774,7 @@ class _SHijiriCalenderState extends State<SHijiriCalender> {
                     });
                   },
                   child: SvgPicture.asset("assets/svg/sinarrowright.svg")),
-              Space(8),
+              Space(16),
               GestureDetector(
                   onTap: (){
                     setState(() {

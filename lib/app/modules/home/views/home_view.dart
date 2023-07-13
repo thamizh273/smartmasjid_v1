@@ -93,7 +93,7 @@ class HomeView extends GetView<HomeController> {
         opacity: .8,
         sigmaX: 10,
         sigmaY: 10,
-        bottomBarColor: themeData.primaryColor,
+        bottomBarColor: themeData.colorScheme.primary,
         borderRadius: BorderRadius.circular(500),
         duration: const Duration(milliseconds: 800),
         hideOnScroll: true,
@@ -318,7 +318,11 @@ class HomeView extends GetView<HomeController> {
           children: [
             SvgPicture.asset("assets/svg/masjidbot.svg"),
             Space(8),
-            SvgPicture.asset("assets/svg/quranbot.svg"),
+            GestureDetector(
+              onTap: (){
+                Get.toNamed(Routes.QURANPAGE);
+              },
+                child: SvgPicture.asset("assets/svg/quranbot.svg")),
             Space(8),
             SvgPicture.asset("assets/svg/homebot.svg"),
             Space(8),

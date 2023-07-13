@@ -13,9 +13,13 @@ class QuranpageController extends GetxController {
   final count = 0.obs;
   ScrollController scrollController = ScrollController();
   final _restCallController = Get.put(restCallController());
-  RxInt currentSelected = 0.obs;
+  RxInt currentSelected = 1.obs;
   RxBool isLoadings = false.obs;
+  RxBool isSearchEnabled = false.obs;
   var getqurandata = QuranModel().obs;
+  RxString searchQuery = ''.obs;
+
+
   @override
   void onInit() {
     quranChapterList();
