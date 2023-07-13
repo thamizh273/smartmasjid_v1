@@ -116,34 +116,30 @@ class HomeView extends GetView<HomeController> {
                         children: [
                           GestureDetector(
                             onTap: (){
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => NotificationpageView(),
-                                ));
+                              Get.toNamed(Routes.NOTIFICATIONPAGE);
                             },
-                            child: SvgPicture.asset("assets/svg/notification.svg",
+                            child: SvgPicture.asset("assets/svg/notificationnew.svg",
                                 height: 60.h),
                           ),
                           GestureDetector(
                             onTap: (){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => WeatherpageView()));
+                              Get.toNamed(Routes.WEATHERPAGE);
                             },
-                            child: SvgPicture.asset("assets/svg/weather.svg",
+                            child: SvgPicture.asset("assets/svg/weathernew.svg",
                                 height: 60.h),
                           ),
                           GestureDetector(
                             onTap: (){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => MessagepageView()));
+                              Get.toNamed(Routes.MESSAGEPAGE);
                             },
-                            child: SvgPicture.asset("assets/svg/message.svg",
+                            child: SvgPicture.asset("assets/svg/messagenew.svg",
                                 height: 60.h),
                           ),
                           GestureDetector(
                             onTap: (){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => SettingspageView()));
+                              Get.toNamed(Routes.SETTINGSPAGE);
                             },
-                            child: SvgPicture.asset("assets/svg/settings.svg",
+                            child: SvgPicture.asset("assets/svg/settingsnew.svg",
                                 height: 60.h),
                           ),
                         ],
@@ -152,19 +148,6 @@ class HomeView extends GetView<HomeController> {
                       Events(carouselController: _carouselController),
                       SizedBox(
                         height: 5.h,
-                      ),
-                      buildDivider(themeData),
-                      Row(
-                        children: [
-                          SmallCard(
-                            image: 'library',
-                            title: 'Library', onTap:(){},
-                          ),
-                          SmallCard(
-                            image: 'hadith',
-                            title: 'Hadith', onTap: (){},
-                          )
-                        ],
                       ),
                       buildDivider(themeData),
                       GestureDetector(
@@ -188,6 +171,19 @@ class HomeView extends GetView<HomeController> {
                       buildDivider(themeData),
                       Row(
                         children: [
+                          SmallCard(
+                            image: 'library',
+                            title: 'Library', onTap:(){},
+                          ),
+                          SmallCard(
+                            image: 'hadith',
+                            title: 'Hadith', onTap: (){},
+                          )
+                        ],
+                      ),
+                      buildDivider(themeData),
+                      Row(
+                        children: [
                           MediumCard(
                             color: themeData.colorScheme.secondary,
                             title: 'Masjid Near me',
@@ -200,7 +196,7 @@ class HomeView extends GetView<HomeController> {
                                 color: themeData.colorScheme.secondary,
                                 image: 'qibla_finder',
                                 title: 'Qibla\nFinder', onTap: () {
-                                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => QiblafinderpageView()));
+                                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => QiblaFinder()));
                               },
                               ),
                               SmallCard(

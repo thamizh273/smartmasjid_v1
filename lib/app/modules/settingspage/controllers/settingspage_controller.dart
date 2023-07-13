@@ -4,6 +4,8 @@ class SettingspageController extends GetxController {
   //TODO: Implement SettingspageController
 
   final count = 0.obs;
+  RxBool switchValue = false.obs;
+
   @override
   void onInit() {
     super.onInit();

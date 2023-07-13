@@ -24,6 +24,11 @@ abstract class Routes {
   static const SPECIALDAYSPAGE = _Paths.SPECIALDAYSPAGE;
   static const HIJRIPAGE = _Paths.HIJRIPAGE;
   static const REQUEST_MASJID = _Paths.REQUEST_MASJID;
+  static const ARCHIVEPAGE = _Paths.ARCHIVEPAGE;
+  static const WEATHERLOCATION = _Paths.WEATHERLOCATION;
+  static const ADDWEATHER = _Paths.ADDWEATHER;
+  static const SLIDERDOT = _Paths.SLIDERDOT;
+  static const SINGLEWEATHER = _Paths.SINGLEWEATHER;
 }
 
 abstract class _Paths {
@@ -49,4 +54,9 @@ abstract class _Paths {
   static const SPECIALDAYSPAGE = '/specialdayspage';
   static const HIJRIPAGE = '/hijripage';
   static const REQUEST_MASJID = '/request_masjid';
+  static const ARCHIVEPAGE = '/archivepage';
+  static const WEATHERLOCATION = '/weatherlocation';
+  static const ADDWEATHER = '/addweather';
+  static const SLIDERDOT = '/sliderdot';
+  static const SINGLEWEATHER = '/singleweather';
 }

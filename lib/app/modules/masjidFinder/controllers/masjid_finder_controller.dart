@@ -75,9 +75,9 @@ query Get_masjid_filter(\$searchBy: String) {
     """;
     var body = {"searchBy": "${value}"};
     var res = await _restCallController.gql_query(header, body);
-    // print("lllll");
-    // print(json.encode(res));
-    // print("lllll");
+    print("lllll");
+    print(json.encode(res));
+    print("lllll");
     isLoading.value = false;
     update();
     masjidListdata.value = masjidFinderModelFromJson(json.encode(res));

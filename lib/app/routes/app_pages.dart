@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/addweather/bindings/addweather_binding.dart';
+import '../modules/addweather/views/addweather_view.dart';
+import '../modules/archivepage/bindings/archivepage_binding.dart';
+import '../modules/archivepage/views/archivepage_view.dart';
 import '../modules/faceAuth/bindings/face_auth_binding.dart';
 import '../modules/faceAuth/views/face_auth_view.dart';
 import '../modules/hijripage/bindings/hijripage_binding.dart';
@@ -32,10 +36,16 @@ import '../modules/settingspage/bindings/settingspage_binding.dart';
 import '../modules/settingspage/views/settingspage_view.dart';
 import '../modules/signup_page/bindings/signup_page_binding.dart';
 import '../modules/signup_page/views/signup_page_view.dart';
+import '../modules/singleweather/bindings/singleweather_binding.dart';
+import '../modules/singleweather/views/singleweather_view.dart';
+import '../modules/sliderdot/bindings/sliderdot_binding.dart';
+import '../modules/sliderdot/views/sliderdot_view.dart';
 import '../modules/specialdayspage/bindings/specialdayspage_binding.dart';
 import '../modules/specialdayspage/views/specialdayspage_view.dart';
 import '../modules/splashScreen/bindings/splash_screen_binding.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
+import '../modules/weatherlocation/bindings/weatherlocation_binding.dart';
+import '../modules/weatherlocation/views/weatherlocation_view.dart';
 import '../modules/weatherpage/bindings/weatherpage_binding.dart';
 import '../modules/weatherpage/views/weatherpage_view.dart';
 import '../modules/zakathpage/bindings/zakathpage_binding.dart';
@@ -82,7 +92,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.OTP_PAGE,
-      page: () => const OtpPageView(),
+      page: () => OtpPageView(),
       binding: OtpPageBinding(),
     ),
     GetPage(
@@ -102,12 +112,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NOTIFICATIONPAGE,
-      page: () => const NotificationpageView(),
+      page: () => NotificationpageView(),
       binding: NotificationpageBinding(),
     ),
     GetPage(
       name: _Paths.WEATHERPAGE,
-      page: () => const WeatherpageView(),
+      page: () =>  WeatherpageView(),
       binding: WeatherpageBinding(),
     ),
     GetPage(
@@ -117,7 +127,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SETTINGSPAGE,
-      page: () => const SettingspageView(),
+      page: () =>  SettingspageView(),
       binding: SettingspageBinding(),
     ),
     GetPage(
@@ -127,12 +137,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.QURANPAGE,
-      page: () => const QuranpageView(),
+      page: () =>  QuranpageView(),
       binding: QuranpageBinding(),
     ),
     GetPage(
       name: _Paths.QIBLAFINDERPAGE,
-      page: () => const QiblafinderpageView(),
+      page: () => const QiblaFinder(),
       binding: QiblafinderpageBinding(),
     ),
     GetPage(
@@ -142,13 +152,38 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SPECIALDAYSPAGE,
-      page: () => const SpecialdayspageView(),
+      page: () =>  SpecialdayspageView(),
       binding: SpecialdayspageBinding(),
     ),
     GetPage(
       name: _Paths.HIJRIPAGE,
       page: () => const HijripageView(),
       binding: HijripageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ARCHIVEPAGE,
+      page: () => const ArchivepageView(),
+      binding: ArchivepageBinding(),
+    ),
+    // GetPage(
+    //   name: _Paths.WEATHERLOCATION,
+    //   page: () =>  WeatherlocationView(),
+    //   binding: WeatherlocationBinding(),
+    // ),
+    GetPage(
+      name: _Paths.ADDWEATHER,
+      page: () => const AddweatherView(),
+      binding: AddweatherBinding(),
+    ),
+    GetPage(
+      name: _Paths.SLIDERDOT,
+      page: () =>   SliderdotView(true),
+      binding: SliderdotBinding(),
+    ),
+    GetPage(
+      name: _Paths.SINGLEWEATHER,
+      page: () =>  SingleweatherView(),
+      binding: SingleweatherBinding(),
     ),
   ];
 }

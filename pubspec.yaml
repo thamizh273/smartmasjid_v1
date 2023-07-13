@@ -30,6 +30,12 @@ dependencies:
   image_cropper: any
   firebase_core: 2.14.0
   firebase_auth: ^4.6.3
+  hijri: ^3.0.0
+  hijri_picker: ^3.0.0
+  table_calendar: ^3.0.9
+  flutter_qiblah: ^2.1.0
+  location_platform_interface:
+  location: ^5.0.0
   flutter: 
     sdk: flutter
 
