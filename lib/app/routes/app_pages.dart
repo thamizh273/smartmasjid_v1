@@ -147,7 +147,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PRAYERPAGE,
-      page: () => const PrayerpageView(),
+      page: () =>  PrayerpageView(),
       binding: PrayerpageBinding(),
     ),
     GetPage(

@@ -18,39 +18,39 @@ class SplashScreenView extends GetView<SplashScreenController> {
     });
     return
 
-    //   Scaffold(
-    //   body:
-    //     SizedBox(
-    //       height: context.height,
-    //       child: Lottie.asset(
-    //         "assets/lottie/splash.json",
-    //         repeat: false,
-    //         height: context.height,
-    //         width: double.infinity,
-    //         fit: BoxFit.cover,
-    //       ),
-    //     )
-    //
-    // );
-
-
       Scaffold(
+      body:
+        SizedBox(
+          height: context.height,
+          child: Lottie.asset(
+            "assets/lottie/splash.json",
+            repeat: false,
+            height: context.height,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        )
 
-      body: Container(
-        color: Get.theme.colorScheme.primary,
-        child: Center(
-          child:
-            AnimatedBuilder(animation: controller.animationController, builder: (context, child) {
-              return Transform.scale(
-                scale: controller.scaleAnimation.value,
-                child: child,
-              );
-            },child: SvgPicture.asset('assets/svg/slogo.svg'),)
-
-
-
-        ),
-      ),
     );
+
+
+    //   Scaffold(
+    //
+    //   body: Container(
+    //     color: Get.theme.colorScheme.primary,
+    //     child: Center(
+    //       child:
+    //         AnimatedBuilder(animation: controller.animationController, builder: (context, child) {
+    //           return Transform.scale(
+    //             scale: controller.scaleAnimation.value,
+    //             child: child,
+    //           );
+    //         },child: SvgPicture.asset('assets/svg/slogo.svg'),)
+    //
+    //
+    //
+    //     ),
+    //   ),
+    // );
   }
 }

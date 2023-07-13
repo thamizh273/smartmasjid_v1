@@ -15,10 +15,11 @@ class BGContainerRegister extends StatelessWidget {
     return Container(
       color: Get.theme.colorScheme.primary,
       height:context.height,
+      width: context.width,
       padding: padding,
       child: Column(
         children: [
-          image??Image.asset('assets/images/login_img.png',height: .23.sh,fit: BoxFit.cover,),
+          image??Image.asset('assets/images/login_img.png',height: .23.sh,width: 1.sw,fit: BoxFit.fill,),
           child,
         ],
       ),

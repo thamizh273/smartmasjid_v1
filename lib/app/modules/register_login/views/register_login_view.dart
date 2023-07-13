@@ -14,7 +14,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BGContainerRegister(
-        image:   Image.asset('assets/images/register_login.png',height: .37.sh,fit: BoxFit.cover,),
+        image:   Image.asset('assets/images/register_login.png',height: .37.sh, width: 1.sw,fit: BoxFit.cover,),
         child: SizedBox(
           height: .63.sh,
           child: Column(

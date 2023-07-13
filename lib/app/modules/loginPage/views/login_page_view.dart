@@ -41,7 +41,7 @@ class LoginPageView extends GetView<LoginPageController> {
                       )),
                   16.verticalSpace,
                   Obx(() {
-                    return controller.showPhoneNumberField.value
+                    return !controller.showPhoneNumberField.value
                         ?  Safa_textfield(
                       controller: controller.phoneLCtrl.value,
                       keyboardType: TextInputType.number,
@@ -129,8 +129,8 @@ class LoginPageView extends GetView<LoginPageController> {
                         child: Obx(() {
                           return Text(
                             controller.showPhoneNumberField.value
-                                ? "Use Email"
-                                : "Use Phone",
+                                ? "Use Phone"
+                                : "Use Email",
                             style: const TextStyle(
                               fontSize: f1,
                               fontWeight: FontWeight.w500,

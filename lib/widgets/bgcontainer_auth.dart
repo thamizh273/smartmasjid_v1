@@ -13,12 +13,13 @@ class BGContainerAuth extends StatelessWidget {
    // final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
        height: context.height,
+       width: double.infinity,
       decoration: BoxDecoration(
         color: color??Get.theme.colorScheme.primary,
         image: DecorationImage(
           colorFilter: ColorFilter.mode(
               Get.theme.colorScheme.primary.withOpacity(0.8), BlendMode.srcATop),
-          image: AssetImage("assets/images/bg_img.png"),
+          image: AssetImage("assets/images/bg_img.png",),
           fit: BoxFit.fill,
         //  image: AssetImage(isDarkMode ? 'assets/images/masnew_dark.png' : 'assets/images/bgauth.png'),
         //  image: AssetImage( 'assets/images/masnew_dark.png'),
