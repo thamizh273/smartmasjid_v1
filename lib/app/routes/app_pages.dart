@@ -28,6 +28,8 @@ import '../modules/quranpage/bindings/quranpage_binding.dart';
 import '../modules/quranpage/views/quranpage_view.dart';
 import '../modules/register_login/bindings/register_login_binding.dart';
 import '../modules/register_login/views/register_login_view.dart';
+import '../modules/requestMasjid/bindings/request_masjid_binding.dart';
+import '../modules/requestMasjid/views/request_masjid_view.dart';
 import '../modules/settingspage/bindings/settingspage_binding.dart';
 import '../modules/settingspage/views/settingspage_view.dart';
 import '../modules/signup_page/bindings/signup_page_binding.dart';
@@ -109,6 +111,11 @@ class AppPages {
       name: _Paths.WEATHERPAGE,
       page: () => const WeatherpageView(),
       binding: WeatherpageBinding(),
+    ),
+    GetPage(
+      name: _Paths.REQUEST_MASJID,
+      page: () => const RequestMasjidView(),
+      binding: RequestMasjidBinding(),
     ),
     GetPage(
       name: _Paths.MESSAGEPAGE,
