@@ -1,33 +1,70 @@
 {
   "project_info": {
-    "project_number": "1049767581944",
-    "project_id": "smasjid-v1",
-    "storage_bucket": "smasjid-v1.appspot.com"
+    "project_number": "231830520319",
+    "project_id": "smart-masjid-371016",
+    "storage_bucket": "smart-masjid-371016.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1049767581944:android:eb5449ab082549f0b1c30d",
+        "mobilesdk_app_id": "1:231830520319:android:980f69d1bd6db37b53e7ca",
         "android_client_info": {
-          "package_name": "com.safatech.smartmasjid_v1"
+          "package_name": "com.safatech.smart_masjid_versionnew"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1049767581944-8ld66vfj6hmae3cmhdhdnqs5g5htu6iu.apps.googleusercontent.com",
+          "client_id": "231830520319-bsu5rdi5k7cirdj2tr4n8bp87pi90d1v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safatech.smart_masjid_versionnew",
+            "certificate_hash": "170f6604c98917c70def877b347d11bcbdfe95f7"
+          }
+        },
+        {
+          "client_id": "231830520319-sfo6t8fkm30rj465rr2q3go60gqr7j20.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAZBn1xzcEwk-5PK89AK5GJ99RYT8_Y7To"
+          "current_key": "AIzaSyBwEp25O_n2RkVfTPW8tM0mofplU0tDQtY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1049767581944-8ld66vfj6hmae3cmhdhdnqs5g5htu6iu.apps.googleusercontent.com",
+              "client_id": "231830520319-3aufvk15i62md91ao9lebt1gqqhqa8cn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:231830520319:android:d2c5a1623403283453e7ca",
+        "android_client_info": {
+          "package_name": "com.safatech.smartmasjid_v1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "231830520319-sfo6t8fkm30rj465rr2q3go60gqr7j20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwEp25O_n2RkVfTPW8tM0mofplU0tDQtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "231830520319-3aufvk15i62md91ao9lebt1gqqhqa8cn.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

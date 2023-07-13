@@ -1,15 +1,15 @@
 import 'package:country_state_picker_plus/country_state_picker_plus.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 
-import 'package:get/get.dart';
+
+
+
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../utils/color_utils.dart';
 import '../../../../widgets/bgcontainer_auth.dart';
-import '../../../../widgets/space.dart';
+
+
 import '../../../routes/app_pages.dart';
 import '../controllers/masjid_finder_controller.dart';
 
