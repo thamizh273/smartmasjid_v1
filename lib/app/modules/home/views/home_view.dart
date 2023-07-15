@@ -46,7 +46,7 @@ class HomeView extends GetView<HomeController> {
           child: SvgPicture.asset("assets/svg/slogo.svg",
               height: 30.00, width: 40.00),
         ),
-        title: const Text("Masjid-e-nooraniah"),
+        title:  Text("Masjid-e-nooraniah", style: TextStyle(color: Theme.of(context).primaryColor),),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 10),
