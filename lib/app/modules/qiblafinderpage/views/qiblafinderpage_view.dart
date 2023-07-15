@@ -117,9 +117,9 @@ class _QiblaFinderState extends State<QiblaFinder> {
                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), border: true, shadow: false,
                     child: Row(
                       children: [
-                        const Text('Latitude :', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                         Text('Latitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
                         const Space(8),
-                        Text('${snap.data?.latitude}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),),
+                        Text('${snap.data?.latitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
                       ],
                     ),),
                   const Space(16),
@@ -128,9 +128,9 @@ class _QiblaFinderState extends State<QiblaFinder> {
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12), border: true, shadow: false,
                     child: Row(
                       children: [
-                        Text('Longitude :', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                        Text('Longitude :', style: TextStyle(color:Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
                         const Space(8),
-                        Text('${snap.data?.longitude}', style: TextStyle(color: Colors.white, fontWeight: FontWeight.normal),),
+                        Text('${snap.data?.longitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
                       ],
                     ),),
                 ],

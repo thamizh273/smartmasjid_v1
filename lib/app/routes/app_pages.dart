@@ -6,6 +6,8 @@ import '../modules/archivepage/bindings/archivepage_binding.dart';
 import '../modules/archivepage/views/archivepage_view.dart';
 import '../modules/faceAuth/bindings/face_auth_binding.dart';
 import '../modules/faceAuth/views/face_auth_view.dart';
+import '../modules/hadithpage/bindings/hadithpage_binding.dart';
+import '../modules/hadithpage/views/hadithpage_view.dart';
 import '../modules/hijripage/bindings/hijripage_binding.dart';
 import '../modules/hijripage/views/hijripage_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -109,7 +111,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ZAKATHPAGE,
-      page: () => const ZakathpageView(),
+      page: () => ZakathpageView(),
       binding: ZakathpageBinding(),
     ),
     GetPage(
@@ -189,8 +191,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PRAYERDETAILSPAGE,
-      page: () =>  PrayerdetailspageView(),
+      page: () => PrayerdetailspageView(),
       binding: PrayerdetailspageBinding(),
+    ),
+    GetPage(
+      name: _Paths.HADITHPAGE,
+      page: () =>  HadithpageView(),
+      binding: HadithpageBinding(),
     ),
   ];
 }

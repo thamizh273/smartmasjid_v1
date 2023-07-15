@@ -30,6 +30,7 @@ abstract class Routes {
   static const SLIDERDOT = _Paths.SLIDERDOT;
   static const SINGLEWEATHER = _Paths.SINGLEWEATHER;
   static const PRAYERDETAILSPAGE = _Paths.PRAYERDETAILSPAGE;
+  static const HADITHPAGE = _Paths.HADITHPAGE;
 }
 
 abstract class _Paths {
@@ -61,4 +62,5 @@ abstract class _Paths {
   static const SLIDERDOT = '/sliderdot';
   static const SINGLEWEATHER = '/singleweather';
   static const PRAYERDETAILSPAGE = '/prayerdetailspage';
+  static const HADITHPAGE = '/hadithpage';
 }
