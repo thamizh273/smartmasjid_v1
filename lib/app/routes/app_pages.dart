@@ -10,22 +10,19 @@ import '../modules/hijripage/bindings/hijripage_binding.dart';
 import '../modules/hijripage/views/hijripage_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
-import '../modules/imantracker/bindings/imantracker_binding.dart';
-import '../modules/imantracker/views/imantracker_view.dart';
 import '../modules/language_page/bindings/language_page_binding.dart';
 import '../modules/language_page/views/language_page_view.dart';
 import '../modules/loginPage/bindings/login_page_binding.dart';
 import '../modules/loginPage/views/login_page_view.dart';
 import '../modules/masjidFinder/bindings/masjid_finder_binding.dart';
 import '../modules/masjidFinder/views/masjid_finder_view.dart';
-import '../modules/masjidhistory/bindings/masjidhistory_binding.dart';
-import '../modules/masjidhistory/views/masjidhistory_view.dart';
 import '../modules/messagepage/bindings/messagepage_binding.dart';
 import '../modules/messagepage/views/messagepage_view.dart';
 import '../modules/notificationpage/bindings/notificationpage_binding.dart';
 import '../modules/notificationpage/views/notificationpage_view.dart';
 import '../modules/otp_page/bindings/otp_page_binding.dart';
 import '../modules/otp_page/views/otp_page_view.dart';
+
 import '../modules/prayerdetailspage/bindings/prayerdetailspage_binding.dart';
 import '../modules/prayerdetailspage/views/prayerdetailspage_view.dart';
 import '../modules/prayerpage/bindings/prayerpage_binding.dart';
@@ -114,7 +111,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ZAKATHPAGE,
-      page: () => ZakathpageView(),
+      page: () =>  ZakathpageView(),
       binding: ZakathpageBinding(),
     ),
     GetPage(
@@ -196,16 +193,6 @@ class AppPages {
       name: _Paths.PRAYERDETAILSPAGE,
       page: () => PrayerdetailspageView(),
       binding: PrayerdetailspageBinding(),
-    ),
-    GetPage(
-      name: _Paths.MASJIDHISTORY,
-      page: () => const MasjidhistoryView(),
-      binding: MasjidhistoryBinding(),
-    ),
-    GetPage(
-      name: _Paths.IMANTRACKER,
-      page: () =>  ImantrackerView(),
-      binding: ImantrackerBinding(),
     ),
   ];
 }

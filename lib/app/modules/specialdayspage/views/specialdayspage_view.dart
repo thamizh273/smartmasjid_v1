@@ -44,7 +44,7 @@ class SpecialdayspageView extends GetView<SpecialdayspageController> {
                     width: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(4),
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).primaryColor
                     ),
                     child: Center(child: Text("2023", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 15),)),
                   ),
@@ -62,9 +62,8 @@ class SpecialdayspageView extends GetView<SpecialdayspageController> {
                               height: 80.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Color(0xffD9D9D9),
-                                  border: Border.all(color: Color(0xff11323B))
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: Colors.grey.shade400
                               ),
                               child: Center(
                                 child: ListTile(
@@ -96,8 +95,8 @@ class SpecialdayspageView extends GetView<SpecialdayspageController> {
                                       ],
                                     ),
                                   ),
-                                  title: Text("${spcldays.text}", style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600),),
-                                  subtitle:  Text("${spcldays.year}", style: TextStyle(fontSize: 13, color: Theme.of(context).primaryColor),),
+                                  title: Text("${spcldays.text}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+                                  subtitle:  Text("${spcldays.year}", style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),),
                                 ),
                               ),
                             ),

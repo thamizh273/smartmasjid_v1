@@ -31,8 +31,6 @@ abstract class Routes {
   static const SINGLEWEATHER = _Paths.SINGLEWEATHER;
   static const PRAYERDETAILSPAGE = _Paths.PRAYERDETAILSPAGE;
   static const PINPUTS = _Paths.PINPUTS;
-  static const MASJIDHISTORY = _Paths.MASJIDHISTORY;
-  static const IMANTRACKER = _Paths.IMANTRACKER;
 }
 
 abstract class _Paths {
@@ -65,6 +63,4 @@ abstract class _Paths {
   static const SINGLEWEATHER = '/singleweather';
   static const PRAYERDETAILSPAGE = '/prayerdetailspage';
   static const PINPUTS = '/pinputs';
-  static const MASJIDHISTORY = '/masjidhistory';
-  static const IMANTRACKER = '/imantracker';
 }
