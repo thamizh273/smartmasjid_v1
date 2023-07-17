@@ -367,7 +367,7 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                           var id =
                               c.masjidListdata.value.getMasjidFilter![index].id;
 
-                          Get.dialog(barrierDismissible :false,
+                          Get.dialog(
 
                               Padding(
                               padding: EdgeInsets.symmetric(vertical: 20.h),

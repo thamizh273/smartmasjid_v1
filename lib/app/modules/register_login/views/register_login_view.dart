@@ -97,7 +97,9 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("assets/images/googlenew.png", width: 27,),
+                  GestureDetector(
+                    onTap: (){},
+                      child: Image.asset("assets/images/googlenew.png", width: 27,)),
                   25.horizontalSpace,
                   Image.asset("assets/images/apple.png", width: 27,)
                 ],

@@ -25,7 +25,7 @@ class SplashScreenController extends GetxController with GetSingleTickerProvider
 
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Get.offNamedUntil(Routes.LANGUAGE_PAGE, (_) => false);
+        Get.toNamed(Routes.LANGUAGE_PAGE);
       }
     });
 

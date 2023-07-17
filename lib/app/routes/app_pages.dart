@@ -22,6 +22,7 @@ import '../modules/notificationpage/bindings/notificationpage_binding.dart';
 import '../modules/notificationpage/views/notificationpage_view.dart';
 import '../modules/otp_page/bindings/otp_page_binding.dart';
 import '../modules/otp_page/views/otp_page_view.dart';
+
 import '../modules/prayerdetailspage/bindings/prayerdetailspage_binding.dart';
 import '../modules/prayerdetailspage/views/prayerdetailspage_view.dart';
 import '../modules/prayerpage/bindings/prayerpage_binding.dart';
@@ -189,8 +190,9 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PRAYERDETAILSPAGE,
-      page: () =>  PrayerdetailspageView(),
+      page: () => PrayerdetailspageView(),
       binding: PrayerdetailspageBinding(),
     ),
+
   ];
 }

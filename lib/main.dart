@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import 'app/authRepository.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/export.dart';
 import 'firebase_options.dart';
@@ -15,7 +16,7 @@ void main() async{
   await ScreenUtil.ensureScreenSize();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+  ).then((value) => Get.put(AuthenticationRespository()));
   await initHiveForFlutter();
   // HomeController().get_user("92owFV2zwZfyKnIJdcTEopBkLHE3");
   final WebSocketLink websocketLink = WebSocketLink(
@@ -42,7 +43,7 @@ void main() async{
             theme: ThemeService().lightTheme,
             darkTheme: ThemeService().darkTheme,
             themeMode: ThemeService().getThemeMode(),
-            initialRoute:Routes.HOME,
+            initialRoute:AppPages.INITIAL,
             getPages: AppPages.routes,
           ),
         );

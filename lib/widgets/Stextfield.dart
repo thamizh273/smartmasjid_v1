@@ -124,7 +124,8 @@ class Safa_textfield extends StatelessWidget {
         controller: controller,
 // textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
-
+         //  labelText: hint,
+         // labelStyle: TextStyle(color:  Color(0xffB5C5CA)),
           hintText: hint,
           filled: true,
           fillColor: Colors.grey.shade400,

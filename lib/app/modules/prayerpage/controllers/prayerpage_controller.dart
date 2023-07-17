@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/Model/PrayerPageModel.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
@@ -11,6 +12,34 @@ class PrayerpageController extends GetxController {
      RxBool isLoading=false.obs;
      final _restCallController = Get.put(restCallController());
      var prayerpageData = PrayerPageModel().obs;
+
+      var rrr="".obs;
+    remainTime(){
+      DateTime now = DateTime.now();
+
+
+
+      // Target date and time
+      var targetDateTime = DateTime.parse("${rrr.value}").toLocal();
+
+      // Calculate the remaining duration
+      Duration remainingDuration = targetDateTime.difference(now);
+
+      // Extract the remaining hours and minutes
+      int remainingHours = remainingDuration.inHours;
+      int remainingMinutes = remainingDuration.inMinutes.remainder(60);
+      var sss= "${remainingHours} Hrs :${remainingMinutes} min";
+      print(sss);
+      print("ggg");
+      // Output the result
+      print("Remaining time: $remainingHours hours and $remainingMinutes minutes");
+
+    // var ss= DateTime.now().millisecondsSinceEpoch.obs - DateTime.parse("${prayerpageData.value.getMasjidPrayerTimeFilter![0].startTime}").toLocal().microsecondsSinceEpoch;
+    // var kk= DateFormat('hh:mm a').format(DateTime.parse("${ss}"));
+    //  print(kk);
+     return sss ;
+    }
+
 
   @override
   void onInit() {

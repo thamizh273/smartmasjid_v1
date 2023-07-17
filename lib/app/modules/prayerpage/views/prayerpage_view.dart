@@ -161,8 +161,8 @@ class PrayerpageView extends StatelessWidget {
               print(prayertime.startTime);
               print("llllllll");
 
+                     ctrl.rrr.value=prayertime.startTime!;
                     return
-
 
                       PrayerCard(
                       prayerName: prayertime.prayerName.toString(),
@@ -170,7 +170,7 @@ class PrayerpageView extends StatelessWidget {
                       start_time: DateFormat('hh:mm a').format(DateTime.parse("${prayertime.startTime}").toLocal()),
                       endTime: DateFormat('hh:mm a').format(DateTime.parse("${prayertime.endTime}").toLocal()),
                       colors: Color(0xffA8A8A8),
-                       remainingTime:prayertime.prayerStatus ,
+                       remainingTime: prayertime.prayerStatus=="future"? ctrl.remainTime():"null",
                       txtClr: Colors.black.withOpacity(.8),
                     );
                   },),
@@ -277,18 +277,17 @@ class PrayerCard extends StatelessWidget {
                 weight: FontWeight.bold,
                 color: txtClr ?? colors,
               ),
-              remainingTime =="future"
-                  ? Container(
+            remainingTime =="null"?Container()  :Container(
                 padding: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: Colors.green.shade50),
-                child: Stxt(
-                  text: 'Remaining time : ${ DateTime.now() == ctrl.prayerpageData.value.getMasjidPrayerTimeFilter![0].startTime}',
+                child:  Stxt(
+                  text: 'Remaining time : ${remainingTime}',
                   size: f0,
                   color: Colors.green,
                 ),
-              ) :const SizedBox()
+              )
 
             ],
           ),

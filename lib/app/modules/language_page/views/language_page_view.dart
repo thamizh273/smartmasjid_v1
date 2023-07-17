@@ -58,7 +58,7 @@ class LanguagePageView extends GetView<LanguagePageController> {
                          dropdownWidth: 260.w,
                           hint: 'Select your language',
                          value: controller.selectedLang.value,
-                          dropdownItems:  ["Tamil", "English", "Arabic", "Hindi"],
+                          dropdownItems:  ["English", "Tamil", "Arabic", "Hindi"],
                           onChanged: (String? value) {
                             controller.selectedLang.value = value!;
 

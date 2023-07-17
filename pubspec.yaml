@@ -36,6 +36,12 @@ dependencies:
   flutter_qiblah: ^2.1.0
   location_platform_interface:
   location: ^5.0.0
+  cloud_firestore: ^4.8.2
+  firebase_messaging: ^14.6.4
+  sms_autofill: ^2.3.0
+  timer_count_down: ^2.2.2
+  google_sign_in: ^6.1.4
+  flutter_otp_text_field: ^1.1.1
   flutter: 
     sdk: flutter
 
