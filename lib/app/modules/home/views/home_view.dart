@@ -1,5 +1,6 @@
 
 import 'package:flutter/gestures.dart';
+import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
 import 'package:smartmasjid_v1/app/modules/messagepage/views/messagepage_view.dart';
@@ -45,7 +46,7 @@ class HomeView extends GetView<HomeController> {
           child: SvgPicture.asset("assets/svg/slogo.svg",
               height: 30.00, width: 40.00),
         ),
-        title: const Text("Masjid-e-nooraniah"),
+        title:  Text("Masjid-e-nooraniah", style: TextStyle(color: Theme.of(context).primaryColor),),
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 10),
@@ -118,7 +119,7 @@ class HomeView extends GetView<HomeController> {
                             onTap: (){
                               Get.toNamed(Routes.NOTIFICATIONPAGE);
                             },
-                            child: SvgPicture.asset("assets/svg/notificationnew.svg",
+                            child: SvgPicture.asset("assets/svg/notifynew.svg",
                                 height: 60.h),
                           ),
                           GestureDetector(
@@ -172,13 +173,15 @@ class HomeView extends GetView<HomeController> {
                       Row(
                         children: [
                           SmallCard(
+                            image: 'hadith',
+                            title: 'Hadith', onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => HadithpageView()));
+                          },
+                          ),
+                          SmallCard(
                             image: 'library',
                             title: 'Library', onTap:(){},
                           ),
-                          SmallCard(
-                            image: 'hadith',
-                            title: 'Hadith', onTap: (){},
-                          )
                         ],
                       ),
                       buildDivider(themeData),

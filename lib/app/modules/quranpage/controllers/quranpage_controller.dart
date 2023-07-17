@@ -15,10 +15,19 @@ class QuranpageController extends GetxController {
   final _restCallController = Get.put(restCallController());
   RxInt currentSelected = 1.obs;
   RxBool isLoadings = false.obs;
-  RxBool isSearchEnabled = false.obs;
+  var isSearchEnabled = false.obs;
   var getqurandata = QuranModel().obs;
-  RxString searchQuery = ''.obs;
+  var searchQuery = ''.obs;
 
+
+
+  void toggleSearch() {
+    isSearchEnabled.value = !isSearchEnabled.value;
+    if (!isSearchEnabled.value) {
+      // Clear the search query when disabling search
+      searchQuery.value = '';
+    }
+  }
 
   @override
   void onInit() {
@@ -39,6 +48,7 @@ class QuranpageController extends GetxController {
   void openDrawer() {
     scaffoldKey.currentState?.openDrawer();
   }
+  @override
   void dispose() {
     scrollController.dispose();
     super.dispose();
