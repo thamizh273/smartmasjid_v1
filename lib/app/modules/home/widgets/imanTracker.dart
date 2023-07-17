@@ -1,5 +1,7 @@
 
 
+import 'package:smartmasjid_v1/app/modules/imantracker/views/imantracker_view.dart';
+
 import '../../../routes/export.dart';
 
 
@@ -121,7 +123,6 @@ class ImanTracker_widget extends StatelessWidget {
                               Stxt(
                                 text: "click here to update",
                                 size: f0,
-
                               ),
                               SizedBox(
                                 width: 5.w,
@@ -132,8 +133,9 @@ class ImanTracker_widget extends StatelessWidget {
                                 color: Colors.white,
                               )
                             ],
-                          ), ontap: (){}),
-
+                          ), ontap: (){
+                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => ImantrackerView()));
+                      }),
                     ],
                   ),
                 ],
