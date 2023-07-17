@@ -122,7 +122,7 @@ class PrayerdetailspageView extends GetView<PrayerdetailspageController> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SvgPicture.asset("assets/svg/fajrsunnathnw.svg"),
+                child: SvgPicture.asset("assets/svg/fajrsunnath.svg"),
               ),
               SizedBox(height: 8),
               Text(
