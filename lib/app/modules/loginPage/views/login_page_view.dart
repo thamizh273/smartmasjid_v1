@@ -25,7 +25,7 @@ class LoginPageView extends GetView<LoginPageController> {
       body: BGContainerRegister(
         child: SingleChildScrollView(
             child: SizedBox(
-                 height: .77.sh,
+              height: .77.sh,
               child: Column(
 
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -42,13 +42,14 @@ class LoginPageView extends GetView<LoginPageController> {
                   16.verticalSpace,
                   Obx(() {
                     return !controller.showPhoneNumberField.value
-                        ?  Safa_textfield(
+                        ? Safa_textfield(
                       controller: controller.phoneLCtrl.value,
                       keyboardType: TextInputType.number,
                       width: .9,
                       hint: "Phone",
                       prefixIcon: Container(
-                        padding:  EdgeInsets.symmetric(vertical: 7,horizontal: 8),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 7, horizontal: 8),
                         child: InkWell(
                           onTap: () {
                             showCountryPicker(
@@ -78,14 +79,13 @@ class LoginPageView extends GetView<LoginPageController> {
                         ),
                       ),
                     )
-                        :   Safa_textfield(
+                        : Safa_textfield(
                       keyboardType: TextInputType.emailAddress,
-                        controller: controller.emailLCtrl.value,
-                        width: .9,
-                        hint: "Email",
-                        prefixIcon: const Icon(Icons.email),
-                      );
-
+                      controller: controller.emailLCtrl.value,
+                      width: .9,
+                      hint: "Email",
+                      prefixIcon: const Icon(Icons.email),
+                    );
 
 
                     // Center(
@@ -120,7 +120,7 @@ class LoginPageView extends GetView<LoginPageController> {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
-                      padding:  EdgeInsets.only(right: 25.w,bottom: 4.h),
+                      padding: EdgeInsets.only(right: 25.w, bottom: 4.h),
                       child: GestureDetector(
                         onTap: () {
                           controller.showPhoneNumberField.value =
@@ -221,60 +221,45 @@ class LoginPageView extends GetView<LoginPageController> {
                   //     ),
                   //   ),
                   // ),
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Center(
-                      child: ElevatedButton(
-                          onPressed: () async {
-                            controller.signInWithEmailPassword();
-                            controller.update();
-
-                            // FirebaseAuth auth = FirebaseAuth.instance;
-                            // try{
-                            //   UserCredential credential = await auth.signInWithEmailAndPassword(email: emailController.text, password: password.text);
-                            //
-                            //   // Navigator.of(context).pushR(MaterialPageRoute(builder: (context) {
-                            //   //   return HomePage();
-                            //   // }));
-                            //   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (_) => HomePage()), (route) => false);
-                            // } catch (error){
-                            //   if (kDebugMode) {
-                            //     if (kDebugMode)
-                            //       print('error');
-                            //     }
-                            //   }
-                            //   if (kDebugMode) {
-                            //     print(error);
-                            //   }
-                            //
-                            //   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Failed to login')));
-                            // }
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: Size(150, 40),
-                            backgroundColor:
-                            Theme
-                                .of(context)
-                                .colorScheme
-                                .secondary,
-                            foregroundColor: Color(0xff11323B),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
+                  Obx(() {
+                    return Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Center(
+                        child: controller.isLoading.value
+                            ? CupertinoActivityIndicator(
+                            animating: true, radius: 15
+                        )
+                            : ElevatedButton(
+                            onPressed: () async {
+                              controller.signUpUser();
+                              controller.update();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(150, 40),
+                              backgroundColor:
+                              Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .secondary,
+                              foregroundColor: Color(0xff11323B),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              elevation: 4.0,
                             ),
-                            elevation: 4.0,
-                          ),
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 18,
-                                color: Theme
-                                    .of(context)
-                                    .colorScheme
-                                    .primary),
-                          )),
-                    ),
-                  ),
+                            child: Text(
+                              "Login",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18,
+                                  color: Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .primary),
+                            )),
+                      ),
+                    );
+                  }),
                   Spacer(),
 
                   Column(

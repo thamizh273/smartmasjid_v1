@@ -150,6 +150,7 @@ class PrayerpageView extends StatelessWidget {
 
 
               Obx(() {
+
                 return ctrl.isLoading.value?loading(context): Flexible(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -162,6 +163,7 @@ class PrayerpageView extends StatelessWidget {
               print("llllllll");
 
                      ctrl.rrr.value=prayertime.startTime!;
+                      ctrl.update();
                     return
 
                       PrayerCard(
@@ -197,6 +199,7 @@ class PrayerpageView extends StatelessWidget {
               ),
               for (var i in getdataProhibited)
                 PrayerCard(
+                  remainingTime:"null",
                   prayerName: i['name'],
                   icon: i['icon'],
                   start_time: i['start'],

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -12,50 +13,79 @@ class PrayerpageController extends GetxController {
      RxBool isLoading=false.obs;
      final _restCallController = Get.put(restCallController());
      var prayerpageData = PrayerPageModel().obs;
-
+     late Rx<Timer> timer;
       var rrr="".obs;
-    remainTime(){
-      DateTime now = DateTime.now();
-
-
-
-      // Target date and time
-      var targetDateTime = DateTime.parse("${rrr.value}").toLocal();
-
-      // Calculate the remaining duration
-      Duration remainingDuration = targetDateTime.difference(now);
-
-      // Extract the remaining hours and minutes
-      int remainingHours = remainingDuration.inHours;
-      int remainingMinutes = remainingDuration.inMinutes.remainder(60);
-      var sss= "${remainingHours} Hrs :${remainingMinutes} min";
-      print(sss);
-      print("ggg");
-      // Output the result
-      print("Remaining time: $remainingHours hours and $remainingMinutes minutes");
-
-    // var ss= DateTime.now().millisecondsSinceEpoch.obs - DateTime.parse("${prayerpageData.value.getMasjidPrayerTimeFilter![0].startTime}").toLocal().microsecondsSinceEpoch;
-    // var kk= DateFormat('hh:mm a').format(DateTime.parse("${ss}"));
-    //  print(kk);
-     return sss ;
-    }
+     RxString nearestDuration = ''.obs;
+     RxString nearestDuration1 = ''.obs;
 
 
   @override
   void onInit() {
     get_prayerTime();
+
     super.onInit();
   }
 
   @override
   void onReady() {
     super.onReady();
+
+
+    
   }
 
   @override
   void onClose() {
     super.onClose();
   }
+
+     //
+     // void startTimer() {
+     //   // Start a timer that updates the remaining time every second
+     //   timer = Timer.periodic(Duration(seconds: 1), (timer) {
+     //     remainTime();
+     //   });
+     // }
+     remainTime(){
+       DateTime now = DateTime.now();
+
+
+
+       // Target date and time
+       var targetDateTime = DateTime.parse("${rrr.value}").toLocal();
+
+       // Calculate the remaining duration
+       Duration remainingDuration = targetDateTime.difference(now);
+
+
+       if (remainingDuration.isNegative) {
+         // Target time is in the past
+         nearestDuration.value = 'Target time already passed';
+       } else {
+         nearestDuration.value = now.millisecondsSinceEpoch.toString();
+         nearestDuration1.value = targetDateTime.millisecondsSinceEpoch.toString();
+
+
+
+         print("ggggg");
+
+       }
+
+   print(remainingDuration);
+       // Extract the remaining hours and minutes
+       var remainingHours = remainingDuration.inHours;
+       int remainingMinutes = remainingDuration.inMinutes.remainder(60);
+       var sss= "${remainingHours} Hrs :${remainingMinutes} min";
+       print(sss);
+       print("ggg");
+       // Output the result
+       print("Remaining time: $remainingHours hours and $remainingMinutes minutes");
+
+       // var ss= DateTime.now().millisecondsSinceEpoch.obs - DateTime.parse("${prayerpageData.value.getMasjidPrayerTimeFilter![0].startTime}").toLocal().microsecondsSinceEpoch;
+       // var kk= DateFormat('hh:mm a').format(DateTime.parse("${ss}"));
+       //  print(kk);
+       return sss ;
+     }
   get_prayerTime() async {
     //masjidListdata.value.getMasjidFilter=null;
     isLoading.value = true;
@@ -82,8 +112,6 @@ query Query(\$masjidId: String) {
 
     prayerpageData.value = prayerPageModelFromJson(json.encode(res));
     update();
-
-
   }
 
 }

@@ -1,11 +1,23 @@
 
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 
 class LoginPageController extends GetxController {
   //TODO: Implement LoginPageController
+  final _restCallController = Get.put(restCallController());
+  Rx<TextEditingController> emailLCtrl = TextEditingController().obs;
+  Rx<TextEditingController> phoneLCtrl = TextEditingController().obs;
+  Rx<TextEditingController> passwordLCtrl = TextEditingController().obs;
+
+  RxBool obscureTextLpass = true.obs;
+  RxBool showPhoneNumberField = true.obs;
+  RxBool isLoading = false.obs;
 
 
   @override
@@ -22,12 +34,53 @@ class LoginPageController extends GetxController {
   void onClose() {
     super.onClose();
   }
-  Rx<TextEditingController> emailLCtrl = TextEditingController().obs;
-  Rx<TextEditingController> phoneLCtrl = TextEditingController().obs;
-  Rx<TextEditingController> passwordLCtrl = TextEditingController().obs;
 
-  RxBool obscureTextLpass = true.obs;
-  RxBool showPhoneNumberField = true.obs;
+
+
+
+
+
+  signUpUser() async {
+    //masjidListdata.value.getMasjidFilter=null;
+    isLoading.value = true;
+    var header = """
+mutation Mutation(\$password: String, \$byEmail: String, \$byPhone: String) {
+  Login_User(password_: \$password, by_email: \$byEmail, by_phone: \$byPhone) {
+    message
+    refresh_token
+    token
+    user_id
+  }
+}
+    """;
+    var body = {
+      "password": "${passwordLCtrl.value.text}",
+      "byEmail": "${emailLCtrl.value.text}",
+      "byPhone": "${phoneLCtrl.value.text}"
+    };
+    var res = await _restCallController.gql_mutation(header, body);
+    print("ssss");
+    log(json.encode(res));
+    isLoading.value=false;
+
+    print("ssss");
+       if(res.toString().contains("SUCCESS")){
+         Get.offAllNamed(Routes.HOME);
+       }
+    // if(res.toString().contains("ERROR")){
+    //   toast(error: "Error", msg: "Invalid Username And Password");
+    //   isLoading.value=false;
+    // }
+
+
+    update();
+  //  prayerpageData.value = prayerPageModelFromJson(json.encode(res));
+
+
+  }
+
+
+
 
 
 
@@ -58,7 +111,6 @@ class LoginPageController extends GetxController {
         default:
           errorMessage = 'An error occurred while signing in. Please try again later.';
       }
-
       Get.snackbar(
         'Sign In Error',
         errorMessage,
