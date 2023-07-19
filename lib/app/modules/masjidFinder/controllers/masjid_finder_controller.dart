@@ -4,13 +4,16 @@ import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_pa
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
+import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
+import '../../faceAuth/controllers/face_auth_controller.dart';
 import '../Model/masjidFinderModel.dart';
 
 class MasjidFinderController extends GetxController {
   final _signctrl = Get.find<SignupPageController>();
   final _langctrl = Get.find<LanguagePageController>();
   final _restCallController = Get.put(restCallController());
+  final _faceAuthctrl = Get.put(FaceAuthController());
   var masjidListdata = MasjidFinderModel().obs;
 
   // RxList filteredMasjidList = [].obs;
@@ -40,7 +43,7 @@ class MasjidFinderController extends GetxController {
   RxString selectedCity = ''.obs;
 
   RxBool isLoading = false.obs;
-  RxBool isLoadings = false.obs;
+
 
   RxString searchQuery = ''.obs;
 
@@ -86,38 +89,38 @@ query Get_masjid_filter(\$searchBy: String) {
   }
 
   signUpComplete(String? id) async {
-    isLoadings.value = true;
+
     var header = """
 mutation Register_User(\$masjidid: String, \$profileImage: Buffer, \$firstName: String, \$lastName: String, \$phoneNumber: String, \$emailId: String, \$passWord: String, \$language: String, \$userType: String, \$authUid: String) {
-  Register_User(masjidid: \$masjidid, profile_image: \$profileImage, first_name: \$firstName, last_name: \$lastName, phone_number: \$phoneNumber, email_id: \$emailId, pass_word: \$passWord, language: \$language, user_type: \$userType, auth_uid_: \$authUid)
+  Register_User(masjidid: \$masjidid, profile_image: \$profileImage, first_name: \$firstName, last_name: \$lastName, phone_number: \$phoneNumber, email_id: \$emailId, pass_word: \$passWord, language: \$language, user_type: \$userType, auth_uid_: \$authUid) {
+    message
+    user_id
+  }
 }
     """;
 
-    var body = {
+    var body ={
       "masjidid": "${id}",
-      "profileImage": "dsf",
+      "profileImage": "${_faceAuthctrl.base64Image}",
       "firstName": _signctrl.firstNameCtrl.value.text,
       "lastName": _signctrl.lastNameCtrl.value.text,
-      "phoneNumber": _signctrl.phoneCtrl.value.text,
       "emailId": "${_signctrl.emailCtrl.value.text}",
       "passWord": _signctrl.passwordCtrl.value.text,
       "language": _langctrl.selectedLang.value,
       "userType": "member",
-    "authUid": ""
+      "authUid": "",
+      "phoneNumber": _signctrl.phoneCtrl.value.text,
     };
     var res = await _restCallController.gql_mutation(header, body);
-    print("data sign ${json.encode(res)}");
-    isLoadings.value = false;
-    update();
 
-    return res;
+
+    if(res.toString().contains("SUCCESS"))  {
+      var hh =res["SUCCESS"]["Register_User"]["message"];
+      toast(error: "SUCCESS", msg: "${hh}");
+      Get.offAllNamed(Routes.MASJID_REQUEST);
+
+    }
+    return ;
   }
 }
 
-// class Masjid {
-//   final String name;
-//   final String location;
-//   final String imagePath;
-//
-//   Masjid({required this.name, required this.location, required this.imagePath});
-// }

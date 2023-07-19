@@ -392,7 +392,7 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                                   children: [
                                     Stxt(
                                       text:
-                                          "Are you Sure to join",
+                                          "Are you Sure you want to join",
                                       size: f3,
                                      // weight: FontWeight.bold,
                                       color: Colors.white,
@@ -419,11 +419,10 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                                       SButton(
                                           height: 25.h,
                                           width: 90.w,
-                                          ontap: () {
-                                            c.signUpComplete(id);
+                                          ontap: () async {
+                                         await   c.signUpComplete(id);
                                             c.update();
-                                            Get.offAllNamed(
-                                                Routes.REQUEST_MASJID);
+
                                           },
                                           text: "Confirm",txtsize: f1,
                                           txtClr:

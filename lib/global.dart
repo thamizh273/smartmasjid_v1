@@ -17,5 +17,5 @@ toast({required String error, required String msg}) {
         size: f2,
         weight: FontWeight.w500,
         color: Colors.white,
-      ),isDismissible: false,instantInit: false);
+      ));
 }

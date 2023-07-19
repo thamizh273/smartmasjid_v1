@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class RequestMasjidController extends GetxController {
-  //TODO: Implement RequestMasjidController
+class MasjidRequestController extends GetxController {
+  //TODO: Implement MasjidRequestController
 
   final count = 0.obs;
   @override

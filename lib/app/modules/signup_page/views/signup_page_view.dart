@@ -27,7 +27,7 @@ class SignupPageView extends GetView<SignupPageController> {
                   height: .74.sh,
                   child: Column(
                     children: [
-                      .03.sh.verticalSpace,
+
                       const Text(
                         "Register",
                         style: TextStyle(
@@ -37,23 +37,18 @@ class SignupPageView extends GetView<SignupPageController> {
                       ),
                       18.verticalSpace,
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Safa_textfield(
-                            hint: 'First Name',
-                            width: .43,
-                            controller: controller.firstNameCtrl.value,
-                            prefixIcon: Icon(Icons.person),
-                          ),
+                      Safa_textfield(
+                        hint: 'First Name',
+                        width: .9,
+                        controller: controller.firstNameCtrl.value,
+                        prefixIcon: Icon(Icons.person),
+                      ),
 
-                          12.horizontalSpace,
-                           Safa_textfield(
-                            controller: controller.lastNameCtrl.value,
-                            hint: ' Last Name',
-                            width: .43,
-                          ),
-                        ],
+                      12.horizontalSpace,
+                      Safa_textfield(
+                        controller: controller.lastNameCtrl.value,
+                        hint: ' Last Name',
+                        width: .9,
                       ),
                       Safa_textfield(
                         hint: 'Email',
@@ -184,7 +179,7 @@ class SignupPageView extends GetView<SignupPageController> {
 
                               return;
                             }
-                            if(controller.passwordCtrl.value.length<=8){
+                            if(controller.passwordCtrl.value.length<=7){
                               toast(error: "Error", msg: "Password must be 8 digit",);
 
                               return;
@@ -200,7 +195,7 @@ class SignupPageView extends GetView<SignupPageController> {
                               return;
                             }
                             if(formkey_.currentState!.validate()){
-                              SignupPageController.instance.phoneAuthentication("+91${controller.phoneCtrl.value.text.trim()}");
+                              SignupPageController.instance.phoneAuthentication("+${controller.selectedCountry.value.phoneCode}${controller.phoneCtrl.value.text.trim()}");
                             }
                             // controller.verifyPhoneNumber();
                             Get.toNamed(Routes.OTP_PAGE);
@@ -237,7 +232,7 @@ class SignupPageView extends GetView<SignupPageController> {
                             .secondary),
                       ),
                       Padding(
-                        padding:  EdgeInsets.only(top: 6.h,bottom: 20.h),
+                        padding:  EdgeInsets.only(top: 6.h,bottom: 25.h),
                         child: GestureDetector(
                             onTap: () {
                               Get.toNamed(Routes.LOGIN_PAGE);

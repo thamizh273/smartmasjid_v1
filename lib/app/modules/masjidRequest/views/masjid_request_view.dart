@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:smartmasjid_v1/widgets/bgcontainer_auth.dart';
 
-import '../../../../widgets/bgcontainer.dart';
-import '../controllers/request_masjid_controller.dart';
+import '../../../../widgets/bgcontainer_auth.dart';
+import '../../../routes/app_pages.dart';
+import '../controllers/masjid_request_controller.dart';
 
-class RequestMasjidView extends GetView<RequestMasjidController> {
-  const RequestMasjidView({Key? key}) : super(key: key);
+class MasjidRequestView extends GetView<MasjidRequestController> {
+  const MasjidRequestView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,6 +65,7 @@ class RequestMasjidView extends GetView<RequestMasjidController> {
                       children: [
                         OutlinedButton(
                             onPressed: (){
+                              Get.offAllNamed(Routes.LOGIN_PAGE);
                             },
                             style: OutlinedButton.styleFrom(
                               minimumSize: Size(100, 30),
@@ -78,6 +79,7 @@ class RequestMasjidView extends GetView<RequestMasjidController> {
                         SizedBox(width: 30,),
                         ElevatedButton(
                             onPressed: (){
+                              Get.offAllNamed(Routes.HOME);
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 30),

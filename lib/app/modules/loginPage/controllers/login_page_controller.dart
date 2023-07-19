@@ -3,14 +3,19 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
+import '../Model/GetUserIDModel.dart';
 
 class LoginPageController extends GetxController {
   //TODO: Implement LoginPageController
   final _restCallController = Get.put(restCallController());
+
+
   Rx<TextEditingController> emailLCtrl = TextEditingController().obs;
   Rx<TextEditingController> phoneLCtrl = TextEditingController().obs;
   Rx<TextEditingController> passwordLCtrl = TextEditingController().obs;
@@ -18,6 +23,9 @@ class LoginPageController extends GetxController {
   RxBool obscureTextLpass = true.obs;
   RxBool showPhoneNumberField = true.obs;
   RxBool isLoading = false.obs;
+
+  var getUserId = GetUserIdModel().obs;
+
 
 
   @override
@@ -42,9 +50,9 @@ class LoginPageController extends GetxController {
 
   signUpUser() async {
     //masjidListdata.value.getMasjidFilter=null;
-    isLoading.value = true;
+
     var header = """
-mutation Mutation(\$password: String, \$byEmail: String, \$byPhone: String) {
+  mutation Mutation(\$password: String, \$byEmail: String, \$byPhone: String) {
   Login_User(password_: \$password, by_email: \$byEmail, by_phone: \$byPhone) {
     message
     refresh_token
@@ -59,22 +67,23 @@ mutation Mutation(\$password: String, \$byEmail: String, \$byPhone: String) {
       "byPhone": "${phoneLCtrl.value.text}"
     };
     var res = await _restCallController.gql_mutation(header, body);
-    print("ssss");
-    log(json.encode(res));
-    isLoading.value=false;
 
-    print("ssss");
-       if(res.toString().contains("SUCCESS")){
+    getUserId.value=getUserIdModelFromJson(json.encode(res));
+
+   print("ttttt");
+        log(json.encode(res));
+           update();
+
+       if(res.toString().contains("SUCCESS"))  {
+        var hh =res["SUCCESS"]["Login_User"]["message"];
+         toast(error: "SUCCESS", msg: "${hh}");
          Get.offAllNamed(Routes.HOME);
+
        }
-    // if(res.toString().contains("ERROR")){
-    //   toast(error: "Error", msg: "Invalid Username And Password");
-    //   isLoading.value=false;
-    // }
 
 
-    update();
-  //  prayerpageData.value = prayerPageModelFromJson(json.encode(res));
+
+
 
 
   }
@@ -84,78 +93,80 @@ mutation Mutation(\$password: String, \$byEmail: String, \$byPhone: String) {
 
 
 
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<UserCredential?> signInWithEmailAndPassword() async {
-    try {
-      final UserCredential userCredential =
-      await _firebaseAuth.signInWithEmailAndPassword(
-        email: emailLCtrl.value.text,
-        password: passwordLCtrl.value.text,
-      );
-
-      return userCredential;
-    }on FirebaseAuthException catch (e) {
-      String errorMessage = '';
-
-      switch (e.code) {
-        case 'user-not-found':
-          errorMessage = 'User not found. Please check your email.';
-          break;
-        case 'wrong-password':
-          errorMessage = 'Wrong password. Please try again.';
-          break;
-        case 'invalid-email':
-          errorMessage = 'Invalid email address. Please enter a valid email.';
-          break;
-        default:
-          errorMessage = 'An error occurred while signing in. Please try again later.';
-      }
-      Get.snackbar(
-        'Sign In Error',
-        errorMessage,
-        snackPosition: SnackPosition.BOTTOM,
-        margin: EdgeInsets.only(bottom: 15),
-     // backgroundColor: Colors.redAccent.withOpacity(.3)
-       titleText: Stxt(text: "Sign In Error", size: f3,color: Colors.red ,weight: FontWeight.bold,),
-     messageText: Stxt(text: errorMessage, size: f2,color: Colors.white ,),
-      //  colorText: Colors.red
-      );
-
-      print('Error signing in: ${e.code}');
-      return null;
-    } catch (error) {
-      // Handle error
-      print('Error signing in: $error');
-      return null;
-    }
-  }
-
-  void signInWithEmailPassword() async {
-    final userCredential = await signInWithEmailAndPassword();
-
-    if (userCredential != null) {
-      final uid = userCredential.user?.uid;
-      if (uid != null) {
-        // UID retrieved successfully, do something with it
-        print('User UID: $uid');
-      }
-      Get.snackbar(
-        'Success',
-        'Sucessfully login',
-        snackPosition: SnackPosition.BOTTOM,
-      );
-      Get.toNamed(Routes.HOME);
-      // Sign-in successful, navigate to the next screen
-      // You can use Get.to or Navigator.push for navigation
-    } else {
-      print('Sign-in failed, show an error message')  ;
-      // Get.snackbar(
-      //   'Error',
-      //   'Failed to sign in. Please check your credentials.',
-      //   snackPosition: SnackPosition.BOTTOM,
-      // );
-    }
-  }
+  //
+  // FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  //
+  // Future<UserCredential?> signInWithEmailAndPassword() async {
+  //   try {
+  //     final UserCredential userCredential =
+  //     await _firebaseAuth.signInWithEmailAndPassword(
+  //       email: emailLCtrl.value.text,
+  //       password: passwordLCtrl.value.text,
+  //     );
+  //
+  //     return userCredential;
+  //   }on FirebaseAuthException catch (e) {
+  //     String errorMessage = '';
+  //
+  //     switch (e.code) {
+  //       case 'user-not-found':
+  //         errorMessage = 'User not found. Please check your email.';
+  //         break;
+  //       case 'wrong-password':
+  //         errorMessage = 'Wrong password. Please try again.';
+  //         break;
+  //       case 'invalid-email':
+  //         errorMessage = 'Invalid email address. Please enter a valid email.';
+  //         break;
+  //       default:
+  //         errorMessage = 'An error occurred while signing in. Please try again later.';
+  //     }
+  //     Get.snackbar(
+  //       'Sign In Error',
+  //       errorMessage,
+  //       snackPosition: SnackPosition.BOTTOM,
+  //       margin: EdgeInsets.only(bottom: 15),
+  //    // backgroundColor: Colors.redAccent.withOpacity(.3)
+  //      titleText: Stxt(text: "Sign In Error", size: f3,color: Colors.red ,weight: FontWeight.bold,),
+  //    messageText: Stxt(text: errorMessage, size: f2,color: Colors.white ,),
+  //     //  colorText: Colors.red
+  //     );
+  //
+  //     print('Error signing in: ${e.code}');
+  //     return null;
+  //   } catch (error) {
+  //     // Handle error
+  //     print('Error signing in: $error');
+  //     return null;
+  //   }
+  // }
+  //
+  // void signInWithEmailPassword() async {
+  //   final userCredential = await signInWithEmailAndPassword();
+  //
+  //   if (userCredential != null) {
+  //     final uid = userCredential.user?.uid;
+  //     if (uid != null) {
+  //       // UID retrieved successfully, do something with it
+  //       print('User UID: $uid');
+  //     }
+  //     Get.snackbar(
+  //       'Success',
+  //       'Sucessfully login',
+  //       snackPosition: SnackPosition.BOTTOM,
+  //     );
+  //     Get.toNamed(Routes.HOME);
+  //     // Sign-in successful, navigate to the next screen
+  //     // You can use Get.to or Navigator.push for navigation
+  //   } else {
+  //     print('Sign-in failed, show an error message')  ;
+  //     // Get.snackbar(
+  //     //   'Error',
+  //     //   'Failed to sign in. Please check your credentials.',
+  //     //   snackPosition: SnackPosition.BOTTOM,
+  //     // );
+  //   }
+  // }
 }
 

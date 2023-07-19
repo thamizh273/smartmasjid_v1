@@ -221,16 +221,21 @@ class LoginPageView extends GetView<LoginPageController> {
                   //     ),
                   //   ),
                   // ),
-                  Obx(() {
-                    return Padding(
+
+          Padding(
                       padding: const EdgeInsets.all(16),
                       child: Center(
-                        child: controller.isLoading.value
-                            ? CupertinoActivityIndicator(
-                            animating: true, radius: 15
-                        )
-                            : ElevatedButton(
+                        child:  ElevatedButton(
                             onPressed: () async {
+                              if(controller.emailLCtrl.value.text.isEmpty && controller.emailLCtrl.value.text.isEmpty){
+                                toast(error: "Error", msg: "Enter Email Id or Phone Number ");
+                                return;
+                              }
+
+                              if(controller.passwordLCtrl.value.text.isEmpty){
+                                toast(error: "Error", msg: "Enter Password");
+                                return ;
+                              }
                               controller.signUpUser();
                               controller.update();
                             },
@@ -258,8 +263,8 @@ class LoginPageView extends GetView<LoginPageController> {
                                       .primary),
                             )),
                       ),
-                    );
-                  }),
+                    ),
+
                   Spacer(),
 
                   Column(

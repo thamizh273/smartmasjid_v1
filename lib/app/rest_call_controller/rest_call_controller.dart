@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import '../../global.dart';
 import '../server/config.dart';
 
 
@@ -88,11 +89,17 @@ class restCallController extends GetxController {
       print("loggedpa ${result.exception}");
 
       if (result.exception!.graphqlErrors == null) {
-        snakbar(type: "ERROR", msg: "Network Error");
+        toast(error: "ERROR", msg: "Network Error");
 
         return;
+      } else if (result.exception!.graphqlErrors.isNotEmpty) {
+        final graphQLError = result.exception!.graphqlErrors[0];
+        final errorMessage = graphQLError.message;
+        // Handle the error message here
+        print(errorMessage);
+        return  toast(error: "ERROR", msg: errorMessage);
       }
-      else if( result.exception!.graphqlErrors[0].message.contains("Data Empty!")){ }
+      // else if( result.exception!.graphqlErrors[0].message.contains("Data Empty!")){ }
       // else if(result.hasException) {
       //   if (result.exception!.graphqlErrors.isNotEmpty) {
       //     final graphQLError = result.exception!.graphqlErrors[0];
@@ -106,7 +113,7 @@ class restCallController extends GetxController {
       else {
         print("graphqll error ${result.exception}");
 
-        snakbar(type: "ERROR", msg: "Server Error");
+        toast(error: "ERROR", msg: "Server Error");
 
         return;
       }
@@ -127,13 +134,33 @@ class restCallController extends GetxController {
     );
 
     if (result.hasException) {
-      // print("eror ${result.exception}");
-      var res = {"ERROR": result.exception};
-      return res;
-    } else if (result.data != null) {
+    print("eror ${result.exception}");
+
+    if (result.exception!.graphqlErrors.isNotEmpty) {
+          final graphQLError = result.exception!.graphqlErrors[0];
+          final errorMessage = graphQLError.message;
+          // Handle the error message here
+          print(errorMessage);
+        return  toast(error: "ERROR", msg: errorMessage);
+        }
+
+      // var res = {"ERROR": result.exception};
+      // return res;
+    }
+    else if (result.data != null) {
       // print("rese dod ${result.data}");
 
+
+
+
+
+
+
+      //
       var res = {"SUCCESS": result.data};
+      // var  ee =result.data![0]['message'];
+      // print("fffff ${ee}");
+      // toast(error: "SUCCESS", msg: "${ee}");
       return res;
     }
   }

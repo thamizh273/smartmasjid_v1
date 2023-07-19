@@ -1,9 +1,14 @@
+
+
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class FaceAuthController extends GetxController {
   //TODO: Implement FaceAuthController
-XFile? image;
+ XFile? image;
+ String? base64Image;
 
   @override
   void onInit() {
@@ -24,8 +29,15 @@ XFile? image;
   void pickImage() async {
     final ImagePicker _picker= ImagePicker();
      image= await _picker.pickImage(source: ImageSource.gallery);
+
     if(image!=null){
-       update();
+      List<int> imageBytes = await image!.readAsBytes();
+      base64Image = base64Encode(imageBytes);
+      print("imagess");
+      print(base64Image);
+      print("imagess");
+      update();
+
      }
 
   }
