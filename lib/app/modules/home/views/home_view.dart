@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
+import 'package:smartmasjid_v1/app/modules/masjidhistory/views/masjidhistory_view.dart';
 import 'package:smartmasjid_v1/app/modules/messagepage/views/messagepage_view.dart';
 import 'package:smartmasjid_v1/app/modules/notificationpage/views/notificationpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
@@ -303,7 +304,9 @@ class HomeView extends GetView<HomeController> {
                             children: [
                               SmallCard(
                                 image: 'history',
-                                title: 'History', onTap: () {  },
+                                title: 'History', onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => MasjidhistoryView()));
+                              },
                               ),
                             ],
                           ),
