@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/home/views/home_view.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../widgets/space.dart';
@@ -365,110 +366,115 @@ class _QuranpageViewState extends State<QuranpageView> {
                                   itemBuilder: (context, index) {
                                     var sura = filteredSurah[index];
                                     return ListTile(
-                                      title: Container(
-                                        height: 80,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(8),
-                                            color: Colors.white,
-                                            border: Border.all(
-                                                color: Color(0xff16627C)
-                                            )
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            // Padding(
-                                            //   padding: const EdgeInsets.all(16),
-                                            //   child: Container(
-                                            //     width: 40.w,
-                                            //     height: 40.w,
-                                            //     child: Transform.rotate(
-                                            //       angle: 40 *
-                                            //           (3.1415926535897932 / 180),
-                                            //       // Converting 30 degrees to radians
-                                            //       child: Container(
-                                            //         width: 200,
-                                            //         height: 200,
-                                            //         decoration: BoxDecoration(
-                                            //           borderRadius: BorderRadius
-                                            //               .circular(8),
-                                            //           color: Color(0xff16627C),
-                                            //         ),
-                                            //         child: Center(
-                                            //           child: Transform.rotate(
-                                            //             angle: -40 *
-                                            //                 (3.1415926535897932 /
-                                            //                     180),
-                                            //             child: Text(
-                                            //               "${sura.suraChapterNo}",
-                                            //               style: TextStyle(
-                                            //                   fontSize: 15,
-                                            //                   fontWeight: FontWeight
-                                            //                       .bold,
-                                            //                   color: Colors.white),
-                                            //             ),
-                                            //           ),
-                                            //         ),
-                                            //       ),
-                                            //     ),
-                                            //   ),
-                                            // ),
-                                            Space(8),
-                                            Center(
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    height: 60.h,
-                                                    width: 60.h,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                        image: AssetImage("assets/images/quranneww.png"),
-                                                        fit: BoxFit.fill
+                                      title: GestureDetector(
+                                        onTap: (){
+                                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
+                                        },
+                                        child: Container(
+                                          height: 80,
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(8),
+                                              color: Colors.white,
+                                              border: Border.all(
+                                                  color: Color(0xff16627C)
+                                              )
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              // Padding(
+                                              //   padding: const EdgeInsets.all(16),
+                                              //   child: Container(
+                                              //     width: 40.w,
+                                              //     height: 40.w,
+                                              //     child: Transform.rotate(
+                                              //       angle: 40 *
+                                              //           (3.1415926535897932 / 180),
+                                              //       // Converting 30 degrees to radians
+                                              //       child: Container(
+                                              //         width: 200,
+                                              //         height: 200,
+                                              //         decoration: BoxDecoration(
+                                              //           borderRadius: BorderRadius
+                                              //               .circular(8),
+                                              //           color: Color(0xff16627C),
+                                              //         ),
+                                              //         child: Center(
+                                              //           child: Transform.rotate(
+                                              //             angle: -40 *
+                                              //                 (3.1415926535897932 /
+                                              //                     180),
+                                              //             child: Text(
+                                              //               "${sura.suraChapterNo}",
+                                              //               style: TextStyle(
+                                              //                   fontSize: 15,
+                                              //                   fontWeight: FontWeight
+                                              //                       .bold,
+                                              //                   color: Colors.white),
+                                              //             ),
+                                              //           ),
+                                              //         ),
+                                              //       ),
+                                              //     ),
+                                              //   ),
+                                              // ),
+                                              Space(8),
+                                              Center(
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      height: 60.h,
+                                                      width: 60.h,
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: AssetImage("assets/images/quranneww.png"),
+                                                          fit: BoxFit.fill
+                                                        ),
                                                       ),
-                                                    ),
-                                                    child: Align(
-                                                      alignment: Alignment.center,
-                                                      child: Text("${sura.suraChapterNo}"),
-                                                    ),
-                                                  )
+                                                      child: Align(
+                                                        alignment: Alignment.center,
+                                                        child: Text("${sura.suraChapterNo}"),
+                                                      ),
+                                                    )
 
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            Space(8),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text("${sura.suraNameEn}",
-                                                  style: TextStyle(
-                                                      color: Color(0xff16627C),
-                                                      fontSize: 17,
-                                                      fontWeight: FontWeight.w600),),
-                                                Space(8),
-                                                Text("The Opening", style: TextStyle(
-                                                    color: Color(0xff16627C),
-                                                    fontSize: 12),),
-                                              ],
-                                            ),
-                                            Spacer(),
-                                            Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .center,
+                                              Space(8),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Icon(Icons.bookmark_add_outlined,
-                                                    color: Color(0xff16627C),),
-                                                  Text("${sura.totalVerses}",
+                                                  Text("${sura.suraNameEn}",
                                                     style: TextStyle(
                                                         color: Color(0xff16627C),
-                                                        fontSize: 12),)
+                                                        fontSize: 17,
+                                                        fontWeight: FontWeight.w600),),
+                                                  Space(8),
+                                                  Text("The Opening", style: TextStyle(
+                                                      color: Color(0xff16627C),
+                                                      fontSize: 12),),
                                                 ],
                                               ),
-                                            )
-                                          ],
+                                              Spacer(),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment
+                                                      .center,
+                                                  children: [
+                                                    Icon(Icons.bookmark_add_outlined,
+                                                      color: Color(0xff16627C),),
+                                                    Text("${sura.totalVerses}",
+                                                      style: TextStyle(
+                                                          color: Color(0xff16627C),
+                                                          fontSize: 12),)
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );

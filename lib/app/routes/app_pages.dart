@@ -18,6 +18,8 @@ import '../modules/masjidFinder/bindings/masjid_finder_binding.dart';
 import '../modules/masjidFinder/views/masjid_finder_view.dart';
 import '../modules/masjidRequest/bindings/masjid_request_binding.dart';
 import '../modules/masjidRequest/views/masjid_request_view.dart';
+import '../modules/masjidhistory/bindings/masjidhistory_binding.dart';
+import '../modules/masjidhistory/views/masjidhistory_view.dart';
 import '../modules/messagepage/bindings/messagepage_binding.dart';
 import '../modules/messagepage/views/messagepage_view.dart';
 import '../modules/notificationpage/bindings/notificationpage_binding.dart';
@@ -199,6 +201,12 @@ class AppPages {
       name: _Paths.MASJID_REQUEST,
       page: () => const MasjidRequestView(),
       binding: MasjidRequestBinding(),
+   ),
+    GetPage(
+      name: _Paths.MASJIDHISTORY,
+      page: () => const MasjidhistoryView(),
+      binding: MasjidhistoryBinding(),
+
     ),
   ];
 }
