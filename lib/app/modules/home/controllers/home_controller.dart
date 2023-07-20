@@ -74,7 +74,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 }
     """;
     var body ={
-      "id": "1dda1ece-6f81-497c-86fd-b28074c00389"
+      "id": "81e3f622-f1d6-4925-92c2-49ac000b4adb"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;
