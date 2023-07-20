@@ -1,8 +1,6 @@
 import 'package:country_state_picker_plus/country_state_picker_plus.dart';
 
 
-
-
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
@@ -13,7 +11,7 @@ import '../../../../widgets/bgcontainer_auth.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/masjid_finder_controller.dart';
 
-class MasjidFinderView extends GetView<MasjidFinderController> {
+class MasjidFinderView extends StatelessWidget {
   MasjidFinderView({Key? key}) : super(key: key);
   final MasjidFinderController c = Get.put(MasjidFinderController());
 
@@ -42,7 +40,10 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                         Text(
                           "Scan",
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary),
+                              color: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .secondary),
                         )
                       ],
                     ),
@@ -52,7 +53,10 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
               Text(
                 "Select Your Masjid",
                 style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme
+                        .of(context)
+                        .colorScheme
+                        .secondary,
                     fontWeight: FontWeight.w600,
                     fontSize: 20),
               ),
@@ -76,44 +80,55 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                             left: 16,
                             right: 16,
                           ),
-                          child: CountryStatePickerPlus(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8)),
-                            countryHintText: "Select Country",
-                            stateHintText: 'Select State',
-                            cityHintText: 'Select City',
-                            dropdownColor:
-                                Theme.of(context).colorScheme.secondary,
-                            style: TextStyle(
-                                fontSize: 12,
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w600),
-                            onCityChanged: (value) {
-                              c.selectedCity.value = value;
-                              c.masjidFinder_get(value);
-                              c.update();
-                            },
-                            onCountryChanged: (value) {
-                              c.searchctrl_.value.text = "";
-                              c.selectedCountry.value = value;
-                              c.masjidFinder_get("null");
-                              c.update();
-                            },
-                            onStateChanged: (value) {
-                              c.selectedState.value = value;
-                              c.masjidFinder_get("null");
-                              c.update();
-                            },
-                          ),
+                          child:  CountryStatePickerPlus(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8)),
+                              countryHintText: "Select Country",
+                              stateHintText: 'Select State',
+                              cityHintText: 'Select City',
+                              dropdownColor:
+                              Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .secondary,
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .primary,
+                                  fontWeight: FontWeight.w600),
+                              onCityChanged: (value) {
+                                c.selectedCity.value = value;
+                                c.masjidFinder_get(value);
+                                c.update();
+                              },
+                              onCountryChanged: (value) {
+                                c.searchctrl_.value.text = "";
+                                c.selectedCountry.value = value;
+                                c.masjidFinder_get("null");
+                                c.update();
+                              },
+                              onStateChanged: (value) {
+                                c.selectedState.value = value;
+                                c.masjidFinder_get("null");
+                                c.update();
+                              },
+                            ),
+
                         ),
                       ),
                       SizedBox(height: 16.0),
                       Obx(() {
                         return Text(
-                          '${c.selectedCountry.value}  ${c.selectedState.value} ${c.selectedCity.value}',
+                          '${c.selectedCountry.value}  ${c.selectedState
+                              .value} ${c.selectedCity.value}',
                           style: TextStyle(
                               fontSize: 12,
-                              color: Theme.of(context).colorScheme.secondary),
+                              color: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .secondary),
                         );
                       }),
                     ],
@@ -128,21 +143,30 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                 children: [
                   Expanded(
                       child: Divider(
-                    color: Theme.of(context).colorScheme.secondary,
-                  )),
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .secondary,
+                      )),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'OR',
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
+                          color: Theme
+                              .of(context)
+                              .colorScheme
+                              .secondary,
                           fontSize: 12),
                     ),
                   ),
                   Expanded(
                       child: Divider(
-                    color: Theme.of(context).colorScheme.secondary,
-                  )),
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .secondary,
+                      )),
                 ],
               ),
               const SizedBox(
@@ -165,7 +189,10 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                     // textInputAction: TextInputAction.search,
                     controller: c.searchctrl_.value,
                     style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .primary,
                         fontWeight: FontWeight.w600),
                     // textCapitalization: TextCapitalization.sentences,
                     keyboardType: TextInputType.text,
@@ -179,12 +206,13 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                       c.searchQuery.value = value;
 
                       c.masjidFinder_get(value);
+                      c.update();
                       // Future.delayed(Duration(milliseconds: 500),(){
                       //   c.isLoading.value=true;
                       //   c.update();
                       // });
                       // c.isLoading.value=false;
-                      c.update();
+
                       // c.searchQuery.value = value;
                       // // c.filteredMasjidList.value =
                       // // c.masjidListdata.value.getMasjidFilter!;
@@ -210,11 +238,11 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                           color: Colors.grey,
                           // Change the border color for focused state
                           width:
-                              2.0, // Change the border width for focused state
+                          2.0, // Change the border width for focused state
                         ),
                       ),
                       contentPadding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       suffixIcon: Padding(
                         padding: const EdgeInsets.only(right: 10, bottom: 1),
                         child: IconButton(
@@ -260,7 +288,8 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                               Text(
                                 "Searching Results",
                                 style: TextStyle(
-                                    color: Theme.of(context)
+                                    color: Theme
+                                        .of(context)
                                         .colorScheme
                                         .secondary),
                               ),
@@ -269,22 +298,21 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                                 return Container(
                                   height: .52.sh,
                                   child: (c.selectedCity.value.isEmpty &&
-                                          c.searchQuery.value.isEmpty)
+                                      c.searchQuery.value.isEmpty)
                                       ? Image.asset(
-                                          "assets/images/selectmasjid_img.png")
+                                      "assets/images/selectmasjid_img.png")
                                       : c.isLoading.value
-                                          ? loading(context)
-                                          : ((c.masjidListdata.value
-                                                      .getMasjidFilter ==
-                                                  null)
-                                              ? Center(
-                                                  child: Stxt(
-                                                  text: "Data Not Found",
-                                                  size: f3,
-                                                  color: Get.theme.colorScheme
-                                                      .secondary,
-                                                ))
-                                              : buildListView()),
+                                      ? loading(context)
+                                      : ((c.masjidListdata.value
+                                      .getMasjidFilter == null)
+                                      ? Center(
+                                      child: Stxt(
+                                        text: "no data",
+                                        size: f3,
+                                        color: Get.theme.colorScheme
+                                            .secondary,
+                                      ))
+                                      : buildListView()),
                                 );
                               }),
                             ],
@@ -311,6 +339,7 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
       // Number of cards
       itemBuilder: (BuildContext context, int index) {
         var masjid = c.masjidListdata.value.getMasjidFilter![index];
+        print("ssssssss");
         return Padding(
           padding: EdgeInsets.only(bottom: 2.h),
           child: Card(
@@ -323,10 +352,10 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                       height: 100,
                       width: 100,
                       decoration:
-                          BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                      BoxDecoration(borderRadius: BorderRadius.circular(8)),
                       child: Image.asset("assets/images/masjidselc.png"
-                          // masjid.masjidImage.toString(),
-                          )),
+                        // masjid.masjidImage.toString(),
+                      )),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8),
@@ -359,7 +388,10 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                       TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor:
-                              Theme.of(context).colorScheme.primary,
+                          Theme
+                              .of(context)
+                              .colorScheme
+                              .primary,
                           foregroundColor: Colors.white,
                           fixedSize: Size(120, 35),
                         ),
@@ -370,68 +402,78 @@ class MasjidFinderView extends GetView<MasjidFinderController> {
                           Get.dialog(
 
                               Padding(
-                              padding: EdgeInsets.symmetric(vertical: 20.h),
-                              child: AlertDialog(
-                                elevation: 10,
-                                backgroundColor: Get.theme.colorScheme.primary,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10)),
-                                // title: Center(
-                                //     child: Stxt(
-                                //   text: "Are you Sure?",
-                                //   size: f3,
-                                //   weight: FontWeight.bold,
-                                //   color: Colors.white,
-                                //   textAlign: TextAlign.center,
-                                // )),
+                                  padding: EdgeInsets.symmetric(vertical: 20.h),
+                                  child: AlertDialog(
+                                    elevation: 10,
+                                    backgroundColor: Get.theme.colorScheme
+                                        .primary,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            10)),
+                                    // title: Center(
+                                    //     child: Stxt(
+                                    //   text: "Are you Sure?",
+                                    //   size: f3,
+                                    //   weight: FontWeight.bold,
+                                    //   color: Colors.white,
+                                    //   textAlign: TextAlign.center,
+                                    // )),
 
-                                // contentPadding: EdgeInsets.symmetric(vertical: 20.h,),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Stxt(
-                                      text:
+                                    // contentPadding: EdgeInsets.symmetric(vertical: 20.h,),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .center,
+                                      children: [
+                                        Stxt(
+                                          text:
                                           "Are you Sure you want to join",
-                                      size: f3,
-                                     // weight: FontWeight.bold,
-                                      color: Colors.white,
-                                      textAlign: TextAlign.center,
+                                          size: f3,
+                                          // weight: FontWeight.bold,
+                                          color: Colors.white,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        SizedBox(height: 8,),
+                                        Stxt(text: "${c.masjidListdata.value.getMasjidFilter![index].masjidName} ?",
+                                          size: f3,
+                                          weight: FontWeight.bold,
+                                          color: Colors.white,)
+                                      ],
                                     ),
-                                    SizedBox(height: 8,),
-                                    Stxt(text: "${c.masjidListdata.value.getMasjidFilter![index].masjidName} ?", size: f3 ,weight: FontWeight.bold, color: Colors.white,)
-                                  ],
-                                ),
-                                 actionsPadding: EdgeInsets.only(bottom: 20),
-                                actions: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      SButton(
-                                          width: 90.w,
-                                          height: 25.h,
-                                          color:Get.theme.colorScheme.secondary,
-                                          ontap: () {
-                                            Get.back();
-                                          },
-                                          text: "Cancel",txtsize: f1,    txtClr:
-                                      Get.theme.colorScheme.primary),
-                                      SButton(
-                                          height: 25.h,
-                                          width: 90.w,
-                                          ontap: () async {
-                                         await   c.signUpComplete(id);
-                                            c.update();
-
-                                          },
-                                          text: "Confirm",txtsize: f1,
-                                          txtClr:
+                                    actionsPadding: EdgeInsets.only(bottom: 20),
+                                    actions: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .spaceEvenly,
+                                        children: [
+                                          SButton(
+                                              width: 90.w,
+                                              height: 25.h,
+                                              color: Get.theme.colorScheme
+                                                  .secondary,
+                                              ontap: () {
+                                                Get.back();
+                                              },
+                                              text: "Cancel",
+                                              txtsize: f1,
+                                              txtClr:
                                               Get.theme.colorScheme.primary),
+                                          SButton(
+                                              height: 25.h,
+                                              width: 90.w,
+                                              ontap: () async {
+                                                await c.signUpComplete(id);
+                                                c.update();
+                                              },
+                                              text: "Confirm",
+                                              txtsize: f1,
+                                              txtClr:
+                                              Get.theme.colorScheme.primary),
+                                        ],
+                                      )
                                     ],
-                                  )
-                                ],
-                                //iconPadding: EdgeInsets.all(20),
-                              )));
+                                    //iconPadding: EdgeInsets.all(20),
+                                  )));
 
                           // Get.defaultDialog(
                           //

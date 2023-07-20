@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
-
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
@@ -21,7 +21,6 @@ class MasjidFinderController extends GetxController {
   // var seller_list_model=SelllerListModel().obs;
   @override
   void onInit() {
-
     //filteredMasjidList = masjidListdata.value.getMasjidFilter.obs;
     super.onInit();
   }
@@ -44,7 +43,6 @@ class MasjidFinderController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-
   RxString searchQuery = ''.obs;
 
   // List<Masjid> masjidList = [
@@ -60,7 +58,7 @@ class MasjidFinderController extends GetxController {
   // }
 
   masjidFinder_get(String value) async {
-    masjidListdata.value.getMasjidFilter=null;
+    masjidListdata.value.getMasjidFilter = null;
     isLoading.value = true;
     var header = """
 query Get_masjid_filter(\$searchBy: String) {
@@ -79,8 +77,9 @@ query Get_masjid_filter(\$searchBy: String) {
     var body = {"searchBy": "${value}"};
     var res = await _restCallController.gql_query(header, body);
     print("lllll");
-    print(json.encode(res));
+    log(json.encode(res));
     print("lllll");
+
     isLoading.value = false;
     update();
     masjidListdata.value = masjidFinderModelFromJson(json.encode(res));
@@ -89,7 +88,6 @@ query Get_masjid_filter(\$searchBy: String) {
   }
 
   signUpComplete(String? id) async {
-
     var header = """
 mutation Register_User(\$masjidid: String, \$profileImage: Buffer, \$firstName: String, \$lastName: String, \$phoneNumber: String, \$emailId: String, \$passWord: String, \$language: String, \$userType: String, \$authUid: String) {
   Register_User(masjidid: \$masjidid, profile_image: \$profileImage, first_name: \$firstName, last_name: \$lastName, phone_number: \$phoneNumber, email_id: \$emailId, pass_word: \$passWord, language: \$language, user_type: \$userType, auth_uid_: \$authUid) {
@@ -99,7 +97,7 @@ mutation Register_User(\$masjidid: String, \$profileImage: Buffer, \$firstName: 
 }
     """;
 
-    var body ={
+    var body = {
       "masjidid": "${id}",
       "profileImage": "${_faceAuthctrl.base64Image}",
       "firstName": _signctrl.firstNameCtrl.value.text,
@@ -113,14 +111,11 @@ mutation Register_User(\$masjidid: String, \$profileImage: Buffer, \$firstName: 
     };
     var res = await _restCallController.gql_mutation(header, body);
 
-
-    if(res.toString().contains("SUCCESS"))  {
-      var hh =res["SUCCESS"]["Register_User"]["message"];
+    if (res.toString().contains("SUCCESS")) {
+      var hh = res["SUCCESS"]["Register_User"]["message"];
       toast(error: "SUCCESS", msg: "${hh}");
       Get.offAllNamed(Routes.MASJID_REQUEST);
-
     }
-    return ;
+    return;
   }
 }
-
