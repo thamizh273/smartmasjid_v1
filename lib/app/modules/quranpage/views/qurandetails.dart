@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
@@ -109,6 +110,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                               "${title}",
                               style: TextStyle(
                                   fontSize: 12,
+                                  fontFamily: "Roboto",
                                   color: Theme
                                       .of(context)
                                       .primaryColor),
@@ -262,20 +264,39 @@ class _QuranDetailsState extends State<QuranDetails> {
                                             alignment: Alignment.centerLeft,
                                             child: SizedBox(
                                               width: .7.sw,
-                                              child: Text(
+                                              child:
+                                              Text(
                                                 "${sura.arabicText}",
-                                                style: TextStyle(
-
-                                                    fontSize: 22,
-                                                    fontWeight: FontWeight.w800,
+                                                style: GoogleFonts.amiri(
+                                                  textStyle: Theme.of(context).textTheme.displayLarge,
+                                                  fontSize: 30,
+                                                  fontWeight: FontWeight.w700,
                                                     color:
                                                     Theme
                                                         .of(context)
-                                                        .colorScheme.primary),
+                                                        .colorScheme.primary,
+                                                  wordSpacing: 3,
+                                                ),
                                                 textAlign: TextAlign.end,
+
+                                                ),
+                                              // Text(
+                                              //   "${sura.arabicText}",
+                                              //   style: TextStyle(
+                                              //
+                                              //       fontSize: 35,
+                                              //       fontWeight: FontWeight.w800,
+                                              //       color:
+                                              //       Theme
+                                              //           .of(context)
+                                              //           .colorScheme.primary),
+                                              //   textAlign: TextAlign.end,
+                                              // ),
                                               ),
+
+
+
                                             ),
-                                          )
                                         ],
                                       ),
                                       Space(8),
@@ -289,7 +310,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       SizedBox(width: .9.sw,
                                           child: Align(
                                             alignment: Alignment.center,
-                                              child: Text("${sura.engTranslation}",style: TextStyle(fontWeight: FontWeight.w500, fontSize: 15),))),
+                                              child: Text("${sura.engTranslation}",style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),))),
                                       Space(16),
                                       Image.asset(
                                         "assets/images/qurandivider.png",
