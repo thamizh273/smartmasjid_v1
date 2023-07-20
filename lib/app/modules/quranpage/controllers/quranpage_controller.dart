@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
+import '../model/quran_detail_model.dart';
 import '../model/quran_model.dart';
+import '../views/qurandetails.dart';
 
 class QuranpageController extends GetxController {
   //TODO: Implement QuranpageController
@@ -15,10 +17,11 @@ class QuranpageController extends GetxController {
   final _restCallController = Get.put(restCallController());
   RxInt currentSelected = 1.obs;
   RxBool isLoadings = false.obs;
+  RxBool isLoadings1 = false.obs;
   var isSearchEnabled = false.obs;
   var getqurandata = QuranModel().obs;
+  var getqurandetail = QuranDetailModel().obs;
   var searchQuery = ''.obs;
-
 
 
   void toggleSearch() {
@@ -32,6 +35,7 @@ class QuranpageController extends GetxController {
   @override
   void onInit() {
     quranChapterList();
+
     super.onInit();
   }
 
@@ -45,9 +49,11 @@ class QuranpageController extends GetxController {
   void onClose() {
     super.onClose();
   }
+
   void openDrawer() {
     scaffoldKey.currentState?.openDrawer();
   }
+
   @override
   void dispose() {
     scrollController.dispose();
@@ -58,7 +64,7 @@ class QuranpageController extends GetxController {
 
 
   quranChapterList() async {
-    isLoadings.value=true;
+    isLoadings.value = true;
     var header = """
 query Query(\$getChapterByMsId: String) {
   Quran_Filter(get_chapter_by_ms_id: \$getChapterByMsId) {
@@ -78,7 +84,7 @@ query Query(\$getChapterByMsId: String) {
     """;
 
     var body = {
-      "getChapterByMsId": "5be1d5b1-85ed-485a-b8a9-0e96e5277718",
+      "getChapterByMsId": "a4fee385-0641-4dce-bd42-f35ee278ce35",
 
     };
     var res = await _restCallController.gql_query(header, body);
@@ -86,11 +92,47 @@ query Query(\$getChapterByMsId: String) {
     // print(json.encode(res));
     // print("lllll");
     log("data sign ${json.encode(res)}");
-    isLoadings.value=false;
-    getqurandata.value=quranModelFromJson(json.encode(res));
+    isLoadings.value = false;
+    getqurandata.value = quranModelFromJson(json.encode(res));
 
     update();
+  }
 
+  quranDetailList(index) async {
+    isLoadings.value = true;
+    var header = """
+query Query(\$chapterNo: String!) {
+  Get_Quran_Ayah_Verse(chapter_no: \$chapterNo) {
+    makki_madina
+    sura_chapter_no
+    sura_name_en
+    title_en
+    total_verses
+    ayah_list {
+      arabic_audio
+      arabic_text
+      ayah_no
+      eng_translation
+      hindi_translation
+      tamil_translation
+      verses_key
+    }
+  }
+}
+    """;
 
+    var body = {
+      "chapterNo": "${index}",
+
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data new ${json.encode(res)}");
+    isLoadings.value = false;
+    getqurandetail.value = qurandetailModelFromJson(json.encode(res));
+    Get.to(QuranDetails());
+    update();
   }
 }

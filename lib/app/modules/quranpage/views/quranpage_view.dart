@@ -361,24 +361,40 @@ class _QuranpageViewState extends State<QuranpageView> {
                                 controller: c.scrollController,
                                 radius: Radius.circular(20),
                                 child: ListView.builder(
+                                  padding: EdgeInsets.all(0),
                                   controller: c.scrollController,
                                   itemCount: filteredSurah.length,
                                   itemBuilder: (context, index) {
                                     var sura = filteredSurah[index];
                                     return ListTile(
+                                      dense: true,
                                       title: GestureDetector(
                                         onTap: (){
-                                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
+                                          print("mmmmmmmm ${index}");
+                                          c.quranDetailList(index +1);
+
+                                          // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
                                         },
                                         child: Container(
-                                          height: 80,
+                                          // height: 70.h,
                                           width: double.infinity,
                                           decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(8),
+                                              borderRadius: BorderRadius.only(
+                                                  // topRight: Radius.circular(8),
+                                                  bottomLeft: Radius.circular(8),
+                                                bottomRight: Radius.circular(8),
+                                              ),
                                               color: Colors.white,
-                                              border: Border.all(
-                                                  color: Color(0xff16627C)
-                                              )
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 4,
+                                                color: Colors.grey.shade600,
+                                                offset: Offset(5, 4), // Shadow position
+                                              ),
+                                            ],
+                                              // border: Border.all(
+                                              //     color: Color(0xff16627C)
+                                              // )
                                           ),
                                           child: Row(
                                             children: [
