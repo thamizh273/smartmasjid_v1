@@ -341,15 +341,39 @@ class _QuranpageViewState extends State<QuranpageView> {
                                         color: Color(0xff16627C),
                                         child: Row(
                                           children: [
-                                            Icon(Icons.menu, color: Colors.white,),
                                             Space(8),
                                             Text("Go to verse", style: TextStyle(
                                                 color: Colors.white)),
+                                            Space(8),
+                                            Image.asset("assets/images/goto.png",width: 15,)
                                           ],
                                         ),
                                       ),
                                       onTap: () => c.openDrawer()
                                   ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text("Last read :"),
+                                  OutlinedButton(
+                                      onPressed: (){
+
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        minimumSize: Size(150, 40),
+                                        // backgroundColor: Theme.of(context).colorScheme.secondary,
+                                        foregroundColor: Theme.of(context).colorScheme.primary,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(8),
+                                        ),
+                                        elevation: 4.0,
+                                      ),
+                                      child: Text("Al Faatihah", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),)),
                                 ],
                               ),
                             ),
