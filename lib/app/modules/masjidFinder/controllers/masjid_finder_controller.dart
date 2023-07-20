@@ -89,7 +89,7 @@ query Get_masjid_filter(\$searchBy: String) {
 
   signUpComplete(String? id) async {
     var header = """
-mutation Register_User(\$masjidid: String, \$profileImage: Buffer, \$firstName: String, \$lastName: String, \$phoneNumber: String, \$emailId: String, \$passWord: String, \$language: String, \$userType: String, \$authUid: String) {
+mutation Register_User(\$masjidid: String, \$profileImage: String, \$firstName: String, \$lastName: String, \$phoneNumber: String, \$emailId: String, \$passWord: String, \$language: String, \$userType: String, \$authUid: String) {
   Register_User(masjidid: \$masjidid, profile_image: \$profileImage, first_name: \$firstName, last_name: \$lastName, phone_number: \$phoneNumber, email_id: \$emailId, pass_word: \$passWord, language: \$language, user_type: \$userType, auth_uid_: \$authUid) {
     message
     user_id

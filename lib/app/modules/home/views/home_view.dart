@@ -57,7 +57,8 @@ class HomeView extends StatelessWidget {
                   height: 30.00, width: 40.00),
             ),
             title: Text(
-              "${controller.getUserData.value.getUserById!.masjidId!.masjidName}",
+              "${controller.getUserData.value.getUserById!.masjidId!
+                  .masjidName}",
               style: TextStyle(color: Theme
                   .of(context)
                   .primaryColor),),
@@ -67,12 +68,11 @@ class HomeView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(right: 10),
                 child: GestureDetector(
-                  onTap: ()  {
-
+                  onTap: () {
                     // List<int> imageBytes =  base64Decode("${controller.getUserData.value.getUserById!.profileImage!.data}");
                     // print("${controller.getUserData.value.getUserById!.profileImage!.data}");
                     // print('wwww $imageBytes');
-                      Get.toNamed(Routes.SPLASH_SCREEN);
+                    Get.toNamed(Routes.SPLASH_SCREEN);
                     // Navigator.push(
                     //   context,
                     //   PageRouteBuilder(
@@ -97,14 +97,20 @@ class HomeView extends StatelessWidget {
                     child: CircleAvatar(
                       radius: 21.5,
                       backgroundColor: themeData.primaryColor,
-                      child: 
-
-
-                          CircleAvatar(
+                      child:
+                      Obx(() {
+                        var imageBytes = base64Decode(controller.getUserData.value.getUserById!.profileImage.toString());
+                        return controller.getUserData.value.getUserById!.profileImage==null?CircleAvatar(
                           foregroundImage: AssetImage("assets/images/avathar.png"),
                           radius: 20,
                           backgroundColor: Colors.white,
-                        ),
+                        ):CircleAvatar(
+                          // foregroundImage: AssetImage("assets/images/avathar.png"),
+                          foregroundImage:MemoryImage(imageBytes),
+                          radius: 20,
+                          backgroundColor: Colors.white,
+                        );
+                      }),
 
                     ),
                   ),

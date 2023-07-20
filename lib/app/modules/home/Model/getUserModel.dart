@@ -31,18 +31,18 @@ class GetUserModel {
 class GetUserById {
   String? typename;
   String? id;
-  ProfileImage? profileImage;
+  String? profileImage;
   String? authUid;
-  dynamic dob;
+  String? dob;
   String? emailId;
   String? firstName;
   String? language;
   String? lastName;
-  dynamic liveStatus;
+  bool? liveStatus;
   MasjidId? masjidId;
   String? memberStatus;
   String? phoneNumber;
-  dynamic post;
+  String? post;
   String? userType;
 
   GetUserById({
@@ -66,7 +66,7 @@ class GetUserById {
   factory GetUserById.fromJson(Map<String, dynamic> json) => GetUserById(
     typename: json["__typename"],
     id: json["id"],
-    profileImage: json["profile_image"] == null ? null : ProfileImage.fromJson(json["profile_image"]),
+    profileImage: json["profile_image"],
     authUid: json["auth_uid"],
     dob: json["dob"],
     emailId: json["email_id"],
@@ -84,7 +84,7 @@ class GetUserById {
   Map<String, dynamic> toJson() => {
     "__typename": typename,
     "id": id,
-    "profile_image": profileImage?.toJson(),
+    "profile_image": profileImage,
     "auth_uid": authUid,
     "dob": dob,
     "email_id": emailId,
@@ -137,25 +137,5 @@ class MasjidId {
     "area": area,
     "about": about,
     "district": district,
-  };
-}
-
-class ProfileImage {
-  String? type;
-  List<int>? data;
-
-  ProfileImage({
-    this.type,
-    this.data,
-  });
-
-  factory ProfileImage.fromJson(Map<String, dynamic> json) => ProfileImage(
-    type: json["type"],
-    data: json["data"] == null ? [] : List<int>.from(json["data"]!.map((x) => x)),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "type": type,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x)),
   };
 }

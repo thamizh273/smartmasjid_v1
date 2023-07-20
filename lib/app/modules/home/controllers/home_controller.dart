@@ -14,13 +14,14 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class HomeController extends GetxController with GetSingleTickerProviderStateMixin{
   //TODO: Implement HomeController
   final _restCallController = Get.put(restCallController());
-  var profileImageData = Uint8List(0).obs;
+
 
   late TabController tabController;
   RxInt currentPage=0.obs;
   RxBool alarm = false.obs;
   RxBool isloading = false.obs;
   var getUserData=GetUserModel().obs;
+
 
 
 
@@ -84,7 +85,7 @@ query Get_User_By_Id(\$id: String) {
 }
     """;
     var body ={
-      "id": "7d1116f5-cc6c-44bf-9126-86adb045622d"
+      "id": "8c2b377a-c61a-4e3a-889d-f42294024a99"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;

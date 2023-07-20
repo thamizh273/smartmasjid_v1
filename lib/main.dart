@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'app/authRepository.dart';
+import 'app/localization/localization.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/export.dart';
 import 'firebase_options.dart';
@@ -39,11 +40,13 @@ void main() async{
           client: client,
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
+            // translations: Localization(),
+            // locale: Locale('en','US'),
             title: "Application",
             theme: ThemeService().lightTheme,
             darkTheme: ThemeService().darkTheme,
             themeMode: ThemeService().getThemeMode(),
-            initialRoute:Routes.HOME,
+            initialRoute:AppPages.INITIAL,
             getPages: AppPages.routes,
           ),
         );

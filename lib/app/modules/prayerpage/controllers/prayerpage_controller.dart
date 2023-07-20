@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/Model/PrayerPageModel.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
@@ -12,6 +13,7 @@ class PrayerpageController extends GetxController {
   //TODO: Implement PrayerpageController
      RxBool isLoading=false.obs;
      final _restCallController = Get.put(restCallController());
+     final _homeController= Get.find<HomeController>();
      var prayerpageData = PrayerPageModel().obs;
      late Rx<Timer> timer;
       var rrr="".obs;
@@ -87,6 +89,7 @@ class PrayerpageController extends GetxController {
        return sss ;
      }
   get_prayerTime() async {
+    print("eeee ${_homeController.getUserData.value.getUserById!.masjidId!.id}");
     //masjidListdata.value.getMasjidFilter=null;
     isLoading.value = true;
     var header = """
@@ -102,10 +105,11 @@ query Query(\$masjidId: String) {
 }
     """;
     var body = {
-      "masjidId": "a4fee385-0641-4dce-bd42-f35ee278ce35"
+      "masjidId": "${_homeController.getUserData.value.getUserById!.masjidId!.id}"
     };
     var res = await _restCallController.gql_query(header, body);
     print("ssss");
+
     log(json.encode(res));
     print("ssss");
     isLoading.value = false;
