@@ -1,6 +1,7 @@
 
 
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,7 +35,7 @@ class FaceAuthController extends GetxController {
       List<int> imageBytes = await image!.readAsBytes();
       base64Image = base64Encode(imageBytes);
       print("imagess");
-      print(base64Image);
+      log(base64Image!);
       print("imagess");
       update();
 

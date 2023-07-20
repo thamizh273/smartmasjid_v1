@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -7,16 +8,21 @@ import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_cont
 import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
+import '../Model/getUserModel.dart';
 
+import 'package:flutter_hooks/flutter_hooks.dart';
 class HomeController extends GetxController with GetSingleTickerProviderStateMixin{
   //TODO: Implement HomeController
   final _restCallController = Get.put(restCallController());
-
+  var profileImageData = Uint8List(0).obs;
 
   late TabController tabController;
   RxInt currentPage=0.obs;
   RxBool alarm = false.obs;
   RxBool isloading = false.obs;
+  var getUserData=GetUserModel().obs;
+
+
 
 
   @override
@@ -51,37 +57,42 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 
     isloading.value=true;
     var header="""
-    query Query(\$id: String) {
+query Get_User_By_Id(\$id: String) {
   Get_User_By_Id(id_: \$id) {
     id
-    first_name
-    email_id
-    dob
+    profile_image
     auth_uid
+    dob
+    email_id
+    first_name
     language
     last_name
     live_status
     masjid_id {
+      id
       masjid_name
+      state
+      area
+      about
+      district
     }
-    phone_number
-    pass_word
-    post
-    profile_image
-    user_type
     member_status
+    phone_number
+    post
+    user_type
   }
 }
     """;
     var body ={
-      "id": "1dda1ece-6f81-497c-86fd-b28074c00389"
+      "id": "7d1116f5-cc6c-44bf-9126-86adb045622d"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;
     print("getUser");
-
+   getUserData.value=getUserModelFromJson(json.encode(res));
     log(json.encode(res));
     print("getUser");
+
   }
 
 

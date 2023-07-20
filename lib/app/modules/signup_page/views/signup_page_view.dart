@@ -46,6 +46,7 @@ class SignupPageView extends GetView<SignupPageController> {
 
                       12.horizontalSpace,
                       Safa_textfield(
+                        prefixIcon: Icon(Icons.person),
                         controller: controller.lastNameCtrl.value,
                         hint: ' Last Name',
                         width: .9,

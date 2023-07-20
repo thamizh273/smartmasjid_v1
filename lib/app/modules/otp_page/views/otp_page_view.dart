@@ -98,7 +98,7 @@ class OtpPageView extends StatelessWidget {
                                       Theme.of(context).colorScheme.primary,
                                   foregroundColor: Colors.white,
                                   fixedSize: Size(120, 35)),onPressed: () {
-
+                                 Get.toNamed(Routes.MASJID_FINDER);
 
                           //OtpPageController.instance.verifyOTP(Controller.codes.value);
                     },
