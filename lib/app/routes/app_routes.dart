@@ -32,6 +32,7 @@ abstract class Routes {
   static const PINPUTS = _Paths.PINPUTS;
   static const MASJID_REQUEST = _Paths.MASJID_REQUEST;
   static const MASJIDHISTORY = _Paths.MASJIDHISTORY;
+  static const PROFILE_PAGE = _Paths.PROFILE_PAGE;
 }
 
 abstract class _Paths {
@@ -65,4 +66,5 @@ abstract class _Paths {
   static const PINPUTS = '/pinputs';
   static const MASJID_REQUEST = '/masjid-request';
   static const MASJIDHISTORY = '/masjidhistory';
+  static const PROFILE_PAGE = '/profile-page';
 }

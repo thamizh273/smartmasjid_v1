@@ -43,6 +43,7 @@ dependencies:
   google_sign_in: ^6.1.4
   flutter_otp_text_field: ^1.1.1
   flutter_hooks: ^0.18.2
+  google_fonts:
   flutter: 
     sdk: flutter
 

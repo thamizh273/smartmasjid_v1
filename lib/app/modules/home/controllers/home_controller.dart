@@ -22,14 +22,13 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   RxBool isloading = false.obs;
   var getUserData=GetUserModel().obs;
 
+     // var imageBytes=images.obs;
 
 
 
 
   @override
   void onInit() {
-
-
     getUserDetails();
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
