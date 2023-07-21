@@ -349,7 +349,92 @@ class _QuranpageViewState extends State<QuranpageView> {
                                           ],
                                         ),
                                       ),
-                                      onTap: () => c.openDrawer()
+                                      // onTap: () => c.openDrawer()
+                                    onTap: (){
+                                      showModalBottomSheet(
+                                        backgroundColor: Color(0xff16627C),
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Padding(
+                                            padding: const EdgeInsets.all(16),
+                                            child: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding: const EdgeInsets.all(16),
+                                                  child: Row(
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Text("Surah", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),),
+                                                      Space(16),
+                                                      Spacer(),
+                                                      Text("Ayah",style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600,color: Colors.white),),
+                                                      Space(32),
+                                                      Text("Pages",style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600,color: Colors.white),),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: ListView.builder(
+                                                      controller: c.scrollController,
+                                                      // shrinkWrap: true,
+                                                      itemCount: c.getqurandata.value.quranFilter!
+                                                          .length,
+                                                      itemBuilder: (context, index) {
+                                                        var sura = c.getqurandata.value
+                                                            .quranFilter![index];
+                                                        return Obx(() {
+                                                          return Container(
+                                                            color: c.currentSelected.value == index
+                                                                ? Color(
+                                                                0xffEBEBEB)
+                                                                : Color(0xff16627C),
+                                                            child: ListTile(
+                                                              dense: true,
+                                                              title: Row(
+                                                                children: [
+                                                                  Text("${sura.suraChapterNo}.",
+                                                                      style: TextStyle(
+                                                                          color: c.currentSelected
+                                                                              .value == index
+                                                                              ? Color(0xff16627C)
+                                                                              : Colors.white,
+                                                                          fontSize: 15)),
+                                                                  SizedBox(
+                                                                    width: 5,
+                                                                  ),
+                                                                  Text("${sura.suraNameEn}",
+                                                                      style: TextStyle(
+                                                                          color: c.currentSelected
+                                                                              .value ==
+                                                                              index
+                                                                              ? Color(0xff16627C)
+                                                                              : Colors.white,
+                                                                          fontSize: 15)),
+                                                                ],
+                                                              ),
+                                                              onTap: () {
+                                                                // getQuranChaptersList();
+                                                                // setState(() {
+                                                                //   _currentSelected = index;
+                                                                // });
+                                                                c.currentSelected.value = index;
+                                                                c.update();
+                                                              },
+                                                            ),
+                                                          );
+                                                        });
+                                                      }
+
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
@@ -360,27 +445,35 @@ class _QuranpageViewState extends State<QuranpageView> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text("Last read :"),
-                                  OutlinedButton(
-                                      onPressed: (){
-
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        minimumSize: Size(150, 40),
-                                        // backgroundColor: Theme.of(context).colorScheme.secondary,
-                                        foregroundColor: Theme.of(context).colorScheme.primary,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        elevation: 4.0,
-                                      ),
-                                      child: Text("Al Faatihah", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),)),
+                                  Space(8),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(color: Theme.of(context).primaryColor)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text("Al Faatiah",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14, color: Theme.of(context).primaryColor), ),
+                                    ),
+                                  ),
+                                  Space(8),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        border: Border.all(color: Theme.of(context).primaryColor)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: Text("Al Faatiah",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 14, color: Theme.of(context).primaryColor), ),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
                             Space(8),
                             Expanded(
                               child: Scrollbar(
-                                isAlwaysShown: true,
+                                thumbVisibility: true,
                                 thickness: 8,
                                 controller: c.scrollController,
                                 radius: Radius.circular(20),
@@ -391,6 +484,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                   itemBuilder: (context, index) {
                                     var sura = filteredSurah[index];
                                     return ListTile(
+                                      minVerticalPadding: 0,
                                       dense: true,
                                       title: GestureDetector(
                                         onTap: (){
@@ -400,20 +494,20 @@ class _QuranpageViewState extends State<QuranpageView> {
                                           // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
                                         },
                                         child: Container(
-                                          // height: 70.h,
+                                          height: 70.h,
                                           width: double.infinity,
                                           decoration: BoxDecoration(
                                               borderRadius: BorderRadius.only(
                                                   // topRight: Radius.circular(8),
-                                                  bottomLeft: Radius.circular(8),
-                                                bottomRight: Radius.circular(8),
+                                                  topRight: Radius.circular(16),
+                                                topLeft: Radius.circular(16),
                                               ),
                                               color: Colors.white,
                                             boxShadow: [
                                               BoxShadow(
-                                                blurRadius: 4,
-                                                color: Colors.grey.shade600,
-                                                offset: Offset(5, 4), // Shadow position
+                                                blurRadius: 6,
+                                                color: Colors.grey.shade400,
+                                                offset: Offset(0, -4), // Shadow position
                                               ),
                                             ],
                                               // border: Border.all(
