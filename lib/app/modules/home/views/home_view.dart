@@ -72,7 +72,7 @@ class HomeView extends StatelessWidget {
                     // List<int> imageBytes =  base64Decode("${controller.getUserData.value.getUserById!.profileImage!.data}");
                     // print("${controller.getUserData.value.getUserById!.profileImage!.data}");
                     // print('wwww $imageBytes');
-                    Get.toNamed(Routes.SPLASH_SCREEN);
+                    Get.toNamed(Routes.PROFILE_PAGE);
                     // Navigator.push(
                     //   context,
                     //   PageRouteBuilder(

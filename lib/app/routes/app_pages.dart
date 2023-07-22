@@ -32,6 +32,8 @@ import '../modules/prayerpage/bindings/prayerpage_binding.dart';
 import '../modules/prayerpage/views/prayerpage_view.dart';
 import '../modules/prayertimes/bindings/prayertimes_binding.dart';
 import '../modules/prayertimes/views/prayertimes_view.dart';
+import '../modules/profilePage/bindings/profile_page_binding.dart';
+import '../modules/profilePage/views/profile_page_view.dart';
 import '../modules/qiblafinderpage/bindings/qiblafinderpage_binding.dart';
 import '../modules/qiblafinderpage/views/qiblafinderpage_view.dart';
 import '../modules/quranpage/bindings/quranpage_binding.dart';
@@ -69,7 +71,7 @@ class AppPages {
         page: () => HomeView(),
         binding: HomeBinding(),
         transition: Transition.cupertino,
-        transitionDuration: Duration(seconds: 2)),
+        transitionDuration: Duration(seconds: 1)),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
       page: () => const SplashScreenView(),
@@ -201,12 +203,17 @@ class AppPages {
       name: _Paths.MASJID_REQUEST,
       page: () => const MasjidRequestView(),
       binding: MasjidRequestBinding(),
-   ),
+    ),
     GetPage(
       name: _Paths.MASJIDHISTORY,
       page: () => const MasjidhistoryView(),
       binding: MasjidhistoryBinding(),
-
     ),
+    GetPage(
+        name: _Paths.PROFILE_PAGE,
+        page: () => ProfilePageView(),
+        binding: ProfilePageBinding(),
+        transition: Transition.fade,
+        transitionDuration: const Duration(milliseconds: 600)),
   ];
 }

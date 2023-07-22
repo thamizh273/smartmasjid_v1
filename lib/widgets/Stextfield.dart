@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../app/routes/export.dart';
 import '../utils/color_utils.dart';
 
 
@@ -89,15 +91,19 @@ import '../utils/color_utils.dart';
 // }
 
 class Safa_textfield extends StatelessWidget {
-  const Safa_textfield({super.key, this.controller, this.hint, this.prefixIcon, this.suffixIcon, this.width, this.obscureText, this.keyboardType});
-
+   Safa_textfield({super.key, this.controller, this.hint, this.prefixIcon, this.suffixIcon, this.width, this.obscureText, this.keyboardType, this.label, this.fillColor, this.length});
+  FocusNode myFocusNode = FocusNode();
 
   final TextEditingController? controller;
+
   final String? hint;
+  final String? label;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final double? width;
   final bool? obscureText;
+  final int? length;
+  final Color? fillColor;
   final TextInputType? keyboardType;
 
   @override
@@ -108,27 +114,30 @@ class Safa_textfield extends StatelessWidget {
               .of(context)
               .size
               .width * (width ?? 1),
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [
-            hexStringToColor("818F93"),
-            hexStringToColor("3B555C"),
-          ]),
-          borderRadius: BorderRadius.circular(8)),
+      // decoration:  BoxDecoration(
+      //     gradient: LinearGradient(colors: [
+      //       hexStringToColor("818F93"),
+      //       hexStringToColor("3B555C"),
+      //     ]),
+      //     borderRadius: BorderRadius.circular(8)),
       child: TextField(
-
+        focusNode: myFocusNode,
         keyboardType: keyboardType??TextInputType.text,
         obscureText:obscureText??false ,
+          maxLength:length??null,
         style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.w600),
         controller: controller,
 // textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
-         //  labelText: hint,
-         // labelStyle: TextStyle(color:  Color(0xffB5C5CA)),
+          hintStyle: TextStyle(),
+          counterText: "",
+          labelText: label,
+         labelStyle: TextStyle( backgroundColor: myFocusNode.hasFocus?Colors.grey:null),
           hintText: hint,
           filled: true,
-          fillColor: Colors.grey.shade400,
+          fillColor: fillColor?? Colors.grey.shade400,
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           border: OutlineInputBorder(
