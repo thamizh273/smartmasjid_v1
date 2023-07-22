@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:smartmasjid_v1/app/modules/audioplayer/views/audioplayer_view.dart';
 import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
@@ -229,7 +230,9 @@ class HomeView extends StatelessWidget {
                                     ),
                                     SmallCard(
                                       image: 'library',
-                                      title: 'Library', onTap: () {},
+                                      title: 'Library', onTap: () {
+                                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => AudioPlayerScreen()));
+                                    },
                                     ),
                                   ],
                                 ),

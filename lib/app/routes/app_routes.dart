@@ -33,6 +33,7 @@ abstract class Routes {
   static const MASJID_REQUEST = _Paths.MASJID_REQUEST;
   static const MASJIDHISTORY = _Paths.MASJIDHISTORY;
   static const PROFILE_PAGE = _Paths.PROFILE_PAGE;
+  static const AUDIOPLAYER = _Paths.AUDIOPLAYER;
 }
 
 abstract class _Paths {
@@ -67,4 +68,5 @@ abstract class _Paths {
   static const MASJID_REQUEST = '/masjid-request';
   static const MASJIDHISTORY = '/masjidhistory';
   static const PROFILE_PAGE = '/profile-page';
+  static const AUDIOPLAYER = '/audioplayer';
 }

@@ -28,15 +28,22 @@ class QuranpageController extends GetxController {
   var fontFont3 = "".obs;
   var fontFont4 = "".obs;
   RxDouble sliderValue = 0.0.obs;
+  RxDouble sliderValue1 = 0.0.obs;
   final isCheckedArabic = true.obs;
   final isCheckedEnglish = true.obs;
   final isCheckedTamil = false.obs;
   double screenWidth = Get.width;
-  final FocusNode radioGroupFocus1 = FocusNode();
-  final FocusNode radioGroupFocus2 = FocusNode();
+  var fontFamily = "indopak".obs;
+
+  void changeFontFamily(String family) {
+    fontFamily.value = family;
+  }
 
   void setSliderValue(double value) {
     sliderValue.value = value; // Update the sliderValue using the value passed
+  }
+  void setSliderValue1(double value) {
+    sliderValue1.value = value; // Update the sliderValue using the value passed
   }
 
   void toggleSearch() {

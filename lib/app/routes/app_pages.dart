@@ -4,6 +4,8 @@ import '../modules/addweather/bindings/addweather_binding.dart';
 import '../modules/addweather/views/addweather_view.dart';
 import '../modules/archivepage/bindings/archivepage_binding.dart';
 import '../modules/archivepage/views/archivepage_view.dart';
+import '../modules/audioplayer/bindings/audioplayer_binding.dart';
+import '../modules/audioplayer/views/audioplayer_view.dart';
 import '../modules/faceAuth/bindings/face_auth_binding.dart';
 import '../modules/faceAuth/views/face_auth_view.dart';
 import '../modules/hijripage/bindings/hijripage_binding.dart';
@@ -79,7 +81,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LANGUAGE_PAGE,
-      page: () =>  LanguagePageView(),
+      page: () => LanguagePageView(),
       binding: LanguagePageBinding(),
     ),
     GetPage(
@@ -215,5 +217,10 @@ class AppPages {
         binding: ProfilePageBinding(),
         transition: Transition.fade,
         transitionDuration: const Duration(milliseconds: 600)),
+    GetPage(
+      name: _Paths.AUDIOPLAYER,
+      page: () =>  AudioPlayerScreen(),
+      binding: AudioplayerBinding(),
+    ),
   ];
 }
