@@ -17,14 +17,17 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 
 
   late TabController tabController;
-  RxInt currentPage=0.obs;
+
   RxBool alarm = false.obs;
   RxBool isloading = false.obs;
   var getUserData=GetUserModel().obs;
 
+  var prayerTime =['fajr', 'dhuhr', 'asr', 'magrib', 'isha'];
      // var imageBytes=images.obs;
-
-
+  var currentIndex  = 0.obs;
+  void updateIndex(int index) {
+    currentIndex.value = index;
+  }
 
 
   @override

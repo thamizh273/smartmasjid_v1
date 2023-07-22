@@ -9,8 +9,16 @@ import '../../../routes/export.dart';
 import '../controllers/language_page_controller.dart';
 
 class LanguagePageView extends GetView<LanguagePageController> {
-  const LanguagePageView({Key? key}) : super(key: key);
+   LanguagePageView({Key? key}) : super(key: key);
+  final List locale = [
+    {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
+    {'name': 'മലയാളം', 'locale': Locale('ma', 'IN')},
+    {'name': 'हिंदी', 'locale': Locale('hi', 'IN')},
+  ];
 
+  updateLanguage(Locale locale) {
+    Get.updateLocale(locale);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,31 +51,37 @@ class LanguagePageView extends GetView<LanguagePageController> {
 
                     Padding(
                       padding:  EdgeInsets.only(top: 30.h,bottom: 8.h),
-                      child: Obx(() {
-                        return SafaDropdownButton2(
-                          
-                          buttonDecoration: BoxDecoration( border: Border.all(color: Get.theme.colorScheme.primary,),borderRadius: BorderRadius.circular(10)),
-                          offset: Offset(0, -5),
-                          buttonHeight: 40.h,
-                          // dropdownPadding: EdgeInsets.only(top: 10),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,
+                            width: 1.0,
+                          ),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: DropdownButton<Locale>(
+                          underline: Container(),
+                          isExpanded: true,
+                          padding: EdgeInsets.all(0),
 
-                          icon: Icon(Icons.arrow_drop_down),
-                          iconSize: 30,
-                          iconEnabledColor: Get.theme.colorScheme.primary,
-                          buttonWidth: 270.w,
-                         dropdownWidth: 260.w,
-                          hint: 'Select your language',
-                         value: controller.selectedLang.value,
-                          dropdownItems:  ["English", "Tamil", "Arabic", "Hindi"],
-                          onChanged: (String? value) {
-                            controller.selectedLang.value = value!;
 
-                            print( controller.selectedLang.value);
-                            controller.update();
+                          value: Get.locale,
+                          onChanged: (newValue) {
+                            updateLanguage(newValue!);
                           },
-                        );
-                      }),
+                          items: locale.map<DropdownMenuItem<Locale>>(
+                                (item) {
+                              return DropdownMenuItem<Locale>(
+                                alignment : AlignmentDirectional.center,
+                                value: item['locale'],
+                                child: Text(item['name']),
+                              );
+                            },
+                          ).toList(),
+
                     ),
+                      )),
                     // safa_dropdown(
                     //   height: 160,
                     //   items: ["Tamil", "English", "Arabic", "Hindi"],
@@ -75,7 +89,7 @@ class LanguagePageView extends GetView<LanguagePageController> {
                     //   hinttext: 'Select your language',
                     // ),
                     Space(16),
-                    Text("you can change it from settings anytime"),
+                    Text("yccitfsa".tr),
                     Space(16),
                     ElevatedButton(
                         onPressed: () {
@@ -100,7 +114,7 @@ class LanguagePageView extends GetView<LanguagePageController> {
                           elevation: 4.0,
                         ),
                         child: Text(
-                          "Submit",
+                          "Submit".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 15),
                         )),

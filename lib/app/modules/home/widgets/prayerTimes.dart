@@ -1,31 +1,25 @@
-
 import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/prayerdetailspage/views/prayerdetailspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
 
-
 import '../../../routes/export.dart';
+import '../controllers/home_controller.dart';
 
-
-
-class PrayerTimes extends StatefulWidget {
+class PrayerTimes extends StatelessWidget {
   PrayerTimes({
     super.key,
   });
 
-  @override
-  State<PrayerTimes> createState() => _PrayerTimesState();
-}
+  final controller = Get.put(HomeController());
 
-class _PrayerTimesState extends State<PrayerTimes> {
-  bool alarm = false;
 
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return GestureDetector(
-      onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (_) => PrayerdetailspageView()));
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => PrayerdetailspageView()));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,8 +30,104 @@ class _PrayerTimesState extends State<PrayerTimes> {
             color: themeData.primaryColor,
             weight: FontWeight.bold,
           ),
-          CarouselSlider(
-              items: ['fajr', 'dhuhr', 'asr', 'magrib', 'isha'].map((e) {
+
+          // SizedBox(
+          //   height: 100,
+          //
+          //   child: ListView.builder(
+          //     controller: _getScrollController(),
+          //     scrollDirection: Axis.horizontal,
+          //     itemCount: 5,
+          //     itemBuilder: (context, index) {
+          //
+          //       return Container(
+          //         width: 190.w,
+          //                   decoration: BoxDecoration(
+          //                       borderRadius: BorderRadius.circular(5),
+          //                       image: DecorationImage(
+          //                           image: AssetImage(
+          //                             "assets/images/${controller.prayerTime[index]}.png",
+          //                           ),
+          //                           fit: BoxFit.fill)),
+          //                   child: Padding(
+          //                     padding:  EdgeInsets.all(8.sp),
+          //                     child: Column(
+          //                       crossAxisAlignment: CrossAxisAlignment.stretch,
+          //                       children: [
+          //                         Row(
+          //                           mainAxisAlignment:
+          //                           MainAxisAlignment.spaceBetween,
+          //                           children: [
+          //                             const Stxt(
+          //                               text: "3,Dhul Quadah,1444",
+          //                               size: f1,
+          //                               color: Colors.white,
+          //                             ),
+          //                             Container(
+          //                               height: 20,
+          //                               child: Transform.scale(
+          //                                 scale: .8,
+          //                                 child: Switch(
+          //                                   inactiveThumbImage: Image.asset(
+          //                                     "assets/images/alarm_clock.png",
+          //                                   ).image,
+          //                                   activeThumbImage: const AssetImage(
+          //                                       "assets/images/alarm_clock.png"),
+          //                                   inactiveThumbColor: Colors.red[400],
+          //                                   //inactiveTrackColor: Colors.red[400],
+          //                                   activeColor: Colors.green,
+          //
+          //                                   value: controller.alarm.value,
+          //                                   onChanged: (value) {
+          //
+          //                                     controller.alarm.value = value;
+          //
+          //                                   },
+          //
+          //                                   splashRadius: 20,
+          //                                 ),
+          //                               ),
+          //                             )
+          //                           ],
+          //                         ),
+          //                         Padding(
+          //                           padding:
+          //                           const EdgeInsets.symmetric(vertical: 2),
+          //                           child: Stxt(
+          //                             text:
+          //                             '${controller.prayerTime[index][0].toUpperCase()}${controller.prayerTime[index].substring(1)}',
+          //                             size: f3,
+          //                             color: Colors.white,
+          //                             weight: FontWeight.bold,
+          //                           ),
+          //                         ),
+          //                         Stxt(
+          //                           text:
+          //                           "${DateFormat.jm().format(DateTime.now())}",
+          //                           size: 18.sp,
+          //                           color: Colors.white,
+          //                           weight: FontWeight.bold,
+          //                         ),
+          //                         Padding(
+          //                           padding: const EdgeInsets.only(right: 5),
+          //                           child: Stxt(
+          //                             text:
+          //                             "-${DateFormat.Hms().format(DateTime.now())}",
+          //                             size: f2,
+          //                             color: Colors.white,
+          //                             weight: FontWeight.bold,
+          //                             textAlign: TextAlign.end,
+          //                           ),
+          //                         ),
+          //
+          //                       ]),
+          //                   ));},
+          //   ),
+          // ),
+          ///
+          Obx(() {
+            return CarouselSlider(
+              items: controller.prayerTime.map((e) {
                 return Padding(
                     padding: EdgeInsets.only(
                       top: 5,
@@ -72,20 +162,20 @@ class _PrayerTimesState extends State<PrayerTimes> {
                                       child: Transform.scale(
                                         scale: .8,
                                         child: Switch(
-                                          inactiveThumbImage: Image.asset(
+                                          inactiveThumbImage: Image
+                                              .asset(
                                             "assets/images/alarm_clock.png",
-                                          ).image,
+                                          )
+                                              .image,
                                           activeThumbImage: const AssetImage(
                                               "assets/images/alarm_clock.png"),
                                           inactiveThumbColor: Colors.red[400],
                                           //inactiveTrackColor: Colors.red[400],
                                           activeColor: Colors.green,
 
-                                          value: alarm,
+                                          value: controller.alarm.value,
                                           onChanged: (value) {
-                                            setState(() {
-                                              alarm = value;
-                                            });
+                                            controller.alarm.value = value;
                                           },
 
                                           splashRadius: 20,
@@ -116,7 +206,8 @@ class _PrayerTimesState extends State<PrayerTimes> {
                                   padding: const EdgeInsets.only(right: 5),
                                   child: Stxt(
                                     text:
-                                    "-${DateFormat.Hms().format(DateTime.now())}",
+                                    "-${DateFormat.Hms().format(
+                                        DateTime.now())}",
                                     size: f2,
                                     color: Colors.white,
                                     weight: FontWeight.bold,
@@ -138,39 +229,49 @@ class _PrayerTimesState extends State<PrayerTimes> {
                 );
               }).toList(),
               options: CarouselOptions(
-                  enlargeStrategy: CenterPageEnlargeStrategy.height,
-                  enlargeCenterPage: false,
-                  // enlargeFactor: .4,
-                  padEnds: false,
-                  enableInfiniteScroll: false,
-                  initialPage: 0,
-                  height: 120,
-                  viewportFraction: .6)),
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
+                enlargeCenterPage: false,
+                // enlargeFactor: .4,
+                padEnds: false,
+                enableInfiniteScroll: false,
+                initialPage: 0,
+                height: 120,
+                viewportFraction: .67,
+                onPageChanged: (index, reason) {
+                  // Update the index in the controller
+                  controller.updateIndex(index);
+                },
+              ),
+            );
+          }),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                width: 80.w,
-                child: StepProgressIndicator(
-                  totalSteps: 6,
-                  currentStep: 2,
-                  size: 5,
-                  padding: 0,
-                  selectedColor: themeData.primaryColor,
-                  unselectedColor: themeData.colorScheme.secondary,
-                  roundedEdges: Radius.circular(10),
-                  // selectedGradientColor: LinearGradient(
-                  //   begin: Alignment.topLeft,
-                  //   end: Alignment.bottomRight,
-                  //   colors: [Colors.yellowAccent, Colors.deepOrange],
-                  // ),
-                  // unselectedGradientColor: LinearGradient(
-                  //   begin: Alignment.topLeft,
-                  //   end: Alignment.bottomRight,
-                  //   colors: [Colors.black, Colors.blue],
-                  // ),
-                ),
-              ),
+              Obx(() {
+                return SizedBox(
+                  width: 100.w,
+                  child: StepProgressIndicator(
+
+                    totalSteps:5,
+                    currentStep: controller.currentIndex.value+1,
+                    size: 5,
+                    padding: .01,
+                    selectedColor: themeData.primaryColor,
+                    unselectedColor: themeData.colorScheme.secondary,
+                    roundedEdges: Radius.circular(10),
+                    // selectedGradientColor: LinearGradient(
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomRight,
+                    //   colors: [Colors.yellowAccent, Colors.deepOrange],
+                    // ),
+                    // unselectedGradientColor: LinearGradient(
+                    //   begin: Alignment.topLeft,
+                    //   end: Alignment.bottomRight,
+                    //   colors: [Colors.black, Colors.blue],
+                    // ),
+                  ),
+                );
+              }),
             ],
           ),
         ],

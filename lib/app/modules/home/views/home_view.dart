@@ -51,10 +51,15 @@ class HomeView extends StatelessWidget {
                 color: Color(0xffD8E4E8),
               ),
             ),
-            leading: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: SvgPicture.asset("assets/svg/slogo.svg",
-                  height: 30.00, width: 40.00),
+            leading: GestureDetector(
+              onDoubleTap: (){
+                Get.toNamed(Routes.SPLASH_SCREEN);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: SvgPicture.asset("assets/svg/slogo.svg",
+                    height: 30.00, width: 40.00),
+              ),
             ),
             title: Text(
               "${controller.getUserData.value.getUserById!.masjidId!

@@ -70,8 +70,8 @@ class AppPages {
         name: _Paths.HOME,
         page: () => HomeView(),
         binding: HomeBinding(),
-        transition: Transition.cupertino,
-        transitionDuration: Duration(seconds: 1)),
+        transition: Transition.rightToLeftWithFade,
+        transitionDuration: Duration(milliseconds: 600)),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
       page: () => const SplashScreenView(),
@@ -79,7 +79,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.LANGUAGE_PAGE,
-      page: () => const LanguagePageView(),
+      page: () =>  LanguagePageView(),
       binding: LanguagePageBinding(),
     ),
     GetPage(

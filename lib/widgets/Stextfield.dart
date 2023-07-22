@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../app/routes/export.dart';
 import '../utils/color_utils.dart';
 
-
 // class Safa_textfield extends StatelessWidget {
 //   const Safa_textfield({
 //     super.key,
@@ -90,9 +89,21 @@ import '../utils/color_utils.dart';
 //   }
 // }
 
-class Safa_textfield extends StatelessWidget {
-   Safa_textfield({super.key, this.controller, this.hint, this.prefixIcon, this.suffixIcon, this.width, this.obscureText, this.keyboardType, this.label, this.fillColor, this.length});
-  FocusNode myFocusNode = FocusNode();
+class Safa_textfield extends StatefulWidget {
+  Safa_textfield(
+      {super.key,
+      this.controller,
+      this.hint,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.width,
+      this.obscureText,
+      this.keyboardType,
+      this.label,
+      this.fillColor,
+      this.length, this.readOnly,
+       // this.onChanged
+      });
 
   final TextEditingController? controller;
 
@@ -102,18 +113,42 @@ class Safa_textfield extends StatelessWidget {
   final Widget? suffixIcon;
   final double? width;
   final bool? obscureText;
+  final bool? readOnly;
   final int? length;
   final Color? fillColor;
   final TextInputType? keyboardType;
+  //final Function(String?)? onChanged;
+
+
+  @override
+  State<Safa_textfield> createState() => _Safa_textfieldState();
+}
+
+class _Safa_textfieldState extends State<Safa_textfield> {
+  FocusNode myFocusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    myFocusNode.addListener(_onFocusChange);
+  }
+
+  @override
+  void dispose() {
+    myFocusNode.removeListener(_onFocusChange);
+    myFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _onFocusChange() {
+    setState(() {}); // Trigger a rebuild when focus changes
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-     margin: EdgeInsets.symmetric(vertical: 6.h),
-      width: MediaQuery
-              .of(context)
-              .size
-              .width * (width ?? 1),
+      margin: EdgeInsets.symmetric(vertical: 6.h),
+      width: MediaQuery.of(context).size.width * (widget.width ?? 1),
       // decoration:  BoxDecoration(
       //     gradient: LinearGradient(colors: [
       //       hexStringToColor("818F93"),
@@ -121,32 +156,44 @@ class Safa_textfield extends StatelessWidget {
       //     ]),
       //     borderRadius: BorderRadius.circular(8)),
       child: TextField(
+      //  onChanged: (value) => widget.onChanged!(value),
+          readOnly:widget.readOnly??false ,
         focusNode: myFocusNode,
-        keyboardType: keyboardType??TextInputType.text,
-        obscureText:obscureText??false ,
-          maxLength:length??null,
+        keyboardType: widget.keyboardType ?? TextInputType.text,
+        obscureText: widget.obscureText ?? false,
+        maxLength: widget.length ?? null,
         style: TextStyle(
             color: Theme.of(context).colorScheme.primary,
             fontWeight: FontWeight.w600),
-        controller: controller,
+        controller: widget.controller,
 // textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
           hintStyle: TextStyle(),
           counterText: "",
-          labelText: label,
-         labelStyle: TextStyle( backgroundColor: myFocusNode.hasFocus?Colors.grey:null),
-          hintText: hint,
+          // labelText: widget.label,
+          label:widget.label!=null? Container(
+            padding: EdgeInsets.symmetric(vertical: 2,horizontal: 4),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: myFocusNode.hasFocus ? Get.theme.primaryColor: null),
+            child: Stxt(
+              text: '${widget.label}',color: myFocusNode.hasFocus ?Colors.white:null,
+              size: f2,
+            ),
+          ):null,
+          // labelStyle: TextStyle( backgroundColor: myFocusNode.hasFocus?Colors.grey.shade300:null),
+          hintText: widget.hint,
           filled: true,
-          fillColor: fillColor?? Colors.grey.shade400,
-          prefixIcon: prefixIcon,
-          suffixIcon: suffixIcon,
+          fillColor: widget.fillColor ?? Colors.grey.shade400,
+          prefixIcon: widget.prefixIcon,
+          suffixIcon: widget.suffixIcon,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(
-              color: Colors.grey,
+            borderSide:  BorderSide(
+              color: myFocusNode.hasFocus?Get.theme.primaryColor:Colors.grey,
 // Change the border color for focused state
               width: 2.0, // Change the border width for focused state
             ),
