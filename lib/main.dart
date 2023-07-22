@@ -52,7 +52,7 @@ void main() async{
             theme: ThemeService().lightTheme,
             darkTheme: ThemeService().darkTheme,
             themeMode: ThemeService().getThemeMode(),
-            initialRoute:AppPages.INITIAL,
+            initialRoute:Routes.HOME,
             getPages: AppPages.routes,
           ),
         );

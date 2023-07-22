@@ -45,7 +45,8 @@ dependencies:
   flutter_hooks: ^0.18.2
   google_fonts:
   custom_alert_dialog_box: ^1.0.2
-  auto_size_text: ^3.0.0
+  audioplayers: ^4.1.0
+  just_audio: ^0.9.34
   flutter: 
     sdk: flutter
 
@@ -96,3 +97,24 @@ flutter:
       fonts:
         - asset: assets/fonts/TimesNewRomanPSBoldMT.ttf
           weight: 700
+    - family: Indopak
+      fonts:
+        - asset: assets/fonts/Indopak.ttf
+          weight: 500
+    - family: Qalam
+      fonts:
+        - asset: assets/fonts/Qalam.ttf
+          weight: 500
+    - family: Quranic
+      fonts:
+        - asset: assets/fonts/Quranic.ttf
+          weight: 500
+    - family: Amiri
+      fonts:
+        - asset: assets/fonts/Amiri.ttf
+          weight: 500
+    - family: Indo
+      fonts:
+        - asset: assets/fonts/Indo.ttf
+          weight: 500
+

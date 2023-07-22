@@ -10,6 +10,7 @@ import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../theme/theme.dart';
 import '../../../../widgets/space.dart';
+import '../../audioplayer/controllers/audioplayer_controller.dart';
 import '../controllers/quranpage_controller.dart';
 import '../model/quran_detail_model.dart';
 
@@ -21,6 +22,7 @@ class QuranDetails extends StatefulWidget {
 }
 
 final QuranpageController c = Get.put(QuranpageController());
+final AudioplayerController controller = Get.put(AudioplayerController());
 
 class _QuranDetailsState extends State<QuranDetails> {
   var makki = c.getqurandetail.value.getQuranAyahVerse![0].makkiMadina;
@@ -71,7 +73,7 @@ class _QuranDetailsState extends State<QuranDetails> {
           children: [
             Container(
               height: 80.h,
-              width:330.w,
+              width: 330.w,
               decoration: BoxDecoration(
                 // color: Colors.red,
                   image: DecorationImage(
@@ -115,7 +117,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                     ),
                     // Space(60),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 8, right: 32, left: 32),
+                      padding: const EdgeInsets.only(
+                          bottom: 8, right: 32, left: 32),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -176,8 +179,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                         .value
                                                         .quranFilter!
                                                         .length,
-                                                    itemBuilder: (
-                                                        context,
+                                                    itemBuilder: (context,
                                                         index) {
                                                       var sura = c
                                                           .getqurandata
@@ -296,8 +298,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                             .value]
                                                             .totalVerses}")
                                                         : 0,
-                                                    itemBuilder: (
-                                                        context,
+                                                    itemBuilder: (context,
                                                         index) {
                                                       // Replace this with your data item
                                                       return ListTile(
@@ -369,8 +370,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                             .value]
                                                             .totalVerses}")
                                                         : 0,
-                                                    itemBuilder: (
-                                                        context,
+                                                    itemBuilder: (context,
                                                         index) {
                                                       // Replace this with your data item
                                                       return ListTile(
@@ -507,30 +507,39 @@ class _QuranDetailsState extends State<QuranDetails> {
                                               alignment:
                                               Alignment.centerLeft,
                                               child: Obx(() {
+                                                double fontSize = 35.0;
+                                                String fontFamily = c.fontFamily
+                                                    .value;
+                                                double sliderValue = c
+                                                    .sliderValue.value;
+                                                if (sliderValue == 1) {
+                                                  // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                  fontSize = 45.0;
+                                                } else if (sliderValue == 2) {
+                                                  // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                  fontSize = 55.0;
+                                                }
+                                                TextStyle textStyle = TextStyle(
+                                                  fontSize: fontSize,
+                                                  fontFamily: c.fontFamily
+                                                      .value == "indopak"
+                                                      ? "Indopak"
+                                                      : c.fontFamily.value ==
+                                                      "qalam"
+                                                      ? "Qalam" : c.fontFamily
+                                                      .value == "quranic"
+                                                      ? "Quranic" : c.fontFamily
+                                                      .value == "amiri"
+                                                      ? "Amiri"
+                                                      : null, // Use the default font if "Amiri" is not selected
+                                                );
                                                 return SizedBox(
-                                                    width: c.screenWidth*0.7,
+                                                    width: c.screenWidth * 0.7,
                                                     child: c.isCheckedArabic
                                                         .value == true
                                                         ? Text(
                                                       "${sura.arabicText}",
-                                                      style: GoogleFonts
-                                                          .kalam(
-                                                        textStyle: Theme
-                                                            .of(
-                                                            context)
-                                                            .textTheme
-                                                            .displayLarge,
-                                                        fontSize: 30,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w500,
-                                                        color: Theme
-                                                            .of(
-                                                            context)
-                                                            .colorScheme
-                                                            .primary,
-                                                        wordSpacing: 3,
-                                                      ),
+                                                      style: textStyle,
                                                       textAlign:
                                                       TextAlign.end,
                                                     )
@@ -548,7 +557,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                   //   textAlign: TextAlign.end,
                                                   // ),
                                                 );
-                                              })),
+                                              })
+                                          ),
                                         ],
                                       ),
                                       // Container(
@@ -636,8 +646,47 @@ class _QuranDetailsState extends State<QuranDetails> {
                                             .of(context)
                                             .primaryColor,
                                       ),
+                                      // Row(
+                                      //   children: [
+                                      //     Obx(
+                                      //           () => IconButton(
+                                      //         icon: Icon(controller.isPlaying.value
+                                      //             ? Icons.pause
+                                      //             : Icons.play_arrow),
+                                      //         iconSize: 40.0,
+                                      //         onPressed: () {
+                                      //           if (controller.isPlaying.value) {
+                                      //             controller.pause();
+                                      //           } else {
+                                      //             controller.play();
+                                      //           }
+                                      //         },
+                                      //       ),
+                                      //     ),
+                                      //     Obx(
+                                      //           () => Slider(
+                                      //         value: controller.sliderValue.value,
+                                      //         min: 0.0,
+                                      //         max: controller.totalDuration.inMilliseconds.toDouble(),
+                                      //         onChanged: (value) {
+                                      //           controller.seekTo(value);
+                                      //         },
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                       Space(16),
                                       Obx(() {
+                                        double fontSize = 18.0;
+                                        double sliderValue = c.sliderValue1
+                                            .value;
+                                        if (sliderValue == 1) {
+                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                          fontSize = 22.0;
+                                        } else if (sliderValue == 2) {
+                                          // Set font size to 40.0 when sliderValue is 2 (Large)
+                                          fontSize = 25.0;
+                                        }
                                         return SizedBox(
                                             width: .9.sw,
                                             child: Align(
@@ -650,12 +699,22 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       fontWeight:
                                                       FontWeight
                                                           .w500,
-                                                      fontSize: 18),
+                                                      fontSize: fontSize),
                                                 )
                                                     : SizedBox()));
                                       }),
                                       Space(16),
                                       Obx(() {
+                                        double fontSize = 18.0;
+                                        double sliderValue = c.sliderValue1
+                                            .value;
+                                        if (sliderValue == 1) {
+                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                          fontSize = 22.0;
+                                        } else if (sliderValue == 2) {
+                                          // Set font size to 40.0 when sliderValue is 2 (Large)
+                                          fontSize = 25.0;
+                                        }
                                         return SizedBox(
                                             width: .9.sw,
                                             child: Align(
@@ -667,7 +726,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       fontWeight:
                                                       FontWeight
                                                           .w500,
-                                                      fontSize: 18),
+                                                      fontSize: fontSize),
                                                 )
                                                     : SizedBox.shrink()));
                                       }),
@@ -791,69 +850,67 @@ class CustomDialogBox extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: Color(0xff16627C)),
           ),
-          Obx(() {
-            return FocusScope(
-              child: Column(
+
+          Column(
+            children: [
+
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Radio(
-                        activeColor: Get.theme.primaryColor,
-                        // title: Text("Amiri"),
-                        value: "font",
-                        groupValue: c.fontAmiri.value,
-
-                        onChanged: (groupValue) => {
-                          c.fontAmiri.value = groupValue!,
-                        c.radioGroupFocus1.nextFocus(),
-                        }
-                      ),
-                      Text("Amiri"),
-                      Space(32),
-                      Radio(
-                        activeColor: Get.theme.primaryColor,
-                        // title: Text("Kalam"),
-                        value: "font",
-                        groupValue: c.fontKalam.value,
-                        onChanged: (groupValue) => {
-                          c.fontKalam.value = groupValue!,
-                          c.radioGroupFocus1.nextFocus(),
-                        }
-
-                      ),
-                      Text("Kalam"),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Radio(
-                        activeColor: Get.theme.primaryColor,
-                        // title: Text("Amiri"),
-                        value: "font",
-                        groupValue: c.fontFont3.value,
-                        onChanged: (groupValue) => {c.fontAmiri.value = groupValue!,
-                          c.radioGroupFocus2.nextFocus(),
-                        }
-                      ),
-                      Text("Font 3"),
-                      Space(32),
-                      Radio(
-                        activeColor: Get.theme.primaryColor,
-                        // title: Text("Kalam"),
-                        value: "font",
-                        groupValue: c.fontFont4.value,
-                        onChanged: (groupValue) => {
-                          c.fontAmiri.value = groupValue!,
-                          c.radioGroupFocus1.nextFocus(),
-                        }
-                      ),
-                      Text("Font 4"),
-                    ],
-                  ),
+                  Obx(() {
+                    return Radio(
+                      activeColor: Get.theme.primaryColor,
+                      // title: Text("Amiri"),
+                      value: "indopak",
+                      groupValue: c.fontFamily.value,
+                      onChanged: (groupValue) =>
+                          c.changeFontFamily(groupValue!),
+                    );
+                  }),
+                  Text("Indopak"),
+                  Space(32),
+                  Obx(() {
+                    return Radio(
+                      activeColor: Get.theme.primaryColor,
+                      // title: Text("Kalam"),
+                      value: "qalam",
+                      groupValue: c.fontFamily.value,
+                      onChanged: (groupValue) =>
+                          c.changeFontFamily(groupValue!),
+                    );
+                  }),
+                  Text("Qalam"),
                 ],
               ),
-            );
-          }),
+
+              Obx(() {
+                return Row(
+                  children: [
+                    Radio(
+                      activeColor: Get.theme.primaryColor,
+                      // title: Text("Amiri"),
+                      value: "quranic",
+                      groupValue: c.fontFamily.value,
+                      onChanged: (groupValue) =>
+                      c.fontFamily.value = groupValue!,
+                    ),
+                    Text("Quranic"),
+                    Space(32),
+                    Radio(
+                      activeColor: Get.theme.primaryColor,
+                      // title: Text("Kalam"),
+                      value: "amiri",
+                      groupValue: c.fontFamily.value,
+                      onChanged: (groupValue) =>
+                      c.fontFamily.value = groupValue!.toString(),
+                    ),
+                    Text("Amiri"),
+                  ],
+                );
+              }),
+            ],
+          ),
+
+
           Space(8),
           Divider(
             thickness: 1,
@@ -921,9 +978,9 @@ class CustomDialogBox extends StatelessWidget {
             child: Obx(() {
               // Use Obx to listen to changes in the controller's sliderValue
               return Slider(
-                onChanged: c.setSliderValue,
+                onChanged: c.setSliderValue1,
                 // Call the setSliderValue method from the controller
-                value: c.sliderValue.value,
+                value: c.sliderValue1.value,
                 // Use the sliderValue from the controller
                 min: 0,
                 max: 2,
@@ -1048,5 +1105,19 @@ class MySliderComponentShape1 extends SliderComponentShape {
       Paint()
         ..color = Color(0xff16627C),
     );
+  }
+}
+
+
+class ProfilePageController extends GetxController {
+  late String selectedGender;
+  final List<String> gender = ["Male", "Female"];
+
+  late String select;
+
+  void onClickRadioButton(value) {
+    print(value);
+    select = value;
+    update();
   }
 }

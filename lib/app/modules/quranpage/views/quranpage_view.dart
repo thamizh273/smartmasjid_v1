@@ -351,325 +351,379 @@ class _QuranpageViewState extends State<QuranpageView> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    GestureDetector(
-                                      child: Container(
-                                        height: 25,
-                                        width: 120,
-                                        color: Color(0xff16627C),
-                                        child: Row(
-                                          children: [
-                                            Space(8),
-                                            Text(
-                                                "Go to verse", style: TextStyle(
-                                                color: Colors.white)),
-                                            Space(8),
-                                            Image.asset(
-                                              "assets/images/goto.png",
-                                              width: 15,)
-                                          ],
-                                        ),
-                                      ),
-                                      // onTap: () => c.openDrawer()
-                                      onTap: () {
-                                        showModalBottomSheet(
-                                          backgroundColor: Colors.transparent,
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color: Color(0xff16627C),
-                                                borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(32),
-                                                  topRight: Radius.circular(32)
-                                                )
-                                              ),
-                                              child: Row(
-                                                crossAxisAlignment: CrossAxisAlignment
-                                                    .start,
-                                                children: [
-                                                  SizedBox(
-                                                    width: 170.w,
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          height: 60,
-                                                          child: GestureDetector(
-                                                            onTap: () {
-                                                              // getQuranChaptersList();
-                                                            },
-                                                            child: Text(
-                                                              'Surah',
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 20.0,
+                                    Column(
+                                      children: [
+                                        GestureDetector(
+                                          child: Container(
+                                            height: 50,
+                                           width: 50,
+                                           decoration: BoxDecoration(
+                                             color: Color(0xff16627C),
+                                            borderRadius: BorderRadius.circular(30)
+                                           ),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset("assets/images/goto.png", width: 25,),
+                                            ),
+
+                                            // Row(
+                                            //   children: [
+                                            //     Space(8),
+                                            //     Text(
+                                            //         "Go to verse", style: TextStyle(
+                                            //         color: Colors.white)),
+                                            //     Space(8),
+                                            //
+                                            //   ],
+                                            // ),
+                                          ),
+                                          // onTap: () => c.openDrawer()
+                                          onTap: () {
+                                            showModalBottomSheet(
+                                              backgroundColor: Colors.transparent,
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Color(0xff16627C),
+                                                    borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(32),
+                                                      topRight: Radius.circular(32)
+                                                    )
+                                                  ),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment
+                                                        .start,
+                                                    children: [
+                                                      SizedBox(
+                                                        width: 170.w,
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              alignment: Alignment
+                                                                  .bottomCenter,
+                                                              height: 60,
+                                                              child: GestureDetector(
+                                                                onTap: () {
+                                                                  // getQuranChaptersList();
+                                                                },
+                                                                child: Text(
+                                                                  'Surah',
+                                                                  style: TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontSize: 20.0,
+                                                                  ),
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
+                                                            Space(20),
+                                                            Expanded(
+                                                              child: Scrollbar(
+                                                                isAlwaysShown: true,
+                                                                thickness: 8,
+                                                                // controller: c.scrollController,
+                                                                radius: Radius
+                                                                    .circular(20),
+                                                                child: ListView
+                                                                    .builder(
+                                                                  controller: c
+                                                                      .scrollController,
+                                                                  itemCount: c
+                                                                      .getqurandata
+                                                                      .value
+                                                                      .quranFilter!
+                                                                      .length,
+                                                                  itemBuilder: (
+                                                                      context,
+                                                                      index) {
+                                                                    var sura = c
+                                                                        .getqurandata
+                                                                        .value
+                                                                        .quranFilter![index];
+                                                                    return Obx(() {
+                                                                      return Container(
+                                                                        // Replace this with your color logic
+                                                                        color: c
+                                                                            .currentSelected
+                                                                            .value ==
+                                                                            index
+                                                                            ? Color(
+                                                                            0xffEBEBEB)
+                                                                            : Color(
+                                                                            0xff16627C),
+                                                                        child: ListTile(
+                                                                          dense: true,
+                                                                          title: Row(
+                                                                            children: [
+                                                                              Text(
+                                                                                "${index +
+                                                                                    1}.",
+                                                                                style: TextStyle(
+                                                                                  color: c
+                                                                                      .currentSelected
+                                                                                      .value ==
+                                                                                      index
+                                                                                      ? Color(
+                                                                                      0xff16627C)
+                                                                                      : Colors
+                                                                                      .white,
+                                                                                  fontSize: 15,
+                                                                                ),
+                                                                              ),
+                                                                              SizedBox(
+                                                                                  width: 5),
+                                                                              Text(
+                                                                                "${sura
+                                                                                    .suraNameEn}",
+                                                                                style: TextStyle(
+                                                                                  color: c
+                                                                                      .currentSelected
+                                                                                      .value ==
+                                                                                      index
+                                                                                      ? Color(
+                                                                                      0xff16627C)
+                                                                                      : Colors
+                                                                                      .white,
+                                                                                  fontSize: 15,
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          onTap: () {
+                                                                            c
+                                                                                .currentSelected
+                                                                                .value =
+                                                                                index;
+                                                                            c
+                                                                                .update();
+                                                                          },
+                                                                        ),
+                                                                      );
+                                                                    });
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                        Space(20),
-                                                        Expanded(
-                                                          child: Scrollbar(
-                                                            isAlwaysShown: true,
-                                                            thickness: 8,
-                                                            // controller: c.scrollController,
-                                                            radius: Radius
-                                                                .circular(20),
-                                                            child: ListView
-                                                                .builder(
-                                                              controller: c
-                                                                  .scrollController,
-                                                              itemCount: c
-                                                                  .getqurandata
-                                                                  .value
-                                                                  .quranFilter!
-                                                                  .length,
-                                                              itemBuilder: (
-                                                                  context,
-                                                                  index) {
-                                                                var sura = c
-                                                                    .getqurandata
-                                                                    .value
-                                                                    .quranFilter![index];
-                                                                return Obx(() {
-                                                                  return Container(
-                                                                    // Replace this with your color logic
-                                                                    color: c
-                                                                        .currentSelected
-                                                                        .value ==
-                                                                        index
-                                                                        ? Color(
-                                                                        0xffEBEBEB)
-                                                                        : Color(
-                                                                        0xff16627C),
-                                                                    child: ListTile(
-                                                                      dense: true,
-                                                                      title: Row(
-                                                                        children: [
-                                                                          Text(
-                                                                            "${index +
-                                                                                1}.",
-                                                                            style: TextStyle(
-                                                                              color: c
-                                                                                  .currentSelected
-                                                                                  .value ==
-                                                                                  index
-                                                                                  ? Color(
-                                                                                  0xff16627C)
-                                                                                  : Colors
-                                                                                  .white,
-                                                                              fontSize: 15,
-                                                                            ),
-                                                                          ),
-                                                                          SizedBox(
-                                                                              width: 5),
-                                                                          Text(
-                                                                            "${sura
-                                                                                .suraNameEn}",
-                                                                            style: TextStyle(
-                                                                              color: c
-                                                                                  .currentSelected
-                                                                                  .value ==
-                                                                                  index
-                                                                                  ? Color(
-                                                                                  0xff16627C)
-                                                                                  : Colors
-                                                                                  .white,
-                                                                              fontSize: 15,
-                                                                            ),
-                                                                          ),
-                                                                        ],
+                                                      ),
+                                                      // VerticalDivider(width: 1,
+                                                      //     color: Colors.black),
+                                                      SizedBox(
+                                                        width: 80.w,
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              alignment: Alignment
+                                                                  .bottomCenter,
+                                                              height: 60,
+                                                              child: Text(
+                                                                'Ayah',
+                                                                style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Expanded(
+                                                              child: Scrollbar(
+                                                                isAlwaysShown: true,
+                                                                thickness: 8,
+                                                                // controller: c.scrollController,
+                                                                radius: Radius
+                                                                    .circular(20),
+                                                                child: ListView
+                                                                    .builder(
+                                                                  controller: c
+                                                                      .scrollController,
+                                                                  shrinkWrap: true,
+                                                                  itemCount: c
+                                                                      .currentSelected
+                                                                      .value ==
+                                                                      c
+                                                                          .currentSelected
+                                                                          .value
+                                                                      ? int.parse(
+                                                                      "${c
+                                                                          .getqurandata
+                                                                          .value
+                                                                          .quranFilter![c
+                                                                          .currentSelected
+                                                                          .value]
+                                                                          .totalVerses}")
+                                                                      : 0,
+                                                                  itemBuilder: (
+                                                                      context,
+                                                                      index) {
+                                                                    // Replace this with your data item
+                                                                    return ListTile(
+                                                                      dense: false,
+                                                                      title: Center(
+                                                                        child: Text(
+                                                                          (index + 1)
+                                                                              .toString(),
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .white),
+                                                                        ),
                                                                       ),
                                                                       onTap: () {
-                                                                        c
-                                                                            .currentSelected
-                                                                            .value =
-                                                                            index;
-                                                                        c
-                                                                            .update();
+                                                                        // Handle item tap event
                                                                       },
-                                                                    ),
-                                                                  );
-                                                                });
-                                                              },
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  // VerticalDivider(width: 1,
-                                                  //     color: Colors.black),
-                                                  SizedBox(
-                                                    width: 80.w,
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          height: 60,
-                                                          child: Text(
-                                                            'Ayah',
-                                                            style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 20.0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Scrollbar(
-                                                            isAlwaysShown: true,
-                                                            thickness: 8,
-                                                            // controller: c.scrollController,
-                                                            radius: Radius
-                                                                .circular(20),
-                                                            child: ListView
-                                                                .builder(
-                                                              controller: c
-                                                                  .scrollController,
-                                                              shrinkWrap: true,
-                                                              itemCount: c
-                                                                  .currentSelected
-                                                                  .value ==
-                                                                  c
-                                                                      .currentSelected
-                                                                      .value
-                                                                  ? int.parse(
-                                                                  "${c
-                                                                      .getqurandata
-                                                                      .value
-                                                                      .quranFilter![c
-                                                                      .currentSelected
-                                                                      .value]
-                                                                      .totalVerses}")
-                                                                  : 0,
-                                                              itemBuilder: (
-                                                                  context,
-                                                                  index) {
-                                                                // Replace this with your data item
-                                                                return ListTile(
-                                                                  dense: false,
-                                                                  title: Center(
-                                                                    child: Text(
-                                                                      (index + 1)
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white),
-                                                                    ),
-                                                                  ),
-                                                                  onTap: () {
-                                                                    // Handle item tap event
+                                                                    );
                                                                   },
-                                                                );
-                                                              },
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  // VerticalDivider(width: 1,
-                                                  //     color: Colors.black),
-                                                  Space(16),
-                                                  SizedBox(
-                                                    width: 60.w,
-                                                    child: Column(
-                                                      children: [
-                                                        Container(
-                                                          alignment: Alignment
-                                                              .bottomCenter,
-                                                          height: 60,
-                                                          child: Text(
-                                                            'Pages',
-                                                            style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 20.0,
+                                                      ),
+                                                      // VerticalDivider(width: 1,
+                                                      //     color: Colors.black),
+                                                      Space(16),
+                                                      SizedBox(
+                                                        width: 60.w,
+                                                        child: Column(
+                                                          children: [
+                                                            Container(
+                                                              alignment: Alignment
+                                                                  .bottomCenter,
+                                                              height: 60,
+                                                              child: Text(
+                                                                'Pages',
+                                                                style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 20.0,
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Scrollbar(
-                                                            isAlwaysShown: true,
-                                                            thickness: 8,
-                                                            // controller: c.scrollController,
-                                                            radius: Radius
-                                                                .circular(20),
-                                                            child: ListView
-                                                                .builder(
-                                                              controller: c
-                                                                  .scrollController,
-                                                              shrinkWrap: true,
-                                                              itemCount: c
-                                                                  .currentSelected
-                                                                  .value ==
-                                                                  c
+                                                            Expanded(
+                                                              child: Scrollbar(
+                                                                isAlwaysShown: true,
+                                                                thickness: 8,
+                                                                // controller: c.scrollController,
+                                                                radius: Radius
+                                                                    .circular(20),
+                                                                child: ListView
+                                                                    .builder(
+                                                                  controller: c
+                                                                      .scrollController,
+                                                                  shrinkWrap: true,
+                                                                  itemCount: c
                                                                       .currentSelected
-                                                                      .value
-                                                                  ? int.parse(
-                                                                  "${c
-                                                                      .getqurandata
-                                                                      .value
-                                                                      .quranFilter![c
-                                                                      .currentSelected
-                                                                      .value]
-                                                                      .totalVerses}")
-                                                                  : 0,
-                                                              itemBuilder: (
-                                                                  context,
-                                                                  index) {
-                                                                // Replace this with your data item
-                                                                return ListTile(
-                                                                  dense: false,
-                                                                  title: Center(
-                                                                    child: Text(
-                                                                      (index + 1)
-                                                                          .toString(),
-                                                                      style: TextStyle(
-                                                                          color: Colors
-                                                                              .white),
-                                                                    ),
-                                                                  ),
-                                                                  onTap: () {
-                                                                    // Handle item tap event
+                                                                      .value ==
+                                                                      c
+                                                                          .currentSelected
+                                                                          .value
+                                                                      ? int.parse(
+                                                                      "${c
+                                                                          .getqurandata
+                                                                          .value
+                                                                          .quranFilter![c
+                                                                          .currentSelected
+                                                                          .value]
+                                                                          .totalVerses}")
+                                                                      : 0,
+                                                                  itemBuilder: (
+                                                                      context,
+                                                                      index) {
+                                                                    // Replace this with your data item
+                                                                    return ListTile(
+                                                                      dense: false,
+                                                                      title: Center(
+                                                                        child: Text(
+                                                                          (index + 1)
+                                                                              .toString(),
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .white),
+                                                                        ),
+                                                                      ),
+                                                                      onTap: () {
+                                                                        // Handle item tap event
+                                                                      },
+                                                                    );
                                                                   },
-                                                                );
-                                                              },
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
+                                                );
+                                              },
                                             );
                                           },
-                                        );
-                                      },
+                                        ),
+                                        Space(4),
+                                        Text("Go To")
+                                      ],
                                     ),
-                                    Spacer(),
-                                    Container(
-                                      height: 25,
-                                      width: 90,
-                                      decoration: BoxDecoration(
-                                        color:  Color(0xff16627C),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text("Search", style: TextStyle(color: Colors.white),),
-                                          Space(8),
-                                          Icon(Icons.search, color: Colors.white,size: 18,)
-                                        ],
-                                      ),
+                          Space(40),
+                          Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    color: Color(0xff16627C),
+                                    borderRadius: BorderRadius.circular(30)
+                                ),
+                                child: Align(
+                                  alignment: Alignment.center,
+                                  child: Image.asset("assets/images/lastread.png", width: 25,),
+                                ),
+                              ),
+                              Space(4),
+                              Text("Last Read")
+                            ],
+                          ),
+                                    Space(40),
+                                    Column(
+                                      children: [
+                                        Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                color: Color(0xff16627C),
+                                borderRadius: BorderRadius.circular(30)
+                            ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset("assets/images/bookmark.png", width: 20,),
+                                          ),
+                                        ),
+                                        Space(4),
+                                        Text("Bookmarks")
+                                      ],
                                     ),
+                                    Space(40),
+                                    Column(
+                                      children: [
+                                        Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                color: Color(0xff16627C),
+                                borderRadius: BorderRadius.circular(30)
+                            ),
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset("assets/images/notes.png", width: 25,),
+                                          ),
+                                        ),
+                                        Space(4),
+                                        Text("Notes")
+                                      ],
+                                    ),
+
                                   ],
                                 ),
                               ),
@@ -678,7 +732,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    Text("Last read :"),
+                                    Text("Quick Links:"),
                                     Space(8),
                                     Container(
                                       decoration: BoxDecoration(
@@ -690,7 +744,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
-                                        child: Text("Al Faatiah",
+                                        child: Text("Al-Yaasin",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14,
@@ -710,7 +764,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                       ),
                                       child: Padding(
                                         padding: const EdgeInsets.all(4.0),
-                                        child: Text("Al Faatiah",
+                                        child: Text("Ar Rahaman",
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600,
                                               fontSize: 14,
