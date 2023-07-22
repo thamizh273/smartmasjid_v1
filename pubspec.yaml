@@ -44,6 +44,7 @@ dependencies:
   flutter_otp_text_field: ^1.1.1
   flutter_hooks: ^0.18.2
   google_fonts:
+  custom_alert_dialog_box: ^1.0.2
   flutter: 
     sdk: flutter
 
