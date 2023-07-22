@@ -1,40 +1,37 @@
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-class Localization extends Translations{
+import '../../app/routes/export.dart';
+import 'en_us_translation.dart';
+import 'fr_FR_translation.dart';
+import 'hi_IN_translation.dart';
+import 'kn_IN_translation.dart';
+import 'ma_IN_translation.dart';
+import 'ta_IN_translation.dart';
+import 'te_IN_translation.dart';
+
+
+class Localization extends Translations {
   @override
   // TODO: implement keys
   Map<String, Map<String, String>> get keys => {
-    //ENGLISH LANGUAGE
-    'en_US':{
-      'Submit':'Submit',
-      'Choose Your Language':'Welcome to Proto Coders Point',
-      'yccitfsa':'you can change it from settings anytime',
-      'sub':'Subscribe Now',
-      'changelang':'Change Language'
-    },
-    //HINDI LANGUAGE
-    'hi_IN':{
-      'Submit': 'जमा करना',
-      'Choose Your Language':'നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക',
-      'yccitfsa':'आप इसे किसी भी समय सेटिंग से बदल सकते हैं',
-      'subscribe':'सब्सक्राइब',
-      'changelang':'भाषा बदलो'
-    },
-    //KANNADA LANGUAGE
-    // 'kn_IN':{
-    //   'Submit': 'ಹಲೋ ವರ್ಲ್ಡ್',
-    //   'message':'ಪ್ರೋಟೋ ಕೋಡರ್ ಪಾಯಿಂಟ್‌ಗೆ ಸುಸ್ವಾಗತ',
-    //   'yccitfsa':'നിങ്ങൾക്ക് എപ്പോൾ വേണമെങ്കിലും ക്രമീകരണങ്ങളിൽ നിന്ന് ഇത് മാറ്റാനാകും',
-    //   'subscribe':'ವಂತಿಗೆ ಕೊಡು',
-    //   'changelang':'ಭಾಷೆ ಬದಲಿಸಿ'
-    // }
-    'ma_IN':{
-      'Submit': 'സമർപ്പിക്കുക',
-      'Choose Your Language':'ಪ್ರೋಟೋ ಕೋಡರ್ ಪಾಯಿಂಟ್‌ಗೆ ಸುಸ್ವಾಗತ',
-      'yccitfsa':'നിങ്ങൾക്ക് എപ്പോൾ വേണമെങ്കിലും ക്രമീകരണങ്ങളിൽ നിന്ന് ഇത് മാറ്റാനാകും',
-      'subscribe':'ವಂತಿಗೆ ಕೊಡು',
-      'changelang':'ಭಾಷೆ ಬದಲಿಸಿ'
-    }
-  };
+        'en_US': enUs, 'ta_IN': taIN, 'fr_FR': frFR, 'hi_IN': hiIN, "kn_IN": knIN, 'ma_IN': maIN, 'te_IN': teIN,
+      };
+  Locale getPreferredLocale() {
+    final storedLanguageCode = GetStorage().read('languageCode');
+    final storedCountryCode = GetStorage().read('countryCode');
+    if (storedLanguageCode != null && storedCountryCode != null) {
+      return Locale(storedLanguageCode, storedCountryCode);
+    }else {
+      return Locale('en', 'US'); // Return English as the default locale
+    }// Return null if the preferred locale is not set yet
+  }
+
+  // Method to save the preferred locale in GetStorage
+  void savePreferredLocale(Locale locale) {
+    GetStorage().write('languageCode', locale.languageCode);
+    GetStorage().write('countryCode', locale.countryCode);
+  }
 
 }
+

@@ -81,12 +81,15 @@ class SafaDropdownButton2 extends StatelessWidget {
           value: item,
           child: Container(
             alignment: valueAlignment,
-            child: Text(
-              item,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: const TextStyle(
-                fontSize: 14,
+            child: Center(
+              child: Text(
+                item,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: const TextStyle(
+
+                  fontSize: 14,
+                ),textAlign: TextAlign.center,
               ),
             ),
           ),

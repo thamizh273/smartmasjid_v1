@@ -1,0 +1,1 @@
+final Map<String, String> maIN = {'submit':'സമർപ്പിക്കുക'};

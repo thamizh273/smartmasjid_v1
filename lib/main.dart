@@ -33,6 +33,11 @@ void main() async{
       cache: GraphQLCache(),
     ),
   );
+  final Localization localization = Localization();
+
+  Locale initialLocale = localization.getPreferredLocale() ?? Locale('en', 'US');
+  Get.put<Localization>(Localization());
+
   runApp(
     ScreenUtilInit(
         builder: (BuildContext context, Widget? child) {
@@ -40,8 +45,9 @@ void main() async{
           client: client,
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
-            translations: Localization(),
-            locale: Locale('en','US'),
+            translations: localization,
+            fallbackLocale: const Locale('en', 'US'),
+            locale: initialLocale,
             title: "Application",
             theme: ThemeService().lightTheme,
             darkTheme: ThemeService().darkTheme,

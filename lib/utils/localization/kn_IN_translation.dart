@@ -1,0 +1,1 @@
+final Map<String, String> knIN = {'submit': 'ಸಲ್ಲಿಸು'};

@@ -7,7 +7,7 @@ const f0 = 10.0;
 const f2 = 14.0;
 const f3 = 16.0;
 const f4 = 18.0;
-const f6 = 20.0;
+const f5 = 20.0;
 
 toast({required String error, required String msg}) {
   Get.snackbar("${error}", "",

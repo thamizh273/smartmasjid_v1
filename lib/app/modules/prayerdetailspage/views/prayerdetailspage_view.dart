@@ -84,7 +84,7 @@ class PrayerdetailspageView extends GetView<PrayerdetailspageController> {
                             child: Stxt(
                               text:
                               'Fajr',
-                              size: f6,
+                              size: f5,
                               color: Colors.white,
                               weight: FontWeight.bold,
                             ),
@@ -203,7 +203,7 @@ class PrayerdetailspageView extends GetView<PrayerdetailspageController> {
                             child: Stxt(
                               text:
                               'Duhr',
-                              size: f6,
+                              size: f5,
                               color: Colors.white,
                               weight: FontWeight.bold,
                             ),
@@ -319,7 +319,7 @@ class PrayerdetailspageView extends GetView<PrayerdetailspageController> {
                             child: Stxt(
                               text:
                               'Asr',
-                              size: f6,
+                              size: f5,
                               color: Colors.white,
                               weight: FontWeight.bold,
                             ),
@@ -441,7 +441,7 @@ class PrayerdetailspageView extends GetView<PrayerdetailspageController> {
                             child: Stxt(
                               text:
                               'Maghrib',
-                              size: f6,
+                              size: f5,
                               color: Colors.white,
                               weight: FontWeight.bold,
                             ),
@@ -563,7 +563,7 @@ class PrayerdetailspageView extends GetView<PrayerdetailspageController> {
                             child: Stxt(
                               text:
                               'Isha',
-                              size: f6,
+                              size: f5,
                               color: Colors.white,
                               weight: FontWeight.bold,
                             ),
@@ -686,7 +686,7 @@ class PrayerdetailspageView extends GetView<PrayerdetailspageController> {
                             child: Stxt(
                               text:
                               'Jummah',
-                              size: f6,
+                              size: f5,
                               color: Colors.white,
                               weight: FontWeight.bold,
                             ),

@@ -45,6 +45,7 @@ dependencies:
   flutter_hooks: ^0.18.2
   google_fonts:
   custom_alert_dialog_box: ^1.0.2
+  auto_size_text: ^3.0.0
   flutter: 
     sdk: flutter
 

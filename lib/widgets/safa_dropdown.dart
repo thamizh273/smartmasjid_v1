@@ -11,7 +11,7 @@ class safa_dropdown extends StatelessWidget {
     this.selecteditem,
     this.onsave,
     this.showSearchBox,
-    this.height,
+    this.height, this.isDense,
   });
 
   final List<String> items;
@@ -20,6 +20,7 @@ class safa_dropdown extends StatelessWidget {
   final String? selecteditem;
   final double? height;
   final bool? showSearchBox;
+  final bool? isDense;
   final Function(String?)? onchanged;
   final Function(String?)? onsave;
 
@@ -49,13 +50,14 @@ class safa_dropdown extends StatelessWidget {
               //
               // },
               // title: Text("-----Select Priority-----"),
-               listViewProps: ListViewProps(itemExtent:35,),
+               listViewProps: ListViewProps(itemExtent:40,),
               // disabledItemFn: (String s) => s.startsWith('I'),
             ),
             items: items,
             dropdownDecoratorProps: DropDownDecoratorProps(
               dropdownSearchDecoration: InputDecoration(
-                  isDense:true,
+
+                  isDense:isDense??true,
                   enabledBorder: OutlineInputBorder(
                       gapPadding: 1,
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
@@ -65,7 +67,7 @@ class safa_dropdown extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
                       borderSide: BorderSide(color: Get.theme.colorScheme.primary)),
                   contentPadding:
-                      EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                      EdgeInsets.symmetric(horizontal: 30, vertical: 6),
                   hintText: "$hinttext",
                   border: OutlineInputBorder(
                       gapPadding: 1,

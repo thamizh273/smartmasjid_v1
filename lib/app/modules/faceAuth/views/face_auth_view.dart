@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/bgcontainer_auth.dart';
 
 import '../../../../global.dart';
@@ -68,22 +69,13 @@ class FaceAuthView extends GetView<FaceAuthController> {
                               ),
                               Padding(
                                 padding: EdgeInsets.all(30.h),
-                                child: Text(
-                                  "Adjust to crop your Image",
-                                  style: TextStyle(
-                                      color: Theme
-                                          .of(context)
-                                          .colorScheme
-                                          .secondary,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20),
-                                ),
+                                child:   Stxt(text: 'Adjust to crop your Image'.tr, size: f4,weight: FontWeight.w600,color: Get.theme.colorScheme.secondary,textAlign: TextAlign.center,),
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SButton(
-                                      text: "Submit",
+                                      text: "submit".tr,
                                       txtClr: Get.theme.colorScheme.primary,
                                       height: 35.h,
                                       rad: 25,
@@ -115,7 +107,7 @@ class FaceAuthView extends GetView<FaceAuthController> {
                                 height: 30,
                               ),
                               Text(
-                                "A Photo of you",
+                                "A Photo of you".tr,
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
@@ -127,16 +119,8 @@ class FaceAuthView extends GetView<FaceAuthController> {
                               SizedBox(
                                 height: 20,
                               ),
-                              Text(
-                                "Please make sure your Photo \n clearly shows your face",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: Theme
-                                        .of(context)
-                                        .colorScheme
-                                        .secondary),
-                              ),
+                              Stxt(text: 'Please make sure your Photo clearly shows your face'.tr, size: f4,weight: FontWeight.w400,color: Get.theme.colorScheme.secondary,textAlign: TextAlign.center,),
+
                               SizedBox(
                                 height: 20,
                               ),
@@ -178,25 +162,7 @@ class FaceAuthView extends GetView<FaceAuthController> {
                                         ),
                                         SizedBox(
                                           width: 10,
-                                        ),
-                                        Text(
-                                          "Take a Photo",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Theme
-                                                .of(context)
-                                                .colorScheme
-                                                .primary,
-                                            decorationColor: Theme
-                                                .of(context)
-                                                .colorScheme
-                                                .secondary,
-                                            decorationThickness: 2,
-                                            decorationStyle:
-                                            TextDecorationStyle.solid,
-                                          ),
-                                        ),
+                                        ), Stxt(text: 'Take a Photo'.tr, size: f3,weight: FontWeight.w600),
                                       ],
                                     ),
                                   ),
@@ -244,21 +210,7 @@ class FaceAuthView extends GetView<FaceAuthController> {
                                         SizedBox(
                                           width: 10,
                                         ),
-                                        Text(
-                                          "Upload a photo",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Theme
-                                                .of(context)
-                                                .colorScheme
-                                                .secondary,
-                                            decorationColor: Colors.white,
-                                            decorationThickness: 2,
-                                            decorationStyle:
-                                            TextDecorationStyle.solid,
-                                          ),
-                                        ),
+                                        Stxt(text: 'open in gallery'.tr, size: f4,weight: FontWeight.w600,color: Get.theme.colorScheme.secondary),
                                       ],
                                     ),
                                   ),
@@ -280,11 +232,11 @@ class FaceAuthView extends GetView<FaceAuthController> {
                     padding: EdgeInsets.all(15),
                     child: SButton(
                       txtsize: f2,
-                      text: "Skip",
+                      text: "Skip".tr,
                       txtClr: Get.theme.colorScheme.primary,
                       height: 20.h,
                       rad: 25,
-                      width: 80.w,
+                      width: 90,
                       pad: 2,
                       ontap: () {
                         Get.toNamed(Routes.SIGNUP_PAGE);

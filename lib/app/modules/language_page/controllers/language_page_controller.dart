@@ -6,7 +6,7 @@ class LanguagePageController extends GetxController {
   RxString selectedLang="".obs;
   @override
   void onInit() {
-    selectedLang.value="English";
+    selectedLang.value="ENGLISH";
     super.onInit();
   }
 

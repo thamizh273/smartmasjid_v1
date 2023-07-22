@@ -59,7 +59,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                     ),
                     elevation: 4.0,
                   ),
-                  child: Text("Register", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),)),
+                  child: Text("Register".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),)),
               15.verticalSpace,
               OutlinedButton(
                   onPressed: (){
@@ -90,9 +90,9 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  child: Text("Login", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),)),
+                  child: Text("Login".tr, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),)),
               15.verticalSpace,
-              Text("Or Continue with",style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15, color:Color(0xffD9D9D9)),),
+              Text("Or Continue with".tr,style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15, color:Color(0xffD9D9D9)),),
               15.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -126,7 +126,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                           ),
                           elevation: 4.0,
                         ),
-                        child: Text("Guest", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 10),)),
+                        child: Text("Guest".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 10),)),
                   ],
                 ),
               )

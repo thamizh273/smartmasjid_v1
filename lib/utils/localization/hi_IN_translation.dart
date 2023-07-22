@@ -1,0 +1,1 @@
+final Map<String, String> hiIN = {'submit':'जमा करना'};
