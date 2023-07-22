@@ -22,7 +22,22 @@ class QuranpageController extends GetxController {
   var getqurandata = QuranModel().obs;
   var getqurandetail = QuranDetailModel().obs;
   var searchQuery = ''.obs;
+  var isChecked = false.obs;
+  var fontAmiri = "".obs;
+  var fontKalam = "".obs;
+  var fontFont3 = "".obs;
+  var fontFont4 = "".obs;
+  RxDouble sliderValue = 0.0.obs;
+  final isCheckedArabic = true.obs;
+  final isCheckedEnglish = true.obs;
+  final isCheckedTamil = false.obs;
+  double screenWidth = Get.width;
+  final FocusNode radioGroupFocus1 = FocusNode();
+  final FocusNode radioGroupFocus2 = FocusNode();
 
+  void setSliderValue(double value) {
+    sliderValue.value = value; // Update the sliderValue using the value passed
+  }
 
   void toggleSearch() {
     isSearchEnabled.value = !isSearchEnabled.value;
