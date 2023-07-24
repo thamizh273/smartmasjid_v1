@@ -28,7 +28,7 @@ class SmallCard extends StatelessWidget {
     return GestureDetector(
       onTap: ()=>onTap(),
       child: SizedBox(
-        height: height ?? null,
+        height: height ?? 67.h,
         width: width ?? .48.sw,
         child: Container(
           margin: EdgeInsets.all(5),

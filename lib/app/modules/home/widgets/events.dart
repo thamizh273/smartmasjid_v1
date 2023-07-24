@@ -77,7 +77,7 @@ class Events extends StatelessWidget {
                               color: Colors.indigo,
                               fontWeight: FontWeight.bold),
                         ),
-                        const Padding(
+                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 2),
                           child: Row(
                             children: [
@@ -85,20 +85,23 @@ class Events extends StatelessWidget {
                                 Icons.location_on_sharp,
                                 size: f2,
                               ),
-                              Stxt(
+
+                              stxtN(
+
                                 text: " Masjid-e-noorania",
                                 size: f0,
                               )
                             ],
                           ),
                         ),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.access_time_sharp,
                               size: f1,
                             ),
-                            Stxt(
+                            stxtN(
+
                               text: " 26 May 2023 - 6 Pm",
                               size: f0,
                             )

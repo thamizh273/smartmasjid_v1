@@ -112,7 +112,7 @@ class ImanTracker_widget extends StatelessWidget {
                           color: themeData.primaryColor,
                           rad: 5,
                           height: 20.h,
-                          width: 120.w,
+                          width: 140.w,
                           pad: 0,
                           child: Row(
                             mainAxisAlignment:
