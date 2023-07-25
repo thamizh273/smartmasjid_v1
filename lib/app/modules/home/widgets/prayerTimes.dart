@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/prayerdetailspage/views/prayerdetailspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
@@ -11,7 +12,6 @@ class PrayerTimes extends StatelessWidget {
   });
 
   final controller = Get.put(HomeController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -126,123 +126,145 @@ class PrayerTimes extends StatelessWidget {
           // ),
           ///
           Obx(() {
-            return CarouselSlider(
-              items: controller.prayerTime.map((e) {
-                return Padding(
-                    padding: EdgeInsets.only(
-                      top: 5,
-                      bottom: 3,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          image: DecorationImage(
-                              image: AssetImage(
-                                "assets/images/$e.png",
-                              ),
-                              fit: BoxFit.fill)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: ListView(
-                              padding: EdgeInsets.all(10.0),
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Stxt(
-                                      text: "3,Dhul Quadah,1444",
-                                      size: f1,
-                                      color: Colors.white,
+            return controller.isloading1.value
+                ? CupertinoActivityIndicator()
+                : CarouselSlider(
+                    items: controller.prayerTime.asMap().entries.map((e) {
+                      int index = e.key;
+                      String prayerTimeName = e.value;
+                      //  print(int.parse(e));
+                      controller.rrr.value = controller
+                          .prayerTimeData
+                          .value
+                          .getTodayMasjidPrayerTime!
+                          .todayPrayerList![index]
+                          .startTime.toString();
+                      controller.update();
+                      return Padding(
+                          padding: EdgeInsets.only(
+                            top: 5,
+                            bottom: 3,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                      "assets/images/$prayerTimeName.png",
                                     ),
-                                    Container(
-                                      height: 20,
-                                      child: Transform.scale(
-                                        scale: .8,
-                                        child: Switch(
-                                          inactiveThumbImage: Image
-                                              .asset(
-                                            "assets/images/alarm_clock.png",
+                                    fit: BoxFit.fill)),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                Expanded(
+                                  child: ListView(
+                                    padding: EdgeInsets.all(10.0),
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Stxt(
+                                            text:
+                                                "${controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayHijriDate}",
+                                            size: f1,
+                                            color: Colors.white,
+                                          ),
+                                          Container(
+                                            height: 20,
+                                            child: Transform.scale(
+                                              scale: .8,
+                                              child: Switch(
+                                                inactiveThumbImage: Image.asset(
+                                                  "assets/images/alarm_clock.png",
+                                                ).image,
+                                                activeThumbImage: const AssetImage(
+                                                    "assets/images/alarm_clock.png"),
+                                                inactiveThumbColor:
+                                                    Colors.red[400],
+                                                //inactiveTrackColor: Colors.red[400],
+                                                activeColor: Colors.green,
+
+                                                value: controller
+                                                    .prayerTimeData
+                                                    .value
+                                                    .getTodayMasjidPrayerTime!
+                                                    .todayPrayerList![index]
+                                                    .notification!,
+                                                onChanged: (value) {
+                                                  controller.alarm.value =
+                                                      value;
+                                                },
+
+                                                splashRadius: 20,
+                                              ),
+                                            ),
                                           )
-                                              .image,
-                                          activeThumbImage: const AssetImage(
-                                              "assets/images/alarm_clock.png"),
-                                          inactiveThumbColor: Colors.red[400],
-                                          //inactiveTrackColor: Colors.red[400],
-                                          activeColor: Colors.green,
-
-                                          value: controller.alarm.value,
-                                          onChanged: (value) {
-                                            controller.alarm.value = value;
-                                          },
-
-                                          splashRadius: 20,
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding:
+                                            EdgeInsets.symmetric(vertical: 2),
+                                        child: Stxt(
+                                          text:
+                                              '${controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![index].prayerName}',
+                                          size: f3,
+                                          color: Colors.white,
+                                          weight: FontWeight.bold,
                                         ),
                                       ),
-                                    )
-                                  ],
-                                ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.symmetric(vertical: 2),
-                                  child: Stxt(
-                                    text:
-                                    '${e[0].toUpperCase()}${e.substring(1)}',
-                                    size: f3,
-                                    color: Colors.white,
-                                    weight: FontWeight.bold,
-                                  ),
-                                ),
-                                Stxt(
-                                  text:
-                                  "${DateFormat.jm().format(DateTime.now())}",
-                                  size: 20,
-                                  color: Colors.white,
-                                  weight: FontWeight.bold,
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 5),
-                                  child: Stxt(
-                                    text:
-                                    "-${DateFormat.Hms().format(
-                                        DateTime.now())}",
-                                    size: f2,
-                                    color: Colors.white,
-                                    weight: FontWeight.bold,
-                                    textAlign: TextAlign.end,
+                                      Stxt(
+                                        text:
+                                            "${DateFormat('hh:mm a').format(DateTime.parse("${controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![index].startTime}").toLocal())}",
+                                        size: 20,
+                                        color: Colors.white,
+                                        weight: FontWeight.bold,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: Stxt(
+                                          text: controller.remainTime(),
+                                          // "-${DateFormat.Hms().format(
+                                          //     DateTime.now())}",
+                                          size: f2,
+                                          color: Colors.white,
+                                          weight: FontWeight.bold,
+                                          textAlign: TextAlign.end,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                    )
+                          )
 
-                  // Image.asset(
-                  //   "assets/images/$e.png",
-                  //   fit: BoxFit.fill,
-                  //   width: MediaQuery.of(context).size.width,
-                  // ),
-                );
-              }).toList(),
-              options: CarouselOptions(
-                enlargeStrategy: CenterPageEnlargeStrategy.height,
-                enlargeCenterPage: false,
-                // enlargeFactor: .4,
-                padEnds: false,
-                enableInfiniteScroll: false,
-                initialPage: 0,
-                height: 120,
-                viewportFraction: .67,
-                onPageChanged: (index, reason) {
-                  // Update the index in the controller
-                  controller.updateIndex(index);
-                },
-              ),
-            );
+                          // Image.asset(
+                          //   "assets/images/$e.png",
+                          //   fit: BoxFit.fill,
+                          //   width: MediaQuery.of(context).size.width,
+                          // ),
+                          );
+                    }).toList(),
+                    options: CarouselOptions(
+
+                      enlargeStrategy: CenterPageEnlargeStrategy.height,
+                      enlargeCenterPage: false,
+                      // enlargeFactor: .4,
+                      padEnds: false,
+                      enableInfiniteScroll: false,
+                      initialPage:controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList!.indexWhere((prayer) => prayer.prayerStatus == "future"),
+
+                      height: 120,
+                      viewportFraction: .67,
+                      onPageChanged: (index, reason) {
+
+                        // Update the index in the controller
+                        controller.updateIndex(index);
+                      },
+                    ),
+                  );
           }),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -251,9 +273,8 @@ class PrayerTimes extends StatelessWidget {
                 return SizedBox(
                   width: 100.w,
                   child: StepProgressIndicator(
-
-                    totalSteps:5,
-                    currentStep: controller.currentIndex.value+1,
+                    totalSteps: 5,
+                    currentStep: controller.currentIndex.value + 1,
                     size: 5,
                     padding: .01,
                     selectedColor: themeData.primaryColor,

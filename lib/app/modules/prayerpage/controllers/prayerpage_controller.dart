@@ -57,7 +57,7 @@ class PrayerpageController extends GetxController {
        var targetDateTime = DateTime.parse("${rrr.value}").toLocal();
 
        // Calculate the remaining duration
-       Duration remainingDuration = targetDateTime.difference(now);
+       Duration remainingDuration = (targetDateTime.difference(now));
 
 
        if (remainingDuration.isNegative) {

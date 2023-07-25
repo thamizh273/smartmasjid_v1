@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 class ZakathpageController extends GetxController {
   //TODO: Implement ZakathpageController
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +18,5 @@ class ZakathpageController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+
 }

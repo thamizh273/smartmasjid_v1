@@ -23,7 +23,7 @@ class Events extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                Column(
+                const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -77,7 +77,7 @@ class Events extends StatelessWidget {
                               color: Colors.indigo,
                               fontWeight: FontWeight.bold),
                         ),
-                         Padding(
+                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 2),
                           child: Row(
                             children: [
@@ -94,7 +94,7 @@ class Events extends StatelessWidget {
                             ],
                           ),
                         ),
-                         Row(
+                         const Row(
                           children: [
                             Icon(
                               Icons.access_time_sharp,

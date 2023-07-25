@@ -12,6 +12,8 @@ import '../modules/hijripage/bindings/hijripage_binding.dart';
 import '../modules/hijripage/views/hijripage_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/imanTracker/bindings/iman_tracker_binding.dart';
+import '../modules/imanTracker/views/iman_tracker_view.dart';
 import '../modules/language_page/bindings/language_page_binding.dart';
 import '../modules/language_page/views/language_page_view.dart';
 import '../modules/loginPage/bindings/login_page_binding.dart';
@@ -219,8 +221,13 @@ class AppPages {
         transitionDuration: const Duration(milliseconds: 600)),
     GetPage(
       name: _Paths.AUDIOPLAYER,
-      page: () =>  AudioPlayerScreen(),
+      page: () => AudioPlayerScreen(),
       binding: AudioplayerBinding(),
+    ),
+    GetPage(
+      name: _Paths.IMAN_TRACKER,
+      page: () =>  ImanTrackerView(),
+      binding: ImanTrackerBinding(),
     ),
   ];
 }

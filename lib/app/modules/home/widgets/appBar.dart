@@ -6,10 +6,11 @@ import '../../../routes/export.dart';
 
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
-  CustomAppbar( {required this.tittle,  this.action, this.icon, this.bottom});
+  CustomAppbar( {required this.tittle,  this.action, this.icon, this.bottom, this.height});
    final String tittle;
    final List<Widget>? action;
    final Widget? icon;
+   final double? height;
    final PreferredSizeWidget? bottom;
 
   @override
@@ -36,12 +37,13 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           size: f4,
           weight: FontWeight.bold,
           color: Colors.white),
-      actions:action
+      actions:action,
+      bottom: bottom,
     );
   }
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => Size.fromHeight(height??kToolbarHeight);
  // Size get preferredSize => throw UnimplementedError();
 }

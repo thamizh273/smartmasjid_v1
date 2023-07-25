@@ -1,5 +1,6 @@
 
 
+import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 
 
@@ -132,7 +133,10 @@ class ImanTracker_widget extends StatelessWidget {
                                 color: Colors.white,
                               )
                             ],
-                          ), ontap: (){}),
+                          ), ontap: (){
+                            Get.toNamed(Routes.IMAN_TRACKER);
+                            
+                      }),
 
                     ],
                   ),
