@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smartmasjid_v1/app/modules/audioplayer/views/audioplayer_view.dart';
+import 'package:smartmasjid_v1/app/modules/duapage/views/duapage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
@@ -142,7 +143,7 @@ class HomeView extends StatelessWidget {
                   TabBarView(
                       controller: controller.tabController,
                       dragStartBehavior: DragStartBehavior.down,
-                      physics: const BouncingScrollPhysics(),
+                      physics:  BouncingScrollPhysics(),
                       children: [
                         SingleChildScrollView(
                           // controller: tabController,
@@ -275,13 +276,18 @@ class HomeView extends StatelessWidget {
                                   ],
                                 ),
                                 buildDivider(themeData),
-                                LargerCard(
-                                  quranImg: duaImg,
-                                  buttonTxt: 'View all',
-                                  image: 'dua',
-                                  title: 'Dua',
-                                  subtitle: 'Dua for ease and success \n in life',
-                                  lastseen: 'Opened 13 hrs ago',
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => DuapageView()));
+                                  },
+                                  child: LargerCard(
+                                    quranImg: duaImg,
+                                    buttonTxt: 'View all',
+                                    image: 'dua',
+                                    title: 'Dua',
+                                    subtitle: 'Dua for ease and success \n in life',
+                                    lastseen: 'Opened 13 hrs ago',
+                                  ),
                                 ),
                                 buildDivider(themeData),
                                 Row(
@@ -386,7 +392,8 @@ class HomeView extends StatelessWidget {
                                   height: 30.h,
                                 )
                               ],
-                            ))
+                            )
+                        )
                       ]),
               child: Padding(
                   padding: const EdgeInsets.all(16),

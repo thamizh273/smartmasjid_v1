@@ -34,6 +34,7 @@ abstract class Routes {
   static const MASJIDHISTORY = _Paths.MASJIDHISTORY;
   static const PROFILE_PAGE = _Paths.PROFILE_PAGE;
   static const AUDIOPLAYER = _Paths.AUDIOPLAYER;
+  static const DUAPAGE = _Paths.DUAPAGE;
 }
 
 abstract class _Paths {
@@ -69,4 +70,5 @@ abstract class _Paths {
   static const MASJIDHISTORY = '/masjidhistory';
   static const PROFILE_PAGE = '/profile-page';
   static const AUDIOPLAYER = '/audioplayer';
+  static const DUAPAGE = '/duapage';
 }

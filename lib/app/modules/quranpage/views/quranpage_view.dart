@@ -48,6 +48,8 @@ class _QuranpageViewState extends State<QuranpageView> {
     }
   }
 
+
+
   @override
   void dispose() {
     scrollController.dispose();
@@ -353,6 +355,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
+                                    8.horizontalSpace,
                                     Column(
                                       children: [
                                         GestureDetector(
@@ -422,7 +425,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                             Space(20),
                                                             Expanded(
                                                               child: Scrollbar(
-                                                                isAlwaysShown: true,
+                                                                thumbVisibility: false,
                                                                 thickness: 8,
                                                                 // controller: c.scrollController,
                                                                 radius: Radius
@@ -666,7 +669,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                         Text("Go To")
                                       ],
                                     ),
-                          Space(40),
+                          Space(25),
                           Column(
                             children: [
                               Container(
@@ -685,7 +688,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                               Text("Last Read")
                             ],
                           ),
-                                    Space(40),
+                                    Space(25),
                                     Column(
                                       children: [
                                         Container(
@@ -704,7 +707,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                         Text("Bookmarks")
                                       ],
                                     ),
-                                    Space(40),
+                                    Space(25),
                                     Column(
                                       children: [
                                         Container(
@@ -723,7 +726,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                         Text("Notes")
                                       ],
                                     ),
-
+                                    8.horizontalSpace
                                   ],
                                 ),
                               ),
@@ -734,24 +737,29 @@ class _QuranpageViewState extends State<QuranpageView> {
                                   children: [
                                     Text("Quick Links:"),
                                     Space(8),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              4),
-                                          border: Border.all(color: Theme
-                                              .of(context)
-                                              .primaryColor)
+                                    GestureDetector(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                4),
+                                            border: Border.all(color: Theme
+                                                .of(context)
+                                                .primaryColor)
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: Text("Al-Yaasin",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 14,
+                                                color: Theme
+                                                    .of(context)
+                                                    .primaryColor),),
+                                        ),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Text("Al-Yaasin",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 14,
-                                              color: Theme
-                                                  .of(context)
-                                                  .primaryColor),),
-                                      ),
+                                      onTap: (){
+
+                                      },
                                     ),
                                     Space(8),
                                     Container(
@@ -779,7 +787,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                               Space(8),
                               Expanded(
                                 child: Scrollbar(
-                                  thumbVisibility: true,
+                                  thumbVisibility: false,
                                   thickness: 8,
                                   controller: c.scrollController,
                                   radius: Radius.circular(20),
@@ -790,150 +798,152 @@ class _QuranpageViewState extends State<QuranpageView> {
                                     itemBuilder: (context, index) {
                                       var sura = filteredSurah[index];
                                       return ListTile(
-                                        minVerticalPadding: 0,
-                                        dense: true,
-                                        title: GestureDetector(
-                                          onTap: () {
-                                            print("mmmmmmmm ${index}");
-                                            c.quranDetailList(index + 1);
+                                      minVerticalPadding: 0,
+                                      dense: true,
+                                      title: GestureDetector(
+                                        onTap: () {
+                                          print("mmmmmmmm ${index}");
+                                          c.quranDetailList(index + 1);
 
-                                            // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
-                                          },
-                                          child: Container(
-                                            height: 70.h,
-                                            width: double.infinity,
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.only(
-                                                // topRight: Radius.circular(8),
-                                                topRight: Radius.circular(16),
-                                                topLeft: Radius.circular(16),
-                                              ),
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 6,
-                                                  color: Colors.grey.shade400,
-                                                  offset: Offset(
-                                                      0, -4), // Shadow position
-                                                ),
-                                              ],
-                                              // border: Border.all(
-                                              //     color: Color(0xff16627C)
-                                              // )
-                                            ),
-                                            child: Row(
-                                              children: [
-                                                // Padding(
-                                                //   padding: const EdgeInsets.all(16),
-                                                //   child: Container(
-                                                //     width: 40.w,
-                                                //     height: 40.w,
-                                                //     child: Transform.rotate(
-                                                //       angle: 40 *
-                                                //           (3.1415926535897932 / 180),
-                                                //       // Converting 30 degrees to radians
-                                                //       child: Container(
-                                                //         width: 200,
-                                                //         height: 200,
-                                                //         decoration: BoxDecoration(
-                                                //           borderRadius: BorderRadius
-                                                //               .circular(8),
-                                                //           color: Color(0xff16627C),
-                                                //         ),
-                                                //         child: Center(
-                                                //           child: Transform.rotate(
-                                                //             angle: -40 *
-                                                //                 (3.1415926535897932 /
-                                                //                     180),
-                                                //             child: Text(
-                                                //               "${sura.suraChapterNo}",
-                                                //               style: TextStyle(
-                                                //                   fontSize: 15,
-                                                //                   fontWeight: FontWeight
-                                                //                       .bold,
-                                                //                   color: Colors.white),
-                                                //             ),
-                                                //           ),
-                                                //         ),
-                                                //       ),
-                                                //     ),
-                                                //   ),
-                                                // ),
-                                                Space(8),
-                                                Center(
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .center,
-                                                    children: [
-                                                      Container(
-                                                        height: 60.h,
-                                                        width: 60.h,
-                                                        decoration: BoxDecoration(
-                                                          image: DecorationImage(
-                                                              image: AssetImage(
-                                                                  "assets/images/quranneww.png"),
-                                                              fit: BoxFit.fill
-                                                          ),
-                                                        ),
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .center,
-                                                          child: Text("${sura
-                                                              .suraChapterNo}"),
-                                                        ),
-                                                      )
-
-                                                    ],
-                                                  ),
-                                                ),
-                                                Space(8),
-                                                Column(
-                                                  mainAxisAlignment: MainAxisAlignment
-                                                      .center,
-                                                  crossAxisAlignment: CrossAxisAlignment
-                                                      .start,
-                                                  children: [
-                                                    Text("${sura.suraNameEn}",
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xff16627C),
-                                                          fontSize: 17,
-                                                          fontWeight: FontWeight
-                                                              .w600),),
-                                                    Space(8),
-                                                    Text("The Opening",
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              0xff16627C),
-                                                          fontSize: 12),),
-                                                  ],
-                                                ),
-                                                Spacer(),
-                                                Padding(
-                                                  padding: const EdgeInsets.all(
-                                                      8.0),
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .center,
-                                                    children: [
-                                                      Icon(Icons
-                                                          .bookmark_add_outlined,
-                                                        color: Color(
-                                                            0xff16627C),),
-                                                      Text("${sura
-                                                          .totalVerses}",
-                                                        style: TextStyle(
-                                                            color: Color(
-                                                                0xff16627C),
-                                                            fontSize: 12),)
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
+                                          // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
+                                        },
+                                        child: Container(
+                                        height: 70.h,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            // topRight: Radius.circular(8),
+                                            topLeft: Radius.circular(12),
+                                            topRight: Radius.circular(12),
+                                            // bottomRight: Radius.circular(12),
+                                            // bottomLeft: Radius.circular(12),
                                           ),
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 6,
+                                              color: Colors.grey.shade400,
+                                              offset: Offset(
+                                                  0, -4), // Shadow position
+                                            ),
+                                          ],
+                                          // border: Border.all(
+                                          //     color: Color(0xff16627C)
+                                          // )
                                         ),
-                                      );
+                                        child: Row(
+                                          children: [
+                                            // Padding(
+                                            //   padding: const EdgeInsets.all(16),
+                                            //   child: Container(
+                                            //     width: 40.w,
+                                            //     height: 40.w,
+                                            //     child: Transform.rotate(
+                                            //       angle: 40 *
+                                            //           (3.1415926535897932 / 180),
+                                            //       // Converting 30 degrees to radians
+                                            //       child: Container(
+                                            //         width: 200,
+                                            //         height: 200,
+                                            //         decoration: BoxDecoration(
+                                            //           borderRadius: BorderRadius
+                                            //               .circular(8),
+                                            //           color: Color(0xff16627C),
+                                            //         ),
+                                            //         child: Center(
+                                            //           child: Transform.rotate(
+                                            //             angle: -40 *
+                                            //                 (3.1415926535897932 /
+                                            //                     180),
+                                            //             child: Text(
+                                            //               "${sura.suraChapterNo}",
+                                            //               style: TextStyle(
+                                            //                   fontSize: 15,
+                                            //                   fontWeight: FontWeight
+                                            //                       .bold,
+                                            //                   color: Colors.white),
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //       ),
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                            Space(8),
+                                            Center(
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .center,
+                                                children: [
+                                                  Container(
+                                                    height: 60.h,
+                                                    width: 60.h,
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                          image: AssetImage(
+                                                              "assets/images/quranneww.png"),
+                                                          fit: BoxFit.fill
+                                                      ),
+                                                    ),
+                                                    child: Align(
+                                                      alignment: Alignment
+                                                          .center,
+                                                      child: Text("${sura
+                                                          .suraChapterNo}"),
+                                                    ),
+                                                  )
+
+                                                ],
+                                              ),
+                                            ),
+                                            Space(8),
+                                            Column(
+                                              mainAxisAlignment: MainAxisAlignment
+                                                  .center,
+                                              crossAxisAlignment: CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                Text("${sura.suraNameEn}",
+                                                  style: TextStyle(
+                                                      color: Color(
+                                                          0xff16627C),
+                                                      fontSize: 17,
+                                                      fontWeight: FontWeight
+                                                          .w600),),
+                                                Space(8),
+                                                Text("The Opening",
+                                                  style: TextStyle(
+                                                      color: Color(
+                                                          0xff16627C),
+                                                      fontSize: 12),),
+                                              ],
+                                            ),
+                                            Spacer(),
+                                            Padding(
+                                              padding: const EdgeInsets.all(
+                                                  8.0),
+                                              child: Column(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .center,
+                                                children: [
+                                                  Icon(Icons
+                                                      .bookmark_add_outlined,
+                                                    color: Color(
+                                                        0xff16627C),),
+                                                  Text("${sura
+                                                      .totalVerses}",
+                                                    style: TextStyle(
+                                                        color: Color(
+                                                            0xff16627C),
+                                                        fontSize: 12),)
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                          ),
+                                      ),
+                                        );
                                     },
                                   ),
                                 ),

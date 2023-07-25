@@ -6,6 +6,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../theme/theme.dart';
@@ -802,41 +803,78 @@ class CustomDialogBox extends StatelessWidget {
           ),
           Space(16),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Obx(() {
-                return Checkbox(
-                  activeColor: Get.theme.primaryColor,
-                  checkColor: Colors.white,
-                  value: c.isCheckedArabic.value,
-                  onChanged: (value) {
-                    c.isCheckedArabic.value = value!;
-                    Future.delayed(Duration(milliseconds: 500), () {
-                      c.getqurandetail();
-                    });
+                return Container(
+                  height: 25.h,
+                  width: 25.w,
+                  child: Transform.scale(
+                    scale: 0.8, // Adjust this value to change the checkbox size.
+                    child: Checkbox(
+                      activeColor: Get.theme.primaryColor,
+                      checkColor: Colors.white,
+                      value: c.isCheckedArabic.value,
+                      onChanged: (value) {
+                        c.isCheckedArabic.value = value!;
+                        Future.delayed(Duration(milliseconds: 500), () {
+                          c.getqurandetail();
+                        });
+                        c.update();
+                      },
+                    ),
+                  ),
+                );
 
-                    c.update();
-                  },
-                );
               }),
-              Text("Arabic"),
+              Stxt( size:f2, text: 'Arabic',),
+              Space(8),
               Obx(() {
-                return Checkbox(
-                  activeColor: Get.theme.primaryColor,
-                  checkColor: Colors.white,
-                  value: c.isCheckedEnglish.value,
-                  onChanged: (value) => c.isCheckedEnglish.value = value!,
+                return Container(
+                  height: 25.h,
+                  width: 25.w,
+                  child: Transform.scale(
+                    scale: 0.8, // Adjust this value to change the checkbox size.
+                    child: Checkbox(
+                      activeColor: Get.theme.primaryColor,
+                      checkColor: Colors.white,
+                      value: c.isCheckedEnglish.value,
+                      onChanged: (value) {
+                        c.isCheckedEnglish.value = value!;
+                        Future.delayed(Duration(milliseconds: 500), () {
+                          c.getqurandetail();
+                        });
+                        c.update();
+                      },
+                    ),
+                  ),
                 );
               }),
-              Text("English"),
+             Stxt( size:f2, text: 'English',),
+              Space(8),
               Obx(() {
-                return Checkbox(
-                  activeColor: Get.theme.primaryColor,
-                  checkColor: Colors.white,
-                  value: c.isCheckedTamil.value,
-                  onChanged: (value) => c.isCheckedTamil.value = value!,
+                return Container(
+                  height: 25.h,
+                  width: 25.w,
+                  child: Transform.scale(
+                    scale: 0.8, // Adjust this value to change the checkbox size.
+                    child: Checkbox(
+                      splashRadius: 5,
+                      activeColor: Get.theme.primaryColor,
+                      checkColor: Colors.white,
+                      value: c.isCheckedTamil.value,
+                      onChanged: (value) {
+                        c.isCheckedTamil.value = value!;
+                        Future.delayed(Duration(milliseconds: 500), () {
+                          c.getqurandetail();
+                        });
+                        c.update();
+                      },
+                    ),
+                  ),
                 );
               }),
-              Text("Tamil"),
+            Stxt( size:f2, text: 'Tamil',),
             ],
           ),
           Space(8),
