@@ -35,6 +35,7 @@ abstract class Routes {
   static const PROFILE_PAGE = _Paths.PROFILE_PAGE;
   static const AUDIOPLAYER = _Paths.AUDIOPLAYER;
   static const IMAN_TRACKER = _Paths.IMAN_TRACKER;
+  static const DUAPAGE = _Paths.DUAPAGE;
 }
 
 abstract class _Paths {
@@ -71,4 +72,5 @@ abstract class _Paths {
   static const PROFILE_PAGE = '/profile-page';
   static const AUDIOPLAYER = '/audioplayer';
   static const IMAN_TRACKER = '/iman-tracker';
+  static const DUAPAGE = '/duapage';
 }

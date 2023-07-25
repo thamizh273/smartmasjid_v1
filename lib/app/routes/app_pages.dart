@@ -6,6 +6,8 @@ import '../modules/archivepage/bindings/archivepage_binding.dart';
 import '../modules/archivepage/views/archivepage_view.dart';
 import '../modules/audioplayer/bindings/audioplayer_binding.dart';
 import '../modules/audioplayer/views/audioplayer_view.dart';
+import '../modules/duapage/bindings/duapage_binding.dart';
+import '../modules/duapage/views/duapage_view.dart';
 import '../modules/faceAuth/bindings/face_auth_binding.dart';
 import '../modules/faceAuth/views/face_auth_view.dart';
 import '../modules/hijripage/bindings/hijripage_binding.dart';
@@ -226,8 +228,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.IMAN_TRACKER,
-      page: () =>  ImanTrackerView(),
+      page: () => ImanTrackerView(),
       binding: ImanTrackerBinding(),
+    ),
+    GetPage(
+      name: _Paths.DUAPAGE,
+      page: () => DuapageView(),
+      binding: DuapageBinding(),
     ),
   ];
 }
