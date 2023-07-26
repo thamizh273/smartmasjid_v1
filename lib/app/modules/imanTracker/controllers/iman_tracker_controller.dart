@@ -6,6 +6,7 @@ class ImanTrackerController extends GetxController with GetSingleTickerProviderS
   //TODO: Implement ImanTrackerController
 
   late TabController tabctrl;
+  var change=0.obs;
 
   @override
   void onInit() {
