@@ -34,6 +34,7 @@ class QuranpageController extends GetxController {
   final isCheckedTamil = false.obs;
   double screenWidth = Get.width;
   var fontFamily = "indopak".obs;
+  var view = "sura".obs;
 
   void changeFontFamily(String family) {
     fontFamily.value = family;
@@ -74,6 +75,9 @@ class QuranpageController extends GetxController {
 
   void openDrawer() {
     scaffoldKey.currentState?.openDrawer();
+  }
+  void openEndDrawer() {
+    scaffoldKey.currentState?.openEndDrawer();
   }
 
   @override

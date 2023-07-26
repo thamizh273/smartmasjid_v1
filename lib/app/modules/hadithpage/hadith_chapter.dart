@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:smartmasjid_v1/app/modules/hadithchapterdetail/views/hadithchapterdetail_view.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 
 import '../../../widgets/space.dart';
@@ -12,12 +13,14 @@ class HadithChapter extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Hadith Chapters",
+        tittle: "Hadith",
         action: [
           Row(
             children: [
-              IconButton(onPressed: (){}, icon: Icon(Icons.edit_note_sharp)),
-              IconButton(onPressed: (){}, icon: Icon(Icons.bookmark)),
+             Image.asset("assets/images/notes.png", width: 20,),
+             Space(16),
+             Image.asset("assets/images/bookmark.png", width: 20,),
+              Space(16),
             ],
           )
         ],
@@ -68,30 +71,45 @@ class HadithChapter extends StatelessWidget {
               child: ListView.builder(
                 itemCount: 5,
                 itemBuilder: (context, index){
-                  return Container(
-                    height: 50.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Color(0xffBCDDF2),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8, left: 8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Stack(children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 13),
-                              child: Text("1"),
+                  return GestureDetector(
+                    child: Container(
+                      height: 50.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          color: Color(0xffBCDDF2),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 8, left: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Container(
+                              height: 30.h,
+                              width: 30.h,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/hadithnum.png"),
+                                    fit: BoxFit.fill
+                                ),
+                              ),
+                              child: Align(
+                                alignment: Alignment
+                                    .center,
+                                child: Text("100", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: Theme.of(context).primaryColor),),
+                              ),
                             ),
-                            Image.asset("assets/images/hadithchap.png",scale: 3,)]),
-                          Space(8),
-                          Text("Revelation", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),),
-                          Spacer(),
-                          Text("1-7")
-                        ],
+                            Space(8),
+                            Text("Revelation", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),),
+                            Spacer(),
+                            Text("1-7")
+                          ],
+                        ),
                       ),
                     ),
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (_) => HadithchapterdetailView()));
+                    },
                   );
                 }
               ),

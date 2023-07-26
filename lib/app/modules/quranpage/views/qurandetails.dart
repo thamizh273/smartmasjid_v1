@@ -35,6 +35,462 @@ class _QuranDetailsState extends State<QuranDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: c.scaffoldKey,
+      endDrawer: Drawer(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          physics: ScrollPhysics(),
+          controller: c.scrollController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Space(20),
+              Text(
+                "Customize your Quran",
+                style: TextStyle(
+                  fontSize: 18,fontWeight: FontWeight.w600
+                ),
+              ),
+              Space(16),
+              Text(
+                "View",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff16627C)),
+              ),
+              Space(8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      Obx(() {
+                        return Radio(
+                          activeColor: Get.theme.primaryColor,
+                          // title: Text("Amiri"),
+                          value: "sura",
+                          groupValue: c.view.value,
+                          onChanged: (groupValue) =>
+                              c.view(groupValue!),
+                        );
+                      }),
+                      Text("Sura"),
+                      Obx(() {
+                        return Radio(
+                          activeColor: Get.theme.primaryColor,
+                          // title: Text("Amiri"),
+                          value: "page",
+                          groupValue: c.view.value,
+                          onChanged: (groupValue) =>
+                              c.view(groupValue!),
+                        );
+                      }),
+                      Text("Page"),
+                    ],
+                  ),
+                  Space(4),
+                  Row(
+                    children: [
+                      Obx(() {
+                        return Radio(
+                          activeColor: Get.theme.primaryColor,
+                          // title: Text("Amiri"),
+                          value: "juz",
+                          groupValue: c.view.value,
+                          onChanged: (groupValue) =>
+                              c.view(groupValue!),
+                        );
+                      }),
+                      Text("Juz"),
+                      Obx(() {
+                        return Radio(
+                          activeColor: Get.theme.primaryColor,
+                          // title: Text("Amiri"),
+                          value: "hizb",
+                          groupValue: c.view.value,
+                          onChanged: (groupValue) =>
+                              c.view(groupValue!),
+                        );
+                      }),
+                      Text("Hizb"),
+                    ],
+                  ),
+                ],
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              Space(16),
+              Text(
+                "Content",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff16627C)),
+              ),
+              Space(16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Obx(() {
+                    return Container(
+                      height: 25.h,
+                      width: 25.w,
+                      child: Transform.scale(
+                        scale: 0.8, // Adjust this value to change the checkbox size.
+                        child: Checkbox(
+                          activeColor: Get.theme.primaryColor,
+                          checkColor: Colors.white,
+                          value: c.isCheckedArabic.value,
+                          onChanged: (value) {
+                            c.isCheckedArabic.value = value!;
+                            Future.delayed(Duration(milliseconds: 500), () {
+                              c.getqurandetail();
+                            });
+                            c.update();
+                          },
+                        ),
+                      ),
+                    );
+
+                  }),
+                  Stxt( size:f2, text: 'Arabic',),
+                  Space(8),
+                  Obx(() {
+                    return Container(
+                      height: 25.h,
+                      width: 25.w,
+                      child: Transform.scale(
+                        scale: 0.8, // Adjust this value to change the checkbox size.
+                        child: Checkbox(
+                          activeColor: Get.theme.primaryColor,
+                          checkColor: Colors.white,
+                          value: c.isCheckedEnglish.value,
+                          onChanged: (value) {
+                            c.isCheckedEnglish.value = value!;
+                            Future.delayed(Duration(milliseconds: 500), () {
+                              c.getqurandetail();
+                            });
+                            c.update();
+                          },
+                        ),
+                      ),
+                    );
+                  }),
+                  Stxt( size:f2, text: 'English',),
+                  Space(8),
+                  Obx(() {
+                    return Container(
+                      height: 25.h,
+                      width: 25.w,
+                      child: Transform.scale(
+                        scale: 0.8, // Adjust this value to change the checkbox size.
+                        child: Checkbox(
+                          splashRadius: 5,
+                          activeColor: Get.theme.primaryColor,
+                          checkColor: Colors.white,
+                          value: c.isCheckedTamil.value,
+                          onChanged: (value) {
+                            c.isCheckedTamil.value = value!;
+                            Future.delayed(Duration(milliseconds: 500), () {
+                              c.getqurandetail();
+                            });
+                            c.update();
+                          },
+                        ),
+                      ),
+                    );
+                  }),
+                  Stxt( size:f2, text: 'Tamil',),
+                ],
+              ),
+              Space(8),
+              // Divider(
+              //   thickness: 1,
+              // ),
+              Space(8),
+              Text(
+                "Arabic Font",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff16627C)),
+              ),
+
+             Column(
+               crossAxisAlignment: CrossAxisAlignment.start,
+               children: [
+                 ExpansionTile(
+                     title: Text("IndoPak Script"),
+                  children: [
+                    ListTile(
+                      title:  Column(
+                        children: [
+                          Row(
+                            children: [
+                              Obx(() {
+                                return Container(
+                                  height: 25.h,
+                                  width: 25.w,
+                                  // color: Colors.red,
+                                  child: Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Amiri"),
+                                    value: "noorehira",
+                                    groupValue: c.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                        c.changeFontFamily(groupValue!),
+                                  ),
+                                );
+                              }),
+                              Text("Noorehira"),
+                              Space(32),
+                              Obx(() {
+                                return Container(
+                                  height: 25.h,
+                                  width: 25.w,
+                                  child: Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Kalam"),
+                                    value: "noorehuda",
+                                    groupValue: c.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                        c.changeFontFamily(groupValue!),
+                                  ),
+                                );
+                              }),
+                              Text("Noorehuda"),
+                            ],
+                          ),
+                          Space(8),
+                          Obx(() {
+                            return Row(
+                              children: [
+                                Container(
+                                  height: 25.h,
+                                  width: 25.w,
+                                  child: Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Amiri"),
+                                    value: "noorehidayat",
+                                    groupValue: c.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                    c.fontFamily.value = groupValue!,
+                                  ),
+                                ),
+                                Text("Noorehidayat"),
+                                Space(32),
+                                // Container(
+                                //   height: 25.h,
+                                //   width: 25.w,
+                                //   child: Radio(
+                                //     activeColor: Get.theme.primaryColor,
+                                //     // title: Text("Kalam"),
+                                //     value: "amiri",
+                                //     groupValue: c.fontFamily.value,
+                                //     onChanged: (groupValue) =>
+                                //     c.fontFamily.value = groupValue!.toString(),
+                                //   ),
+                                // ),
+                                // Text("Amiri"),
+                              ],
+                            );
+                          }),
+                        ],
+                      ),
+                    )
+                  ],
+                 ),
+                 // Divider(
+                 //
+                 // ),
+                 ExpansionTile(
+                     title: Text("Uthmani/Madani Script"),
+                  children: [
+                    ListTile(
+                      title:  Column(
+                        children: [
+
+                          Row(
+                            children: [
+                              Obx(() {
+                                return Container(
+                                  height: 25.h,
+                                  width: 25.w,
+                                  child: Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Amiri"),
+                                    value: "indopak",
+                                    groupValue: c.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                        c.changeFontFamily(groupValue!),
+                                  ),
+                                );
+                              }),
+                              Text("Quran"),
+                              Space(32),
+                              Obx(() {
+                                return Container(
+                                  height: 25.h,
+                                  width: 25.w,
+                                  child: Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Kalam"),
+                                    value: "qalam",
+                                    groupValue: c.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                        c.changeFontFamily(groupValue!),
+                                  ),
+                                );
+                              }),
+                              Text("Qalam"),
+                            ],
+                          ),
+                          Space(8),
+                          Obx(() {
+                            return Row(
+                              children: [
+                                Container(
+                                  height: 25.h,
+                                  width: 25.w,
+                                  child: Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Amiri"),
+                                    value: "uthami",
+                                    groupValue: c.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                    c.fontFamily.value = groupValue!,
+                                  ),
+                                ),
+                                Text("KFGQPC Hafs"),
+                                Space(32),
+                                Container(
+                                  height: 25.h,
+                                  width: 25.w,
+                                  child: Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Kalam"),
+                                    value: "amiri",
+                                    groupValue: c.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                    c.fontFamily.value = groupValue!.toString(),
+                                  ),
+                                ),
+                                Text("Amiri"),
+                              ],
+                            );
+                          }),
+                        ],
+                      ),
+                    )
+                  ],
+                 ),
+               ],
+             ),
+
+
+              Space(8),
+              // Divider(
+              //   thickness: 1,
+              // ),
+              Text(
+                "Arabic Font Size",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Theme(
+                data: Theme.of(context).copyWith(
+                  sliderTheme: const SliderThemeData(
+                    thumbShape: MySliderComponentShape(),
+                    // trackShape: SameHeightRoundedSliderTrackShape(),
+                    trackHeight: 8,
+                  ),
+                ),
+                child: Obx(() {
+                  // Use Obx to listen to changes in the controller's sliderValue
+                  return Slider(
+                    onChanged: c.setSliderValue,
+                    // Call the setSliderValue method from the controller
+                    value: c.sliderValue.value,
+                    // Use the sliderValue from the controller
+                    min: 0,
+                    max: 2,
+                    divisions: 2,
+                    activeColor: const Color.fromARGB(255, 231, 231, 231),
+                    inactiveColor: const Color.fromARGB(255, 231, 231, 231),
+                  );
+                }),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(left: 24),
+                    child: Text('Small', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                  ),
+                  Text('Medium', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                  Padding(
+                    padding: EdgeInsets.only(right: 24),
+                    child: Text('Large', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
+              Space(16),
+              Text(
+                "Translation Font Size",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Theme(
+                data: Theme.of(context).copyWith(
+                  sliderTheme: const SliderThemeData(
+                    thumbShape: MySliderComponentShape1(),
+                    // trackShape: SameHeightRoundedSliderTrackShape(),
+                    trackHeight: 8,
+                  ),
+                ),
+                child: Obx(() {
+                  // Use Obx to listen to changes in the controller's sliderValue
+                  return Slider(
+                    onChanged: c.setSliderValue1,
+                    // Call the setSliderValue method from the controller
+                    value: c.sliderValue1.value,
+                    // Use the sliderValue from the controller
+                    min: 0,
+                    max: 2,
+                    divisions: 2,
+                    activeColor: const Color.fromARGB(255, 231, 231, 231),
+                    inactiveColor: const Color.fromARGB(255, 231, 231, 231),
+                  );
+                }),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(left: 24),
+                    child: Text('Small', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                  ),
+                  Text('Medium', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+                  Padding(
+                    padding: EdgeInsets.only(right: 24),
+                    child: Text('Large', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+      ),
       backgroundColor: Colors.white,
       appBar: CustomAppbar(
         tittle: "",
@@ -47,20 +503,22 @@ class _QuranDetailsState extends State<QuranDetails> {
               Space(20),
               GestureDetector(
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomDialogBox(
-                          title: 'Custom Dialog Title',
-                          content:
-                          'This is the content of the custom dialog box.',
-                          onPressed: () {
-                            Navigator.pop(
-                                context); // Closes the dialog box when the button is pressed.
-                          },
-                        );
-                      },
-                    );
+                    // showDialog(
+                    //   context: context,
+                    //   builder: (BuildContext context) {
+                    //     return CustomDialogBox(
+                    //       title: 'Custom Dialog Title',
+                    //       content:
+                    //       'This is the content of the custom dialog box.',
+                    //       onPressed: () {
+                    //         Navigator.pop(
+                    //             context); // Closes the dialog box when the button is pressed.
+                    //       },
+                    //     );
+                    //   },
+                    // );
+                    c.openEndDrawer();
+
                   },
                   child: SvgPicture.asset("assets/svg/customize.svg")),
               Space(22),
@@ -493,6 +951,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     children: [
                                       Row(
                                         children: [
+                                          Space(12),
                                           Text(
                                             "${sura.versesKey}",
                                             style: TextStyle(
@@ -528,10 +987,16 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       : c.fontFamily.value ==
                                                       "qalam"
                                                       ? "Qalam" : c.fontFamily
-                                                      .value == "quranic"
-                                                      ? "Quranic" : c.fontFamily
+                                                      .value == "uthami"
+                                                      ? "Uthami" : c.fontFamily
                                                       .value == "amiri"
-                                                      ? "Amiri"
+                                                      ? "Amiri": c.fontFamily
+                                                      .value == "noorehira"
+                                                      ? "Noorehira": c.fontFamily
+                                                      .value == "noorehuda"
+                                                      ? "Noorehuda": c.fontFamily
+                                                      .value == "noorehidayat"
+                                                      ? "Noorehidayat"
                                                       : null, // Use the default font if "Amiri" is not selected
                                                 );
                                                 return SizedBox(
@@ -595,9 +1060,68 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       //     ),
                                       //   ),
                                       // ),
-                                      Space(8),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          PopupMenuButton(
+                                              shadowColor: Colors.grey.shade400,
+                                              itemBuilder: (BuildContext context) {
+                                                return [
+                                                  PopupMenuItem(child: Row(
+                                                    children: [
+                                                      Image.asset("assets/images/bookmark.png", width: 20,color: Colors.black,),
+                                                      Space(12),
+                                                      Text("Bookmark"),
+                                                    ],
+                                                  )),
+                                                  PopupMenuItem(child: Row(
+                                                    children: [
+                                                      Icon(Icons.copy),
+                                                      Space(12),
+                                                      Text("Copy"),
+                                                    ],
+                                                  )),
+                                                  PopupMenuItem(child: Row(
+                                                    children: [
+                                                      Icon(Icons.share),
+                                                      Space(12),
+                                                      Text("Share"),
+                                                    ],
+                                                  )),
+                                                  PopupMenuItem(child: GestureDetector(
+                                                    onTap: (){
+                                                      showDialog(
+                                                        context: context,
+                                                        builder: (BuildContext context) {
+                                                          return CustomDialogBox1(
+                                                            title: 'Custom Dialog Title',
+                                                            content:
+                                                            'This is the content of the custom dialog box.',
+                                                            onPressed: () {
+                                                              Navigator.pop(
+                                                                  context); // Closes the dialog box when the button is pressed.
+                                                            },
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Image.asset("assets/images/notes.png", width: 20, color: Colors.black,),
+                                                        Space(12),
+                                                        Text("Create Notes"),
+                                                      ],
+                                                    ),
+                                                  )),
+                                                ];
+                                              }
+                                          )
+                                        ],
+                                      ),
+                                      // Space(8),
                                       Row(
                                         children: [
+                                          Space(12),
                                           Icon(
                                             Icons.play_circle,
                                             color: Theme
@@ -640,12 +1164,17 @@ class _QuranDetailsState extends State<QuranDetails> {
                                         ],
                                       ),
                                       Space(8),
-                                      Icon(
-                                        Icons.bookmark,
-                                        color:
-                                        Theme
-                                            .of(context)
-                                            .primaryColor,
+                                      Row(
+                                        children: [
+                                          Space(12),
+                                          Icon(
+                                            Icons.bookmark,
+                                            color:
+                                            Theme
+                                                .of(context)
+                                                .primaryColor,
+                                          ),
+                                        ],
                                       ),
                                       // Row(
                                       //   children: [
@@ -926,12 +1455,12 @@ class CustomDialogBox extends StatelessWidget {
                     Radio(
                       activeColor: Get.theme.primaryColor,
                       // title: Text("Amiri"),
-                      value: "quranic",
+                      value: "uthami",
                       groupValue: c.fontFamily.value,
                       onChanged: (groupValue) =>
                       c.fontFamily.value = groupValue!,
                     ),
-                    Text("Quranic"),
+                    Text("KFGQPC"),
                     Space(32),
                     Radio(
                       activeColor: Get.theme.primaryColor,
@@ -988,12 +1517,12 @@ class CustomDialogBox extends StatelessWidget {
             children: const [
               Padding(
                 padding: EdgeInsets.only(left: 24),
-                child: Text('Small', style: TextStyle(fontSize: 14)),
+                child: Text('Small', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
               ),
-              Text('Medium', style: TextStyle(fontSize: 14)),
+              Text('Medium', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
               Padding(
                 padding: EdgeInsets.only(right: 24),
-                child: Text('Large', style: TextStyle(fontSize: 14)),
+                child: Text('Large', style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600)),
               ),
             ],
           ),
@@ -1033,12 +1562,12 @@ class CustomDialogBox extends StatelessWidget {
             children: const [
               Padding(
                 padding: EdgeInsets.only(left: 24),
-                child: Text('Small', style: TextStyle(fontSize: 14)),
+                child: Text('Small', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
               ),
-              Text('Medium', style: TextStyle(fontSize: 15)),
+              Text('Medium', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
               Padding(
                 padding: EdgeInsets.only(right: 24),
-                child: Text('Large', style: TextStyle(fontSize: 17)),
+                child: Text('Large', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
               ),
             ],
           ),
@@ -1157,5 +1686,105 @@ class ProfilePageController extends GetxController {
     print(value);
     select = value;
     update();
+  }
+}
+
+class CustomDialogBox1 extends StatelessWidget {
+  TextEditingController pass = TextEditingController();
+  TextEditingController c = TextEditingController();
+  final String title;
+  final String content;
+  final VoidCallback onPressed;
+
+  CustomDialogBox1({
+    required this.title,
+    required this.content,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: _buildDialogContent(context),
+    );
+  }
+
+  Widget _buildDialogContent(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("Create New Note", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Theme.of(context).primaryColor),),
+          Space(16),
+          Container(
+            width: 300.w,
+            height: 50,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(0,4),
+                      blurRadius: 5 ,
+                      color: Colors.grey.shade400
+                  )
+                ]
+            ),
+            child: TextField(
+              style: TextStyle(color: Theme.of(context).colorScheme.primary.withOpacity(0.4), fontWeight: FontWeight.w600),
+              controller: pass ,
+              decoration: InputDecoration(
+                hintText: 'Note Title',
+                // label: Text("Note Title"),
+                filled: true,
+                fillColor: Colors.grey.shade100,
+                focusColor: Colors.black,
+                contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              ),
+            ),
+          ),
+          Space(16),
+          TextFormField(
+            controller: c,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              labelText: 'Type ypur notes...',
+            ),
+            keyboardType: TextInputType.text,
+            style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black),
+            maxLines: 4,
+          ),
+          Space(16),
+          ElevatedButton(
+              onPressed: ()   {
+              },
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(150, 40),
+                backgroundColor: Theme.of(context).primaryColor,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                elevation: 4.0,
+              ),
+              child: Text("Save", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color:Colors.white),)),
+        ],
+      ),
+    );
   }
 }

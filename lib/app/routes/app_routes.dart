@@ -36,6 +36,7 @@ abstract class Routes {
   static const AUDIOPLAYER = _Paths.AUDIOPLAYER;
   static const IMAN_TRACKER = _Paths.IMAN_TRACKER;
   static const DUAPAGE = _Paths.DUAPAGE;
+  static const HADITHCHAPTERDETAIL = _Paths.HADITHCHAPTERDETAIL;
 }
 
 abstract class _Paths {
@@ -73,4 +74,5 @@ abstract class _Paths {
   static const AUDIOPLAYER = '/audioplayer';
   static const IMAN_TRACKER = '/iman-tracker';
   static const DUAPAGE = '/duapage';
+  static const HADITHCHAPTERDETAIL = '/hadithchapterdetail';
 }

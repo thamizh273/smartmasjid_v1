@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,23 +25,26 @@ class DuapageView extends GetView<DuapageController> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text("I am Feeling", style: TextStyle(fontSize: 18),),
-              ),
-              Expanded(
-                child: Padding(
+          child: SingleChildScrollView(
+            dragStartBehavior: DragStartBehavior.start,
+            controller: c.scrollController,
+            clipBehavior: Clip.hardEdge,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text("I am Feeling", style: TextStyle(fontSize: 18),),
+                ),
+                Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Obx(() {
-                    return Scrollbar(
-                      thumbVisibility: false,
-                      thickness: 4,
-                      controller: c.scrollController,
-                      radius: Radius.circular(20),
+                    return SizedBox(
+                      //height: 400,
                       child: GridView.builder(
+                        physics: ScrollPhysics(),
+                        shrinkWrap: true,
+                      controller: c.scrollController,
                         itemCount:c.isExpanded.value ? 20 : 12,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: MediaQuery.of(context).orientation ==
@@ -69,31 +73,28 @@ class DuapageView extends GetView<DuapageController> {
                     );
                   }),
                 ),
-              ),
-              Obx(() {
-                return GestureDetector(
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(c.isExpanded.value ? "See Less" : "See More", style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),),
-                         Icon(c.isExpanded.value ? Icons.expand_less : Icons.expand_more, color: Theme.of(context).primaryColor,),
-                      ],
+                Obx(() {
+                  return GestureDetector(
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(c.isExpanded.value ? "See Less" : "See More", style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),),
+                           Icon(c.isExpanded.value ? Icons.expand_less : Icons.expand_more, color: Theme.of(context).primaryColor,),
+                        ],
+                      ),
                     ),
-                  ),
-                  onTap: () {
-                    c.isExpanded.toggle();
-                  },
-                );
-              }),
-              Space(16),
-              Expanded(
-                child: Scrollbar(
-                  thumbVisibility: false,
-                  thickness: 4,
-                  controller: c.scrollController,
-                  radius: Radius.circular(20),
+                    onTap: () {
+                      c.isExpanded.toggle();
+                    },
+                  );
+                }),
+                Space(16),
+                SizedBox(
                   child: GridView.builder(
+                    scrollDirection: Axis.vertical,
+                    controller: c.scrollController,
+                    shrinkWrap: true,
                     itemCount:10,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: MediaQuery.of(context).orientation ==
@@ -135,9 +136,9 @@ class DuapageView extends GetView<DuapageController> {
                     },
                   ),
                 )
-              )
 
-            ],
+              ],
+            ),
           ),
         ),
       ),

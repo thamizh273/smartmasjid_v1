@@ -23,7 +23,8 @@ class HadithpageView extends GetView<HadithpageController> {
       appBar: CustomAppbar(
         tittle: "Hadith",
         action: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.bookmark))
+          Image.asset("assets/images/bookmark.png", width: 20,),
+          Space(20)
         ],
       ),
       body: ListView.builder(

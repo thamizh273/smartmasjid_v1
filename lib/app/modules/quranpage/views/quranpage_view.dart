@@ -73,7 +73,7 @@ class _QuranpageViewState extends State<QuranpageView> {
         length: 2,
         child: Obx(() {
           return c.isLoadings.value ? loading(context) : Scaffold(
-              key: c.scaffoldKey,
+              // key: c.scaffoldKey,
               drawer: Drawer(
                 width: 250.w,
                 backgroundColor: Color(0xff16627C),
@@ -312,11 +312,8 @@ class _QuranpageViewState extends State<QuranpageView> {
                         icon: Icon(Icons.search),
                         color: Colors.white,
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.bookmark_add),
-                        color: Colors.white,
-                      ),
+                      Image.asset("assets/images/bookmark.png", width: 18,),
+                      Space(20)
                     ],
                   )
                 ],
@@ -821,7 +818,8 @@ class _QuranpageViewState extends State<QuranpageView> {
                                           color: Colors.white,
                                           boxShadow: [
                                             BoxShadow(
-                                              blurRadius: 6,
+                                              blurRadius: 5,
+                                              spreadRadius: 2,
                                               color: Colors.grey.shade400,
                                               offset: Offset(
                                                   0, -4), // Shadow position
@@ -926,10 +924,8 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                 mainAxisAlignment: MainAxisAlignment
                                                     .center,
                                                 children: [
-                                                  Icon(Icons
-                                                      .bookmark_add_outlined,
-                                                    color: Color(
-                                                        0xff16627C),),
+                                                  Image.asset("assets/images/bookmarkout.png", width: 18,),
+                                                  Space(8),
                                                   Text("${sura
                                                       .totalVerses}",
                                                     style: TextStyle(
