@@ -10,6 +10,8 @@ import '../modules/duapage/bindings/duapage_binding.dart';
 import '../modules/duapage/views/duapage_view.dart';
 import '../modules/faceAuth/bindings/face_auth_binding.dart';
 import '../modules/faceAuth/views/face_auth_view.dart';
+import '../modules/hadithchapterdetail/bindings/hadithchapterdetail_binding.dart';
+import '../modules/hadithchapterdetail/views/hadithchapterdetail_view.dart';
 import '../modules/hijripage/bindings/hijripage_binding.dart';
 import '../modules/hijripage/views/hijripage_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -235,6 +237,11 @@ class AppPages {
       name: _Paths.DUAPAGE,
       page: () => DuapageView(),
       binding: DuapageBinding(),
+    ),
+    GetPage(
+      name: _Paths.HADITHCHAPTERDETAIL,
+      page: () =>  HadithchapterdetailView(),
+      binding: HadithchapterdetailBinding(),
     ),
   ];
 }

@@ -123,4 +123,20 @@ flutter:
       fonts:
         - asset: assets/fonts/Indo.ttf
           weight: 500
+    - family: Uthami
+      fonts:
+        - asset: assets/fonts/Uthami.ttf
+          weight: 500
+    - family: Noorehira
+      fonts:
+        - asset: assets/fonts/Noorehira.ttf
+          weight: 500
+    - family: Noorehuda
+      fonts:
+        - asset: assets/fonts/Noorehuda.ttf
+          weight: 500
+    - family: Noorehidayat
+      fonts:
+        - asset: assets/fonts/Noorehidayat.ttf
+          weight: 500
 

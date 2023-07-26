@@ -977,7 +977,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
               const Space(60)
             ],
           ),
-          header('Report', context),
+          header("Result", context),
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
