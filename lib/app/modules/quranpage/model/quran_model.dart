@@ -8,7 +8,7 @@ class QuranModel {
   String? sTypename;
   List<QuranFilter>? quranFilter;
 
-  QuranModel({this.sTypename, this.quranFilter});
+  QuranModel({this.sTypename, this.quranFilter,});
 
   QuranModel.fromJson(Map<String, dynamic> json) {
     sTypename = json['__typename'];

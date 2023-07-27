@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
@@ -14,6 +16,7 @@ import '../../../../widgets/space.dart';
 import '../../audioplayer/controllers/audioplayer_controller.dart';
 import '../controllers/quranpage_controller.dart';
 import '../model/quran_detail_model.dart';
+import '../model/quran_model.dart';
 
 class QuranDetails extends StatefulWidget {
   QuranDetails({super.key});
@@ -27,6 +30,7 @@ final AudioplayerController controller = Get.put(AudioplayerController());
 
 class _QuranDetailsState extends State<QuranDetails> {
   var makki = c.getqurandetail.value.getQuranAyahVerse![0].makkiMadina;
+  var madni = c.getqurandetail.value.getQuranAyahVerse![0].makkiMadina;
   var chapterno = c.getqurandetail.value.getQuranAyahVerse![0].suraChapterNo;
   var sura = c.getqurandetail.value.getQuranAyahVerse![0].suraNameEn;
   var title = c.getqurandetail.value.getQuranAyahVerse![0].titleEn;
@@ -37,459 +41,490 @@ class _QuranDetailsState extends State<QuranDetails> {
     return Scaffold(
       key: c.scaffoldKey,
       endDrawer: Drawer(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          physics: ScrollPhysics(),
-          controller: c.scrollController,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Space(20),
-              Text(
-                "Customize your Quran",
-                style: TextStyle(
-                  fontSize: 18,fontWeight: FontWeight.w600
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            physics: ScrollPhysics(),
+            controller: c.scrollController,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Space(20),
+                Text(
+                  "Customize your Quran",
+                  style: TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w600
+                  ),
                 ),
-              ),
-              Space(16),
-              Text(
-                "View",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff16627C)),
-              ),
-              Space(8),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Obx(() {
-                        return Radio(
-                          activeColor: Get.theme.primaryColor,
-                          // title: Text("Amiri"),
-                          value: "sura",
-                          groupValue: c.view.value,
-                          onChanged: (groupValue) =>
-                              c.view(groupValue!),
-                        );
-                      }),
-                      Text("Sura"),
-                      Obx(() {
-                        return Radio(
-                          activeColor: Get.theme.primaryColor,
-                          // title: Text("Amiri"),
-                          value: "page",
-                          groupValue: c.view.value,
-                          onChanged: (groupValue) =>
-                              c.view(groupValue!),
-                        );
-                      }),
-                      Text("Page"),
-                    ],
-                  ),
-                  Space(4),
-                  Row(
-                    children: [
-                      Obx(() {
-                        return Radio(
-                          activeColor: Get.theme.primaryColor,
-                          // title: Text("Amiri"),
-                          value: "juz",
-                          groupValue: c.view.value,
-                          onChanged: (groupValue) =>
-                              c.view(groupValue!),
-                        );
-                      }),
-                      Text("Juz"),
-                      Obx(() {
-                        return Radio(
-                          activeColor: Get.theme.primaryColor,
-                          // title: Text("Amiri"),
-                          value: "hizb",
-                          groupValue: c.view.value,
-                          onChanged: (groupValue) =>
-                              c.view(groupValue!),
-                        );
-                      }),
-                      Text("Hizb"),
-                    ],
-                  ),
-                ],
-              ),
-              Divider(
-                thickness: 1,
-              ),
-              Space(16),
-              Text(
-                "Content",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff16627C)),
-              ),
-              Space(16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Obx(() {
-                    return Container(
-                      height: 25.h,
-                      width: 25.w,
-                      child: Transform.scale(
-                        scale: 0.8, // Adjust this value to change the checkbox size.
-                        child: Checkbox(
-                          activeColor: Get.theme.primaryColor,
-                          checkColor: Colors.white,
-                          value: c.isCheckedArabic.value,
-                          onChanged: (value) {
-                            c.isCheckedArabic.value = value!;
-                            Future.delayed(Duration(milliseconds: 500), () {
-                              c.getqurandetail();
-                            });
-                            c.update();
-                          },
-                        ),
-                      ),
-                    );
-
-                  }),
-                  Stxt( size:f2, text: 'Arabic',),
-                  Space(8),
-                  Obx(() {
-                    return Container(
-                      height: 25.h,
-                      width: 25.w,
-                      child: Transform.scale(
-                        scale: 0.8, // Adjust this value to change the checkbox size.
-                        child: Checkbox(
-                          activeColor: Get.theme.primaryColor,
-                          checkColor: Colors.white,
-                          value: c.isCheckedEnglish.value,
-                          onChanged: (value) {
-                            c.isCheckedEnglish.value = value!;
-                            Future.delayed(Duration(milliseconds: 500), () {
-                              c.getqurandetail();
-                            });
-                            c.update();
-                          },
-                        ),
-                      ),
-                    );
-                  }),
-                  Stxt( size:f2, text: 'English',),
-                  Space(8),
-                  Obx(() {
-                    return Container(
-                      height: 25.h,
-                      width: 25.w,
-                      child: Transform.scale(
-                        scale: 0.8, // Adjust this value to change the checkbox size.
-                        child: Checkbox(
-                          splashRadius: 5,
-                          activeColor: Get.theme.primaryColor,
-                          checkColor: Colors.white,
-                          value: c.isCheckedTamil.value,
-                          onChanged: (value) {
-                            c.isCheckedTamil.value = value!;
-                            Future.delayed(Duration(milliseconds: 500), () {
-                              c.getqurandetail();
-                            });
-                            c.update();
-                          },
-                        ),
-                      ),
-                    );
-                  }),
-                  Stxt( size:f2, text: 'Tamil',),
-                ],
-              ),
-              Space(8),
-              // Divider(
-              //   thickness: 1,
-              // ),
-              Space(8),
-              Text(
-                "Arabic Font",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff16627C)),
-              ),
-
-             Column(
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 ExpansionTile(
-                     title: Text("IndoPak Script"),
+                Space(16),
+                Text(
+                  "View",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff16627C)),
+                ),
+                Space(8),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ListTile(
-                      title:  Column(
-                        children: [
-                          Row(
+                    Row(
+                      children: [
+                        Obx(() {
+                          return Radio(
+                            activeColor: Get.theme.primaryColor,
+                            // title: Text("Amiri"),
+                            value: "sura",
+                            groupValue: c.view.value,
+                            onChanged: (groupValue) =>
+                                c.view(groupValue!),
+                          );
+                        }),
+                        Text("Sura"),
+                        Obx(() {
+                          return Radio(
+                            activeColor: Get.theme.primaryColor,
+                            // title: Text("Amiri"),
+                            value: "page",
+                            groupValue: c.view.value,
+                            onChanged: (groupValue) =>
+                                c.view(groupValue!),
+                          );
+                        }),
+                        Text("Page"),
+                      ],
+                    ),
+                    Space(4),
+                    Row(
+                      children: [
+                        Obx(() {
+                          return Radio(
+                            activeColor: Get.theme.primaryColor,
+                            // title: Text("Amiri"),
+                            value: "juz",
+                            groupValue: c.view.value,
+                            onChanged: (groupValue) =>
+                                c.view(groupValue!),
+                          );
+                        }),
+                        Text("Juz"),
+                        Obx(() {
+                          return Radio(
+                            activeColor: Get.theme.primaryColor,
+                            // title: Text("Amiri"),
+                            value: "hizb",
+                            groupValue: c.view.value,
+                            onChanged: (groupValue) =>
+                                c.view(groupValue!),
+                          );
+                        }),
+                        Text("Hizb"),
+                      ],
+                    ),
+                  ],
+                ),
+                Divider(
+                  thickness: 1,
+                ),
+                Space(16),
+                Text(
+                  "Content",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff16627C)),
+                ),
+                Space(16),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Obx(() {
+                      return Container(
+                        height: 25.h,
+                        width: 25.w,
+                        child: Transform.scale(
+                          scale: 0.8,
+                          // Adjust this value to change the checkbox size.
+                          child: Checkbox(
+                            activeColor: Get.theme.primaryColor,
+                            checkColor: Colors.white,
+                            value: c.isCheckedArabic.value,
+                            onChanged: (value) {
+                              c.isCheckedArabic.value = value!;
+                              Future.delayed(Duration(milliseconds: 500), () {
+                                c.getqurandetail();
+                              });
+                              c.update();
+                            },
+                          ),
+                        ),
+                      );
+                    }),
+                    Stxt(size: f2, text: 'Arabic',),
+                    Space(8),
+                    Obx(() {
+                      return Container(
+                        height: 25.h,
+                        width: 25.w,
+                        child: Transform.scale(
+                          scale: 0.8,
+                          // Adjust this value to change the checkbox size.
+                          child: Checkbox(
+                            activeColor: Get.theme.primaryColor,
+                            checkColor: Colors.white,
+                            value: c.isCheckedEnglish.value,
+                            onChanged: (value) {
+                              c.isCheckedEnglish.value = value!;
+                              Future.delayed(Duration(milliseconds: 500), () {
+                                c.getqurandetail();
+                              });
+                              c.update();
+                            },
+                          ),
+                        ),
+                      );
+                    }),
+                    Stxt(size: f2, text: 'English',),
+                    Space(8),
+                    Obx(() {
+                      return Container(
+                        height: 25.h,
+                        width: 25.w,
+                        child: Transform.scale(
+                          scale: 0.8,
+                          // Adjust this value to change the checkbox size.
+                          child: Checkbox(
+                            splashRadius: 5,
+                            activeColor: Get.theme.primaryColor,
+                            checkColor: Colors.white,
+                            value: c.isCheckedTamil.value,
+                            onChanged: (value) {
+                              c.isCheckedTamil.value = value!;
+                              Future.delayed(Duration(milliseconds: 500), () {
+                                c.getqurandetail();
+                              });
+                              c.update();
+                            },
+                          ),
+                        ),
+                      );
+                    }),
+                    Stxt(size: f2, text: 'Tamil',),
+                  ],
+                ),
+                Space(8),
+                // Divider(
+                //   thickness: 1,
+                // ),
+                Space(8),
+                Text(
+                  "Arabic Font",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Color(0xff16627C)),
+                ),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ExpansionTile(
+                      title: Text("IndoPak Script"),
+                      children: [
+                        ListTile(
+                          title: Column(
                             children: [
                               Obx(() {
-                                return Container(
-                                  height: 25.h,
-                                  width: 25.w,
-                                  // color: Colors.red,
-                                  child: Radio(
-                                    activeColor: Get.theme.primaryColor,
-                                    // title: Text("Amiri"),
-                                    value: "noorehira",
-                                    groupValue: c.fontFamily.value,
-                                    onChanged: (groupValue) =>
-                                        c.changeFontFamily(groupValue!),
-                                  ),
+                                return Row(
+                                  children: [
+                                    Container(
+                                      height: 25.h,
+                                      width: 25.w,
+                                      // color: Colors.red,
+                                      child: Radio(
+                                        activeColor: Get.theme.primaryColor,
+                                        // title: Text("Amiri"),
+                                        value: "noorehira",
+                                        groupValue: c.fontFamily.value,
+                                        onChanged: (groupValue) =>
+                                            c.changeFontFamily(groupValue!),
+                                      ),
+                                    ),
+                                    Text("Noorehira"),
+                                    Spacer(),
+                                    SvgPicture.asset(
+                                      "assets/svg/noorehira.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                  ],
                                 );
                               }),
-                              Text("Noorehira"),
-                              Space(32),
+
+                              Space(8),
                               Obx(() {
-                                return Container(
-                                  height: 25.h,
-                                  width: 25.w,
-                                  child: Radio(
-                                    activeColor: Get.theme.primaryColor,
-                                    // title: Text("Kalam"),
-                                    value: "noorehuda",
-                                    groupValue: c.fontFamily.value,
-                                    onChanged: (groupValue) =>
-                                        c.changeFontFamily(groupValue!),
-                                  ),
+                                return Row(
+                                  children: [
+                                    Container(
+                                      height: 25.h,
+                                      width: 25.w,
+                                      child: Radio(
+                                        activeColor: Get.theme.primaryColor,
+                                        // title: Text("Kalam"),
+                                        value: "noorehuda",
+                                        groupValue: c.fontFamily.value,
+                                        onChanged: (groupValue) =>
+                                            c.changeFontFamily(groupValue!),
+                                      ),
+                                    ),
+                                    Text("Noorehuda"),
+                                    Spacer(),
+                                    SvgPicture.asset(
+                                      "assets/svg/noorehuda.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                  ],
                                 );
                               }),
-                              Text("Noorehuda"),
+                              Space(8),
+                              Obx(() {
+                                return Row(
+                                  children: [
+                                    Container(
+                                      height: 25.h,
+                                      width: 25.w,
+                                      child: Radio(
+                                        activeColor: Get.theme.primaryColor,
+                                        // title: Text("Amiri"),
+                                        value: "noorehidayat",
+                                        groupValue: c.fontFamily.value,
+                                        onChanged: (groupValue) =>
+                                        c.fontFamily.value = groupValue!,
+                                      ),
+                                    ),
+                                    Text("Noorehidayat"),
+                                    Spacer(),
+                                    SvgPicture.asset(
+                                      "assets/svg/noorehidayat.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                  ],
+                                );
+                              }),
                             ],
                           ),
-                          Space(8),
-                          Obx(() {
-                            return Row(
-                              children: [
-                                Container(
-                                  height: 25.h,
-                                  width: 25.w,
-                                  child: Radio(
-                                    activeColor: Get.theme.primaryColor,
-                                    // title: Text("Amiri"),
-                                    value: "noorehidayat",
-                                    groupValue: c.fontFamily.value,
-                                    onChanged: (groupValue) =>
-                                    c.fontFamily.value = groupValue!,
-                                  ),
-                                ),
-                                Text("Noorehidayat"),
-                                Space(32),
-                                // Container(
-                                //   height: 25.h,
-                                //   width: 25.w,
-                                //   child: Radio(
-                                //     activeColor: Get.theme.primaryColor,
-                                //     // title: Text("Kalam"),
-                                //     value: "amiri",
-                                //     groupValue: c.fontFamily.value,
-                                //     onChanged: (groupValue) =>
-                                //     c.fontFamily.value = groupValue!.toString(),
-                                //   ),
-                                // ),
-                                // Text("Amiri"),
-                              ],
-                            );
-                          }),
-                        ],
-                      ),
-                    )
-                  ],
-                 ),
-                 // Divider(
-                 //
-                 // ),
-                 ExpansionTile(
-                     title: Text("Uthmani/Madani Script"),
-                  children: [
-                    ListTile(
-                      title:  Column(
-                        children: [
-
-                          Row(
+                        )
+                      ],
+                    ),
+                    // Divider(
+                    //
+                    // ),
+                    ExpansionTile(
+                      title: Text("Uthmani/Madani Script"),
+                      children: [
+                        ListTile(
+                          title: Column(
                             children: [
                               Obx(() {
-                                return Container(
-                                  height: 25.h,
-                                  width: 25.w,
-                                  child: Radio(
-                                    activeColor: Get.theme.primaryColor,
-                                    // title: Text("Amiri"),
-                                    value: "indopak",
-                                    groupValue: c.fontFamily.value,
-                                    onChanged: (groupValue) =>
-                                        c.changeFontFamily(groupValue!),
-                                  ),
+                                return Row(
+                                  children: [
+                                    Container(
+                                      height: 25.h,
+                                      width: 25.w,
+                                      child: Radio(
+                                        activeColor: Get.theme.primaryColor,
+                                        // title: Text("Amiri"),
+                                        value: "indopak",
+                                        groupValue: c.fontFamily.value,
+                                        onChanged: (groupValue) =>
+                                            c.changeFontFamily(groupValue!),
+                                      ),
+                                    ),
+                                    Text("Quran"),
+                                    Spacer(),
+                                    SvgPicture.asset(
+                                      "assets/svg/quran.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                  ],
                                 );
                               }),
-                              Text("Quran"),
-                              Space(32),
+                              Space(8),
                               Obx(() {
-                                return Container(
-                                  height: 25.h,
-                                  width: 25.w,
-                                  child: Radio(
-                                    activeColor: Get.theme.primaryColor,
-                                    // title: Text("Kalam"),
-                                    value: "qalam",
-                                    groupValue: c.fontFamily.value,
-                                    onChanged: (groupValue) =>
-                                        c.changeFontFamily(groupValue!),
-                                  ),
+                                return Row(
+                                  children: [
+                                    Container(
+                                      height: 25.h,
+                                      width: 25.w,
+                                      child: Radio(
+                                        activeColor: Get.theme.primaryColor,
+                                        // title: Text("Kalam"),
+                                        value: "qalam",
+                                        groupValue: c.fontFamily.value,
+                                        onChanged: (groupValue) =>
+                                            c.changeFontFamily(groupValue!),
+                                      ),
+                                    ),
+                                    Text("Qalam"),
+                                    Spacer(),
+                                    SvgPicture.asset(
+                                      "assets/svg/qalam.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                  ],
                                 );
                               }),
-                              Text("Qalam"),
+                              Space(8),
+
+                              Obx(() {
+                                return Row(
+                                  children: [
+                                    Container(
+                                      height: 25.h,
+                                      width: 25.w,
+                                      child: Radio(
+                                        activeColor: Get.theme.primaryColor,
+                                        // title: Text("Amiri"),
+                                        value: "uthami",
+                                        groupValue: c.fontFamily.value,
+                                        onChanged: (groupValue) =>
+                                        c.fontFamily.value = groupValue!,
+                                      ),
+                                    ),
+                                    Text("KFGQPC Hafs"),
+                                    Spacer(),
+                                    SvgPicture.asset(
+                                      "assets/svg/KFGQPC.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                  ],
+                                );
+                              }),
+                              Space(8),
+                              Obx(() {
+                                return Row(
+                                  children: [
+                                    Container(
+                                      height: 25.h,
+                                      width: 25.w,
+                                      child: Radio(
+                                        activeColor: Get.theme.primaryColor,
+                                        // title: Text("Kalam"),
+                                        value: "amiri",
+                                        groupValue: c.fontFamily.value,
+                                        onChanged: (groupValue) =>
+                                        c.fontFamily.value =
+                                            groupValue!.toString(),
+                                      ),
+                                    ),
+                                    Text("Amiri"),
+                                    Spacer(),
+                                    SvgPicture.asset(
+                                      "assets/svg/amiri.svg", width: 60,color: Colors.black.withOpacity(0.5),)
+                                  ],
+                                );
+                              }),
+
                             ],
                           ),
-                          Space(8),
-                          Obx(() {
-                            return Row(
-                              children: [
-                                Container(
-                                  height: 25.h,
-                                  width: 25.w,
-                                  child: Radio(
-                                    activeColor: Get.theme.primaryColor,
-                                    // title: Text("Amiri"),
-                                    value: "uthami",
-                                    groupValue: c.fontFamily.value,
-                                    onChanged: (groupValue) =>
-                                    c.fontFamily.value = groupValue!,
-                                  ),
-                                ),
-                                Text("KFGQPC Hafs"),
-                                Space(32),
-                                Container(
-                                  height: 25.h,
-                                  width: 25.w,
-                                  child: Radio(
-                                    activeColor: Get.theme.primaryColor,
-                                    // title: Text("Kalam"),
-                                    value: "amiri",
-                                    groupValue: c.fontFamily.value,
-                                    onChanged: (groupValue) =>
-                                    c.fontFamily.value = groupValue!.toString(),
-                                  ),
-                                ),
-                                Text("Amiri"),
-                              ],
-                            );
-                          }),
-                        ],
-                      ),
-                    )
+                        )
+                      ],
+                    ),
                   ],
-                 ),
-               ],
-             ),
+                ),
 
-
-              Space(8),
-              // Divider(
-              //   thickness: 1,
-              // ),
-              Text(
-                "Arabic Font Size",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              Theme(
-                data: Theme.of(context).copyWith(
-                  sliderTheme: const SliderThemeData(
-                    thumbShape: MySliderComponentShape(),
-                    // trackShape: SameHeightRoundedSliderTrackShape(),
-                    trackHeight: 8,
+                Space(8),
+                // Divider(
+                //   thickness: 1,
+                // ),
+                Text(
+                  "Arabic Font Size",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                child: Obx(() {
-                  // Use Obx to listen to changes in the controller's sliderValue
-                  return Slider(
-                    onChanged: c.setSliderValue,
-                    // Call the setSliderValue method from the controller
-                    value: c.sliderValue.value,
-                    // Use the sliderValue from the controller
-                    min: 0,
-                    max: 2,
-                    divisions: 2,
-                    activeColor: const Color.fromARGB(255, 231, 231, 231),
-                    inactiveColor: const Color.fromARGB(255, 231, 231, 231),
-                  );
-                }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.only(left: 24),
-                    child: Text('Small', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    sliderTheme: const SliderThemeData(
+                      thumbShape: MySliderComponentShape(),
+                      // trackShape: SameHeightRoundedSliderTrackShape(),
+                      trackHeight: 8,
+                    ),
                   ),
-                  Text('Medium', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
-                  Padding(
-                    padding: EdgeInsets.only(right: 24),
-                    child: Text('Large', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
-                  ),
-                ],
-              ),
-              Space(16),
-              Text(
-                "Translation Font Size",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+                  child: Obx(() {
+                    // Use Obx to listen to changes in the controller's sliderValue
+                    return Slider(
+                      onChanged: c.setSliderValue,
+                      // Call the setSliderValue method from the controller
+                      value: c.sliderValue.value,
+                      // Use the sliderValue from the controller
+                      min: 0,
+                      max: 2,
+                      divisions: 2,
+                      activeColor: const Color.fromARGB(255, 231, 231, 231),
+                      inactiveColor: const Color.fromARGB(255, 231, 231, 231),
+                    );
+                  }),
                 ),
-              ),
-              Theme(
-                data: Theme.of(context).copyWith(
-                  sliderTheme: const SliderThemeData(
-                    thumbShape: MySliderComponentShape1(),
-                    // trackShape: SameHeightRoundedSliderTrackShape(),
-                    trackHeight: 8,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.only(left: 24),
+                      child: Text('Small', style: TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w400)),
+                    ),
+                    Text('Medium', style: TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w500)),
+                    Padding(
+                      padding: EdgeInsets.only(right: 24),
+                      child: Text('Large', style: TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.w600)),
+                    ),
+                  ],
+                ),
+                Space(16),
+                Text(
+                  "Translation Font Size",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-                child: Obx(() {
-                  // Use Obx to listen to changes in the controller's sliderValue
-                  return Slider(
-                    onChanged: c.setSliderValue1,
-                    // Call the setSliderValue method from the controller
-                    value: c.sliderValue1.value,
-                    // Use the sliderValue from the controller
-                    min: 0,
-                    max: 2,
-                    divisions: 2,
-                    activeColor: const Color.fromARGB(255, 231, 231, 231),
-                    inactiveColor: const Color.fromARGB(255, 231, 231, 231),
-                  );
-                }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Padding(
-                    padding: EdgeInsets.only(left: 24),
-                    child: Text('Small', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                Theme(
+                  data: Theme.of(context).copyWith(
+                    sliderTheme: const SliderThemeData(
+                      thumbShape: MySliderComponentShape1(),
+                      // trackShape: SameHeightRoundedSliderTrackShape(),
+                      trackHeight: 8,
+                    ),
                   ),
-                  Text('Medium', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
-                  Padding(
-                    padding: EdgeInsets.only(right: 24),
-                    child: Text('Large', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
-                  ),
-                ],
-              ),
-            ],
+                  child: Obx(() {
+                    // Use Obx to listen to changes in the controller's sliderValue
+                    return Slider(
+                      onChanged: c.setSliderValue1,
+                      // Call the setSliderValue method from the controller
+                      value: c.sliderValue1.value,
+                      // Use the sliderValue from the controller
+                      min: 0,
+                      max: 2,
+                      divisions: 2,
+                      activeColor: const Color.fromARGB(255, 231, 231, 231),
+                      inactiveColor: const Color.fromARGB(255, 231, 231, 231),
+                    );
+                  }),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Padding(
+                      padding: EdgeInsets.only(left: 24),
+                      child: Text('Small', style: TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w400)),
+                    ),
+                    Text('Medium', style: TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w500)),
+                    Padding(
+                      padding: EdgeInsets.only(right: 24),
+                      child: Text('Large', style: TextStyle(
+                          fontSize: 17, fontWeight: FontWeight.w600)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
       ),
       backgroundColor: Colors.white,
       appBar: CustomAppbar(
@@ -518,7 +553,6 @@ class _QuranDetailsState extends State<QuranDetails> {
                     //   },
                     // );
                     c.openEndDrawer();
-
                   },
                   child: SvgPicture.asset("assets/svg/customize.svg")),
               Space(22),
@@ -553,17 +587,23 @@ class _QuranDetailsState extends State<QuranDetails> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                "${makki}",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor),
+                              Image(
+                                image: makki == "Makki" ? AssetImage('assets/images/makka.png') : AssetImage('assets/images/madina.png'),
+                                width: 20,
+                                height: 20,
                               ),
+                              // Text(
+                              //   "${makki}",
+                              //   style: TextStyle(
+                              //       fontSize: 15,
+                              //       fontWeight: FontWeight.w500,
+                              //       color: Theme
+                              //           .of(context)
+                              //           .primaryColor),
+                              // ),
                               Text(
-                                "${chapterno}",
+                                // "${chapterno}",
+                                "${makki}",
                                 style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
@@ -990,26 +1030,28 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       .value == "uthami"
                                                       ? "Uthami" : c.fontFamily
                                                       .value == "amiri"
-                                                      ? "Amiri": c.fontFamily
+                                                      ? "Amiri" : c.fontFamily
                                                       .value == "noorehira"
-                                                      ? "Noorehira": c.fontFamily
+                                                      ? "Noorehira" : c
+                                                      .fontFamily
                                                       .value == "noorehuda"
-                                                      ? "Noorehuda": c.fontFamily
+                                                      ? "Noorehuda" : c
+                                                      .fontFamily
                                                       .value == "noorehidayat"
                                                       ? "Noorehidayat"
                                                       : null, // Use the default font if "Amiri" is not selected
                                                 );
                                                 return SizedBox(
-                                                    width: c.screenWidth * 0.7,
-                                                    child: c.isCheckedArabic
-                                                        .value == true
-                                                        ? Text(
-                                                      "${sura.arabicText}",
-                                                      style: textStyle,
-                                                      textAlign:
-                                                      TextAlign.end,
-                                                    )
-                                                        : SizedBox()
+                                                  width: c.screenWidth * 0.68,
+                                                  child: c.isCheckedArabic
+                                                      .value == true
+                                                      ? Text(
+                                                    "${sura.arabicText}",
+                                                    style: textStyle,
+                                                    textAlign:
+                                                    TextAlign.end,
+                                                  )
+                                                      : SizedBox(),
                                                   // Text(
                                                   //   "${sura.arabicText}",
                                                   //   style: TextStyle(
@@ -1061,15 +1103,20 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       //   ),
                                       // ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .start,
                                         children: [
                                           PopupMenuButton(
                                               shadowColor: Colors.grey.shade400,
-                                              itemBuilder: (BuildContext context) {
+                                              itemBuilder: (
+                                                  BuildContext context) {
                                                 return [
                                                   PopupMenuItem(child: Row(
                                                     children: [
-                                                      Image.asset("assets/images/bookmark.png", width: 20,color: Colors.black,),
+                                                      Image.asset(
+                                                        "assets/images/bookmark.png",
+                                                        width: 20,
+                                                        color: Colors.black,),
                                                       Space(12),
                                                       Text("Bookmark"),
                                                     ],
@@ -1088,31 +1135,38 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       Text("Share"),
                                                     ],
                                                   )),
-                                                  PopupMenuItem(child: GestureDetector(
-                                                    onTap: (){
-                                                      showDialog(
-                                                        context: context,
-                                                        builder: (BuildContext context) {
-                                                          return CustomDialogBox1(
-                                                            title: 'Custom Dialog Title',
-                                                            content:
-                                                            'This is the content of the custom dialog box.',
-                                                            onPressed: () {
-                                                              Navigator.pop(
-                                                                  context); // Closes the dialog box when the button is pressed.
+                                                  PopupMenuItem(
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (
+                                                                BuildContext context) {
+                                                              return CustomDialogBox1(
+                                                                title: 'Custom Dialog Title',
+                                                                content:
+                                                                'This is the content of the custom dialog box.',
+                                                                onPressed: () {
+                                                                  Navigator.pop(
+                                                                      context); // Closes the dialog box when the button is pressed.
+                                                                },
+                                                              );
                                                             },
                                                           );
                                                         },
-                                                      );
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Image.asset("assets/images/notes.png", width: 20, color: Colors.black,),
-                                                        Space(12),
-                                                        Text("Create Notes"),
-                                                      ],
-                                                    ),
-                                                  )),
+                                                        child: Row(
+                                                          children: [
+                                                            Image.asset(
+                                                              "assets/images/notes.png",
+                                                              width: 20,
+                                                              color: Colors
+                                                                  .black,),
+                                                            Space(12),
+                                                            Text(
+                                                                "Create Notes"),
+                                                          ],
+                                                        ),
+                                                      )),
                                                 ];
                                               }
                                           )
@@ -1339,7 +1393,8 @@ class CustomDialogBox extends StatelessWidget {
                   height: 25.h,
                   width: 25.w,
                   child: Transform.scale(
-                    scale: 0.8, // Adjust this value to change the checkbox size.
+                    scale: 0.8,
+                    // Adjust this value to change the checkbox size.
                     child: Checkbox(
                       activeColor: Get.theme.primaryColor,
                       checkColor: Colors.white,
@@ -1354,16 +1409,16 @@ class CustomDialogBox extends StatelessWidget {
                     ),
                   ),
                 );
-
               }),
-              Stxt( size:f2, text: 'Arabic',),
+              Stxt(size: f2, text: 'Arabic',),
               Space(8),
               Obx(() {
                 return Container(
                   height: 25.h,
                   width: 25.w,
                   child: Transform.scale(
-                    scale: 0.8, // Adjust this value to change the checkbox size.
+                    scale: 0.8,
+                    // Adjust this value to change the checkbox size.
                     child: Checkbox(
                       activeColor: Get.theme.primaryColor,
                       checkColor: Colors.white,
@@ -1379,14 +1434,15 @@ class CustomDialogBox extends StatelessWidget {
                   ),
                 );
               }),
-             Stxt( size:f2, text: 'English',),
+              Stxt(size: f2, text: 'English',),
               Space(8),
               Obx(() {
                 return Container(
                   height: 25.h,
                   width: 25.w,
                   child: Transform.scale(
-                    scale: 0.8, // Adjust this value to change the checkbox size.
+                    scale: 0.8,
+                    // Adjust this value to change the checkbox size.
                     child: Checkbox(
                       splashRadius: 5,
                       activeColor: Get.theme.primaryColor,
@@ -1403,7 +1459,7 @@ class CustomDialogBox extends StatelessWidget {
                   ),
                 );
               }),
-            Stxt( size:f2, text: 'Tamil',),
+              Stxt(size: f2, text: 'Tamil',),
             ],
           ),
           Space(8),
@@ -1517,12 +1573,15 @@ class CustomDialogBox extends StatelessWidget {
             children: const [
               Padding(
                 padding: EdgeInsets.only(left: 24),
-                child: Text('Small', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                child: Text('Small', style: TextStyle(
+                    fontSize: 14, fontWeight: FontWeight.w400)),
               ),
-              Text('Medium', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+              Text('Medium',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
               Padding(
                 padding: EdgeInsets.only(right: 24),
-                child: Text('Large', style: TextStyle(fontSize: 17,fontWeight: FontWeight.w600)),
+                child: Text('Large', style: TextStyle(
+                    fontSize: 17, fontWeight: FontWeight.w600)),
               ),
             ],
           ),
@@ -1562,12 +1621,15 @@ class CustomDialogBox extends StatelessWidget {
             children: const [
               Padding(
                 padding: EdgeInsets.only(left: 24),
-                child: Text('Small', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                child: Text('Small', style: TextStyle(
+                    fontSize: 14, fontWeight: FontWeight.w400)),
               ),
-              Text('Medium', style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
+              Text('Medium',
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500)),
               Padding(
                 padding: EdgeInsets.only(right: 24),
-                child: Text('Large', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600)),
+                child: Text('Large', style: TextStyle(
+                    fontSize: 17, fontWeight: FontWeight.w600)),
               ),
             ],
           ),
@@ -1726,7 +1788,10 @@ class CustomDialogBox1 extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text("Create New Note", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Theme.of(context).primaryColor),),
+          Text("Create New Note", style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w600, color: Theme
+              .of(context)
+              .primaryColor),),
           Space(16),
           Container(
             width: 300.w,
@@ -1735,22 +1800,27 @@ class CustomDialogBox1 extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 boxShadow: [
                   BoxShadow(
-                      offset: Offset(0,4),
-                      blurRadius: 5 ,
+                      offset: Offset(0, 4),
+                      blurRadius: 5,
                       color: Colors.grey.shade400
                   )
                 ]
             ),
             child: TextField(
-              style: TextStyle(color: Theme.of(context).colorScheme.primary.withOpacity(0.4), fontWeight: FontWeight.w600),
-              controller: pass ,
+              style: TextStyle(color: Theme
+                  .of(context)
+                  .colorScheme
+                  .primary
+                  .withOpacity(0.4), fontWeight: FontWeight.w600),
+              controller: pass,
               decoration: InputDecoration(
                 hintText: 'Note Title',
                 // label: Text("Note Title"),
                 filled: true,
                 fillColor: Colors.grey.shade100,
                 focusColor: Colors.black,
-                contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16, vertical: 12),
               ),
             ),
           ),
@@ -1771,20 +1841,24 @@ class CustomDialogBox1 extends StatelessWidget {
           ),
           Space(16),
           ElevatedButton(
-              onPressed: ()   {
-              },
+              onPressed: () {},
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(150, 40),
-                backgroundColor: Theme.of(context).primaryColor,
+                backgroundColor: Theme
+                    .of(context)
+                    .primaryColor,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 elevation: 4.0,
               ),
-              child: Text("Save", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color:Colors.white),)),
+              child: Text("Save", style: TextStyle(fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                  color: Colors.white),)),
         ],
       ),
     );
   }
 }
+
