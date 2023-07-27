@@ -41,6 +41,7 @@ import '../modules/prayerpage/views/prayerpage_view.dart';
 import '../modules/prayertimes/bindings/prayertimes_binding.dart';
 import '../modules/prayertimes/views/prayertimes_view.dart';
 import '../modules/profilePage/bindings/profile_page_binding.dart';
+import '../modules/profilePage/views/edit_profile_view.dart';
 import '../modules/profilePage/views/profile_page_view.dart';
 import '../modules/qiblafinderpage/bindings/qiblafinderpage_binding.dart';
 import '../modules/qiblafinderpage/views/qiblafinderpage_view.dart';
@@ -242,6 +243,11 @@ class AppPages {
       name: _Paths.HADITHCHAPTERDETAIL,
       page: () =>  HadithchapterdetailView(),
       binding: HadithchapterdetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDITPROFILE,
+      page: () =>  EditProfileView(),
+      binding: ProfilePageBinding(),
     ),
   ];
 }

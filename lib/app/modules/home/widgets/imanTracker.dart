@@ -1,5 +1,6 @@
 
 
+import '../../../../utils/color_utils.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 
@@ -121,7 +122,7 @@ class ImanTracker_widget extends StatelessWidget {
                             children: [
                               Stxt(
                                 text: "click here to update",
-                                size: f0,
+                                size: f0,color: clr_white
 
                               ),
                               SizedBox(

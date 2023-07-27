@@ -9,14 +9,10 @@ import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart
 import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
 import 'package:smartmasjid_v1/app/modules/masjidhistory/views/masjidhistory_view.dart';
-import 'package:smartmasjid_v1/app/modules/messagepage/views/messagepage_view.dart';
-import 'package:smartmasjid_v1/app/modules/notificationpage/views/notificationpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/qiblafinderpage/views/qiblafinderpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/quranpage_view.dart';
-import 'package:smartmasjid_v1/app/modules/settingspage/views/settingspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/specialdayspage/views/specialdayspage_view.dart';
-import 'package:smartmasjid_v1/app/modules/weatherpage/views/weatherpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/zakathpage/views/zakathpage_view.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 

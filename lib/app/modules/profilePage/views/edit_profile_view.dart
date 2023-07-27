@@ -6,6 +6,7 @@ import 'package:smartmasjid_v1/app/modules/profilePage/controllers/edit_profile_
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/Stextfield.dart';
 
+import '../../../../utils/color_utils.dart';
 import '../../../../widgets/button.dart';
 
 class EditProfileView extends StatelessWidget {
@@ -56,18 +57,19 @@ class EditProfileView extends StatelessWidget {
             children: [
               Safa_textfield(
                   length: 5,
-                  label: "Flat No.",
+                  label: "Door No.",
                   width: .25,
                   fillColor: Color(0xffD9D9D9)),
               Safa_textfield(
-                label: "Address Line 1",
+                label: "Street",
                 width: .6,
                 hint: '',
                 fillColor: Color(0xffD9D9D9),
               ),
             ],
           ),
-          Safa_textfield(label: "Address Line 2", fillColor: Color(0xffD9D9D9)),
+          Safa_textfield(label: "Distric", fillColor: Color(0xffD9D9D9)),
+          Safa_textfield(label: "State", fillColor: Color(0xffD9D9D9)),
           Safa_textfield(label: "Pincode", fillColor: Color(0xffD9D9D9)),
           SizedBox(
             height: 25,
@@ -75,7 +77,7 @@ class EditProfileView extends StatelessWidget {
           Column(
             children: [
               SButton(
-                  text: "Submit", ontap: () {}, color: Get.theme.primaryColor),
+                  text: "Submit", ontap: () {}, color: Get.theme.primaryColor,txtClr: clr_white),
             ],
           )
         ],

@@ -37,6 +37,7 @@ abstract class Routes {
   static const IMAN_TRACKER = _Paths.IMAN_TRACKER;
   static const DUAPAGE = _Paths.DUAPAGE;
   static const HADITHCHAPTERDETAIL = _Paths.HADITHCHAPTERDETAIL;
+  static const EDITPROFILE = _Paths.EDITPROFILE;
 }
 
 abstract class _Paths {
@@ -75,4 +76,5 @@ abstract class _Paths {
   static const IMAN_TRACKER = '/iman-tracker';
   static const DUAPAGE = '/duapage';
   static const HADITHCHAPTERDETAIL = '/hadithchapterdetail';
+  static const EDITPROFILE = '/editProfile';
 }

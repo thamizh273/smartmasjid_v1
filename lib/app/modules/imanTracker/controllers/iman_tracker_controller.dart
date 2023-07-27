@@ -7,6 +7,8 @@ class ImanTrackerController extends GetxController with GetSingleTickerProviderS
 
   late TabController tabctrl;
   var change=0.obs;
+  RxBool aSunnah=false.obs;
+  RxBool bSunnah=false.obs;
 
   @override
   void onInit() {
@@ -20,7 +22,7 @@ class ImanTrackerController extends GetxController with GetSingleTickerProviderS
     super.onClose();
   }
   List<Map<String,dynamic>> cardColors = [
-    {"color":Colors.grey,"icon":Icons.add},
+    {"color":Get.theme.colorScheme.secondary,"icon":Icons.add},
     {"color":Colors.green,"icon":Icons.groups_sharp},
     {"color":Colors.yellow.shade700,"icon":Icons.person},
     {"color":Colors.red.shade700,"icon":Icons.history},

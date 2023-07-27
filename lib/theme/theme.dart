@@ -36,6 +36,7 @@ class ThemeService {
   );
   static const int _primarycolorValue = 0xff4C7380;
   final lightTheme = ThemeData.light().copyWith(
+    iconTheme: IconThemeData(color: Colors.black87),
     colorScheme: ColorScheme.fromSwatch(primarySwatch: primarycolor)
         .copyWith(background: Colors.white)
         .copyWith(secondary: Color(0xffD2D1D1))
@@ -48,7 +49,11 @@ class ThemeService {
   );
 
   final darkTheme = ThemeData.dark().copyWith(
-    primaryColor: Colors.blue,
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: primarycolor)
+        .copyWith(background: Colors.white)
+        .copyWith(secondary: Color(0xffD2D1D1))
+        .copyWith(primary: accentcolor),
+    primaryColor: primarycolor,
     appBarTheme: const AppBarTheme(),
     dividerColor: Colors.white54,
   );
