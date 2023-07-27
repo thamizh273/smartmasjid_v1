@@ -224,7 +224,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                               VisualDensity.compact,
                                             ),
                                           );
-                                        }),
+                                        }), 
                                         20.verticalSpace,
                                         SButton(
                                             ontap: () {
