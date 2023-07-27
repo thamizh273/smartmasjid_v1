@@ -2,7 +2,6 @@
 
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
