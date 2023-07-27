@@ -21,7 +21,7 @@ class LargerCard extends StatelessWidget {
   Widget build(BuildContext context) {
    final  themeData =Theme.of(context);
     return Card(
-      margin: EdgeInsets.only(right: 10),
+      margin: EdgeInsets.symmetric(horizontal: 7.w),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       color: themeData.primaryColor,
       elevation: 4,
@@ -36,7 +36,7 @@ class LargerCard extends StatelessWidget {
 
                 return Card(
                     margin: EdgeInsets.only(
-                        left: index == 0 ? 10 : 0,
+                       left: index == 0 ? 10 : 0,
                         right: 5,
                         top: 15,
                         bottom: 10),

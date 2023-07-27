@@ -147,7 +147,7 @@ class HomeView extends StatelessWidget {
                       children: [
                         SingleChildScrollView(
                           // controller: tabController,
-                            padding: EdgeInsets.only(left: 10),
+                          //   padding: EdgeInsets.only(left: 10),
                             physics: BouncingScrollPhysics(),
                             child: Column(
                               children: [

@@ -19,7 +19,20 @@ class ImanTrackerController extends GetxController with GetSingleTickerProviderS
     tabctrl.dispose();
     super.onClose();
   }
+  List<Map<String,dynamic>> cardColors = [
+    {"color":Colors.grey,"icon":Icons.add},
+    {"color":Colors.green,"icon":Icons.groups_sharp},
+    {"color":Colors.yellow.shade700,"icon":Icons.person},
+    {"color":Colors.red.shade700,"icon":Icons.history},
+    {"color":Colors.black87,"icon":Icons.not_interested},
 
+  ];
+
+  RxList<int> colorIndices = List.filled(5, 0).obs;
+
+  void changeColor(int index) {
+    colorIndices[index] = (colorIndices[index] + 1) % cardColors.length;
+  }
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Entry'),
     Tab(text: 'Stats'),

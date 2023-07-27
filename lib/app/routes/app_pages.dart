@@ -82,7 +82,7 @@ class AppPages {
         transitionDuration: Duration(milliseconds: 600)),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
-      page: () => const SplashScreenView(),
+      page: () =>  SplashScreenView(),
       binding: SplashScreenBinding(),
     ),
     GetPage(

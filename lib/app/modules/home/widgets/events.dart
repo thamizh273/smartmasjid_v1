@@ -18,6 +18,7 @@ class Events extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Container(
+      padding: EdgeInsets.only(left: 10),
       child: Column(
         children: [
           Row(

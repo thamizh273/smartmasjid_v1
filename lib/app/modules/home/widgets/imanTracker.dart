@@ -16,7 +16,7 @@ class ImanTracker_widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.only(right: 10),
+      margin: EdgeInsets.symmetric(horizontal: 9),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10)),
       color: themeData.colorScheme.secondary,

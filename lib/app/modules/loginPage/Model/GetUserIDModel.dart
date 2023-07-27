@@ -1,4 +1,6 @@
-
+// To parse this JSON data, do
+//
+//     final getUserIdModel = getUserIdModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -6,60 +8,54 @@ GetUserIdModel getUserIdModelFromJson(String str) => GetUserIdModel.fromJson(jso
 
 String getUserIdModelToJson(GetUserIdModel data) => json.encode(data.toJson());
 
-
-
 class GetUserIdModel {
-  String? sTypename;
+  String? typename;
   LoginUser? loginUser;
 
-  GetUserIdModel({this.sTypename, this.loginUser});
+  GetUserIdModel({
+    this.typename,
+    this.loginUser,
+  });
 
-  GetUserIdModel.fromJson(Map<String, dynamic> json) {
-    sTypename = json['__typename'];
-    loginUser = json['Login_User'] != null
-        ? new LoginUser.fromJson(json['Login_User'])
-        : null;
-  }
+  factory GetUserIdModel.fromJson(Map<String, dynamic> json) => GetUserIdModel(
+    typename: json["__typename"],
+    loginUser: json["Login_User"] == null ? null : LoginUser.fromJson(json["Login_User"]),
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['__typename'] = this.sTypename;
-    if (this.loginUser != null) {
-      data['Login_User'] = this.loginUser!.toJson();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "__typename": typename,
+    "Login_User": loginUser?.toJson(),
+  };
 }
 
 class LoginUser {
-  String? sTypename;
+  String? typename;
   String? message;
   String? refreshToken;
   String? token;
   String? userId;
 
-  LoginUser(
-      {this.sTypename,
-        this.message,
-        this.refreshToken,
-        this.token,
-        this.userId});
+  LoginUser({
+    this.typename,
+    this.message,
+    this.refreshToken,
+    this.token,
+    this.userId,
+  });
 
-  LoginUser.fromJson(Map<String, dynamic> json) {
-    sTypename = json['__typename'];
-    message = json['message'];
-    refreshToken = json['refresh_token'];
-    token = json['token'];
-    userId = json['user_id'];
-  }
+  factory LoginUser.fromJson(Map<String, dynamic> json) => LoginUser(
+    typename: json["__typename"],
+    message: json["message"],
+    refreshToken: json["refresh_token"],
+    token: json["token"],
+    userId: json["user_id"],
+  );
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['__typename'] = this.sTypename;
-    data['message'] = this.message;
-    data['refresh_token'] = this.refreshToken;
-    data['token'] = this.token;
-    data['user_id'] = this.userId;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "__typename": typename,
+    "message": message,
+    "refresh_token": refreshToken,
+    "token": token,
+    "user_id": userId,
+  };
 }

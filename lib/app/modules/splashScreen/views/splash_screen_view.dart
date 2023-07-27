@@ -5,16 +5,19 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../routes/app_pages.dart';
+import '../../home/controllers/home_controller.dart';
 import '../controllers/splash_screen_controller.dart';
 
 class SplashScreenView extends GetView<SplashScreenController> {
-  const SplashScreenView({Key? key}) : super(key: key);
+   SplashScreenView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Future.delayed( Duration(seconds: 4), ()   {
 
-      Get.offAllNamed(Routes.LANGUAGE_PAGE);
+        Get.offAllNamed(Routes.LANGUAGE_PAGE);
+
+
     });
     return
 

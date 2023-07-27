@@ -34,10 +34,12 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   }
   RxString nearestDuration = ''.obs;
   RxString nearestDuration1 = ''.obs;   var rrr="".obs;
-
+ var uid= Get.arguments[0];
   @override
   void onInit() {
-    getUserDetails();
+
+    getUserDetails(Get.arguments[0]);
+  //  getUserDetails("8c2b377a-c61a-4e3a-889d-f42294024a99");
     getPrayerTime();
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
@@ -103,7 +105,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
     return sss ;
   }
 
-  getUserDetails() async {
+  getUserDetails(k) async {
 
     isloading.value=true;
     var header="""
@@ -134,7 +136,8 @@ query Get_User_By_Id(\$id: String) {
 }
     """;
     var body ={
-      "id": "8c2b377a-c61a-4e3a-889d-f42294024a99"
+      "id": "${k}"
+     // "id": "$k"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;

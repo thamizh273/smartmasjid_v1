@@ -25,6 +25,7 @@ class PrayerTimes extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stxt(
+            pad: EdgeInsets.only(left: 10),
             text: 'Prayer Times',
             size: f2,
             color: themeData.primaryColor,
@@ -158,7 +159,7 @@ class PrayerTimes extends StatelessWidget {
                               children: [
                                 Expanded(
                                   child: ListView(
-                                    padding: EdgeInsets.all(10.0),
+                                    padding: EdgeInsets.symmetric(vertical: 12,horizontal: 20.sp),
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -250,14 +251,14 @@ class PrayerTimes extends StatelessWidget {
                     options: CarouselOptions(
 
                       enlargeStrategy: CenterPageEnlargeStrategy.height,
-                      enlargeCenterPage: false,
-                      // enlargeFactor: .4,
-                      padEnds: false,
+                      enlargeCenterPage: true,
+                       enlargeFactor: .1,
+                      padEnds: true,
                       enableInfiniteScroll: false,
                       initialPage:controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList!.indexWhere((prayer) => prayer.prayerStatus == "future"),
 
-                      height: 120,
-                      viewportFraction: .67,
+                      height: 130,
+                      viewportFraction: .87,
                       onPageChanged: (index, reason) {
 
                         // Update the index in the controller

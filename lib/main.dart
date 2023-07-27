@@ -2,8 +2,10 @@
 
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:smartmasjid_v1/app/modules/home/bindings/home_binding.dart';
 import 'package:smartmasjid_v1/utils/localization/localization.dart';
 
 import 'app/authRepository.dart';
@@ -44,6 +46,9 @@ void main() async{
         return GraphQLProvider(
           client: client,
           child: GetMaterialApp(
+          //  navigatorObservers: [FlutterSmartDialog.observer],
+         //   builder: FlutterSmartDialog.init(),
+          //  initialBinding: HomeBinding(),
             debugShowCheckedModeBanner: false,
             translations: localization,
             fallbackLocale: const Locale('en', 'US'),
@@ -52,7 +57,7 @@ void main() async{
             theme: ThemeService().lightTheme,
             darkTheme: ThemeService().darkTheme,
             themeMode: ThemeService().getThemeMode(),
-            initialRoute:Routes.IMAN_TRACKER,
+            initialRoute:AppPages.INITIAL,
             getPages: AppPages.routes,
           ),
         );

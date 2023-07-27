@@ -29,7 +29,7 @@ class SmallCard extends StatelessWidget {
       onTap: ()=>onTap(),
       child: SizedBox(
         height: height ?? 67.h,
-        width: width ?? .48.sw,
+        width: width ?? .5.sw,
         child: Container(
           margin: EdgeInsets.all(5),
           decoration: BoxDecoration(

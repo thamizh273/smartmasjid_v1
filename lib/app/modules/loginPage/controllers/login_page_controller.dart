@@ -15,7 +15,6 @@ class LoginPageController extends GetxController {
   //TODO: Implement LoginPageController
   final _restCallController = Get.put(restCallController());
 
-
   Rx<TextEditingController> emailLCtrl = TextEditingController().obs;
   Rx<TextEditingController> phoneLCtrl = TextEditingController().obs;
   Rx<TextEditingController> passwordLCtrl = TextEditingController().obs;
@@ -49,11 +48,12 @@ class LoginPageController extends GetxController {
 
 
   signUpUser() async {
+    isLoading.value=true;
     //masjidListdata.value.getMasjidFilter=null;
 
     var header = """
-  mutation Mutation(\$password: String, \$byEmail: String, \$byPhone: String) {
-  Login_User(password_: \$password, by_email: \$byEmail, by_phone: \$byPhone) {
+  query Login_User(\$byEmail: String, \$password: String) {
+  Login_User(by_email: \$byEmail, password_: \$password) {
     message
     refresh_token
     token
@@ -62,24 +62,32 @@ class LoginPageController extends GetxController {
 }
     """;
     var body = {
-      "password": "${passwordLCtrl.value.text}",
       "byEmail": "${emailLCtrl.value.text}",
-      "byPhone": "${phoneLCtrl.value.text}"
+      "password": "${passwordLCtrl.value.text}"
     };
-    var res = await _restCallController.gql_mutation(header, body);
 
+    // {
+    //   "password": "${passwordLCtrl.value.text}",
+    //   "byEmail": "${emailLCtrl.value.text}",
+    //   "byPhone": "${phoneLCtrl.value.text}"
+    // };
+    var res = await _restCallController.gql_query(header, body);
+      isLoading.value=false;
     getUserId.value=getUserIdModelFromJson(json.encode(res));
 
    print("ttttt");
         log(json.encode(res));
+    print("ttttt");
            update();
 
-       if(res.toString().contains("SUCCESS"))  {
-        var hh =res["SUCCESS"]["Login_User"]["message"];
+      if(res.toString().contains("Login_User"))  {
+        var hh =res["Login_User"]["message"];
          toast(error: "SUCCESS", msg: "${hh}");
-         Get.offAllNamed(Routes.HOME);
 
-       }
+     await Get.offAllNamed(Routes.HOME,arguments: [ getUserId.value.loginUser!.userId]);
+        // print("ff");
+        // print(getUserId.value.loginUser!.userId);
+    }
 
 
 

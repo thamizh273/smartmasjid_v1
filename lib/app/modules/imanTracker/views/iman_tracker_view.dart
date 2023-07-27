@@ -55,15 +55,20 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                 padding: EdgeInsets.symmetric(horizontal: 15.w),
                 child: Column(
                   children: [
+                    10.verticalSpace,
                     SizedBox(
                       child: EasyDateTimeLine(
                         headerProps: EasyHeaderProps(
+                            showHeader: false,
+                            //  monthPickerType : MonthPickerType.dropDown,
                             showSelectedDate: false,
                             padding: EdgeInsets.all(0)),
                         dayProps: EasyDayProps(
-                            height: 55.h,
+                            // activeDayNumStyle: TextStyle(fontSize: 18,color: Colors.white),
+                            // inactiveDayNumStyle: TextStyle(fontSize: 18,color: Colors.black),
+                            height: 50.h,
                             width: 50.w,
-                            dayStructure: DayStructure.dayStrDayNum),
+                            dayStructure: DayStructure.dayStrDayNumMonth),
                         timeLineProps: EasyTimeLineProps(),
                         initialDate: DateTime.now(),
                         onDateChange: (selectedDate) {
@@ -77,11 +82,40 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       size: f3,
                       weight: FontWeight.bold,
                     ),
-                    for (var k in prayerList)
-                      imanCard(
-                        image: '${k["icon"]}',
-                        title: '${k["name"]}',
-                      ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: prayerList.length,
+                      itemBuilder: (context, index) {
+                        var k = prayerList[index];
+
+                        return Obx(() => imanCard(
+                              image: '${k["icon"]}',
+                              title: '${k["name"]}',
+                              color: controller.cardColors[
+                                  controller.colorIndices[index]]["color"],
+                              suffixIcon: controller.cardColors[
+                                  controller.colorIndices[index]]["icon"],
+                              onTap: () {
+                                controller.changeColor(index);
+                                print("$index");
+                              },
+                              suffixonTap: () {
+                                Get.defaultDialog(title: "dualog");
+                                print("click");
+                              },
+                            ));
+                      },
+                    ),
+                    // for (var index = 0; index < prayerList.length; index++) ...{
+                    //
+                    //   imanCard(
+                    //     image: '${prayerList[index]["icon"]}',
+                    //     title: '${prayerList[index]["name"]}',
+                    //     onTap: () {
+                    //       print("$index");
+                    //     }, color: Colors.grey,
+                    //   )
+                    // },
                     10.verticalSpace,
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -105,21 +139,23 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                         ],
                       ),
                     ),
-                    for (var k in quranList)
-                      imanCard(
-                        image: '${k["icon"]}',
-                        title: '${k["name"]}',
-                      ),
+                    // for (var k in quranList)
+                    //   imanCard(
+                    //     image: '${k["icon"]}',
+                    //     title: '${k["name"]}',
+                    //    // onTap: () {},
+                    //     color: null,
+                    //   ),
                   ],
                 ),
               ),
             ),
             DefaultTabController(
-              length: 3,
+              length: 5,
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.all(15.sp),
+                    margin: EdgeInsets.only(left: 10.sp, top: 15, bottom: 15),
                     padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                     decoration: BoxDecoration(
                         //     border: Border.all(
@@ -137,7 +173,12 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       labelStyle: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                       tabs: [
-
+                        Tab(
+                          text: "Last Week",
+                        ),
+                        Tab(
+                          text: "Last Month",
+                        ),
                         Tab(
                           text: "This Week",
                         ),
@@ -190,7 +231,6 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                 weight: FontWeight.w500,
                               ),
                             ),
-
                             Card(
                               margin: EdgeInsets.all(8),
                               child: Padding(
@@ -210,9 +250,11 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                           PieChart(
                                               chartLegendSpacing: 15.h,
                                               colorList: [
-                                                theme.colorScheme.primary
-                                                    .withOpacity(.8),
-                                                theme.primaryColor,
+                                                Color(0xff1A657E),
+                                                Color(0xff5EA4BB),
+                                                // theme.colorScheme.primary
+                                                //     .withOpacity(.8),
+                                                // theme.primaryColor,
                                                 theme.colorScheme.secondary,
                                               ],
                                               dataMap: dataMap,
@@ -241,9 +283,11 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                           PieChart(
                                               chartLegendSpacing: 15.h,
                                               colorList: [
-                                                theme.colorScheme.primary
-                                                    .withOpacity(.8),
-                                                theme.primaryColor,
+                                                Color(0xff1A657E),
+                                                Color(0xff5EA4BB),
+                                                // theme.colorScheme.primary
+                                                //     .withOpacity(.8),
+                                                // theme.primaryColor,
                                                 theme.colorScheme.secondary,
                                               ],
                                               dataMap: dataMap,
@@ -266,7 +310,12 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                             20.verticalSpace,
                           ],
                         ),
-
+                        Center(
+                          child: Icon(Icons.directions_bike),
+                        ),
+                        Center(
+                          child: Icon(Icons.directions_bike),
+                        ),
                         Center(
                           child: Icon(Icons.directions_bike),
                         ),
@@ -299,10 +348,26 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
         ),
         Row(
           children: [
-            imanIndicator(ws: w,color: Colors.green,icon: Icons.groups_sharp,),
-            imanIndicator(ws: ws,color: Colors.orange,icon: Icons.person,),
-            imanIndicator(ws: w1,color: Colors.red,icon: Icons.history,),
-            imanIndicator(ws: w2,color: Colors.black45,icon: Icons.not_interested,),
+            imanIndicator(
+              ws: w,
+              color: Colors.green,
+              icon: Icons.groups_sharp,
+            ),
+            imanIndicator(
+              ws: ws,
+              color: Colors.yellow.shade700,
+              icon: Icons.person,
+            ),
+            imanIndicator(
+              ws: w1,
+              color: Colors.red.shade700,
+              icon: Icons.history,
+            ),
+            imanIndicator(
+              ws: w2,
+              color: Colors.black45,
+              icon: Icons.not_interested,
+            ),
           ],
         ),
       ],
@@ -313,7 +378,9 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
 class imanIndicator extends StatelessWidget {
   const imanIndicator({
     super.key,
-    required this.ws, this.color, this.icon,
+    required this.ws,
+    this.color,
+    this.icon,
   });
 
   final num ws;
@@ -327,16 +394,21 @@ class imanIndicator extends StatelessWidget {
         LinearPercentIndicator(
           padding: EdgeInsets.only(right: 5),
           barRadius: Radius.circular(5),
-          width: ((ws ==0) ? (.05.sw ):((ws <= .1)?(.1.sw) :( (ws -.05).sw))),
+          width:
+              ((ws == 0) ? (.05.sw) : ((ws <= .1) ? (.1.sw) : ((ws - .05).sw))),
           lineHeight: 10.0,
-          percent: (ws==0?(.1):ws) / (ws==0?(.1):ws),
+          percent: (ws == 0 ? (.1) : ws) / (ws == 0 ? (.1) : ws),
           backgroundColor: Colors.grey,
           progressColor: color,
         ),
         5.verticalSpace,
         Row(
           children: [
-            Icon(icon,size: f3,color: color,),
+            Icon(
+              icon,
+              size: f3,
+              color: color,
+            ),
             2.horizontalSpace,
             Stxt(text: '${((ws) * 100).toInt()}%', size: f1),
           ],
@@ -351,18 +423,27 @@ class imanCard extends StatelessWidget {
     super.key,
     required this.image,
     required this.title,
+    required this.onTap,
+    required this.color,
+    required this.suffixIcon,
+    required this.suffixonTap,
   });
 
   final String image;
   final String title;
+  final Color? color;
+  final IconData? suffixIcon;
+  final Function() onTap;
+  final Function() suffixonTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: ListTile(
+        onTap: () => onTap(),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(6),
         ),
         //  minVerticalPadding: 0,
         contentPadding: EdgeInsets.only(left: 20.sp),
@@ -377,15 +458,23 @@ class imanCard extends StatelessWidget {
           size: f3,
           weight: FontWeight.w500,
         ),
-        trailing: ClipPath(
-          clipper: TriangleClipper(),
-          child: Container(
-              width: 80.w,
-              height: double.maxFinite,
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey,
-                  borderRadius: BorderRadius.circular(5)),
-              child: Icon(Icons.add)),
+        trailing: GestureDetector(
+          onTap: () => suffixonTap(),
+          child: ClipPath(
+            clipper: TriangleClipper(),
+            child: Container(
+                padding: EdgeInsets.only(left: 5.w),
+                width: 80.w,
+                height: double.maxFinite,
+                decoration: BoxDecoration(
+                    color: color ?? Get.theme.colorScheme.secondary,
+                    borderRadius: BorderRadius.circular(5)),
+                child: Icon(
+                  suffixIcon,
+                  color: Colors.white,
+                  size: 30.sp,
+                )),
+          ),
         ),
       ),
     );
