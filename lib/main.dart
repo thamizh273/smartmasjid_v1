@@ -5,7 +5,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:smartmasjid_v1/app/modules/home/bindings/home_binding.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+
 import 'package:smartmasjid_v1/utils/localization/localization.dart';
 
 import 'app/authRepository.dart';
@@ -15,6 +17,7 @@ import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
   await GetStorage.init();
   await ScreenUtil.ensureScreenSize();
   await Firebase.initializeApp(
@@ -57,7 +60,7 @@ void main() async{
             theme: ThemeService().lightTheme,
             darkTheme: ThemeService().darkTheme,
             themeMode: ThemeService().getThemeMode(),
-            initialRoute:AppPages.INITIAL,
+            initialRoute:Routes.HOME,
             getPages: AppPages.routes,
           ),
         );

@@ -35,6 +35,9 @@ class QuranpageController extends GetxController {
   double screenWidth = Get.width;
   var fontFamily = "indopak".obs;
   var view = "sura".obs;
+  final media = Get.mediaQuery;
+  final padExtend = 16.0;
+
 
   void changeFontFamily(String family) {
     fontFamily.value = family;
