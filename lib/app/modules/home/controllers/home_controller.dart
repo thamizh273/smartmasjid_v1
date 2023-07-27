@@ -34,12 +34,13 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   }
   RxString nearestDuration = ''.obs;
   RxString nearestDuration1 = ''.obs;   var rrr="".obs;
- var uid= Get.arguments[0];
+// var uid= Get.arguments[0];
+ var uid= '';
   @override
   void onInit() {
 
-    getUserDetails(Get.arguments[0]);
-  //  getUserDetails("8c2b377a-c61a-4e3a-889d-f42294024a99");
+   // getUserDetails(Get.arguments[0]);
+    getUserDetails("8c2b377a-c61a-4e3a-889d-f42294024a99");
     getPrayerTime();
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(

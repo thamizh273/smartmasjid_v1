@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
@@ -255,7 +256,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     Text("Noorehira"),
                                     Spacer(),
                                     SvgPicture.asset(
-                                      "assets/svg/noorehira.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                        "assets/svg/noorehira.svg", width: 60,
+                                        color: Colors.black.withOpacity(0.6))
                                   ],
                                 );
                               }),
@@ -279,7 +281,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     Text("Noorehuda"),
                                     Spacer(),
                                     SvgPicture.asset(
-                                      "assets/svg/noorehuda.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                        "assets/svg/noorehuda.svg", width: 60,
+                                        color: Colors.black.withOpacity(0.6))
                                   ],
                                 );
                               }),
@@ -302,7 +305,9 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     Text("Noorehidayat"),
                                     Spacer(),
                                     SvgPicture.asset(
-                                      "assets/svg/noorehidayat.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                        "assets/svg/noorehidayat.svg",
+                                        width: 60,
+                                        color: Colors.black.withOpacity(0.6))
                                   ],
                                 );
                               }),
@@ -338,7 +343,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     Text("Quran"),
                                     Spacer(),
                                     SvgPicture.asset(
-                                      "assets/svg/quran.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                        "assets/svg/quran.svg", width: 60,
+                                        color: Colors.black.withOpacity(0.6))
                                   ],
                                 );
                               }),
@@ -361,7 +367,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     Text("Qalam"),
                                     Spacer(),
                                     SvgPicture.asset(
-                                      "assets/svg/qalam.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                        "assets/svg/qalam.svg", width: 60,
+                                        color: Colors.black.withOpacity(0.6))
                                   ],
                                 );
                               }),
@@ -385,7 +392,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     Text("KFGQPC Hafs"),
                                     Spacer(),
                                     SvgPicture.asset(
-                                      "assets/svg/KFGQPC.svg", width: 60,color: Colors.black.withOpacity(0.6))
+                                        "assets/svg/KFGQPC.svg", width: 60,
+                                        color: Colors.black.withOpacity(0.6))
                                   ],
                                 );
                               }),
@@ -409,11 +417,11 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     Text("Amiri"),
                                     Spacer(),
                                     SvgPicture.asset(
-                                      "assets/svg/amiri.svg", width: 60,color: Colors.black.withOpacity(0.5),)
+                                      "assets/svg/amiri.svg", width: 60,
+                                      color: Colors.black.withOpacity(0.5),),
                                   ],
                                 );
                               }),
-
                             ],
                           ),
                         )
@@ -421,8 +429,29 @@ class _QuranDetailsState extends State<QuranDetails> {
                     ),
                   ],
                 ),
-
-                Space(8),
+                Divider(
+                  thickness: 1,
+                ),
+                Space(16),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => TajweedRules()));
+                  },
+                  child: Row(
+                    children: [
+                      Text("Tajweed Rules", style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w600),),
+                      Spacer(),
+                      Icon(Icons.arrow_forward_ios_outlined, size: 15,)
+                    ],
+                  ),
+                ),
+                Space(16),
+                Divider(
+                  thickness: 1,
+                ),
+                Space(16),
                 // Divider(
                 //   thickness: 1,
                 // ),
@@ -588,10 +617,13 @@ class _QuranDetailsState extends State<QuranDetails> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image(
-                                image: makki == "Makki" ? AssetImage('assets/images/makka.png') : AssetImage('assets/images/madina.png'),
+                                image: makki == "Makki" ? AssetImage(
+                                    'assets/images/makka.png') : AssetImage(
+                                    'assets/images/madina.png'),
                                 width: 20,
                                 height: 20,
                               ),
+                              Space(4),
                               // Text(
                               //   "${makki}",
                               //   style: TextStyle(
@@ -601,16 +633,9 @@ class _QuranDetailsState extends State<QuranDetails> {
                               //           .of(context)
                               //           .primaryColor),
                               // ),
-                              Text(
-                                // "${chapterno}",
-                                "${makki}",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor),
-                              ),
+                              Stxt(text: "${makki}", size: f2, color: Theme
+                                  .of(context)
+                                  .primaryColor, weight: FontWeight.w500,)
                             ],
                           )),
                     ),
@@ -901,63 +926,68 @@ class _QuranDetailsState extends State<QuranDetails> {
                               );
                             },
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  "${sura}",
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500,
-                                      color: Theme
-                                          .of(context)
-                                          .primaryColor),
+                                Text("${chapterno}. ", style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13,
+                                    color: Theme
+                                        .of(context)
+                                        .primaryColor),),
+                                SizedBox(
+                                  width: 90.w,
+                                  child: Stxt(
+                                    text: "${sura}",
+                                    size: f2,
+                                    color: Theme
+                                        .of(context)
+                                        .primaryColor,
+                                    weight: FontWeight.w500,
+                                    maxLines: 1,),
                                 ),
+                                // Text(
+                                //   "${sura}",
+                                //   style: TextStyle(
+                                //       fontSize: 18,
+                                //       fontWeight: FontWeight.w500,
+                                //       color: Theme
+                                //           .of(context)
+                                //           .primaryColor),
+                                // ),
                                 Icon(Icons.arrow_drop_down_outlined)
                               ],
                             ),
                           ),
-                          Text(
-                            "${title}",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "Roboto",
-                                color: Theme
-                                    .of(context)
-                                    .primaryColor),
-                          ),
+                          Stxt(text: "${title}", size: f1,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,)
+                          // Text(
+                          //   ,
+                          //   style: TextStyle(
+                          //       fontSize: 12,
+                          //       fontFamily: "Roboto",
+                          //       color: Theme
+                          //           .of(context)
+                          //           .primaryColor),
+                          // ),
                         ],
                       ),
                     ),
                     Spacer(),
-                    Container(
-                      height: 50,
-                      width: 50,
-                      // color: Colors.red,
-                      child: Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Ayah",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor),
-                              ),
-                              Text(
-                                "${verse}",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor),
-                              ),
-                            ],
-                          )),
-                    ),
-                    Space(24)
+                    Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Stxt(text: "Ayah", size: f1, color: Theme
+                                .of(context)
+                                .primaryColor, weight: FontWeight.w500,),
+                            Stxt(text: "${verse}", size: f2, color: Theme
+                                .of(context)
+                                .primaryColor, weight: FontWeight.w500,)
+                          ],
+                        )),
+                    Space(30)
                   ],
                 ),
               ),
@@ -1042,7 +1072,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       : null, // Use the default font if "Amiri" is not selected
                                                 );
                                                 return SizedBox(
-                                                  width: c.screenWidth * 0.68,
+                                                  width: c.screenWidth * 0.65,
                                                   child: c.isCheckedArabic
                                                       .value == true
                                                       ? Text(
@@ -1221,12 +1251,25 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       Row(
                                         children: [
                                           Space(12),
-                                          Icon(
-                                            Icons.bookmark,
-                                            color:
-                                            Theme
-                                                .of(context)
-                                                .primaryColor,
+                                          GestureDetector(
+                                            onTap: (){
+                                              c.toggleBookmark();
+                                            },
+
+                                            child: Obx(() {
+                                              final isBookmarked = c.isBookmarked.value;
+                                              return Icon(
+                                                isBookmarked
+                                                    ? Icons.bookmark
+                                                    : Icons.bookmark_outline,
+                                                color: isBookmarked
+                                                    ? Theme
+                                                    .of(context)
+                                                    .primaryColor
+                                                    : Colors
+                                                    .grey, // Use different colors for bookmarked and not bookmarked states
+                                              );
+                                            }),
                                           ),
                                         ],
                                       ),

@@ -37,9 +37,15 @@ class QuranpageController extends GetxController {
   var view = "sura".obs;
   final media = Get.mediaQuery;
   final padExtend = 16.0;
+  var bookmarks = [].obs;
+  var isBookmarked = false.obs;
+
+  void toggleBookmark() {
+    isBookmarked.value = !isBookmarked.value;
+  }
 
 
-  void changeFontFamily(String family) {
+void changeFontFamily(String family) {
     fontFamily.value = family;
   }
 

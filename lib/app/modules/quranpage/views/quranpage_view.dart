@@ -19,9 +19,9 @@ class QuranpageView extends StatefulWidget {
   @override
   State<QuranpageView> createState() => _QuranpageViewState();
 }
-
+final QuranpageController c = Get.put(QuranpageController());
 class _QuranpageViewState extends State<QuranpageView> {
-  final QuranpageController c = Get.put(QuranpageController());
+
   ScrollController scrollController = ScrollController();
   final List<dynamic> items = [];
 
@@ -804,7 +804,6 @@ class _QuranpageViewState extends State<QuranpageView> {
                                             onTap: () {
                                               print("mmmmmmmm ${index}");
                                               c.quranDetailList(index + 1);
-
                                               // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
                                             },
                                             child: Align(
@@ -875,22 +874,31 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                   //     ),
                                                   //   ),
                                                   // ),
-                                                  Space(8),
-                                                  Container(
-                                                    height: 55.h,
-                                                    width: 55.h,
-                                                    decoration: BoxDecoration(
-                                                      image: DecorationImage(
-                                                          image: AssetImage(
-                                                              "assets/images/quranneww.png"),
-                                                          fit: BoxFit.fill
-                                                      ),
-                                                    ),
-                                                    child: Align(
-                                                      alignment: Alignment
-                                                          .center,
-                                                      child: Text("${sura
-                                                          .suraChapterNo}"),
+                                                  // Space(8),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(bottom: 2),
+                                                    child: Column(
+                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                      children: [
+                                                        Container(
+                                                          height: 48.h,
+                                                          width: 50.h,
+                                                          decoration: BoxDecoration(
+                                                            // color: Colors.red,
+                                                            image: DecorationImage(
+                                                                image: AssetImage(
+                                                                    "assets/images/quranneww.png"),
+                                                                fit: BoxFit.fill
+                                                            ),
+                                                          ),
+                                                          child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: Text("${sura
+                                                                .suraChapterNo}"),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                   Space(8),
@@ -908,11 +916,17 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                             fontWeight: FontWeight
                                                                 .w600),),
                                                       Space(4),
-                                                      Text("${sura.titleEn}",
-                                                        style: TextStyle(
-                                                            color: Color(
-                                                                0xff16627C),
-                                                            fontSize: 12),),
+                                                      Row(
+                                                        children: [
+                                                          Text("${sura.titleEn}",
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff16627C),
+                                                                fontSize: 12),),
+                                                          Space(8),
+                                                          Image.asset('assets/images/makka.png', width: 12,)
+                                                        ],
+                                                      ),
                                                     ],
                                                   ),
                                                   Spacer(),
