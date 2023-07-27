@@ -155,6 +155,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                           MainAxisAlignment.spaceEvenly,
                                           children: [
                                             SButton(
+
                                                 height: 35.h,
 
                                                 ontap: () {},
@@ -224,7 +225,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                               VisualDensity.compact,
                                             ),
                                           );
-                                        }), 
+                                        }),
                                         20.verticalSpace,
                                         SButton(
                                             ontap: () {
