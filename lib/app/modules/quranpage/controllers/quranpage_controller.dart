@@ -114,12 +114,14 @@ query Query(\$getChapterByMsId: String) {
     title_hindi
     title_tamil
     total_verses
+    title_arabic
+    quran_type
   }
 }
     """;
 
     var body = {
-      "getChapterByMsId": "a4fee385-0641-4dce-bd42-f35ee278ce35",
+      "getChapterByMsId": ""
 
     };
     var res = await _restCallController.gql_query(header, body);

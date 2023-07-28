@@ -28,6 +28,8 @@ class QuranDetails extends StatefulWidget {
 
 final QuranpageController c = Get.put(QuranpageController());
 final AudioplayerController controller = Get.put(AudioplayerController());
+final List<QuranpageController> controllers = List.generate(c.getqurandetail.value
+    .getQuranAyahVerse![0].ayahList!.length, (index) => Get.put(QuranpageController()));
 
 class _QuranDetailsState extends State<QuranDetails> {
   var makki = c.getqurandetail.value.getQuranAyahVerse![0].makkiMadina;
@@ -1239,6 +1241,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                         ],
                                       ),
                                       Space(8),
+
                                       Row(
                                         children: [
                                           Space(12),
