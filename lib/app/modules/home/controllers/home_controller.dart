@@ -40,7 +40,7 @@ var uid= "";
   void onInit() {
 
    // getUserDetails(Get.arguments[0]);
-   getUserDetails("8c2b377a-c61a-4e3a-889d-f42294024a99");
+   getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
     getPrayerTime();
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(

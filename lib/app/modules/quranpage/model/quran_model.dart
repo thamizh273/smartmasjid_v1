@@ -8,7 +8,7 @@ class QuranModel {
   String? sTypename;
   List<QuranFilter>? quranFilter;
 
-  QuranModel({this.sTypename, this.quranFilter,});
+  QuranModel({this.sTypename, this.quranFilter});
 
   QuranModel.fromJson(Map<String, dynamic> json) {
     sTypename = json['__typename'];
@@ -43,6 +43,8 @@ class QuranFilter {
   String? titleHindi;
   String? titleTamil;
   String? totalVerses;
+  String? titleArabic;
+  String? quranType;
 
   QuranFilter(
       {this.sTypename,
@@ -56,7 +58,9 @@ class QuranFilter {
         this.titleEn,
         this.titleHindi,
         this.titleTamil,
-        this.totalVerses});
+        this.totalVerses,
+        this.titleArabic,
+        this.quranType});
 
   QuranFilter.fromJson(Map<String, dynamic> json) {
     sTypename = json['__typename'];
@@ -71,6 +75,8 @@ class QuranFilter {
     titleHindi = json['title_hindi'];
     titleTamil = json['title_tamil'];
     totalVerses = json['total_verses'];
+    titleArabic = json['title_arabic'];
+    quranType = json['quran_type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,8 +93,12 @@ class QuranFilter {
     data['title_hindi'] = this.titleHindi;
     data['title_tamil'] = this.titleTamil;
     data['total_verses'] = this.totalVerses;
+    data['title_arabic'] = this.titleArabic;
+    data['quran_type'] = this.quranType;
     return data;
   }
 }
+
+
 
 

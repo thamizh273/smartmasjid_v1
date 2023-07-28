@@ -8,7 +8,9 @@ import 'package:smartmasjid_v1/app/modules/home/views/home_view.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
+import '../../../../global.dart';
 import '../../../../widgets/space.dart';
+import '../../../../widgets/stext.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/quranpage_controller.dart';
 
@@ -21,7 +23,7 @@ class QuranpageView extends StatefulWidget {
 }
 final QuranpageController c = Get.put(QuranpageController());
 class _QuranpageViewState extends State<QuranpageView> {
-
+var makki = c.getqurandata.value.quranFilter!;
   ScrollController scrollController = ScrollController();
   final List<dynamic> items = [];
 
@@ -924,9 +926,24 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                                     0xff16627C),
                                                                 fontSize: 12),),
                                                           Space(8),
-                                                          Image.asset('assets/images/makka.png', width: 12,)
+                                                          Image(
+                                                            image: "${sura.quranType}" == "Makki" ? AssetImage(
+                                                                'assets/images/makka.png') : AssetImage(
+                                                                'assets/images/madina.png'),
+                                                            width: 12,
+                                                          ),
+                                                          // Space(16),
+
                                                         ],
                                                       ),
+                                                    ],
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Stxt(text: "${sura.titleArabic}", size: f4, color: Color(
+                                                          0xff16627C),),
                                                     ],
                                                   ),
                                                   Spacer(),
