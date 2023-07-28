@@ -89,8 +89,8 @@ query Get_masjid_filter(\$searchBy: String) {
 
   signUpComplete(String? id) async {
     var header = """
-mutation Register_User(\$masjidid: String, \$profileImage: String, \$firstName: String, \$lastName: String, \$phoneNumber: String, \$emailId: String, \$passWord: String, \$language: String, \$userType: String, \$authUid: String) {
-  Register_User(masjidid: \$masjidid, profile_image: \$profileImage, first_name: \$firstName, last_name: \$lastName, phone_number: \$phoneNumber, email_id: \$emailId, pass_word: \$passWord, language: \$language, user_type: \$userType, auth_uid_: \$authUid) {
+mutation Mutation(\$masjidid: String, \$profileImage: String, \$firstName: String, \$lastName: String, \$phoneNumber: String, \$emailId: String, \$passWord: String, \$language: String, \$userType: String, \$authUid: String, \$addAddress: edit_address) {
+  Register_User(masjidid: \$masjidid, profile_image: \$profileImage, first_name: \$firstName, last_name: \$lastName, phone_number: \$phoneNumber, email_id: \$emailId, pass_word: \$passWord, language: \$language, user_type: \$userType, auth_uid_: \$authUid, add_address: \$addAddress) {
     message
     user_id
   }
@@ -107,7 +107,17 @@ mutation Register_User(\$masjidid: String, \$profileImage: String, \$firstName: 
       "language": _langctrl.selectedLang.value,
       "userType": "member",
       "authUid": "",
-      "phoneNumber": _signctrl.phoneCtrl.value.text,
+      "phoneNumber": "+${_signctrl.selectedCountry.value.phoneCode}${_signctrl.phoneCtrl.value.text}",
+      "addAddress": {
+      "address_type": "primary",
+      "area": "",
+      "country": "",
+      "district": "",
+     "door_no": "",
+     "pincode": "",
+     "state": "",
+     "street_name": ""
+      }
     };
     var res = await _restCallController.gql_mutation(header, body);
 

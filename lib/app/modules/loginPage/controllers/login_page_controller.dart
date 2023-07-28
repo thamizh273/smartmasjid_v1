@@ -10,6 +10,7 @@ import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../Model/GetUserIDModel.dart';
+import '../Model/logineithmobileNo.dart';
 
 class LoginPageController extends GetxController {
   //TODO: Implement LoginPageController
@@ -22,8 +23,10 @@ class LoginPageController extends GetxController {
   RxBool obscureTextLpass = true.obs;
   RxBool showPhoneNumberField = true.obs;
   RxBool isLoading = false.obs;
+  RxBool isLoading1 = false.obs;
 
   var getUserId = GetUserIdModel().obs;
+  var getUserIdMobile = GetUserIdPhoneModel().obs;
 
 
 
@@ -48,12 +51,13 @@ class LoginPageController extends GetxController {
 
 
   signUpUser() async {
+    print("mail");
     isLoading.value=true;
     //masjidListdata.value.getMasjidFilter=null;
 
     var header = """
-  query Login_User(\$byEmail: String, \$password: String) {
-  Login_User(by_email: \$byEmail, password_: \$password) {
+query Login_User(\$password: String, \$byEmail: String) {
+  Login_User(password_: \$password, by_email: \$byEmail) {
     message
     refresh_token
     token
@@ -75,10 +79,10 @@ class LoginPageController extends GetxController {
       isLoading.value=false;
     getUserId.value=getUserIdModelFromJson(json.encode(res));
 
-   print("ttttt");
-        log(json.encode(res));
-    print("ttttt");
-           update();
+   // print("ttttt");
+   //      log(json.encode(res));
+   //  print("ttttt");
+   //         update();
 
       if(res.toString().contains("Login_User"))  {
         var hh =res["Login_User"]["message"];
@@ -88,6 +92,50 @@ class LoginPageController extends GetxController {
         // print("ff");
         // print(getUserId.value.loginUser!.userId);
     }
+
+
+
+
+
+
+  }
+  signUpPhone(String phoneCode) async {
+    print("phone");
+    isLoading1.value=true;
+    //masjidListdata.value.getMasjidFilter=null;
+
+    var header = """
+query Login_User(\$password: String, \$byPhone: String) {
+  Login_User(password_: \$password, by_phone: \$byPhone) {
+    message
+    refresh_token
+    token
+    user_id
+  }
+}
+    """;
+    var body = {
+      "byPhone": "+${phoneCode}${phoneLCtrl.value.text}",
+      "password": "${passwordLCtrl.value.text}"
+    };
+
+    var res = await _restCallController.gql_query(header, body);
+      isLoading1.value=false;
+    getUserIdMobile.value=getUserIdPhoneModelFromJson(json.encode(res));
+
+   print("ttttt");
+        log(json.encode(res));
+    print("ttttt");
+           update();
+
+      if(res.toString().contains("Login_User"))  {
+        var hh =res["Login_User"]["message"];
+         toast(error: "SUCCESS", msg: "${hh}");
+
+     await Get.offAllNamed(Routes.HOME,arguments: [getUserIdMobile.value.loginUser!.userId]);
+        // print("ff");
+        // print(getUserId.value.loginUser!.userId);
+   }
 
 
 

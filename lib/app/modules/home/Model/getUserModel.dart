@@ -33,17 +33,19 @@ class GetUserById {
   String? id;
   String? profileImage;
   String? authUid;
-  String? dob;
+  dynamic dob;
   String? emailId;
   String? firstName;
   String? language;
   String? lastName;
-  bool? liveStatus;
+  dynamic liveStatus;
   MasjidId? masjidId;
   String? memberStatus;
   String? phoneNumber;
-  String? post;
+  dynamic post;
   String? userType;
+  List<Address>? address;
+  String? userUniqueId;
 
   GetUserById({
     this.typename,
@@ -61,6 +63,8 @@ class GetUserById {
     this.phoneNumber,
     this.post,
     this.userType,
+    this.address,
+    this.userUniqueId,
   });
 
   factory GetUserById.fromJson(Map<String, dynamic> json) => GetUserById(
@@ -79,6 +83,8 @@ class GetUserById {
     phoneNumber: json["phone_number"],
     post: json["post"],
     userType: json["user_type"],
+    address: json["address"] == null ? [] : List<Address>.from(json["address"]!.map((x) => Address.fromJson(x))),
+    userUniqueId: json["user_unique_id"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -97,6 +103,72 @@ class GetUserById {
     "phone_number": phoneNumber,
     "post": post,
     "user_type": userType,
+    "address": address == null ? [] : List<dynamic>.from(address!.map((x) => x.toJson())),
+    "user_unique_id": userUniqueId,
+  };
+}
+
+class Address {
+  String? typename;
+  String? addressType;
+  String? area;
+  String? country;
+  String? district;
+  String? doorNo;
+  String? masjidId;
+  String? pincode;
+  String? state;
+  String? streetName;
+  String? userId;
+  String? userType;
+  String? id;
+
+  Address({
+    this.typename,
+    this.addressType,
+    this.area,
+    this.country,
+    this.district,
+    this.doorNo,
+    this.masjidId,
+    this.pincode,
+    this.state,
+    this.streetName,
+    this.userId,
+    this.userType,
+    this.id,
+  });
+
+  factory Address.fromJson(Map<String, dynamic> json) => Address(
+    typename: json["__typename"],
+    addressType: json["address_type"],
+    area: json["area"],
+    country: json["country"],
+    district: json["district"],
+    doorNo: json["door_no"],
+    masjidId: json["masjid_id"],
+    pincode: json["pincode"],
+    state: json["state"],
+    streetName: json["street_name"],
+    userId: json["user_id"],
+    userType: json["user_type"],
+    id: json["id"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "__typename": typename,
+    "address_type": addressType,
+    "area": area,
+    "country": country,
+    "district": district,
+    "door_no": doorNo,
+    "masjid_id": masjidId,
+    "pincode": pincode,
+    "state": state,
+    "street_name": streetName,
+    "user_id": userId,
+    "user_type": userType,
+    "id": id,
   };
 }
 
@@ -108,6 +180,7 @@ class MasjidId {
   String? area;
   String? about;
   String? district;
+  String? address;
 
   MasjidId({
     this.typename,
@@ -117,6 +190,7 @@ class MasjidId {
     this.area,
     this.about,
     this.district,
+    this.address,
   });
 
   factory MasjidId.fromJson(Map<String, dynamic> json) => MasjidId(
@@ -127,6 +201,7 @@ class MasjidId {
     area: json["area"],
     about: json["about"],
     district: json["district"],
+    address: json["address"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -137,5 +212,6 @@ class MasjidId {
     "area": area,
     "about": about,
     "district": district,
+    "address": address,
   };
 }

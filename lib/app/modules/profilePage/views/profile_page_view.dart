@@ -145,7 +145,14 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       alignment: Alignment.bottomRight,
                       smallSize: 25,
                       largeSize: 25,
-                      child: CircleAvatar(
+                      child:homectrl.profileImage=="null"? CircleAvatar(
+                        // foregroundImage:
+                        // AssetImage('assets/images/avathar.png',),
+                         foregroundImage:AssetImage('assets/images/avathar.png',),
+
+                        radius: 50,
+                        backgroundColor: Colors.white,
+                      ):CircleAvatar(
                         // foregroundImage:
                         // AssetImage('assets/images/avathar.png',),
                         foregroundImage:MemoryImage(base64Decode(homectrl.profileImage.toString())),
@@ -171,7 +178,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                   // ),
                 ),
                 Stxt(
-                  text: 'Member',
+                  text: 'Member ID: ${homectrl.userUniqueId}',
                   size: f2,
                   color: Colors.white,
                 )

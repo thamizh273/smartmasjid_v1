@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+import 'package:smartmasjid_v1/app/modules/home/Model/prayerTimesModel.dart';
 import 'package:smartmasjid_v1/app/modules/prayerdetailspage/views/prayerdetailspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
 
@@ -130,9 +131,9 @@ class PrayerTimes extends StatelessWidget {
             return controller.isloading1.value
                 ? CupertinoActivityIndicator()
                 : CarouselSlider(
-                    items: controller.prayerTime.asMap().entries.map((e) {
+                    items: controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList!.asMap().entries.map((e) {
                       int index = e.key;
-                      String prayerTimeName = e.value;
+                      TodayPrayerList prayerTimeName = e.value;
                       //  print(int.parse(e));
                       controller.rrr.value = controller
                           .prayerTimeData
@@ -151,7 +152,7 @@ class PrayerTimes extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(5),
                                 image: DecorationImage(
                                     image: AssetImage(
-                                      "assets/images/$prayerTimeName.png",
+                                      "assets/images/${prayerTimeName.prayerName!.trim()}.png",
                                     ),
                                     fit: BoxFit.fill)),
                             child: Column(

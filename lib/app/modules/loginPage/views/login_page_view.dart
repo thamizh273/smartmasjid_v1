@@ -141,7 +141,7 @@ class LoginPageView extends GetView<LoginPageController> {
                   child: ElevatedButton(
                       onPressed: () async {
                         if (controller.emailLCtrl.value.text.isEmpty &&
-                            controller.emailLCtrl.value.text.isEmpty) {
+                            controller.phoneLCtrl.value.text.isEmpty) {
                           toast(
                               error: "Error",
                               msg: "Enter Email Id or Phone Number ");
@@ -152,15 +152,18 @@ class LoginPageView extends GetView<LoginPageController> {
                           toast(error: "Error", msg: "Enter Password");
                           return;
                         }
-                        controller.signUpUser();
+                        controller.showPhoneNumberField.value
+
+                            ? controller.signUpUser():controller.signUpPhone(
+                        signctrl.selectedCountry.value.phoneCode);
                         // String fakeApiToken = "${controller.getUserId.value.loginUser!.userId}";
                         // storeTokenLocally(fakeApiToken);
-                      //   print("ff");
-                      //  print(controller.getUserId.value.loginUser!.userId);
-                      //   if(controller.getUserId.value.loginUser!.userId!= null) {
-                      //
-                      //      await  Get.offAllNamed(Routes.HOME);
-                      //   }
+                        //   print("ff");
+                        //  print(controller.getUserId.value.loginUser!.userId);
+                        //   if(controller.getUserId.value.loginUser!.userId!= null) {
+                        //
+                        //      await  Get.offAllNamed(Routes.HOME);
+                        //   }
                       },
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(150, 40),
@@ -174,7 +177,10 @@ class LoginPageView extends GetView<LoginPageController> {
                       ),
                       child: Obx(() {
                         return Text(
-                          controller.isLoading.value ? "Wait" : "Login",
+                          (controller.isLoading.value ||
+                                  controller.isLoading1.value)
+                              ? "Wait"
+                              : "Login",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,

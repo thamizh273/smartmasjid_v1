@@ -18,6 +18,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   final _restCallController = Get.put(restCallController());
 
 
+
   late TabController tabController;
 
   RxBool alarm = false.obs;
@@ -39,8 +40,8 @@ var uid= "";
   @override
   void onInit() {
 
-   // getUserDetails(Get.arguments[0]);
-   getUserDetails("8c2b377a-c61a-4e3a-889d-f42294024a99");
+ //getUserDetails(Get.arguments[0]);
+ getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
     getPrayerTime();
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
@@ -95,10 +96,10 @@ var uid= "";
     var remainingHours = remainingDuration.inHours;
     int remainingMinutes = remainingDuration.inMinutes.remainder(60);
     var sss= "${remainingHours} Hrs :${remainingMinutes} min";
-    print(sss);
-    print("ggg");
-    // Output the result
-    print("Remaining time: $remainingHours hours and $remainingMinutes minutes");
+    // print(sss);
+    // print("ggg");
+    // // Output the result
+    // print("Remaining time: $remainingHours hours and $remainingMinutes minutes");
 
     // var ss= DateTime.now().millisecondsSinceEpoch.obs - DateTime.parse("${prayerpageData.value.getMasjidPrayerTimeFilter![0].startTime}").toLocal().microsecondsSinceEpoch;
     // var kk= DateFormat('hh:mm a').format(DateTime.parse("${ss}"));
@@ -128,11 +129,27 @@ query Get_User_By_Id(\$id: String) {
       area
       about
       district
+      address
     }
     member_status
     phone_number
     post
     user_type
+    address {
+      address_type
+      area
+      country
+      district
+      door_no
+      masjid_id
+      pincode
+      state
+      street_name
+      user_id
+      user_type
+      id
+    }
+    user_unique_id
   }
 }
     """;
@@ -142,10 +159,11 @@ query Get_User_By_Id(\$id: String) {
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;
-   // print("getUser");
+
    getUserData.value=getUserModelFromJson(json.encode(res));
-    // log(json.encode(res));
-    // print("getUser");
+    print("getUser");
+  log(json.encode(res));
+ print("getUser");
 
   }
   getPrayerTime() async {
@@ -175,10 +193,19 @@ query Query(\$masjidId: String) {
     isloading1.value=false;
 
     prayerTimeData.value=prayerTimeModelFromJson(json.encode(res));
-    print("getUser");
-    log(json.encode(res));
-    print("getUser");
+   // print("getUser");
+   // log(json.encode(res));
+   // print("getUser");
 
+  }
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void openDrawer() {
+    scaffoldKey.currentState?.openDrawer();
+  }
+
+  void closeDrawer() {
+    scaffoldKey.currentState?.openEndDrawer();
   }
 
 
