@@ -642,7 +642,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                     // Space(60),
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 8, right: 32, left: 32),
+                          bottom: 8, right: 32, left: 40                                                                                                                                ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -935,7 +935,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                         .of(context)
                                         .primaryColor),),
                                 SizedBox(
-                                  width: 90.w,
+                                  width: 73.w,
                                   child: Stxt(
                                     text: "${sura}",
                                     size: f2,
@@ -945,15 +945,6 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     weight: FontWeight.w500,
                                     maxLines: 1,),
                                 ),
-                                // Text(
-                                //   "${sura}",
-                                //   style: TextStyle(
-                                //       fontSize: 18,
-                                //       fontWeight: FontWeight.w500,
-                                //       color: Theme
-                                //           .of(context)
-                                //           .primaryColor),
-                                // ),
                                 Icon(Icons.arrow_drop_down_outlined)
                               ],
                             ),
@@ -987,7 +978,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                 .primaryColor, weight: FontWeight.w500,)
                           ],
                         )),
-                    Space(30)
+                    Space(40)
                   ],
                 ),
               ),
