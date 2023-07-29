@@ -39,6 +39,20 @@ class QuranpageController extends GetxController {
   final padExtend = 16.0;
   var bookmarks = [].obs;
   var isBookmarked = false.obs;
+  RxList<int> clickedItems = <int>[].obs;
+  RxBool switchValue = false.obs;
+
+
+
+
+  void onItemClick(int index) {
+    print("mmmmmmmm $index");
+    c.quranDetailList(index + 1);
+
+    // Add the clicked item index to the clickedItems list
+    clickedItems.add(index);
+  }
+
 
   void toggleBookmark() {
     isBookmarked.value = !isBookmarked.value;
@@ -170,6 +184,38 @@ query Query(\$chapterNo: String!) {
     isLoadings.value = false;
     getqurandetail.value = qurandetailModelFromJson(json.encode(res));
     Get.to(QuranDetails());
+    update();
+  }
+
+  quranjuzList() async {
+    isLoadings.value = true;
+    var header = """
+query Query(\$masjidId: ID) {
+  Get_Quran_Juz_Chapter(masjid_id: \$masjidId) {
+    id
+    masjid_id
+    juz_chapter_no
+    juz_name_arb
+    juz_name_en
+    surah_verses_start
+    surah_verses_end
+    total_verses
+  }
+}
+    """;
+
+    var body = {
+      "masjidId": ""
+
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data sign ${json.encode(res)}");
+    isLoadings.value = false;
+    getqurandata.value = quranModelFromJson(json.encode(res));
+
     update();
   }
 }
