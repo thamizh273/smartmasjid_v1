@@ -9,10 +9,10 @@ class OtpPageController extends GetxController {
 
   static OtpPageController get instance =>Get.find();
 
+     var otp ="".obs;
 
-
-  void verifyOTP(String Otp) async{
-    var isverified = await AuthenticationRespository.instance.verifyOtp(Otp);
+  void verifyOTP() async{
+    var isverified = await AuthenticationRespository.instance.verifyOtp(otp.value);
     isverified?Get.toNamed(Routes.MASJID_FINDER):Get.back();
   }
   //TODO: Implement OtpPageController

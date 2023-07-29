@@ -4,29 +4,37 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:smartmasjid_v1/app/modules/profilePage/controllers/edit_profile_controller.dart';
 import 'package:smartmasjid_v1/app/modules/profilePage/views/edit_profile_view.dart';
 
 import '../../../routes/export.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/profile_page_controller.dart';
 
-class ProfilePageView extends GetView<ProfilePageController> {
-   ProfilePageView({Key? key}) : super(key: key);
-   final _homeController= Get.find<HomeController>();
+class ProfilePageView extends GetView<EditProfileController> {
+  ProfilePageView({Key? key}) : super(key: key);
+
+  static HomeController get homeController => Get.find();
 
   List<Map<String, dynamic>> profile = [
-    {'name': "Edit Profile", 'icon': Icon(Icons.person),"page":EditProfileView()},
+    {
+      'name': "Edit Profile",
+      'icon': Icon(Icons.person),
+      "page": EditProfileView()
+    },
     {'name': "Bookmarks", 'icon': Icon(Icons.bookmarks_outlined)},
     {
       'name': "My Masjid",
-      'icon': SvgPicture.asset('assets/icons/masjid_icon.svg',color: Get.theme.primaryColor,)
+      'icon': SvgPicture.asset(
+        'assets/icons/masjid_icon.svg', color: Get.theme.primaryColor,)
     },
     {'name': "Activities", 'icon': Icon(Icons.history)},
     {'name': "Family Tree", 'icon': Icon(Icons.family_restroom_outlined)}
   ];
+
   @override
   Widget build(BuildContext context) {
-   var homectrl= _homeController.getUserData.value.getUserById!;
+    var homectrl = homeController.getUserData.value.getUserById!;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -73,7 +81,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
             height: 180,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
-              color:Get.theme.primaryColor,
+              color: Get.theme.primaryColor,
             ),
             child: Column(
               children: [
@@ -87,7 +95,7 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       offset: Offset(-3, -2),
 // padding: EdgeInsets.symmetric(vertical: ),
                       label: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           showModalBottomSheet(
                             context: context,
                             builder: (BuildContext context) {
@@ -96,36 +104,57 @@ class ProfilePageView extends GetView<ProfilePageController> {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    Text("Profile Photo",style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+                                    Text("Profile Photo", style: TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),),
                                     Padding(
                                       padding: const EdgeInsets.all(16),
                                       child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .center,
                                         children: [
                                           GestureDetector(
-                                            onTap: (){
-                                             // getcam();
+                                            onTap: () {
+                                              controller.pickImage(
+                                                  isCamera: true);
                                               Navigator.pop(context);
                                             },
                                             child: Column(
                                               children: [
-                                                Image.asset("assets/images/camera.png"),
+                                                Image.asset(
+                                                    "assets/images/camera.png"),
                                                 Text("Camera",
-                                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Theme.of(context).colorScheme.secondary),)
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight
+                                                          .w600,
+                                                      fontSize: 20,
+                                                      color: Theme
+                                                          .of(context)
+                                                          .colorScheme
+                                                          .secondary),)
                                               ],
                                             ),
-                                          ) ,
+                                          ),
                                           Space(50),
                                           GestureDetector(
-                                            onTap: (){
-                                           //   getgallery();
+                                            onTap: () {
+                                              controller.pickImage(
+                                                  isCamera: false);
                                               Navigator.pop(context);
                                             },
                                             child: Column(
                                               children: [
-                                                Image.asset("assets/images/gallery.png"),
+                                                Image.asset(
+                                                    "assets/images/gallery.png"),
                                                 Text("Gallery",
-                                                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20, color: Theme.of(context).colorScheme.secondary),)
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight
+                                                          .w600,
+                                                      fontSize: 20,
+                                                      color: Theme
+                                                          .of(context)
+                                                          .colorScheme
+                                                          .secondary),)
                                               ],
                                             ),
                                           )
@@ -145,29 +174,41 @@ class ProfilePageView extends GetView<ProfilePageController> {
                       alignment: Alignment.bottomRight,
                       smallSize: 25,
                       largeSize: 25,
-                      child:homectrl.profileImage=="null"? CircleAvatar(
+                      child: homectrl.profileImage == "null" ? CircleAvatar(
                         // foregroundImage:
                         // AssetImage('assets/images/avathar.png',),
-                         foregroundImage:AssetImage('assets/images/avathar.png',),
+                        foregroundImage: AssetImage(
+                          'assets/images/avathar.png',),
 
                         radius: 50,
                         backgroundColor: Colors.white,
-                      ):CircleAvatar(
-                        // foregroundImage:
-                        // AssetImage('assets/images/avathar.png',),
-                        foregroundImage:MemoryImage(base64Decode(homectrl.profileImage.toString())),
-                        radius: 50,
-                        backgroundColor: Colors.white,
-                      ),
+                      ) : Obx(() {
+                        return controller.isLoadingPic.value
+                            ? CircularProgressIndicator()
+                            : CircleAvatar(
+                          // foregroundImage:
+                          // AssetImage('assets/images/avathar.png',),
+                          foregroundImage: MemoryImage(base64Decode(homectrl
+                              .profileImage.toString())),
+                          radius: 50,
+                          backgroundColor: Colors.white,
+                        );
+                      }),
                     ),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(6.0),
                   child: Column(
-                    children: [
-                      Text("${homectrl.firstName}", style: TextStyle(color: Colors.white),),
-                      Text("${homectrl.emailId}",  style: TextStyle(color: Colors.white),),
+                    children: [ Text("${homectrl
+                        .firstName}${homectrl
+                          .lastName}", style: TextStyle(
+                          color: Colors.white),),
+
+
+
+                      Text("${homectrl.emailId}",
+                        style: TextStyle(color: Colors.white),),
                     ],
                   ),
                   // child: Stxt(
@@ -195,7 +236,6 @@ class ProfilePageView extends GetView<ProfilePageController> {
               children: [
                 ListTile(
                   onTap: () {
-
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => i['page']
                     ));
@@ -203,8 +243,12 @@ class ProfilePageView extends GetView<ProfilePageController> {
                   },
                   splashColor: Colors.grey.shade300,
                   // shape: Border(bottom: BorderSide(color: Colors.grey)),
-                  iconColor: Theme.of(context).primaryColor,
-                  leading: IconButton(onPressed: () {}, icon: i['icon'],color: Get.theme.primaryColor,),
+                  iconColor: Theme
+                      .of(context)
+                      .primaryColor,
+                  leading: IconButton(onPressed: () {},
+                    icon: i['icon'],
+                    color: Get.theme.primaryColor,),
                   title: Stxt(
                     text: '${i['name']}',
                     size: f3,
@@ -227,13 +271,12 @@ class ProfilePageView extends GetView<ProfilePageController> {
           Spacer(),
           GestureDetector(
             onTap: () async {
-
-             // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => LoginPage()),(_)=>false);
+              // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => LoginPage()),(_)=>false);
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.login_outlined,color: Get.theme.primaryColor,),
+                Icon(Icons.login_outlined, color: Get.theme.primaryColor,),
                 SizedBox(
                   width: 5,
                 ),

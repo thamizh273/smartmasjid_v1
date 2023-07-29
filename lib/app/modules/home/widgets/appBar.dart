@@ -29,7 +29,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
           scale: 2,
         ),
         onPressed: () {
-          Navigator.pop(context);
+        Get.back();
+
         },
       ),
       title:  Stxt(

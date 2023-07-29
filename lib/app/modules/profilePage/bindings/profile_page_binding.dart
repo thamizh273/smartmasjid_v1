@@ -10,8 +10,8 @@ class ProfilePageBinding extends Bindings {
     Get.lazyPut<EditProfileController>(
       () => EditProfileController(),
     );
-    Get.lazyPut<ProfilePageController>(
-      () => ProfilePageController(),
-    );
+    // Get.lazyPut<ProfilePageController>(
+    //   () => ProfilePageController(),
+    // );
   }
 }

@@ -23,7 +23,7 @@ class QuranpageView extends StatefulWidget {
 }
 final QuranpageController c = Get.put(QuranpageController());
 class _QuranpageViewState extends State<QuranpageView> {
-var makki = c.getqurandata.value.quranFilter!;
+
   ScrollController scrollController = ScrollController();
   final List<dynamic> items = [];
 

@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pinput/pinput.dart';
 import 'package:smartmasjid_v1/app/authRepository.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 import 'package:smartmasjid_v1/widgets/bgcontainer.dart';
 
@@ -18,6 +19,7 @@ class OtpPageView extends StatelessWidget {
 
   final Controller = Get.put(OtpPageController());
   final Controller1 = Get.put(AuthenticationRespository());
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +49,7 @@ class OtpPageView extends StatelessWidget {
                         Text(
                           "OTP has been sent to your mobile \n number.Please Enter it Below",
                           style: TextStyle(
-                              color: Theme
-                                  .of(context)
-                                  .colorScheme
-                                  .secondary,
+                              color: Theme.of(context).colorScheme.secondary,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
                         ),
@@ -71,55 +70,51 @@ class OtpPageView extends StatelessWidget {
                         //   );
                         // }),
 
+                        OtpTextField(
+                          // clearText: true,
+                          showFieldAsBox: true,
+                          //  autoFocus: true,
+                          numberOfFields: 6,
+                          fillColor: Colors.black.withOpacity(.1),
+                          filled: true,
+                          // onCodeChanged: (pin) {
+                          //   print("Completed: " + pin);
+                          // },
+                          // onCodeChanged: (value) {
+                          //   Controller.codes.value=value;
+                          // },
+                          onSubmit: (code) {
+                            OtpPageController.instance.otp.value = code;
+                            // OtpPageController.instance.verifyOTP(code);
+                            print("otp is $code");
+                          },
+                        ),
+                        10.verticalSpace,
+                        TextButton(
+                            style: TextButton.styleFrom(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                foregroundColor: Colors.white,
+                                fixedSize: Size(120, 35)),
+                            onPressed: () {
+                              OtpPageController.instance.verifyOTP();
 
-                          OtpTextField(
-
-                            // clearText: true,
-                            showFieldAsBox: true,
-                            //  autoFocus: true,
-                            numberOfFields: 6,
-                            fillColor: Colors.black.withOpacity(.1),
-                            filled: true,
-                            // onCodeChanged: (pin) {
-                            //   print("Completed: " + pin);
-                            // },
-                            // onCodeChanged: (value) {
-                            //   Controller.codes.value=value;
-                            // },
-                            onSubmit: (code) {
-                              OtpPageController.instance.verifyOTP(code);
-                              print("otp is $code");
+                              //OtpPageController.instance.verifyOTP(Controller.codes.value);
                             },
-                          ),
+                            child: Text(
+                              "verify",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 17),
+                            )),
 
-                    TextButton(
-                              style: TextButton.styleFrom(
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary,
-                                  foregroundColor: Colors.white,
-                                  fixedSize: Size(120, 35)),onPressed: () {
-                                 Get.toNamed(Routes.MASJID_FINDER);
-
-                          //OtpPageController.instance.verifyOTP(Controller.codes.value);
-                    },
-                                  child: Text(
-                                "verify",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 17),
-                              )),
-
-                    TextButton(
-                              onPressed: () {
-
-                              },
-                              child: Text(
-                                "Resend OTP",
-                                style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .secondary),
-                              )),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Resend OTP",
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary),
+                            )),
 
                         // Column(
                         //   mainAxisAlignment: MainAxisAlignment.center,

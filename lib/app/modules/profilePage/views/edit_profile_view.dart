@@ -23,8 +23,16 @@ class EditProfileView extends StatelessWidget {
       body: ListView(
         padding: EdgeInsets.only(left: 20, right: 20, top: 30),
         children: [
-          Safa_textfield(label: "First Name", fillColor: Color(0xffD9D9D9),controller: controller.firstnamectrl,),
-          Safa_textfield(label: "Last Name", fillColor: Color(0xffD9D9D9),controller: controller.lastnamectrl,),
+          Safa_textfield(
+            label: "First Name",
+            fillColor: Color(0xffD9D9D9),
+            controller: controller.firstnamectrl,
+          ),
+          Safa_textfield(
+            label: "Last Name",
+            fillColor: Color(0xffD9D9D9),
+            controller: controller.lastnamectrl,
+          ),
           Safa_textfield(
               readOnly: true,
               // onChanged: (value) {
@@ -43,8 +51,18 @@ class EditProfileView extends StatelessWidget {
                     size: 25,
                   )),
               fillColor: Color(0xffD9D9D9)),
-          Safa_textfield(label: "Mobile Number", fillColor: Color(0xffD9D9D9),controller: controller.mobilenumberctrl,),
-          Safa_textfield(label: "Email", fillColor: Color(0xffD9D9D9),controller: controller.emailctrl,),
+          Safa_textfield(
+            readOnly: true,
+            label: "Mobile Number",
+            fillColor: Color(0xffD9D9D9),
+            controller: controller.mobilenumberctrl,
+          ),
+          Safa_textfield(
+            readOnly: true,
+            label: "Email",
+            fillColor: Color(0xffD9D9D9),
+            controller: controller.emailctrl,
+          ),
           5.verticalSpace,
           Stxt(
             text: "Address:",
@@ -56,11 +74,13 @@ class EditProfileView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Safa_textfield(
+                  controller: controller.doorNoctrl,
                   length: 5,
                   label: "Door No.",
                   width: .25,
                   fillColor: Color(0xffD9D9D9)),
               Safa_textfield(
+                controller: controller.streetctrl,
                 label: "Street",
                 width: .6,
                 hint: '',
@@ -68,16 +88,33 @@ class EditProfileView extends StatelessWidget {
               ),
             ],
           ),
-          Safa_textfield(label: "Distric", fillColor: Color(0xffD9D9D9)),
-          Safa_textfield(label: "State", fillColor: Color(0xffD9D9D9)),
-          Safa_textfield(label: "Pincode", fillColor: Color(0xffD9D9D9)),
+          Safa_textfield(controller: controller.areactrl,
+              label: "Area",
+              fillColor: Color(0xffD9D9D9)),
+          Safa_textfield(controller: controller.districctrl,
+              label: "District",
+              fillColor: Color(0xffD9D9D9)),
+          Safa_textfield(controller: controller.statectrl,
+              label: "State",
+              fillColor: Color(0xffD9D9D9)),
+          Safa_textfield(controller: controller.pincodectrl,
+              label: "Pincode",
+              fillColor: Color(0xffD9D9D9)),
           SizedBox(
             height: 25,
           ),
           Column(
             children: [
-              SButton(
-                  text: "Submit", ontap: () {}, color: Get.theme.primaryColor,txtClr: clr_white),
+              Obx(() {
+                return SButton(
+                    text: controller.isLoading.value ? "Loading" : "Submit",
+                    ontap: () {
+                      controller.updateProfile();
+                      controller.update();
+                    },
+                    color: Get.theme.primaryColor,
+                    txtClr: clr_white);
+              }),
             ],
           )
         ],

@@ -252,12 +252,11 @@ class PrayerTimes extends StatelessWidget {
                     options: CarouselOptions(
 
                       enlargeStrategy: CenterPageEnlargeStrategy.height,
-                      enlargeCenterPage: true,
+                       enlargeCenterPage: true,
                        enlargeFactor: .1,
                       padEnds: true,
                       enableInfiniteScroll: false,
                       initialPage:controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList!.indexWhere((prayer) => prayer.prayerStatus == "future"),
-
                       height: 130,
                       viewportFraction: .87,
                       onPageChanged: (index, reason) {
