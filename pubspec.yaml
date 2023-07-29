@@ -145,4 +145,8 @@ flutter:
       fonts:
         - asset: assets/fonts/Noorehidayat.ttf
           weight: 500
+    - family: Arabictitle
+      fonts:
+        - asset: assets/fonts/Arabictitle.ttf
+          weight: 500
 
