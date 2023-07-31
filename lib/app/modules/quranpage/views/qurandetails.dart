@@ -1406,16 +1406,18 @@ class _QuranDetailsState extends State<QuranDetails> {
                                           Space(12),
                                           GestureDetector(
                                             onTap: (){
-                                              c.toggleBookmark();
+                                             c.toogle(index);
+
+                                           //   c.toggleBookmark();
                                             },
 
                                             child: Obx(() {
-                                              final isBookmarked = c.isBookmarked.value;
+                                             // final isBookmarked = c.isBookmarked.value;
                                               return Icon(
-                                                isBookmarked
+                                                c.buttonsSelected.contains(index)
                                                     ? Icons.bookmark
                                                     : Icons.bookmark_outline,
-                                                color: isBookmarked
+                                                color: c.buttonsSelected.contains(index)
                                                     ? Theme
                                                     .of(context)
                                                     .primaryColor

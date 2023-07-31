@@ -855,6 +855,8 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                     print("mmmmmmmm ${index}");
                                                     c.quranDetailList(
                                                         index + 1);
+                                                  c.passint.value=index+1;
+
                                                     // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
                                                   },
                                                   child: Align(

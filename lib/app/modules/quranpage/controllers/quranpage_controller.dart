@@ -42,8 +42,16 @@ class QuranpageController extends GetxController {
   RxList<int> clickedItems = <int>[].obs;
   RxBool switchValue = false.obs;
 
+ var passint=0.obs;
+  var buttonsSelected = [].obs;
 
-
+  toogle(int index) {
+    if (buttonsSelected.contains(index)) {
+      buttonsSelected.remove(index);
+    } else {
+      buttonsSelected.add(index);
+    }
+  }
 
   void onItemClick(int index) {
     print("mmmmmmmm $index");
@@ -54,9 +62,6 @@ class QuranpageController extends GetxController {
   }
 
 
-  void toggleBookmark() {
-    isBookmarked.value = !isBookmarked.value;
-  }
 
 
 void changeFontFamily(String family) {

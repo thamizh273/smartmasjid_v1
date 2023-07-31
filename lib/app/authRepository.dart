@@ -23,15 +23,15 @@ class AuthenticationRespository extends GetxController {
 
     firebaseUser = Rx<User?>(auth_.currentUser);
     firebaseUser.bindStream(auth_.userChanges());
-  //  ever(firebaseUser, (callback) => setInitialScreen);
+    ever(firebaseUser, (callback) => setInitialScreen);
     super.onReady();
   }
 
-  // setInitialScreen(User? user) {
-  //   user == null
-  //       ? Get.offAllNamed(Routes.SPLASH_SCREEN)
-  //       : Get.offAllNamed(Routes.HOME);
-  // }
+  setInitialScreen(User? user) {
+    user == null
+        ? Get.offAllNamed(Routes.SPLASH_SCREEN)
+        : Get.offAllNamed(Routes.HOME);
+  }
 
   void phoneAuthentication(phoneno) async {
     await auth_.verifyPhoneNumber(
