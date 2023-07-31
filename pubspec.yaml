@@ -149,4 +149,8 @@ flutter:
       fonts:
         - asset: assets/fonts/Arabictitle.ttf
           weight: 500
+    - family: Arabictit
+      fonts:
+        - asset: assets/fonts/Arabictit.ttf
+          weight: 500
 
