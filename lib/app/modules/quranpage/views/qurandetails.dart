@@ -439,7 +439,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                             child: Radio(
                               activeColor: Get.theme.primaryColor,
                               // title: Text("Kalam"),
-                              value: "arabictitle",
+                              value: "arabictit",
                               groupValue: c.fontFamily.value,
                               onChanged: (groupValue) =>
                                   c.changeFontFamily(groupValue!),
@@ -1019,14 +1019,14 @@ class _QuranDetailsState extends State<QuranDetails> {
                 hoverThickness: 8.0,
                 interactive: true,
                 thumbVisibility: true,
-                thickness: 8,
-                controller: c.scrollController,
+                thickness: 10,
+                controller: c.scrollControllernew,
                 radius: Radius.circular(20),
                 child: Obx(() {
                   return c.isLoadings.value
                       ? loading(context)
                       : ListView.builder(
-                      // controller: c.scrollController,
+                      controller: c.scrollControllernew,
                       itemCount: c.getqurandetail.value
                           .getQuranAyahVerse![0].ayahList!.length,
                       itemBuilder: (context, index) {
@@ -1094,7 +1094,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       .value == "noorehidayat"
                                                       ? "Noorehidayat" : c
                                                       .fontFamily
-                                                      .value == "arabictitle"
+                                                      .value == "arabictit"
                                                       ? "Arabictitle"
                                                       : null, // Use the default font if "Amiri" is not selected
                                                 );

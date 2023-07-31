@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
 import '../model/quran_detail_model.dart';
+import '../model/quran_juz_model.dart';
 import '../model/quran_model.dart';
 import '../views/qurandetails.dart';
 
@@ -14,6 +15,7 @@ class QuranpageController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final count = 0.obs;
   ScrollController scrollController = ScrollController();
+  final ScrollController scrollControllernew = ScrollController();
   final _restCallController = Get.put(restCallController());
   RxInt currentSelected = 1.obs;
   RxBool isLoadings = false.obs;
@@ -21,6 +23,7 @@ class QuranpageController extends GetxController {
   var isSearchEnabled = false.obs;
   var getqurandata = QuranModel().obs;
   var getqurandetail = QuranDetailModel().obs;
+  var getquranjuz = QuranJuzModel().obs;
   var searchQuery = ''.obs;
   var isChecked = false.obs;
   var fontAmiri = "".obs;
@@ -43,7 +46,32 @@ class QuranpageController extends GetxController {
   RxBool switchValue = false.obs;
 
 
+  void scrollToCurrentIndex(int currentIndex) {
+    // Calculate the offset to the selected item.
+    final double itemExtent = 50.0; // Assuming each item has a height of 50.0 pixels.
+    final double offset = currentIndex * itemExtent;
 
+    // Scroll the list to the selected item position.
+    scrollController.animateTo(
+      offset,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
+
+
+  // void scrollToIndex(int index) {
+  //   // Calculate the offset to the selected item.
+  //   final double itemExtent = 50.0; // Assuming each item has a height of 50.0 pixels.
+  //   final double offset = index * itemExtent;
+  //
+  //   // Scroll the list to the selected item position.
+  //   scrollController.animateTo(
+  //     offset,
+  //     duration: Duration(milliseconds: 500),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
 
   void onItemClick(int index) {
     print("mmmmmmmm $index");
@@ -81,7 +109,7 @@ void changeFontFamily(String family) {
   @override
   void onInit() {
     quranChapterList();
-
+    quranjuzList();
     super.onInit();
   }
 
@@ -212,9 +240,9 @@ query Query(\$masjidId: ID) {
     // print("lllll");
     // print(json.encode(res));
     // print("lllll");
-    log("data sign ${json.encode(res)}");
+    log("data data ${json.encode(res)}");
     isLoadings.value = false;
-    getqurandata.value = quranModelFromJson(json.encode(res));
+    getquranjuz.value = quranjuzModelFromJson(json.encode(res));
 
     update();
   }
