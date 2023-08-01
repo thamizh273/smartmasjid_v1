@@ -10,7 +10,9 @@ import 'package:hive/hive.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
+import 'package:smartmasjid_v1/widgets/gotoverse.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
+import 'package:smartmasjid_v1/widgets/quranplanner.dart';
 
 import '../../../../theme/theme.dart';
 import '../../../../widgets/space.dart';
@@ -20,6 +22,7 @@ import '../model/quran_detail_model.dart';
 import '../model/quran_model.dart';
 
 class QuranDetails extends StatefulWidget {
+  late final int index;
   QuranDetails({super.key});
 
   @override
@@ -31,7 +34,9 @@ final AudioplayerController controller = Get.put(AudioplayerController());
 final List<QuranpageController> controllers = List.generate(c.getqurandetail.value
     .getQuranAyahVerse![0].ayahList!.length, (index) => Get.put(QuranpageController()));
 
+
 class _QuranDetailsState extends State<QuranDetails> {
+  late final int index;
   late final String? surah;
   var makki = c.getqurandetail.value.getQuranAyahVerse![0].makkiMadina;
   var madni = c.getqurandetail.value.getQuranAyahVerse![0].makkiMadina;
@@ -673,287 +678,9 @@ class _QuranDetailsState extends State<QuranDetails> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           GestureDetector(
-                            onTap: () {
-                              showModalBottomSheet(
-                                backgroundColor: Colors.transparent,
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                        color: Color(0xff16627C),
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(32),
-                                            topRight: Radius.circular(32)
-                                        )
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
-                                      children: [
-                                        SizedBox(
-                                          width: 170.w,
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                alignment: Alignment
-                                                    .bottomCenter,
-                                                height: 60,
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    // getQuranChaptersList();
-                                                  },
-                                                  child: Text(
-                                                    'Surah',
-                                                    style: TextStyle(
-                                                      color: Colors
-                                                          .white,
-                                                      fontSize: 20.0,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Space(20),
-                                              Expanded(
-                                                child: Scrollbar(
-                                                  interactive: true,
-                                                  isAlwaysShown: true,
-                                                  thickness: 8,
-                                                  // controller: c.scrollController,
-                                                  radius: Radius
-                                                      .circular(20),
-                                                  child: ListView
-                                                      .builder(
-                                                    controller: c
-                                                        .scrollController,
-                                                    itemCount: c
-                                                        .getqurandata
-                                                        .value
-                                                        .quranFilter!
-                                                        .length,
-                                                    itemBuilder: (context,
-                                                        index) {
-                                                      var sura = c
-                                                          .getqurandata
-                                                          .value
-                                                          .quranFilter![index];
-                                                      return Obx(() {
-                                                        return Container(
-                                                          // Replace this with your color logic
-                                                          color: c
-                                                              .currentSelected
-                                                              .value ==
-                                                              index
-                                                              ? Color(
-                                                              0xffEBEBEB)
-                                                              : Color(
-                                                              0xff16627C),
-                                                          child: ListTile(
-                                                            dense: true,
-                                                            title: Row(
-                                                              children: [
-                                                                Text(
-                                                                  "${index +
-                                                                      1}.",
-                                                                  style: TextStyle(
-                                                                    color: c
-                                                                        .currentSelected
-                                                                        .value ==
-                                                                        index
-                                                                        ? Color(
-                                                                        0xff16627C)
-                                                                        : Colors
-                                                                        .white,
-                                                                    fontSize: 15,
-                                                                  ),
-                                                                ),
-                                                                SizedBox(
-                                                                    width: 5),
-                                                                Text(
-                                                                  "${sura
-                                                                      .suraNameEn}",
-                                                                  style: TextStyle(
-                                                                    color: c
-                                                                        .currentSelected
-                                                                        .value ==
-                                                                        index
-                                                                        ? Color(
-                                                                        0xff16627C)
-                                                                        : Colors
-                                                                        .white,
-                                                                    fontSize: 15,
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            onTap: () {
-                                                              c
-                                                                  .currentSelected
-                                                                  .value =
-                                                                  index;
-                                                              c
-                                                                  .update();
-                                                            },
-                                                          ),
-                                                        );
-                                                      });
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        // VerticalDivider(width: 1,
-                                        //     color: Colors.black),
-                                        SizedBox(
-                                          width: 80.w,
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                alignment: Alignment
-                                                    .bottomCenter,
-                                                height: 60,
-                                                child: Text(
-                                                  'Ayah',
-                                                  style: TextStyle(
-                                                    color: Colors
-                                                        .white,
-                                                    fontSize: 20.0,
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Scrollbar(
-                                                  interactive: true,
-                                                  isAlwaysShown: true,
-                                                  thickness: 8,
-                                                  // controller: c.scrollController,
-                                                  radius: Radius
-                                                      .circular(20),
-                                                  child: ListView
-                                                      .builder(
-                                                    controller: c
-                                                        .scrollController,
-                                                    shrinkWrap: true,
-                                                    itemCount: c
-                                                        .currentSelected
-                                                        .value ==
-                                                        c
-                                                            .currentSelected
-                                                            .value
-                                                        ? int.parse(
-                                                        "${c
-                                                            .getqurandata
-                                                            .value
-                                                            .quranFilter![c
-                                                            .currentSelected
-                                                            .value]
-                                                            .totalVerses}")
-                                                        : 0,
-                                                    itemBuilder: (context,
-                                                        index) {
-                                                      // Replace this with your data item
-                                                      return ListTile(
-                                                        dense: false,
-                                                        title: Center(
-                                                          child: Text(
-                                                            (index + 1)
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                        ),
-                                                        onTap: () {
-                                                          // Handle item tap event
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        // VerticalDivider(width: 1,
-                                        //     color: Colors.black),
-                                        Space(16),
-                                        SizedBox(
-                                          width: 60.w,
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                alignment: Alignment
-                                                    .bottomCenter,
-                                                height: 60,
-                                                child: Text(
-                                                  'Pages',
-                                                  style: TextStyle(
-                                                    color: Colors
-                                                        .white,
-                                                    fontSize: 20.0,
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Scrollbar(
-                                                  interactive: true,
-                                                  isAlwaysShown: true,
-                                                  thickness: 8,
-                                                  // controller: c.scrollController,
-                                                  radius: Radius
-                                                      .circular(20),
-                                                  child: ListView
-                                                      .builder(
-                                                    controller: c
-                                                        .scrollController,
-                                                    shrinkWrap: true,
-                                                    itemCount: c
-                                                        .currentSelected
-                                                        .value ==
-                                                        c
-                                                            .currentSelected
-                                                            .value
-                                                        ? int.parse(
-                                                        "${c
-                                                            .getqurandata
-                                                            .value
-                                                            .quranFilter![c
-                                                            .currentSelected
-                                                            .value]
-                                                            .totalVerses}")
-                                                        : 0,
-                                                    itemBuilder: (context,
-                                                        index) {
-                                                      // Replace this with your data item
-                                                      return ListTile(
-                                                        dense: false,
-                                                        title: Center(
-                                                          child: Text(
-                                                            (index + 1)
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white),
-                                                          ),
-                                                        ),
-                                                        onTap: () {
-                                                          // Handle item tap event
-                                                        },
-                                                      );
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                           onTap: (){
+                             GotoVerse(context);
+                           },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -974,7 +701,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     weight: FontWeight.w500,
                                     maxLines: 1,),
                                 ),
-                                Icon(Icons.arrow_drop_down_outlined)
+                                // Icon(Icons.arrow_drop_down_outlined)
                               ],
                             ),
                           ),
@@ -1195,119 +922,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                   PopupMenuItem(
                                                       child: GestureDetector(
                                                         onTap: (){
-                                                          showModalBottomSheet(
-                                                            backgroundColor: Colors.transparent,
-                                                            context: context,
-                                                            builder: (BuildContext context) {
-                                                              return Container(
-                                                                decoration: BoxDecoration(
-                                                                  color: Colors.white,
-                                                                    // color: Color(0xff16627C),
-                                                                    borderRadius: BorderRadius.only(
-                                                                        topLeft: Radius.circular(32),
-                                                                        topRight: Radius.circular(32)
-                                                                    )
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.all(16),
-                                                                  child: Column(
-                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                    children: [
-                                                                      Space(20),
-                                                                      Stxt(text: "Select Range", size: f3, weight: FontWeight.w600,),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "From", size: f3,  weight: FontWeight.w600),
-                                                                          Spacer(),
-                                                                          Column(
-                                                                            children: [
-                                                                              Stxt(text: "Al-Fatiah 1:1 ", size: f3,  weight: FontWeight.w600, color: Theme.of(context).primaryColor,),
-                                                                              Stxt(text: "Page 1 - Juz 1 ", size: f3),
-                                                                            ],
-                                                                          ),
-                                                                          Icon(Icons.arrow_drop_down_outlined),
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "To", size: f3,  weight: FontWeight.w600),
-                                                                          Spacer(),
-                                                                          Column(
-                                                                            children: [
-                                                                              Stxt(text: "An -Nas 114:6 ", size: f3,  weight: FontWeight.w600, color: Theme.of(context).primaryColor,),
-                                                                              Stxt(text: "Page 604 - Juz 30 ", size: f3),
-                                                                            ],
-                                                                          ),
-                                                                          Icon(Icons.arrow_drop_down_outlined),
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "Number of Days", size: f3,  weight: FontWeight.w600),
-                                                                         Spacer(),
-                                                                          Container(
-                                                                            height: 50,
-                                                                            width: 160,
-                                                                            decoration: BoxDecoration(
-                                                                              border: Border.all(
-                                                                                color: Colors.black
-                                                                              )
-                                                                            ),
-                                                                            child: TextField(
-                                                                            ),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "Notification", size: f3,  weight: FontWeight.w600),
-                                                                          Spacer(),
-                                                                          Obx(() {
-                                                                            return Switch(
-                                                                              value: c.switchValue.value,
-                                                                              onChanged: (newValue) {
-                                                                                c.switchValue.value = newValue;
-                                                                              },
-                                                                            );
-                                                                          }),
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "Notification Time", size: f3,  weight: FontWeight.w600),
-                                                                          Spacer(),
-                                                                          Stxt(text: "12.30 PM", size: f3)
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                        children: [
-                                                                          ElevatedButton(
-                                                                              onPressed: ()   {
-                                                                              },
-                                                                              style: ElevatedButton.styleFrom(
-                                                                                minimumSize: Size(150, 40),
-                                                                                backgroundColor: Theme.of(context).primaryColor,
-                                                                                shape: RoundedRectangleBorder(
-                                                                                  borderRadius: BorderRadius.circular(20),
-                                                                                ),
-                                                                                elevation: 4.0,
-                                                                              ),
-                                                                              child: Text("Add Planner", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white))),
-                                                                        ],
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                )
-                                                              );
-                                                            },
-                                                          );
+                                                          QuranPlanner(context);
                                                         },
                                                         child: Row(
                                                     children: [
@@ -1407,7 +1022,6 @@ class _QuranDetailsState extends State<QuranDetails> {
                                           GestureDetector(
                                             onTap: (){
                                              c.toogle(index);
-
                                            //   c.toggleBookmark();
                                             },
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
@@ -16,6 +17,10 @@ class QuranpageController extends GetxController {
   final count = 0.obs;
   ScrollController scrollController = ScrollController();
   final ScrollController scrollControllernew = ScrollController();
+  final ScrollController scrollControllerbot = ScrollController();
+  final ScrollController scrollControllerbot1 = ScrollController();
+  final ScrollController scrollControllerbot2 = ScrollController();
+  final ScrollController scrollControllerjuz = ScrollController();
   final _restCallController = Get.put(restCallController());
   RxInt currentSelected = 1.obs;
   RxBool isLoadings = false.obs;
@@ -44,9 +49,17 @@ class QuranpageController extends GetxController {
   var isBookmarked = false.obs;
   RxList<int> clickedItems = <int>[].obs;
   RxBool switchValue = false.obs;
+  int lastReadIndex = -1;
+
+
+  void setLastReadIndex(int index) {
+    lastReadIndex = index;
+  }
+
 
  var passint=0.obs;
   var buttonsSelected = [].obs;
+
 
 
   toogle(int index) {
@@ -121,6 +134,7 @@ void changeFontFamily(String family) {
     quranjuzList();
     super.onInit();
   }
+
 
 
   @override

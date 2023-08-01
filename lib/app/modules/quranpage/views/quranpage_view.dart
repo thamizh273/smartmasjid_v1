@@ -10,6 +10,7 @@ import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../global.dart';
+import '../../../../widgets/gotoverse.dart';
 import '../../../../widgets/space.dart';
 import '../../../../widgets/stext.dart';
 import '../../../routes/app_pages.dart';
@@ -26,11 +27,6 @@ final QuranpageController c = Get.put(QuranpageController());
 
 class _QuranpageViewState extends State<QuranpageView> {
   ScrollController scrollController = ScrollController();
-  final List<dynamic> items = [];
-
-  List<Surah> suraList = [
-    Surah(name: "Al Fatihah", chapterno: "1", verses: "7")
-  ];
 
   List<dynamic> get filteredSurah {
     final List<dynamic> quranChapterList = c
@@ -58,10 +54,6 @@ class _QuranpageViewState extends State<QuranpageView> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredItems = items
-        .where((item) =>
-            item.toLowerCase().contains(c.searchQuery.value.toLowerCase()))
-        .toList();
     return WillPopScope(
       onWillPop: () async {
         if (c.isSearchEnabled.value) {
@@ -76,229 +68,36 @@ class _QuranpageViewState extends State<QuranpageView> {
           return c.isLoadings.value
               ? loading(context)
               : Scaffold(
-                  // key: c.scaffoldKey,
-                  drawer: Drawer(
-                    width: 250.w,
-                    backgroundColor: Color(0xff16627C),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 170.w,
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                height: 60.h,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // getQuranChaptersList();
-                                  },
-                                  child: Text(
-                                    'Surah',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Scrollbar(
-                                  isAlwaysShown: true,
-                                  thickness: 8,
-                                  controller: c.scrollController,
-                                  radius: Radius.circular(20),
-                                  child: ListView.builder(
-                                      controller: c.scrollController,
-                                      // shrinkWrap: true,
-                                      itemCount: c.getqurandata.value
-                                          .quranFilter!.length,
-                                      itemBuilder: (context, index) {
-                                        var sura = c.getqurandata.value
-                                            .quranFilter![index];
-                                        return Obx(() {
-                                          return Container(
-                                            color:
-                                                c.currentSelected.value == index
-                                                    ? Color(0xffEBEBEB)
-                                                    : Color(0xff16627C),
-                                            child: ListTile(
-                                              dense: true,
-                                              title: Row(
-                                                children: [
-                                                  Text("${sura.suraChapterNo}.",
-                                                      style: TextStyle(
-                                                          color: c.currentSelected
-                                                                      .value ==
-                                                                  index
-                                                              ? Color(
-                                                                  0xff16627C)
-                                                              : Colors.white,
-                                                          fontSize: 15)),
-                                                  SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text("${sura.suraNameEn}",
-                                                      style: TextStyle(
-                                                          color: c.currentSelected
-                                                                      .value ==
-                                                                  index
-                                                              ? Color(
-                                                                  0xff16627C)
-                                                              : Colors.white,
-                                                          fontSize: 15)),
-                                                ],
-                                              ),
-                                              onTap: () {
-                                                // getQuranChaptersList();
-                                                // setState(() {
-                                                //   _currentSelected = index;
-                                                // });
-                                                c.currentSelected.value = index;
-                                                c.update();
-                                              },
-                                            ),
-                                          );
-                                        });
-                                      }),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        VerticalDivider(
-                          width: 1,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 60.w,
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                height: 60.h,
-                                child: Text(
-                                  'Ayah',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Scrollbar(
-                                  isAlwaysShown: true,
-                                  thickness: 8,
-                                  controller: c.scrollController,
-                                  radius: Radius.circular(20),
-                                  child: ListView.builder(
-                                      controller: c.scrollController,
-                                      shrinkWrap: true,
-                                      itemCount: c.currentSelected.value ==
-                                              c.currentSelected.value
-                                          ? int.parse(
-                                              "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}")
-                                          : 0,
-                                      itemBuilder: (context, index) {
-                                        // var sura = c.getqurandata.value.quranFilter![index];
-                                        return ListTile(
-                                          dense: false,
-                                          title: Center(
-                                              child: Text(
-                                            (index + 1).toString(),
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          )),
-                                          onTap: () {
-                                            // Handle item 1 tap
-                                          },
-                                        );
-                                      }
-                                      // children: [
-                                      //
-                                      //   ListTile(
-                                      //     dense: true,
-                                      //     title: Text('2',style: TextStyle(color: Colors.white),),
-                                      //     onTap: () {
-                                      //       // Handle item 2 tap
-                                      //     },
-                                      //   ),
-                                      // ],
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   appBar: AppBar(
                     // backgroundColor: Color(0xff16627C),
                     leading: GestureDetector(
                         onTap: () {
+                          if (c.isSearchEnabled.value) {
+                            c.toggleSearch(); // Close search field
+                            return Navigator.of(context).pop(); // Prevent back navigation
+                          }
+                          return Navigator.of(context).pop();
                           Navigator.of(context).pop(
-                              MaterialPageRoute(builder: (_) => HomeView()));
+                             MaterialPageRoute(builder: (_) => HomeView()));
                         },
-                        child: c.isSearchEnabled.value
-                            ? null
-                            : SvgPicture.asset("assets/svg/backnew.svg",
-                                fit: BoxFit.scaleDown)),
+                        child:
+                        // c.isSearchEnabled.value
+                        //     ? null
+                        //     :
+                        SvgPicture.asset("assets/svg/backnew.svg",
+                                fit: BoxFit.scaleDown,
+                             color: c.isSearchEnabled.value? Colors.black : Colors.white )),
                     backgroundColor: c.isSearchEnabled.value
-                        ? Color(0xff16627C)
+                        ? Colors.white
                         : Color(0xff16627C),
                     // backgroundColor: isSearchEnabled ? Colors.transparent : Color(0xff16627C),
                     title: Obx(() {
                       if (c.isSearchEnabled.value) {
-                        return Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16)),
-                          child: TextField(
-                            autofocus: false,
-                            // textInputAction: TextInputAction.search,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w600),
-                            // textCapitalization: TextCapitalization.sentences,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(fontSize: 12),
-                              hintText: 'Search',
-                              // label: Text("Search by Masjid Name", style: TextStyle(fontSize: 12),),
-                              filled: true,
-                              fillColor: Colors.grey.shade400,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32),
-                                borderSide: const BorderSide(
-                                  color: Colors.grey,
-                                  // Change the border color for focused state
-                                  width:
-                                      2.0, // Change the border width for focused state
-                                ),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 12),
-                              // suffixIcon: Padding(
-                              //   padding: const EdgeInsets.only(right: 10, bottom: 1),
-                              //   child: IconButton(onPressed: (){
-                              //   }, icon: Icon(Icons.search, size: 25,),
-                              //   ),
-                              // ),
-                            ),
-                            onChanged: (value) {
-                              c.searchQuery.value = value;
-                            },
-                            // onSubmitted: (value) {
-                            //   if (value.isEmpty) {
-                            //     _textEditingController.clear();
-                            //     FocusScope.of(context).unfocus();
-                            //   }
-                            // },
+                        return TextField(
+                          keyboardType: TextInputType.text,
+                          showCursor: true,
+                          decoration: InputDecoration(
+                            hintText: "Search Sura"
                           ),
                         );
                       } else {
@@ -316,12 +115,12 @@ class _QuranpageViewState extends State<QuranpageView> {
                               c.toggleSearch(); // Toggle search field
                             },
                             icon: Icon(Icons.search),
-                            color: Colors.white,
+                            color:c.isSearchEnabled.value? Colors.black: Colors.white
                           ),
-                          Image.asset(
-                            "assets/images/bookmark.png",
-                            width: 18,
-                          ),
+                          // Image.asset(
+                          //   "assets/images/bookmark.png",
+                          //   width: 18,
+                          // ),
                           Space(20)
                         ],
                       )
@@ -391,275 +190,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                           ),
                                           // onTap: () => c.openDrawer()
                                           onTap: () {
-                                            showModalBottomSheet(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Color(0xff16627C),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(32),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      32))),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 170.w,
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .bottomCenter,
-                                                              height: 60,
-                                                              child:
-                                                                  GestureDetector(
-                                                                onTap: () {
-                                                                  // getQuranChaptersList();
-                                                                },
-                                                                child: Text(
-                                                                  'Surah',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        20.0,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Space(20),
-                                                            Expanded(
-                                                              child: Scrollbar(
-                                                                thumbVisibility:
-                                                                    false,
-                                                                thickness: 8,
-                                                                // controller: c.scrollController,
-                                                                radius: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                child: ListView
-                                                                    .builder(
-                                                                  controller: c
-                                                                      .scrollController,
-                                                                  itemCount: c
-                                                                      .getqurandata
-                                                                      .value
-                                                                      .quranFilter!
-                                                                      .length,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    var sura = c
-                                                                        .getqurandata
-                                                                        .value
-                                                                        .quranFilter![index];
-                                                                    return Obx(
-                                                                        () {
-                                                                      return Container(
-                                                                        // Replace this with your color logic
-                                                                        color: c.currentSelected.value ==
-                                                                                index
-                                                                            ? Color(0xffEBEBEB)
-                                                                            : Color(0xff16627C),
-                                                                        child:
-                                                                            ListTile(
-                                                                          dense:
-                                                                              true,
-                                                                          title:
-                                                                              Row(
-                                                                            children: [
-                                                                              Text(
-                                                                                "${index + 1}.",
-                                                                                style: TextStyle(
-                                                                                  color: c.currentSelected.value == index ? Color(0xff16627C) : Colors.white,
-                                                                                  fontSize: 15,
-                                                                                ),
-                                                                              ),
-                                                                              SizedBox(width: 5),
-                                                                              Text(
-                                                                                "${sura.suraNameEn}",
-                                                                                style: TextStyle(
-                                                                                  color: c.currentSelected.value == index ? Color(0xff16627C) : Colors.white,
-                                                                                  fontSize: 15,
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          onTap:
-                                                                              () {
-                                                                            c.currentSelected.value =
-                                                                                index;
-                                                                            c.update();
-                                                                          },
-                                                                        ),
-                                                                      );
-                                                                    });
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      // VerticalDivider(width: 1,
-                                                      //     color: Colors.black),
-                                                      SizedBox(
-                                                        width: 80.w,
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .bottomCenter,
-                                                              height: 60,
-                                                              child: Text(
-                                                                'Ayah',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              child: Scrollbar(
-                                                                isAlwaysShown:
-                                                                    true,
-                                                                thickness: 8,
-                                                                // controller: c.scrollController,
-                                                                radius: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                child: ListView
-                                                                    .builder(
-                                                                  controller: c
-                                                                      .scrollController,
-                                                                  shrinkWrap:
-                                                                      true,
-                                                                  itemCount: c.currentSelected
-                                                                              .value ==
-                                                                          c.currentSelected
-                                                                              .value
-                                                                      ? int.parse(
-                                                                          "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}")
-                                                                      : 0,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    // Replace this with your data item
-                                                                    return ListTile(
-                                                                      dense:
-                                                                          false,
-                                                                      title:
-                                                                          Center(
-                                                                        child:
-                                                                            Text(
-                                                                          (index + 1)
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                      ),
-                                                                      onTap:
-                                                                          () {
-                                                                        // Handle item tap event
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      // VerticalDivider(width: 1,
-                                                      //     color: Colors.black),
-                                                      Space(16),
-                                                      SizedBox(
-                                                        width: 60.w,
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .bottomCenter,
-                                                              height: 60,
-                                                              child: Text(
-                                                                'Pages',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              child: Scrollbar(
-                                                                isAlwaysShown:
-                                                                    true,
-                                                                thickness: 8,
-                                                                // controller: c.scrollController,
-                                                                radius: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                child: ListView
-                                                                    .builder(
-                                                                  controller: c
-                                                                      .scrollController,
-                                                                  shrinkWrap:
-                                                                      true,
-                                                                  itemCount: c.currentSelected
-                                                                              .value ==
-                                                                          c.currentSelected
-                                                                              .value
-                                                                      ? int.parse(
-                                                                          "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}")
-                                                                      : 0,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    // Replace this with your data item
-                                                                    return ListTile(
-                                                                      dense:
-                                                                          false,
-                                                                      title:
-                                                                          Center(
-                                                                        child:
-                                                                            Text(
-                                                                          (index + 1)
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                      ),
-                                                                      onTap:
-                                                                          () {
-                                                                        // Handle item tap event
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
+                                            GotoVerse(context);
                                           },
                                         ),
                                         Space(4),
@@ -669,18 +200,28 @@ class _QuranpageViewState extends State<QuranpageView> {
                                     Space(25),
                                     Column(
                                       children: [
-                                        Container(
-                                          height: 50,
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xff16627C),
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              "assets/images/lastread.png",
-                                              width: 25,
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (c.lastReadIndex != -1) {
+                                              c.quranDetailList(
+                                                  c.lastReadIndex + 1);
+                                              c.scrollToCurrentIndex(
+                                                  c.lastReadIndex);
+                                            }
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xff16627C),
+                                                borderRadius:
+                                                    BorderRadius.circular(30)),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                "assets/images/lastread.png",
+                                                width: 25,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -744,7 +285,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                     Text("Quick Links:"),
                                     Space(8),
                                     SizedBox(
-                                      width: 250,
+                                      width: 280,
                                       height: 30,
                                       child: ListView.separated(
                                           // physics: NeverScrollablePhysics(),
@@ -752,13 +293,17 @@ class _QuranpageViewState extends State<QuranpageView> {
                                               (BuildContext context,
                                                       int index) =>
                                                   const Space(8),
-                                          itemCount: 3,
+                                          itemCount: 7,
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             var sura = [
                                               filteredSurah[35],
                                               filteredSurah[54],
-                                              filteredSurah[18]
+                                              filteredSurah[17],
+                                              filteredSurah[55],
+                                              filteredSurah[66],
+                                              filteredSurah[111],
+                                              filteredSurah[112],
                                             ];
                                             return GestureDetector(
                                               child: Container(
@@ -784,12 +329,38 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                 ),
                                               ),
                                               onTap: () {
-                                                print("ddd ${sura[index].suraNameEn}");
-                                                if (sura[index].suraNameEn=="Ya-Sin") {
+                                                print(
+                                                    "ddd ${sura[index].suraNameEn}");
+                                                if (sura[index].suraNameEn ==
+                                                    "Ya-Sin") {
                                                   c.quranDetailList(36);
-                                                }else  if (sura[index].suraNameEn=='Ar-Rahman') {
+                                                } else if (sura[index]
+                                                        .suraNameEn ==
+                                                    'Ar-Rahman') {
                                                   c.quranDetailList(55);
-                                                }else{  c.quranDetailList(19);}
+                                                }else if (sura[index]
+                                                        .suraNameEn ==
+                                                    'Al-Kahf') {
+                                                  c.quranDetailList(18);
+                                                }
+                                                else if (sura[index].suraNameEn ==
+                                                    "Al-Waqi'ah") {
+                                                  c.quranDetailList(56);
+                                                }else if (sura[index]
+                                                        .suraNameEn ==
+                                                    'Al-Mulk') {
+                                                  c.quranDetailList(67);
+                                                }else if (sura[index]
+                                                        .suraNameEn ==
+                                                    'Al-Ikhlas') {
+                                                  c.quranDetailList(112);
+                                                }else if (sura[index]
+                                                        .suraNameEn ==
+                                                    'Al-Falaq') {
+                                                  c.quranDetailList(113);
+                                                } else {
+                                                  c.quranDetailList(18);
+                                                }
                                               },
                                             );
                                           }),
@@ -823,11 +394,14 @@ class _QuranpageViewState extends State<QuranpageView> {
                                 child: Scrollbar(
                                   interactive: true,
                                   thumbVisibility: true,
-                                  thickness: 10, controller: c.scrollController,
+                                  thickness: 10,
+                                  controller: c.scrollController,
                                   radius: Radius.circular(20),
                                   child: ListView.builder(
-                                    key: PageStorageKey<String>("page"), ///store the current page in the list items
-                                  //  primary: true,
+                                    key: PageStorageKey<String>("page"),
+
+                                    ///store the current page in the list items
+                                    //  primary: true,
                                     padding: EdgeInsets.all(0),
                                     controller: c.scrollController,
                                     itemCount: filteredSurah.length,
@@ -848,6 +422,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                 print("mmmmmmmm ${index}");
                                                 c.quranDetailList(index + 1);
                                                 c.scrollToCurrentIndex(index);
+                                                c.setLastReadIndex(index);
                                               },
                                               child: Align(
                                                 alignment: Alignment.topCenter,
@@ -970,7 +545,6 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                               child: Text(
                                                                   "${sura.suraChapterNo}"),
                                                             ),
-
                                                           ),
                                                         ],
                                                       ),
@@ -1014,63 +588,65 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                         ),
                                                       ),
                                                       Spacer(),
-                                                      Align(
-                                                        child: Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            Obx(() {
-                                                              double fontSize =
-                                                                  20.0;
-                                                              TextStyle
-                                                                  textStyle =
-                                                                  TextStyle(
-                                                                fontSize:
-                                                                    fontSize,
-                                                                fontFamily: c
-                                                                            .fontFamily
-                                                                            .value ==
-                                                                        "indopak"
-                                                                    ? "Indopak"
-                                                                    : c.fontFamily.value ==
-                                                                            "qalam"
-                                                                        ? "Qalam"
-                                                                        : c.fontFamily.value ==
-                                                                                "uthami"
-                                                                            ? "Uthami"
-                                                                            : c.fontFamily.value == "amiri"
-                                                                                ? "Amiri"
-                                                                                : c.fontFamily.value == "noorehira"
-                                                                                    ? "Noorehira"
-                                                                                    : c.fontFamily.value == "noorehuda"
-                                                                                        ? "Noorehuda"
-                                                                                        : c.fontFamily.value == "noorehidayat"
-                                                                                            ? "Noorehidayat"
-                                                                                            : c.fontFamily.value == "arabictitle"
-                                                                                                ? "Arabictitle"
-                                                                                                : null, // Use the default font if "Amiri" is not selected
-                                                              );
-                                                              return SizedBox(
-                                                                child: c.isCheckedArabic
-                                                                            .value ==
-                                                                        true
-                                                                    ? Text(
-                                                                        "${sura.titleArabic}",
-                                                                        style:
-                                                                            textStyle,
-                                                                        textAlign:
-                                                                            TextAlign.end,
-                                                                      )
-                                                                    : SizedBox(),
-                                                              );
-                                                            }),
-                                                          ],
-                                                        ),
-                                                      ),
+                                                      // Align(
+                                                      //   child: Row(
+                                                      //     crossAxisAlignment:
+                                                      //         CrossAxisAlignment
+                                                      //             .center,
+                                                      //     mainAxisAlignment:
+                                                      //         MainAxisAlignment
+                                                      //             .end,
+                                                      //     children: [
+                                                      //       Obx(() {
+                                                      //         double fontSize =
+                                                      //             20.0;
+                                                      //         TextStyle
+                                                      //             textStyle =
+                                                      //             TextStyle(
+                                                      //           fontSize:
+                                                      //               fontSize,
+                                                      //           fontFamily: c
+                                                      //                       .fontFamily
+                                                      //                       .value ==
+                                                      //                   "indopak"
+                                                      //               ? "Indopak"
+                                                      //               : c.fontFamily.value ==
+                                                      //                       "qalam"
+                                                      //                   ? "Qalam"
+                                                      //                   : c.fontFamily.value ==
+                                                      //                           "uthami"
+                                                      //                       ? "Uthami"
+                                                      //                       : c.fontFamily.value == "amiri"
+                                                      //                           ? "Amiri"
+                                                      //                           : c.fontFamily.value == "noorehira"
+                                                      //                               ? "Noorehira"
+                                                      //                               : c.fontFamily.value == "noorehuda"
+                                                      //                                   ? "Noorehuda"
+                                                      //                                   : c.fontFamily.value == "noorehidayat"
+                                                      //                                       ? "Noorehidayat"
+                                                      //                                       : c.fontFamily.value == "arabictitle"
+                                                      //                                           ? "Arabictitle"
+                                                      //                                           : null, // Use the default font if "Amiri" is not selected
+                                                      //         );
+                                                      //         return SizedBox(
+                                                      //           child: c.isCheckedArabic
+                                                      //                       .value ==
+                                                      //                   true
+                                                      //               ? Text(
+                                                      //                   "${sura.titleArabic}",
+                                                      //                   style:
+                                                      //                       textStyle,
+                                                      //                   textAlign:
+                                                      //                       TextAlign.end,
+                                                      //                 )
+                                                      //               : SizedBox(),
+                                                      //         );
+                                                      //       }),
+                                                      //     ],
+                                                      //   ),
+                                                      // ),
+                                                      // Space(8),
+                                                      Image.asset("assets/images/alltext.png", color: Colors.black, scale: 12,),
                                                       Space(8),
                                                       Padding(
                                                         padding:
@@ -1122,13 +698,13 @@ class _QuranpageViewState extends State<QuranpageView> {
                                   interactive: true,
                                   thumbVisibility: true,
                                   thickness: 10,
-                                  controller: c.scrollController,
+                                  controller: c.scrollControllerjuz,
                                   radius: Radius.circular(20),
                                   child: Padding(
                                     padding: const EdgeInsets.only(top: 20),
                                     child: ListView.builder(
                                       padding: EdgeInsets.all(0),
-                                      // controller: c.scrollController,
+                                      controller: c.scrollControllerjuz,
                                       itemCount: c.getquranjuz.value
                                           .getQuranJuzChapter!.length,
                                       itemBuilder: (context, index) {
@@ -1415,16 +991,4 @@ class _QuranpageViewState extends State<QuranpageView> {
       ),
     );
   }
-}
-
-class Surah {
-  String? name;
-  String? chapterno;
-  String? verses;
-
-  Surah({
-    this.name,
-    this.chapterno,
-    this.verses,
-  });
 }
