@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
 import '../model/quran_detail_model.dart';
@@ -17,7 +16,15 @@ class QuranpageController extends GetxController {
   //TODO: Implement QuranpageController
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
+
   final ItemScrollController  itemScrollController = ItemScrollController ();
+
+
+  final ScrollController scrollControllerbot = ScrollController();
+  final ScrollController scrollControllerbot1 = ScrollController();
+  final ScrollController scrollControllerbot2 = ScrollController();
+  final ScrollController scrollControllerjuz = ScrollController();
+
   final _restCallController = Get.put(restCallController());
   RxInt currentSelected = 1.obs;
   RxBool isLoadings = false.obs;
@@ -46,28 +53,42 @@ class QuranpageController extends GetxController {
   var isBookmarked = false.obs;
   RxList<int> clickedItems = <int>[].obs;
   RxBool switchValue = false.obs;
+  int lastReadIndex = -1;
+
+
+  void setLastReadIndex(int index) {
+    lastReadIndex = index;
+  }
+
 
  var passint=0.obs;
   var buttonsSelected = [].obs;
   var result="".obs;
   var result1="".obs;
 
+/*
+  toogle(int index) {
+    if (buttonsSelected.contains(index)) {
+      buttonsSelected.remove(index);
+    } else {
+      buttonsSelected.add(index);
+    }
+  }*/
 
 
 
+  void scrollToCurrentIndex(int index) {
+    // Calculate the offset to the selected item.
+    final double itemExtent = 50.0; // Assuming each item has a height of 50.0 pixels.
+    final double offset = index * itemExtent;
 
-  // void scrollToIndex(int index) {
-  //   // Calculate the offset to the selected item.
-  //   final double itemExtent = 50.0; // Assuming each item has a height of 50.0 pixels.
-  //   final double offset = index * itemExtent;
-  //
-  //   // Scroll the list to the selected item position.
-  //   scrollController.animateTo(
-  //     offset,
-  //     duration: Duration(milliseconds: 500),
-  //     curve: Curves.easeInOut,
-  //   );
-  // }
+    // Scroll the list to the selected item position.
+    scrollController.animateTo(
+      offset,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 
 
 
@@ -110,6 +131,7 @@ void changeFontFamily(String family) {
     quranjuzList();
     super.onInit();
   }
+
 
 
   @override
