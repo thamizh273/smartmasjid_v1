@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/home/views/home_view.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/bookmark.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
@@ -22,9 +23,8 @@ class QuranpageView extends StatefulWidget {
   State<QuranpageView> createState() => _QuranpageViewState();
 }
 
-final QuranpageController c = Get.put(QuranpageController());
-
 class _QuranpageViewState extends State<QuranpageView> {
+  final QuranpageController c = Get.put(QuranpageController());
   ScrollController scrollController = ScrollController();
   final List<dynamic> items = [];
 
@@ -60,7 +60,7 @@ class _QuranpageViewState extends State<QuranpageView> {
   Widget build(BuildContext context) {
     final filteredItems = items
         .where((item) =>
-            item.toLowerCase().contains(c.searchQuery.value.toLowerCase()))
+        item.toLowerCase().contains(c.searchQuery.value.toLowerCase()))
         .toList();
     return WillPopScope(
       onWillPop: () async {
@@ -76,628 +76,683 @@ class _QuranpageViewState extends State<QuranpageView> {
           return c.isLoadings.value
               ? loading(context)
               : Scaffold(
-                  // key: c.scaffoldKey,
-                  drawer: Drawer(
-                    width: 250.w,
-                    backgroundColor: Color(0xff16627C),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          width: 170.w,
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                height: 60.h,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    // getQuranChaptersList();
-                                  },
-                                  child: Text(
-                                    'Surah',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0,
-                                    ),
-                                  ),
+            // key: c.scaffoldKey,
+              drawer: Drawer(
+                width: 250.w,
+                backgroundColor: Color(0xff16627C),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 170.w,
+                      child: Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            height: 60.h,
+                            child: GestureDetector(
+                              onTap: () {
+                                // getQuranChaptersList();
+                              },
+                              child: Text(
+                                'Surah',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0,
                                 ),
                               ),
-                              Expanded(
-                                child: Scrollbar(
-                                  isAlwaysShown: true,
-                                  thickness: 8,
-                                  controller: c.scrollController,
-                                  radius: Radius.circular(20),
-                                  child: ListView.builder(
-                                      controller: c.scrollController,
-                                      // shrinkWrap: true,
-                                      itemCount: c.getqurandata.value
-                                          .quranFilter!.length,
-                                      itemBuilder: (context, index) {
-                                        var sura = c.getqurandata.value
-                                            .quranFilter![index];
-                                        return Obx(() {
-                                          return Container(
-                                            color:
-                                                c.currentSelected.value == index
-                                                    ? Color(0xffEBEBEB)
-                                                    : Color(0xff16627C),
-                                            child: ListTile(
-                                              dense: true,
-                                              title: Row(
-                                                children: [
-                                                  Text("${sura.suraChapterNo}.",
-                                                      style: TextStyle(
-                                                          color: c.currentSelected
-                                                                      .value ==
-                                                                  index
-                                                              ? Color(
-                                                                  0xff16627C)
-                                                              : Colors.white,
-                                                          fontSize: 15)),
-                                                  SizedBox(
-                                                    width: 5,
-                                                  ),
-                                                  Text("${sura.suraNameEn}",
-                                                      style: TextStyle(
-                                                          color: c.currentSelected
-                                                                      .value ==
-                                                                  index
-                                                              ? Color(
-                                                                  0xff16627C)
-                                                              : Colors.white,
-                                                          fontSize: 15)),
-                                                ],
-                                              ),
-                                              onTap: () {
-                                                // getQuranChaptersList();
-                                                // setState(() {
-                                                //   _currentSelected = index;
-                                                // });
-                                                c.currentSelected.value = index;
-                                                c.update();
-                                              },
-                                            ),
-                                          );
-                                        });
-                                      }),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
-                        ),
-                        VerticalDivider(
-                          width: 1,
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          width: 60.w,
-                          child: Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                height: 60.h,
-                                child: Text(
-                                  'Ayah',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Scrollbar(
-                                  isAlwaysShown: true,
-                                  thickness: 8,
+                          Expanded(
+                            child: Scrollbar(
+                              isAlwaysShown: true,
+                              thickness: 8,
+                              controller: c.scrollController,
+                              radius: Radius.circular(20),
+                              child: ListView.builder(
                                   controller: c.scrollController,
-                                  radius: Radius.circular(20),
-                                  child: ListView.builder(
-                                      controller: c.scrollController,
-                                      shrinkWrap: true,
-                                      itemCount: c.currentSelected.value ==
-                                              c.currentSelected.value
-                                          ? int.parse(
-                                              "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}")
-                                          : 0,
-                                      itemBuilder: (context, index) {
-                                        // var sura = c.getqurandata.value.quranFilter![index];
-                                        return ListTile(
-                                          dense: false,
-                                          title: Center(
-                                              child: Text(
+                                  // shrinkWrap: true,
+                                  itemCount: c.getqurandata.value
+                                      .quranFilter!.length,
+                                  itemBuilder: (context, index) {
+                                    var sura = c.getqurandata.value
+                                        .quranFilter![index];
+                                    return Container(
+                                      color:
+                                      c.currentSelected.value == index
+                                          ? Color(0xffEBEBEB)
+                                          : Color(0xff16627C),
+                                      child: ListTile(
+                                        dense: true,
+                                        title: Row(
+                                          children: [
+                                            Text("${sura.suraChapterNo}.",
+                                                style: TextStyle(
+                                                    color: c.currentSelected
+                                                        .value ==
+                                                        index
+                                                        ? Color(0xff16627C)
+                                                        : Colors.white,
+                                                    fontSize: 15)),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text("${sura.suraNameEn}",
+                                                style: TextStyle(
+                                                    color: c.currentSelected
+                                                        .value ==
+                                                        index
+                                                        ? Color(0xff16627C)
+                                                        : Colors.white,
+                                                    fontSize: 15)),
+                                          ],
+                                        ),
+                                        onTap: () {
+                                          // getQuranChaptersList();
+                                          // setState(() {
+                                          //   _currentSelected = index;
+                                          // });
+                                          c.currentSelected.value = index;
+                                          c.update();
+                                        },
+                                      ),
+                                    );
+                                  }),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    VerticalDivider(
+                      width: 1,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      width: 60.w,
+                      child: Column(
+                        children: [
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            height: 60.h,
+                            child: Text(
+                              'Ayah',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20.0,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Scrollbar(
+                              isAlwaysShown: true,
+                              thickness: 8,
+                              controller: c.scrollController,
+                              radius: Radius.circular(20),
+                              child: ListView.builder(
+                                  controller: c.scrollController,
+                                  shrinkWrap: true,
+                                  itemCount: c.currentSelected.value ==
+                                      c.currentSelected.value
+                                      ? int.parse(
+                                      "${c.getqurandata.value.quranFilter![c
+                                          .currentSelected.value].totalVerses}")
+                                      : 0,
+                                  itemBuilder: (context, index) {
+                                    // var sura = c.getqurandata.value.quranFilter![index];
+                                    return ListTile(
+                                      dense: false,
+                                      title: Center(
+                                          child: Text(
                                             (index + 1).toString(),
                                             style:
-                                                TextStyle(color: Colors.white),
+                                            TextStyle(color: Colors.white),
                                           )),
-                                          onTap: () {
-                                            // Handle item 1 tap
-                                          },
-                                        );
-                                      }
-                                      // children: [
-                                      //
-                                      //   ListTile(
-                                      //     dense: true,
-                                      //     title: Text('2',style: TextStyle(color: Colors.white),),
-                                      //     onTap: () {
-                                      //       // Handle item 2 tap
-                                      //     },
-                                      //   ),
-                                      // ],
-                                      ),
-                                ),
+                                      onTap: () {
+                                        // Handle item 1 tap
+                                      },
+                                    );
+                                  }
+                                // children: [
+                                //
+                                //   ListTile(
+                                //     dense: true,
+                                //     title: Text('2',style: TextStyle(color: Colors.white),),
+                                //     onTap: () {
+                                //       // Handle item 2 tap
+                                //     },
+                                //   ),
+                                // ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  appBar: AppBar(
-                    // backgroundColor: Color(0xff16627C),
-                    leading: GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop(
-                              MaterialPageRoute(builder: (_) => HomeView()));
-                        },
-                        child: c.isSearchEnabled.value
-                            ? null
-                            : SvgPicture.asset("assets/svg/backnew.svg",
-                                fit: BoxFit.scaleDown)),
-                    backgroundColor: c.isSearchEnabled.value
-                        ? Color(0xff16627C)
-                        : Color(0xff16627C),
-                    // backgroundColor: isSearchEnabled ? Colors.transparent : Color(0xff16627C),
-                    title: Obx(() {
-                      if (c.isSearchEnabled.value) {
-                        return Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(16)),
-                          child: TextField(
-                            autofocus: false,
-                            // textInputAction: TextInputAction.search,
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w600),
-                            // textCapitalization: TextCapitalization.sentences,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              hintStyle: TextStyle(fontSize: 12),
-                              hintText: 'Search',
-                              // label: Text("Search by Masjid Name", style: TextStyle(fontSize: 12),),
-                              filled: true,
-                              fillColor: Colors.grey.shade400,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32),
-                                borderSide: const BorderSide(
-                                  color: Colors.grey,
-                                  // Change the border color for focused state
-                                  width:
-                                      2.0, // Change the border width for focused state
-                                ),
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 12),
-                              // suffixIcon: Padding(
-                              //   padding: const EdgeInsets.only(right: 10, bottom: 1),
-                              //   child: IconButton(onPressed: (){
-                              //   }, icon: Icon(Icons.search, size: 25,),
-                              //   ),
-                              // ),
                             ),
-                            onChanged: (value) {
-                              c.searchQuery.value = value;
-                            },
-                            // onSubmitted: (value) {
-                            //   if (value.isEmpty) {
-                            //     _textEditingController.clear();
-                            //     FocusScope.of(context).unfocus();
-                            //   }
-                            // },
                           ),
-                        );
-                      } else {
-                        return Text(
-                          "Holy Quran",
-                          style: TextStyle(color: Colors.white),
-                        );
-                      }
-                    }),
-                    actions: [
-                      Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              c.toggleSearch(); // Toggle search field
-                            },
-                            icon: Icon(Icons.search),
-                            color: Colors.white,
-                          ),
-                          Image.asset(
-                            "assets/images/bookmark.png",
-                            width: 18,
-                          ),
-                          Space(20)
                         ],
-                      )
-                    ],
-                    bottom: c.isSearchEnabled.value
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              appBar: AppBar(
+                // backgroundColor: Color(0xff16627C),
+                leading: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop(
+                          MaterialPageRoute(builder: (_) => HomeView()));
+                    },
+                    child: c.isSearchEnabled.value
                         ? null
-                        : TabBar(
-                            tabs: [
-                              Tab(
-                                text: 'Surah',
-                              ),
-                              Tab(
-                                text: 'Juz',
-                              ),
-                            ],
+                        : SvgPicture.asset("assets/svg/backnew.svg",
+                        fit: BoxFit.scaleDown)),
+                backgroundColor: c.isSearchEnabled.value
+                    ? Color(0xff16627C)
+                    : Color(0xff16627C),
+                // backgroundColor: isSearchEnabled ? Colors.transparent : Color(0xff16627C),
+                title: Obx(() {
+                  if (c.isSearchEnabled.value) {
+                    return Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16)),
+                      child: TextField(
+                        autofocus: false,
+                        // textInputAction: TextInputAction.search,
+                        style: TextStyle(
+                            color: Theme
+                                .of(context)
+                                .colorScheme
+                                .primary,
+                            fontWeight: FontWeight.w600),
+                        // textCapitalization: TextCapitalization.sentences,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(fontSize: 12),
+                          hintText: 'Search',
+                          // label: Text("Search by Masjid Name", style: TextStyle(fontSize: 12),),
+                          filled: true,
+                          fillColor: Colors.grey.shade400,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32),
                           ),
-                  ),
-                  body: FrostedBottomBar(
-                    width: 330.w,
-                    opacity: .8,
-                    sigmaX: 10,
-                    sigmaY: 10,
-                    bottomBarColor: Theme.of(context).colorScheme.primary,
-                    borderRadius: BorderRadius.circular(500),
-                    duration: const Duration(milliseconds: 800),
-                    hideOnScroll: true,
-                    body: (BuildContext context, ScrollController controller) {
-                      return TabBarView(children: [
-                        Center(
-                          child: Column(
-                            children: [
-                              Space(16),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    8.horizontalSpace,
-                                    Column(
-                                      children: [
-                                        GestureDetector(
-                                          child: Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                                color: Color(0xff16627C),
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
-                                            child: Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                "assets/images/goto.png",
-                                                width: 25,
-                                              ),
-                                            ),
-
-                                            // Row(
-                                            //   children: [
-                                            //     Space(8),
-                                            //     Text(
-                                            //         "Go to verse", style: TextStyle(
-                                            //         color: Colors.white)),
-                                            //     Space(8),
-                                            //
-                                            //   ],
-                                            // ),
-                                          ),
-                                          // onTap: () => c.openDrawer()
-                                          onTap: () {
-                                            showModalBottomSheet(
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Container(
-                                                  decoration: BoxDecoration(
-                                                      color: Color(0xff16627C),
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(32),
-                                                              topRight: Radius
-                                                                  .circular(
-                                                                      32))),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: 170.w,
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .bottomCenter,
-                                                              height: 60,
-                                                              child:
-                                                                  GestureDetector(
-                                                                onTap: () {
-                                                                  // getQuranChaptersList();
-                                                                },
-                                                                child: Text(
-                                                                  'Surah',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        20.0,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Space(20),
-                                                            Expanded(
-                                                              child: Scrollbar(
-                                                                thumbVisibility:
-                                                                    false,
-                                                                thickness: 8,
-                                                                // controller: c.scrollController,
-                                                                radius: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                child: ListView
-                                                                    .builder(
-                                                                  controller: c
-                                                                      .scrollController,
-                                                                  itemCount: c
-                                                                      .getqurandata
-                                                                      .value
-                                                                      .quranFilter!
-                                                                      .length,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    var sura = c
-                                                                        .getqurandata
-                                                                        .value
-                                                                        .quranFilter![index];
-                                                                    return Obx(
-                                                                        () {
-                                                                      return Container(
-                                                                        // Replace this with your color logic
-                                                                        color: c.currentSelected.value ==
-                                                                                index
-                                                                            ? Color(0xffEBEBEB)
-                                                                            : Color(0xff16627C),
-                                                                        child:
-                                                                            ListTile(
-                                                                          dense:
-                                                                              true,
-                                                                          title:
-                                                                              Row(
-                                                                            children: [
-                                                                              Text(
-                                                                                "${index + 1}.",
-                                                                                style: TextStyle(
-                                                                                  color: c.currentSelected.value == index ? Color(0xff16627C) : Colors.white,
-                                                                                  fontSize: 15,
-                                                                                ),
-                                                                              ),
-                                                                              SizedBox(width: 5),
-                                                                              Text(
-                                                                                "${sura.suraNameEn}",
-                                                                                style: TextStyle(
-                                                                                  color: c.currentSelected.value == index ? Color(0xff16627C) : Colors.white,
-                                                                                  fontSize: 15,
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          onTap:
-                                                                              () {
-                                                                            c.currentSelected.value =
-                                                                                index;
-                                                                            c.update();
-                                                                          },
-                                                                        ),
-                                                                      );
-                                                                    });
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      // VerticalDivider(width: 1,
-                                                      //     color: Colors.black),
-                                                      SizedBox(
-                                                        width: 80.w,
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .bottomCenter,
-                                                              height: 60,
-                                                              child: Text(
-                                                                'Ayah',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              child: Scrollbar(
-                                                                isAlwaysShown:
-                                                                    true,
-                                                                thickness: 8,
-                                                                // controller: c.scrollController,
-                                                                radius: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                child: ListView
-                                                                    .builder(
-                                                                  controller: c
-                                                                      .scrollController,
-                                                                  shrinkWrap:
-                                                                      true,
-                                                                  itemCount: c.currentSelected
-                                                                              .value ==
-                                                                          c.currentSelected
-                                                                              .value
-                                                                      ? int.parse(
-                                                                          "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}")
-                                                                      : 0,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    // Replace this with your data item
-                                                                    return ListTile(
-                                                                      dense:
-                                                                          false,
-                                                                      title:
-                                                                          Center(
-                                                                        child:
-                                                                            Text(
-                                                                          (index + 1)
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                      ),
-                                                                      onTap:
-                                                                          () {
-                                                                        // Handle item tap event
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      // VerticalDivider(width: 1,
-                                                      //     color: Colors.black),
-                                                      Space(16),
-                                                      SizedBox(
-                                                        width: 60.w,
-                                                        child: Column(
-                                                          children: [
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .bottomCenter,
-                                                              height: 60,
-                                                              child: Text(
-                                                                'Pages',
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Expanded(
-                                                              child: Scrollbar(
-                                                                isAlwaysShown:
-                                                                    true,
-                                                                thickness: 8,
-                                                                // controller: c.scrollController,
-                                                                radius: Radius
-                                                                    .circular(
-                                                                        20),
-                                                                child: ListView
-                                                                    .builder(
-                                                                  controller: c
-                                                                      .scrollController,
-                                                                  shrinkWrap:
-                                                                      true,
-                                                                  itemCount: c.currentSelected
-                                                                              .value ==
-                                                                          c.currentSelected
-                                                                              .value
-                                                                      ? int.parse(
-                                                                          "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}")
-                                                                      : 0,
-                                                                  itemBuilder:
-                                                                      (context,
-                                                                          index) {
-                                                                    // Replace this with your data item
-                                                                    return ListTile(
-                                                                      dense:
-                                                                          false,
-                                                                      title:
-                                                                          Center(
-                                                                        child:
-                                                                            Text(
-                                                                          (index + 1)
-                                                                              .toString(),
-                                                                          style:
-                                                                              TextStyle(color: Colors.white),
-                                                                        ),
-                                                                      ),
-                                                                      onTap:
-                                                                          () {
-                                                                        // Handle item tap event
-                                                                      },
-                                                                    );
-                                                                  },
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                        ),
-                                        Space(4),
-                                        Text("Go To")
-                                      ],
-                                    ),
-                                    Space(25),
-                                    Column(
-                                      children: [
-                                        Container(
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32),
+                            borderSide: const BorderSide(
+                              color: Colors.grey,
+                              // Change the border color for focused state
+                              width:
+                              2.0, // Change the border width for focused state
+                            ),
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          // suffixIcon: Padding(
+                          //   padding: const EdgeInsets.only(right: 10, bottom: 1),
+                          //   child: IconButton(onPressed: (){
+                          //   }, icon: Icon(Icons.search, size: 25,),
+                          //   ),
+                          // ),
+                        ),
+                        onChanged: (value) {
+                          c.searchQuery.value = value;
+                        },
+                        // onSubmitted: (value) {
+                        //   if (value.isEmpty) {
+                        //     _textEditingController.clear();
+                        //     FocusScope.of(context).unfocus();
+                        //   }
+                        // },
+                      ),
+                    );
+                  } else {
+                    return Text(
+                      "Holy Quran",
+                      style: TextStyle(color: Colors.white),
+                    );
+                  }
+                }),
+                actions: [
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          c.toggleSearch(); // Toggle search field
+                        },
+                        icon: Icon(Icons.search),
+                        color: Colors.white,
+                      ),
+                      Image.asset(
+                        "assets/images/bookmark.png",
+                        width: 18,
+                      ),
+                      Space(20)
+                    ],
+                  )
+                ],
+                bottom: c.isSearchEnabled.value
+                    ? null
+                    : TabBar(
+                  tabs: [
+                    Tab(
+                      text: 'Surah',
+                    ),
+                    Tab(
+                      text: 'Juz',
+                    ),
+                  ],
+                ),
+              ),
+              body: Obx(() {
+                return  c.isLoadings.value
+                    ? loading(context):FrostedBottomBar(
+                  width: 330.w,
+                  opacity: .8,
+                  sigmaX: 10,
+                  sigmaY: 10,
+                  bottomBarColor: Theme
+                      .of(context)
+                      .colorScheme
+                      .primary,
+                  borderRadius: BorderRadius.circular(500),
+                  duration: const Duration(milliseconds: 800),
+                  hideOnScroll: true,
+                  body: (BuildContext context, ScrollController controller) {
+                    return TabBarView(children: [
+                      Center(
+                        child: Column(
+                          children: [
+                            Space(16),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  8.horizontalSpace,
+                                  Column(
+                                    children: [
+                                      GestureDetector(
+                                        child: Container(
                                           height: 50,
                                           width: 50,
                                           decoration: BoxDecoration(
                                               color: Color(0xff16627C),
                                               borderRadius:
-                                                  BorderRadius.circular(30)),
+                                              BorderRadius.circular(30)),
                                           child: Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
-                                              "assets/images/lastread.png",
+                                              "assets/images/goto.png",
                                               width: 25,
                                             ),
                                           ),
+
+                                          // Row(
+                                          //   children: [
+                                          //     Space(8),
+                                          //     Text(
+                                          //         "Go to verse", style: TextStyle(
+                                          //         color: Colors.white)),
+                                          //     Space(8),
+                                          //
+                                          //   ],
+                                          // ),
                                         ),
-                                        Space(4),
-                                        Text("Last Read")
-                                      ],
-                                    ),
-                                    Space(25),
-                                    Column(
-                                      children: [
-                                        Container(
+                                        // onTap: () => c.openDrawer()
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                            backgroundColor:
+                                            Colors.transparent,
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Container(
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xff16627C),
+                                                    borderRadius:
+                                                    BorderRadius.only(
+                                                        topLeft: Radius
+                                                            .circular(32),
+                                                        topRight: Radius
+                                                            .circular(
+                                                            32))),
+                                                child: Row(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 170.w,
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .bottomCenter,
+                                                            height: 60,
+                                                            child:
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                // getQuranChaptersList();
+                                                              },
+                                                              child: Text(
+                                                                'Surah',
+                                                                style:
+                                                                TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize:
+                                                                  20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Space(20),
+                                                          Expanded(
+                                                            child: Scrollbar(
+                                                              thumbVisibility:
+                                                              false,
+                                                              thickness: 8,
+                                                              // controller: c.scrollController,
+                                                              radius: Radius
+                                                                  .circular(
+                                                                  20),
+                                                              child: ListView
+                                                                  .builder(
+                                                                controller: c
+                                                                    .scrollController,
+                                                                itemCount: c
+                                                                    .getqurandata
+                                                                    .value
+                                                                    .quranFilter!
+                                                                    .length,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                    index) {
+                                                                  var sura = c
+                                                                      .getqurandata
+                                                                      .value
+                                                                      .quranFilter![index];
+                                                                  return Obx(
+                                                                          () {
+                                                                        return Container(
+                                                                          // Replace this with your color logic
+                                                                          color: c
+                                                                              .currentSelected
+                                                                              .value ==
+                                                                              index
+                                                                              ? Color(
+                                                                              0xffEBEBEB)
+                                                                              : Color(
+                                                                              0xff16627C),
+                                                                          child:
+                                                                          ListTile(
+                                                                            dense:
+                                                                            true,
+                                                                            title:
+                                                                            Row(
+                                                                              children: [
+                                                                                Text(
+                                                                                  "${index +
+                                                                                      1}.",
+                                                                                  style: TextStyle(
+                                                                                    color: c
+                                                                                        .currentSelected
+                                                                                        .value ==
+                                                                                        index
+                                                                                        ? Color(
+                                                                                        0xff16627C)
+                                                                                        : Colors
+                                                                                        .white,
+                                                                                    fontSize: 15,
+                                                                                  ),
+                                                                                ),
+                                                                                SizedBox(
+                                                                                    width: 5),
+                                                                                Text(
+                                                                                  "${sura
+                                                                                      .suraNameEn}",
+                                                                                  style: TextStyle(
+                                                                                    color: c
+                                                                                        .currentSelected
+                                                                                        .value ==
+                                                                                        index
+                                                                                        ? Color(
+                                                                                        0xff16627C)
+                                                                                        : Colors
+                                                                                        .white,
+                                                                                    fontSize: 15,
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            onTap:
+                                                                                () {
+                                                                              c
+                                                                                  .currentSelected
+                                                                                  .value =
+                                                                                  index;
+                                                                              c
+                                                                                  .update();
+                                                                            },
+                                                                          ),
+                                                                        );
+                                                                      });
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    // VerticalDivider(width: 1,
+                                                    //     color: Colors.black),
+                                                    SizedBox(
+                                                      width: 80.w,
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .bottomCenter,
+                                                            height: 60,
+                                                            child: Text(
+                                                              'Ayah',
+                                                              style:
+                                                              TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                20.0,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Scrollbar(
+                                                              isAlwaysShown:
+                                                              true,
+                                                              thickness: 8,
+                                                              // controller: c.scrollController,
+                                                              radius: Radius
+                                                                  .circular(
+                                                                  20),
+                                                              child: ListView
+                                                                  .builder(
+                                                                controller: c
+                                                                    .scrollController,
+                                                                shrinkWrap:
+                                                                true,
+                                                                itemCount: c
+                                                                    .currentSelected
+                                                                    .value ==
+                                                                    c
+                                                                        .currentSelected
+                                                                        .value
+                                                                    ? int.parse(
+                                                                    "${c
+                                                                        .getqurandata
+                                                                        .value
+                                                                        .quranFilter![c
+                                                                        .currentSelected
+                                                                        .value]
+                                                                        .totalVerses}")
+                                                                    : 0,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                    index) {
+                                                                  // Replace this with your data item
+                                                                  return ListTile(
+                                                                    dense:
+                                                                    false,
+                                                                    title:
+                                                                    Center(
+                                                                      child:
+                                                                      Text(
+                                                                        (index +
+                                                                            1)
+                                                                            .toString(),
+                                                                        style:
+                                                                        TextStyle(
+                                                                            color: Colors
+                                                                                .white),
+                                                                      ),
+                                                                    ),
+                                                                    onTap:
+                                                                        () {
+                                                                      // Handle item tap event
+                                                                    },
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    // VerticalDivider(width: 1,
+                                                    //     color: Colors.black),
+                                                    Space(16),
+                                                    SizedBox(
+                                                      width: 60.w,
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            alignment: Alignment
+                                                                .bottomCenter,
+                                                            height: 60,
+                                                            child: Text(
+                                                              'Pages',
+                                                              style:
+                                                              TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize:
+                                                                20.0,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Scrollbar(
+                                                              isAlwaysShown:
+                                                              true,
+                                                              thickness: 8,
+                                                              // controller: c.scrollController,
+                                                              radius: Radius
+                                                                  .circular(
+                                                                  20),
+                                                              child: ListView
+                                                                  .builder(
+                                                                controller: c
+                                                                    .scrollController,
+                                                                shrinkWrap:
+                                                                true,
+                                                                itemCount: c
+                                                                    .currentSelected
+                                                                    .value ==
+                                                                    c
+                                                                        .currentSelected
+                                                                        .value
+                                                                    ? int.parse(
+                                                                    "${c
+                                                                        .getqurandata
+                                                                        .value
+                                                                        .quranFilter![c
+                                                                        .currentSelected
+                                                                        .value]
+                                                                        .totalVerses}")
+                                                                    : 0,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                    index) {
+                                                                  // Replace this with your data item
+                                                                  return ListTile(
+                                                                    dense:
+                                                                    false,
+                                                                    title:
+                                                                    Center(
+                                                                      child:
+                                                                      Text(
+                                                                        (index +
+                                                                            1)
+                                                                            .toString(),
+                                                                        style:
+                                                                        TextStyle(
+                                                                            color: Colors
+                                                                                .white),
+                                                                      ),
+                                                                    ),
+                                                                    onTap:
+                                                                        () {
+                                                                      // Handle item tap event
+                                                                    },
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                      Space(4),
+                                      Text("Go To")
+                                    ],
+                                  ),
+                                  Space(25),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        height: 50,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xff16627C),
+                                            borderRadius:
+                                            BorderRadius.circular(30)),
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Image.asset(
+                                            "assets/images/lastread.png",
+                                            width: 25,
+                                          ),
+                                        ),
+                                      ),
+                                      Space(4),
+                                      Text("Last Read")
+                                    ],
+                                  ),
+                                  Space(25),
+                                  Column(
+                                    children: [
+                                      GestureDetector(
+                                          onTap:(){
+                                            Get.to(Bookmark());
+                                          },
+                                        child: Container(
                                           height: 50,
                                           width: 50,
                                           decoration: BoxDecoration(
                                               color: Color(0xff16627C),
                                               borderRadius:
-                                                  BorderRadius.circular(30)),
+                                              BorderRadius.circular(30)),
                                           child: Align(
                                             alignment: Alignment.center,
                                             child: Image.asset(
@@ -706,155 +761,490 @@ class _QuranpageViewState extends State<QuranpageView> {
                                             ),
                                           ),
                                         ),
-                                        Space(4),
-                                        Text("Bookmarks")
-                                      ],
-                                    ),
-                                    Space(25),
-                                    Column(
-                                      children: [
-                                        Container(
-                                          height: 50,
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xff16627C),
-                                              borderRadius:
-                                                  BorderRadius.circular(30)),
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              "assets/images/notes.png",
-                                              width: 25,
+                                      ),
+                                      Space(4),
+                                      Text("Bookmarks")
+                                    ],
+                                  ),
+                                  Space(25),
+                                  Column(
+                                    children: [
+                                      Container(
+                                        height: 50,
+                                        width: 50,
+                                        decoration: BoxDecoration(
+                                            color: Color(0xff16627C),
+                                            borderRadius:
+                                            BorderRadius.circular(30)),
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Image.asset(
+                                            "assets/images/notes.png",
+                                            width: 25,
+                                          ),
+                                        ),
+                                      ),
+                                      Space(4),
+                                      Text("Notes")
+                                    ],
+                                  ),
+                                  8.horizontalSpace
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text("Quick Links:"),
+                                  Space(8),
+                                  SizedBox(
+                                    width: 250,
+                                    height: 30,
+                                    child: ListView.separated(
+                                      // physics: NeverScrollablePhysics(),
+                                        separatorBuilder:
+                                            (BuildContext context,
+                                            int index) =>
+                                        const Space(8),
+                                        itemCount: 3,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          var sura = [
+                                            filteredSurah[35],
+                                            filteredSurah[54],
+                                            filteredSurah[18]
+                                          ];
+                                          return GestureDetector(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      4),
+                                                  border: Border.all(
+                                                      color: Theme
+                                                          .of(context)
+                                                          .primaryColor)),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.all(4.0),
+                                                child: Text(
+                                                  "${sura[index].suraNameEn}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight.w600,
+                                                      fontSize: 14,
+                                                      color: Theme
+                                                          .of(context)
+                                                          .primaryColor),
+                                                ),
+                                              ),
+                                            ),
+                                            onTap: () async {
+                                              print(
+                                                  "ddd ${sura[index]
+                                                      .suraNameEn}");
+                                              if (sura[index].suraNameEn ==
+                                                  "Ya-Sin") {
+                                                await c.quranDetailList(36);
+                                              } else if (sura[index]
+                                                  .suraNameEn ==
+                                                  'Ar-Rahman') {
+                                                await c.quranDetailList(55);
+                                              } else {
+                                                await c.quranDetailList(19);
+                                              }
+                                            },
+                                          );
+                                        }),
+                                  ),
+
+                                  // Space(8),
+                                  // Container(
+                                  //   decoration: BoxDecoration(
+                                  //       borderRadius: BorderRadius.circular(
+                                  //           4),
+                                  //       border: Border.all(color: Theme
+                                  //           .of(context)
+                                  //           .primaryColor)
+                                  //   ),
+                                  //   child: Padding(
+                                  //     padding: const EdgeInsets.all(4.0),
+                                  //     child: Text("Ar Rahaman",
+                                  //       style: TextStyle(
+                                  //           fontWeight: FontWeight.w600,
+                                  //           fontSize: 14,
+                                  //           color: Theme
+                                  //               .of(context)
+                                  //               .primaryColor),),
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                            ),
+                            Space(8),
+                            Expanded(
+                              child: Scrollbar(
+                                interactive: true,
+                                thumbVisibility: true,
+                                thickness: 10,
+                                controller: c.scrollController,
+                                radius: Radius.circular(20),
+                                child: ListView.builder(
+                                  key: PageStorageKey<String>("page"),
+
+                                  ///store the current page in the list items
+                                  //  primary: true,
+                                  padding: EdgeInsets.all(0),
+                                  controller: c.scrollController,
+                                  itemCount: filteredSurah.length,
+                                  itemBuilder: (context, index) {
+                                    var sura = filteredSurah[index];
+                                    return Padding(
+                                      padding: EdgeInsets.only(
+                                          bottom:
+                                          index < filteredSurah.length - 1
+                                              ? 10.0
+                                              : 0.0),
+                                      child: Stack(children: [
+                                        ListTile(
+                                          minVerticalPadding: 0,
+                                          dense: true,
+                                          title: GestureDetector(
+                                            onTap: () {
+                                              print("mmmmmmmm ${index}");
+                                              c.quranDetailList(index + 1);
+                                              c.result.value=0.toString();
+                                              c.passint.value = (index + 1);
+                                              print("dddd${c.passint.value}");
+                                            },
+                                            child: Align(
+                                              alignment: Alignment.topCenter,
+                                              heightFactor: 0.75,
+                                              child: Container(
+                                                alignment:
+                                                Alignment.topCenter,
+                                                width: c.media.size.width -
+                                                    c.padExtend / 2.0,
+                                                height: 80.h,
+                                                padding: EdgeInsets.all(
+                                                    c.padExtend),
+                                                // width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.only(
+                                                    // topRight: Radius.circular(8),
+                                                    topLeft:
+                                                    Radius.circular(12),
+                                                    topRight:
+                                                    Radius.circular(12),
+                                                    // bottomRight: Radius.circular(12),
+                                                    // bottomLeft: Radius.circular(12),
+                                                  ),
+                                                  color: Colors.white,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.2),
+                                                      blurRadius: 5.0,
+                                                      spreadRadius: 2.0,
+                                                      offset: Offset(0, -4),
+                                                    ),
+                                                  ],
+                                                  // border: Border.all(
+                                                  //     color: Color(0xff16627C)
+                                                  // )
+                                                ),
+                                                child: Row(
+                                                  children: [
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .center,
+                                                      children: [
+                                                        Image(
+                                                          image: "${sura
+                                                              .quranType}" ==
+                                                              "Makki"
+                                                              ? AssetImage(
+                                                              'assets/images/makka.png')
+                                                              : AssetImage(
+                                                              'assets/images/madina.png'),
+                                                          width: 18,
+                                                        ),
+                                                        Stxt(
+                                                            text:
+                                                            "${sura.quranType}",
+                                                            size: f0)
+                                                      ],
+                                                    ),
+                                                    Space(8),
+                                                    // Padding(
+                                                    //   padding: const EdgeInsets.all(16),
+                                                    //   child: Container(
+                                                    //     width: 40.w,
+                                                    //     height: 40.w,
+                                                    //     child: Transform.rotate(
+                                                    //       angle: 40 *
+                                                    //           (3.1415926535897932 / 180),
+                                                    //       // Converting 30 degrees to radians
+                                                    //       child: Container(
+                                                    //         width: 200,
+                                                    //         height: 200,
+                                                    //         decoration: BoxDecoration(
+                                                    //           borderRadius: BorderRadius
+                                                    //               .circular(8),
+                                                    //           color: Color(0xff16627C),
+                                                    //         ),
+                                                    //         child: Center(
+                                                    //           child: Transform.rotate(
+                                                    //             angle: -40 *
+                                                    //                 (3.1415926535897932 /
+                                                    //                     180),
+                                                    //             child: Text(
+                                                    //               "${sura.suraChapterNo}",
+                                                    //               style: TextStyle(
+                                                    //                   fontSize: 15,
+                                                    //                   fontWeight: FontWeight
+                                                    //                       .bold,
+                                                    //                   color: Colors.white),
+                                                    //             ),
+                                                    //           ),
+                                                    //         ),
+                                                    //       ),
+                                                    //     ),
+                                                    //   ),
+                                                    // ),
+                                                    // Space(8),
+                                                    Column(
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment
+                                                          .start,
+                                                      children: [
+                                                        Container(
+                                                          height: 48.h,
+                                                          width: 50.h,
+                                                          decoration:
+                                                          BoxDecoration(
+                                                            // color: Colors.red,
+                                                            image: DecorationImage(
+                                                                image: AssetImage(
+                                                                    "assets/images/quranneww.png"),
+                                                                fit: BoxFit
+                                                                    .fill),
+                                                          ),
+                                                          child: Align(
+                                                            alignment:
+                                                            Alignment
+                                                                .center,
+                                                            child: Text(
+                                                                "${sura
+                                                                    .suraChapterNo}"),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Space(8),
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .only(
+                                                          bottom: 8.0),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                        children: [
+                                                          Text(
+                                                            "${sura
+                                                                .suraNameEn}",
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff16627C),
+                                                                fontSize: 17,
+                                                                fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                          ),
+                                                          Space(4),
+                                                          SizedBox(
+                                                            width: 100.w,
+                                                            child: Stxt(
+                                                              text:
+                                                              "${sura.titleEn}",
+                                                              size: f1,
+                                                              color: Color(
+                                                                  0xff16627C),
+                                                              maxLines: 2,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Spacer(),
+                                                    Align(
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .end,
+                                                        children: [
+                                                          Obx(() {
+                                                            double fontSize =
+                                                            20.0;
+                                                            TextStyle
+                                                            textStyle =
+                                                            TextStyle(
+                                                              fontSize:
+                                                              fontSize,
+                                                              fontFamily: c
+                                                                  .fontFamily
+                                                                  .value ==
+                                                                  "indopak"
+                                                                  ? "Indopak"
+                                                                  : c.fontFamily
+                                                                  .value ==
+                                                                  "qalam"
+                                                                  ? "Qalam"
+                                                                  : c.fontFamily
+                                                                  .value ==
+                                                                  "uthami"
+                                                                  ? "Uthami"
+                                                                  : c.fontFamily
+                                                                  .value ==
+                                                                  "amiri"
+                                                                  ? "Amiri"
+                                                                  : c.fontFamily
+                                                                  .value ==
+                                                                  "noorehira"
+                                                                  ? "Noorehira"
+                                                                  : c.fontFamily
+                                                                  .value ==
+                                                                  "noorehuda"
+                                                                  ? "Noorehuda"
+                                                                  : c.fontFamily
+                                                                  .value ==
+                                                                  "noorehidayat"
+                                                                  ? "Noorehidayat"
+                                                                  : c.fontFamily
+                                                                  .value ==
+                                                                  "arabictitle"
+                                                                  ? "Arabictitle"
+                                                                  : null, // Use the default font if "Amiri" is not selected
+                                                            );
+                                                            return SizedBox(
+                                                              child: c
+                                                                  .isCheckedArabic
+                                                                  .value ==
+                                                                  true
+                                                                  ? Text(
+                                                                "${sura
+                                                                    .titleArabic}",
+                                                                style:
+                                                                textStyle,
+                                                                textAlign:
+                                                                TextAlign.end,
+                                                              )
+                                                                  : SizedBox(),
+                                                            );
+                                                          }),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Space(8),
+                                                    Padding(
+                                                      padding:
+                                                      const EdgeInsets
+                                                          .only(
+                                                          right: 8,
+                                                          bottom: 8),
+                                                      child: Column(
+                                                        mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                        children: [
+                                                          Image.asset(
+                                                            "assets/images/bookmarkout.png",
+                                                            width: 16,
+                                                          ),
+                                                          Space(8),
+                                                          Text(
+                                                            "${sura
+                                                                .totalVerses}",
+                                                            style: TextStyle(
+                                                                color: Color(
+                                                                    0xff16627C),
+                                                                fontSize: 12),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                        Space(4),
-                                        Text("Notes")
-                                      ],
-                                    ),
-                                    8.horizontalSpace
-                                  ],
+                                      ]),
+                                    );
+                                  },
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text("Quick Links:"),
-                                    Space(8),
-                                    SizedBox(
-                                      width: 250,
-                                      height: 30,
-                                      child: ListView.separated(
-                                          // physics: NeverScrollablePhysics(),
-                                          separatorBuilder:
-                                              (BuildContext context,
-                                                      int index) =>
-                                                  const Space(8),
-                                          itemCount: 3,
-                                          scrollDirection: Axis.horizontal,
-                                          itemBuilder: (context, index) {
-                                            var sura = [
-                                              filteredSurah[35],
-                                              filteredSurah[54],
-                                              filteredSurah[18]
-                                            ];
-                                            return GestureDetector(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4),
-                                                    border: Border.all(
-                                                        color: Theme.of(context)
-                                                            .primaryColor)),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(4.0),
-                                                  child: Text(
-                                                    "${sura[index].suraNameEn}",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        fontSize: 14,
-                                                        color: Theme.of(context)
-                                                            .primaryColor),
-                                                  ),
-                                                ),
-                                              ),
-                                              onTap: () {
-                                                print("ddd ${sura[index].suraNameEn}");
-                                                if (sura[index].suraNameEn=="Ya-Sin") {
-                                                  c.quranDetailList(36);
-                                                }else  if (sura[index].suraNameEn=='Ar-Rahman') {
-                                                  c.quranDetailList(55);
-                                                }else{  c.quranDetailList(19);}
-                                              },
-                                            );
-                                          }),
-                                    ),
-
-                                    // Space(8),
-                                    // Container(
-                                    //   decoration: BoxDecoration(
-                                    //       borderRadius: BorderRadius.circular(
-                                    //           4),
-                                    //       border: Border.all(color: Theme
-                                    //           .of(context)
-                                    //           .primaryColor)
-                                    //   ),
-                                    //   child: Padding(
-                                    //     padding: const EdgeInsets.all(4.0),
-                                    //     child: Text("Ar Rahaman",
-                                    //       style: TextStyle(
-                                    //           fontWeight: FontWeight.w600,
-                                    //           fontSize: 14,
-                                    //           color: Theme
-                                    //               .of(context)
-                                    //               .primaryColor),),
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                              ),
-                              Space(8),
-                              Expanded(
-                                child: Scrollbar(
-                                  interactive: true,
-                                  thumbVisibility: true,
-                                  thickness: 10, controller: c.scrollController,
-                                  radius: Radius.circular(20),
+                            ),
+                            Space(80)
+                          ],
+                        ),
+                      ),
+                      Center(
+                        child: Column(
+                          children: [
+                            Expanded(
+                              child: Scrollbar(
+                                interactive: true,
+                                thumbVisibility: true,
+                                thickness: 10,
+                                controller: c.scrollController,
+                                radius: Radius.circular(20),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 20),
                                   child: ListView.builder(
-                                    key: PageStorageKey<String>("page"), ///store the current page in the list items
-                                  //  primary: true,
                                     padding: EdgeInsets.all(0),
-                                    controller: c.scrollController,
-                                    itemCount: filteredSurah.length,
+                                    // controller: c.scrollController,
+                                    itemCount: c.getquranjuz.value
+                                        .getQuranJuzChapter!.length,
                                     itemBuilder: (context, index) {
-                                      var sura = filteredSurah[index];
+                                      var juz = c.getquranjuz.value
+                                          .getQuranJuzChapter![index];
                                       return Padding(
                                         padding: EdgeInsets.only(
-                                            bottom:
-                                                index < filteredSurah.length - 1
-                                                    ? 10.0
-                                                    : 0.0),
+                                            bottom: index <
+                                                filteredSurah.length - 1
+                                                ? 10.0
+                                                : 0.0),
                                         child: Stack(children: [
                                           ListTile(
                                             minVerticalPadding: 0,
                                             dense: true,
                                             title: GestureDetector(
                                               onTap: () {
-                                                print("mmmmmmmm ${index}");
-                                                c.quranDetailList(index + 1);
-                                                c.scrollToCurrentIndex(index);
+                                                // print("mmmmmmmm ${index}");
+                                                // c.quranDetailList(
+                                                //     index + 1);
+                                                // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
                                               },
                                               child: Align(
-                                                alignment: Alignment.topCenter,
+                                                alignment:
+                                                Alignment.topCenter,
                                                 heightFactor: 0.75,
                                                 child: Container(
                                                   alignment:
-                                                      Alignment.topCenter,
+                                                  Alignment.topCenter,
                                                   width: c.media.size.width -
                                                       c.padExtend / 2.0,
                                                   height: 80.h,
@@ -863,12 +1253,12 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                   // width: double.infinity,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                        BorderRadius.only(
+                                                    BorderRadius.only(
                                                       // topRight: Radius.circular(8),
                                                       topLeft:
-                                                          Radius.circular(12),
+                                                      Radius.circular(12),
                                                       topRight:
-                                                          Radius.circular(12),
+                                                      Radius.circular(12),
                                                       // bottomRight: Radius.circular(12),
                                                       // bottomLeft: Radius.circular(12),
                                                     ),
@@ -888,74 +1278,34 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                   ),
                                                   child: Row(
                                                     children: [
-                                                      Column(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Image(
-                                                            image: "${sura.quranType}" ==
-                                                                    "Makki"
-                                                                ? AssetImage(
-                                                                    'assets/images/makka.png')
-                                                                : AssetImage(
-                                                                    'assets/images/madina.png'),
-                                                            width: 18,
-                                                          ),
-                                                          Stxt(
-                                                              text:
-                                                                  "${sura.quranType}",
-                                                              size: f0)
-                                                        ],
-                                                      ),
-                                                      Space(8),
-                                                      // Padding(
-                                                      //   padding: const EdgeInsets.all(16),
-                                                      //   child: Container(
-                                                      //     width: 40.w,
-                                                      //     height: 40.w,
-                                                      //     child: Transform.rotate(
-                                                      //       angle: 40 *
-                                                      //           (3.1415926535897932 / 180),
-                                                      //       // Converting 30 degrees to radians
-                                                      //       child: Container(
-                                                      //         width: 200,
-                                                      //         height: 200,
-                                                      //         decoration: BoxDecoration(
-                                                      //           borderRadius: BorderRadius
-                                                      //               .circular(8),
-                                                      //           color: Color(0xff16627C),
-                                                      //         ),
-                                                      //         child: Center(
-                                                      //           child: Transform.rotate(
-                                                      //             angle: -40 *
-                                                      //                 (3.1415926535897932 /
-                                                      //                     180),
-                                                      //             child: Text(
-                                                      //               "${sura.suraChapterNo}",
-                                                      //               style: TextStyle(
-                                                      //                   fontSize: 15,
-                                                      //                   fontWeight: FontWeight
-                                                      //                       .bold,
-                                                      //                   color: Colors.white),
-                                                      //             ),
-                                                      //           ),
-                                                      //         ),
-                                                      //       ),
+                                                      // Column(
+                                                      //   mainAxisAlignment: MainAxisAlignment
+                                                      //       .center,
+                                                      //   children: [
+                                                      //     Image(
+                                                      //       image: "${sura
+                                                      //           .quranType}" ==
+                                                      //           "Makki"
+                                                      //           ? AssetImage(
+                                                      //           'assets/images/makka.png')
+                                                      //           : AssetImage(
+                                                      //           'assets/images/madina.png'),
+                                                      //       width: 18,
                                                       //     ),
-                                                      //   ),
+                                                      //     Stxt(text: "${juz.quranType}", size: f0)
+                                                      //   ],
                                                       // ),
                                                       // Space(8),
                                                       Column(
                                                         crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                         children: [
                                                           Container(
                                                             height: 48.h,
                                                             width: 50.h,
                                                             decoration:
-                                                                BoxDecoration(
+                                                            BoxDecoration(
                                                               // color: Colors.red,
                                                               image: DecorationImage(
                                                                   image: AssetImage(
@@ -965,51 +1315,53 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                             ),
                                                             child: Align(
                                                               alignment:
-                                                                  Alignment
-                                                                      .center,
+                                                              Alignment
+                                                                  .center,
                                                               child: Text(
-                                                                  "${sura.suraChapterNo}"),
+                                                                  "${juz
+                                                                      .juzChapterNo}"),
                                                             ),
-
                                                           ),
                                                         ],
                                                       ),
                                                       Space(8),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                bottom: 8.0),
+                                                        const EdgeInsets
+                                                            .only(
+                                                            bottom: 8.0),
                                                         child: Column(
                                                           mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
+                                                          MainAxisAlignment
+                                                              .center,
                                                           crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
+                                                          CrossAxisAlignment
+                                                              .start,
                                                           children: [
-                                                            Text(
-                                                              "${sura.suraNameEn}",
-                                                              style: TextStyle(
-                                                                  color: Color(
-                                                                      0xff16627C),
-                                                                  fontSize: 17,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600),
-                                                            ),
-                                                            Space(4),
                                                             SizedBox(
-                                                              width: 100.w,
-                                                              child: Stxt(
-                                                                text:
-                                                                    "${sura.titleEn}",
-                                                                size: f1,
-                                                                color: Color(
-                                                                    0xff16627C),
-                                                                maxLines: 2,
+                                                              width:
+                                                              c.screenWidth *
+                                                                  0.4,
+                                                              child: Text(
+                                                                "${juz
+                                                                    .juzNameEn}",
+                                                                style: TextStyle(
+                                                                    color: Color(
+                                                                        0xff16627C),
+                                                                    fontSize:
+                                                                    17,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w600),
                                                               ),
                                                             ),
+                                                            Space(4),
+                                                            // Stxt(
+                                                            //   text: "The Opening",
+                                                            //   size: f1,
+                                                            //   color: Color(
+                                                            //       0xff16627C),
+                                                            //   maxLines: 1,),
                                                           ],
                                                         ),
                                                       ),
@@ -1017,54 +1369,77 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                       Align(
                                                         child: Row(
                                                           crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
+                                                          CrossAxisAlignment
+                                                              .center,
                                                           mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .end,
+                                                          MainAxisAlignment
+                                                              .end,
                                                           children: [
                                                             Obx(() {
-                                                              double fontSize =
-                                                                  20.0;
+                                                              double
+                                                              fontSize =
+                                                              20.0;
                                                               TextStyle
-                                                                  textStyle =
-                                                                  TextStyle(
+                                                              textStyle =
+                                                              TextStyle(
                                                                 fontSize:
-                                                                    fontSize,
+                                                                fontSize,
                                                                 fontFamily: c
-                                                                            .fontFamily
-                                                                            .value ==
-                                                                        "indopak"
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "indopak"
                                                                     ? "Indopak"
-                                                                    : c.fontFamily.value ==
-                                                                            "qalam"
-                                                                        ? "Qalam"
-                                                                        : c.fontFamily.value ==
-                                                                                "uthami"
-                                                                            ? "Uthami"
-                                                                            : c.fontFamily.value == "amiri"
-                                                                                ? "Amiri"
-                                                                                : c.fontFamily.value == "noorehira"
-                                                                                    ? "Noorehira"
-                                                                                    : c.fontFamily.value == "noorehuda"
-                                                                                        ? "Noorehuda"
-                                                                                        : c.fontFamily.value == "noorehidayat"
-                                                                                            ? "Noorehidayat"
-                                                                                            : c.fontFamily.value == "arabictitle"
-                                                                                                ? "Arabictitle"
-                                                                                                : null, // Use the default font if "Amiri" is not selected
+                                                                    : c
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "qalam"
+                                                                    ? "Qalam"
+                                                                    : c
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "uthami"
+                                                                    ? "Uthami"
+                                                                    : c
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "amiri"
+                                                                    ? "Amiri"
+                                                                    : c
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "noorehira"
+                                                                    ? "Noorehira"
+                                                                    : c
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "noorehuda"
+                                                                    ? "Noorehuda"
+                                                                    : c
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "noorehidayat"
+                                                                    ? "Noorehidayat"
+                                                                    : c
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "arabictitle"
+                                                                    ? "Arabictitle"
+                                                                    : null, // Use the default font if "Amiri" is not selected
                                                               );
                                                               return SizedBox(
-                                                                child: c.isCheckedArabic
-                                                                            .value ==
-                                                                        true
+                                                                width: 65.w,
+                                                                child: c
+                                                                    .isCheckedArabic
+                                                                    .value ==
+                                                                    true
                                                                     ? Text(
-                                                                        "${sura.titleArabic}",
-                                                                        style:
-                                                                            textStyle,
-                                                                        textAlign:
-                                                                            TextAlign.end,
-                                                                      )
+                                                                  "${juz
+                                                                      .juzNameArb}",
+                                                                  style:
+                                                                  textStyle,
+                                                                  textAlign:
+                                                                  TextAlign.end,
+                                                                )
                                                                     : SizedBox(),
                                                               );
                                                             }),
@@ -1074,14 +1449,14 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                       Space(8),
                                                       Padding(
                                                         padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 8,
-                                                                bottom: 8),
+                                                        const EdgeInsets
+                                                            .only(
+                                                            right: 8,
+                                                            bottom: 8),
                                                         child: Column(
                                                           mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
+                                                          MainAxisAlignment
+                                                              .center,
                                                           children: [
                                                             Image.asset(
                                                               "assets/images/bookmarkout.png",
@@ -1089,15 +1464,17 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                             ),
                                                             Space(8),
                                                             Text(
-                                                              "${sura.totalVerses}",
+                                                              "${juz
+                                                                  .totalVerses}",
                                                               style: TextStyle(
                                                                   color: Color(
                                                                       0xff16627C),
-                                                                  fontSize: 12),
-                                                            )
+                                                                  fontSize:
+                                                                  12),
+                                                            ),
                                                           ],
                                                         ),
-                                                      )
+                                                      ),
                                                     ],
                                                   ),
                                                 ),
@@ -1110,307 +1487,43 @@ class _QuranpageViewState extends State<QuranpageView> {
                                   ),
                                 ),
                               ),
-                              Space(80)
-                            ],
-                          ),
+                            ),
+                            Space(80),
+                          ],
                         ),
-                        Center(
-                          child: Column(
-                            children: [
-                              Expanded(
-                                child: Scrollbar(
-                                  interactive: true,
-                                  thumbVisibility: true,
-                                  thickness: 10,
-                                  controller: c.scrollController,
-                                  radius: Radius.circular(20),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 20),
-                                    child: ListView.builder(
-                                      padding: EdgeInsets.all(0),
-                                      // controller: c.scrollController,
-                                      itemCount: c.getquranjuz.value
-                                          .getQuranJuzChapter!.length,
-                                      itemBuilder: (context, index) {
-                                        var juz = c.getquranjuz.value
-                                            .getQuranJuzChapter![index];
-                                        return Padding(
-                                          padding: EdgeInsets.only(
-                                              bottom: index <
-                                                      filteredSurah.length - 1
-                                                  ? 10.0
-                                                  : 0.0),
-                                          child: Stack(children: [
-                                            ListTile(
-                                              minVerticalPadding: 0,
-                                              dense: true,
-                                              title: GestureDetector(
-                                                onTap: () {
-                                                  // print("mmmmmmmm ${index}");
-                                                  // c.quranDetailList(
-                                                  //     index + 1);
-                                                  // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
-                                                },
-                                                child: Align(
-                                                  alignment:
-                                                      Alignment.topCenter,
-                                                  heightFactor: 0.75,
-                                                  child: Container(
-                                                    alignment:
-                                                        Alignment.topCenter,
-                                                    width: c.media.size.width -
-                                                        c.padExtend / 2.0,
-                                                    height: 80.h,
-                                                    padding: EdgeInsets.all(
-                                                        c.padExtend),
-                                                    // width: double.infinity,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                        // topRight: Radius.circular(8),
-                                                        topLeft:
-                                                            Radius.circular(12),
-                                                        topRight:
-                                                            Radius.circular(12),
-                                                        // bottomRight: Radius.circular(12),
-                                                        // bottomLeft: Radius.circular(12),
-                                                      ),
-                                                      color: Colors.white,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          color: Colors.black
-                                                              .withOpacity(0.2),
-                                                          blurRadius: 5.0,
-                                                          spreadRadius: 2.0,
-                                                          offset: Offset(0, -4),
-                                                        ),
-                                                      ],
-                                                      // border: Border.all(
-                                                      //     color: Color(0xff16627C)
-                                                      // )
-                                                    ),
-                                                    child: Row(
-                                                      children: [
-                                                        // Column(
-                                                        //   mainAxisAlignment: MainAxisAlignment
-                                                        //       .center,
-                                                        //   children: [
-                                                        //     Image(
-                                                        //       image: "${sura
-                                                        //           .quranType}" ==
-                                                        //           "Makki"
-                                                        //           ? AssetImage(
-                                                        //           'assets/images/makka.png')
-                                                        //           : AssetImage(
-                                                        //           'assets/images/madina.png'),
-                                                        //       width: 18,
-                                                        //     ),
-                                                        //     Stxt(text: "${juz.quranType}", size: f0)
-                                                        //   ],
-                                                        // ),
-                                                        // Space(8),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Container(
-                                                              height: 48.h,
-                                                              width: 50.h,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                // color: Colors.red,
-                                                                image: DecorationImage(
-                                                                    image: AssetImage(
-                                                                        "assets/images/quranneww.png"),
-                                                                    fit: BoxFit
-                                                                        .fill),
-                                                              ),
-                                                              child: Align(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                child: Text(
-                                                                    "${juz.juzChapterNo}"),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        Space(8),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  bottom: 8.0),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              SizedBox(
-                                                                width:
-                                                                    c.screenWidth *
-                                                                        0.4,
-                                                                child: Text(
-                                                                  "${juz.juzNameEn}",
-                                                                  style: TextStyle(
-                                                                      color: Color(
-                                                                          0xff16627C),
-                                                                      fontSize:
-                                                                          17,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                ),
-                                                              ),
-                                                              Space(4),
-                                                              // Stxt(
-                                                              //   text: "The Opening",
-                                                              //   size: f1,
-                                                              //   color: Color(
-                                                              //       0xff16627C),
-                                                              //   maxLines: 1,),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Spacer(),
-                                                        Align(
-                                                          child: Row(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .center,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              Obx(() {
-                                                                double
-                                                                    fontSize =
-                                                                    20.0;
-                                                                TextStyle
-                                                                    textStyle =
-                                                                    TextStyle(
-                                                                  fontSize:
-                                                                      fontSize,
-                                                                  fontFamily: c
-                                                                              .fontFamily
-                                                                              .value ==
-                                                                          "indopak"
-                                                                      ? "Indopak"
-                                                                      : c.fontFamily.value ==
-                                                                              "qalam"
-                                                                          ? "Qalam"
-                                                                          : c.fontFamily.value == "uthami"
-                                                                              ? "Uthami"
-                                                                              : c.fontFamily.value == "amiri"
-                                                                                  ? "Amiri"
-                                                                                  : c.fontFamily.value == "noorehira"
-                                                                                      ? "Noorehira"
-                                                                                      : c.fontFamily.value == "noorehuda"
-                                                                                          ? "Noorehuda"
-                                                                                          : c.fontFamily.value == "noorehidayat"
-                                                                                              ? "Noorehidayat"
-                                                                                              : c.fontFamily.value == "arabictitle"
-                                                                                                  ? "Arabictitle"
-                                                                                                  : null, // Use the default font if "Amiri" is not selected
-                                                                );
-                                                                return SizedBox(
-                                                                  width: 65.w,
-                                                                  child: c.isCheckedArabic
-                                                                              .value ==
-                                                                          true
-                                                                      ? Text(
-                                                                          "${juz.juzNameArb}",
-                                                                          style:
-                                                                              textStyle,
-                                                                          textAlign:
-                                                                              TextAlign.end,
-                                                                        )
-                                                                      : SizedBox(),
-                                                                );
-                                                              }),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Space(8),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  right: 8,
-                                                                  bottom: 8),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Image.asset(
-                                                                "assets/images/bookmarkout.png",
-                                                                width: 16,
-                                                              ),
-                                                              Space(8),
-                                                              Text(
-                                                                "${juz.totalVerses}",
-                                                                style: TextStyle(
-                                                                    color: Color(
-                                                                        0xff16627C),
-                                                                    fontSize:
-                                                                        12),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ]),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Space(80),
-                            ],
-                          ),
-                        ),
-                      ]);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SvgPicture.asset("assets/svg/masjidbot.svg"),
-                          Space(8),
-                          GestureDetector(
-                              onTap: () {
-                                Get.toNamed(Routes.QURANPAGE);
-                              },
-                              child:
-                                  SvgPicture.asset("assets/svg/quranbot.svg")),
-                          Space(8),
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop(MaterialPageRoute(
-                                    builder: (_) => HomeView()));
-                              },
-                              child:
-                                  SvgPicture.asset("assets/svg/homebot.svg")),
-                          Space(8),
-                          SvgPicture.asset("assets/svg/mediabot.svg"),
-                          Space(8),
-                          SvgPicture.asset("assets/svg/donatebot.svg"),
-                        ],
                       ),
+                    ]);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SvgPicture.asset("assets/svg/masjidbot.svg"),
+                        Space(8),
+                        GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.QURANPAGE);
+                            },
+                            child:
+                            SvgPicture.asset("assets/svg/quranbot.svg")),
+                        Space(8),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).pop(MaterialPageRoute(
+                                  builder: (_) => HomeView()));
+                            },
+                            child:
+                            SvgPicture.asset("assets/svg/homebot.svg")),
+                        Space(8),
+                        SvgPicture.asset("assets/svg/mediabot.svg"),
+                        Space(8),
+                        SvgPicture.asset("assets/svg/donatebot.svg"),
+                      ],
                     ),
-                  ));
+                  ),
+                );
+              }));
         }),
       ),
     );

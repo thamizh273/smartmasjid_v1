@@ -7,6 +7,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
@@ -28,8 +29,10 @@ class QuranDetails extends StatefulWidget {
 
 final QuranpageController c = Get.put(QuranpageController());
 final AudioplayerController controller = Get.put(AudioplayerController());
-final List<QuranpageController> controllers = List.generate(c.getqurandetail.value
-    .getQuranAyahVerse![0].ayahList!.length, (index) => Get.put(QuranpageController()));
+final List<QuranpageController> controllers = List.generate(
+    c.getqurandetail.value
+        .getQuranAyahVerse![0].ayahList!.length, (index) =>
+    Get.put(QuranpageController()));
 
 class _QuranDetailsState extends State<QuranDetails> {
   late final String? surah;
@@ -40,8 +43,12 @@ class _QuranDetailsState extends State<QuranDetails> {
   var title = c.getqurandetail.value.getQuranAyahVerse![0].titleEn;
   var verse = c.getqurandetail.value.getQuranAyahVerse![0].totalVerses;
 
+
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      c.result.value=="0"? c.scrollToIndex(0):c.scrollToIndex(int.parse(c.result.value)-1);
+    });
     return Scaffold(
       key: c.scaffoldKey,
       endDrawer: Drawer(
@@ -668,7 +675,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                     // Space(60),
                     Padding(
                       padding: const EdgeInsets.only(
-                          bottom: 8, right: 32, left: 40                                                                                                                                ),
+                          bottom: 8, right: 32, left: 40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -1014,19 +1021,12 @@ class _QuranDetailsState extends State<QuranDetails> {
             ),
             Space(16),
             Expanded(
-              child: Scrollbar(
-                // scrollbarOrientation: ScrollbarOrientation.bottom,
-                hoverThickness: 8.0,
-                interactive: true,
-                thumbVisibility: true,
-                thickness: 10,
-                controller: c.scrollControllernew,
-                radius: Radius.circular(20),
-                child: Obx(() {
-                  return c.isLoadings.value
+              child: GetBuilder<QuranpageController>(builder: (logic) {
+
+                return c.isLoadings1.value
                       ? loading(context)
-                      : ListView.builder(
-                      controller: c.scrollControllernew,
+                      : ScrollablePositionedList.builder(
+                      itemScrollController: logic.itemScrollController,
                       itemCount: c.getqurandetail.value
                           .getQuranAyahVerse![0].ayahList!.length,
                       itemBuilder: (context, index) {
@@ -1062,7 +1062,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                               Alignment.centerLeft,
                                               child: Obx(() {
                                                 double fontSize = 35.0;
-                                                String fontFamily = c.fontFamily
+                                                String fontFamily = c
+                                                    .fontFamily
                                                     .value;
                                                 double sliderValue = c
                                                     .sliderValue.value;
@@ -1082,7 +1083,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       "qalam"
                                                       ? "Qalam" : c.fontFamily
                                                       .value == "uthami"
-                                                      ? "Uthami" : c.fontFamily
+                                                      ? "Uthami" : c
+                                                      .fontFamily
                                                       .value == "amiri"
                                                       ? "Amiri" : c.fontFamily
                                                       .value == "noorehira"
@@ -1164,7 +1166,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                             .start,
                                         children: [
                                           PopupMenuButton(
-                                              shadowColor: Colors.grey.shade400,
+                                              shadowColor: Colors.grey
+                                                  .shade400,
                                               itemBuilder: (
                                                   BuildContext context) {
                                                 return [
@@ -1194,128 +1197,220 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                   )),
                                                   PopupMenuItem(
                                                       child: GestureDetector(
-                                                        onTap: (){
+                                                        onTap: () {
                                                           showModalBottomSheet(
-                                                            backgroundColor: Colors.transparent,
+                                                            backgroundColor: Colors
+                                                                .transparent,
                                                             context: context,
-                                                            builder: (BuildContext context) {
+                                                            builder: (
+                                                                BuildContext context) {
                                                               return Container(
-                                                                decoration: BoxDecoration(
-                                                                  color: Colors.white,
-                                                                    // color: Color(0xff16627C),
-                                                                    borderRadius: BorderRadius.only(
-                                                                        topLeft: Radius.circular(32),
-                                                                        topRight: Radius.circular(32)
-                                                                    )
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets.all(16),
-                                                                  child: Column(
-                                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                                    children: [
-                                                                      Space(20),
-                                                                      Stxt(text: "Select Range", size: f3, weight: FontWeight.w600,),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "From", size: f3,  weight: FontWeight.w600),
-                                                                          Spacer(),
-                                                                          Column(
-                                                                            children: [
-                                                                              Stxt(text: "Al-Fatiah 1:1 ", size: f3,  weight: FontWeight.w600, color: Theme.of(context).primaryColor,),
-                                                                              Stxt(text: "Page 1 - Juz 1 ", size: f3),
-                                                                            ],
-                                                                          ),
-                                                                          Icon(Icons.arrow_drop_down_outlined),
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "To", size: f3,  weight: FontWeight.w600),
-                                                                          Spacer(),
-                                                                          Column(
-                                                                            children: [
-                                                                              Stxt(text: "An -Nas 114:6 ", size: f3,  weight: FontWeight.w600, color: Theme.of(context).primaryColor,),
-                                                                              Stxt(text: "Page 604 - Juz 30 ", size: f3),
-                                                                            ],
-                                                                          ),
-                                                                          Icon(Icons.arrow_drop_down_outlined),
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "Number of Days", size: f3,  weight: FontWeight.w600),
-                                                                         Spacer(),
-                                                                          Container(
-                                                                            height: 50,
-                                                                            width: 160,
-                                                                            decoration: BoxDecoration(
-                                                                              border: Border.all(
-                                                                                color: Colors.black
-                                                                              )
-                                                                            ),
-                                                                            child: TextField(
-                                                                            ),
-                                                                          )
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "Notification", size: f3,  weight: FontWeight.w600),
-                                                                          Spacer(),
-                                                                          Obx(() {
-                                                                            return Switch(
-                                                                              value: c.switchValue.value,
-                                                                              onChanged: (newValue) {
-                                                                                c.switchValue.value = newValue;
-                                                                              },
-                                                                            );
-                                                                          }),
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        children: [
-                                                                          Stxt(text: "Notification Time", size: f3,  weight: FontWeight.w600),
-                                                                          Spacer(),
-                                                                          Stxt(text: "12.30 PM", size: f3)
-                                                                        ],
-                                                                      ),
-                                                                      Space(20),
-                                                                      Row(
-                                                                        mainAxisAlignment: MainAxisAlignment.center,
-                                                                        children: [
-                                                                          ElevatedButton(
-                                                                              onPressed: ()   {
-                                                                              },
-                                                                              style: ElevatedButton.styleFrom(
-                                                                                minimumSize: Size(150, 40),
-                                                                                backgroundColor: Theme.of(context).primaryColor,
-                                                                                shape: RoundedRectangleBorder(
-                                                                                  borderRadius: BorderRadius.circular(20),
-                                                                                ),
-                                                                                elevation: 4.0,
-                                                                              ),
-                                                                              child: Text("Add Planner", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white))),
-                                                                        ],
+                                                                  decoration: BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      // color: Color(0xff16627C),
+                                                                      borderRadius: BorderRadius
+                                                                          .only(
+                                                                          topLeft: Radius
+                                                                              .circular(
+                                                                              32),
+                                                                          topRight: Radius
+                                                                              .circular(
+                                                                              32)
                                                                       )
-                                                                    ],
                                                                   ),
-                                                                )
+                                                                  child: Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .all(
+                                                                        16),
+                                                                    child: Column(
+                                                                      crossAxisAlignment: CrossAxisAlignment
+                                                                          .start,
+                                                                      children: [
+                                                                        Space(
+                                                                            20),
+                                                                        Stxt(
+                                                                          text: "Select Range",
+                                                                          size: f3,
+                                                                          weight: FontWeight
+                                                                              .w600,),
+                                                                        Space(
+                                                                            20),
+                                                                        Row(
+                                                                          children: [
+                                                                            Stxt(
+                                                                                text: "From",
+                                                                                size: f3,
+                                                                                weight: FontWeight
+                                                                                    .w600),
+                                                                            Spacer(),
+                                                                            Column(
+                                                                              children: [
+                                                                                Stxt(
+                                                                                  text: "Al-Fatiah 1:1 ",
+                                                                                  size: f3,
+                                                                                  weight: FontWeight
+                                                                                      .w600,
+                                                                                  color: Theme
+                                                                                      .of(
+                                                                                      context)
+                                                                                      .primaryColor,),
+                                                                                Stxt(
+                                                                                    text: "Page 1 - Juz 1 ",
+                                                                                    size: f3),
+                                                                              ],
+                                                                            ),
+                                                                            Icon(
+                                                                                Icons
+                                                                                    .arrow_drop_down_outlined),
+                                                                          ],
+                                                                        ),
+                                                                        Space(
+                                                                            20),
+                                                                        Row(
+                                                                          children: [
+                                                                            Stxt(
+                                                                                text: "To",
+                                                                                size: f3,
+                                                                                weight: FontWeight
+                                                                                    .w600),
+                                                                            Spacer(),
+                                                                            Column(
+                                                                              children: [
+                                                                                Stxt(
+                                                                                  text: "An -Nas 114:6 ",
+                                                                                  size: f3,
+                                                                                  weight: FontWeight
+                                                                                      .w600,
+                                                                                  color: Theme
+                                                                                      .of(
+                                                                                      context)
+                                                                                      .primaryColor,),
+                                                                                Stxt(
+                                                                                    text: "Page 604 - Juz 30 ",
+                                                                                    size: f3),
+                                                                              ],
+                                                                            ),
+                                                                            Icon(
+                                                                                Icons
+                                                                                    .arrow_drop_down_outlined),
+                                                                          ],
+                                                                        ),
+                                                                        Space(
+                                                                            20),
+                                                                        Row(
+                                                                          children: [
+                                                                            Stxt(
+                                                                                text: "Number of Days",
+                                                                                size: f3,
+                                                                                weight: FontWeight
+                                                                                    .w600),
+                                                                            Spacer(),
+                                                                            Container(
+                                                                              height: 50,
+                                                                              width: 160,
+                                                                              decoration: BoxDecoration(
+                                                                                  border: Border
+                                                                                      .all(
+                                                                                      color: Colors
+                                                                                          .black
+                                                                                  )
+                                                                              ),
+                                                                              child: TextField(
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                        Space(
+                                                                            20),
+                                                                        Row(
+                                                                          children: [
+                                                                            Stxt(
+                                                                                text: "Notification",
+                                                                                size: f3,
+                                                                                weight: FontWeight
+                                                                                    .w600),
+                                                                            Spacer(),
+                                                                            Obx(() {
+                                                                              return Switch(
+                                                                                value: c
+                                                                                    .switchValue
+                                                                                    .value,
+                                                                                onChanged: (
+                                                                                    newValue) {
+                                                                                  c
+                                                                                      .switchValue
+                                                                                      .value =
+                                                                                      newValue;
+                                                                                },
+                                                                              );
+                                                                            }),
+                                                                          ],
+                                                                        ),
+                                                                        Space(
+                                                                            20),
+                                                                        Row(
+                                                                          children: [
+                                                                            Stxt(
+                                                                                text: "Notification Time",
+                                                                                size: f3,
+                                                                                weight: FontWeight
+                                                                                    .w600),
+                                                                            Spacer(),
+                                                                            Stxt(
+                                                                                text: "12.30 PM",
+                                                                                size: f3)
+                                                                          ],
+                                                                        ),
+                                                                        Space(
+                                                                            20),
+                                                                        Row(
+                                                                          mainAxisAlignment: MainAxisAlignment
+                                                                              .center,
+                                                                          children: [
+                                                                            ElevatedButton(
+                                                                                onPressed: () {},
+                                                                                style: ElevatedButton
+                                                                                    .styleFrom(
+                                                                                  minimumSize: Size(
+                                                                                      150,
+                                                                                      40),
+                                                                                  backgroundColor: Theme
+                                                                                      .of(
+                                                                                      context)
+                                                                                      .primaryColor,
+                                                                                  shape: RoundedRectangleBorder(
+                                                                                    borderRadius: BorderRadius
+                                                                                        .circular(
+                                                                                        20),
+                                                                                  ),
+                                                                                  elevation: 4.0,
+                                                                                ),
+                                                                                child: Text(
+                                                                                    "Add Planner",
+                                                                                    style: TextStyle(
+                                                                                        fontWeight: FontWeight
+                                                                                            .w600,
+                                                                                        fontSize: 18,
+                                                                                        color: Colors
+                                                                                            .white))),
+                                                                          ],
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  )
                                                               );
                                                             },
                                                           );
                                                         },
                                                         child: Row(
-                                                    children: [
-                                                        Icon(Icons.next_plan),
-                                                        Space(12),
-                                                        Text("Planner"),
-                                                    ],
-                                                  ),
+                                                          children: [
+                                                            Icon(Icons
+                                                                .next_plan),
+                                                            Space(12),
+                                                            Text("Planner"),
+                                                          ],
+                                                        ),
                                                       )),
                                                   PopupMenuItem(
                                                       child: GestureDetector(
@@ -1329,7 +1424,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                                 content:
                                                                 'This is the content of the custom dialog box.',
                                                                 onPressed: () {
-                                                                  Navigator.pop(
+                                                                  Navigator
+                                                                      .pop(
                                                                       context); // Closes the dialog box when the button is pressed.
                                                                 },
                                                               );
@@ -1405,19 +1501,43 @@ class _QuranDetailsState extends State<QuranDetails> {
                                         children: [
                                           Space(12),
                                           GestureDetector(
-                                            onTap: (){
-                                             c.toogle(index);
+                                            onTap: () {
+                                              print('ssss${c.getqurandetail
+                                                  .value
+                                                  .getQuranAyahVerse![0]
+                                                  .suraNameEn}');
+                                              // if(c.passint.value==sura.versesKey![0]){
+                                              //   print("ggg");
+                                              //   c.toogle(index);
+                                              // }
+                                              c.toogle(
+                                                  "${c.getqurandetail.value
+                                                      .getQuranAyahVerse![0]
+                                                      .suraNameEn} ${sura
+                                                      .versesKey}");
 
-                                           //   c.toggleBookmark();
+                                              //   c.toggleBookmark();
                                             },
 
                                             child: Obx(() {
-                                             // final isBookmarked = c.isBookmarked.value;
+                                              //   print("eeee${c.objectList}");
+                                              print("eeee${sura.versesKey
+                                                  .toString()}");
+                                              // final isBookmarked = c.isBookmarked.value;
                                               return Icon(
-                                                c.buttonsSelected.contains(index)
+                                                c.buttonsSelected.contains(
+                                                    "${c.getqurandetail.value
+                                                        .getQuranAyahVerse![0]
+                                                        .suraNameEn} ${sura
+                                                        .versesKey}")
                                                     ? Icons.bookmark
                                                     : Icons.bookmark_outline,
-                                                color: c.buttonsSelected.contains(index)
+                                                color: c.buttonsSelected
+                                                    .contains(
+                                                    "${c.getqurandetail.value
+                                                        .getQuranAyahVerse![0]
+                                                        .suraNameEn} ${sura
+                                                        .versesKey}")
                                                     ? Theme
                                                     .of(context)
                                                     .primaryColor
@@ -1474,7 +1594,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                             child: Align(
                                                 alignment: Alignment.center,
                                                 child:
-                                                c.isCheckedEnglish.value == true
+                                                c.isCheckedEnglish.value ==
+                                                    true
                                                     ? Text(
                                                   "${sura.engTranslation}",
                                                   style: TextStyle(
@@ -1524,8 +1645,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                               ],
                             ));
                       });
-                }),
-              ),
+
+              }),
             )
           ],
         ),

@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
@@ -11,11 +13,11 @@ import '../model/quran_model.dart';
 import '../views/qurandetails.dart';
 
 class QuranpageController extends GetxController {
+  final box = GetStorage();
   //TODO: Implement QuranpageController
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  final count = 0.obs;
   ScrollController scrollController = ScrollController();
-  final ScrollController scrollControllernew = ScrollController();
+  final ItemScrollController  itemScrollController = ItemScrollController ();
   final _restCallController = Get.put(restCallController());
   RxInt currentSelected = 1.obs;
   RxBool isLoadings = false.obs;
@@ -47,28 +49,11 @@ class QuranpageController extends GetxController {
 
  var passint=0.obs;
   var buttonsSelected = [].obs;
+  var result="".obs;
+  var result1="".obs;
 
 
-  toogle(int index) {
-    if (buttonsSelected.contains(index)) {
-      buttonsSelected.remove(index);
-    } else {
-      buttonsSelected.add(index);
-    }
-  }
 
-  void scrollToCurrentIndex(int currentIndex) {
-    // Calculate the offset to the selected item.
-    final double itemExtent = 50.0; // Assuming each item has a height of 50.0 pixels.
-    final double offset = currentIndex * itemExtent;
-
-    // Scroll the list to the selected item position.
-    scrollController.animateTo(
-      offset,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
 
 
   // void scrollToIndex(int index) {
@@ -85,10 +70,10 @@ class QuranpageController extends GetxController {
   // }
 
 
+
   void onItemClick(int index) {
     print("mmmmmmmm $index");
     c.quranDetailList(index + 1);
-
     // Add the clicked item index to the clickedItems list
     clickedItems.add(index);
   }
@@ -117,6 +102,10 @@ void changeFontFamily(String family) {
 
   @override
   void onInit() {
+    final storedButtonsSelected = box.read<List<dynamic>>('buttonsSelected');
+    if (storedButtonsSelected != null) {
+      buttonsSelected.assignAll(storedButtonsSelected);
+    }
     quranChapterList();
     quranjuzList();
     super.onInit();
@@ -130,6 +119,7 @@ void changeFontFamily(String family) {
 
   @override
   void onClose() {
+
     super.onClose();
   }
 
@@ -142,12 +132,34 @@ void changeFontFamily(String family) {
 
   @override
   void dispose() {
+
     scrollController.dispose();
     super.dispose();
   }
+  void scrollToIndex(int index) {
+    itemScrollController.scrollTo(
+      index: index,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 
-  void increment() => count.value++;
+  toogle(var index) {
+    if (buttonsSelected.contains(index)) {
+      buttonsSelected.remove(index);
+    } else {
+      buttonsSelected.add(index);
+    }
+    box.write('buttonsSelected',  buttonsSelected.toList());
+    update();
+  }
 
+  void deleteIndex(int index) {
+    buttonsSelected.remove(index);
+    // Convert to a regular List before updating GetStorage
+    box.write('buttonsSelected', buttonsSelected.toList());
+    update(); // Notify GetX that the state has changed
+  }
 
   quranChapterList() async {
     isLoadings.value = true;
@@ -187,7 +199,7 @@ query Query(\$getChapterByMsId: String) {
   }
 
   quranDetailList(index) async {
-    isLoadings.value = true;
+    isLoadings1.value = true;
     var header = """
 query Query(\$chapterNo: String!) {
   Get_Quran_Ayah_Verse(chapter_no: \$chapterNo) {
@@ -218,7 +230,7 @@ query Query(\$chapterNo: String!) {
     // print(json.encode(res));
     // print("lllll");
     log("data new ${json.encode(res)}");
-    isLoadings.value = false;
+    isLoadings1.value = false;
     getqurandetail.value = qurandetailModelFromJson(json.encode(res));
     Get.to(QuranDetails());
     update();
