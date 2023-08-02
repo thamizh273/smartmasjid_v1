@@ -56,7 +56,6 @@ class OtpPageView extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-
                         // Obx(() {
                         //   return Pinput(
                         //     length: 6,

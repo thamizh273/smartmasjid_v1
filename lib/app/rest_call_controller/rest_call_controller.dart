@@ -141,7 +141,9 @@ class restCallController extends GetxController {
           final errorMessage = graphQLError.message;
           // Handle the error message here
           print(errorMessage);
-        return  toast(error: "ERROR", msg: errorMessage);
+          toast(error: "ERROR", msg: errorMessage);
+         var res = {"ERROR": result.exception!.graphqlErrors[0].message};
+        return  res;
         }
 
       // var res = {"ERROR": result.exception};

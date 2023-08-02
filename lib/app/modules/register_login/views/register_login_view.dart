@@ -1,36 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-
 import '../../../../widgets/bgcontainer_register.dart';
+import '../../../authRepository.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../controllers/register_login_controller.dart';
 
 class RegisterLoginView extends GetView<RegisterLoginController> {
   const RegisterLoginView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BGContainerRegister(
-        image:   Image.asset('assets/images/register_login.png',height: .37.sh, width: 1.sw,fit: BoxFit.cover,),
+        image: Image.asset(
+          'assets/images/register_login.png',
+          height: .37.sh,
+          width: 1.sw,
+          fit: BoxFit.cover,
+        ),
         child: SizedBox(
           height: .63.sh,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
-               30.verticalSpace,
-              Image.asset("assets/images/masjidlogonew.png", scale: 4,),
+              30.verticalSpace,
+              Image.asset(
+                "assets/images/masjidlogonew.png",
+                scale: 4,
+              ),
               SizedBox(
                 height: 8.h,
               ),
-              Text("Smart Masjid", style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),),
+              Text(
+                "Smart Masjid",
+                style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white),
+              ),
               25.verticalSpace,
               ElevatedButton(
-                  onPressed: (){
-
+                  onPressed: () {
                     Get.toNamed(Routes.FACE_AUTH);
                     // Navigator.of(context).push(MaterialPageRoute(builder: (_) => FaceAuth()));
                     // Navigator.push(
@@ -52,17 +64,26 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(200, 45),
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    foregroundColor: Theme.of(context).colorScheme.primary,
+                    backgroundColor: Theme
+                        .of(context)
+                        .colorScheme
+                        .secondary,
+                    foregroundColor: Theme
+                        .of(context)
+                        .colorScheme
+                        .primary,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                     elevation: 4.0,
                   ),
-                  child: Text("Register".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),)),
+                  child: Text(
+                    "Register".tr,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  )),
               15.verticalSpace,
               OutlinedButton(
-                  onPressed: (){
+                  onPressed: () {
                     // Navigator.of(context).push(MaterialPageRoute(builder: (_) => const LoginPage()));
                     Get.toNamed(Routes.LOGIN_PAGE);
                     // Navigator.push(
@@ -85,36 +106,58 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                   style: OutlinedButton.styleFrom(
                     minimumSize: Size(200, 45),
                     primary: Color(0xffD9D9D9),
-                    side: BorderSide(color: Color(0xffD9D9D9) ),
+                    side: BorderSide(color: Color(0xffD9D9D9)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  child: Text("Login".tr, style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),)),
+                  child: Text(
+                    "Login".tr,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  )),
               15.verticalSpace,
-              Text("Or Continue with".tr,style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15, color:Color(0xffD9D9D9)),),
+              Text(
+                "Or Continue with".tr,
+                style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 15,
+                    color: Color(0xffD9D9D9)),
+              ),
               15.verticalSpace,
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(
-                    onTap: (){},
-                      child: Image.asset("assets/images/googlenew.png", width: 27,)),
+                      onTap: () {
+                        // controller.signInWithGoogle();
+                        controller.googleSignIns();
+                        //AuthenticationRespository.instance.signInWithGoogle();
+                      },
+                      child: Obx(() {
+                        return controller.isGoogleSign.value?CircularProgressIndicator(): Image.asset(
+                          "assets/images/googlenew.png",
+                          width: 27,
+                        );
+                      })),
                   25.horizontalSpace,
-                  Image.asset("assets/images/apple.png", width: 27,)
+                  Image.asset(
+                    "assets/images/apple.png",
+                    width: 27,
+                  )
                 ],
               ),
               // SizedBox(
               //   height: 50,
               // ),
-            Spacer(),
+              Spacer(),
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     ElevatedButton(
-                        onPressed: (){
+                        onPressed: () {
                           // Navigator.of(context).push(MaterialPageRoute(builder: (_) => FaceAuth()));
                         },
                         style: ElevatedButton.styleFrom(
@@ -126,7 +169,11 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                           ),
                           elevation: 4.0,
                         ),
-                        child: Text("Guest".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 10),)),
+                        child: Text(
+                          "Guest".tr,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 10),
+                        )),
                   ],
                 ),
               )

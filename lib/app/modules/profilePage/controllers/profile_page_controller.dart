@@ -1,9 +1,17 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:get/get.dart';
+
+import '../../../../global.dart';
+import '../../../rest_call_controller/rest_call_controller.dart';
+import '../../home/controllers/home_controller.dart';
 
 class ProfilePageController extends GetxController {
   //TODO: Implement ProfilePageController
-
-
+  static HomeController get homectrl => Get.find();
+  final _restcallController = Get.put(restCallController());
+ RxBool isLoading =false.obs;
   @override
   void onInit() {
     super.onInit();
@@ -18,6 +26,5 @@ class ProfilePageController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
 
 }

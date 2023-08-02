@@ -17,7 +17,7 @@ class QuranpageController extends GetxController {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
 
-  final ItemScrollController  itemScrollController = ItemScrollController ();
+  final ItemScrollController  itemScrollController = ItemScrollController();
 
 
   final ScrollController scrollControllerbot = ScrollController();

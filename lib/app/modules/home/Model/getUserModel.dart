@@ -38,11 +38,11 @@ class GetUserById {
   String? firstName;
   String? language;
   String? lastName;
-  dynamic liveStatus;
+  bool? liveStatus;
   MasjidId? masjidId;
   String? memberStatus;
   String? phoneNumber;
-  dynamic post;
+  String? post;
   String? userType;
   List<Address>? address;
   String? userUniqueId;

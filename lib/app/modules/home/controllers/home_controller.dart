@@ -4,6 +4,7 @@ import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:smartmasjid_v1/app/authRepository.dart';
 import 'package:smartmasjid_v1/app/modules/home/Model/prayerTimesModel.dart';
 import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_controller.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/Model/PrayerPageModel.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class HomeController extends GetxController with GetSingleTickerProviderStateMixin{
   //TODO: Implement HomeController
   final _restCallController = Get.put(restCallController());
+  final _authCtrl = Get.put(AuthenticationRespository());
 
 
 
@@ -41,7 +43,7 @@ var uid= "";
   void onInit() {
 
  //getUserDetails(Get.arguments[0]);
- getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
+   getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
     getPrayerTime();
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
@@ -111,9 +113,9 @@ var uid= "";
 
     isloading.value=true;
     var header="""
-query Get_User_By_Id(\$id: String) {
-  Get_User_By_Id(id_: \$id) {
-    id
+query Query(\$id: String, \$authId: String) {
+  Get_User_By_Id(id_: \$id, auth_id_: \$authId) {
+        id
     profile_image
     auth_uid
     dob
@@ -154,16 +156,17 @@ query Get_User_By_Id(\$id: String) {
 }
     """;
     var body ={
-      "id": "${k}"
+      "id": "${k}",
+      "authId": "${_authCtrl.guid}"
      // "id": "$k"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;
-
-   getUserData.value=getUserModelFromJson(json.encode(res));
     print("getUser");
-  log(json.encode(res));
- print("getUser");
+    log(json.encode(res));
+    print("getUser");
+   getUserData.value=getUserModelFromJson(json.encode(res));
+
 
   }
   getPrayerTime() async {

@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
+
 import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
+import '../../../authRepository.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
@@ -10,12 +12,13 @@ import '../../faceAuth/controllers/face_auth_controller.dart';
 import '../Model/masjidFinderModel.dart';
 
 class MasjidFinderController extends GetxController {
-  final _signctrl = Get.find<SignupPageController>();
+  final _signctrl = Get.put<SignupPageController>(SignupPageController());
+  static AuthenticationRespository get instance1 => Get.find();
   final _langctrl = Get.find<LanguagePageController>();
   final _restCallController = Get.put(restCallController());
   final _faceAuthctrl = Get.put(FaceAuthController());
   var masjidListdata = MasjidFinderModel().obs;
-
+   var uid=instance1.guid.obs;
   // RxList filteredMasjidList = [].obs;
   //TODO: Implement MasjidFinderController
   // var seller_list_model=SelllerListModel().obs;
@@ -128,4 +131,48 @@ mutation Mutation(\$masjidid: String, \$profileImage: String, \$firstName: Strin
     }
     return;
   }
+  loginGmail(String? id) async {
+  print('ss${instance1.guid}');
+  print('ss${instance1.gemail}');
+  print('ss${instance1.gname}');
+  print('ss${id}');
+  print('ss${_langctrl.selectedLang.value}');
+    var header = """
+mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$masjidid: String, \$gmail: String, \$userName: String) {
+  Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_type_: \$userType, masjidid_: \$masjidid, gmail_: \$gmail, user_name_: \$userName) {
+    message
+    refresh_token
+    token
+    user_id
+  }
+}
+    """;
+
+    var body = {
+      "authId": "${instance1.guid}",
+      "language": "${_langctrl.selectedLang.value}",
+      "userType": "member",
+      "masjidid": "${id}",
+      "gmail": "${instance1.gemail}",
+      "userName": "${instance1.gname}",
+    };
+    var res = await _restCallController.gql_mutation(header, body);
+    print("wwww${res}");
+
+  if (res.toString().contains("SUCCESS")) {
+    var hh = res["SUCCESS"]["Login_With_Gmail"]["message"];
+    toast(error: "SUCCESS", msg: "${hh}");
+    Get.offAllNamed(Routes.MASJID_REQUEST);
+  }
+
+    // if (res.toString().contains("SUCCESS")) {
+    //   var hh = res["SUCCESS"]["Register_User"]["message"];
+    //   toast(error: "SUCCESS", msg: "${hh}");
+    //   Get.offAllNamed(Routes.MASJID_REQUEST);
+    // } else if(res.toString().contains('ERROR')){
+    //
+    // }
+    return res;
+  }
+
 }

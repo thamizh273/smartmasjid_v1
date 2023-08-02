@@ -202,9 +202,8 @@ class ProfilePageView extends GetView<EditProfileController> {
                   child: Column(
                     children: [ Text("${homectrl
                         .firstName}${homectrl
-                          .lastName}", style: TextStyle(
-                          color: Colors.white),),
-
+                        .lastName}", style: TextStyle(
+                        color: Colors.white),),
 
 
                       Text("${homectrl.emailId}",
@@ -271,6 +270,8 @@ class ProfilePageView extends GetView<EditProfileController> {
           Spacer(),
           GestureDetector(
             onTap: () async {
+              controller.logout();
+              controller.update();
               // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => LoginPage()),(_)=>false);
             },
             child: Row(
@@ -280,12 +281,14 @@ class ProfilePageView extends GetView<EditProfileController> {
                 SizedBox(
                   width: 5,
                 ),
-                Stxt(
-                  text: 'Logout',
-                  size: f3,
-                  weight: FontWeight.bold,
-                  color: Get.theme.primaryColor,
-                ),
+                Obx(() {
+                  return  Stxt(
+                    text:controller.isLoadingLogout.value? 'Logout':"LogOut",
+                    size: f3,
+                    weight: FontWeight.bold,
+                    color: Get.theme.primaryColor,
+                  );
+                }),
               ],
             ),
           ),

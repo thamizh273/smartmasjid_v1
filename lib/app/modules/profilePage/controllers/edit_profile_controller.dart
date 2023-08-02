@@ -15,6 +15,7 @@ class EditProfileController extends GetxController {
   static HomeController get homectrl => Get.find();
 
   RxBool isLoading = false.obs;
+  RxBool isLoadingLogout = false.obs;
   RxBool isLoadingPic = false.obs;
   final _restcallController = Get.put(restCallController());
   Rx<XFile> image = XFile('').obs;
@@ -93,6 +94,31 @@ class EditProfileController extends GetxController {
       toast(error: "Failed", msg: "Image not Selected");
       print("Image not Selected");
     }
+  }
+  logout() async {
+    isLoadingLogout.value = true;
+    var header =
+    """mutation Log_Out_User(\$userId: ID!) {
+  Log_Out_User(user_id_: \$userId) {
+    message
+    user_id
+  }
+}""";
+    var body = {
+      "userId": "${homectrl.getUserData.value.getUserById!.id}",
+    };
+    var res = await _restcallController.gql_mutation(header, body);
+    log(json.encode(res));
+    // homectrl.getUserData.value.getUserById!.profileImage = base64images;
+    // homectrl.update();
+
+    isLoadingLogout.value = false;
+    if (res.toString().contains("SUCCESS")) {
+      var hh = res["SUCCESS"]["Log_Out_User"]['message'];
+      toast(error: "SUCCESS", msg: "${hh}");
+      Get.offAllNamed(AppPages.INITIAL);
+    }
+    return res;
   }
 
   DateTime sixtyYearsAgo = DateTime.now().subtract(

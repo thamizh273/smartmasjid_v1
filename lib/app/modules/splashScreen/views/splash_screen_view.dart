@@ -9,33 +9,31 @@ import '../../home/controllers/home_controller.dart';
 import '../controllers/splash_screen_controller.dart';
 
 class SplashScreenView extends GetView<SplashScreenController> {
-   SplashScreenView({Key? key}) : super(key: key);
+  SplashScreenView({Key? key}) : super(key: key);
+  final ctrl = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
-    Future.delayed( Duration(seconds: 4), ()   {
+    Future.delayed(Duration(seconds: 4), () {
 
+
+      if ( ctrl.getUserData.value.getUserById!.liveStatus == true) {
+        Get.toNamed(Routes.HOME);
+      } else {
         Get.offAllNamed(Routes.LANGUAGE_PAGE);
-
-
+      }
     });
-    return
-
-      Scaffold(
-      body:
-        SizedBox(
-          height: context.height,
-          child: Lottie.asset(
-            "assets/lottie/splash.json",
-            repeat: false,
-            height: context.height,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-        )
-
-    );
-
+    return Scaffold(
+        body: SizedBox(
+      height: context.height,
+      child: Lottie.asset(
+        "assets/lottie/splash.json",
+        repeat: false,
+        height: context.height,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
+    ));
 
     //   Scaffold(
     //

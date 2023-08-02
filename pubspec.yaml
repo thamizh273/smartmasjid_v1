@@ -28,8 +28,8 @@ dependencies:
   pinput: ^2.2.31
   get_cli: ^1.8.3
   image_cropper: any
-  firebase_core: 2.14.0
-  firebase_auth: ^4.6.3
+  firebase_core: ^2.15.0
+  firebase_auth: ^4.7.2
   hijri: ^3.0.0
   hijri_picker: ^3.0.0
   table_calendar: ^3.0.9
@@ -60,6 +60,7 @@ dependencies:
   hive_flutter: ^1.1.0
   scrollable_positioned_list: ^0.3.8
 
+
   flutter: 
     sdk: flutter
 
@@ -72,6 +73,7 @@ dependency_overrides:
   test_api: any
   intl: ^0.18.0
   analyzer: ^5.0.0
+  firebase_analytics: ^10.4.4
 
 flutter: 
   assets: 

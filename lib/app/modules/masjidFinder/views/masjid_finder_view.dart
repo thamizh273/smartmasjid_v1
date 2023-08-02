@@ -1,4 +1,6 @@
 import 'package:country_state_picker_plus/country_state_picker_plus.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
+import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 
 
 import 'package:smartmasjid_v1/app/routes/export.dart';
@@ -14,6 +16,7 @@ import '../controllers/masjid_finder_controller.dart';
 class MasjidFinderView extends StatelessWidget {
   MasjidFinderView({Key? key}) : super(key: key);
   final MasjidFinderController c = Get.put(MasjidFinderController());
+  final SignupPageController singctrl = Get.put(SignupPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -462,7 +465,16 @@ class MasjidFinderView extends StatelessWidget {
                                               height: 25.h,
                                               width: 90.w,
                                               ontap: () async {
-                                                await c.signUpComplete(id);
+                                                  if(c.uid.value==""){
+                                                    await c.signUpComplete(id);
+                                                  }else{
+                                                  await c.loginGmail(id);}
+
+                                                // else{
+                                                //   await c.signUpComplete(id);
+                                                // }
+
+
                                                 c.update();
                                               },
                                               text: "Confirm",
