@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/home/views/home_view.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/notes.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/quran_juz_details.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
@@ -27,31 +29,29 @@ class QuranpageView extends StatefulWidget {
 final QuranpageController c = Get.put(QuranpageController());
 
 class _QuranpageViewState extends State<QuranpageView> {
-  ScrollController scrollController = ScrollController();
 
   List<dynamic> get filteredSurah {
-    final List<dynamic> quranChapterList = c
-        .getqurandata.value.quranFilter!; // Replace with your actual surah list
+    final List<dynamic> quranChapterList = c.getqurandata.value.quranFilter!; // Replace with your actual surah list
 
     if (c.searchQuery.value.isEmpty) {
-      return c.getqurandata.value
-          .quranFilter!; // Return the original list when the search query is empty
+      return c.getqurandata.value.quranFilter!; // Return the original list when the search query is empty
     } else {
       // Filter the surah list based on the search query
       final lowercaseQuery = c.searchQuery.value.toLowerCase();
-      final filteredList = quranChapterList.where((sura) {
-        var quranChapterList = c.getqurandata.value.quranFilter!;
-        return quranChapterList.contains(lowercaseQuery);
+      final filteredSurah = quranChapterList.where((quranFilter) {
+        var suraName = quranFilter.suraNameEn.toLowerCase();
+        return suraName.contains(lowercaseQuery);
       }).toList();
-      return filteredList;
+      return filteredSurah;
     }
   }
 
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
-  }
+
+  // @override
+  // void dispose() {
+  //   c.scrollController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +73,15 @@ class _QuranpageViewState extends State<QuranpageView> {
                     // backgroundColor: Color(0xff16627C),
                     leading: GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pop(
-                              MaterialPageRoute(builder: (_) => HomeView()));
+                          // Navigator.of(context).pop(
+                          //      MaterialPageRoute(builder: (_) => HomeView()));
+                          if (c.isSearchEnabled.value) {
+                            // Disable search if it is enabled
+                            c.isSearchEnabled.value = false;
+                          } else {
+                            // Pop to HomeView if search is not enabled
+                            Navigator.of(context).pop();
+                          }
                         },
                         child:
                         // c.isSearchEnabled.value
@@ -95,6 +102,12 @@ class _QuranpageViewState extends State<QuranpageView> {
                           decoration: InputDecoration(
                               hintText: "Search Sura"
                           ),
+                          onChanged: (query) {
+                            // Here you can handle the logic for updating the search query in your code
+                            // For example, you can use a function to update the search query in your 'c' object.
+                            // Assuming you have a function to update the search query, you can call it like this:
+                            c.searchQuery(query);
+                          },
                         );
                       } else {
                         return Text(
@@ -201,8 +214,8 @@ class _QuranpageViewState extends State<QuranpageView> {
                                             if (c.lastReadIndex != -1) {
                                               c.quranDetailList(
                                                   c.lastReadIndex + 1);
-                                              c.scrollToCurrentIndex(
-                                                  c.lastReadIndex);
+                                              // c.scrollToCurrentIndex(
+                                              //     c.lastReadIndex);
                                             }
                                           },
                                           child: Container(
@@ -255,18 +268,23 @@ class _QuranpageViewState extends State<QuranpageView> {
                                     Space(25),
                                     Column(
                                       children: [
-                                        Container(
-                                          height: 50,
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                              color: Color(0xff16627C),
-                                              borderRadius:
-                                              BorderRadius.circular(30)),
-                                          child: Align(
-                                            alignment: Alignment.center,
-                                            child: Image.asset(
-                                              "assets/images/notes.png",
-                                              width: 25,
+                                        GestureDetector(
+                                          onTap: (){
+                                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranNotes()));
+                                          },
+                                          child: Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                                color: Color(0xff16627C),
+                                                borderRadius:
+                                                BorderRadius.circular(30)),
+                                            child: Align(
+                                              alignment: Alignment.center,
+                                              child: Image.asset(
+                                                "assets/images/notes.png",
+                                                width: 25,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -298,13 +316,13 @@ class _QuranpageViewState extends State<QuranpageView> {
                                           scrollDirection: Axis.horizontal,
                                           itemBuilder: (context, index) {
                                             var sura = [
-                                              filteredSurah[35],
-                                              filteredSurah[54],
-                                              filteredSurah[17],
-                                              filteredSurah[55],
-                                              filteredSurah[66],
-                                              filteredSurah[111],
-                                              filteredSurah[112],
+                                              c.getqurandata.value.quranFilter![35],
+                                              c.getqurandata.value.quranFilter![54],
+                                              c.getqurandata.value.quranFilter![17],
+                                              c.getqurandata.value.quranFilter![55],
+                                              c.getqurandata.value.quranFilter![66],
+                                              c.getqurandata.value.quranFilter![111],
+                                              c.getqurandata.value.quranFilter![112],
                                             ];
                                             return GestureDetector(
                                               child: Container(
@@ -425,7 +443,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                 c.result.value=0.toString();
                                                 c.passint.value = (index + 1);
                                                 print("dddd${c.passint.value}");
-                                                c.scrollToCurrentIndex(index);
+                                                // c.scrollToCurrentIndex(index);
                                                 c.setLastReadIndex(index);
                                               },
                                               child: Align(
@@ -726,10 +744,11 @@ class _QuranpageViewState extends State<QuranpageView> {
                                               dense: true,
                                               title: GestureDetector(
                                                 onTap: () {
-                                                  // print("mmmmmmmm ${index}");
-                                                  // c.quranDetailList(
-                                                  //     index + 1);
-                                                  // Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
+                                                  print("mmmmmmmm ${index}");
+
+                                                  c.quranjuzdetailList(index+1);
+                                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranJuzDetails()));
+
                                                 },
                                                 child: Align(
                                                   alignment:
@@ -915,7 +934,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                             ],
                                                           ),
                                                         ),
-                                                        Space(8),
+                                                        Space(4),
                                                         Padding(
                                                           padding:
                                                           const EdgeInsets

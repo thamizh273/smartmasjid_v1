@@ -32,13 +32,12 @@ class QuranDetails extends StatefulWidget {
 
 final QuranpageController c = Get.put(QuranpageController());
 final AudioplayerController controller = Get.put(AudioplayerController());
-final List<QuranpageController> controllers = List.generate(
-    c.getqurandetail.value
-        .getQuranAyahVerse![0].ayahList!.length, (index) =>
+final List<QuranpageController> controllers = List.generate(c.getqurandetail.value.getQuranAyahVerse![0].ayahList!.length, (index) =>
     Get.put(QuranpageController()));
 
 
 class _QuranDetailsState extends State<QuranDetails> {
+  var appbar = c.getqurandetail.value.getQuranAyahVerse![0].titleArb;
   late final int index;
   late final String? surah;
   var makki = c.getqurandetail.value.getQuranAyahVerse![0].makkiMadina;
@@ -595,7 +594,7 @@ class _QuranDetailsState extends State<QuranDetails> {
       ),
       backgroundColor: Colors.white,
       appBar: CustomAppbar(
-        tittle: "",
+        tittle: "${appbar}",
         action: [
           Row(
             children: [
@@ -749,30 +748,191 @@ class _QuranDetailsState extends State<QuranDetails> {
             Space(16),
             Expanded(
               child: GetBuilder<QuranpageController>(builder: (logic) {
-
                 return c.isLoadings1.value
                       ? loading(context)
-                      : ScrollablePositionedList.builder(
-                      itemScrollController: logic.itemScrollController,
-                      itemCount: c.getqurandetail.value
-                          .getQuranAyahVerse![0].ayahList!.length,
-                      itemBuilder: (context, index) {
-                        var sura = c.getqurandetail.value
-                            .getQuranAyahVerse![0].ayahList![index];
-                        return Container(
-                            width: double.infinity,
-                            // color: Colors.red,
-                            child: Row(
-                              children: [
-                                Padding(
+                      : Scrollbar(
+                  // interactive: true,
+                  thumbVisibility: false,
+                  thickness: 10,
+                  controller: c.scrollController,
+                  radius: Radius.circular(20),
+                        child: ScrollablePositionedList.builder(
+                        itemScrollController: logic.itemScrollController,
+                        itemCount: c.getqurandetail.value
+                            .getQuranAyahVerse![0].ayahList!.length,
+                        itemBuilder: (context, index) {
+                          var sura = c.getqurandetail.value
+                              .getQuranAyahVerse![0].ayahList![index];
+
+                            return Container(
+                                width: double.infinity,
+                                // color: Colors.red,
+                                child: Padding(
                                   padding: EdgeInsets.all(10.r),
                                   child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                    // crossAxisAlignment:
+                                    // CrossAxisAlignment.center,
                                     children: [
+                                      // if(sura.versesKey == 0)
+                                      Center(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(4),
+                                              color: Theme.of(context).primaryColor
+                                          ),
+                                          height: 30,
+                                          width: 60,
+                                          child: Center(
+                                              child: Text("Page 1", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),)),
+                                        ),
+                                      ),
+
                                       Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
                                         children: [
+                                          // Space(8),
+                                          Icon(
+                                            Icons.play_circle,
+                                            color: Theme
+                                                .of(context)
+                                                .primaryColor,
+                                          ),
                                           Space(12),
+                                          GestureDetector(
+
+                                            onTap: () {
+                                              print('ssss${c.getqurandetail
+                                                  .value
+                                                  .getQuranAyahVerse![0]
+                                                  .suraNameEn}');
+                                              // if(c.passint.value==sura.versesKey![0]){
+                                              //   print("ggg");
+                                              //   c.toogle(index);
+                                              // }
+                                              c.toogle(
+                                                  "${c.getqurandetail.value
+                                                      .getQuranAyahVerse![0]
+                                                      .suraNameEn} ${sura
+                                                      .versesKey}");
+
+                                              //   c.toggleBookmark();
+
+                                            },
+
+                                            child: Obx(() {
+                                              //   print("eeee${c.objectList}");
+                                              print("eeee${sura.versesKey
+                                                  .toString()}");
+                                              // final isBookmarked = c.isBookmarked.value;
+                                              return Icon(
+                                                c.buttonsSelected.contains(
+                                                    "${c.getqurandetail.value
+                                                        .getQuranAyahVerse![0]
+                                                        .suraNameEn} ${sura
+                                                        .versesKey}")
+                                                    ? Icons.bookmark
+                                                    : Icons.bookmark_outline,
+                                                color: c.buttonsSelected
+                                                    .contains(
+                                                    "${c.getqurandetail.value
+                                                        .getQuranAyahVerse![0]
+                                                        .suraNameEn} ${sura
+                                                        .versesKey}")
+                                                    ? Theme
+                                                    .of(context)
+                                                    .primaryColor
+                                                    : Theme
+                                                    .of(context)
+                                                    .primaryColor, // Use different colors for bookmarked and not bookmarked states
+                                              );
+                                            }),
+                                          ),
+                                          PopupMenuButton(
+                                              shadowColor: Colors.grey
+                                                  .shade400,
+                                              itemBuilder: (
+                                                  BuildContext context) {
+                                                return [
+                                                  // PopupMenuItem(child: Row(
+                                                  //   children: [
+                                                  //     Image.asset(
+                                                  //       "assets/images/bookmark.png",
+                                                  //       width: 20,
+                                                  //       color: Colors.black,),
+                                                  //     Space(12),
+                                                  //     Text("Bookmark"),
+                                                  //   ],
+                                                  // )),
+                                                  PopupMenuItem(child: Row(
+                                                    children: [
+                                                      Icon(Icons.copy),
+                                                      Space(12),
+                                                      Text("Copy"),
+                                                    ],
+                                                  )),
+                                                  PopupMenuItem(child: Row(
+                                                    children: [
+                                                      Icon(Icons.share),
+                                                      Space(12),
+                                                      Text("Share"),
+                                                    ],
+                                                  )),
+                                                  // PopupMenuItem(
+                                                  //     child: GestureDetector(
+                                                  //       onTap: (){
+                                                  //         QuranPlanner(context);
+                                                  //       },
+                                                  //       child: Row(
+                                                  //         children: [
+                                                  //           Icon(Icons
+                                                  //               .next_plan),
+                                                  //           Space(12),
+                                                  //           Text("Planner"),
+                                                  //         ],
+                                                  //       ),
+                                                  //     )),
+                                                  PopupMenuItem(
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (
+                                                                BuildContext context) {
+                                                              return CustomDialogBox1(
+                                                                title: 'Custom Dialog Title',
+                                                                content:
+                                                                'This is the content of the custom dialog box.',
+                                                                onPressed: () {
+                                                                  Navigator
+                                                                      .pop(
+                                                                      context); // Closes the dialog box when the button is pressed.
+                                                                },
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Image.asset(
+                                                              "assets/images/notes.png",
+                                                              width: 20,
+                                                              color: Colors
+                                                                  .black,),
+                                                            Space(12),
+                                                            Text(
+                                                                "Create Notes"),
+                                                          ],
+                                                        ),
+                                                      )),
+                                                ];
+                                              }
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          // Space(12),
                                           Text(
                                             "${sura.versesKey}",
                                             style: TextStyle(
@@ -782,13 +942,13 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 18),
                                           ),
-                                          20.horizontalSpace,
-                                          Space(10.w),
+                                          28.horizontalSpace,
+                                          Space(20.w),
                                           Align(
                                               alignment:
                                               Alignment.centerLeft,
                                               child: Obx(() {
-                                                double fontSize = 35.0;
+                                                double fontSize = 40.0;
                                                 String fontFamily = c
                                                     .fontFamily
                                                     .value;
@@ -802,6 +962,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                   fontSize = 55.0;
                                                 }
                                                 TextStyle textStyle = TextStyle(
+                                                  wordSpacing: 10,
                                                   fontSize: fontSize,
                                                   fontFamily: c.fontFamily
                                                       .value == "indopak"
@@ -888,192 +1049,61 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       //     ),
                                       //   ),
                                       // ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .start,
-                                        children: [
-                                          PopupMenuButton(
-                                              shadowColor: Colors.grey
-                                                  .shade400,
-                                              itemBuilder: (
-                                                  BuildContext context) {
-                                                return [
-                                                  PopupMenuItem(child: Row(
-                                                    children: [
-                                                      Image.asset(
-                                                        "assets/images/bookmark.png",
-                                                        width: 20,
-                                                        color: Colors.black,),
-                                                      Space(12),
-                                                      Text("Bookmark"),
-                                                    ],
-                                                  )),
-                                                  PopupMenuItem(child: Row(
-                                                    children: [
-                                                      Icon(Icons.copy),
-                                                      Space(12),
-                                                      Text("Copy"),
-                                                    ],
-                                                  )),
-                                                  PopupMenuItem(child: Row(
-                                                    children: [
-                                                      Icon(Icons.share),
-                                                      Space(12),
-                                                      Text("Share"),
-                                                    ],
-                                                  )),
-                                                  PopupMenuItem(
-                                                      child: GestureDetector(
-                                                        onTap: (){
-                                                          QuranPlanner(context);
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            Icon(Icons
-                                                                .next_plan),
-                                                            Space(12),
-                                                            Text("Planner"),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                  PopupMenuItem(
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (
-                                                                BuildContext context) {
-                                                              return CustomDialogBox1(
-                                                                title: 'Custom Dialog Title',
-                                                                content:
-                                                                'This is the content of the custom dialog box.',
-                                                                onPressed: () {
-                                                                  Navigator
-                                                                      .pop(
-                                                                      context); // Closes the dialog box when the button is pressed.
-                                                                },
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            Image.asset(
-                                                              "assets/images/notes.png",
-                                                              width: 20,
-                                                              color: Colors
-                                                                  .black,),
-                                                            Space(12),
-                                                            Text(
-                                                                "Create Notes"),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                ];
-                                              }
-                                          )
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   mainAxisAlignment: MainAxisAlignment
+                                      //       .start,
+                                      //   children: [
+                                      //
+                                      //   ],
+                                      // ),
                                       // Space(8),
-                                      Row(
-                                        children: [
-                                          Space(12),
-                                          Icon(
-                                            Icons.play_circle,
-                                            color: Theme
-                                                .of(context)
-                                                .primaryColor,
-                                          ),
-                                          // Container(
-                                          //   width: 20.w,
-                                          //   height: 20.w,
-                                          //   child: Transform.rotate(
-                                          //     angle: 40 *
-                                          //         (3.1415926535897932 / 180),
-                                          //     // Converting 30 degrees to radians
-                                          //     child: Container(
-                                          //       width: 200,
-                                          //       height: 200,
-                                          //       decoration: BoxDecoration(
-                                          //         borderRadius:
-                                          //         BorderRadius.circular(4),
-                                          //         color: Color(0xff16627C),
-                                          //       ),
-                                          //       child: Center(
-                                          //         child: Transform.rotate(
-                                          //           angle: -40 *
-                                          //               (3.1415926535897932 /
-                                          //                   180),
-                                          //           child: Text(
-                                          //             "${sura.ayahNo}",
-                                          //             style: TextStyle(
-                                          //                 fontSize: 10,
-                                          //                 fontWeight: FontWeight
-                                          //                     .bold,
-                                          //                 color: Colors.white),
-                                          //           ),
-                                          //         ),
-                                          //       ),
-                                          //     ),
-                                          //   ),
-                                          // ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     Space(12),
+                                      //
+                                      //     // Container(
+                                      //     //   width: 20.w,
+                                      //     //   height: 20.w,
+                                      //     //   child: Transform.rotate(
+                                      //     //     angle: 40 *
+                                      //     //         (3.1415926535897932 / 180),
+                                      //     //     // Converting 30 degrees to radians
+                                      //     //     child: Container(
+                                      //     //       width: 200,
+                                      //     //       height: 200,
+                                      //     //       decoration: BoxDecoration(
+                                      //     //         borderRadius:
+                                      //     //         BorderRadius.circular(4),
+                                      //     //         color: Color(0xff16627C),
+                                      //     //       ),
+                                      //     //       child: Center(
+                                      //     //         child: Transform.rotate(
+                                      //     //           angle: -40 *
+                                      //     //               (3.1415926535897932 /
+                                      //     //                   180),
+                                      //     //           child: Text(
+                                      //     //             "${sura.ayahNo}",
+                                      //     //             style: TextStyle(
+                                      //     //                 fontSize: 10,
+                                      //     //                 fontWeight: FontWeight
+                                      //     //                     .bold,
+                                      //     //                 color: Colors.white),
+                                      //     //           ),
+                                      //     //         ),
+                                      //     //       ),
+                                      //     //     ),
+                                      //     //   ),
+                                      //     // ),
+                                      //   ],
+                                      // ),
                                       Space(8),
 
-                                      Row(
-                                        children: [
-                                          Space(12),
-                                          GestureDetector(
-
-                                            onTap: () {
-                                              print('ssss${c.getqurandetail
-                                                  .value
-                                                  .getQuranAyahVerse![0]
-                                                  .suraNameEn}');
-                                              // if(c.passint.value==sura.versesKey![0]){
-                                              //   print("ggg");
-                                              //   c.toogle(index);
-                                              // }
-                                              c.toogle(
-                                                  "${c.getqurandetail.value
-                                                      .getQuranAyahVerse![0]
-                                                      .suraNameEn} ${sura
-                                                      .versesKey}");
-
-                                              //   c.toggleBookmark();
-
-                                            },
-
-                                            child: Obx(() {
-                                              //   print("eeee${c.objectList}");
-                                              print("eeee${sura.versesKey
-                                                  .toString()}");
-                                              // final isBookmarked = c.isBookmarked.value;
-                                              return Icon(
-                                                c.buttonsSelected.contains(
-                                                    "${c.getqurandetail.value
-                                                        .getQuranAyahVerse![0]
-                                                        .suraNameEn} ${sura
-                                                        .versesKey}")
-                                                    ? Icons.bookmark
-                                                    : Icons.bookmark_outline,
-                                                color: c.buttonsSelected
-                                                    .contains(
-                                                    "${c.getqurandetail.value
-                                                        .getQuranAyahVerse![0]
-                                                        .suraNameEn} ${sura
-                                                        .versesKey}")
-                                                    ? Theme
-                                                    .of(context)
-                                                    .primaryColor
-                                                    : Colors
-                                                    .grey, // Use different colors for bookmarked and not bookmarked states
-                                              );
-                                            }),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     Space(12),
+                                      //
+                                      //   ],
+                                      // ),
                                       // Row(
                                       //   children: [
                                       //     Obx(
@@ -1167,10 +1197,11 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       )
                                     ],
                                   ),
-                                ),
-                              ],
-                            ));
-                      });
+                                ));
+                            
+                        }
+                        ),
+                      );
 
               }),
             )

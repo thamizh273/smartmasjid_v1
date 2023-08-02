@@ -7,6 +7,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
 import '../model/quran_detail_model.dart';
+import '../model/quran_juz_detail_model.dart';
 import '../model/quran_juz_model.dart';
 import '../model/quran_model.dart';
 import '../views/qurandetails.dart';
@@ -16,8 +17,10 @@ class QuranpageController extends GetxController {
   //TODO: Implement QuranpageController
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
+  ScrollController scrollControllern = ScrollController();
 
-  final ItemScrollController  itemScrollController = ItemScrollController ();
+  final ItemScrollController  itemScrollController = ItemScrollController();
+  final ItemScrollController  itemScrollControllerjuz = ItemScrollController();
 
 
   final ScrollController scrollControllerbot = ScrollController();
@@ -29,10 +32,13 @@ class QuranpageController extends GetxController {
   RxInt currentSelected = 1.obs;
   RxBool isLoadings = false.obs;
   RxBool isLoadings1 = false.obs;
+  RxBool isLoadingsJuz = false.obs;
+  var isLoading = false.obs;
   var isSearchEnabled = false.obs;
   var getqurandata = QuranModel().obs;
   var getqurandetail = QuranDetailModel().obs;
   var getquranjuz = QuranJuzModel().obs;
+  var getquranjuzdetail = QuranJuzDetailModel().obs;
   var searchQuery = ''.obs;
   var isChecked = false.obs;
   var fontAmiri = "".obs;
@@ -54,9 +60,36 @@ class QuranpageController extends GetxController {
   RxList<int> clickedItems = <int>[].obs;
   RxBool switchValue = false.obs;
   int lastReadIndex = -1;
+  var filteredList = <dynamic>[].obs;
+  var item = <String>[].obs;
+  var currentIndex = 0.obs;
+  var pageIndex = [].obs;
 
 
-  void setLastReadIndex(int index) {
+  Future<void> fetchMoreData() async {
+    if (isLoading.value) return; // Avoid multiple requests
+
+    isLoading.value = true;
+
+    // Simulate a delay
+    await Future.delayed(Duration(seconds: 0));
+
+    // Load the same data again
+    final newData = List<QuranFilter>.from(getqurandata.value.quranFilter!);
+    getqurandata.update((val) {
+      val!.quranFilter!.addAll(newData);
+    });
+
+    isLoading.value = false;
+  }
+
+
+
+
+
+
+
+void setLastReadIndex(int index) {
     lastReadIndex = index;
   }
 
@@ -66,35 +99,17 @@ class QuranpageController extends GetxController {
   var result="".obs;
   var result1="".obs;
 
-/*
-  toogle(int index) {
-    if (buttonsSelected.contains(index)) {
-      buttonsSelected.remove(index);
-    } else {
-      buttonsSelected.add(index);
-    }
-  }*/
-
-
-
-  void scrollToCurrentIndex(int index) {
-    // Calculate the offset to the selected item.
-    final double itemExtent = 50.0; // Assuming each item has a height of 50.0 pixels.
-    final double offset = index * itemExtent;
-
-    // Scroll the list to the selected item position.
-    scrollController.animateTo(
-      offset,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
-
 
 
   void onItemClick(int index) {
     print("mmmmmmmm $index");
     c.quranDetailList(index + 1);
+    // Add the clicked item index to the clickedItems list
+    clickedItems.add(index);
+  }
+  void onItemClick1(int index) {
+    print("mmmmmmmm $index");
+    c.quranjuzdetailList(index + 1);
     // Add the clicked item index to the clickedItems list
     clickedItems.add(index);
   }
@@ -129,6 +144,9 @@ void changeFontFamily(String family) {
     }
     quranChapterList();
     quranjuzList();
+    // quranjuzdetailList();
+    // quranjuzdetailList();
+    // debounce(searchQuery, (_) => filterList(), time: Duration(milliseconds: 500));
     super.onInit();
   }
 
@@ -175,6 +193,7 @@ void changeFontFamily(String family) {
     box.write('buttonsSelected',  buttonsSelected.toList());
     update();
   }
+
 
   void deleteIndex(int index) {
     buttonsSelected.remove(index);
@@ -225,20 +244,21 @@ query Query(\$getChapterByMsId: String) {
     var header = """
 query Query(\$chapterNo: String!) {
   Get_Quran_Ayah_Verse(chapter_no: \$chapterNo) {
-    makki_madina
     sura_chapter_no
-    sura_name_en
-    title_en
-    total_verses
     ayah_list {
-      arabic_audio
       arabic_text
       ayah_no
-      eng_translation
-      hindi_translation
-      tamil_translation
       verses_key
+      arabic_audio
+      eng_translation
+      tamil_translation
+      hindi_translation
     }
+    sura_name_en
+    makki_madina
+    title_arb
+    title_en
+    total_verses
   }
 }
     """;
@@ -283,9 +303,49 @@ query Query(\$masjidId: ID) {
     // print("lllll");
     // print(json.encode(res));
     // print("lllll");
-    log("data data ${json.encode(res)}");
+    log("data juz ${json.encode(res)}");
     isLoadings.value = false;
     getquranjuz.value = quranjuzModelFromJson(json.encode(res));
+
+    update();
+  }
+
+  quranjuzdetailList(index) async {
+    isLoadingsJuz.value = true;
+    var header = """
+query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
+  Get_Quran_Juz_Verses_List(juz_chapter_no: \$juzChapterNo) {
+    juz_chapter_no
+    juz_name_arb
+    juz_name_en
+    surah_verses_start
+    surah_verses_end
+    total_verses
+    ayah_list {
+      sura_chapter_no
+      verses_key
+      arabic_text
+      arabic_audio
+      eng_translation
+      tamil_translation
+      hindi_translation
+      ayah_no
+    }
+  }
+}
+    """;
+
+    var body = {
+      "juzChapterNo": "${index}"
+
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data data ${json.encode(res)}");
+    isLoadingsJuz.value = false;
+    getquranjuzdetail.value = quranjuzdetailModelFromJson(json.encode(res));
 
     update();
   }
