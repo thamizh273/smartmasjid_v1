@@ -668,7 +668,9 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                       //   ),
                                                       // ),
                                                       // Space(8),
-                                                      Image.asset("assets/images/alltext.png", color: Colors.black, scale: 12,),
+                                                      for(var q in c.images)
+                                                        (q['sura'].toString().contains(sura.suraNameEn))?
+                                                      Image.asset("${q['image']}", color: Colors.black, scale: 12,): Container(),
                                                       Space(8),
                                                       Padding(
                                                         padding:

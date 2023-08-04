@@ -60,82 +60,65 @@ Future GotoVerse(BuildContext context) {
                       ),
                       Space(20),
                       SizedBox(
-                        height: c.screenWidth * 0.8,
-                        child: Obx(() {
-                          return ListView.builder(
+                          height: c.screenWidth * 0.8,
+                          child: ListView.builder(
                             controller: c.scrollControllern,
-                            itemCount: c.getqurandata.value.quranFilter!
-                                .length + 1,
+                            itemCount: c.getqurandata.value.quranFilter!.length,
                             itemBuilder:
                                 (context,
                                 index) {
-                              if (index <
-                                  c.getqurandata.value.quranFilter!.length) {
-                                var sura = c.getqurandata.value
-                                    .quranFilter![index].suraNameEn;
-                                var chap = c.getqurandata.value
-                                    .quranFilter![index].suraChapterNo;
-                                return Obx(() {
-                                  return Container(
-                                    // Replace this with your color logic
-                                    color: c.currentSelected.value ==
-                                        index
-                                        ? Color(0xffEBEBEB)
-                                        : Color(0xff16627C),
-                                    child:
-                                    ListTile(
-                                      dense:
-                                      true,
-                                      title:
-                                      Row(
-                                        children: [
-                                          Text(
-                                            chap!,
-                                            style: TextStyle(
-                                              color: c.currentSelected.value ==
-                                                  index
-                                                  ? Color(0xff16627C)
-                                                  : Colors.white,
-                                              fontSize: 15,
-                                            ),
+                              var sura = c.getqurandata.value
+                                  .quranFilter![index].suraNameEn;
+                              var chap = c.getqurandata.value
+                                  .quranFilter![index].suraChapterNo;
+                              return Obx(() {
+                                return Container(
+                                  // Replace this with your color logic
+                                  color: c.currentSelected.value ==
+                                      index
+                                      ? Color(0xffEBEBEB)
+                                      : Color(0xff16627C),
+                                  child:
+                                  ListTile(
+                                    dense:
+                                    true,
+                                    title:
+                                    Row(
+                                      children: [
+                                        Text(
+                                          chap!,
+                                          style: TextStyle(
+                                            color: c.currentSelected.value ==
+                                                index
+                                                ? Color(0xff16627C)
+                                                : Colors.white,
+                                            fontSize: 15,
                                           ),
-                                          SizedBox(width: 5),
-                                          Text(
-                                            sura!,
-                                            style: TextStyle(
-                                              color: c.currentSelected.value ==
-                                                  index
-                                                  ? Color(0xff16627C)
-                                                  : Colors.white,
-                                              fontSize: 15,
-                                            ),
+                                        ),
+                                        SizedBox(width: 5),
+                                        Text(
+                                          sura!,
+                                          style: TextStyle(
+                                            color: c.currentSelected.value ==
+                                                index
+                                                ? Color(0xff16627C)
+                                                : Colors.white,
+                                            fontSize: 15,
                                           ),
-                                        ],
-                                      ),
-                                      onTap:
-                                          () {
-                                        c.currentSelected.value =
-                                            index;
-                                        c.update();
-                                      },
+                                        ),
+                                      ],
                                     ),
-                                  );
-                                });
-                              }
-                              else {
-                                if (c.isLoading.value) {
-                                  // Display loading indicator
-                                  return Center(
-                                      child: CircularProgressIndicator());
-                                } else {
-                                  // Load the same data again when reaching the end of the list
-                                  c.fetchMoreData();
-                                  return SizedBox.shrink();
-                                }
-                              }
+                                    onTap:
+                                        () {
+                                      c.currentSelected.value =
+                                          index;
+                                      c.update();
+                                    },
+                                  ),
+                                );
+                              });
                             },
-                          );
-                        }),
+                          )
                       ),
                     ],
                   ),
@@ -252,19 +235,12 @@ Future GotoVerse(BuildContext context) {
                                 .scrollControllerbot2,
                             shrinkWrap:
                             true,
-                            itemCount: c.currentSelected
-                                .value ==
-                                c.currentSelected
-                                    .value
-                                ? int.parse(
-                                "${c.getqurandata.value.quranFilter![c
-                                    .currentSelected.value].totalVerses}")
-                                : 0,
+                            itemCount: 604,
                             itemBuilder:
                                 (context,
                                 index) {
                               final circularIndex = index %
-                                  (c.getqurandata.value.quranFilter!.length);
+                                  (604);
                               return ListTile(
                                 dense:
                                 false,
@@ -296,35 +272,35 @@ Future GotoVerse(BuildContext context) {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        c.currentSelected.value == c.currentSelected.value
-                            ? int.parse(
-                            "${c.getqurandata.value.quranFilter![c
-                                .currentSelected.value].totalVerses}")
-                            : 0;
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(130, 30),
-                        backgroundColor: Theme
-                            .of(context)
-                            .colorScheme
-                            .secondary,
-                        foregroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                  Obx(() {
+                    var sura = c.getqurandata.value
+                        .quranFilter![0].suraNameEn;
+                    return ElevatedButton(
+                        onPressed: () {
+
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(130, 30),
+                          backgroundColor: Theme
+                              .of(context)
+                              .colorScheme
+                              .secondary,
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 4.0,
                         ),
-                        elevation: 4.0,
-                      ),
-                      child: Text(
-                        "Go To Surah",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            color: Theme
-                                .of(context)
-                                .primaryColor),
-                      )),
+                        child: Text(
+                          "Go To Surah",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: Theme
+                                  .of(context)
+                                  .primaryColor),
+                        ));
+                  }),
                 ],
               ),
             )
