@@ -73,8 +73,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                     // backgroundColor: Color(0xff16627C),
                     leading: GestureDetector(
                         onTap: () {
-                          // Navigator.of(context).pop(
-                          //      MaterialPageRoute(builder: (_) => HomeView()));
+
                           if (c.isSearchEnabled.value) {
                             // Disable search if it is enabled
                             c.isSearchEnabled.value = false;
