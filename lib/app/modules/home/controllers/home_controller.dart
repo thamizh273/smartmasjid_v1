@@ -39,7 +39,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   RxString nearestDuration = ''.obs;
   RxString nearestDuration1 = ''.obs;   var rrr="".obs;
  //var uid= Get.arguments[0];
-var uid= "";
+  var uid= "";
 
   @override
   void onInit() {
@@ -111,9 +111,9 @@ var uid= "";
     //  print(kk);
     return sss ;
   }
-
+  final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
   getUserDetails(k) async {
-    final user = FirebaseAuth.instance.currentUser!.uid;
+
     isloading.value=true;
     var header="""
 query Query(\$id: String, \$authId: String) {
