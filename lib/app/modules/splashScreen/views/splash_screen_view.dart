@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,18 +9,22 @@ import '../../../routes/app_pages.dart';
 import '../../home/controllers/home_controller.dart';
 import '../controllers/splash_screen_controller.dart';
 
-class SplashScreenView extends GetView<SplashScreenController> {
+class SplashScreenView extends StatelessWidget {
   SplashScreenView({Key? key}) : super(key: key);
-  final ctrl = Get.put(HomeController());
+  static HomeController  homectrl = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
+
     Future.delayed(Duration(seconds: 4), () {
-
-
-      if ( ctrl.getUserData.value.getUserById!.liveStatus == true) {
-        Get.toNamed(Routes.HOME);
-      } else {
+      homectrl.update();
+      // if( ctrl.getUserData.value.getUserById!.id==null){return Get.offAllNamed(Routes.LANGUAGE_PAGE);}
+      if(homectrl.getUserData.value.getUserById != null){
+        if ( (homectrl.getUserData.value.getUserById != null)&& homectrl.getUserData.value.getUserById!.liveStatus==true ) {
+          Get.toNamed(Routes.HOME);
+        }
+      }
+      else {
         Get.offAllNamed(Routes.LANGUAGE_PAGE);
       }
     });

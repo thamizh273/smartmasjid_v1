@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import 'package:smartmasjid_v1/app/rest_call_controller/rest_call_controller.dart';
@@ -97,6 +98,7 @@ class EditProfileController extends GetxController {
   }
   logout() async {
     isLoadingLogout.value = true;
+
     var header =
     """mutation Log_Out_User(\$userId: ID!) {
   Log_Out_User(user_id_: \$userId) {
@@ -111,14 +113,20 @@ class EditProfileController extends GetxController {
     log(json.encode(res));
     // homectrl.getUserData.value.getUserById!.profileImage = base64images;
     // homectrl.update();
+    await GoogleSignIn().signOut();
+    homectrl.getUserData.value.getUserById!.id='';
+    homectrl.getUserData.value.getUserById!.liveStatus=false;
+    homectrl.getUserData.value.getUserById=null;
+    homectrl.update();
 
     isLoadingLogout.value = false;
     if (res.toString().contains("SUCCESS")) {
       var hh = res["SUCCESS"]["Log_Out_User"]['message'];
+
       toast(error: "SUCCESS", msg: "${hh}");
       Get.offAllNamed(AppPages.INITIAL);
     }
-    return res;
+    return ;
   }
 
   DateTime sixtyYearsAgo = DateTime.now().subtract(

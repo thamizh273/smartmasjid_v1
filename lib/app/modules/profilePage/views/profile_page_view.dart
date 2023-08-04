@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smartmasjid_v1/app/modules/profilePage/controllers/edit_profile_controller.dart';
 import 'package:smartmasjid_v1/app/modules/profilePage/views/edit_profile_view.dart';
 
@@ -269,9 +270,10 @@ class ProfilePageView extends GetView<EditProfileController> {
             ),
           Spacer(),
           GestureDetector(
-            onTap: () async {
+            onTap: ()  {
               controller.logout();
               controller.update();
+
               // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => LoginPage()),(_)=>false);
             },
             child: Row(

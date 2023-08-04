@@ -8,8 +8,10 @@ class HomeBinding extends Bindings {
     //   () => HomeController(),permanent: true
     //
     // );
-    Get.lazyPut<HomeController>(
-          () => HomeController(),
-    );
+  //  Get.put(HomeController(),permanent: true);
+    Get.lazyPut<HomeController>(() => HomeController(), fenix: true);
+    // Get.lazyPut<HomeController>(
+    //       () => HomeController(),
+    // );
   }
 }

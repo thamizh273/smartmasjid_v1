@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:typed_data';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:smartmasjid_v1/app/authRepository.dart';
@@ -39,11 +40,13 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   RxString nearestDuration1 = ''.obs;   var rrr="".obs;
  //var uid= Get.arguments[0];
 var uid= "";
+
   @override
   void onInit() {
 
- //getUserDetails(Get.arguments[0]);
-   getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
+  getUserDetails(Get.arguments==null?"":Get.arguments[0]);
+ //  getUserDetails(Get.arguments[0]);
+  // getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
     getPrayerTime();
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
@@ -110,7 +113,7 @@ var uid= "";
   }
 
   getUserDetails(k) async {
-
+    final user = FirebaseAuth.instance.currentUser!.uid;
     isloading.value=true;
     var header="""
 query Query(\$id: String, \$authId: String) {
@@ -157,7 +160,7 @@ query Query(\$id: String, \$authId: String) {
     """;
     var body ={
       "id": "${k}",
-      "authId": "${_authCtrl.guid}"
+      "authId": "${user}"
      // "id": "$k"
     };
     var res = await  _restCallController.gql_query(header, body);

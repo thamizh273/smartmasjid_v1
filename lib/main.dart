@@ -10,6 +10,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:smartmasjid_v1/utils/localization/localization.dart';
 
 import 'app/authRepository.dart';
+import 'app/modules/home/bindings/home_binding.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/export.dart';
 import 'firebase_options.dart';
@@ -52,6 +53,7 @@ void main() async{
          //   builder: FlutterSmartDialog.init(),
           //  initialBinding: HomeBinding(),
             debugShowCheckedModeBanner: false,
+            initialBinding: HomeBinding(),
             translations: localization,
             fallbackLocale: const Locale('en', 'US'),
             locale: initialLocale,

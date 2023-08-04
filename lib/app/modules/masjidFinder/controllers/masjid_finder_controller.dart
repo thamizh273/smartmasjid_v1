@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-
 import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 import '../../../authRepository.dart';
@@ -13,12 +12,14 @@ import '../Model/masjidFinderModel.dart';
 
 class MasjidFinderController extends GetxController {
   final _signctrl = Get.put<SignupPageController>(SignupPageController());
+
   static AuthenticationRespository get instance1 => Get.find();
   final _langctrl = Get.find<LanguagePageController>();
   final _restCallController = Get.put(restCallController());
   final _faceAuthctrl = Get.put(FaceAuthController());
   var masjidListdata = MasjidFinderModel().obs;
-   var uid=instance1.guid.obs;
+  var uid = instance1.guid.obs;
+
   // RxList filteredMasjidList = [].obs;
   //TODO: Implement MasjidFinderController
   // var seller_list_model=SelllerListModel().obs;
@@ -60,12 +61,12 @@ class MasjidFinderController extends GetxController {
   //   return masjidList.where((masjid) => masjid.name.toLowerCase().contains(query.toLowerCase())).toList().obs;
   // }
 
-  masjidFinder_get(String value) async {
+  masjidFinder_get(String value,masjidId) async {
     masjidListdata.value.getMasjidFilter = null;
     isLoading.value = true;
     var header = """
-query Get_masjid_filter(\$searchBy: String) {
-  get_masjid_filter(search_by: \$searchBy) {
+query Get_masjid_filter(\$searchBy: String, \$id: String) {
+  get_masjid_filter(search_by: \$searchBy, id_: \$id) {
     area
     id
     masjid_image
@@ -77,7 +78,10 @@ query Get_masjid_filter(\$searchBy: String) {
   }
 }
     """;
-    var body = {"searchBy": "${value}"};
+    var body = {
+      "searchBy": "${value}",
+      "id": "${masjidId}"
+    };
     var res = await _restCallController.gql_query(header, body);
     print("lllll");
     log(json.encode(res));
@@ -110,16 +114,17 @@ mutation Mutation(\$masjidid: String, \$profileImage: String, \$firstName: Strin
       "language": _langctrl.selectedLang.value,
       "userType": "member",
       "authUid": "",
-      "phoneNumber": "+${_signctrl.selectedCountry.value.phoneCode}${_signctrl.phoneCtrl.value.text}",
+      "phoneNumber":
+          "+${_signctrl.selectedCountry.value.phoneCode}${_signctrl.phoneCtrl.value.text}",
       "addAddress": {
-      "address_type": "primary",
-      "area": "",
-      "country": "",
-      "district": "",
-     "door_no": "",
-     "pincode": "",
-     "state": "",
-     "street_name": ""
+        "address_type": "primary",
+        "area": "",
+        "country": "",
+        "district": "",
+        "door_no": "",
+        "pincode": "",
+        "state": "",
+        "street_name": ""
       }
     };
     var res = await _restCallController.gql_mutation(header, body);
@@ -131,12 +136,13 @@ mutation Mutation(\$masjidid: String, \$profileImage: String, \$firstName: Strin
     }
     return;
   }
+
   loginGmail(String? id) async {
-  print('ss${instance1.guid}');
-  print('ss${instance1.gemail}');
-  print('ss${instance1.gname}');
-  print('ss${id}');
-  print('ss${_langctrl.selectedLang.value}');
+    print('ss${instance1.guid}');
+    print('ss${instance1.gemail}');
+    print('ss${instance1.gname}');
+    print('ss${id}');
+    print('ss${_langctrl.selectedLang.value}');
     var header = """
 mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$masjidid: String, \$gmail: String, \$userName: String) {
   Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_type_: \$userType, masjidid_: \$masjidid, gmail_: \$gmail, user_name_: \$userName) {
@@ -159,11 +165,11 @@ mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$ma
     var res = await _restCallController.gql_mutation(header, body);
     print("wwww${res}");
 
-  if (res.toString().contains("SUCCESS")) {
-    var hh = res["SUCCESS"]["Login_With_Gmail"]["message"];
-    toast(error: "SUCCESS", msg: "${hh}");
-    Get.offAllNamed(Routes.MASJID_REQUEST);
-  }
+    if (res.toString().contains("SUCCESS")) {
+      var hh = res["SUCCESS"]["Login_With_Gmail"]["message"];
+      toast(error: "SUCCESS", msg: "${hh}");
+      Get.offAllNamed(Routes.MASJID_REQUEST);
+    }
 
     // if (res.toString().contains("SUCCESS")) {
     //   var hh = res["SUCCESS"]["Register_User"]["message"];
@@ -174,5 +180,4 @@ mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$ma
     // }
     return res;
   }
-
 }

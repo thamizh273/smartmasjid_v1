@@ -12,6 +12,7 @@ import '../../../../widgets/bgcontainer_auth.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/masjid_finder_controller.dart';
+import 'barcodeQrPage.dart';
 
 class MasjidFinderView extends StatelessWidget {
   MasjidFinderView({Key? key}) : super(key: key);
@@ -32,23 +33,28 @@ class MasjidFinderView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Column(
-                      children: [
-                        SvgPicture.asset(
-                          "assets/svg/scanner.svg",
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "Scan",
-                          style: TextStyle(
-                              color: Theme
-                                  .of(context)
-                                  .colorScheme
-                                  .secondary),
-                        )
-                      ],
+                    GestureDetector(
+                      onTap: (){
+                        Get.to(barcodeQrScanner());
+                      },
+                      child: Column(
+                        children: [
+                          SvgPicture.asset(
+                            "assets/svg/scanner.svg",
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "Scan",
+                            style: TextStyle(
+                                color: Theme
+                                    .of(context)
+                                    .colorScheme
+                                    .secondary),
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -103,18 +109,18 @@ class MasjidFinderView extends StatelessWidget {
                                   fontWeight: FontWeight.w600),
                               onCityChanged: (value) {
                                 c.selectedCity.value = value;
-                                c.masjidFinder_get(value);
+                                c.masjidFinder_get(value,"");
                                 c.update();
                               },
                               onCountryChanged: (value) {
                                 c.searchctrl_.value.text = "";
                                 c.selectedCountry.value = value;
-                                c.masjidFinder_get("null");
+                                c.masjidFinder_get("null","");
                                 c.update();
                               },
                               onStateChanged: (value) {
                                 c.selectedState.value = value;
-                                c.masjidFinder_get("null");
+                                c.masjidFinder_get("null","");
                                 c.update();
                               },
                             ),
@@ -208,7 +214,7 @@ class MasjidFinderView extends StatelessWidget {
                     onChanged: (value) {
                       c.searchQuery.value = value;
 
-                      c.masjidFinder_get(value);
+                      c.masjidFinder_get(value,"");
                       c.update();
                       // Future.delayed(Duration(milliseconds: 500),(){
                       //   c.isLoading.value=true;
