@@ -73,8 +73,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                     // backgroundColor: Color(0xff16627C),
                     leading: GestureDetector(
                         onTap: () {
-                          // Navigator.of(context).pop(
-                          //      MaterialPageRoute(builder: (_) => HomeView()));
+
                           if (c.isSearchEnabled.value) {
                             // Disable search if it is enabled
                             c.isSearchEnabled.value = false;
@@ -668,7 +667,9 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                       //   ),
                                                       // ),
                                                       // Space(8),
-                                                      Image.asset("assets/images/alltext.png", color: Colors.black, scale: 12,),
+                                                      for(var q in c.images)
+                                                        (q['sura'].toString().contains(sura.suraNameEn))?
+                                                      Image.asset("${q['image']}", color: Colors.black, scale: 12,): Container(),
                                                       Space(8),
                                                       Padding(
                                                         padding:
