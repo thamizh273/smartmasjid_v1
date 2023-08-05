@@ -767,6 +767,28 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                               .end,
                                           children: [
                                             // Space(8),
+                                            ...c.pages.map((e) =>
+                                            e['verse'] == juz.versesKey ? Center(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .circular(
+                                                        4),
+                                                    color: Theme
+                                                        .of(context)
+                                                        .primaryColor
+                                                ),
+                                                height: 30,
+                                                width: 70,
+                                                child: Center(
+                                                    child: Text("Page ${e['no']}",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight
+                                                              .w600),)),
+                                              ),
+                                            ) : Container()).toList(),
+                                            Space(40),
                                             Icon(
                                               Icons.play_circle,
                                               color: Theme

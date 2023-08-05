@@ -63,6 +63,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   flutter_native_image: ^0.0.6+1
   flutter_image_compress: ^2.0.4
+  share_plus: ^7.1.0
 
 
 

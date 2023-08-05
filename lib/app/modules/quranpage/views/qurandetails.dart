@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
@@ -902,13 +903,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                 PopupMenuItem(
                                                     child: GestureDetector(
                                                       onTap: () {
-                                                        c.copyText(
-                                                            "${c.getqurandetail
-                                                                .value
-                                                                .getQuranAyahVerse![0]
-                                                                .ayahList![0].arabicText} ${sura
-                                                                .versesKey}${sura
-                                                                .engTranslation}");
+                                                       c.copyToClipboard(index);
                                                         Navigator.pop(context);
                                                       },
                                                       child: Row(
@@ -932,12 +927,18 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                         ],
                                                       ),
                                                     )),
-                                                PopupMenuItem(child: Row(
-                                                  children: [
-                                                    Icon(Icons.share),
-                                                    Space(12),
-                                                    Text("Share"),
-                                                  ],
+                                                PopupMenuItem(child: GestureDetector(
+                                                  onTap: (){
+                                                    c.shareMessage(index);
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(Icons.share),
+                                                      Space(12),
+                                                      Text("Share"),
+                                                    ],
+                                                  ),
                                                 )),
                                                 // PopupMenuItem(
                                                 //     child: GestureDetector(
@@ -1211,7 +1212,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       return SizedBox(
                                           width: .9.sw,
                                           child: Align(
-                                              alignment: Alignment.center,
+                                              alignment: Alignment.centerLeft,
                                               child:
                                               c.isCheckedEnglish.value ==
                                                   true
