@@ -51,7 +51,7 @@ class HomeView extends StatelessWidget {
                   ),
                 ),
                 leading: GestureDetector(
-                  onTap: () =>         controller.openDrawer() ,
+                  onTap: () =>controller.openDrawer() ,
                   onDoubleTap: () {
 
                     Get.toNamed(Routes.SPLASH_SCREEN);
@@ -151,12 +151,13 @@ class HomeView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     SizedBox(
-                                      height: 10.h,
+                                      height: 20.h,
                                     ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
+                                        Space(2),
                                         GestureDetector(
                                           onTap: () {
                                             Get.toNamed(
@@ -190,8 +191,10 @@ class HomeView extends StatelessWidget {
                                               "assets/svg/settingsnew.svg",
                                               height: 60.h),
                                         ),
+                                        Space(2),
                                       ],
                                     ),
+                                    Space(8),
                                     PrayerTimes(),
                                     Events(
                                         carouselController:

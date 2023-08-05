@@ -7,10 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
 import '../model/quran_detail_model.dart';
 import '../model/quran_juz_detail_model.dart';
+import '../model/quran_juz_model.dart';
+import '../model/quran_juz_model.dart';
 import '../model/quran_juz_model.dart';
 import '../model/quran_model.dart';
 import '../views/qurandetails.dart';
@@ -39,12 +42,12 @@ class QuranpageController extends GetxController {
   RxBool isLoadings1 = false.obs;
   RxBool isLoadingsJuz = false.obs;
   var isLoading = false.obs;
-  var isSearchEnabled = false.obs;
+  // var isSearchEnabled = false.obs;
   var getqurandata = QuranModel().obs;
   var getqurandetail = QuranDetailModel().obs;
   var getquranjuz = QuranJuzModel().obs;
   var getquranjuzdetail = QuranJuzDetailModel().obs;
-  var searchQuery = ''.obs;
+  // var searchQuery = ''.obs;
   var isChecked = false.obs;
   var fontAmiri = "".obs;
   var fontKalam = "".obs;
@@ -69,8 +72,22 @@ class QuranpageController extends GetxController {
   var item = <String>[].obs;
   RxInt currentIndex = 0.obs;
   PageController pageController = PageController();
+  final TextEditingController searchController = TextEditingController();
+  final TextEditingController searchjuzController = TextEditingController();
+  final Rx<QuranModel> items = QuranModel().obs;
+  final RxList<GetQuranAyahVerse> share = <GetQuranAyahVerse>[].obs;
+  final RxList<QuranFilter> filteredItems = <QuranFilter>[].obs;
+  final RxList<GetQuranJuzChapter> filteredjuzItems = <GetQuranJuzChapter>[].obs;
+  final RxString savedSearchQuery = ''.obs;
+  final RxBool isSearchEnabled = false.obs;
+  final RxString searchQuery = ''.obs;
 
-
+  void shareMessage(index) {
+    Share.share("${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
+        "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].arabicText}"
+        "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].engTranslation}"
+        "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].tamilTranslation}");
+  }
 
   Future<void> fetchMoreData() async {
     if (isLoading.value) return; // Avoid multiple requests
@@ -89,8 +106,10 @@ class QuranpageController extends GetxController {
     isLoading.value = false;
   }
   var copy = [].obs;
-  void copyToClipboard(var index) {
-      Clipboard.setData(ClipboardData(text: "${copy}"));
+  void copyToClipboard(index) {
+      Clipboard.setData(ClipboardData(text:"${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
+          "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].arabicText}"
+          "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].engTranslation}"));
     Get.snackbar('Copied', 'Text copied to clipboard!',
         backgroundColor: Colors.green,
         colorText: Colors.white,
@@ -160,9 +179,19 @@ void changeFontFamily(String family) {
   void toggleSearch() {
     isSearchEnabled.value = !isSearchEnabled.value;
     if (!isSearchEnabled.value) {
-      // Clear the search query when disabling search
-      searchQuery.value = '';
+      clearSearch();
+    } else {
+      // Set back the previous search query
+      c.searchQuery.value = c.savedSearchQuery.value;
     }
+  }
+
+  void clearSearch() {
+    isSearchEnabled.value = false;
+    searchQuery.value = '';
+    filteredItems.assignAll(getqurandata.value.quranFilter!);
+    // Clear the saved search query
+    savedSearchQuery.value = '';
   }
 
   @override
@@ -176,7 +205,37 @@ void changeFontFamily(String family) {
     // quranjuzdetailList();
     // quranjuzdetailList();
     // debounce(searchQuery, (_) => filterList(), time: Duration(milliseconds: 500));
+    filteredItems.assignAll(getqurandata.value.quranFilter!);
+    filteredjuzItems.assignAll(getquranjuz.value.getQuranJuzChapter!);
+    searchController.addListener(filteredItems);
+    searchjuzController.addListener(filteredjuzItems);
     super.onInit();
+  }
+
+  void filterItems() {
+    final query = searchController.text.toLowerCase();
+    if (query.isEmpty) {
+      filteredItems.assignAll(getqurandata.value.quranFilter!);
+    } else {
+      final List<QuranFilter> filteredList = getqurandata.value.quranFilter!.where((QuranFilter item) {
+        return item.suraNameEn!.toLowerCase().contains(query) || // Add more conditions if needed
+            item.suraNameArb!.toLowerCase().contains(query);
+      }).toList();
+      filteredItems.assignAll(filteredList);
+    }
+  }
+  void filterjuzItems() {
+    final query = searchjuzController.text.toLowerCase();
+    if (query.isEmpty) {
+      filteredjuzItems.assignAll(getquranjuz.value.getQuranJuzChapter!);
+      filteredjuzItems.assignAll(getquranjuz.value.getQuranJuzChapter!);
+    } else {
+      final List<GetQuranJuzChapter> filteredjuzList = getquranjuz.value.getQuranJuzChapter!.where((GetQuranJuzChapter item) {
+        return item.juzNameEn!.toLowerCase().contains(query) || // Add more conditions if needed
+            item.juzNameArb!.toLowerCase().contains(query);
+      }).toList();
+      filteredjuzItems.assignAll(filteredjuzList);
+    }
   }
 
 
@@ -488,6 +547,39 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     {"sura": "Al-Falaq", "image":"assets/images/113. Al-Falaq.png"},
     {"sura": "AnNas", "image":"assets/images/114. An-last.png"},
    ];
+
+
+  var juz = [{"juz": "Alif Laam Meem", "image":"assets/images/Juz 1.png"},
+    {"juz": "Sayaqūl", "image":"assets/images/Juz 2.png"},
+    {"juz": "Tilka -r-rusul", "image":"assets/images/Juz 3.png"},
+    {"juz": "Lan Tana Lu", "image":"assets/images/Juz 4.png"},
+    {"juz": "W-al-muḥṣanāt", "image":"assets/images/Juz 5.png"},
+    {"juz": "Lā yuẖibbu-llāh", "image":"assets/images/Juz 6.png"},
+    {"juz": "Wa ʾidha samiʿū", "image":"assets/images/Juz 7.png"},
+    {"juz": "Wa law ʾannanā", "image":"assets/images/Juz 8.png"},
+    {"juz": "Qāl al-malāʾ", "image":"assets/images/Juz 9.png"},
+    {"juz": "W-aʿlamū", "image":"assets/images/Juz 10.png"},
+    {"juz": "Yaʾtadhirūna", "image":"assets/images/Juz 11.png"},
+    {"juz": "Wa mā min dābbah", "image":"assets/images/juz 12.png"},
+    {"juz": "Wa mā ʾubarriʾu", "image":"assets/images/Juz 13.png"},
+    {"juz": "Ruba Maʾ", "image":"assets/images/Juz 14.png"},
+    {"juz": "Subḥāna -lladhi", "image":"assets/images/Juz 15.png"},
+    {"juz": "Qāla ʾa-lam", "image":"assets/images/Juz 16.png"},
+    {"juz": "Iqtaraba li-n-nās", "image":"assets/images/Juz 17.png"},
+    {"juz": "Qad ʾaflaḥa", "image":"assets/images/Juz 18.png"},
+    {"juz": "Wa-qāla -lladhīna", "image":"assets/images/Juz 19.png"},
+    {"juz": "Amman khalaqa", "image":"assets/images/Juz 20.png"},
+    {"juz": "Otlu maa oohiya", "image":"assets/images/Juz 21.png"},
+    {"juz": "Wa-man yaqnut", "image":"assets/images/Juz 22.png"},
+    {"juz": "Wama liya", "image":"assets/images/Juz 23.png"},
+    {"juz": "Fa-man ʾaẓlamu", "image":"assets/images/Juz 24.png"},
+    {"juz": "ʾIlaihi yuraddu", "image":"assets/images/Juz 25.png"},
+    {"juz": "Ḥāʾ Mīm", "image":"assets/images/Juz 26.png"},
+    {"juz": "Qāla fa-mā khatbukum", "image":"assets/images/Juz 27.png"},
+    {"juz": "Qad samiʿa -llāhu", "image":"assets/images/Juz 28.png"},
+    {"juz": "Tabāraka -lladhi", "image":"assets/images/Juz 29.png"},
+    {"juz": "ʿAmma", "image":"assets/images/Juz 30.png"},
+  ];
 
   /// Pages of Quran Surah
 
@@ -929,6 +1021,176 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     {"verse":'40:59',"no":"474"},
     {"verse":'40:67',"no":"475"},
     {"verse":'40:78',"no":"476"},
-
+    {"verse":'41:1',"no":"477"},
+    {"verse":'41:12',"no":"478"},
+    {"verse":'41:21',"no":"479"},
+    {"verse":'41:30',"no":"480"},
+    {"verse":'41:39',"no":"481"},
+    {"verse":'41:47',"no":"482"},
+    {"verse":'42:1',"no":"483"},
+    {"verse":'42:11',"no":"484"},
+    {"verse":'42:16',"no":"485"},
+    {"verse":'42:23',"no":"486"},
+    {"verse":'42:32',"no":"487"},
+    {"verse":'42:45',"no":"488"},
+    {"verse":'42:52',"no":"489"},
+    {"verse":'43:1',"no":"489"},
+    {"verse":'43:11',"no":"490"},
+    {"verse":'43:23',"no":"491"},
+    {"verse":'43:34',"no":"492"},
+    {"verse":'43:48',"no":"493"},
+    {"verse":'43:61',"no":"494"},
+    {"verse":'43:74',"no":"495"},
+    {"verse":'44:1',"no":"496"},
+    {"verse":'44:19',"no":"497"},
+    {"verse":'44:40',"no":"498"},
+    {"verse":'45:1',"no":"499"},
+    {"verse":'45:14',"no":"500"},
+    {"verse":'45:23',"no":"501"},
+    {"verse":'45:33',"no":"502"},
+    {"verse":'46:1',"no":"502"},
+    {"verse":'46:6',"no":"503"},
+    {"verse":'46:15',"no":"504"},
+    {"verse":'46:21',"no":"505"},
+    {"verse":'46:29',"no":"506"},
+    {"verse":'47:1',"no":"507"},
+    {"verse":'47:12',"no":"508"},
+    {"verse":'47:20',"no":"509"},
+    {"verse":'47:30',"no":"510"},
+    {"verse":'48:1',"no":"511"},
+    {"verse":'48:1',"no":"512"},
+    {"verse":'48:1',"no":"513"},
+    {"verse":'48:1',"no":"514"},
+    {"verse":'48:1',"no":"515"},
+    {"verse":'49:1',"no":"515"},
+    {"verse":'49:5',"no":"516"},
+    {"verse":'49:12',"no":"517"},
+    {"verse":'50:1',"no":"518"},
+    {"verse":'50:16',"no":"519"},
+    {"verse":'50:36',"no":"520"},
+    {"verse":'51:1',"no":"520"},
+    {"verse":'51:7',"no":"521"},
+    {"verse":'51:31',"no":"522"},
+    {"verse":'51:52',"no":"523"},
+    {"verse":'52:1',"no":"523"},
+    {"verse":'52:15',"no":"524"},
+    {"verse":'52:32',"no":"525"},
+    {"verse":'53:1',"no":"526"},
+    {"verse":'53:27',"no":"527"},
+    {"verse":'53:45',"no":"528"},
+    {"verse":'54:1',"no":"528"},
+    {"verse":'54:7',"no":"529"},
+    {"verse":'54:28',"no":"530"},
+    {"verse":'54:50',"no":"531"},
+    {"verse":'55:1',"no":"531"},
+    {"verse":'55:17',"no":"532"},
+    {"verse":'55:41',"no":"533"},
+    {"verse":'55:68',"no":"534"},
+    {"verse":'56:1',"no":"534"},
+    {"verse":'56:17',"no":"535"},
+    {"verse":'56:51',"no":"536"},
+    {"verse":'56:77',"no":"537"},
+    {"verse":'57:1',"no":"537"},
+    {"verse":'57:4',"no":"538"},
+    {"verse":'57:12',"no":"539"},
+    {"verse":'57:19',"no":"540"},
+    {"verse":'57:25',"no":"541"},
+    {"verse":'58:1',"no":"542"},
+    {"verse":'58:7',"no":"543"},
+    {"verse":'58:12',"no":"544"},
+    {"verse":'58:22',"no":"545"},
+    {"verse":'59:1',"no":"545"},
+    {"verse":'59:4',"no":"546"},
+    {"verse":'59:10',"no":"547"},
+    {"verse":'59:17',"no":"548"},
+    {"verse":'60:1',"no":"549"},
+    {"verse":'60:6',"no":"550"},
+    {"verse":'60:12',"no":"551"},
+    {"verse":'61:1',"no":"551"},
+    {"verse":'61:6',"no":"552"},
+    {"verse":'62:1',"no":"553"},
+    {"verse":'62:9',"no":"554"},
+    {"verse":'63:1',"no":"554"},
+    {"verse":'63:5',"no":"555"},
+    {"verse":'64:1',"no":"556"},
+    {"verse":'64:10',"no":"557"},
+    {"verse":'65:1',"no":"558"},
+    {"verse":'65:6',"no":"559"},
+    {"verse":'66:1',"no":"560"},
+    {"verse":'66:8',"no":"561"},
+    {"verse":'67:1',"no":"562"},
+    {"verse":'67:13',"no":"563"},
+    {"verse":'67:27',"no":"564"},
+    {"verse":'68:1',"no":"564"},
+    {"verse":'68:16',"no":"565"},
+    {"verse":'68:43',"no":"566"},
+    {"verse":'69:1',"no":"566"},
+    {"verse":'69:9',"no":"567"},
+    {"verse":'69:35',"no":"568"},
+    {"verse":'70:1',"no":"568"},
+    {"verse":'70:11',"no":"569"},
+    {"verse":'70:40',"no":"570"},
+    {"verse":'71:1',"no":"570"},
+    {"verse":'71:11',"no":"571"},
+    {"verse":'72:1',"no":"572"},
+    {"verse":'72:14',"no":"573"},
+{"verse":'73:1',"no":"574"},
+{"verse":"73:20", "no": '575'},
+    {"verse":'74:1',"no":"575"},
+    {"verse":'74:18',"no":"576"},
+    {"verse":'74:47',"no":"577"},
+    {"verse":'75:1',"no":"577"},
+    {"verse":'75:20',"no":"578"},
+    {"verse":'76:1',"no":"578"},
+    {"verse":'76:6',"no":"579"},
+    {"verse":'76:26',"no":"580"},
+    {"verse":'77:1',"no":"580"},
+    {"verse":'77:20',"no":"581"},
+    {"verse":'78:1',"no":"582"},
+    {"verse":'78:31',"no":"583"},
+    {"verse":'79:1',"no":"583"},
+    {"verse":'79:16',"no":"584"},
+    {"verse":'80:1',"no":"585"},
+    {"verse":'81:1',"no":"586"},
+    {"verse":'82:1',"no":"587"},
+    {"verse":'83:1',"no":"587"},
+    {"verse":'83:7',"no":"588"},
+    {"verse":'83:35',"no":"589"},
+    {"verse":'84:1',"no":"589"},
+    {"verse":'85:1',"no":"590"},
+    {"verse":'86:1',"no":"591"},
+    {"verse":'87:1',"no":"591"},
+    {"verse":'87:16',"no":"592"},
+    {"verse":'88:1',"no":"592"},
+    {"verse":'89:1',"no":"593"},
+    {"verse":'89:23',"no":"594"},
+    {"verse":'90:1',"no":"594"},
+    {"verse":'91:1',"no":"595"},
+    {"verse":'92:1',"no":"595"},
+    {"verse":'92:15',"no":"596"},
+    {"verse":'93:1',"no":"596"},
+    {"verse":'94:1',"no":"596"},
+    {"verse":'95:1',"no":"597"},
+    {"verse":'96:1',"no":"597"},
+    {"verse":'97:1',"no":"598"},
+    {"verse":'98:1',"no":"598"},
+    {"verse":'98:8',"no":"599"},
+    {"verse":'99:1',"no":"599"},
+    {"verse":'100:1',"no":"599"},
+    {"verse":'100:10',"no":"600"},
+    {"verse":'101:1',"no":"600"},
+    {"verse":'102:1',"no":"600"},
+    {"verse":'103:1',"no":"601"},
+    {"verse":'104:1',"no":"601"},
+    {"verse":'105:1',"no":"601"},
+    {"verse":'106:1',"no":"602"},
+    {"verse":'107:1',"no":"602"},
+    {"verse":'108:1',"no":"602"},
+    {"verse":'109:1',"no":"603"},
+    {"verse":'110:1',"no":"603"},
+    {"verse":'111:1',"no":"603"},
+    {"verse":'112:1',"no":"604"},
+    {"verse":'113:1',"no":"604"},
+    {"verse":'114:1',"no":"604"},
   ];
 }

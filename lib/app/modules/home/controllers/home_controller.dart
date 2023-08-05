@@ -44,9 +44,9 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   @override
   void onInit() {
 
-  getUserDetails(Get.arguments==null?"":Get.arguments[0]);
+ // getUserDetails(Get.arguments==null?"":Get.arguments[0]);
  //  getUserDetails(Get.arguments[0]);
-  // getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
+   getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
     getPrayerTime();
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
