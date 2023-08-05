@@ -5,8 +5,7 @@ import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../../home/controllers/home_controller.dart';
 
-class SplashScreenController extends GetxController
-    with GetSingleTickerProviderStateMixin {
+class SplashScreenController extends GetxController{
   // late AnimationController animationController;
   // late Animation<double> scaleAnimation;
 

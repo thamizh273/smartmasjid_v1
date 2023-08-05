@@ -85,7 +85,7 @@ class AuthenticationRespository extends GetxController {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      UserCredential userCredential= await FirebaseAuth.instance.signInWithCredential(credential);
+      UserCredential userCredential= await _auth.signInWithCredential(credential);
        guid = userCredential.user!.uid;
        gemail = userCredential.user!.email!;
        gname = userCredential.user!.displayName!;

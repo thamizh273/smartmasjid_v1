@@ -19,11 +19,11 @@ class LoginPageView extends GetView<LoginPageController> {
 
   final signctrl = Get.put<SignupPageController>(SignupPageController());
 
-  storeTokenLocally(String apiToken) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('api_token', apiToken);
-    Get.offAll(Routes.HOME); // Navigate to the HomeScreen after login
-  }
+  // storeTokenLocally(String apiToken) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString('api_token', apiToken);
+  //   Get.offAll(Routes.HOME); // Navigate to the HomeScreen after login
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +177,7 @@ class LoginPageView extends GetView<LoginPageController> {
                       ),
                       child: Obx(() {
                         return Text(
-                          (controller.isLoading.value ||
+                          (controller.isLoading.value &&
                                   controller.isLoading1.value)
                               ? "Wait"
                               : "Login",

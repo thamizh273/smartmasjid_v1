@@ -87,6 +87,8 @@ query Login_User(\$password: String, \$byEmail: String) {
       if(res.toString().contains("Login_User"))  {
         var hh =res["Login_User"]["message"];
          toast(error: "SUCCESS", msg: "${hh}");
+        print("ff");
+        print( getUserId.value.loginUser!.userId);
 
      await Get.offAllNamed(Routes.HOME,arguments: [ getUserId.value.loginUser!.userId]);
         // print("ff");
@@ -131,10 +133,10 @@ query Login_User(\$password: String, \$byPhone: String) {
       if(res.toString().contains("Login_User"))  {
         var hh =res["Login_User"]["message"];
          toast(error: "SUCCESS", msg: "${hh}");
-
+       // print("ff");
+      //  print( getUserId.value.loginUser!.userId);
      await Get.offAllNamed(Routes.HOME,arguments: [getUserIdMobile.value.loginUser!.userId]);
-        // print("ff");
-        // print(getUserId.value.loginUser!.userId);
+
    }
 
 

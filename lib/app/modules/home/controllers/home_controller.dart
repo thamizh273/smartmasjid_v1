@@ -1,24 +1,25 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:typed_data';
+
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+
+
 import 'package:smartmasjid_v1/app/authRepository.dart';
 import 'package:smartmasjid_v1/app/modules/home/Model/prayerTimesModel.dart';
 import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_controller.dart';
-import 'package:smartmasjid_v1/app/modules/prayerpage/Model/PrayerPageModel.dart';
+
 import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../Model/getUserModel.dart';
 
-import 'package:flutter_hooks/flutter_hooks.dart';
 class HomeController extends GetxController with GetSingleTickerProviderStateMixin{
   //TODO: Implement HomeController
   final _restCallController = Get.put(restCallController());
   final _authCtrl = Get.put(AuthenticationRespository());
+  final _la = Get.put(LoginPageController());
 
 
 
@@ -39,12 +40,32 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   RxString nearestDuration = ''.obs;
   RxString nearestDuration1 = ''.obs;   var rrr="".obs;
  //var uid= Get.arguments[0];
-  var uid= "";
+  var uid=FirebaseAuth.instance.currentUser;
+   var hh=Get.arguments;
+  final box1 = GetStorage();
 
   @override
   void onInit() {
 
-  getUserDetails(Get.arguments==null?"":Get.arguments[0]);
+
+   if(hh==null&&box1.read('fruits')==null&&FirebaseAuth.instance.currentUser==null){
+    return;
+   }
+   if(hh !=null){
+     box1.write("fruits",hh[0]);
+     getUserDetails(hh[0],"");
+
+   }
+   if(  box1.read('fruits')!=null){
+     getUserDetails( box1.read('fruits'),"");
+
+   }
+   if(FirebaseAuth.instance.currentUser!=null){
+
+     getUserDetails("",FirebaseAuth.instance.currentUser!.uid);
+   }
+  // var ggg=box1.read('fruits')==null?hh[0]: box1.read('fruits');
+
  //  getUserDetails(Get.arguments[0]);
   // getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
     getPrayerTime();
@@ -111,10 +132,17 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
     //  print(kk);
     return sss ;
   }
-  final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
-  getUserDetails(k) async {
+
+  getUserDetails(passwordlogin,glogin) async {
+
+    final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
+    // var jjj = box1.read('fruits');
+   // print('Stored list: $jjj');
 
     isloading.value=true;
+
+
+    print("hhhhh $passwordlogin");
     var header="""
 query Query(\$id: String, \$authId: String) {
   Get_User_By_Id(id_: \$id, auth_id_: \$authId) {
@@ -159,8 +187,8 @@ query Query(\$id: String, \$authId: String) {
 }
     """;
     var body ={
-      "id": "${k}",
-      "authId": "${user}"
+      "id": "${passwordlogin}",
+      "authId": "$glogin"
      // "id": "$k"
     };
     var res = await  _restCallController.gql_query(header, body);
@@ -168,6 +196,7 @@ query Query(\$id: String, \$authId: String) {
     print("getUser");
     log(json.encode(res));
     print("getUser");
+
    getUserData.value=getUserModelFromJson(json.encode(res));
 
 

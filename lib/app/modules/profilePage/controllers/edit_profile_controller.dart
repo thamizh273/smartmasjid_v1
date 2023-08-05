@@ -4,16 +4,19 @@ import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import 'package:smartmasjid_v1/app/rest_call_controller/rest_call_controller.dart';
 
+import '../../../authRepository.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../../home/Model/getUserModel.dart';
 
 class EditProfileController extends GetxController {
   static HomeController get homectrl => Get.find();
+  static AuthenticationRespository get authen => Get.find();
 
   RxBool isLoading = false.obs;
   RxBool isLoadingLogout = false.obs;
@@ -49,7 +52,8 @@ class EditProfileController extends GetxController {
 
   @override
   void onInit() {
-    homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id);
+   // homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id);
+   homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id,"");
     super.onInit();
     dobController.text =
         "${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}";
@@ -74,27 +78,66 @@ class EditProfileController extends GetxController {
     } else {
       _file = await ImagePicker().pickImage(source: ImageSource.gallery);
     }
-
     if (_file != null) {
-      image.value = XFile(_file.path);
-      var rr = XFile(_file.name);
-      print('fffff ${image.value}');
-      print('fffff ${rr}');
-      isPicked.value = true;
+      // Perform image cropping
+      CroppedFile? croppedFile = await ImageCropper().cropImage(
+          sourcePath: _file.path,
+          aspectRatioPresets: [
+            CropAspectRatioPreset.square,
+            CropAspectRatioPreset.ratio3x2,
+            CropAspectRatioPreset.original,
+            CropAspectRatioPreset.ratio4x3,
+            CropAspectRatioPreset.ratio16x9
+          ],
+          uiSettings: [
+            AndroidUiSettings(
+              toolbarTitle: 'Crop Image',
+              toolbarColor: Colors.deepOrange,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false,
+            ),
+            IOSUiSettings(
+              minimumAspectRatio: 1.0,
+            ),]
+      );
+
+      if (croppedFile != null) {
+        _file = XFile(croppedFile.path);
+      }
     }
-    if (image.value.path.isNotEmpty) {
+    if (_file != null) {
+      image.value = _file;
+      isPicked.value = true;
+
+
       Uint8List bytes = await image.value.readAsBytes();
       base64Image = base64Encode(bytes);
-      log("imagess ${bytes}");
-      print("imagess");
-      log(base64Image!);
-      print("imagess");
       updateProfilePic(base64Image);
       update();
     } else {
-      toast(error: "Failed", msg: "Image not Selected");
       print("Image not Selected");
     }
+    // if (_file != null) {
+    //   image.value = XFile(_file.path);
+    //   var rr = XFile(_file.name);
+    //   print('fffff ${image.value}');
+    //   print('fffff ${rr}');
+    //   isPicked.value = true;
+    // }
+    // if (image.value.path.isNotEmpty) {
+    //   Uint8List bytes = await image.value.readAsBytes();
+    //   base64Image = base64Encode(bytes);
+    //   log("imagess ${bytes}");
+    //   print("imagess");
+    //   log(base64Image!);
+    //   print("imagess");
+    //   updateProfilePic(base64Image);
+    //   update();
+    // } else {
+    //   toast(error: "Failed", msg: "Image not Selected");
+    //   print("Image not Selected");
+    // }
   }
   logout() async {
     isLoadingLogout.value = true;
@@ -114,6 +157,13 @@ class EditProfileController extends GetxController {
     // homectrl.getUserData.value.getUserById!.profileImage = base64images;
     // homectrl.update();
     await GoogleSignIn().signOut();
+    await authen.auth_.signOut();
+
+    homectrl.box1.remove('fruits');
+      // Convert to a regular List before updating GetStorage
+
+      update(); // Notify GetX that the state has changed
+
     homectrl.getUserData.value.getUserById!.id='';
     homectrl.getUserData.value.getUserById!.liveStatus=false;
     homectrl.getUserData.value.getUserById=null;
