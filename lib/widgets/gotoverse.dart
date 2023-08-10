@@ -26,287 +26,322 @@ Future GotoVerse(BuildContext context) {
                 topRight: Radius
                     .circular(
                     32))),
-        child: Column(
-          children: [
-            Row(
-              crossAxisAlignment:
-              CrossAxisAlignment
-                  .start,
-              children: [
-                SizedBox(
-                  width: 170.w,
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment
-                            .bottomCenter,
-                        height: 60,
-                        child:
-                        GestureDetector(
-                          onTap: () {
-                            // getQuranChaptersList();
-                          },
-                          child: Text(
-                            'Surah',
-                            style:
-                            TextStyle(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      alignment: Alignment
+                          .bottomCenter,
+                      height: 60,
+                      child:
+                      GestureDetector(
+                        onTap: () {
+                          // getQuranChaptersList();
+                        },
+                        child: Text(
+                          'Surah',
+                          style:
+                          TextStyle(
                               color: Colors
                                   .white,
                               fontSize:
                               20.0,
-                            ),
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                       ),
-                      Space(20),
-                      SizedBox(
-                          height: c.screenWidth * 0.8,
-                          child: ListView.builder(
-                            controller: c.scrollControllern,
-                            itemCount: c.getqurandata.value.quranFilter!.length,
-                            itemBuilder:
-                                (context,
-                                index) {
-                              var sura = c.getqurandata.value
-                                  .quranFilter![index].suraNameEn;
-                              var chap = c.getqurandata.value
-                                  .quranFilter![index].suraChapterNo;
-                              return Obx(() {
-                                return Container(
-                                  // Replace this with your color logic
-                                  color: c.currentSelected.value ==
-                                      index
-                                      ? Color(0xffEBEBEB)
-                                      : Color(0xff16627C),
-                                  child:
-                                  ListTile(
-                                    dense:
-                                    true,
-                                    title:
-                                    Row(
-                                      children: [
-                                        Text(
-                                          chap!,
-                                          style: TextStyle(
-                                            color: c.currentSelected.value ==
-                                                index
-                                                ? Color(0xff16627C)
-                                                : Colors.white,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          sura!,
-                                          style: TextStyle(
-                                            color: c.currentSelected.value ==
-                                                index
-                                                ? Color(0xff16627C)
-                                                : Colors.white,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    onTap:
-                                        () {
-                                      c.currentSelected.value =
-                                          index;
-                                      c.update();
-                                    },
-                                  ),
-                                );
-                              });
-                            },
-                          )
-                      ),
-                    ],
-                  ),
-                ),
-                // VerticalDivider(width: 1,
-                //     color: Colors.black),
-                SizedBox(
-                  width: 80.w,
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment
-                            .bottomCenter,
-                        height: 60,
+                    ),
+                    Space(2),
+                    Container(
+                      alignment: Alignment
+                          .bottomCenter,
+                      height: 60,
+                      child:
+                      GestureDetector(
+                        onTap: () {
+                          // getQuranChaptersList();
+                        },
                         child: Text(
                           'Ayah',
                           style:
                           TextStyle(
-                            color: Colors
-                                .white,
-                            fontSize:
-                            20.0,
+                              color: Colors.white,
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: c.screenWidth * 0.84,
-                        child: Scrollbar(
-                          thumbVisibility: false,
-                          interactive: true,
-                          thickness: 8,
-                          controller: c.scrollControllerbot1,
-                          radius: Radius
-                              .circular(
-                              20),
-                          child: ListView
-                              .builder(
-                            controller: c
-                                .scrollControllerbot1,
-                            shrinkWrap:
-                            true,
-                            itemCount: c.currentSelected
-                                .value ==
-                                c.currentSelected
-                                    .value
-                                ? int.parse(
-                                "${c.getqurandata.value.quranFilter![c
-                                    .currentSelected.value].totalVerses}")
-                                : 0,
-                            itemBuilder:
-                                (context,
-                                index) {
-                              // Replace this with your data item
-                              return ListTile(
-                                dense:
-                                false,
-                                title:
-                                Center(
-                                  child:
-                                  Text(
-                                    (index + 1)
-                                        .toString(),
-                                    style:
-                                    TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                                onTap:
-                                    () {
-                                  // Handle item tap event
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // VerticalDivider(width: 1,
-                //     color: Colors.black),
-                Space(16),
-                SizedBox(
-                  width: 60.w,
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment
-                            .bottomCenter,
-                        height: 60,
+                    ),
+                    // Space(2),
+                    Container(
+                      alignment: Alignment.bottomCenter,
+                      height: 60,
+                      child: GestureDetector(
+                        onTap: () {
+                          // getQuranChaptersList();
+                        },
                         child: Text(
                           'Pages',
                           style:
                           TextStyle(
-                            color: Colors
-                                .white,
-                            fontSize:
-                            20.0,
+                              color: Colors
+                                  .white,
+                              fontSize:
+                              20.0,
+                              fontWeight: FontWeight.w600
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: c.screenWidth * 0.84,
-                        child: Scrollbar(
-                          interactive: true,
-                          thumbVisibility: false,
-                          thickness: 8,
-                          controller: c.scrollControllerbot2,
-                          radius: Radius
-                              .circular(
-                              20),
-                          child: ListView
-                              .builder(
-                            controller: c
-                                .scrollControllerbot2,
-                            shrinkWrap:
-                            true,
-                            itemCount: 604,
-                            itemBuilder:
-                                (context,
-                                index) {
-                              final circularIndex = index %
-                                  (604);
-                              return ListTile(
-                                dense:
-                                false,
-                                title:
-                                Center(
-                                  child:
-                                  Text(
-                                    (circularIndex + 1).toString(),
-                                    style:
-                                    TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                                onTap:
-                                    () {
-                                  // Handle item tap event
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                    // Space(1)
+                  ],
                 ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              ),
+              Space(16),
+
+              Row(
                 children: [
                   Obx(() {
-                    var sura = c.getqurandata.value
-                        .quranFilter![0].suraNameEn;
-                    return ElevatedButton(
-                        onPressed: () {
+                    return SizedBox(
+                      width: c.screenWidth * 0.43,
+                      height: 250.h,
+                      child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: Center(
+                                child: Container(
+                                  width: 150, // Adjust the width as needed
+                                  height: 40, // Adjust the height as needed
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.1),
+                                    shape: BoxShape.rectangle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            ListWheelScrollView.useDelegate(
+                              controller: FixedExtentScrollController(
+                                initialItem: c.getqurandata.value.quranFilter!
+                                    .length *
+                                    100, // Initial item index for continuous scrolling
+                              ),
+                              childDelegate: ListWheelChildBuilderDelegate(
+                                childCount: c.getqurandata.value.quranFilter!
+                                    .length * 200,
+                                builder: (BuildContext context, int index) {
+                                  var adjustedIndex = index % c.getqurandata.value.quranFilter!.length;
+                                  var sura = c.getqurandata.value.quranFilter![adjustedIndex].suraNameEn;
+                                  var chap = c.getqurandata.value.quranFilter![adjustedIndex].suraChapterNo;
+                                  return Container(
+                                    child:
+                                    ListTile(
+                                      dense: true,
+                                      title: Row(
+                                        children: [
+                                          Text(
+                                            "${chap!}.",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            sura!,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              useMagnifier: true,
+                              magnification: 1.1,
+                              diameterRatio: 3,
+                              itemExtent: 50,
+                              onSelectedItemChanged: (adjustedIndex) {
+                                // Handle selected day change
+                                c.currentSelected.value = adjustedIndex  % c.getqurandata.value.quranFilter!.length;
+                                // c.currentVerseSelected.value = -1;
+                              },
+                              physics: FixedExtentScrollPhysics(),
+                            ),
 
-                        },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(130, 30),
-                          backgroundColor: Theme
-                              .of(context)
-                              .colorScheme
-                              .secondary,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          elevation: 4.0,
-                        ),
-                        child: Text(
-                          "Go To Surah",
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Theme
-                                  .of(context)
-                                  .primaryColor),
-                        ));
+                          ]
+                      ),
+
+                    );
                   }),
+                  Obx(() {
+                    return SizedBox(
+                      width: c.screenWidth * 0.17,
+                      height: 250.h,
+                      child: Stack(
+                          children: [
+                            Positioned.fill(
+                              child: Center(
+                                child: Container(
+                                  width: 100, // Adjust the width as needed
+                                  height: 40, // Adjust the height as needed
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.1),
+                                    shape: BoxShape.rectangle,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            ListWheelScrollView.useDelegate(
+                              controller: FixedExtentScrollController(
+                                initialItem:(
+                                    int.parse(
+                                        "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}") * 100),
+                              ),
+                              childDelegate: ListWheelChildBuilderDelegate(
+                                childCount: c.currentSelected.value ==
+                                    c.currentSelected.value
+                                    ? int.parse(
+                                    "${c.getqurandata.value.quranFilter![c
+                                        .currentSelected.value].totalVerses}") * 200 : 0,
+
+                                builder: (BuildContext context, int index) {
+                                  var adjustedIndex = index % int.parse(
+                                      "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}" );
+                                  return ListTile(
+                                    dense: false,
+                                    title: Center(
+                                      child: Text(
+                                        (adjustedIndex + 1).toString(),
+                                        style:
+                                        TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                              useMagnifier: true,
+                              magnification: 1.2,
+                              diameterRatio: 3,
+                              itemExtent: 50,
+                              onSelectedItemChanged: (adjustedIndex) {
+
+                              },
+                              physics: FixedExtentScrollPhysics(),
+                            ),
+                          ]
+                      ),
+                    );
+                  }),
+                  SizedBox(
+                    width: c.screenWidth * 0.31,
+                    height: 250.h,
+                    child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: Center(
+                              child: Container(
+                                width: 100, // Adjust the width as needed
+                                height: 40, // Adjust the height as needed
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.1),
+                                  shape: BoxShape.rectangle,
+                                ),
+                              ),
+                            ),
+                          ),
+                          ListWheelScrollView.useDelegate(
+                            controller: FixedExtentScrollController(
+                              initialItem:c.pages.length*1 ),// Initial item index for continuous scrolling
+                            childDelegate: ListWheelChildBuilderDelegate(
+                              childCount: c.pages.length*2,
+                              builder: (BuildContext context, int index) {
+                               
+                                return ListTile(
+                                  dense: false,
+                                  title: Center(
+                                    child:
+                                    Text(
+                                      c.pages[index%c.pages.length]['no'].toString(),
+                                      style:
+                                      TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                  onTap:
+                                      () {
+
+                                    // Handle item tap event
+                                  },
+                                );
+                              },
+                            ),
+                            useMagnifier: true,
+                            magnification: 1.2,
+                            diameterRatio: 3,
+                            itemExtent: 50,
+                            onSelectedItemChanged: (adjustedIndex) {
+                           print(adjustedIndex);
+
+                            },
+                            physics: FixedExtentScrollPhysics(),
+                          ),
+                        ]
+                    ),
+
+                  ),
                 ],
               ),
-            )
-          ],
+
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0, top: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                       ElevatedButton(
+                          onPressed: () {
+                            c.scrollController.jumpTo(c.currentSelected.value *
+                                c.pages.length *
+                                1);
+                          },
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(130, 30),
+                            backgroundColor: Theme
+                                .of(context)
+                                .colorScheme
+                                .secondary,
+                            foregroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            elevation: 4.0,
+                          ),
+                          child: Text(
+                            "Go To Surah",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                color: Theme
+                                    .of(context)
+                                    .primaryColor),
+                          ))
+
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       );
     },
   );
 }
+
+

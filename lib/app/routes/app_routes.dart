@@ -38,6 +38,8 @@ abstract class Routes {
   static const DUAPAGE = _Paths.DUAPAGE;
   static const HADITHCHAPTERDETAIL = _Paths.HADITHCHAPTERDETAIL;
   static const EDITPROFILE = _Paths.EDITPROFILE;
+  static const WEATHERDETAIL = _Paths.WEATHERDETAIL;
+  static const MEMBERSHIP = _Paths.MEMBERSHIP;
 }
 
 abstract class _Paths {
@@ -77,4 +79,6 @@ abstract class _Paths {
   static const DUAPAGE = '/duapage';
   static const HADITHCHAPTERDETAIL = '/hadithchapterdetail';
   static const EDITPROFILE = '/editProfile';
+  static const WEATHERDETAIL = '/weatherdetail';
+  static const MEMBERSHIP = '/membership';
 }

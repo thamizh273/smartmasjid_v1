@@ -1,89 +1,328 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:smartmasjid_v1/app/modules/weatherdetail/views/weatherdetail_view.dart';
+import 'package:smartmasjid_v1/app/modules/weatherpage/controllers/weatherpage_controller.dart';
+import 'package:smartmasjid_v1/app/routes/app_pages.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
+import 'package:smartmasjid_v1/widgets/loading.dart';
 
-import 'package:get/get.dart';
-import 'package:smartmasjid_v1/app/modules/addweather/views/addweather_view.dart';
-import 'package:smartmasjid_v1/app/modules/home/views/home_view.dart';
-import 'package:smartmasjid_v1/app/modules/singleweather/views/singleweather_view.dart';
-import 'package:smartmasjid_v1/app/modules/sliderdot/views/sliderdot_view.dart';
+import '../../../../utils/color_utils.dart';
 
-import '../../weatherlocation/views/weatherlocation_view.dart';
-import '../controllers/weatherpage_controller.dart';
 
-class WeatherpageView extends GetView<WeatherpageController> {
-  RxInt _currentPage = 0.obs;
-  void onPageChanged(int index) {
-    _currentPage.value = index;
-  }
+class WeatherpageView extends StatelessWidget {
+  WeatherpageView({super.key});
 
-   WeatherpageView({Key? key}) : super(key: key);
+  WeatherpageController c = Get.put(WeatherpageController());
 
   @override
   Widget build(BuildContext context) {
-    if(locationList[controller.currentPage].WeatherType == 'Cloudy'){
-      controller.bgImg = 'assets/svg/cloudynew.jpg';
-    } else if(locationList[controller.currentPage].WeatherType == 'Night') {
-      controller.bgImg = 'assets/svg/nightback.jpg';
-    }
-    else if(locationList[controller.currentPage].WeatherType == 'Rainy') {
-      controller.bgImg = 'assets/svg/rainynew.jpg';
-    }
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text('Weather',style: TextStyle(color: Colors.white),),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: GestureDetector(
-            onTap: (){
-              Navigator.of(context).pop(MaterialPageRoute(builder: (_) => HomeView()));
-            },
-            child: SvgPicture.asset("assets/svg/backnew.svg", fit: BoxFit.scaleDown)),
-        actions: [
-          IconButton(onPressed: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (_) => AddweatherView()));
-          }, icon: Icon(Icons.add, size: 30, color: Colors.white,))
-        ],
-      ),
-      body: Container(
-        child: Stack(
-          children:[
-            Image.asset(
-              controller.bgImg,
-              fit: BoxFit.cover,
-              height: double.infinity,
-              width: double.infinity,
-            ),
+    return Obx(() {
+      var location = c.getweatherdata.value.getWeatherReport!.location;
+      var degree = c.getweatherdata.value.getWeatherReport!.currentWeatherData!;
+      var hijiri = c.getweatherdata.value.getWeatherReport!.hijriDate;
+      var condition = c.getweatherdata.value.getWeatherReport!.currentWeatherData!.condition!.text;
+      return c.isLoadings.value? loading(context):Scaffold(
+        body: Column(
+          children: [
             Container(
-              decoration: BoxDecoration(color: Colors.black38),
+                height: 560.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                        blurRadius: 6,
+                        spreadRadius: 6,
+                        offset: Offset(0, 4),
+                        color: Colors.grey.shade400
+                    )
+                  ],
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(32),
+                      bottomLeft: Radius.circular(32)),
+                  gradient: LinearGradient(colors: [
+                    hexStringToColor("53899B"),
+                    hexStringToColor("23687F"),
+                  ]),
+                ),
+                child: Padding(
+                    padding: const EdgeInsets.only(
+                        top: 50, left: 16, right: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).pop(MaterialPageRoute(
+                                      builder: (_) => HomeView()));
+                                },
+                                child: SvgPicture.asset(
+                                    "assets/svg/backnew.svg")),
+                            Space(16),
+                            Stxt(text: "Weather",
+                              size: f5,
+                              weight: FontWeight.w600,
+                              color: Colors.white,),
+                            Spacer(),
+                            GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(Routes.ADDWEATHER);
+                                },
+                                child: Icon(
+                                  Icons.add, size: 35, color: Colors.white,))
+                          ],
+                        ),
+                        Space(16),
+                        SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                Container(
+                                    height: 30.h,
+                                    width: 120.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: Colors.white),
+                                    ),
+                                    child: Center(
+                                        child: Stxt(text: "Mumbai,India",
+                                          size: f3,
+                                          color: Colors.white,))
+                                ),
+                                Space(16),
+                                Container(
+                                    height: 30.h,
+                                    width: 120.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: Colors.white),
+                                    ),
+                                    child: Center(child: Stxt(
+                                      text: "${location!.region},${location
+                                          .country}",
+                                      size: f3,
+                                      color: Colors.white,))
+                                ),
+                                Space(16),
+                                Container(
+                                    height: 30.h,
+                                    width: 120.w,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      border: Border.all(color: Colors.white),
+                                    ),
+                                    child: Center(
+                                        child: Stxt(text: "Delhi,India",
+                                          size: f3,
+                                          color: Colors.white,))
+                                ),
+                                Space(16),
+                              ],
+                            )
+                        ),
+                        Space(16),
+                        Image.asset("assets/images/weather.png"),
+                        Text("${degree.maxtempC}\u00B0",
+                          style: TextStyle(
+                              fontSize: 100, color: Colors.white),),
+                        Stxt(
+                          text: "${condition}", size: f4, color: Colors.white,),
+                        Space(4),
+                        Stxt(text: "${hijiri}",
+                          size: f2,
+                          color: Colors.white,),
+                        Space(16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                SvgPicture.asset("assets/svg/wind.svg"),
+                                Space(8),
+                                Stxt(
+                                  text: "${degree.maxwindKph}Km/h",
+                                  size: f3,
+                                  color: Colors.white,),
+                                Space(4),
+                                Stxt(text: "Wind", size: f2, color: Colors.white
+                                    .withOpacity(0.4),),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset("assets/svg/rain.svg"),
+                                Space(8),
+                                Stxt(text: "${degree.dailyChanceOfRain}%",
+                                  size: f3,
+                                  color: Colors.white,),
+                                Space(4),
+                                Stxt(
+                                  text: "Chance of Rain",
+                                  size: f2,
+                                  color: Colors
+                                      .white.withOpacity(0.4),),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Image.asset(
+                                  "assets/images/humidity.png", width: 15,),
+                                Space(8),
+                                Stxt(text: "${degree.avghumidity}%",
+                                  size: f3,
+                                  color: Colors.white,),
+                                Space(4),
+                                Stxt(
+                                  text: "Humidity",
+                                  size: f2,
+                                  color: Colors.white
+                                      .withOpacity(0.4),),
+                              ],
+                            ),
+                          ],
+                        )
+                      ],
+                    )
+
+                )
             ),
-            Container(
-              margin: EdgeInsets.only(top: 140, left: 15),
+            Space(16),
+            Padding(
+              padding: const EdgeInsets.only(right: 16, left: 16),
               child: Row(
                 children: [
-                  for(int i = 0; i<locationList.length; i++)
-                    if(i == controller.currentPage)
-                      SliderdotView(true)
-                    else
-                      SliderdotView(false)
+                  // Stxt(text: "This Week", size: f3, weight: FontWeight.w500,),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) =>
+                              WeatherdetailView()));
+                    },
+                    child: Container(child: Row(
+                      children: [
+                        Stxt(text: "10 days",
+                          size: f3,
+                          weight: FontWeight.w500,
+                          color: Theme
+                              .of(context)
+                              .primaryColor,),
+                        Icon(
+                          Icons.arrow_forward_ios_outlined, size: 15,
+                          color: Theme
+                              .of(context)
+                              .primaryColor,)
+                      ],
+                    )),
+                  ),
                 ],
               ),
             ),
-            PageView.builder(
-                scrollDirection: Axis.horizontal,
-                onPageChanged: onPageChanged,
-                itemCount: locationList.length,
-                itemBuilder: (context, index){
-                  return SingleweatherView();
-                }
+            Space(8),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16, bottom: 8, left: 16),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Color(0xffD9D9D9)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Stxt(text: "Today", size: f2, weight: FontWeight
+                                .w600,),
+                            Space(4),
+                            Stxt(text: "26\u00B0", size: f2),
+                            Space(4),
+                            Image.asset(
+                              "assets/images/Raincloud.png", width: 30,),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Space(16),
+                    Container(
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Color(0xffD9D9D9)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Stxt(text: "Today", size: f2, weight: FontWeight
+                                .w600,),
+                            Space(4),
+                            Stxt(text: "26\u00B0", size: f2),
+                            Space(4),
+                            Image.asset(
+                              "assets/images/Raincloud.png", width: 30,),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Space(16),
+                    Container(
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Color(0xff15627C)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Stxt(text: "Today",
+                              size: f2,
+                              weight: FontWeight.w600,
+                              color: Colors.white,),
+                            Space(4),
+                            Stxt(text: "26\u00B0", size: f2, color: Colors
+                                .white,),
+                            Space(4),
+                            Image.asset(
+                              "assets/images/Raincloud.png", width: 30,),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Space(16),
+                    Container(
+                      width: 80.w,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          color: Color(0xffD9D9D9)
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Stxt(text: "Today", size: f2, weight: FontWeight
+                                .w600,),
+                            Space(4),
+                            Stxt(text: "26\u00B0", size: f2),
+                            Space(4),
+                            Image.asset(
+                              "assets/images/Raincloud.png", width: 30,),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )
-
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }
-
-

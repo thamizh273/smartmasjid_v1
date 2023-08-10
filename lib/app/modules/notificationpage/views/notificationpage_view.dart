@@ -19,9 +19,9 @@ class Notification {
 
 class NotificationpageView extends GetView<NotificationpageController> {
   List<Notification> notificationList = [
-    // Notification(name: "Isha Prayer Reminder", location: "Masjid-e-nooraniya", imagePath: "imagePath"),
-    // Notification(name: "Isha Prayer Reminder", location: "Masjid-e-nooraniya", imagePath: "imagePath"),
-    // Notification(name: "Isha Prayer Reminder", location: "Masjid-e-nooraniya", imagePath: "imagePath"),
+    Notification(name: "Isha Prayer Reminder", location: "Masjid-e-nooraniya", imagePath: "imagePath"),
+    Notification(name: "Isha Prayer Reminder", location: "Masjid-e-nooraniya", imagePath: "imagePath"),
+    Notification(name: "Isha Prayer Reminder", location: "Masjid-e-nooraniya", imagePath: "imagePath"),
   ];
    NotificationpageView({Key? key}) : super(key: key);
   @override
@@ -101,10 +101,11 @@ class NotificationpageView extends GetView<NotificationpageController> {
         //     );
         //   },
         // )
-        notificationList.isEmpty?NoNotificationYet():   ListView.builder(
+        // notificationList.isEmpty?NoNotificationYet():
+        ListView.builder(
           padding: EdgeInsets.only(top: 20),
           physics: BouncingScrollPhysics(),
-          itemCount: notificationList.length,
+          itemCount: 10,
           // shrinkWrap: true,
           itemBuilder: (context, index) {
             return Dismissible(
