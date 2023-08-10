@@ -368,8 +368,10 @@ class HomeView extends StatelessWidget {
                                           children: [
                                             SmallCard(
                                               image: 'membership',
-                                              title: 'Library',
-                                              onTap: () {},
+                                              title: 'Member\nship',
+                                              onTap: () {
+                                                Get.toNamed(Routes.MEMBERSHIP);
+                                              },
                                             ),
                                             SmallCard(
                                               image: 'donation',

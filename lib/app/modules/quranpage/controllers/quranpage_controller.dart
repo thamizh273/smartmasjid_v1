@@ -71,6 +71,8 @@ class QuranpageController extends GetxController {
   var filteredList = <dynamic>[].obs;
   var item = <String>[].obs;
   RxInt currentIndex = 0.obs;
+  RxBool isSelected = false.obs;
+  int selectedAdjustedIndex = -1.obs;
   PageController pageController = PageController();
   final TextEditingController searchController = TextEditingController();
   final TextEditingController searchjuzController = TextEditingController();
@@ -81,6 +83,7 @@ class QuranpageController extends GetxController {
   final RxString savedSearchQuery = ''.obs;
   final RxBool isSearchEnabled = false.obs;
   final RxString searchQuery = ''.obs;
+  var currentVerseSelected = 1.obs;
 
   void shareMessage(index) {
     Share.share("${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
@@ -583,7 +586,57 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
 
   /// Pages of Quran Surah
 
-  var  pages=[ {"verse":'1:1',"no":"1"},{"verse":'2:1',"no":"2"}, {"verse":'2:6',"no":"3"}, {"verse":'2:17',"no":"4"}, {"verse":'2:25',"no":"5"}, {"verse":'2:30',"no":"6"}, {"verse":'2:38',"no":"7"}, {"verse":'2:49',"no":"8"}, {"verse":'2:58',"no":"9"}, {"verse":'2:62',"no":"10"}, {"verse":'2:70',"no":"11"}, {"verse":'2:77',"no":"12"}, {"verse":'2:84',"no":"13"}, {"verse":'2:89',"no":"14"}, {"verse":'2:94',"no":"15"}, {"verse":'2:102',"no":"16"}, {"verse":'2:106',"no":"17"}, {"verse":'2:113',"no":"18"}, {"verse":'2:120',"no":"19"}, {"verse":'2:127',"no":"20"}, {"verse":'2:135',"no":"21"}, {"verse":'2:142',"no":"22"}, {"verse":'2:146',"no":"23"}, {"verse":'2:154',"no":"24"}, {"verse":'2:164',"no":"25"}, {"verse":'2:170',"no":"26"}, {"verse":'2:177',"no":"27"}, {"verse":'2:182',"no":"28"}, {"verse":'2:187',"no":"29"}, {"verse":'2:191',"no":"30"}, {"verse":'2:197',"no":"31"}, {"verse":'2:203',"no":"32"}, {"verse":'2:211',"no":"33"}, {"verse":'2:216',"no":"34"}, {"verse":'2:220',"no":"35"}, {"verse":'2:225',"no":"36"}, {"verse":'2:231',"no":"37"}, {"verse":'2:234',"no":"38"}, {"verse":'2:238',"no":"39"}, {"verse":'2:246',"no":"40"}, {"verse":'2:249',"no":"41"}, {"verse":'2:253',"no":"42"}, {"verse":'2:257',"no":"43"}, {"verse":'2:260',"no":"44"}, {"verse":'2:265',"no":"45"}, {"verse":'2:270',"no":"46"}, {"verse":'2:275',"no":"47"}, {"verse":'2:282',"no":"48"}, {"verse":'2:283',"no":"49"},{"verse":'3:1',"no":"50"},
+  var  pages=[
+    {"verse":'1:1',"no":"1"},
+    {"verse":'2:1',"no":"2"},
+    {"verse":'2:6',"no":"3"},
+    {"verse":'2:17',"no":"4"},
+    {"verse":'2:25',"no":"5"},
+    {"verse":'2:30',"no":"6"},
+    {"verse":'2:38',"no":"7"},
+    {"verse":'2:49',"no":"8"},
+    {"verse":'2:58',"no":"9"},
+    {"verse":'2:62',"no":"10"},
+    {"verse":'2:70',"no":"11"},
+    {"verse":'2:77',"no":"12"},
+    {"verse":'2:84',"no":"13"},
+    {"verse":'2:89',"no":"14"},
+    {"verse":'2:94',"no":"15"},
+    {"verse":'2:102',"no":"16"},
+    {"verse":'2:106',"no":"17"},
+    {"verse":'2:113',"no":"18"},
+    {"verse":'2:120',"no":"19"},
+    {"verse":'2:127',"no":"20"},
+    {"verse":'2:135',"no":"21"},
+    {"verse":'2:142',"no":"22"},
+    {"verse":'2:146',"no":"23"},
+    {"verse":'2:154',"no":"24"},
+    {"verse":'2:164',"no":"25"},
+    {"verse":'2:170',"no":"26"},
+    {"verse":'2:177',"no":"27"},
+    {"verse":'2:182',"no":"28"},
+    {"verse":'2:187',"no":"29"},
+    {"verse":'2:191',"no":"30"},
+    {"verse":'2:197',"no":"31"},
+    {"verse":'2:203',"no":"32"},
+    {"verse":'2:211',"no":"33"},
+    {"verse":'2:216',"no":"34"},
+    {"verse":'2:220',"no":"35"},
+    {"verse":'2:225',"no":"36"},
+    {"verse":'2:231',"no":"37"},
+    {"verse":'2:234',"no":"38"},
+    {"verse":'2:238',"no":"39"},
+    {"verse":'2:246',"no":"40"},
+    {"verse":'2:249',"no":"41"},
+    {"verse":'2:253',"no":"42"},
+    {"verse":'2:257',"no":"43"},
+    {"verse":'2:260',"no":"44"},
+    {"verse":'2:265',"no":"45"},
+    {"verse":'2:270',"no":"46"},
+    {"verse":'2:275',"no":"47"},
+    {"verse":'2:282',"no":"48"},
+    {"verse":'2:283',"no":"49"},
+    {"verse":'3:1',"no":"50"},
     {"verse":'3:10',"no":"51"},
     {"verse":'3:16',"no":"52"},
     {"verse":'3:23',"no":"53"},

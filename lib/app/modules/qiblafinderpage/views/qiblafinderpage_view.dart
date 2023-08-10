@@ -4,31 +4,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:location/location.dart';
-import 'package:location_platform_interface/location_platform_interface.dart';
-
 import '../../../../widgets/custom_card.dart';
 import '../../../../widgets/space.dart';
 import '../../home/widgets/appBar.dart';
-
 
 class QiblaFinder extends StatefulWidget {
   const QiblaFinder({Key? key}) : super(key: key);
 
   @override
-  State<QiblaFinder> createState() => _QiblaFinderState();
+  State<QiblaFinder> createState() => _QiblaFinderPageState();
 }
 
-class _QiblaFinderState extends State<QiblaFinder> {
+class _QiblaFinderPageState extends State<QiblaFinder> {
+
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size.width * 0.85;
     return Scaffold(
       appBar: CustomAppbar(tittle: 'Qibla Finder',),
-
       body: Column(
         children: [
-          const Space(56),
-          const Spacer(),
+          Space(50),
           Container(
             width: size,
             height: size,
@@ -38,7 +35,7 @@ class _QiblaFinderState extends State<QiblaFinder> {
               // ),
                 color: Theme.of(context).cardColor,
                 shape: BoxShape.circle,
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(color: Colors.black12, spreadRadius: 5, blurRadius: 5, offset: Offset(0, 4))
                 ]
             ),
@@ -60,7 +57,7 @@ class _QiblaFinderState extends State<QiblaFinder> {
                       angle: (qiblahDirection.direction * (pi / 180) * -1),
                       // duration: Duration(milliseconds: 1000),
                       // turns: (qiblahDirection.direction * (pi / (180) ) * -1 ) * 2 *  pi,
-                      child: Image.asset('assets/images/compass.png', width: size, height: size, ),
+                      child: Image.asset('assets/images/compass.png', width: size, height: size,),
                     ),
                     Transform.rotate(
                       angle: (qiblahDirection.qiblah * (pi / 180) * -1),
@@ -114,34 +111,39 @@ class _QiblaFinderState extends State<QiblaFinder> {
                 children: [
                   CustomCard(
                     margin: EdgeInsets.symmetric(horizontal: 16),
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12), border: true, shadow: false,
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     child: Row(
                       children: [
-                         Text('Latitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+                        Text('Latitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
                         const Space(8),
                         Text('${snap.data?.latitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
                       ],
-                    ),),
+                    ), border: true, shadow: false,),
                   const Space(16),
                   CustomCard(
                     margin: EdgeInsets.symmetric(horizontal: 16),
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12), border: true, shadow: false,
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     child: Row(
                       children: [
-                        Text('Longitude :', style: TextStyle(color:Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+                        Text('Longitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
                         const Space(8),
                         Text('${snap.data?.longitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
                       ],
-                    ),),
+                    ), border: true, shadow: false,),
                 ],
               );
             },
           ),
 
-          const Spacer(),
+          Spacer(),
           const Space(56),
         ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 }

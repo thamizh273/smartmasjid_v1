@@ -2,14 +2,11 @@ import 'package:get/get.dart';
 
 import '../../../routes/export.dart';
 
-class AddweatherController extends GetxController {
-  //TODO: Implement AddweatherController
+class WeatherdetailController extends GetxController {
+  //TODO: Implement WeatherdetailController
 
   final count = 0.obs;
-  FocusNode searchFocusNode = FocusNode();
-  TextEditingController textEditingController = TextEditingController();
-  RxString searchQuery = ''.obs;
-
+  final ScrollController scrollController = ScrollController();
   @override
   void onInit() {
     super.onInit();

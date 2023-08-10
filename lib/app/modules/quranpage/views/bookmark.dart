@@ -45,7 +45,7 @@ class Bookmark extends StatelessWidget {
               ),
             ),
             Obx(() {
-            return ListView.builder(
+            return controller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
               itemCount: controller.buttonsSelected.length,
               itemBuilder: (context, index) {
                 return Padding(
@@ -98,6 +98,19 @@ class Bookmark extends StatelessWidget {
             )
           ]
         ),
+      ),
+    );
+  }
+}
+
+class NoBookmark extends StatelessWidget {
+  const NoBookmark({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("No Bookmark Found"),
       ),
     );
   }

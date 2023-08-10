@@ -28,6 +28,8 @@ import '../modules/masjidRequest/bindings/masjid_request_binding.dart';
 import '../modules/masjidRequest/views/masjid_request_view.dart';
 import '../modules/masjidhistory/bindings/masjidhistory_binding.dart';
 import '../modules/masjidhistory/views/masjidhistory_view.dart';
+import '../modules/membership/bindings/membership_binding.dart';
+import '../modules/membership/views/membership_view.dart';
 import '../modules/messagepage/bindings/messagepage_binding.dart';
 import '../modules/messagepage/views/messagepage_view.dart';
 import '../modules/notificationpage/bindings/notificationpage_binding.dart';
@@ -61,6 +63,8 @@ import '../modules/specialdayspage/bindings/specialdayspage_binding.dart';
 import '../modules/specialdayspage/views/specialdayspage_view.dart';
 import '../modules/splashScreen/bindings/splash_screen_binding.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
+import '../modules/weatherdetail/bindings/weatherdetail_binding.dart';
+import '../modules/weatherdetail/views/weatherdetail_view.dart';
 import '../modules/weatherlocation/bindings/weatherlocation_binding.dart';
 import '../modules/weatherlocation/views/weatherlocation_view.dart';
 import '../modules/weatherpage/bindings/weatherpage_binding.dart';
@@ -83,7 +87,7 @@ class AppPages {
         transitionDuration: Duration(milliseconds: 600)),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
-      page: () =>  SplashScreenView(),
+      page: () => SplashScreenView(),
       binding: SplashScreenBinding(),
     ),
     GetPage(
@@ -190,7 +194,7 @@ class AppPages {
     // ),
     GetPage(
       name: _Paths.ADDWEATHER,
-      page: () => const AddweatherView(),
+      page: () => AddweatherView(),
       binding: AddweatherBinding(),
     ),
     GetPage(
@@ -241,13 +245,23 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HADITHCHAPTERDETAIL,
-      page: () =>  HadithchapterdetailView(),
+      page: () => HadithchapterdetailView(),
       binding: HadithchapterdetailBinding(),
     ),
     GetPage(
       name: _Paths.EDITPROFILE,
-      page: () =>  EditProfileView(),
+      page: () => EditProfileView(),
       binding: ProfilePageBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEATHERDETAIL,
+      page: () => WeatherdetailView(),
+      binding: WeatherdetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.MEMBERSHIP,
+      page: () =>  MembershipView(),
+      binding: MembershipBinding(),
     ),
   ];
 }
