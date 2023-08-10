@@ -1,12 +1,19 @@
+import 'dart:developer';
+
 import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
+import 'package:flutter_date_picker_timeline/flutter_date_picker_timeline.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/imanTracker/controllers/iman_tracker_controller.dart';
 import 'package:smartmasjid_v1/utils/color_utils.dart';
+import 'package:smartmasjid_v1/widgets/Stextfield.dart';
+import 'package:smartmasjid_v1/widgets/loading.dart';
+import 'package:smartmasjid_v1/widgets/safa_dropdown2.dart';
 
 import '../../../routes/export.dart';
 
@@ -44,6 +51,9 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
               labelPadding: EdgeInsets.all(2),
               controller: controller.tabctrl,
               tabs: controller.myTabs,
+              onTap: (v) {
+                log('wwwwwww $v');
+              },
             ),
           ),
           height: 80.h,
@@ -58,192 +68,207 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                   children: [
                     10.verticalSpace,
                     SizedBox(
-                      child: EasyDateTimeLine(
-                        headerProps: EasyHeaderProps(
-                            showHeader: false,
-                            //  monthPickerType : MonthPickerType.dropDown,
-                            showSelectedDate: false,
-                            padding: EdgeInsets.all(0)),
-                        dayProps: EasyDayProps(
-                          // activeDayNumStyle: TextStyle(fontSize: 18,color: Colors.white),
-                          // inactiveDayNumStyle: TextStyle(fontSize: 18,color: Colors.black),
-                            height: 50.h,
-                            width: 50.w,
-                            dayStructure: DayStructure.dayStrDayNumMonth),
-                        timeLineProps: EasyTimeLineProps(),
-                        initialDate: DateTime.now(),
-                        onDateChange: (selectedDate) {
-                          //[selectedDate] the new date selected.
-                        },
-                      ),
-                    ),
+                        child: FlutterDatePickerTimeline(
+                      unselectedItemTextStyle:
+                          TextStyle(fontWeight: FontWeight.w500),
+                      selectedItemBackgroundColor: Get.theme.primaryColor,
+                      unselectedItemWidth: 45,
+                      startDate:
+                          DateTime.now().subtract(Duration(days: 20)).toUtc(),
+                      endDate: DateTime.now().toUtc(),
+                      initialSelectedDate: DateTime.now().toUtc(),
+                      onSelectedDateChange: (dateTime) {
+                        controller.selectedDate.value = dateTime!.toUtc();
+                        controller.getImanTrakerEntry();
+                        log('${dateTime}');
+                      },
+                    )),
                     15.verticalSpace,
                     Stxt(
                       text: "Prayers",
                       size: f3,
                       weight: FontWeight.bold,
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: prayerList.length,
-                      itemBuilder: (context, index) {
-                        var k = prayerList[index];
+                    Obx(() {
+                      return controller.isloading.value
+                          ? loading(context)
+                          : ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: prayerList.length,
+                              itemBuilder: (context, index) {
+                                var k = prayerList[index];
+                                var col = controller.imanData.value
+                                    .getPrayerListTracker![index].status;
 
-                        return Obx(() =>
-                            imanCard(
-                              image: '${k["icon"]}',
-                              title: '${k["name"]}',
-                              color: controller.cardColors[
-                              controller.colorIndices[index]]["color"],
-                              suffixIcon: controller.cardColors[
-                              controller.colorIndices[index]]["icon"],
-                              onTap: () {
-                                controller.changeColor(index);
-                                print("$index");
-                              },
-                              suffixonTap: () {
-                                Get.bottomSheet(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(10)),
-                                    Column(
-                                      children: [
-                                        20.verticalSpace,
-                                        SvgPicture.asset(
-                                          "assets/icons/${k["icon"]}.svg",
-                                          height: 25,
-                                          color: Get.theme.primaryColor,
-                                        ),
-                                        Stxt(
-                                          pad: EdgeInsets.symmetric(
-                                              vertical: 10.h),
-                                          text:
-                                          'How did you complete Asr today?',
-                                          size: f3,
-                                          weight: FontWeight.bold,
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 10.h),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              SButton(
-
-                                                  height: 35.h,
-                                                  ontap: () {},
-                                                  text: "Not Prayed",
-                                                  prefix: Icon(
-                                                    Icons.not_interested,
-                                                    color: clr_black,
-                                                  )),
-                                              SButton(
-                                                  height: 35.h,
-
-                                                  ontap: () {},
-                                                  text: "Late",
-                                                  prefix: Icon(
-                                                    Icons.history,
-                                                    color: clr_red,
-                                                  )),
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                                return imanCard(
+                                  image: '${k["icon"]}',
+                                  title: '${k["name"]}',
+                                  color: col == "late"
+                                      ? Colors.yellow.shade700
+                                      : (col == "injamaah"
+                                          ? Colors.green.shade700
+                                          : (col == "ontime"
+                                              ? Colors.blueAccent.shade700
+                                              : (col == "notprayed"
+                                                  ? Colors.red.shade700
+                                                  : theme
+                                                      .colorScheme.secondary))),
+                                  suffixIcon: col == "late"
+                                      ? Icons.history
+                                      : (col == "injamaah"
+                                          ? Icons.groups_sharp
+                                          : (col == "ontime"
+                                              ? Icons.person
+                                              : (col == "notprayed"
+                                                  ? Icons.not_interested
+                                                  : Icons.add))),
+                                  onTap: () {
+                                    //  controller.changeColor(index);
+                                    //  print("$index");
+                                  },
+                                  suffixonTap: () {
+                                    Get.bottomSheet(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        Column(
                                           children: [
+                                            20.verticalSpace,
+                                            SvgPicture.asset(
+                                              "assets/icons/${k["icon"]}.svg",
+                                              height: 25,
+                                              color: Get.theme.primaryColor,
+                                            ),
+                                            Stxt(
+                                              pad: EdgeInsets.symmetric(
+                                                  vertical: 10.h),
+                                              text:
+                                                  'How did you complete Asr today?',
+                                              size: f3,
+                                              weight: FontWeight.bold,
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 10.h),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  SButton(
+                                                      height: 35.h,
+                                                      ontap: () {},
+                                                      text: "Not Prayed",
+                                                      prefix: Icon(
+                                                        Icons.not_interested,
+                                                        color: clr_black,
+                                                      )),
+                                                  SButton(
+                                                      height: 35.h,
+                                                      ontap: () {},
+                                                      text: "Late",
+                                                      prefix: Icon(
+                                                        Icons.history,
+                                                        color: clr_red,
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                SButton(
+                                                    height: 35.h,
+                                                    ontap: () {},
+                                                    text: "On Time",
+                                                    prefix: Icon(
+                                                      Icons.man,
+                                                      color: clr_yellow,
+                                                    )),
+                                                SButton(
+                                                    height: 35.h,
+                                                    ontap: () {},
+                                                    text: "In Jamaah",
+                                                    prefix: Icon(
+                                                      Icons.groups,
+                                                      color: clr_green,
+                                                    )),
+                                              ],
+                                            ),
+                                            Obx(() {
+                                              return Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 10.h,
+                                                    horizontal: 25.w),
+                                                child: CheckboxListTile(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.r)),
+                                                  title: Stxt(
+                                                      text: "After Sunnah (2)",
+                                                      size: f2),
+                                                  activeColor:
+                                                      Get.theme.primaryColor,
+                                                  tileColor: clr_bg,
+                                                  value:
+                                                      controller.aSunnah.value,
+                                                  onChanged: (value) {
+                                                    controller.aSunnah.value =
+                                                        value!;
+                                                  },
+                                                  dense: true,
+                                                  visualDensity:
+                                                      VisualDensity.compact,
+                                                ),
+                                              );
+                                            }),
+                                            Obx(() {
+                                              return Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 25.w),
+                                                child: CheckboxListTile(
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.r)),
+                                                  title: Stxt(
+                                                      text: "Before Sunnah (2)",
+                                                      size: f2),
+                                                  activeColor:
+                                                      Get.theme.primaryColor,
+                                                  tileColor: clr_bg,
+                                                  value:
+                                                      controller.bSunnah.value,
+                                                  onChanged: (value) {
+                                                    controller.bSunnah.value =
+                                                        value!;
+                                                  },
+                                                  dense: true,
+                                                  visualDensity:
+                                                      VisualDensity.compact,
+                                                ),
+                                              );
+                                            }),
+                                            20.verticalSpace,
                                             SButton(
-
-                                                height: 35.h,
-
-                                                ontap: () {},
-                                                text: "On Time",
-                                                prefix: Icon(
-                                                  Icons.man,
-                                                  color: clr_yellow,
-                                                )),
-                                            SButton(
-                                                height: 35.h,
-
-                                                ontap: () {},
-                                                text: "In Jamaah",
-                                                prefix: Icon(
-                                                  Icons.groups,
-                                                  color: clr_green,
-                                                )),
+                                                ontap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                text: "Submit",
+                                                color: Get.theme.primaryColor,
+                                                txtClr: Colors.white)
                                           ],
                                         ),
-                                        Obx(() {
-                                          return Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 10.h,
-                                                horizontal: 25.w),
-                                            child: CheckboxListTile(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius.circular(8.r)),
-                                              title: Stxt(
-                                                  text: "After Sunnah (2)",
-                                                  size: f2),
-                                              activeColor: Get.theme
-                                                  .primaryColor,
-                                              tileColor:    clr_bg,
-                                              value: controller.aSunnah.value,
-                                              onChanged: (value) {
-                                                controller.aSunnah.value =
-                                                value!;
-                                              },
-                                              dense: true,
-                                              visualDensity:
-                                              VisualDensity.compact,
-                                            ),
-                                          );
-                                        }),
-                                        Obx(() {
-                                          return Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 25.w),
-                                            child: CheckboxListTile(
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                  BorderRadius.circular(8.r)),
-                                              title: Stxt(
-                                                  text: "Before Sunnah (2)",
-                                                  size: f2),
-                                              activeColor: Get.theme
-                                                  .primaryColor,
-                                              tileColor: clr_bg,
-                                              value: controller.bSunnah.value,
-                                              onChanged: (value) {
-                                                controller.bSunnah.value =
-                                                value!;
-                                              },
-                                              dense: true,
-                                              visualDensity:
-                                              VisualDensity.compact,
-                                            ),
-                                          );
-                                        }),
-                                        20.verticalSpace,
-                                        SButton(
-                                            ontap: () {
-                                              Navigator.pop(context);
-                                            },
-                                            text: "Submit",
-                                            color: Get.theme.primaryColor,
-                                            txtClr: Colors.white)
-                                      ],
-                                    ),
-                                    backgroundColor:
-                                    Get.theme.colorScheme.secondary);
-                                print("click");
+                                        backgroundColor:
+                                            Get.theme.colorScheme.secondary);
+                                    print("click");
+                                  },
+                                );
                               },
-                            ));
-                      },
-                    ),
-                  
+                            );
+                    }),
                     10.verticalSpace,
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4),
@@ -271,28 +296,89 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       imanCard(
                         image: '${k["icon"]}',
                         title: '${k["name"]}',
-                       // onTap: () {},
-                        color: null, onTap: () {  }, suffixIcon: Icons.add, suffixonTap: () {  },
+                        // onTap: () {},
+                        color: null,
+                        onTap: () {},
+                        suffixIcon: Icons.add,
+                        suffixonTap: () {
+                          Get.dialog(AlertDialog(
+                            content: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(),
+                                    Stxt(
+                                      text: "My Goals",
+                                      size: f3,
+                                      color: theme.primaryColor,
+                                      weight: FontWeight.bold,
+                                    ),
+                                    Icon(Icons.close)
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Stxt(
+                                      text: "Read Quran(Daily)",
+                                      size: f2,
+                                      weight: FontWeight.bold,
+                                    ),
+                                    Safa_textfield(
+                                      keyboardType: TextInputType.number,
+                                      contentPad: 0,
+                                      contentHPad: 0,
+                                      fillColor: Colors.white,
+                                      width: .15,
+                                      height: 30,
+                                      hint: "0",
+                                    ),
+                                    SafaDropdownButton2(
+                                      hint: "",
+                                      value: "Verse",
+                                      dropdownItems: ["Juz", "Verse"],
+                                      onChanged: (value) {},
+                                      buttonWidth: 30,
+                                    ),
+                                  ],
+                                ).paddingSymmetric(vertical: 10.h),
+                                Row(
+                                  children: [
+                                    Stxt(
+                                      text: "Memorize Quran(Daily)",
+                                      size: f2,
+                                      weight: FontWeight.bold,
+                                    ),
+                                  ],
+                                ),
+                                SButton(ontap: () {}, text: "Submit")
+                              ],
+                            ),
+                          ));
+                        },
                       ),
                   ],
                 ),
               ),
             ),
             DefaultTabController(
-              length: 5,
+              length: 3,
               child: Column(
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.only(left: 10.sp, top: 15, bottom: 15),
                     padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                     decoration: BoxDecoration(
-                      //     border: Border.all(
-                      //       width: 2,
-                      //       color: Colors.grey.shade300,
-                      //   ),
+                        //     border: Border.all(
+                        //       width: 2,
+                        //       color: Colors.grey.shade300,
+                        //   ),
                         borderRadius: BorderRadius.circular(5)),
                     child: ButtonsTabBar(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 8.sp),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 20.sp),
                       // decoration: BoxDecoration(color: Colors.green),
                       borderColor: Colors.black,
                       backgroundColor: Get.theme.primaryColor,
@@ -301,12 +387,6 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       labelStyle: TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
                       tabs: [
-                        Tab(
-                          text: "Last Week",
-                        ),
-                        Tab(
-                          text: "Last Month",
-                        ),
                         Tab(
                           text: "This Week",
                         ),
@@ -338,16 +418,35 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                 margin: EdgeInsets.all(8.sp),
                                 child: Padding(
                                   padding: EdgeInsets.all(12.sp),
-                                  child: Column(
-                                    children: [
-                                      buildProgressIndicator(title: 'Fajr'),
-                                      buildProgressIndicator(title: 'Dhuhr'),
-                                      buildProgressIndicator(title: 'Asr'),
-                                      buildProgressIndicator(title: 'Maghrib'),
-                                      buildProgressIndicator(title: 'Isha'),
-                                      10.verticalSpace,
-                                    ],
-                                  ),
+                                  child: Obx(() {
+                                    return controller.isloading1.value
+                                        ? loading(context)
+                                        : ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: controller
+                                                .imanStatusData
+                                                .value
+                                                .getImanTrackerStatus!
+                                                .length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              var status = controller
+                                                  .imanStatusData
+                                                  .value
+                                                  .getImanTrackerStatus![index];
+                                              return buildProgressIndicator(
+                                                  title:
+                                                      "${status.trackerName}",
+                                                  injamaah: (status
+                                                      .status!.injamaah!),
+                                                  ontime:
+                                                      status.status!.ontime!,
+                                                  late: status.status!.late!,
+                                                  notprayed: status
+                                                      .status!.notprayed!);
+                                            },
+                                          );
+                                  }),
                                 ),
                               ),
                             ),
@@ -389,12 +488,12 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                               dataMap: dataMap,
                                               legendOptions: LegendOptions(
                                                 legendPosition:
-                                                LegendPosition.bottom,
+                                                    LegendPosition.bottom,
                                               ),
                                               chartValuesOptions:
-                                              ChartValuesOptions(
+                                                  ChartValuesOptions(
                                                 showChartValuesInPercentage:
-                                                true,
+                                                    true,
                                               )),
                                         ],
                                       ),
@@ -422,12 +521,12 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                               dataMap: dataMap,
                                               legendOptions: LegendOptions(
                                                 legendPosition:
-                                                LegendPosition.bottom,
+                                                    LegendPosition.bottom,
                                               ),
                                               chartValuesOptions:
-                                              ChartValuesOptions(
+                                                  ChartValuesOptions(
                                                 showChartValuesInPercentage:
-                                                true,
+                                                    true,
                                               )),
                                         ],
                                       ),
@@ -445,12 +544,6 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                         Center(
                           child: Icon(Icons.directions_bike),
                         ),
-                        Center(
-                          child: Icon(Icons.directions_bike),
-                        ),
-                        Center(
-                          child: Icon(Icons.directions_car),
-                        ),
                       ],
                     ),
                   ),
@@ -461,11 +554,12 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
         ));
   }
 
-  Column buildProgressIndicator({required String title}) {
-    var w = .4;
-    var ws = .1;
-    var w1 = .3;
-    var w2 = .2;
+  Column buildProgressIndicator(
+      {required String title,
+      required injamaah,
+      required ontime,
+      required late,
+      required notprayed}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -475,27 +569,31 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
           size: f3,
           weight: FontWeight.w500,
         ),
-        Row(
+        Column(
           children: [
-            imanIndicator(
-              ws: w,
-              color: Colors.green,
-              icon: Icons.groups_sharp,
-            ),
-            imanIndicator(
-              ws: ws,
-              color: Colors.yellow.shade700,
-              icon: Icons.person,
-            ),
-            imanIndicator(
-              ws: w1,
-              color: Colors.red.shade700,
-              icon: Icons.history,
-            ),
-            imanIndicator(
-              ws: w2,
-              color: Colors.black45,
-              icon: Icons.not_interested,
+            Row(
+              children: [
+                imanIndicator(
+                  ws: injamaah,
+                  color: Colors.green.shade700,
+                  icon: Icons.groups_sharp,
+                ),
+                imanIndicator(
+                  ws: ontime,
+                  color: Colors.blueAccent.shade700,
+                  icon: Icons.person,
+                ),
+                imanIndicator(
+                  ws: late,
+                  color: Colors.yellow.shade700 ,
+                  icon: Icons.history,
+                ),
+                imanIndicator(
+                  ws: notprayed,
+                  color: Colors.red.shade700,
+                  icon: Icons.not_interested,
+                ),
+              ],
             ),
           ],
         ),
@@ -512,38 +610,61 @@ class imanIndicator extends StatelessWidget {
     this.icon,
   });
 
-  final num ws;
+  final double ws;
   final Color? color;
   final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        LinearPercentIndicator(
-          padding: EdgeInsets.only(right: 5),
-          barRadius: Radius.circular(5),
-          width:
-          ((ws == 0) ? (.05.sw) : ((ws <= .1) ? (.1.sw) : ((ws - .05).sw))),
-          lineHeight: 10.0,
-          percent: (ws == 0 ? (.1) : ws) / (ws == 0 ? (.1) : ws),
-          backgroundColor: Colors.grey,
-          progressColor: color,
-        ),
-        5.verticalSpace,
-        Row(
-          children: [
-            Icon(
-              icon,
-              size: f3,
-              color: color,
-              shadows: [ BoxShadow(color: Colors.grey,spreadRadius: 2,blurRadius: 2,offset: Offset(0,1))],
-            ),
-            2.horizontalSpace,
-            Stxt(text: '${((ws) * 100).toInt()}%', size: f1),
-          ],
-        )
-      ],
+    return  Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 0),
+      child:ws==0?Container() :Column(
+        children: [
+
+
+
+          // LinearPercentIndicator(
+          //   width: 170.0,
+          //   animation: true,
+          //   animationDuration: 1000,
+          //   lineHeight: 20.0,
+          //   leading: new Text("left content"),
+          //   trailing: new Text("right content"),
+          //   percent: 0.2,
+          //   center: Text("20.0%"),
+          //   linearStrokeCap: LinearStrokeCap.butt,
+          //   progressColor: Colors.red,
+          // ),
+          ///
+          Container(
+            height: 12,
+            width:ws*(3.1).w,
+            decoration: BoxDecoration(
+                color: color, borderRadius: BorderRadius.circular(8)),
+          ),
+          ///
+          5.verticalSpace,
+          Row(
+            children: [
+              Icon(
+                icon,
+                size: f3,
+                color: color,
+                shadows: [
+                  BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 2,
+                      blurRadius: 2,
+                      offset: Offset(0, 1))
+                ],
+              ),
+              2.horizontalSpace,
+              Stxt(text: '${(ws.round())}%', size: f1),
+            ],
+          )
+
+        ],
+      ),
     );
   }
 }
@@ -561,7 +682,7 @@ class imanCard extends StatelessWidget {
 
   final String image;
   final String title;
-  final Color? color;
+  final color;
   final IconData? suffixIcon;
   final Function() onTap;
   final Function() suffixonTap;
@@ -581,7 +702,6 @@ class imanCard extends StatelessWidget {
         leading: SvgPicture.asset(
           "assets/icons/$image.svg",
           height: 20,
-
           color: Get.theme.primaryColor,
         ),
         title: Stxt(

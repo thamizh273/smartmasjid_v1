@@ -134,12 +134,12 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                         controller.googleSignIns();
                         //AuthenticationRespository.instance.signInWithGoogle();
                       },
-                      child: Obx(() {
-                        return controller.isGoogleSign.value?CircularProgressIndicator(): Image.asset(
+                      child:  Image.asset(
                           "assets/images/googlenew.png",
                           width: 27,
-                        );
-                      })),
+                          color:Colors.white,
+                        ),
+                  ),
                   25.horizontalSpace,
                   Image.asset(
                     "assets/images/apple.png",

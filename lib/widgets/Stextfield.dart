@@ -101,7 +101,7 @@ class Safa_textfield extends StatefulWidget {
       this.keyboardType,
       this.label,
       this.fillColor,
-      this.length, this.readOnly, this.height, this.contentPad,
+      this.length, this.readOnly, this.height, this.contentPad, this.contentHPad,
        // this.onChanged
       });
 
@@ -113,6 +113,7 @@ class Safa_textfield extends StatefulWidget {
   final Widget? suffixIcon;
   final double? width;
   final double? contentPad;
+  final double? contentHPad;
   final double? height;
   final bool? obscureText;
   final bool? readOnly;
@@ -201,7 +202,7 @@ class _Safa_textfieldState extends State<Safa_textfield> {
               width: 2.0, // Change the border width for focused state
             ),
           ),
-          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: widget.contentPad?? 12),
+          contentPadding: EdgeInsets.symmetric(horizontal: widget.contentHPad??16, vertical: widget.contentPad?? 12),
         ),
       ),
     );
