@@ -73,6 +73,7 @@ dependencies:
 
 
 
+
   flutter: 
     sdk: flutter
 
@@ -86,6 +87,7 @@ dependency_overrides:
   intl: ^0.18.0
   analyzer: ^5.0.0
   firebase_analytics: ^10.4.4
+  weather:
 
 flutter: 
   assets: 

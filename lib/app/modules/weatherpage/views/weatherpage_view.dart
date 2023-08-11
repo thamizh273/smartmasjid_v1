@@ -17,10 +17,8 @@ class WeatherpageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      var location = c.getweatherdata.value.getWeatherReport!.location;
-      var degree = c.getweatherdata.value.getWeatherReport!.currentWeatherData!;
-      var hijiri = c.getweatherdata.value.getWeatherReport!.hijriDate;
-      var condition = c.getweatherdata.value.getWeatherReport!.currentWeatherData!.condition!.text;
+
+
       return c.isLoadings.value? loading(context):Scaffold(
         body: Column(
           children: [
@@ -99,8 +97,7 @@ class WeatherpageView extends StatelessWidget {
                                       border: Border.all(color: Colors.white),
                                     ),
                                     child: Center(child: Stxt(
-                                      text: "${location!.region},${location
-                                          .country}",
+                                      text: "${c.getweatherdata.value.getWeatherReport!.location!.region},${c.getweatherdata.value.getWeatherReport!.location!.country}",
                                       size: f3,
                                       color: Colors.white,))
                                 ),
@@ -123,13 +120,13 @@ class WeatherpageView extends StatelessWidget {
                         ),
                         Space(16),
                         Image.asset("assets/images/weather.png"),
-                        Text("${degree.maxtempC}\u00B0",
+                        Text("${c.getweatherdata.value.getWeatherReport!.currentWeatherData!.maxtempC}\u00B0",
                           style: TextStyle(
                               fontSize: 100, color: Colors.white),),
                         Stxt(
-                          text: "${condition}", size: f4, color: Colors.white,),
+                          text: "${c.getweatherdata.value.getWeatherReport!.currentWeatherData!.condition!.text}", size: f4, color: Colors.white,),
                         Space(4),
-                        Stxt(text: "${hijiri}",
+                        Stxt(text: "${c.getweatherdata.value.getWeatherReport!.hijriDate}",
                           size: f2,
                           color: Colors.white,),
                         Space(16),
@@ -141,7 +138,7 @@ class WeatherpageView extends StatelessWidget {
                                 SvgPicture.asset("assets/svg/wind.svg"),
                                 Space(8),
                                 Stxt(
-                                  text: "${degree.maxwindKph}Km/h",
+                                  text: "${c.getweatherdata.value.getWeatherReport!.currentWeatherData!.maxwindKph}Km/h",
                                   size: f3,
                                   color: Colors.white,),
                                 Space(4),
@@ -153,7 +150,7 @@ class WeatherpageView extends StatelessWidget {
                               children: [
                                 SvgPicture.asset("assets/svg/rain.svg"),
                                 Space(8),
-                                Stxt(text: "${degree.dailyChanceOfRain}%",
+                                Stxt(text: "${c.getweatherdata.value.getWeatherReport!.currentWeatherData!.dailyChanceOfRain}%",
                                   size: f3,
                                   color: Colors.white,),
                                 Space(4),
@@ -169,7 +166,7 @@ class WeatherpageView extends StatelessWidget {
                                 Image.asset(
                                   "assets/images/humidity.png", width: 15,),
                                 Space(8),
-                                Stxt(text: "${degree.avghumidity}%",
+                                Stxt(text: "${c.getweatherdata.value.getWeatherReport!.currentWeatherData!.avghumidity}%",
                                   size: f3,
                                   color: Colors.white,),
                                 Space(4),

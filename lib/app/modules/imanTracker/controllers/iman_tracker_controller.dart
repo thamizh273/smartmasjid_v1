@@ -20,6 +20,8 @@ class ImanTrackerController extends GetxController with GetSingleTickerProviderS
   RxBool isloading=false.obs;
   RxBool isloading1=false.obs;
   var selectedDate=DateTime.now().toUtc().obs;
+  RxString prayerId="".obs;
+  RxString status="No Update".obs;
   @override
   void onInit() {
     getImanTrakerStatus("week");
@@ -33,6 +35,16 @@ class ImanTrackerController extends GetxController with GetSingleTickerProviderS
     tabctrl.dispose();
     super.onClose();
   }
+
+  bool isDateInCurrentMonth(DateTime date) {
+    DateTime now = DateTime.now();
+    return date.year == now.year && date.month == now.month;
+  }
+  bool isDateToday(DateTime date) {
+    DateTime now = DateTime.now();
+    return date.year == now.year && date.month == now.month && date.day == now.day;
+  }
+
   // List<Map<String,dynamic>> cardColors = [
   //   {"late":Get.theme.colorScheme.secondary,"icon":Icons.add},
   //   {"notprayed":Colors.green,"icon":Icons.groups_sharp},
@@ -47,21 +59,6 @@ class ImanTrackerController extends GetxController with GetSingleTickerProviderS
   // void changeColor(int index) {
   //   colorIndices[index] = (colorIndices[index] + 1) % cardColors.length;
   // }
-  yy(int index){
-    if(imanData
-        .value
-        .getPrayerListTracker![index]
-        .status=="late"){
-      Colors.red;
-    }else if(imanData
-        .value
-        .getPrayerListTracker![index]
-        .status=="ontime"){
-      Colors.yellow;
-    } else{
-      Colors.black87;
-    }
-  }
   final List<Tab> myTabs = <Tab>[
     Tab(text: 'Entry'),
     Tab(text: 'Stats'),
@@ -121,5 +118,33 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     log(json.encode(res));
     print("getstaus");
 
+  }
+
+
+
+  updatestatus() async {
+    isloading.value = true;
+    var header =
+    """mutation Mutation(\$userId: ID, \$prayerId: String, \$date: String, \$trackingMessage: String) {
+       Update_Iman_Track_prayer(user_id_: \$userId, prayer_id: \$prayerId, date_: \$date, tracking_message: \$trackingMessage)
+   }""";
+    var body = {
+      "userId": "5b52cef8-1c88-48ac-bd76-a092cd5ad200",
+      "prayerId": "${prayerId.value}",
+      "date": "${selectedDate.value}",
+      "trackingMessage": "${status.value}"
+    };
+    var res = await _restCallController.gql_mutation(header, body);
+    log(json.encode(res));
+    status.value="";
+
+    isloading.value = false;
+    getImanTrakerEntry();
+    getImanTrakerStatus("week");
+    // if (res.toString().contains("SUCCESS")) {
+    //   var hh = res["SUCCESS"]["Update_User"];
+    //   toast(error: "SUCCESS", msg: "${hh}");
+    // }
+    return res;
   }
 }

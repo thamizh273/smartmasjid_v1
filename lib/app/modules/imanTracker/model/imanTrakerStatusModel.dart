@@ -54,10 +54,10 @@ class GetImanTrackerStatus {
 
 class Status {
   String? typename;
-  double? injamaah;
-  double? late;
-  double? notprayed;
-  double? ontime;
+  int? injamaah;
+  int? late;
+  int? notprayed;
+  int? ontime;
   int? totalPercent;
 
   Status({
@@ -71,10 +71,10 @@ class Status {
 
   factory Status.fromJson(Map<String, dynamic> json) => Status(
     typename: json["__typename"],
-    injamaah: json["injamaah"]?.toDouble(),
-    late: json["late"]?.toDouble(),
-    notprayed: json["notprayed"]?.toDouble(),
-    ontime: json["ontime"]?.toDouble(),
+    injamaah: json["injamaah"],
+    late: json["late"],
+    notprayed: json["notprayed"],
+    ontime: json["ontime"],
     totalPercent: json["total_percent"],
   );
 

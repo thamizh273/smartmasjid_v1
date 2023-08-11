@@ -14,7 +14,7 @@ class WeatherpageController extends GetxController {
   _onPageChanged(int index){
     currentPage = index;
   }
-  RxBool isLoadings1 = false.obs;
+
   RxBool isLoadings = false.obs;
   final _restCallController = Get.put(restCallController());
   var getweatherdata = WeatherModel().obs;
@@ -38,7 +38,7 @@ class WeatherpageController extends GetxController {
 
 
   weatherList() async {
-    isLoadings1.value = true;
+    isLoadings.value = true;
     var header = """
 query Get_Weather_Report(\$cityName: String) {
   Get_Weather_Report(city_name: \$cityName) {
@@ -221,8 +221,8 @@ query Get_Weather_Report(\$cityName: String) {
     // print("lllll");
     // print(json.encode(res));
     // print("lllll");
-    log("ddddd ${json.encode(res)}");
-    isLoadings1.value = false;
+   // log("ddddd ${json.encode(res)}");
+    isLoadings.value = false;
     getweatherdata.value = weatherModelFromJson(json.encode(res));
     update();
   }

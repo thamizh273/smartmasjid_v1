@@ -68,21 +68,30 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                   children: [
                     10.verticalSpace,
                     SizedBox(
-                        child: FlutterDatePickerTimeline(
-                      unselectedItemTextStyle:
+                        child:
+
+                        FlutterDatePickerTimeline(
+                          // initialFocusedDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
+                          unselectedItemTextStyle:
                           TextStyle(fontWeight: FontWeight.w500),
-                      selectedItemBackgroundColor: Get.theme.primaryColor,
-                      unselectedItemWidth: 45,
-                      startDate:
-                          DateTime.now().subtract(Duration(days: 20)).toUtc(),
-                      endDate: DateTime.now().toUtc(),
-                      initialSelectedDate: DateTime.now().toUtc(),
-                      onSelectedDateChange: (dateTime) {
-                        controller.selectedDate.value = dateTime!.toUtc();
-                        controller.getImanTrakerEntry();
-                        log('${dateTime}');
-                      },
-                    )),
+                          selectedItemBackgroundColor: Get.theme.primaryColor,
+                          unselectedItemWidth: 45,
+                          startDate: DateTime(DateTime
+                              .now()
+                              .year, DateTime
+                              .now()
+                              .month, 2).toUtc(),
+                          // endDate: DateTime(DateTime.now().year, DateTime.now().month + 1, 2).toUtc().subtract(Duration(days: 1)),
+                          endDate: DateTime.now().toUtc(),
+                          initialSelectedDate: DateTime.now().toUtc(),
+                          onSelectedDateChange: (dateTime) {
+                            controller.selectedDate.value = dateTime!.toUtc();
+                            controller.getImanTrakerEntry();
+                            log('${dateTime}');
+                          },
+                        )
+
+                    ),
                     15.verticalSpace,
                     Stxt(
                       text: "Prayers",
@@ -93,181 +102,226 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       return controller.isloading.value
                           ? loading(context)
                           : ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: prayerList.length,
-                              itemBuilder: (context, index) {
-                                var k = prayerList[index];
-                                var col = controller.imanData.value
-                                    .getPrayerListTracker![index].status;
+                        shrinkWrap: true,
+                        itemCount: prayerList.length,
+                        itemBuilder: (context, index) {
+                          var k = prayerList[index];
+                          var col = controller.imanData.value
+                              .getPrayerListTracker![index];
 
-                                return imanCard(
-                                  image: '${k["icon"]}',
-                                  title: '${k["name"]}',
-                                  color: col == "late"
-                                      ? Colors.yellow.shade700
-                                      : (col == "injamaah"
-                                          ? Colors.green.shade700
-                                          : (col == "ontime"
-                                              ? Colors.blueAccent.shade700
-                                              : (col == "notprayed"
-                                                  ? Colors.red.shade700
-                                                  : theme
-                                                      .colorScheme.secondary))),
-                                  suffixIcon: col == "late"
-                                      ? Icons.history
-                                      : (col == "injamaah"
-                                          ? Icons.groups_sharp
-                                          : (col == "ontime"
-                                              ? Icons.person
-                                              : (col == "notprayed"
-                                                  ? Icons.not_interested
-                                                  : Icons.add))),
-                                  onTap: () {
-                                    //  controller.changeColor(index);
-                                    //  print("$index");
-                                  },
-                                  suffixonTap: () {
-                                    Get.bottomSheet(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        Column(
+                          return imanCard(
+                            image: '${k["icon"]}',
+                            title: '${col.prayerName}',
+                            color: col.status == "late"
+                                ? clr_yellow
+                                : (col.status == "injamaah"
+                                ? clr_green
+                                : (col.status == "ontime"
+                                ? clr_blue
+                                : (col.status == "notprayed"
+                                ? clr_red
+                                : theme
+                                .colorScheme.secondary))),
+                            suffixIcon: col.status == "late"
+                                ? Icons.history
+                                : (col.status == "injamaah"
+                                ? Icons.groups_sharp
+                                : (col.status == "ontime"
+                                ? Icons.person
+                                : (col.status == "notprayed"
+                                ? Icons.not_interested
+                                : Icons.add))),
+                            onTap: () {
+                              //  controller.changeColor(index);
+                              //  print("$index");
+                            },
+                            suffixonTap: () {
+                              Get.bottomSheet(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(10)),
+                                  Column(
+                                    children: [
+                                      20.verticalSpace,
+                                      SvgPicture.asset(
+                                        "assets/icons/${k["icon"]}.svg",
+                                        height: 25,
+                                        color: Get.theme.primaryColor,
+                                      ),
+                                      Stxt(
+                                        pad: EdgeInsets.symmetric(
+                                            vertical: 10.h),
+                                        text:
+                                        'How did you complete Asr today?',
+                                        size: f3,
+                                        weight: FontWeight.bold,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            vertical: 10.h),
+                                        child: Obx(() {
+                                          return Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment
+                                                .spaceEvenly,
+                                            children: [
+                                              SButton(
+                                                  color: controller.status
+                                                      .value == "notprayed"
+                                                      ? theme
+                                                      .primaryColor
+                                                      : null,
+                                                  height: 35.h,
+                                                  ontap: () {
+                                                    controller.status.value =
+                                                    "notprayed";
+                                                    controller.prayerId.value =
+                                                        col.prayerId.toString();
+                                                    controller.update();
+                                                  },
+                                                  text: "Not Prayed",
+                                                  prefix: Icon(
+                                                    Icons.not_interested,
+                                                    color: clr_red,
+                                                  )),
+                                              SButton(
+                                                  color: controller.status
+                                                      .value == "late"
+                                                      ? theme
+                                                      .primaryColor
+                                                      : null,
+                                                  height: 35.h,
+                                                  ontap: () {
+                                                    controller.status.value =
+                                                    "late";
+                                                    controller.prayerId.value =
+                                                        col.prayerId.toString();
+                                                    controller.update();
+                                                  },
+                                                  text: "Late",
+                                                  prefix: Icon(
+                                                    Icons.history,
+                                                    color: clr_yellow,
+                                                  )),
+                                            ],
+                                          );
+                                        }),
+                                      ),
+                                      Obx(() {
+                                        return Row(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            20.verticalSpace,
-                                            SvgPicture.asset(
-                                              "assets/icons/${k["icon"]}.svg",
-                                              height: 25,
-                                              color: Get.theme.primaryColor,
-                                            ),
-                                            Stxt(
-                                              pad: EdgeInsets.symmetric(
-                                                  vertical: 10.h),
-                                              text:
-                                                  'How did you complete Asr today?',
-                                              size: f3,
-                                              weight: FontWeight.bold,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  vertical: 10.h),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  SButton(
-                                                      height: 35.h,
-                                                      ontap: () {},
-                                                      text: "Not Prayed",
-                                                      prefix: Icon(
-                                                        Icons.not_interested,
-                                                        color: clr_black,
-                                                      )),
-                                                  SButton(
-                                                      height: 35.h,
-                                                      ontap: () {},
-                                                      text: "Late",
-                                                      prefix: Icon(
-                                                        Icons.history,
-                                                        color: clr_red,
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                SButton(
-                                                    height: 35.h,
-                                                    ontap: () {},
-                                                    text: "On Time",
-                                                    prefix: Icon(
-                                                      Icons.man,
-                                                      color: clr_yellow,
-                                                    )),
-                                                SButton(
-                                                    height: 35.h,
-                                                    ontap: () {},
-                                                    text: "In Jamaah",
-                                                    prefix: Icon(
-                                                      Icons.groups,
-                                                      color: clr_green,
-                                                    )),
-                                              ],
-                                            ),
-                                            Obx(() {
-                                              return Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: 10.h,
-                                                    horizontal: 25.w),
-                                                child: CheckboxListTile(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.r)),
-                                                  title: Stxt(
-                                                      text: "After Sunnah (2)",
-                                                      size: f2),
-                                                  activeColor:
-                                                      Get.theme.primaryColor,
-                                                  tileColor: clr_bg,
-                                                  value:
-                                                      controller.aSunnah.value,
-                                                  onChanged: (value) {
-                                                    controller.aSunnah.value =
-                                                        value!;
-                                                  },
-                                                  dense: true,
-                                                  visualDensity:
-                                                      VisualDensity.compact,
-                                                ),
-                                              );
-                                            }),
-                                            Obx(() {
-                                              return Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 25.w),
-                                                child: CheckboxListTile(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.r)),
-                                                  title: Stxt(
-                                                      text: "Before Sunnah (2)",
-                                                      size: f2),
-                                                  activeColor:
-                                                      Get.theme.primaryColor,
-                                                  tileColor: clr_bg,
-                                                  value:
-                                                      controller.bSunnah.value,
-                                                  onChanged: (value) {
-                                                    controller.bSunnah.value =
-                                                        value!;
-                                                  },
-                                                  dense: true,
-                                                  visualDensity:
-                                                      VisualDensity.compact,
-                                                ),
-                                              );
-                                            }),
-                                            20.verticalSpace,
                                             SButton(
+                                                color: controller.status
+                                                    .value == "ontime" ? theme
+                                                    .primaryColor : null,
+                                                height: 35.h,
                                                 ontap: () {
-                                                  Navigator.pop(context);
+                                                  controller.status.value =
+                                                  "ontime";
+                                                  controller.prayerId.value =
+                                                      col.prayerId.toString();
+                                                  controller.update();
                                                 },
-                                                text: "Submit",
-                                                color: Get.theme.primaryColor,
-                                                txtClr: Colors.white)
+                                                text: "On Time",
+                                                prefix: Icon(
+                                                  Icons.man,
+                                                  color: clr_blue,
+                                                )),
+                                            SButton(
+                                                color: controller.status
+                                                    .value == "injamaah" ? theme
+                                                    .primaryColor : null,
+                                                height: 35.h,
+                                                ontap: () {
+                                                  controller.status.value =
+                                                  "injamaah";
+                                                  controller.prayerId.value =
+                                                      col.prayerId.toString();
+                                                  controller.update();
+                                                },
+                                                text: "In Jamaah",
+                                                prefix: Icon(
+                                                  Icons.groups,
+                                                  color: clr_green,
+                                                )),
                                           ],
-                                        ),
-                                        backgroundColor:
-                                            Get.theme.colorScheme.secondary);
-                                    print("click");
-                                  },
-                                );
-                              },
-                            );
+                                        );
+                                      }),
+                                      Obx(() {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10.h,
+                                              horizontal: 25.w),
+                                          child: CheckboxListTile(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    8.r)),
+                                            title: Stxt(
+                                                text: "After Sunnah (2)",
+                                                size: f2),
+                                            activeColor:
+                                            Get.theme.primaryColor,
+                                            tileColor: clr_bg,
+                                            value:
+                                            controller.aSunnah.value,
+                                            onChanged: (value) {
+                                              controller.aSunnah.value =
+                                              value!;
+                                            },
+                                            dense: true,
+                                            visualDensity:
+                                            VisualDensity.compact,
+                                          ),
+                                        );
+                                      }),
+                                      Obx(() {
+                                        return Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 25.w),
+                                          child: CheckboxListTile(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    8.r)),
+                                            title: Stxt(
+                                                text: "Before Sunnah (2)",
+                                                size: f2),
+                                            activeColor:
+                                            Get.theme.primaryColor,
+                                            tileColor: clr_bg,
+                                            value:
+                                            controller.bSunnah.value,
+                                            onChanged: (value) {
+                                              controller.bSunnah.value =
+                                              value!;
+                                            },
+                                            dense: true,
+                                            visualDensity:
+                                            VisualDensity.compact,
+                                          ),
+                                        );
+                                      }),
+                                      20.verticalSpace,
+                                      SButton(
+                                          ontap: () {
+                                            controller.updatestatus();
+                                            Navigator.pop(context);
+                                          },
+                                          text: "Submit",
+                                          color: Get.theme.primaryColor,
+                                          txtClr: Colors.white)
+                                    ],
+                                  ),
+                                  backgroundColor:
+                                  Get.theme.colorScheme.secondary);
+                              print("click");
+                            },
+                          );
+                        },
+                      );
                     }),
                     10.verticalSpace,
                     Padding(
@@ -308,7 +362,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                 Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Container(),
                                     Stxt(
@@ -330,14 +384,14 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                     Safa_textfield(
                                       keyboardType: TextInputType.number,
                                       contentPad: 0,
-                                      contentHPad: 0,
+                                      contentHPad: 3,
                                       fillColor: Colors.white,
                                       width: .15,
                                       height: 30,
                                       hint: "0",
                                     ),
                                     SafaDropdownButton2(
-                                      hint: "",
+                                      hint: "Verse",
                                       value: "Verse",
                                       dropdownItems: ["Juz", "Verse"],
                                       onChanged: (value) {},
@@ -354,7 +408,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                     ),
                                   ],
                                 ),
-                                SButton(ontap: () {}, text: "Submit")
+                                SButton(ontap: () {}, text: "Submit",color: theme.primaryColor,txtClr: clr_white)
                               ],
                             ),
                           ));
@@ -372,12 +426,22 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                     margin: EdgeInsets.only(left: 10.sp, top: 15, bottom: 15),
                     padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
                     decoration: BoxDecoration(
-                        //     border: Border.all(
-                        //       width: 2,
-                        //       color: Colors.grey.shade300,
-                        //   ),
+                      //     border: Border.all(
+                      //       width: 2,
+                      //       color: Colors.grey.shade300,
+                      //   ),
                         borderRadius: BorderRadius.circular(5)),
                     child: ButtonsTabBar(
+                      onTap: (index) {
+                        log('$index');
+                        if (index == 0) {
+                          controller.getImanTrakerStatus("week");
+                        } else if (index == 1) {
+                          controller.getImanTrakerStatus("month");
+                        } else {
+                          controller.getImanTrakerStatus("total");
+                        }
+                      },
                       contentPadding: EdgeInsets.symmetric(horizontal: 20.sp),
                       // decoration: BoxDecoration(color: Colors.green),
                       borderColor: Colors.black,
@@ -402,148 +466,10 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                   Expanded(
                     child: TabBarView(
                       children: <Widget>[
-                        ListView(
-                          children: [
-                            Center(
-                              child: Stxt(
-                                text: 'Prayers Summary',
-                                size: f2,
-                                color: theme.primaryColor,
-                                weight: FontWeight.w500,
-                              ),
-                            ),
-                            SizedBox(
-                              width: double.infinity,
-                              child: Card(
-                                margin: EdgeInsets.all(8.sp),
-                                child: Padding(
-                                  padding: EdgeInsets.all(12.sp),
-                                  child: Obx(() {
-                                    return controller.isloading1.value
-                                        ? loading(context)
-                                        : ListView.builder(
-                                            shrinkWrap: true,
-                                            itemCount: controller
-                                                .imanStatusData
-                                                .value
-                                                .getImanTrackerStatus!
-                                                .length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              var status = controller
-                                                  .imanStatusData
-                                                  .value
-                                                  .getImanTrackerStatus![index];
-                                              return buildProgressIndicator(
-                                                  title:
-                                                      "${status.trackerName}",
-                                                  injamaah: (status
-                                                      .status!.injamaah!),
-                                                  ontime:
-                                                      status.status!.ontime!,
-                                                  late: status.status!.late!,
-                                                  notprayed: status
-                                                      .status!.notprayed!);
-                                            },
-                                          );
-                                  }),
-                                ),
-                              ),
-                            ),
-                            10.verticalSpace,
-                            Center(
-                              child: Stxt(
-                                text: 'Quran Summary',
-                                size: f2,
-                                color: theme.primaryColor,
-                                weight: FontWeight.w500,
-                              ),
-                            ),
-                            Card(
-                              margin: EdgeInsets.all(8),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(vertical: 15.h),
-                                child: Row(
-                                  children: [
-                                    Flexible(
-                                      child: Column(
-                                        children: [
-                                          Stxt(
-                                            text: 'Reading Quran\n (10 verse)',
-                                            size: f2,
-                                            weight: FontWeight.w500,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          10.verticalSpace,
-                                          PieChart(
-                                              chartLegendSpacing: 15.h,
-                                              colorList: [
-                                                Color(0xff1A657E),
-                                                Color(0xff5EA4BB),
-                                                // theme.colorScheme.primary
-                                                //     .withOpacity(.8),
-                                                // theme.primaryColor,
-                                                theme.colorScheme.secondary,
-                                              ],
-                                              dataMap: dataMap,
-                                              legendOptions: LegendOptions(
-                                                legendPosition:
-                                                    LegendPosition.bottom,
-                                              ),
-                                              chartValuesOptions:
-                                                  ChartValuesOptions(
-                                                showChartValuesInPercentage:
-                                                    true,
-                                              )),
-                                        ],
-                                      ),
-                                    ),
-                                    Flexible(
-                                      child: Column(
-                                        children: [
-                                          Stxt(
-                                            text: 'Memorize Quran\n (10 verse)',
-                                            size: f2,
-                                            weight: FontWeight.w500,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          10.verticalSpace,
-                                          PieChart(
-                                              chartLegendSpacing: 15.h,
-                                              colorList: [
-                                                Color(0xff1A657E),
-                                                Color(0xff5EA4BB),
-                                                // theme.colorScheme.primary
-                                                //     .withOpacity(.8),
-                                                // theme.primaryColor,
-                                                theme.colorScheme.secondary,
-                                              ],
-                                              dataMap: dataMap,
-                                              legendOptions: LegendOptions(
-                                                legendPosition:
-                                                    LegendPosition.bottom,
-                                              ),
-                                              chartValuesOptions:
-                                                  ChartValuesOptions(
-                                                showChartValuesInPercentage:
-                                                    true,
-                                              )),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            20.verticalSpace,
-                          ],
-                        ),
-                        Center(
-                          child: Icon(Icons.directions_bike),
-                        ),
-                        Center(
-                          child: Icon(Icons.directions_bike),
-                        ),
+                        statusCommonWidget(context),
+                        statusCommonWidget(context),
+                        statusCommonWidget(context),
+
                       ],
                     ),
                   ),
@@ -554,18 +480,158 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
         ));
   }
 
-  Column buildProgressIndicator(
-      {required String title,
-      required injamaah,
-      required ontime,
-      required late,
-      required notprayed}) {
+  ListView statusCommonWidget(BuildContext context) {
+    return ListView(
+      children: [
+        Center(
+          child: Stxt(
+            text: 'Prayers Summary',
+            size: f2,
+            color: theme.primaryColor,
+            weight: FontWeight.w500,
+          ),
+        ),
+        SizedBox(
+          width: double.infinity,
+          child: Card(
+            margin: EdgeInsets.all(8.sp),
+            child: Padding(
+              padding: EdgeInsets.all(12.sp),
+              child: Obx(() {
+                return controller.isloading1.value
+                    ? loading(context)
+                    : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller
+                      .imanStatusData
+                      .value
+                      .getImanTrackerStatus!
+                      .length,
+                  itemBuilder: (BuildContext context,
+                      int index) {
+                    var status = controller
+                        .imanStatusData
+                        .value
+                        .getImanTrackerStatus![index];
+                    return buildProgressIndicator(
+                      title: "${status.trackerName}",
+                      injamaah:
+                      (status.status!.injamaah!),
+                      ontime: status.status!.ontime!,
+                      late: status.status!.late!,
+                      notprayed:
+                      status.status!.notprayed!,
+                    );
+                  },
+                );
+              }),
+            ),
+          ),
+        ),
+        10.verticalSpace,
+        Center(
+          child: Stxt(
+            text: 'Quran Summary',
+            size: f2,
+            color: theme.primaryColor,
+            weight: FontWeight.w500,
+          ),
+        ),
+        Card(
+          margin: EdgeInsets.all(8),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 15.h),
+            child: Row(
+              children: [
+                Flexible(
+                  child: Column(
+                    children: [
+                      Stxt(
+                        text: 'Reading Quran\n (10 verse)',
+                        size: f2,
+                        weight: FontWeight.w500,
+                        textAlign: TextAlign.center,
+                      ),
+                      10.verticalSpace,
+                      PieChart(
+                          chartLegendSpacing: 15.h,
+                          colorList: [
+                            Color(0xff1A657E),
+                            Color(0xff5EA4BB),
+                            // theme.colorScheme.primary
+                            //     .withOpacity(.8),
+                            // theme.primaryColor,
+                            theme.colorScheme.secondary,
+                          ],
+                          dataMap: dataMap,
+                          legendOptions: LegendOptions(
+                            legendPosition:
+                            LegendPosition.bottom,
+                          ),
+                          chartValuesOptions:
+                          ChartValuesOptions(
+                            showChartValuesInPercentage:
+                            true,
+                          )),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  child: Column(
+                    children: [
+                      Stxt(
+                        text: 'Memorize Quran\n (10 verse)',
+                        size: f2,
+                        weight: FontWeight.w500,
+                        textAlign: TextAlign.center,
+                      ),
+                      10.verticalSpace,
+                      PieChart(
+                          chartLegendSpacing: 15.h,
+                          colorList: [
+                            Color(0xff1A657E),
+                            Color(0xff5EA4BB),
+                            // theme.colorScheme.primary
+                            //     .withOpacity(.8),
+                            // theme.primaryColor,
+                            theme.colorScheme.secondary,
+                          ],
+                          dataMap: dataMap,
+                          legendOptions: LegendOptions(
+                            legendPosition:
+                            LegendPosition.bottom,
+                          ),
+                          chartValuesOptions:
+                          ChartValuesOptions(
+                            showChartValuesInPercentage:
+                            true,
+                          )),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        20.verticalSpace,
+      ],
+    );
+  }
+
+  Column buildProgressIndicator({required String title,
+    required injamaah,
+    required ontime,
+    required late,
+    required notprayed}) {
+    var hhh = injamaah == 0 && ontime == 0 && late == 0 && notprayed == 0;
+    var disableclr = Colors.grey.shade300;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Stxt(
           pad: EdgeInsets.symmetric(vertical: 10.h),
-          text: title,
+          text: title[0].toUpperCase() + title.substring(1),
           size: f3,
           weight: FontWeight.w500,
         ),
@@ -573,30 +639,91 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
           children: [
             Row(
               children: [
-                imanIndicator(
-                  ws: injamaah,
-                  color: Colors.green.shade700,
-                  icon: Icons.groups_sharp,
+                Expanded(
+                  flex: injamaah == 0 ? 1 : (injamaah == 100 ? 11 : int.parse(
+                      (injamaah + 20).toString()[0])),
+                  child: imanIndicator(
+                    ws: injamaah,
+                    color: hhh ? disableclr : Colors.green.shade400,
+                    icon: Icons.groups_sharp,
+                  ),
                 ),
-                imanIndicator(
-                  ws: ontime,
-                  color: Colors.blueAccent.shade700,
-                  icon: Icons.person,
+                Expanded(
+                  flex: ontime == 0 ? 1 : (ontime == 100 ? 11 : int.parse(
+                      (ontime + 20).toString()[0])),
+                  child: imanIndicator(
+                    ws: ontime,
+                    color: hhh ? disableclr : Colors.blue.shade400,
+                    icon: Icons.person,
+                  ),
                 ),
-                imanIndicator(
-                  ws: late,
-                  color: Colors.yellow.shade700 ,
-                  icon: Icons.history,
+                Expanded(
+                  flex: late == 0 ? 1 : (late == 100 ? 11 : int.parse(
+                      (late + 20).toString()[0])),
+                  child: imanIndicator(
+                    ws: late,
+                    color: hhh ? disableclr : Colors.yellow.shade600,
+                  ),
                 ),
-                imanIndicator(
-                  ws: notprayed,
-                  color: Colors.red.shade700,
-                  icon: Icons.not_interested,
+                Expanded(
+                  flex: notprayed == 0 ? 1 : (notprayed == 100 ? 11 :((notprayed >= 90) ? 10 : int.parse(
+                      (notprayed + 10).toString()[0]))),
+                  child: imanIndicator(
+                    ws: notprayed,
+                    color: hhh ? disableclr : Colors.red.shade400,
+                  ),
                 ),
               ],
             ),
+            5.verticalSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Row(
+                  children: [
+                    Icon(
+                      Icons.groups_sharp,
+                      size: f3,
+                      color: Colors.green,
+                    ),
+                    Stxt(text: '${("${injamaah}")}%', size: f1),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.person,
+                      size: f3,
+                      color: Colors.blueAccent,
+                    ),
+                    Stxt(text: '${("${ontime}")}%', size: f1),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.history,
+                      size: f3,
+                      color: Colors.yellow.shade600,
+                    ),
+                    Stxt(text: '${("${late}")}%', size: f1),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.not_interested,
+                      size: f3,
+                      color: Colors.red,
+                    ),
+                    Stxt(text: '${("${notprayed}")}%', size: f1),
+                  ],
+                ),
+              ],
+            )
           ],
         ),
+
       ],
     );
   }
@@ -610,59 +737,25 @@ class imanIndicator extends StatelessWidget {
     this.icon,
   });
 
-  final double ws;
+  final int ws;
   final Color? color;
   final IconData? icon;
 
   @override
   Widget build(BuildContext context) {
-    return  Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 0),
-      child:ws==0?Container() :Column(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2),
+      child: Column(
         children: [
 
-
-
-          // LinearPercentIndicator(
-          //   width: 170.0,
-          //   animation: true,
-          //   animationDuration: 1000,
-          //   lineHeight: 20.0,
-          //   leading: new Text("left content"),
-          //   trailing: new Text("right content"),
-          //   percent: 0.2,
-          //   center: Text("20.0%"),
-          //   linearStrokeCap: LinearStrokeCap.butt,
-          //   progressColor: Colors.red,
-          // ),
           ///
           Container(
             height: 12,
-            width:ws*(3.1).w,
             decoration: BoxDecoration(
                 color: color, borderRadius: BorderRadius.circular(8)),
           ),
-          ///
-          5.verticalSpace,
-          Row(
-            children: [
-              Icon(
-                icon,
-                size: f3,
-                color: color,
-                shadows: [
-                  BoxShadow(
-                      color: Colors.grey,
-                      spreadRadius: 2,
-                      blurRadius: 2,
-                      offset: Offset(0, 1))
-                ],
-              ),
-              2.horizontalSpace,
-              Stxt(text: '${(ws.round())}%', size: f1),
-            ],
-          )
 
+          ///
         ],
       ),
     );
