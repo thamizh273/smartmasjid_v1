@@ -105,7 +105,7 @@ class WeatherdetailView extends GetView<WeatherdetailController> {
                 scrollDirection: Axis.vertical,
                 physics: ScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 10,
+                itemCount: 6,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: MediaQuery.of(context).orientation ==
                       Orientation.landscape ? 3: 2,
