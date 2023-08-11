@@ -2,8 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:smartmasjid_v1/app/modules/weatherpage/model/district_model.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
+import '../../../routes/export.dart';
 import '../model/weather_model.dart';
 
 class WeatherpageController extends GetxController {
@@ -18,10 +20,33 @@ class WeatherpageController extends GetxController {
   RxBool isLoadings = false.obs;
   final _restCallController = Get.put(restCallController());
   var getweatherdata = WeatherModel().obs;
+  var getdistictdata = DistrictModel().obs;
+  FocusNode searchFocusNode = FocusNode();
+  TextEditingController textEditingController = TextEditingController();
+  RxString searchQuery = ''.obs;
+  var selectedIndices = [].obs;
+  RxInt selectedIndex = 1.obs;
+  RxInt selectedIndex1 = 1.obs;
+
+  void setSelectedIndex(int index) {
+    selectedIndex.value = index;
+  }
+  void setSelectedIndex1(int index) {
+    selectedIndex1.value = index;
+  }
+
+  void toggleSelection(int index) {
+    if (selectedIndices.contains(index)) {
+      selectedIndices.remove(index);
+    } else {
+      selectedIndices.add(index);
+    }
+  }
 
   @override
   void onInit() {
     weatherList();
+    districtList();
     super.onInit();
   }
 
@@ -215,7 +240,7 @@ query Get_Weather_Report(\$cityName: String) {
     """;
 
     var body = {
-      "cityName": "pondicherry"
+      "cityName": "puducherry",
     };
     var res = await _restCallController.gql_query(header, body);
     // print("lllll");
@@ -224,6 +249,32 @@ query Get_Weather_Report(\$cityName: String) {
     log("ddddd ${json.encode(res)}");
     isLoadings1.value = false;
     getweatherdata.value = weatherModelFromJson(json.encode(res));
+    update();
+  }
+
+
+  districtList() async {
+    isLoadings.value = true;
+    var header = """
+query Query(\$dummy: String) {
+  Get_District_By_State(dummy_: \$dummy) {
+    country_name
+    state_name
+    district
+  }
+}
+    """;
+
+    var body = {
+      "dummy": ""
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data dis ${json.encode(res)}");
+    isLoadings.value = false;
+    getdistictdata.value = districtModelFromJson(json.encode(res));
     update();
   }
 }
