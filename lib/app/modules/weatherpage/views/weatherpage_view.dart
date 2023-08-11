@@ -171,7 +171,7 @@ class WeatherpageView extends StatelessWidget {
                             text:
                             "${c.getweatherdata.value
                                 .getWeatherReportFutureDate!
-                                .hijriDate}",
+                                .hijriDate }",
                             size: f2,
                             color: Colors.white,
                           );

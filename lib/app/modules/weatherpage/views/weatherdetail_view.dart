@@ -122,7 +122,7 @@ class WeatherdetailView extends StatelessWidget {
                     Space(4),
                     Stxt(
                       text:
-                          "${daywise.hijriDate}  (${DateFormat('yyyy-MM-dd, ').add_EEEE().format(DateTime.now())})",
+                          "${daywise.hijriDate }  (${DateFormat('yyyy-MM-dd, ').add_EEEE().format(DateTime.now())})",
                       size: f2,
                       color: Colors.white,
                     ),

@@ -186,4 +186,4 @@ class Today {
     "wind_dir": windDir,
     "wind_kph": windKph,
   };
-}
+} 
