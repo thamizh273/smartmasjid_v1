@@ -64,7 +64,7 @@ import '../modules/specialdayspage/views/specialdayspage_view.dart';
 import '../modules/splashScreen/bindings/splash_screen_binding.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
 import '../modules/weatherdetail/bindings/weatherdetail_binding.dart';
-import '../modules/weatherdetail/views/weatherdetail_view.dart';
+import '../modules/weatherpage/views/weatherdetail_view.dart';
 import '../modules/weatherlocation/bindings/weatherlocation_binding.dart';
 import '../modules/weatherlocation/views/weatherlocation_view.dart';
 import '../modules/weatherpage/bindings/weatherpage_binding.dart';
