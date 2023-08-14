@@ -803,9 +803,18 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     // ):Container(),
 
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        // Space(8),
+                                        Text(
+                                          "${sura.versesKey}",
+                                          style: TextStyle(
+                                              color: Theme
+                                                  .of(context)
+                                                  .primaryColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18),
+                                        ),
+                                        Spacer(),
                                         ...c.pages.map((e) =>
                                         e['verse'] == sura.versesKey ? Center(
                                           child: Container(
@@ -962,14 +971,14 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                           builder: (
                                                               BuildContext context) {
                                                             return CustomDialogBox1(
-                                                              title: 'Custom Dialog Title',
-                                                              content:
-                                                              'This is the content of the custom dialog box.',
-                                                              onPressed: () {
-                                                                Navigator
-                                                                    .pop(
-                                                                    context); // Closes the dialog box when the button is pressed.
-                                                              },
+                                                              // title: 'Custom Dialog Title',
+                                                              // content:
+                                                              // 'This is the content of the custom dialog box.',
+                                                              // onPressed: () {
+                                                              //   Navigator
+                                                              //       .pop(
+                                                              //       context); // Closes the dialog box when the button is pressed.
+                                                              // },
                                                             );
                                                           },
                                                         );
@@ -997,16 +1006,16 @@ class _QuranDetailsState extends State<QuranDetails> {
                                           .start,
                                       children: [
                                         // Space(12),
-                                        Text(
-                                          "${sura.versesKey}",
-                                          style: TextStyle(
-                                              color: Theme
-                                                  .of(context)
-                                                  .primaryColor,
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 18),
-                                        ),
-                                        28.horizontalSpace,
+                                        // Text(
+                                        //   "${sura.versesKey}",
+                                        //   style: TextStyle(
+                                        //       color: Theme
+                                        //           .of(context)
+                                        //           .primaryColor,
+                                        //       fontWeight: FontWeight.w600,
+                                        //       fontSize: 18),
+                                        // ),
+                                        55.horizontalSpace,
                                         Space(20.w),
                                         Align(
                                             alignment:
@@ -1693,16 +1702,6 @@ class ProfilePageController extends GetxController {
 class CustomDialogBox1 extends StatelessWidget {
   TextEditingController pass = TextEditingController();
   TextEditingController c = TextEditingController();
-  final String title;
-  final String content;
-  final VoidCallback onPressed;
-
-  CustomDialogBox1({
-    required this.title,
-    required this.content,
-    required this.onPressed,
-  });
-
   @override
   Widget build(BuildContext context) {
     return Dialog(

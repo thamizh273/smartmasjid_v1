@@ -905,14 +905,14 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                               builder: (
                                                                   BuildContext context) {
                                                                 return CustomDialogBox1(
-                                                                  title: 'Custom Dialog Title',
-                                                                  content:
-                                                                  'This is the content of the custom dialog box.',
-                                                                  onPressed: () {
-                                                                    Navigator
-                                                                        .pop(
-                                                                        context); // Closes the dialog box when the button is pressed.
-                                                                  },
+                                                                  // title: 'Custom Dialog Title',
+                                                                  // content:
+                                                                  // 'This is the content of the custom dialog box.',
+                                                                  // onPressed: () {
+                                                                  //   Navigator
+                                                                  //       .pop(
+                                                                  //       context); // Closes the dialog box when the button is pressed.
+                                                                  // },
                                                                 );
                                                               },
                                                             );

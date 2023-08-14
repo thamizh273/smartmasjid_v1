@@ -53,7 +53,8 @@ class _QuranpageViewState extends State<QuranpageView> {
                       if (c.isSearchEnabled.value) {
                         c.clearSearch(); // Clear search and show all items
                       } else {
-                        c.toggleSearch(); // Toggle search field
+                        // c.toggleSearch(); // Toggle search field
+                        Navigator.of(context).pop(MaterialPageRoute(builder: (_) => HomeView()));
                       }
                     },
                     child: SvgPicture.asset("assets/svg/backnew.svg",
@@ -476,28 +477,28 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                 ),
                                                 child: Row(
                                                   children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
-                                                      children: [
-                                                        Image(
-                                                          image: sura
-                                                              .quranType! ==
-                                                              "Makki"
-                                                              ? AssetImage(
-                                                              'assets/images/makka.png')
-                                                              : AssetImage(
-                                                              'assets/images/madina.png'),
-                                                          width: 18,
-                                                        ),
-                                                        Stxt(
-                                                            text:
-                                                            sura.quranType!,
-                                                            size: f0)
-                                                      ],
-                                                    ),
-                                                    Space(8),
+                                                    // Column(
+                                                    //   mainAxisAlignment:
+                                                    //   MainAxisAlignment
+                                                    //       .center,
+                                                    //   children: [
+                                                    //     Image(
+                                                    //       image: sura
+                                                    //           .quranType! ==
+                                                    //           "Makki"
+                                                    //           ? AssetImage(
+                                                    //           'assets/images/makka.png')
+                                                    //           : AssetImage(
+                                                    //           'assets/images/madina.png'),
+                                                    //       width: 18,
+                                                    //     ),
+                                                    //     Stxt(
+                                                    //         text:
+                                                    //         sura.quranType!,
+                                                    //         size: f0)
+                                                    //   ],
+                                                    // ),
+                                                    // Space(8),
                                                     // Padding(
                                                     //   padding: const EdgeInsets.all(16),
                                                     //   child: Container(
@@ -588,16 +589,31 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                                     .w600),
                                                           ),
                                                           Space(4),
-                                                          SizedBox(
-                                                            width: 100.w,
-                                                            child: Stxt(
-                                                              text:
-                                                              sura.titleEn!,
-                                                              size: f1,
-                                                              color: Color(
-                                                                  0xff16627C),
-                                                              maxLines: 2,
-                                                            ),
+                                                          Row(
+                                                            children: [
+                                                          Image(
+                                                                image: sura
+                                                                    .quranType! ==
+                                                                    "Makki"
+                                                                    ? AssetImage(
+                                                                    'assets/images/makka.png')
+                                                                    : AssetImage(
+                                                                    'assets/images/madina.png'),
+                                                                width: 11,
+                                                              ),
+                                                              Space(8),
+                                                              SizedBox(
+                                                                width: 100.w,
+                                                                child: Stxt(
+                                                                  text:
+                                                                  sura.titleEn!,
+                                                                  size: f1,
+                                                                  color: Color(
+                                                                      0xff16627C),
+                                                                  maxLines: 2,
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
@@ -673,7 +689,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                         color: Theme
                                                             .of(context)
                                                             .primaryColor,
-                                                        scale: 12,)
+                                                        scale: 10,)
                                                           : Container(),
                                                     Space(8),
                                                     Padding(
@@ -897,7 +913,7 @@ class _QuranpageViewState extends State<QuranpageView> {
                                                           color: Theme
                                                               .of(context)
                                                               .primaryColor,
-                                                          scale: 16,)
+                                                          scale: 18,)
                                                             : Container(),
                                                       Space(4),
                                                       Padding(
