@@ -152,7 +152,6 @@ class WeatherpageView extends StatelessWidget {
 
                         ):Image.asset(
                           "assets/images/weather.png",
-                          width: 200.w,
                         ),
                         Text(
                           "${c.getweathertest.value.current!.tempC!.round()}\u00B0C",
