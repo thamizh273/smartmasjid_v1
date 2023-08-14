@@ -1,5 +1,10 @@
-import 'package:get/get.dart';
+import 'dart:convert';
+import 'dart:developer';
 
+import 'package:get/get.dart';
+import 'package:smartmasjid_v1/app/modules/duapage/model/dua_model.dart';
+
+import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
 
 class DuapageController extends GetxController {
@@ -7,11 +12,14 @@ class DuapageController extends GetxController {
 
   var isExpanded = false.obs;
   ScrollController scrollController = ScrollController();
-
+var isLoadings = false.obs;
+  final _restCallController = Get.put(restCallController());
+  var getduadata = DuaModel().obs;
 
   final count = 0.obs;
   @override
   void onInit() {
+    duaList();
     super.onInit();
   }
 
@@ -25,5 +33,35 @@ class DuapageController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  duaList() async {
+    isLoadings.value = true;
+    var header = """
+query Get_Duas_Title_List_ {
+  Get_Duas_Title_List_ {
+    duas_name_en
+    duas_name_arb
+    duas_name_tamil
+    duas_name_hindi
+    others_name
+    titles_list {
+      title
+    }
+    duas_type
+  }
+}
+    """;
+
+    var body = {
+      "masjidId": ""
+
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data sign ${json.encode(res)}");
+    isLoadings.value = false;
+    getduadata.value = duaModelFromJson(json.encode(res));
+    update();
+  }
 }

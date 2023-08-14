@@ -1,23 +1,127 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
+import 'package:smartmasjid_v1/widgets/loading.dart';
+import 'package:smartmasjid_v1/widgets/stext.dart';
 
 import '../../../../widgets/space.dart';
 import '../../home/widgets/appBar.dart';
 import '../controllers/messagepage_controller.dart';
 
 class MessagepageView extends GetView<MessagepageController> {
-  const MessagepageView({Key? key}) : super(key: key);
+   MessagepageView({Key? key}) : super(key: key);
+  MessagepageController c = Get.put(MessagepageController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(tittle: 'Messages',
         action: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.refresh, color: Colors.white,))
+          IconButton(
+              onPressed: () {}, icon: Icon(Icons.refresh, color: Colors.white,))
         ],
       ),
 
+      body: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              Container(
+                height: 80.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 4,
+                          spreadRadius: 2,
+                          offset: Offset(-2, 4),
+                          color: Colors.grey.shade400
+                      )
+                    ]
+                ),
+                child: Row(
+                  children: [
+                    Space(16),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Image.asset("assets/images/pic.png", width: 60,),
+                    ),
+                    Space(16),
+                    SizedBox(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stxt(text: "Masjid-e-nooraniya",
+                            size: f4,
+                            weight: FontWeight.w600,),
+                          Space(8),
+                          Stxt(
+                            text: "Admin", size: f3, weight: FontWeight.w300,),
+                        ],
+                      ),
+                    ),
+                    Spacer(),
+                    // Icon(Icons.message, color: Theme
+                    //     .of(context)
+                    //     .primaryColor
+                    //     .withOpacity(0.5), size: 30,),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Space(16),
+                        Stxt(text: "2hrs ago", size: f1, color: Colors.black.withOpacity(0.5),),
+                        Space(8),
+                        Container(
+                          clipBehavior: Clip.antiAlias,
+                          width: 25,
+                          height: 25,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          child: Center(child: Text("1", style: TextStyle(color: Colors.white),)),
+                        )
+                      ],
+                    ),
+                    Space(20),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.message),
+        backgroundColor: Theme
+            .of(context)
+            .primaryColor,
+        onPressed: () {
+          showDialog(context: context, builder: (BuildContext context) {
+            return CustomDialogBox();
+          }
+          );
+        },
+      ),
+    );
+  }
+}
+
+
+class NoMeassage extends StatelessWidget {
+  const NoMeassage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -29,10 +133,155 @@ class MessagepageView extends GetView<MessagepageController> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.message),
-        backgroundColor:Theme.of(context).primaryColor,
-        onPressed: (){},
+    );
+  }
+}
+
+class CustomDialogBox extends StatelessWidget {
+  TextEditingController pass = TextEditingController();
+  TextEditingController c = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: _buildDialogContent(context),
+    );
+  }
+
+  Widget _buildDialogContent(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      // padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Color(0xffB5CCD4),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child:SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 70.h,
+              width: double.infinity,
+              color: Theme.of(context).primaryColor,
+              child: Row(
+                children: [
+                  Space(16),
+                  Text("Select", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),),
+                  Spacer(),
+                  // Icon(Icons.close, color: Colors.white,),
+                  Space(16),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Container(
+                    width: 300.w,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 4),
+                              blurRadius: 5,
+                              color: Colors.grey.shade400
+                          )
+                        ]
+                    ),
+                    child: TextField(
+                      style: TextStyle(color: Theme
+                          .of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.4), fontWeight: FontWeight.w600),
+                      controller: pass,
+                      decoration: InputDecoration(
+                        hintText: 'Search',
+                        // label: Text("Note Title"),
+                        filled: true,
+                        fillColor: Colors.grey.shade100,
+                        focusColor: Colors.black,
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 12),
+                        suffixIcon: IconButton(onPressed: (){
+                          Navigator.pop(context);
+                        }, icon: Icon(Icons.search),)
+                      ),
+                    ),
+                  ),
+                  Space(16),
+                  SizedBox(
+                    height: 470.h,
+                    child: ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: 10,
+                        itemBuilder: (context, index) {
+                        return  Padding(
+                          padding: const EdgeInsets.only(top: 8, bottom: 8),
+                          child: Container(
+                            height: 60.h,
+                            width: 80.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 4,
+                                      spreadRadius: 2,
+                                      offset: Offset(-2, 4),
+                                      color: Colors.grey.shade400
+                                  )
+                                ]
+                            ),
+                            child: Row(
+                              children: [
+                                Space(16),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                  ),
+                                  child: Image.asset("assets/images/pic.png", width: 40,),
+                                ),
+                                Space(16),
+                                SizedBox(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Stxt(text: "Masjid-e-nooraniya",
+                                        size: f2,
+                                        weight: FontWeight.w600,),
+                                      Space(8),
+                                      Stxt(
+                                        text: "Admin", size: f1, weight: FontWeight.w300,),
+                                    ],
+                                  ),
+                                ),
+                                Spacer(),
+                                Icon(Icons.message, color: Theme
+                                    .of(context)
+                                    .primaryColor
+                                    .withOpacity(0.5), size: 30,),
+                                Space(20),
+                              ],
+                            ),
+                          ),
+                        );
+                        }
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

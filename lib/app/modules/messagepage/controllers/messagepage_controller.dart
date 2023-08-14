@@ -4,6 +4,7 @@ class MessagepageController extends GetxController {
   //TODO: Implement MessagepageController
 
   final count = 0.obs;
+  var isLoadings = false.obs;
   @override
   void onInit() {
     super.onInit();

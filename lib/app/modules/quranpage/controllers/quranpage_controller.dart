@@ -147,6 +147,7 @@ void setLastReadIndex(int index) {
 
  var passint=0.obs;
   var buttonsSelected = [].obs;
+  var buttonsSelected1 = [].obs;
   var result="".obs;
   var result1="".obs;
 

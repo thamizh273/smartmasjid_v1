@@ -307,9 +307,7 @@ Future GotoVerse(BuildContext context) {
                   children: [
                        ElevatedButton(
                           onPressed: () {
-                            c.scrollController.jumpTo(c.currentSelected.value *
-                                c.pages.length *
-                                1);
+                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(130, 30),

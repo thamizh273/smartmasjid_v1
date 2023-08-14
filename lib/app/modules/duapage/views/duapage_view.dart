@@ -4,9 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
+import 'package:smartmasjid_v1/widgets/stext.dart';
 
 import '../../../../widgets/space.dart';
 import '../controllers/duapage_controller.dart';
+import 'dua_detail.dart';
 
 class DuapageView extends GetView<DuapageController> {
   DuapageView({Key? key}) : super(key: key);
@@ -45,7 +48,7 @@ class DuapageView extends GetView<DuapageController> {
                         physics: ScrollPhysics(),
                         shrinkWrap: true,
                       controller: c.scrollController,
-                        itemCount:c.isExpanded.value ? 20 : 12,
+                        itemCount: c.isExpanded.value ? c.getduadata.value.getDuasTitleList!.length : 12,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: MediaQuery.of(context).orientation ==
                               Orientation.landscape ? 3: 3,
@@ -54,16 +57,17 @@ class DuapageView extends GetView<DuapageController> {
                           childAspectRatio: (2 / 1),
                         ),
                         itemBuilder: (context,index,) {
+                          var dua = c.getduadata.value.getDuasTitleList![index];
                           Color color = index % 2 == 0 ? evenItemColor : oddItemColor;
                           return GestureDetector(
                             onTap:(){
-                              // Navigator.of(context).pushNamed(RouteName.GridViewCustom);
+                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DuaDetail()));
                             },
                             child:Container(
                               color: color,
                               // color: RandomColorModel().getColor(),
                               child: Center(
-                                child: Text("Angry",style: TextStyle(fontSize: 18, color: Colors.black),
+                                child: Text("${dua.duasNameEn}",style: TextStyle(fontSize: 18, color: Colors.black),
                                     textAlign: TextAlign.center),
                               ),
                             ),
@@ -107,19 +111,25 @@ class DuapageView extends GetView<DuapageController> {
                       return GestureDetector(
                         onTap:(){
                           // Navigator.of(context).pushNamed(RouteName.GridViewCustom);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return CustomDialogBox();
+                            },
+                          );
                         },
                         child:FractionallySizedBox(
                           heightFactor: 0.8,
                           child: Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(4),
                               border: Border.all(color: Color(0xff17637D)),
                             ),
                             child: Row(
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Image.asset("assets/images/slepping.png"),
                                 ),
@@ -141,6 +151,81 @@ class DuapageView extends GetView<DuapageController> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+
+class CustomDialogBox extends StatelessWidget {
+  TextEditingController pass = TextEditingController();
+  TextEditingController c = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: _buildDialogContent(context),
+    );
+  }
+
+  Widget _buildDialogContent(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Color(0xffB5CCD4),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: 100.h,
+            width: 180.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(color: Theme.of(context).primaryColor)
+            ),
+            child: Image.asset("assets/images/slepping.png",fit: BoxFit.fill,),
+          ),
+          Space(16),
+          Stxt(text: "Sleeping", size: f5, weight: FontWeight.w500,),
+          Space(16),
+          SizedBox(
+            child: ListView.builder(
+              shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Container(
+                    height: 30.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: Colors.white
+                    ),
+                    child: Row(
+                      children: [
+                        Space(8),
+                        Stxt(text: "Before Sleeping", size: f3),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios_outlined, size: 20,),
+                        Space(8)
+                      ],
+                    ),
+                  ),
+                );
+                }
+            ),
+          )
+
+        ],
       ),
     );
   }

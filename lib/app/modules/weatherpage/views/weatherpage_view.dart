@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/weatherpage/views/weatherdetail_view.dart';
 import 'package:smartmasjid_v1/app/modules/weatherpage/controllers/weatherpage_controller.dart';
 import 'package:smartmasjid_v1/app/modules/weatherpage/views/add_weather.dart';
@@ -98,7 +99,7 @@ class WeatherpageView extends StatelessWidget {
                                           .name} ,    ${c
                                           .getweathertest.value.location!.region} ${c.getweathertest.value
                                           .location!.country}",
-                                      size: f2,
+                                      size: f3,weight: FontWeight.w500,
                                       color: clr_white,
                                     )))),
                         Space(16),
@@ -161,21 +162,21 @@ class WeatherpageView extends StatelessWidget {
                         Stxt(
                           text:
                           "${c.getweathertest.value.current!.condition!.text}",
-                          size: f4,
+                          size: f4,weight: FontWeight.w500,
                           color: Colors.white,
                         ),
-                        Space(4),
+                        Space(8),
                         Obx(() {
                           return c.isLoadings1.value?CupertinoActivityIndicator():Stxt(
                             text:
                             "${c.getweatherdata.value
                                 .getWeatherReportFutureDate!
-                                .hijriDate }",
-                            size: f2,
+                                .hijriDate }  (${DateFormat('yyyy-MM-dd, ').add_EEEE().format(DateTime.now())})",
+                            size: f2,weight: FontWeight.w600,
                             color: Colors.white,
                           );
                         }),
-                        Space(16),
+                        Space(20),
                         Row(
                           mainAxisAlignment:
                           MainAxisAlignment.spaceBetween,
@@ -372,7 +373,7 @@ class FutureDay extends StatelessWidget {
             // ),
             Image.network(
               "https:${icon}",
-              width: 30,
+              width: 40,
             ),
           ],
         ),

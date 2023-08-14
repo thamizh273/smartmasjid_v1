@@ -140,7 +140,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MESSAGEPAGE,
-      page: () => const MessagepageView(),
+      page: () =>  MessagepageView(),
       binding: MessagepageBinding(),
     ),
     GetPage(
