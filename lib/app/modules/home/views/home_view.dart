@@ -272,10 +272,7 @@ class HomeView extends StatelessWidget {
                                           image: 'qibla_finder',
                                           title: 'Qibla\nFinder',
                                           onTap: () {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (_) =>
-                                                        QiblaFinder()));
+                                          Get.to(QiblaFinder());
                                           },
                                         ),
                                         SmallCard(

@@ -131,6 +131,25 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     print("getstaus");
 
   }
+  prayerDetailRT(index){
+
+      DateTime now = DateTime.now();
+
+
+
+      // Target date and time
+      var targetDateTime = DateTime.parse("${prayerTimeData.value
+          .getTodayMasjidPrayerTime!
+          .todayPrayerList![index]
+          .startTime}").toLocal();
+
+      // Calculate the remaining duration
+      Duration remainingDuration = targetDateTime.difference(now);
+      var remainingHours = remainingDuration.inHours;
+      int remainingMinutes = remainingDuration.inMinutes.remainder(60);
+      var timer="${remainingDuration.inHours}hrs ${remainingDuration.inMinutes.remainder(60)}min";
+      return timer;
+  }
   remainTime(){
     DateTime now = DateTime.now();
 

@@ -69,8 +69,8 @@ dependencies:
   device_info_plus: ^9.0.3
   image: ^4.0.17
   flutter_date_picker_timeline: ^0.3.3
-
-
+  geolocator: ^9.0.2
+  google_maps_flutter: ^2.4.0
 
 
 

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 class QiblafinderpageController extends GetxController {
   //TODO: Implement QiblafinderpageController
 
-  final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
@@ -19,5 +18,5 @@ class QiblafinderpageController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+
 }
