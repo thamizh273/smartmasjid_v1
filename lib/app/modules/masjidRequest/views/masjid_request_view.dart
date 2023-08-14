@@ -1,14 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../widgets/bgcontainer_auth.dart';
 import '../../../routes/app_pages.dart';
+import '../../home/controllers/home_controller.dart';
 import '../controllers/masjid_request_controller.dart';
 
 class MasjidRequestView extends GetView<MasjidRequestController> {
-  const MasjidRequestView({Key? key}) : super(key: key);
+   MasjidRequestView({Key? key}) : super(key: key);
+  final homectrl=Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +68,12 @@ class MasjidRequestView extends GetView<MasjidRequestController> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         OutlinedButton(
-                            onPressed: (){
-                              Get.offAllNamed(Routes.LOGIN_PAGE);
+                            onPressed: () async {
+                              Get.offNamed(Routes.REGISTER_LOGIN);
+                              await homectrl.box1.remove('fruits');
+                              await GoogleSignIn().signOut();
+                              await FirebaseAuth.instance.signOut();
+
                             },
                             style: OutlinedButton.styleFrom(
                               minimumSize: Size(100, 30),

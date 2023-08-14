@@ -1,4 +1,6 @@
 import 'package:country_state_picker_plus/country_state_picker_plus.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:smartmasjid_v1/app/authRepository.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 
@@ -471,8 +473,10 @@ class MasjidFinderView extends StatelessWidget {
                                               height: 25.h,
                                               width: 90.w,
                                               ontap: () async {
-                                                  if(c.uid.value==""){
+
+                                                  if(AuthenticationRespository.instance.gsignBool.value==false){
                                                     await c.signUpComplete(id);
+                                                    //await c.loginGmail(id)(id);
                                                   }else{
                                                   await c.loginGmail(id);}
 

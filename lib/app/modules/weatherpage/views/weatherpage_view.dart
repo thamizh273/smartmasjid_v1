@@ -95,10 +95,9 @@ class WeatherpageView extends StatelessWidget {
                                     child: Stxt(
                                       text:
                                       "${c.getweathertest.value.location!
-                                          .name}, ${c.getweathertest.value
-                                          .location!.country}   ${c
-                                          .getweathertest.value.location!
-                                          .tzId}",
+                                          .name} ,    ${c
+                                          .getweathertest.value.location!.region} ${c.getweathertest.value
+                                          .location!.country}",
                                       size: f2,
                                       color: clr_white,
                                     )))),

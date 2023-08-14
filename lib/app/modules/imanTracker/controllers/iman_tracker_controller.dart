@@ -6,11 +6,13 @@ import 'package:smartmasjid_v1/app/modules/imanTracker/model/imanTrakerStatusMod
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
+import '../../home/controllers/home_controller.dart';
 import '../model/ImanTrakerEntryModel.dart';
 
 class ImanTrackerController extends GetxController with GetSingleTickerProviderStateMixin {
   //TODO: Implement ImanTrackerController
   final _restCallController = Get.put(restCallController());
+  final homectrl= Get.find<HomeController>();
   var imanData= GetImanTrakerEntryModel().obs;
   var imanStatusData= ImanTrakerStatusModel().obs;
   late TabController tabctrl;
@@ -76,7 +78,7 @@ query Get_Prayer_list_Tracker(\$userId: ID!, \$date: String) {
 }
     """;
     var body ={
-      "userId": "5b52cef8-1c88-48ac-bd76-a092cd5ad200",
+      "userId": "${homectrl.getUserData.value.getUserById!.id}",
       "date": "${selectedDate.value}"
     };
     var res = await  _restCallController.gql_query(header, body);
@@ -106,7 +108,7 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
 }
     """;
     var body ={
-      "userId": "5b52cef8-1c88-48ac-bd76-a092cd5ad200",
+      "userId": "${homectrl.getUserData.value.getUserById!.id}",
       "trackerType": "prayertracker",
       "status": "${status}"
     };
@@ -129,7 +131,7 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
        Update_Iman_Track_prayer(user_id_: \$userId, prayer_id: \$prayerId, date_: \$date, tracking_message: \$trackingMessage)
    }""";
     var body = {
-      "userId": "5b52cef8-1c88-48ac-bd76-a092cd5ad200",
+      "userId": "${homectrl.getUserData.value.getUserById!.id}",
       "prayerId": "${prayerId.value}",
       "date": "${selectedDate.value}",
       "trackingMessage": "${status.value}"

@@ -55,18 +55,14 @@ import '../modules/settingspage/bindings/settingspage_binding.dart';
 import '../modules/settingspage/views/settingspage_view.dart';
 import '../modules/signup_page/bindings/signup_page_binding.dart';
 import '../modules/signup_page/views/signup_page_view.dart';
-import '../modules/singleweather/bindings/singleweather_binding.dart';
-import '../modules/singleweather/views/singleweather_view.dart';
+
 import '../modules/sliderdot/bindings/sliderdot_binding.dart';
 import '../modules/sliderdot/views/sliderdot_view.dart';
 import '../modules/specialdayspage/bindings/specialdayspage_binding.dart';
 import '../modules/specialdayspage/views/specialdayspage_view.dart';
 import '../modules/splashScreen/bindings/splash_screen_binding.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
-import '../modules/weatherdetail/bindings/weatherdetail_binding.dart';
 import '../modules/weatherpage/views/weatherdetail_view.dart';
-import '../modules/weatherlocation/bindings/weatherlocation_binding.dart';
-import '../modules/weatherlocation/views/weatherlocation_view.dart';
 import '../modules/weatherpage/bindings/weatherpage_binding.dart';
 import '../modules/weatherpage/views/weatherpage_view.dart';
 import '../modules/zakathpage/bindings/zakathpage_binding.dart';
@@ -203,18 +199,13 @@ class AppPages {
       binding: SliderdotBinding(),
     ),
     GetPage(
-      name: _Paths.SINGLEWEATHER,
-      page: () => SingleweatherView(),
-      binding: SingleweatherBinding(),
-    ),
-    GetPage(
       name: _Paths.PRAYERDETAILSPAGE,
       page: () => PrayerdetailspageView(),
       binding: PrayerdetailspageBinding(),
     ),
     GetPage(
       name: _Paths.MASJID_REQUEST,
-      page: () => const MasjidRequestView(),
+      page: () =>  MasjidRequestView(),
       binding: MasjidRequestBinding(),
     ),
     GetPage(
@@ -252,11 +243,6 @@ class AppPages {
       name: _Paths.EDITPROFILE,
       page: () => EditProfileView(),
       binding: ProfilePageBinding(),
-    ),
-    GetPage(
-      name: _Paths.WEATHERDETAIL,
-      page: () => WeatherdetailView(),
-      binding: WeatherdetailBinding(),
     ),
     GetPage(
       name: _Paths.MEMBERSHIP,

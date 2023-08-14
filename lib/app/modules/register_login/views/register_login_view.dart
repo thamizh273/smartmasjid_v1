@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -43,7 +44,10 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
               25.verticalSpace,
               ElevatedButton(
                   onPressed: () {
+                    AuthenticationRespository.instance.gsignBool.value=false;
                     Get.toNamed(Routes.FACE_AUTH);
+                    FirebaseAuth.instance.signOut();
+
                     // Navigator.of(context).push(MaterialPageRoute(builder: (_) => FaceAuth()));
                     // Navigator.push(
                     //   context,
@@ -130,6 +134,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                 children: [
                   GestureDetector(
                       onTap: () {
+                        AuthenticationRespository.instance.gsignBool.value=true;
                         // controller.signInWithGoogle();
                         controller.googleSignIns();
                         //AuthenticationRespository.instance.signInWithGoogle();

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 import '../../../authRepository.dart';
@@ -18,13 +19,15 @@ class MasjidFinderController extends GetxController {
   final _restCallController = Get.put(restCallController());
   final _faceAuthctrl = Get.put(FaceAuthController());
   var masjidListdata = MasjidFinderModel().obs;
-  var uid = instance1.guid.obs;
+  // var uid = FirebaseAuth.instance.currentUser;
 
   // RxList filteredMasjidList = [].obs;
   //TODO: Implement MasjidFinderController
   // var seller_list_model=SelllerListModel().obs;
   @override
   void onInit() {
+   // log("dddddvv${uid[0]}jjjj");
+ //   print("dddddvv${uid[0].value}jjjjj");
     //filteredMasjidList = masjidListdata.value.getMasjidFilter.obs;
     super.onInit();
   }
@@ -138,11 +141,15 @@ mutation Mutation(\$masjidid: String, \$profileImage: String, \$firstName: Strin
   }
 
   loginGmail(String? id) async {
-    print('ss${instance1.guid}');
+    log('ss${instance1.guid.value}');
+    print('ss${instance1.guid.value}');
+    log('ss${instance1.gemail}');
     print('ss${instance1.gemail}');
+    log('ss${instance1.gname}');
     print('ss${instance1.gname}');
-    print('ss${id}');
+    log('ss${id}');
     print('ss${_langctrl.selectedLang.value}');
+    log('ss${_langctrl.selectedLang.value}');
     var header = """
 mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$masjidid: String, \$gmail: String, \$userName: String) {
   Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_type_: \$userType, masjidid_: \$masjidid, gmail_: \$gmail, user_name_: \$userName) {
@@ -155,7 +162,7 @@ mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$ma
     """;
 
     var body = {
-      "authId": "${instance1.guid}",
+      "authId": "${instance1.guid.value}",
       "language": "${_langctrl.selectedLang.value}",
       "userType": "member",
       "masjidid": "${id}",
@@ -169,6 +176,7 @@ mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$ma
       var hh = res["SUCCESS"]["Login_With_Gmail"]["message"];
       toast(error: "SUCCESS", msg: "${hh}");
       Get.offAllNamed(Routes.MASJID_REQUEST);
+
     }
 
     // if (res.toString().contains("SUCCESS")) {

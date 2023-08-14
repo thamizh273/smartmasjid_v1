@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:smartmasjid_v1/app/modules/masjidFinder/controllers/masjid_finder_controller.dart';
 
+import '../../../nofiyService.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 final ctrl =Get.put(MasjidFinderController());
@@ -279,7 +281,7 @@ class _QRViewExampleState extends State<barcodeQrScanner> {
                               height: 25.h,
                               width: 90.w,
                               ontap: () async {
-                                if(ctrl.uid.value==""){
+                                if(FirebaseAuth.instance.currentUser==null){
                                   await    ctrl.signUpComplete(result!.code);;
                                 }else{
                                   await ctrl.loginGmail(result!.code);}

@@ -13,6 +13,8 @@ import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_cont
 import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
+import '../../imanTracker/model/ImanTrakerEntryModel.dart';
+import '../../imanTracker/model/imanTrakerStatusModel.dart';
 import '../Model/getUserModel.dart';
 
 class HomeController extends GetxController with GetSingleTickerProviderStateMixin{
@@ -21,13 +23,14 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   final _authCtrl = Get.put(AuthenticationRespository());
   final _la = Get.put(LoginPageController());
 
-
+  var imanStatusData= ImanTrakerStatusModel().obs;
 
   late TabController tabController;
 
   RxBool alarm = false.obs;
   RxBool isloading = false.obs;
   RxBool isloading1 = false.obs;
+  RxBool isloadingiman = false.obs;
   var getUserData=GetUserModel().obs;
   var prayerTimeData=PrayerTimeModel().obs;
 
@@ -44,6 +47,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
    var hh=Get.arguments;
   final box1 = GetStorage();
 
+
   @override
   void onInit() {
 
@@ -53,11 +57,15 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
    }
    if(hh !=null){
      box1.write("fruits",hh[0]);
+     box1.write("masjidId",hh[1]);
      getUserDetails(hh[0],"");
+     getPrayerTime(hh[1]);
 
    }
    if(  box1.read('fruits')!=null){
      getUserDetails( box1.read('fruits'),"");
+     getPrayerTime( box1.read('masjidId'));
+
 
    }
    if(FirebaseAuth.instance.currentUser!=null){
@@ -68,7 +76,8 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 
  //  getUserDetails(Get.arguments[0]);
   // getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
-    getPrayerTime();
+   // getPrayerTime();
+
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
           () {
@@ -91,7 +100,37 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
     tabController.dispose();
     super.onClose();
   }
+  getImanTrakerStatus(id) async {
 
+    isloadingiman.value=true;
+    var header="""
+query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
+  Get_Iman_Tracker_Status(user_id_: \$userId, tracker_type: \$trackerType, status_: \$status) {
+    status {
+      injamaah
+      late
+      notprayed
+      ontime
+      total_percent
+    }
+    tracker_name
+  }
+}
+    """;
+    var body ={
+      "userId": "$id",
+      "trackerType": "prayertracker",
+      "status": "week"
+    };
+    var res = await  _restCallController.gql_query(header, body);
+    isloadingiman.value=false;
+
+    imanStatusData.value=imanTrakerStatusModelFromJson(json.encode(res));
+    print("getstatus");
+    log(json.encode(res));
+    print("getstaus");
+
+  }
   remainTime(){
     DateTime now = DateTime.now();
 
@@ -135,7 +174,8 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 
   getUserDetails(passwordlogin,glogin) async {
 
-    final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
+    //final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
+
     // var jjj = box1.read('fruits');
    // print('Stored list: $jjj');
 
@@ -198,10 +238,10 @@ query Query(\$id: String, \$authId: String) {
     print("getUser");
 
    getUserData.value=getUserModelFromJson(json.encode(res));
-
+    getImanTrakerStatus(passwordlogin);
 
   }
-  getPrayerTime() async {
+  getPrayerTime(d) async {
 
     isloading1.value=true;
     var header="""
@@ -222,7 +262,8 @@ query Query(\$masjidId: String) {
 }
     """;
     var body ={
-      "masjidId": "a4fee385-0641-4dce-bd42-f35ee278ce35"
+      //"masjidId": "a4fee385-0641-4dce-bd42-f35ee278ce35"
+      "masjidId": "$d"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading1.value=false;

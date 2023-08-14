@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,10 +20,11 @@ class AuthenticationRespository extends GetxController {
   final pinController = TextEditingController().obs;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-      String guid ="";
-      String gemail ="";
-      String gname ="";
+      RxString guid ="".obs;
+  RxString gemail ="" .obs;
+  RxString gname ="".obs;
   final _restCallController = Get.put(restCallController());
+  RxBool gsignBool=false.obs;
   @override
   void onReady() {
     // TODO: implement onReady
@@ -86,9 +88,9 @@ class AuthenticationRespository extends GetxController {
         idToken: googleAuth?.idToken,
       );
       UserCredential userCredential= await _auth.signInWithCredential(credential);
-       guid = userCredential.user!.uid;
-       gemail = userCredential.user!.email!;
-       gname = userCredential.user!.displayName!;
+       guid.value = userCredential.user!.uid;
+       gemail.value = userCredential.user!.email!;
+       gname.value = userCredential.user!.displayName!;
      // print("$uid");
      // Get.toNamed(Routes.MASJID_FINDER);
       // Once signed in, return the UserCredential
@@ -105,7 +107,7 @@ class AuthenticationRespository extends GetxController {
   }
 
   authId() async {
-
+ log("rrrrrrrrrr${guid.value}");
     var header = """
 mutation Mutation(\$authId: String) {
   Login_With_Gmail(auth_id_: \$authId) {
@@ -118,7 +120,7 @@ mutation Mutation(\$authId: String) {
     """;
 
     var body = {
-      "authId": "${guid}",
+      "authId": "${guid.value}",
     };
     var res = await _restCallController.gql_mutation(header, body);
     print("wwww${res}");

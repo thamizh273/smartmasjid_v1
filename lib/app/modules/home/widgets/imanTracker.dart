@@ -1,5 +1,9 @@
 
 
+
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
+
 import '../../../../utils/color_utils.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
@@ -7,15 +11,17 @@ import '../../../routes/export.dart';
 
 
 class ImanTracker_widget extends StatelessWidget {
-  const ImanTracker_widget({
+   ImanTracker_widget({
     super.key,
     required this.themeData,
   });
+  final homectrl = Get.find<HomeController>();
 
   final ThemeData themeData;
 
   @override
   Widget build(BuildContext context) {
+    var imanWeek=homectrl.imanStatusData.value.getImanTrackerStatus!;
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 9),
       shape: RoundedRectangleBorder(
@@ -53,20 +59,9 @@ class ImanTracker_widget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
 
-                      Stxt(text: 'Monthly Status', size: f1),
-                      SizedBox(width: 5.w,),
-                      SizedBox(
-                        width: 50.w,
-                        child: StepProgressIndicator(
-                          totalSteps: 10,
-                          currentStep: 4,
-                          size: 6,
-                          padding: 0,
-                          selectedColor: Color(0xff4EAF2C),
-                          unselectedColor: Color(0xffAFAFAF),
-                          roundedEdges: Radius.circular(10),
-                        ),
-                      ),
+                      Stxt(text: 'Weekly status', size: f1,weight: FontWeight.w500,color: Get.theme.primaryColor,),
+                      SizedBox(width: 2.w,),
+
                     ],
                   ),
                   Padding(
@@ -80,20 +75,20 @@ class ImanTracker_widget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Imanprogress(
-                                themeData: themeData, text: 'Fajir',),
+                                themeData: themeData, text: '${imanWeek[0].trackerName![0].toUpperCase()+imanWeek[0].trackerName!.substring(1)}', percent:((imanWeek[0].status!.injamaah!+imanWeek[0].status!.ontime!)/100),),
                               Imanprogress(
-                                themeData: themeData, text: 'Asr',),
+                                themeData: themeData, text: '${imanWeek[1].trackerName![0].toUpperCase()+imanWeek[1].trackerName!.substring(1)}', percent: ((imanWeek[1].status!.injamaah!+imanWeek[1].status!.ontime!)/100),),
                               Imanprogress(
-                                themeData: themeData, text: 'Isha',),
+                                themeData: themeData, text: '${imanWeek[2].trackerName![0].toUpperCase()+imanWeek[2].trackerName!.substring(1)}', percent: ((imanWeek[2].status!.injamaah!+imanWeek[2].status!.ontime!)/100),),
                             ],
                           ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Imanprogress(themeData: themeData, text: 'Dhuhr',),
-                            Imanprogress(themeData: themeData, text: 'Maghrib',),
-                            Imanprogress(themeData: themeData, text: 'Quran Reading',),
+                            Imanprogress(themeData: themeData, text: '${imanWeek[3].trackerName![0].toUpperCase()+imanWeek[3].trackerName!.substring(1)}', percent: ((imanWeek[3].status!.injamaah!+imanWeek[3].status!.ontime!)/100),),
+                            Imanprogress(themeData: themeData, text: '${imanWeek[4].trackerName![0].toUpperCase()+imanWeek[4].trackerName!.substring(1)}', percent: ((imanWeek[4].status!.injamaah!+imanWeek[4].status!.ontime!)/100),),
+                            Imanprogress(themeData: themeData, text: '${imanWeek[5].trackerName![0].toUpperCase()+imanWeek[5].trackerName!.substring(1)}', percent: ((imanWeek[5].status!.injamaah!+imanWeek[5].status!.ontime!)/100),),
                           ],
                         ),
                       ],
@@ -101,11 +96,11 @@ class ImanTracker_widget extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      Stxt(
-                        text: 'Last Updated 13 hrs ago',
-                        size: f0.sp,
-                        color: Color(0xff878787),
-                      ),
+                      // Stxt(
+                      //   text: 'Last Updated 13 hrs ago',
+                      //   size: f0.sp,
+                      //   color: Color(0xff878787),
+                      // ),
                       SizedBox(
                         height: 5,
                       ),

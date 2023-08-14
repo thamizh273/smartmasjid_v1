@@ -17,7 +17,7 @@ class PrayerTimes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-    return GestureDetector(
+    return controller.prayerTimeData.value.getTodayMasjidPrayerTime==null?Container(): GestureDetector(
       onTap: () {
         Navigator.of(context)
             .push(MaterialPageRoute(builder: (_) => PrayerdetailspageView()));

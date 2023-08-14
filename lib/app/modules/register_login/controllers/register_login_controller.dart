@@ -47,9 +47,9 @@ Future<void>googleSignIns() async{
       isGoogleSign.value=false;
 
     }catch(e){
-      isGoogleSign.value=false;
-      toast(error: "Error", msg: "${e.toString()}");
 
+      toast(error: "Error", msg: "${e.toString()}");
+      isGoogleSign.value=false;
     }
 }
 

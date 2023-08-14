@@ -62,6 +62,7 @@ query Login_User(\$password: String, \$byEmail: String) {
     refresh_token
     token
     user_id
+    masjid_id
   }
 }
     """;
@@ -79,9 +80,9 @@ query Login_User(\$password: String, \$byEmail: String) {
       isLoading.value=false;
     getUserId.value=getUserIdModelFromJson(json.encode(res));
 
-   // print("ttttt");
-   //      log(json.encode(res));
-   //  print("ttttt");
+   print("ttttt");
+        log(json.encode(res));
+    print("ttttt");
    //         update();
 
       if(res.toString().contains("Login_User"))  {
@@ -90,7 +91,7 @@ query Login_User(\$password: String, \$byEmail: String) {
         print("ff");
         print( getUserId.value.loginUser!.userId);
 
-     await Get.offAllNamed(Routes.HOME,arguments: [ getUserId.value.loginUser!.userId]);
+     await Get.offAllNamed(Routes.HOME,arguments: [ getUserId.value.loginUser!.userId,getUserId.value.loginUser!.masjidId]);
         // print("ff");
         // print(getUserId.value.loginUser!.userId);
     }
@@ -113,6 +114,7 @@ query Login_User(\$password: String, \$byPhone: String) {
     refresh_token
     token
     user_id
+    masjid_id
   }
 }
     """;
@@ -135,7 +137,7 @@ query Login_User(\$password: String, \$byPhone: String) {
          toast(error: "SUCCESS", msg: "${hh}");
        // print("ff");
       //  print( getUserId.value.loginUser!.userId);
-     await Get.offAllNamed(Routes.HOME,arguments: [getUserIdMobile.value.loginUser!.userId]);
+     await Get.offAllNamed(Routes.HOME,arguments: [getUserIdMobile.value.loginUser!.userId,getUserIdMobile.value.loginUser!.masjidId]);
 
    }
 

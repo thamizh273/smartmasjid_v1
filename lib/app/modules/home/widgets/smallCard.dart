@@ -11,11 +11,13 @@ class SmallCard extends StatelessWidget {
     this.height,
     this.child,
     this.color,
-    this.width, required this.onTap,
+    this.width, required this.onTap, this.maxLines, this.rightpad,
   });
 
   final String? image;
+  final int? maxLines;
   final double? height;
+  final double? rightpad;
   final double? width;
   final String? title;
   final Widget? child;
@@ -62,7 +64,7 @@ class SmallCard extends StatelessWidget {
                         width: 50.w,
                       ),
                       Padding(
-                        padding: EdgeInsets.only(left: 5.w, right: 10.w),
+                        padding: EdgeInsets.only(left: 5.w, right:rightpad?? 10.w),
                         child: VerticalDivider(
                           color: color != null
                               ? themeData.primaryColor.withOpacity(.2)
@@ -73,13 +75,17 @@ class SmallCard extends StatelessWidget {
                           indent: 5.h,
                         ),
                       ),
-                      Stxt(
-                        textAlign: TextAlign.center,
-                        text: '$title',
-                        size: f3,
-                        color:
-                            color != null ? themeData.primaryColor : Colors.white,
-                        weight: FontWeight.w500,
+                      SizedBox(
+                         width: 87.w,
+                        child: Stxt(
+                          maxLines: maxLines,
+                          textAlign: TextAlign.center,
+                          text: '$title',
+                          size: f3,
+                          color:
+                              color != null ? themeData.primaryColor : Colors.white,
+                          weight: FontWeight.w500,
+                        ),
                       )
                     ],
                   ),

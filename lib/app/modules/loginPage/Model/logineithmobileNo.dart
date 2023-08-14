@@ -34,6 +34,7 @@ class LoginUser {
   String? refreshToken;
   String? token;
   String? userId;
+  String? masjidId;
 
   LoginUser({
     this.typename,
@@ -41,6 +42,7 @@ class LoginUser {
     this.refreshToken,
     this.token,
     this.userId,
+    this.masjidId,
   });
 
   factory LoginUser.fromJson(Map<String, dynamic> json) => LoginUser(
@@ -49,6 +51,7 @@ class LoginUser {
     refreshToken: json["refresh_token"],
     token: json["token"],
     userId: json["user_id"],
+    masjidId: json["masjid_id"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -57,5 +60,6 @@ class LoginUser {
     "refresh_token": refreshToken,
     "token": token,
     "user_id": userId,
+    "masjid_id": masjidId,
   };
 }

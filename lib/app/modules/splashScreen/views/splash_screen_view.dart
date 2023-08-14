@@ -7,11 +7,13 @@ import 'package:lottie/lottie.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../home/controllers/home_controller.dart';
+import '../../masjidFinder/controllers/masjid_finder_controller.dart';
 import '../controllers/splash_screen_controller.dart';
 
 class SplashScreenView extends StatefulWidget {
   SplashScreenView({Key? key}) : super(key: key);
   static HomeController  homectrl = Get.find<HomeController>();
+
 
   @override
   State<SplashScreenView> createState() => _SplashScreenViewState();

@@ -51,8 +51,8 @@ class WeatherpageController extends GetxController {
 
   @override
   void onInit() async {
-   await fetchWeather();
-   await weatherList();
+    fetchWeather();
+
 
     //districtList();
     super.onInit();
@@ -101,6 +101,7 @@ class WeatherpageController extends GetxController {
         isLoadings.value=false;
         print("${json.encode(data)}");
         getweathertest.value=weathertestFromJson(json.encode(data));
+        weatherList(locationData.latitude,locationData.longitude);
         return data;
 
       } else {
@@ -113,7 +114,7 @@ class WeatherpageController extends GetxController {
 
 
 
-  weatherList() async {
+  weatherList(double? latitude, double? longitude) async {
     isLoadings1.value = true;
     var header = """
 query Query(\$latitude: String!, \$longitude: String!) {
@@ -207,8 +208,8 @@ query Query(\$latitude: String!, \$longitude: String!) {
 }
     """;
 
-    var body = {  "latitude": "11.9416",
-      "longitude": "79.8083"
+    var body = {  "latitude": "${latitude}",
+      "longitude": "${longitude}"
     };
     var res = await _restCallController.gql_query(header, body);
     // print("lllll");
