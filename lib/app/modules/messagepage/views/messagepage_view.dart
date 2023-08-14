@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:smartmasjid_v1/app/modules/messagepage/views/chat_page.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
@@ -11,12 +12,43 @@ import '../../../../widgets/space.dart';
 import '../../home/widgets/appBar.dart';
 import '../controllers/messagepage_controller.dart';
 
+
 class MessagepageView extends GetView<MessagepageController> {
    MessagepageView({Key? key}) : super(key: key);
   MessagepageController c = Get.put(MessagepageController());
 
+// List<Chat> chatList = [
+//   Chat(profile: "assets/images/pic.png", lastmessage: "Admin", name: "Masjid-e-nooraniya", time: "2hrs ago"),
+//   Chat(profile: "assets/images/pic.png", lastmessage: "Hi", name: "Rahaman", time: "5hrs ago"),
+//   Chat(profile: "assets/images/pic.png", lastmessage: "Hello", name: "Aktar", time: "1hrs ago"),
+//   Chat(profile: "assets/images/pic.png", lastmessage: "Welcome", name: "Mohamed", time: "7hrs ago"),
+// ];
+
+
   @override
   Widget build(BuildContext context) {
+    List<Chat> chatList = [
+      Chat(
+          lastMessage: 'Hello',
+          time: '2 hrs ago',
+          user: User(
+              name: 'Masjid-e-nooraniya',
+              profile: 'assets/images/pic.png')),
+      Chat(
+          lastMessage: 'Hi',
+          time: '2 hrs ago',
+          user: User(
+              name: 'Mohamed',
+              profile: 'assets/images/pic.png')),
+      Chat(
+          lastMessage: 'Hello!',
+          time: '2 hrs ago',
+          user: User(
+              name: 'Rahaman',
+              profile: 'assets/images/pic.png'))
+    ];
+
+
     return Scaffold(
       appBar: CustomAppbar(tittle: 'Messages',
         action: [
@@ -25,11 +57,21 @@ class MessagepageView extends GetView<MessagepageController> {
         ],
       ),
 
-      body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Container(
+      body: ListView.builder(
+        physics: BouncingScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: chatList.length,
+        itemBuilder: (context, index) {
+          Chat chat = chatList[index];
+          return GestureDetector(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return ChatPage(chat: chat);
+              }));
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8,bottom: 8, right: 16, left: 16),
+              child: Container(
                 height: 80.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
@@ -51,7 +93,7 @@ class MessagepageView extends GetView<MessagepageController> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Image.asset("assets/images/pic.png", width: 60,),
+                      child: Image.asset("${chat.user.profile}", width: 60,),
                     ),
                     Space(16),
                     SizedBox(
@@ -59,12 +101,12 @@ class MessagepageView extends GetView<MessagepageController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Stxt(text: "Masjid-e-nooraniya",
+                          Stxt(text: "${chat.user.name}",
                             size: f4,
                             weight: FontWeight.w600,),
                           Space(8),
                           Stxt(
-                            text: "Admin", size: f3, weight: FontWeight.w300,),
+                            text: "${chat.lastMessage}", size: f3, weight: FontWeight.w300,),
                         ],
                       ),
                     ),
@@ -77,7 +119,7 @@ class MessagepageView extends GetView<MessagepageController> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Space(16),
-                        Stxt(text: "2hrs ago", size: f1, color: Colors.black.withOpacity(0.5),),
+                        Stxt(text: "${chat.time}", size: f1, color: Colors.black.withOpacity(0.5),),
                         Space(8),
                         Container(
                           clipBehavior: Clip.antiAlias,
@@ -94,10 +136,11 @@ class MessagepageView extends GetView<MessagepageController> {
                     Space(20),
                   ],
                 ),
-              )
-            ],
-          ),
-        ),
+              ),
+            ),
+          );
+        }
+      ),
 
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.message),
@@ -286,3 +329,11 @@ class CustomDialogBox extends StatelessWidget {
     );
   }
 }
+
+//
+// class Chat{
+//   String lastMessage, time;
+//   User user;
+//   Chat({required this.lastMessage,required this.time, required this.user});
+// }
+

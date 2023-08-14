@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
+import 'package:smartmasjid_v1/app/modules/duapage/model/dua_model.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
+import 'package:smartmasjid_v1/widgets/loading.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
 
 import '../../../../widgets/space.dart';
@@ -19,6 +21,7 @@ class DuapageView extends GetView<DuapageController> {
   final Color evenItemColor = Color(0xff6C9AA9);
   final Color other = Color(0xff84ABB7);
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,131 +29,156 @@ class DuapageView extends GetView<DuapageController> {
         tittle: "Dua",
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            dragStartBehavior: DragStartBehavior.start,
-            controller: c.scrollController,
-            clipBehavior: Clip.hardEdge,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text("I am Feeling", style: TextStyle(fontSize: 18),),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Obx(() {
-                    return SizedBox(
-                      //height: 400,
-                      child: GridView.builder(
-                        physics: ScrollPhysics(),
-                        shrinkWrap: true,
-                      controller: c.scrollController,
-                        itemCount: c.isExpanded.value ? c.getduadata.value.getDuasTitleList!.length : 12,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: MediaQuery.of(context).orientation ==
-                              Orientation.landscape ? 3: 3,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                          childAspectRatio: (2 / 1),
-                        ),
-                        itemBuilder: (context,index,) {
-                          var dua = c.getduadata.value.getDuasTitleList![index];
-                          Color color = index % 2 == 0 ? evenItemColor : oddItemColor;
-                          return GestureDetector(
-                            onTap:(){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (_) => DuaDetail()));
-                            },
-                            child:Container(
-                              color: color,
-                              // color: RandomColorModel().getColor(),
-                              child: Center(
-                                child: Text("${dua.duasNameEn}",style: TextStyle(fontSize: 18, color: Colors.black),
-                                    textAlign: TextAlign.center),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    );
-                  }),
-                ),
-                Obx(() {
-                  return GestureDetector(
-                    child: Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(c.isExpanded.value ? "See Less" : "See More", style: TextStyle(fontSize: 16, color: Theme.of(context).primaryColor, fontWeight: FontWeight.w600),),
-                           Icon(c.isExpanded.value ? Icons.expand_less : Icons.expand_more, color: Theme.of(context).primaryColor,),
-                        ],
-                      ),
-                    ),
-                    onTap: () {
-                      c.isExpanded.toggle();
-                    },
-                  );
-                }),
-                Space(16),
-                SizedBox(
-                  child: GridView.builder(
-                    scrollDirection: Axis.vertical,
-                    controller: c.scrollController,
-                    shrinkWrap: true,
-                    itemCount:10,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: MediaQuery.of(context).orientation ==
-                          Orientation.landscape ? 3: 2,
-                      crossAxisSpacing: 8,
-                      mainAxisSpacing: 8,
-                      childAspectRatio: (2 / 1),
-                    ),
-                    itemBuilder: (context,index,) {
-                      return GestureDetector(
-                        onTap:(){
-                          // Navigator.of(context).pushNamed(RouteName.GridViewCustom);
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return CustomDialogBox();
-                            },
-                          );
-                        },
-                        child:FractionallySizedBox(
-                          heightFactor: 0.8,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(color: Color(0xff17637D)),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Image.asset("assets/images/slepping.png"),
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  "Sleeping",
-                                  style: TextStyle(fontSize: 16),
-                                ),
-                              ],
-                            ),
+        child: Obx(() {
+          return c.isLoadings.value?loading(context):Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              dragStartBehavior: DragStartBehavior.start,
+              controller: c.scrollController,
+              clipBehavior: Clip.hardEdge,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      "I am Feeling", style: TextStyle(fontSize: 18),),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Obx(() {
+                      return SizedBox(
+                        //height: 400,
+                        child: GridView.builder(
+                          physics: ScrollPhysics(),
+                          shrinkWrap: true,
+                          controller: c.scrollController,
+                          itemCount: c.isExpanded.value ? c.getduadata.value
+                              .getDuasTitleList!.length : 12,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: MediaQuery
+                                .of(context)
+                                .orientation ==
+                                Orientation.landscape ? 3 : 3,
+                            crossAxisSpacing: 8,
+                            mainAxisSpacing: 8,
+                            childAspectRatio: (2 / 1),
                           ),
+                          itemBuilder: (context, index,) {
+                            var dua = c.getduadata.value
+                                .getDuasTitleList![index];
+                            Color color = index % 2 == 0
+                                ? evenItemColor
+                                : oddItemColor;
+                            return GestureDetector(
+                              onTap: ()  {
+                                // Navigator.of(context).push(MaterialPageRoute(builder: (_) => DuaDetail()));
+                                Get.to(DuaDetail());
+                                 c.duadetailList(dua.duasNameEn);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: color,
+                                    borderRadius: BorderRadius.circular(4)
+                                ),
+                                // color: RandomColorModel().getColor(),
+                                child: Center(
+                                  child: Text("${dua.duasNameEn}",
+                                      style: TextStyle(
+                                          fontSize: 18, color: Colors.black),
+                                      textAlign: TextAlign.center),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       );
-                    },
+                    }),
                   ),
-                )
+                  Obx(() {
+                    return GestureDetector(
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(c.isExpanded.value ? "See Less" : "See More",
+                              style: TextStyle(fontSize: 16, color: Theme
+                                  .of(context)
+                                  .primaryColor, fontWeight: FontWeight.w600),),
+                            Icon(c.isExpanded.value ? Icons.expand_less : Icons
+                                .expand_more, color: Theme
+                                .of(context)
+                                .primaryColor,),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        c.isExpanded.toggle();
+                      },
+                    );
+                  }),
+                  Space(16),
+                  SizedBox(
+                    child: GridView.builder(
+                      scrollDirection: Axis.vertical,
+                      controller: c.scrollController,
+                      shrinkWrap: true,
+                      itemCount: 10,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: MediaQuery
+                            .of(context)
+                            .orientation ==
+                            Orientation.landscape ? 3 : 2,
+                        crossAxisSpacing: 8,
+                        mainAxisSpacing: 8,
+                        childAspectRatio: (2 / 1),
+                      ),
+                      itemBuilder: (context, index,) {
+                        return GestureDetector(
+                          onTap: () {
+                            // Navigator.of(context).pushNamed(RouteName.GridViewCustom);
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return CustomDialogBox();
+                              },
+                            );
+                          },
+                          child: FractionallySizedBox(
+                            heightFactor: 0.8,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(color: Color(0xff17637D)),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Image.asset(
+                                        "assets/images/slepping.png"),
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    "Sleeping",
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  )
 
-              ],
+                ],
+              ),
             ),
-          ),
-        ),
+          );
+        }),
       ),
     );
   }
@@ -160,6 +188,7 @@ class DuapageView extends GetView<DuapageController> {
 class CustomDialogBox extends StatelessWidget {
   TextEditingController pass = TextEditingController();
   TextEditingController c = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -187,40 +216,42 @@ class CustomDialogBox extends StatelessWidget {
             height: 100.h,
             width: 180.w,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: Theme.of(context).primaryColor)
+                borderRadius: BorderRadius.circular(4),
+                border: Border.all(color: Theme
+                    .of(context)
+                    .primaryColor)
             ),
-            child: Image.asset("assets/images/slepping.png",fit: BoxFit.fill,),
+            child: Image.asset("assets/images/slepping.png", fit: BoxFit.fill,),
           ),
           Space(16),
           Stxt(text: "Sleeping", size: f5, weight: FontWeight.w500,),
           Space(16),
           SizedBox(
             child: ListView.builder(
-              shrinkWrap: true,
+                shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 itemCount: 3,
                 itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Container(
-                    height: 30.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Colors.white
+                  return Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Container(
+                      height: 30.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white
+                      ),
+                      child: Row(
+                        children: [
+                          Space(8),
+                          Stxt(text: "Before Sleeping", size: f3),
+                          Spacer(),
+                          Icon(Icons.arrow_forward_ios_outlined, size: 20,),
+                          Space(8)
+                        ],
+                      ),
                     ),
-                    child: Row(
-                      children: [
-                        Space(8),
-                        Stxt(text: "Before Sleeping", size: f3),
-                        Spacer(),
-                        Icon(Icons.arrow_forward_ios_outlined, size: 20,),
-                        Space(8)
-                      ],
-                    ),
-                  ),
-                );
+                  );
                 }
             ),
           )

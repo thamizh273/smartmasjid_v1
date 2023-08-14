@@ -122,14 +122,227 @@ class HomeView extends StatelessWidget {
               padding: EdgeInsets.zero,
               children: <Widget>[
                 DrawerHeader(
-                  child: Text('Drawer Header'),
+                  padding: const EdgeInsets.all(8),
+                  margin: EdgeInsets.only(bottom: 8),
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: SvgPicture.asset("assets/svg/slogo.svg",
+                                height: 70.00, width: 80.00),
+                          ),
+                          Space(16),
+                          SizedBox(
+                            width: c.screenWidth*0.45,
+                              child: Stxt(text: "Masjid-e-Nooraniah", size: f5, weight: FontWeight.w600, color: Colors.white,))
+                        ],
+                      ),
+                    ],
                   ),
                 ),
                 ListTile(
-                  title: Text('Item 1'),
-                  onTap: controller.closeDrawer,
+                  title:Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/Masjiddr.svg"),
+                      Space(16),
+                      Stxt(text: "Masjid  Facilities", size: f3, weight: FontWeight.w500,)
+                    ],
+                  ),
+                  // onTap: controller.closeDrawer,
+                ),ListTile(
+                  title:Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/Historydr.svg"),
+                      Space(16),
+                      Stxt(text: "Masjid History", size: f3, weight: FontWeight.w500,)
+                    ],
+                  ),
+                  // onTap: controller.closeDrawer,
+                ),
+                ListTile(
+                  title:Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/Admindr.svg"),
+                      Space(16),
+                      Stxt(text: "Masjid Admins", size: f3, weight: FontWeight.w500,)
+                    ],
+                  ),
+                  // onTap: controller.closeDrawer,
+                ),
+                ListTile(
+                  title:Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/imamdr.svg"),
+                      Space(16),
+                      Stxt(text: "Masjid Imams", size: f3, weight: FontWeight.w500,)
+                    ],
+                  ),
+                  // onTap: controller.closeDrawer,
+                ),
+                ListTile(
+                  title:Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/voldr.svg"),
+                      Space(16),
+                      Stxt(text: "Masjid well-wishers", size: f3, weight: FontWeight.w500,)
+                    ],
+                  ),
+                  // onTap: controller.closeDrawer,
+                ),
+                Space(16),
+                ListTile(
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stxt(text: "Quick Menu", size: f4),
+                      Space(16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: (){
+                              Get.toNamed(Routes.PRAYERPAGE);
+                            },
+                            child: Container(
+                              height: 65.h,
+                              width: 80.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(16),
+                                 topRight: Radius.circular(16),
+                                  topLeft: Radius.circular(16),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 4,
+                                    spreadRadius: 2,
+                                    offset: Offset(4,4),
+                                    color: Colors.grey.shade400
+                                  )
+                                ],
+                                color: Color(0xffD8E4E8)
+                              ),
+                             child: Column(
+                               children: [
+                                 SvgPicture.asset("assets/svg/prayerdr.svg", width: 60,),
+                                 Stxt(text: "Prayer Time", size: f1, color: Theme.of(context).primaryColor,)
+                               ],
+                             ),
+                            ),
+                          ),
+                         Space(30),
+                          GestureDetector(
+                            onTap: (){
+                              Get.toNamed(Routes.MEMBERSHIP);
+                            },
+                            child: Container(
+                              height: 65.h,
+                              width: 80.h,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(16),
+                                 topRight: Radius.circular(16),
+                                  topLeft: Radius.circular(16),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 4,
+                                    spreadRadius: 2,
+                                    offset: Offset(-4,4),
+                                    color: Colors.grey.shade400
+                                  )
+                                ],
+                                color: Color(0xffD8E4E8)
+                              ),
+                             child: Column(
+                               children: [
+                                 SvgPicture.asset("assets/svg/memberdr.svg", width: 80,),
+                                 Stxt(text: "Membership", size: f1, color: Theme.of(context).primaryColor,)
+                               ],
+                             ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Space(16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 65.h,
+                            width: 80.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(16),
+                                bottomRight: Radius.circular(16),
+                                topLeft: Radius.circular(16),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 4,
+                                  spreadRadius: 2,
+                                  offset: Offset(4,4),
+                                  color: Colors.grey.shade400
+                                )
+                              ],
+                              color: Color(0xffD8E4E8)
+                            ),
+                           child: Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
+                               SvgPicture.asset("assets/svg/servicedr.svg", width: 40,),
+                               Stxt(text: "Services", size: f1, color: Theme.of(context).primaryColor,)
+                             ],
+                           ),
+                          ),
+                         Space(30),
+                          Container(
+                            height: 65.h,
+                            width: 80.h,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(16),
+                                bottomLeft: Radius.circular(16),
+                               topRight: Radius.circular(16),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 4,
+                                  spreadRadius: 2,
+                                  offset: Offset(-4,4),
+                                  color: Colors.grey.shade400
+                                )
+                              ],
+                              color: Color(0xffD8E4E8)
+                            ),
+                           child: Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
+                               SvgPicture.asset("assets/svg/eventsdr.svg", width: 40,),
+                               Stxt(text: "Events", size: f1, color: Theme.of(context).primaryColor,)
+                             ],
+                           ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  )
+                ),
+               Space(50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stxt(text: "Leave Masjid", size: f3, weight: FontWeight.w600, color: Theme.of(context).primaryColor,),
+                    Space(16),
+                    Icon(Icons.logout, color: Theme.of(context).primaryColor)
+                  ],
                 )
               ],
             ),
