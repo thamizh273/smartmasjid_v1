@@ -233,7 +233,7 @@ Future GotoVerse(BuildContext context) {
                               diameterRatio: 3,
                               itemExtent: 50,
                               onSelectedItemChanged: (adjustedIndex) {
-
+                                // c.currentSelected.value = adjustedIndex  % c.pages[c.pages].length;
                               },
                               physics: FixedExtentScrollPhysics(),
                             ),

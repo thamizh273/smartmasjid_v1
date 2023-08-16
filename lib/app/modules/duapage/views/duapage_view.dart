@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/duapage/model/dua_model.dart';
+import 'package:smartmasjid_v1/app/modules/duapage/views/daily_dua.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/model/quran_model.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
@@ -34,6 +35,7 @@ class DuapageView extends GetView<DuapageController> {
           return c.isLoadings.value ? loading(context) : Padding(
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
               dragStartBehavior: DragStartBehavior.start,
               controller: c.scrollController,
               clipBehavior: Clip.hardEdge,
@@ -120,6 +122,7 @@ class DuapageView extends GetView<DuapageController> {
                   }),
                   Space(16),
                   Stxt(text: "Daily", size: f4, weight: FontWeight.w500,),
+                  Space(16),
                   Obx(() {
                     return SizedBox(
                       child: GridView.builder(
@@ -181,7 +184,69 @@ class DuapageView extends GetView<DuapageController> {
                         },
                       ),
                     );
-                  })
+                  }),
+                  Space(16),
+                  Stxt(text: "Occasion", size: f4, weight: FontWeight.w500,),
+                  Space(8),
+            SizedBox(
+              child: GridView.builder(
+                scrollDirection: Axis.vertical,
+                controller: c.scrollController1,
+                shrinkWrap: true,
+                itemCount: c.getduadata.value.getDuasTitleList!.occasion!.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: MediaQuery
+                      .of(context)
+                      .orientation ==
+                      Orientation.landscape ? 3 : 2,
+                  crossAxisSpacing: 8,
+                  mainAxisSpacing: 1,
+                  childAspectRatio: (2 / 1),
+                ),
+                itemBuilder: (context, index,) {
+                  var occasion = c.getduadata.value.getDuasTitleList!.occasion![index];
+                  return GestureDetector(
+                    onTap: () {
+                      // Navigator.of(context).pushNamed(RouteName.GridViewCustom);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return CustomDialogBox1(index);
+                        },
+                      );
+                    },
+                    child: FractionallySizedBox(
+                      heightFactor: 0.7,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(color: Color(0xff17637D)),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(
+                                      20),
+                                ),
+                                child:  Image.asset("assets/images/${c.getduadata.value.getDuasTitleList!.occasion![index].duasNameEn!}.png")
+                            ),
+                            SizedBox(width: 8),
+                            SizedBox(
+                              width: .2.sw,
+                              child: Text(
+                                "${occasion.duasNameEn}",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
 
                 ],
               ),
@@ -254,23 +319,129 @@ class CustomDialogBox extends StatelessWidget {
                     itemCount: count,
                     itemBuilder: (context, index) {
 
-                      return Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Container(
-                          height: 30.h,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.white
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                          Get.to(DailyDua());
+                          print(" ffff${items[index]}");
+                          duaCtrl.duadaily(items[index]);
+
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Container(
+                            height: 30.h,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white
+                            ),
+                            child: Row(
+                              children: [
+                                Space(8),
+                                SizedBox(width: 200.w,child: Stxt(text: "${items[index]}", size: f3,overflow: TextOverflow.ellipsis,)),
+                                Spacer(),
+                                Icon(Icons.arrow_forward_ios_outlined, size: 20,),
+                                Space(8)
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            children: [
-                              Space(8),
-                              SizedBox(width: 200.w,child: Stxt(text: "${items[index]}", size: f3,overflow: TextOverflow.ellipsis,)),
-                              Spacer(),
-                              Icon(Icons.arrow_forward_ios_outlined, size: 20,),
-                              Space(8)
-                            ],
+                        ),
+                      );
+                    }
+                ),
+              )
+          ],
+        ),
+      );
+  }
+}
+class CustomDialogBox1 extends StatelessWidget {
+  TextEditingController pass = TextEditingController();
+  TextEditingController c = TextEditingController();
+  final  duaCtrl =Get.put( DuapageController());
+
+  CustomDialogBox1(this.index);
+  int index;
+  @override
+  Widget build(BuildContext context) {
+    var occasionList=duaCtrl.getduadata.value.getDuasTitleList!.occasion!;
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: _buildDialogContent(context,occasionList[index].duasNameEn,occasionList[index].titlesList!.map((e) => e.title).toList(),occasionList[index].titlesList!.length),
+    );
+  }
+
+  Widget _buildDialogContent(BuildContext context, String? title,  items, int count, ) {
+    print(count);
+    print(items);
+    print(title);
+      return Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(16.0),
+        decoration: BoxDecoration(
+          color: Color(0xffB5CCD4),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 100.h,
+              width: 180.w,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: Theme
+                      .of(context)
+                      .primaryColor)
+              ),
+              child: Image.asset(
+                "assets/images/${title!}.png", fit: BoxFit.fill,),
+            ),
+            Space(16),
+            Stxt(text: "${title}", size: f5, weight: FontWeight.w500,),
+            Space(16),
+               Container(
+                 constraints: BoxConstraints(
+                   maxHeight: 400,
+                 ),
+
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemCount: count,
+                    itemBuilder: (context, index) {
+
+                      return GestureDetector(
+                        onTap: (){
+                          Navigator.pop(context);
+                          Get.to(DailyDua());
+                          print(" ffff${items[index]}");
+                          duaCtrl.duadaily(items[index]);
+
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Container(
+                            height: 30.h,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.white
+                            ),
+                            child: Row(
+                              children: [
+                                Space(8),
+                                SizedBox(width: 200.w,child: Stxt(text: "${items[index]}", size: f3,overflow: TextOverflow.ellipsis,)),
+                                Spacer(),
+                                Icon(Icons.arrow_forward_ios_outlined, size: 20,),
+                                Space(8)
+                              ],
+                            ),
                           ),
                         ),
                       );
