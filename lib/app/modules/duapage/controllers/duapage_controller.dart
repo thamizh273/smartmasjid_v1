@@ -43,17 +43,35 @@ var isLoadings1 = false.obs;
   duaList() async {
     isLoadings.value = true;
     var header = """
-query Get_Duas_Title_List_ {
-  Get_Duas_Title_List_ {
-    duas_name_en
-    duas_name_arb
-    duas_name_tamil
-    duas_name_hindi
-    others_name
-    titles_list {
-      title
+query Get_Duas_Title_List_(\$masjidId: String) {
+  Get_Duas_Title_List_(masjid_id: \$masjidId) {
+    feeling {
+      duas_name_en
+      duas_name_arb
+      duas_name_tamil
+      duas_name_hindi
+      duas_type
     }
-    duas_type
+    daily {
+      duas_name_en
+      duas_name_arb
+      duas_name_tamil
+      duas_name_hindi
+      titles_list {
+        title
+      }
+      duas_type
+    }
+    occasion {
+      duas_name_en
+      duas_name_arb
+      duas_name_tamil
+      duas_name_hindi
+      titles_list {
+        title
+      }
+      duas_type
+    }
   }
 }
     """;

@@ -87,62 +87,89 @@ class _HijriCalendarState extends State<HijripageView> {
           ),
         ),
       ),
-      body: FrostedBottomBar(
-          width: 330.w,
-          opacity: .8,
-          sigmaX: 10,
-          sigmaY: 10,
-          bottomBarColor: Theme.of(context).colorScheme.primary,
-          borderRadius: BorderRadius.circular(500),
-          duration: const Duration(milliseconds: 800),
-          hideOnScroll: true,
-        body: (BuildContext context, ScrollController controller) {
-          return Column(
-            children: [
-              // Image.asset("assets/images/hijri.png"),
-              // Space(16),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Space(16),
-                    // counter("", focusedDay.month),
-                    // counters("", focusedDay.year, year: true)
-                  ],
-                ),
-              ),
-              Space(8),
-              SHijiriCalender(onChanged: (d){
-                focusedDay = d;
-              },),
-            ],
-          );
-        }, child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SvgPicture.asset("assets/svg/masjidbot.svg"),
-            Space(8),
-            GestureDetector(
-                onTap: (){
-                  Get.toNamed(Routes.QURANPAGE);
-                },
-                child: SvgPicture.asset("assets/svg/quranbot.svg")),
-            Space(8),
-            GestureDetector(
-                onTap: (){
-                  Navigator.of(context).pop(MaterialPageRoute(builder: (_) => HomeView()));
-                },
-                child: SvgPicture.asset("assets/svg/homebot.svg")),
-            Space(8),
-            SvgPicture.asset("assets/svg/mediabot.svg"),
-            Space(8),
-            SvgPicture.asset("assets/svg/donatebot.svg"),
-          ],
-        ),
-      ),)
+
+
+      /// Without Bottom Bar
+      body:  Column(
+        children: [
+          // Image.asset("assets/images/hijri.png"),
+          // Space(16),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Space(16),
+                // counter("", focusedDay.month),
+                // counters("", focusedDay.year, year: true)
+              ],
+            ),
+          ),
+          Space(8),
+          SHijiriCalender(onChanged: (d){
+            focusedDay = d;
+          },),
+        ],
+      ),
+
+
+      /// With Bottom Bar
+      // body: FrostedBottomBar(
+      //     width: 330.w,
+      //     opacity: .8,
+      //     sigmaX: 10,
+      //     sigmaY: 10,
+      //     bottomBarColor: Theme.of(context).colorScheme.primary,
+      //     borderRadius: BorderRadius.circular(500),
+      //     duration: const Duration(milliseconds: 800),
+      //     hideOnScroll: true,
+      //   body: (BuildContext context, ScrollController controller) {
+      //     return Column(
+      //       children: [
+      //         // Image.asset("assets/images/hijri.png"),
+      //         // Space(16),
+      //         Padding(
+      //           padding: const EdgeInsets.all(8.0),
+      //           child: Row(
+      //             mainAxisSize: MainAxisSize.min,
+      //             children: [
+      //               Space(16),
+      //               // counter("", focusedDay.month),
+      //               // counters("", focusedDay.year, year: true)
+      //             ],
+      //           ),
+      //         ),
+      //         Space(8),
+      //         SHijiriCalender(onChanged: (d){
+      //           focusedDay = d;
+      //         },),
+      //       ],
+      //     );
+      //   }, child: Padding(
+      //   padding: const EdgeInsets.all(16),
+      //   child: Row(
+      //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      //     children: [
+      //       SvgPicture.asset("assets/svg/masjidbot.svg"),
+      //       Space(8),
+      //       GestureDetector(
+      //           onTap: (){
+      //             Get.toNamed(Routes.QURANPAGE);
+      //           },
+      //           child: SvgPicture.asset("assets/svg/quranbot.svg")),
+      //       Space(8),
+      //       GestureDetector(
+      //           onTap: (){
+      //             Navigator.of(context).pop(MaterialPageRoute(builder: (_) => HomeView()));
+      //           },
+      //           child: SvgPicture.asset("assets/svg/homebot.svg")),
+      //       Space(8),
+      //       SvgPicture.asset("assets/svg/mediabot.svg"),
+      //       Space(8),
+      //       SvgPicture.asset("assets/svg/donatebot.svg"),
+      //     ],
+      //   ),
+      // ),)
     );
   }
 
