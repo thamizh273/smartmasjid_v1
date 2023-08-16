@@ -1,10 +1,6 @@
 import 'dart:convert';
-import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:smartmasjid_v1/app/modules/audioplayer/views/audioplayer_view.dart';
 import 'package:smartmasjid_v1/app/modules/duapage/views/duapage_view.dart';
@@ -14,7 +10,6 @@ import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
 import 'package:smartmasjid_v1/app/modules/masjidhistory/views/masjidhistory_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/qiblafinderpage/views/qiblafinderpage_view.dart';
-import 'package:smartmasjid_v1/app/modules/quranpage/views/quranpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/specialdayspage/views/specialdayspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/zakathpage/views/zakathpage_view.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
@@ -28,7 +23,7 @@ import '../widgets/prayerTimes.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
-  final HomeController controller = Get.put(HomeController());
+  final HomeController controller = Get.find<HomeController>();
 
   CarouselController _carouselController = CarouselController();
   final List<String> items = ["Pondicherry", "villupuram"];
@@ -140,7 +135,7 @@ class HomeView extends StatelessWidget {
                           ),
                           Space(16),
                           SizedBox(
-                            width: c.screenWidth*0.45,
+                            width: 0.45.sw,
                               child: Stxt(text: "Masjid-e-Nooraniah", size: f5, weight: FontWeight.w600, color: Colors.white,))
                         ],
                       ),
@@ -425,12 +420,7 @@ class HomeView extends StatelessWidget {
                                 buildDivider(themeData),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              QuranpageView()),
-                                    );
+                                    Get.toNamed(Routes.QURANPAGE);
                                   },
                                   child: LargerCard(
                                     quranImg: quranImg,

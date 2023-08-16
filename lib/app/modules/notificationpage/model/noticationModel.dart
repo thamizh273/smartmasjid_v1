@@ -1,4 +1,3 @@
-
 // To parse this JSON data, do
 //
 //     final notificationModel = notificationModelFromJson(jsonString);
@@ -31,81 +30,77 @@ class NotificationModel {
 
 class GetNotificationLog {
   String? typename;
-  DateTime? createdAt;
-  String? description;
-  String? id;
-  MasjidId? masjidId;
-  String? notificationMessage;
-  String? notificationType;
+  String? userId;
   bool? readStatus;
-  DateTime? updatedAt;
-  UserId? userId;
+  String? notificationType;
+  String? notificationMessage;
+  MasjidId? masjidId;
+  String? description;
+  DateTime? createdAt;
+  String? id;
 
   GetNotificationLog({
     this.typename,
-    this.createdAt,
-    this.description,
-    this.id,
-    this.masjidId,
-    this.notificationMessage,
-    this.notificationType,
-    this.readStatus,
-    this.updatedAt,
     this.userId,
+    this.readStatus,
+    this.notificationType,
+    this.notificationMessage,
+    this.masjidId,
+    this.description,
+    this.createdAt,
+    this.id,
   });
 
   factory GetNotificationLog.fromJson(Map<String, dynamic> json) => GetNotificationLog(
     typename: json["__typename"],
-    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
-    description: json["description"],
-    id: json["id"],
-    masjidId: json["masjid_id"] == null ? null : MasjidId.fromJson(json["masjid_id"]),
-    notificationMessage: json["notification_message"],
-    notificationType: json["notification_type"],
+    userId: json["user_id"],
     readStatus: json["read_status_"],
-    updatedAt: json["updatedAt"] == null ? null : DateTime.parse(json["updatedAt"]),
-    userId: json["user_id"] == null ? null : UserId.fromJson(json["user_id"]),
+    notificationType: json["notification_type"],
+    notificationMessage: json["notification_message"],
+    masjidId: json["masjid_id"] == null ? null : MasjidId.fromJson(json["masjid_id"]),
+    description: json["description"],
+    createdAt: json["createdAt"] == null ? null : DateTime.parse(json["createdAt"]),
+    id: json["id"],
   );
 
   Map<String, dynamic> toJson() => {
     "__typename": typename,
-    "createdAt": createdAt?.toIso8601String(),
-    "description": description,
-    "id": id,
-    "masjid_id": masjidId?.toJson(),
-    "notification_message": notificationMessage,
-    "notification_type": notificationType,
+    "user_id": userId,
     "read_status_": readStatus,
-    "updatedAt": updatedAt?.toIso8601String(),
-    "user_id": userId?.toJson(),
+    "notification_type": notificationType,
+    "notification_message": notificationMessage,
+    "masjid_id": masjidId?.toJson(),
+    "description": description,
+    "createdAt": createdAt?.toIso8601String(),
+    "id": id,
   };
 }
 
 class MasjidId {
   String? typename;
   String? id;
-  MasjidImage? masjidImage;
   String? masjidName;
+  MasjidImage? masjidImage;
 
   MasjidId({
     this.typename,
     this.id,
-    this.masjidImage,
     this.masjidName,
+    this.masjidImage,
   });
 
   factory MasjidId.fromJson(Map<String, dynamic> json) => MasjidId(
     typename: json["__typename"],
     id: json["id"],
-    masjidImage: json["masjid_image"] == null ? null : MasjidImage.fromJson(json["masjid_image"]),
     masjidName: json["masjid_name"],
+    masjidImage: json["masjid_image"] == null ? null : MasjidImage.fromJson(json["masjid_image"]),
   );
 
   Map<String, dynamic> toJson() => {
     "__typename": typename,
     "id": id,
-    "masjid_image": masjidImage?.toJson(),
     "masjid_name": masjidName,
+    "masjid_image": masjidImage?.toJson(),
   };
 }
 
@@ -126,29 +121,5 @@ class MasjidImage {
   Map<String, dynamic> toJson() => {
     "type": type,
     "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x)),
-  };
-}
-
-class UserId {
-  String? typename;
-  String? id;
-  String? firstName;
-
-  UserId({
-    this.typename,
-    this.id,
-    this.firstName,
-  });
-
-  factory UserId.fromJson(Map<String, dynamic> json) => UserId(
-    typename: json["__typename"],
-    id: json["id"],
-    firstName: json["first_name"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "__typename": typename,
-    "id": id,
-    "first_name": firstName,
   };
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:get/get.dart';
+import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 
@@ -11,6 +12,7 @@ class NotificationpageController extends GetxController {
   //TODO: Implement NotificationpageController
  RxBool isloading=false.obs;
  final _restCallController = Get.put(restCallController());
+ final _homeCtrl= Get.find<HomeController>();
 
   var notificationData=NotificationModel().obs;
   @override
@@ -36,34 +38,30 @@ class NotificationpageController extends GetxController {
 
     isloading.value=true;
     var header="""
-query Get_Notification_Log(\$userId: ID!) {
+query Query(\$userId: ID!) {
   Get_Notification_Log(user_id: \$userId) {
-    createdAt
-    description
-    id
+    user_id
+    read_status_
+    notification_type
+    notification_message
     masjid_id {
       id
-      masjid_image
       masjid_name
+      masjid_image
     }
-    notification_message
-    notification_type
-    read_status_
-    updatedAt
-    user_id {
-      id
-      first_name
-    }
+    description
+    createdAt
+    id
   }
 }
     """;
     var body ={
-      "userId": "5b52cef8-1c88-48ac-bd76-a092cd5ad200"
+      "userId": "${_homeCtrl.getUserData.value.getUserById!.id}"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;
 
-    notificationData.value=notificationModelFromJson(json.encode(res));
+  notificationData.value=notificationModelFromJson(json.encode(res));
     print("getnotification");
     log(json.encode(res));
     print("getnotification");

@@ -19,7 +19,7 @@ import '../model/quran_model.dart';
 import '../views/qurandetails.dart';
 
 class QuranpageController extends GetxController {
-  final box = GetStorage();
+  final storeBookmark = GetStorage();
   //TODO: Implement QuranpageController
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
@@ -135,7 +135,7 @@ copyText(var index){
     } else {
       buttonsSelected.add(index);
     }
-    box.write('buttonsSelected',  buttonsSelected.toList());
+    storeBookmark.write('buttonsSelected',  buttonsSelected.toList());
     update();
   }
 
@@ -200,7 +200,7 @@ void changeFontFamily(String family) {
 
   @override
   void onInit() {
-    final storedButtonsSelected = box.read<List<dynamic>>('buttonsSelected');
+    final storedButtonsSelected = storeBookmark.read<List<dynamic>>('buttonsSelected');
     if (storedButtonsSelected != null) {
       buttonsSelected.assignAll(storedButtonsSelected);
     }
@@ -282,7 +282,7 @@ void changeFontFamily(String family) {
   void deleteIndex(int index) {
     buttonsSelected.remove(index);
     // Convert to a regular List before updating GetStorage
-    box.write('buttonsSelected', buttonsSelected.toList());
+    storeBookmark.write('buttonsSelected', buttonsSelected.toList());
     update(); // Notify GetX that the state has changed
   }
 
