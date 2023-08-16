@@ -13,6 +13,7 @@ import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_cont
 import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
+import '../../Events/Model/eventsModel.dart';
 import '../../imanTracker/model/ImanTrakerEntryModel.dart';
 import '../../imanTracker/model/imanTrakerStatusModel.dart';
 import '../Model/getUserModel.dart';
@@ -30,9 +31,11 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   RxBool alarm = false.obs;
   RxBool isloading = false.obs;
   RxBool isloading1 = false.obs;
+  RxBool isloadingEvent = false.obs;
   RxBool isloadingiman = false.obs;
   var getUserData=GetUserModel().obs;
   var prayerTimeData=PrayerTimeModel().obs;
+  var eventsData= EventsModel().obs;
 
   var prayerTime =['fajr', 'dhuhr', 'asr', 'magrib', 'isha'];
      // var imageBytes=images.obs;
@@ -60,12 +63,13 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
      box1.write("masjidId",hh[1]);
      getUserDetails(hh[0],"");
      getPrayerTime(hh[1]);
+     getUpcomingEvents(hh[1]);
 
    }
    if(  box1.read('fruits')!=null){
      getUserDetails( box1.read('fruits'),"");
      getPrayerTime( box1.read('masjidId'));
-
+     getUpcomingEvents(box1.read('masjidId'));
 
    }
    if(FirebaseAuth.instance.currentUser!=null){
@@ -99,6 +103,38 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   void onClose() {
     tabController.dispose();
     super.onClose();
+  }
+
+  getUpcomingEvents(id) async {
+
+    isloadingEvent.value=true;
+    var header="""
+query Query(\$masjidId: ID!) {
+  Get_Masjid_Events_(masjid_id: \$masjidId) {
+    image
+    id
+    area
+    start_time
+    end_time
+    masjid_id {
+      masjid_name
+    }
+    title
+    description
+  }
+}
+    """;
+    var body ={
+      "masjidId": "$id"
+    };
+    var res = await  _restCallController.gql_query(header, body);
+    isloadingEvent.value=false;
+
+    eventsData.value=eventsModelFromJson(json.encode(res));
+    print("getevent");
+    log(json.encode(res));
+    print("getevent");
+
   }
   getImanTrakerStatus(id) async {
 

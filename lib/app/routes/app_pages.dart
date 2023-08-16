@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/Events/bindings/events_binding.dart';
+import '../modules/Events/views/events_view.dart';
 import '../modules/addweather/bindings/addweather_binding.dart';
 import '../modules/addweather/views/addweather_view.dart';
 import '../modules/archivepage/bindings/archivepage_binding.dart';
@@ -55,15 +57,14 @@ import '../modules/settingspage/bindings/settingspage_binding.dart';
 import '../modules/settingspage/views/settingspage_view.dart';
 import '../modules/signup_page/bindings/signup_page_binding.dart';
 import '../modules/signup_page/views/signup_page_view.dart';
-
 import '../modules/sliderdot/bindings/sliderdot_binding.dart';
 import '../modules/sliderdot/views/sliderdot_view.dart';
 import '../modules/specialdayspage/bindings/specialdayspage_binding.dart';
 import '../modules/specialdayspage/views/specialdayspage_view.dart';
 import '../modules/splashScreen/bindings/splash_screen_binding.dart';
 import '../modules/splashScreen/views/splash_screen_view.dart';
-import '../modules/weatherpage/views/weatherdetail_view.dart';
 import '../modules/weatherpage/bindings/weatherpage_binding.dart';
+import '../modules/weatherpage/views/weatherdetail_view.dart';
 import '../modules/weatherpage/views/weatherpage_view.dart';
 import '../modules/zakathpage/bindings/zakathpage_binding.dart';
 import '../modules/zakathpage/views/zakathpage_view.dart';
@@ -140,7 +141,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MESSAGEPAGE,
-      page: () =>  MessagepageView(),
+      page: () => MessagepageView(),
       binding: MessagepageBinding(),
     ),
     GetPage(
@@ -205,7 +206,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MASJID_REQUEST,
-      page: () =>  MasjidRequestView(),
+      page: () => MasjidRequestView(),
       binding: MasjidRequestBinding(),
     ),
     GetPage(
@@ -246,8 +247,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MEMBERSHIP,
-      page: () =>  MembershipView(),
+      page: () => MembershipView(),
       binding: MembershipBinding(),
+    ),
+    GetPage(
+      name: _Paths.EVENTS,
+      page: () =>  EventsView(),
+      binding: EventsBinding(),
     ),
   ];
 }

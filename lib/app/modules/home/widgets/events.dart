@@ -1,17 +1,18 @@
-
-
+import 'dart:convert';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:intl/intl.dart';
+import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 
-
 class Events extends StatelessWidget {
-  const Events({
+  Events({
     super.key,
     required CarouselController carouselController,
   }) : _carouselController = carouselController;
-
+  final _homectr = Get.find<HomeController>();
   final CarouselController _carouselController;
 
   @override
@@ -24,7 +25,7 @@ class Events extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-                const Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
@@ -36,6 +37,7 @@ class Events extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
+                    Get.toNamed(Routes.EVENTS);
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(
@@ -51,7 +53,7 @@ class Events extends StatelessWidget {
           ),
           CarouselSlider(
               carouselController: _carouselController,
-              items: ['fadjr', 'dhuhr', 'asr', 'magrib', 'isha'].map((e) {
+              items: _homectr.eventsData.value.getMasjidEvents! .where((e) => e != null).take(5).map((e) {
                 return Card(
                   surfaceTintColor: themeData.primaryColor,
                   shadowColor: themeData.primaryColor,
@@ -61,24 +63,47 @@ class Events extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          'assets/images/event_img.png',
-                          fit: BoxFit.cover,
-                          height: 85,
-                          width: 140,
-                        ),
+                        e.image == null
+                            ? Image.asset(
+                                'assets/images/event_img.png',
+                                fit: BoxFit.cover,
+                                height: 85,
+                                width: 140,
+                              )
+                            : Container(
+                                height: 85,
+                                width: 140,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  image: DecorationImage(
+                                    image: MemoryImage(
+                                        base64Decode(e.image.toString())),
+                                    fit: BoxFit.cover,
+                                  ),
+                                )),
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          'Islam, modernity, and women’s justice',
-                          style: TextStyle(
-                              fontSize: f0,
-                              color: Colors.indigo,
-                              fontWeight: FontWeight.bold),
+                        Stxt(
+                          text: " ${e.description}",
+                          size: f1,
+                          color: themeData.primaryColor,
+                          weight: FontWeight.bold,
+                          maxLines: 2,
+                          family: "Inter",
+                          overflow: TextOverflow.ellipsis,
                         ),
-                         const Padding(
+                        5.verticalSpace,
+                        //  Text(
+                        //   '${e.description}',
+                        //   style: TextStyle(
+                        //       fontSize: f0,
+                        //       color: Colors.indigo,
+                        //       fontWeight: FontWeight.bold,),
+                        // ),
+                        Padding(
                           padding: EdgeInsets.symmetric(vertical: 2),
                           child: Row(
                             children: [
@@ -86,25 +111,31 @@ class Events extends StatelessWidget {
                                 Icons.location_on_sharp,
                                 size: f2,
                               ),
-
                               stxtN(
-
-                                text: " Masjid-e-noorania",
-                                size: f0,
+                                text: " ${e.masjidId!.masjidName}",
+                                size: f1,
+                                weight: FontWeight.w500,
                               )
                             ],
                           ),
                         ),
-                         const Row(
+                        2.verticalSpace,
+                        Row(
                           children: [
                             Icon(
-                              Icons.access_time_sharp,
+                              Icons.access_time_filled_outlined,
                               size: f1,
                             ),
-                            stxtN(
-
-                              text: " 26 May 2023 - 6 Pm",
-                              size: f0,
+                            SizedBox(
+                              width: 100,
+                              child: Stxt(
+                                maxLines: 2,
+                                text: DateFormat(' MMMM d, y').format(
+                                    DateTime.parse(
+                                        "${e.startTime!.toLocal()}")),
+                                weight: FontWeight.w400,
+                                size: f0,
+                              ),
                             )
                           ],
                         ),

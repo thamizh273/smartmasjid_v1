@@ -40,6 +40,7 @@ abstract class Routes {
   static const EDITPROFILE = _Paths.EDITPROFILE;
   static const WEATHERDETAIL = _Paths.WEATHERDETAIL;
   static const MEMBERSHIP = _Paths.MEMBERSHIP;
+  static const EVENTS = _Paths.EVENTS;
 }
 
 abstract class _Paths {
@@ -81,4 +82,5 @@ abstract class _Paths {
   static const EDITPROFILE = '/editProfile';
   static const WEATHERDETAIL = '/weatherdetail';
   static const MEMBERSHIP = '/membership';
+  static const EVENTS = '/events';
 }
