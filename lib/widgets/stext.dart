@@ -10,7 +10,7 @@ class Stxt extends StatelessWidget {
     required this.text,
     required this.size,
     this.maxLines,
-    this.pad, this.family,
+    this.pad, this.family, this.overflow,
   }) : super(key: key);
   final String text;
 
@@ -21,6 +21,7 @@ class Stxt extends StatelessWidget {
   final int? maxLines;
   final String? family;
   final TextAlign? textAlign;
+  final TextOverflow? overflow;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class Stxt extends StatelessWidget {
       child: AutoSizeText(
         text,
         style: TextStyle(
+          overflow:overflow ,
           fontWeight: weight,
           color: color,
           fontSize: size,
