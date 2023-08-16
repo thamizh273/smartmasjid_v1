@@ -34,7 +34,7 @@ class QuranpageView extends StatelessWidget {
       child: DefaultTabController(
         length: 2,
         child: Obx(() {
-          return quranCtrl.isLoadings.value
+          return quranCtrl.isLoadings0.value
               ? loading(context)
               : Scaffold(
               appBar: AppBar(

@@ -15,11 +15,14 @@ class DuapageController extends GetxController {
 
   var isExpanded = false.obs;
   ScrollController scrollController = ScrollController();
+  ScrollController scrollController1 = ScrollController();
 var isLoadings = false.obs;
 var isLoadings1 = false.obs;
+var isLoadings2 = false.obs;
   final _restCallController = Get.put(restCallController());
   var getduadata = DuaModel().obs;
   var getdetailduadata = DuaDetailModel().obs;
+  var getdailydata= DuaDetailModel().obs;
   var fontFamily = "indopak".obs;
 
   final count = 0.obs;
@@ -119,6 +122,40 @@ query Query(\$titleName: String) {
     log("data dua ${json.encode(res)}");
     isLoadings1.value = false;
     getdetailduadata.value = duaDetailModelFromJson(json.encode(res));
+   // Get.to(DuaDetail());
+    update();
+  }
+  duadaily(String? duasNameEn) async {
+    isLoadings2.value = true;
+    var header = """
+query Query(\$titleName: String) {
+  Get_Duas_Verse_List(title_name: \$titleName) {
+    duas_name_en
+    duas_name_arb
+    duas_name_tamil
+    duas_name_hindi
+    duas_arabic_text
+    duas_eng_text
+    eng_translation
+    tamil_translation
+    hindi_translation
+    title
+  }
+}
+    """;
+
+    var body = {
+      "titleName": "$duasNameEn"
+
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data dua ${json.encode(res)}");
+    isLoadings2.value = false;
+
+    getdailydata.value = duaDetailModelFromJson(json.encode(res));
    // Get.to(DuaDetail());
     update();
   }

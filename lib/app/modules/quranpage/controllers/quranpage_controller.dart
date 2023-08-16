@@ -38,6 +38,7 @@ class QuranpageController extends GetxController {
 
   final _restCallController = Get.put(restCallController());
   RxInt currentSelected = 1.obs;
+  RxBool isLoadings0 = false.obs;
   RxBool isLoadings = false.obs;
   RxBool isLoadings1 = false.obs;
   RxBool isLoadingsJuz = false.obs;
@@ -84,6 +85,8 @@ class QuranpageController extends GetxController {
   final RxBool isSearchEnabled = false.obs;
   final RxString searchQuery = ''.obs;
   var currentVerseSelected = 1.obs;
+  var currentSelectedPageIndex = 0.obs;
+  var currentSelectedPages = <int>[].obs;
 
   void shareMessage(index) {
     Share.share("${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
@@ -287,7 +290,7 @@ void changeFontFamily(String family) {
   }
 
   quranChapterList() async {
-    isLoadings.value = true;
+    isLoadings0.value = true;
     var header = """
 query Query(\$getChapterByMsId: String) {
   Quran_Filter(get_chapter_by_ms_id: \$getChapterByMsId) {
@@ -317,7 +320,7 @@ query Query(\$getChapterByMsId: String) {
     // print(json.encode(res));
     // print("lllll");
     log("data sign ${json.encode(res)}");
-    isLoadings.value = false;
+    isLoadings0.value = false;
     getqurandata.value = quranModelFromJson(json.encode(res));
 
     update();
