@@ -41,6 +41,8 @@ abstract class Routes {
   static const WEATHERDETAIL = _Paths.WEATHERDETAIL;
   static const MEMBERSHIP = _Paths.MEMBERSHIP;
   static const EVENTS = _Paths.EVENTS;
+  static const DONATIONPAGE = _Paths.DONATIONPAGE;
+  static const MYMASJIDPAGE = _Paths.MYMASJIDPAGE;
 }
 
 abstract class _Paths {
@@ -83,4 +85,6 @@ abstract class _Paths {
   static const WEATHERDETAIL = '/weatherdetail';
   static const MEMBERSHIP = '/membership';
   static const EVENTS = '/events';
+  static const DONATIONPAGE = '/donationpage';
+  static const MYMASJIDPAGE = '/mymasjidpage';
 }

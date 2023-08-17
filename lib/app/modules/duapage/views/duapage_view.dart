@@ -406,10 +406,9 @@ class CustomDialogBox1 extends StatelessWidget {
             Stxt(text: "${title}", size: f5, weight: FontWeight.w500,),
             Space(16),
                Container(
-                 constraints: BoxConstraints(
+                 constraints: const BoxConstraints(
                    maxHeight: 400,
                  ),
-
                 child: ListView.builder(
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
@@ -420,9 +419,8 @@ class CustomDialogBox1 extends StatelessWidget {
                         onTap: (){
                           Navigator.pop(context);
                           Get.to(DailyDua());
-                          print(" ffff${items[index]}");
+                          print("ffff${items[index]}");
                           duaCtrl.duadaily(items[index]);
-
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8),
