@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:smartmasjid_v1/utils/ansomeNotification.dart';
 
 import 'package:smartmasjid_v1/utils/localization/localization.dart';
 
@@ -24,6 +25,8 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   ).then((value) => Get.put(AuthenticationRespository()));
   await initHiveForFlutter();
+  await AwesomeNotificationsHelper.init();
+
   // HomeController().get_user("92owFV2zwZfyKnIJdcTEopBkLHE3");
   final WebSocketLink websocketLink = WebSocketLink(
     'wss://smasjidgraphqlserver-3gw3zjicpa-uc.a.run.app/smasjidql',

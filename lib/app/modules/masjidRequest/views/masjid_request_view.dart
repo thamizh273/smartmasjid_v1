@@ -71,6 +71,7 @@ class MasjidRequestView extends GetView<MasjidRequestController> {
                             onPressed: () async {
                               Get.offNamed(Routes.REGISTER_LOGIN);
                               await homectrl.box1.remove('fruits');
+                              await homectrl.box1.remove('masjidId');
                               await GoogleSignIn().signOut();
                               await FirebaseAuth.instance.signOut();
 

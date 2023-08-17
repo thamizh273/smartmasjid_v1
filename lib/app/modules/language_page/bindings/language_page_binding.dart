@@ -6,7 +6,7 @@ class LanguagePageBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<LanguagePageController>(
-      () => LanguagePageController(),
+      () => LanguagePageController(),fenix: true
     );
   }
 }

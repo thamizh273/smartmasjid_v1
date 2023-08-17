@@ -97,7 +97,8 @@ class restCallController extends GetxController {
         final errorMessage = graphQLError.message;
         // Handle the error message here
         print(errorMessage);
-        return  toast(error: "ERROR", msg: errorMessage);
+        toast(error: "ERROR", msg: errorMessage);
+        return  errorMessage;
       }
       // else if( result.exception!.graphqlErrors[0].message.contains("Data Empty!")){ }
       // else if(result.hasException) {

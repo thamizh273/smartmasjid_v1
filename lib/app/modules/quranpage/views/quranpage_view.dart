@@ -1,9 +1,12 @@
+
 import 'package:floating_frosted_bottom_bar/app/frosted_bottom_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:loadmore/loadmore.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/notes.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/quran_juz_details.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
@@ -280,90 +283,93 @@ class QuranpageView extends StatelessWidget {
                                 Text("Quick Links:"),
                                 Space(8),
                                 SizedBox(
-                                  width: 280,
+                                 width: 260.w,
                                   height: 30,
-                                  child: ListView.separated(
-                                    // physics: NeverScrollablePhysics(),
-                                      separatorBuilder:
-                                          (BuildContext context,
-                                          int index) =>
-                                      const Space(8),
-                                      itemCount: 7,
-                                      scrollDirection: Axis.horizontal,
-                                      itemBuilder: (context, index) {
-                                        var sura = [
-                                          quranCtrl.getqurandata.value.quranFilter![35],
-                                          quranCtrl.getqurandata.value.quranFilter![54],
-                                          quranCtrl.getqurandata.value.quranFilter![17],
-                                          quranCtrl.getqurandata.value.quranFilter![55],
-                                          quranCtrl.getqurandata.value.quranFilter![66],
-                                          quranCtrl.getqurandata.value
-                                              .quranFilter![111],
-                                          quranCtrl.getqurandata.value
-                                              .quranFilter![112],
-                                        ];
-                                        return GestureDetector(
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(
-                                                    4),
-                                                border: Border.all(
-                                                    color: Theme
-                                                        .of(context)
-                                                        .primaryColor)),
-                                            child: Padding(
-                                              padding:
-                                              const EdgeInsets.all(4.0),
-                                              child: Text(
-                                                "${sura[index].suraNameEn}",
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                    FontWeight.w600,
-                                                    fontSize: 14,
-                                                    color: Theme
-                                                        .of(context)
-                                                        .primaryColor),
+                                  child: Expanded(
+                                    child: ListView.separated(
+                                      shrinkWrap: true,
+                                      // physics: NeverScrollablePhysics(),
+                                        separatorBuilder:
+                                            (BuildContext context,
+                                            int index) =>
+                                        const Space(8),
+                                        itemCount: 7,
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          var sura = [
+                                            quranCtrl.getqurandata.value.quranFilter![35],
+                                            quranCtrl.getqurandata.value.quranFilter![54],
+                                            quranCtrl.getqurandata.value.quranFilter![17],
+                                            quranCtrl.getqurandata.value.quranFilter![55],
+                                            quranCtrl.getqurandata.value.quranFilter![66],
+                                            quranCtrl.getqurandata.value
+                                                .quranFilter![111],
+                                            quranCtrl.getqurandata.value
+                                                .quranFilter![112],
+                                          ];
+                                          return GestureDetector(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      4),
+                                                  border: Border.all(
+                                                      color: Theme
+                                                          .of(context)
+                                                          .primaryColor)),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.all(4.0),
+                                                child: Text(
+                                                  "${sura[index].suraNameEn}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight.w600,
+                                                      fontSize: 14,
+                                                      color: Theme
+                                                          .of(context)
+                                                          .primaryColor),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          onTap: () {
-                                            print(
-                                                "ddd ${sura[index]
-                                                    .suraNameEn}");
-                                            if (sura[index].suraNameEn ==
-                                                "Ya-Sin") {
-                                              quranCtrl.quranDetailList(36);
-                                            } else if (sura[index]
-                                                .suraNameEn ==
-                                                'Ar-Rahman') {
-                                              quranCtrl.quranDetailList(55);
-                                            } else if (sura[index]
-                                                .suraNameEn ==
-                                                'Al-Kahf') {
-                                              quranCtrl.quranDetailList(18);
-                                            }
-                                            else if (sura[index].suraNameEn ==
-                                                "Al-Waqi'ah") {
-                                              quranCtrl.quranDetailList(56);
-                                            } else if (sura[index]
-                                                .suraNameEn ==
-                                                'Al-Mulk') {
-                                              quranCtrl.quranDetailList(67);
-                                            } else if (sura[index]
-                                                .suraNameEn ==
-                                                'Al-Ikhlas') {
-                                              quranCtrl.quranDetailList(112);
-                                            } else if (sura[index]
-                                                .suraNameEn ==
-                                                'Al-Falaq') {
-                                              quranCtrl.quranDetailList(113);
-                                            } else {
-                                              quranCtrl.quranDetailList(18);
-                                            }
-                                          },
-                                        );
-                                      }),
+                                            onTap: () {
+                                              print(
+                                                  "ddd ${sura[index]
+                                                      .suraNameEn}");
+                                              if (sura[index].suraNameEn ==
+                                                  "Ya-Sin") {
+                                                quranCtrl.quranDetailList(36);
+                                              } else if (sura[index]
+                                                  .suraNameEn ==
+                                                  'Ar-Rahman') {
+                                                quranCtrl.quranDetailList(55);
+                                              } else if (sura[index]
+                                                  .suraNameEn ==
+                                                  'Al-Kahf') {
+                                                quranCtrl.quranDetailList(18);
+                                              }
+                                              else if (sura[index].suraNameEn ==
+                                                  "Al-Waqi'ah") {
+                                                quranCtrl.quranDetailList(56);
+                                              } else if (sura[index]
+                                                  .suraNameEn ==
+                                                  'Al-Mulk') {
+                                                quranCtrl.quranDetailList(67);
+                                              } else if (sura[index]
+                                                  .suraNameEn ==
+                                                  'Al-Ikhlas') {
+                                                quranCtrl.quranDetailList(112);
+                                              } else if (sura[index]
+                                                  .suraNameEn ==
+                                                  'Al-Falaq') {
+                                                quranCtrl.quranDetailList(113);
+                                              } else {
+                                                quranCtrl.quranDetailList(18);
+                                              }
+                                            },
+                                          );
+                                        }),
+                                  ),
                                 ),
 
                                 // Space(8),
@@ -739,211 +745,214 @@ class QuranpageView extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 20),
                                 child: Obx(() {
-                                  return ListView.builder(
-                                    padding: EdgeInsets.all(0),
-                                    controller: quranCtrl.scrollControllerjuz,
-                                    itemCount: quranCtrl.filteredjuzItems.length,
-                                    itemBuilder: (context, index) {
-                                      var juz = quranCtrl.filteredjuzItems[index];
-                                      return Padding(
-                                        padding: EdgeInsets.only(
-                                            bottom: index <
-                                                quranCtrl.filteredjuzItems.length - 1
-                                                ? 10.0
-                                                : 0.0),
-                                        child: Stack(children: [
-                                          ListTile(
-                                            minVerticalPadding: 0,
-                                            dense: true,
-                                            title: GestureDetector(
-                                              onTap: () {
-                                                print("mmmmmmmm ${index}");
+                                  return quranCtrl.isLoadings0.value?CupertinoActivityIndicator():  LoadMore(
+                                    onLoadMore: () { return quranCtrl.quranChapterList(); },
+                                    child: ListView.builder(
+                                      padding: EdgeInsets.all(0),
+                                      controller: quranCtrl.scrollControllerjuz,
+                                      itemCount: quranCtrl.filteredjuzItems.length,
+                                      itemBuilder: (context, index) {
+                                        var juz = quranCtrl.filteredjuzItems[index];
+                                        return Padding(
+                                          padding: EdgeInsets.only(
+                                              bottom: index <
+                                                  quranCtrl.filteredjuzItems.length - 1
+                                                  ? 10.0
+                                                  : 0.0),
+                                          child: Stack(children: [
+                                            ListTile(
+                                              minVerticalPadding: 0,
+                                              dense: true,
+                                              title: GestureDetector(
+                                                onTap: () {
+                                                  print("mmmmmmmm ${index}");
 
-                                                quranCtrl.quranjuzdetailList(index + 1);
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            QuranJuzDetails()));
-                                              },
-                                              child: Align(
-                                                alignment:
-                                                Alignment.topCenter,
-                                                heightFactor: 0.75,
-                                                child: Container(
+                                                  quranCtrl.quranjuzdetailList(index + 1);
+                                                  Navigator.of(context).push(
+                                                      MaterialPageRoute(
+                                                          builder: (_) =>
+                                                              QuranJuzDetails()));
+                                                },
+                                                child: Align(
                                                   alignment:
                                                   Alignment.topCenter,
-                                                  width: quranCtrl.media.size.width -
-                                                      quranCtrl.padExtend / 2.0,
-                                                  height: 80.h,
-                                                  padding: EdgeInsets.all(
-                                                      quranCtrl.padExtend),
-                                                  // width: double.infinity,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.only(
-                                                      // topRight: Radius.circular(8),
-                                                      topLeft:
-                                                      Radius.circular(12),
-                                                      topRight:
-                                                      Radius.circular(12),
-                                                      // bottomRight: Radius.circular(12),
-                                                      // bottomLeft: Radius.circular(12),
+                                                  heightFactor: 0.75,
+                                                  child: Container(
+                                                    alignment:
+                                                    Alignment.topCenter,
+                                                    width: quranCtrl.media.size.width -
+                                                        quranCtrl.padExtend / 2.0,
+                                                    height: 80.h,
+                                                    padding: EdgeInsets.all(
+                                                        quranCtrl.padExtend),
+                                                    // width: double.infinity,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                      BorderRadius.only(
+                                                        // topRight: Radius.circular(8),
+                                                        topLeft:
+                                                        Radius.circular(12),
+                                                        topRight:
+                                                        Radius.circular(12),
+                                                        // bottomRight: Radius.circular(12),
+                                                        // bottomLeft: Radius.circular(12),
+                                                      ),
+                                                      color: Colors.white,
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Colors.black
+                                                              .withOpacity(0.2),
+                                                          blurRadius: 5.0,
+                                                          spreadRadius: 2.0,
+                                                          offset: Offset(0, -4),
+                                                        ),
+                                                      ],
+                                                      // border: Border.all(
+                                                      //     color: Color(0xff16627C)
+                                                      // )
                                                     ),
-                                                    color: Colors.white,
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Colors.black
-                                                            .withOpacity(0.2),
-                                                        blurRadius: 5.0,
-                                                        spreadRadius: 2.0,
-                                                        offset: Offset(0, -4),
-                                                      ),
-                                                    ],
-                                                    // border: Border.all(
-                                                    //     color: Color(0xff16627C)
-                                                    // )
-                                                  ),
-                                                  child: Row(
-                                                    children: [
-                                                      // Column(
-                                                      //   mainAxisAlignment: MainAxisAlignment
-                                                      //       .center,
-                                                      //   children: [
-                                                      //     Image(
-                                                      //       image: "${sura
-                                                      //           .quranType}" ==
-                                                      //           "Makki"
-                                                      //           ? AssetImage(
-                                                      //           'assets/images/makka.png')
-                                                      //           : AssetImage(
-                                                      //           'assets/images/madina.png'),
-                                                      //       width: 18,
-                                                      //     ),
-                                                      //     Stxt(text: "${juz.quranType}", size: f0)
-                                                      //   ],
-                                                      // ),
-                                                      // Space(8),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                        children: [
-                                                          Container(
-                                                            height: 48.h,
-                                                            width: 50.h,
-                                                            decoration:
-                                                            BoxDecoration(
-                                                              // color: Colors.red,
-                                                              image: DecorationImage(
-                                                                  image: AssetImage(
-                                                                      "assets/images/quranneww.png"),
-                                                                  fit: BoxFit
-                                                                      .fill),
-                                                            ),
-                                                            child: Align(
-                                                              alignment:
-                                                              Alignment
-                                                                  .center,
-                                                              child: Text(
-                                                                  "${juz
-                                                                      .juzChapterNo!}"),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Space(8),
-                                                      Padding(
-                                                        padding:
-                                                        const EdgeInsets
-                                                            .only(
-                                                            bottom: 8.0),
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
+                                                    child: Row(
+                                                      children: [
+                                                        // Column(
+                                                        //   mainAxisAlignment: MainAxisAlignment
+                                                        //       .center,
+                                                        //   children: [
+                                                        //     Image(
+                                                        //       image: "${sura
+                                                        //           .quranType}" ==
+                                                        //           "Makki"
+                                                        //           ? AssetImage(
+                                                        //           'assets/images/makka.png')
+                                                        //           : AssetImage(
+                                                        //           'assets/images/madina.png'),
+                                                        //       width: 18,
+                                                        //     ),
+                                                        //     Stxt(text: "${juz.quranType}", size: f0)
+                                                        //   ],
+                                                        // ),
+                                                        // Space(8),
+                                                        Column(
                                                           crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                           children: [
-                                                            SizedBox(
-                                                              width:
-                                                              quranCtrl.screenWidth *
-                                                                  0.3,
-                                                              child: Text(
-                                                                juz.juzNameEn!,
+                                                            Container(
+                                                              height: 48.h,
+                                                              width: 50.h,
+                                                              decoration:
+                                                              BoxDecoration(
+                                                                // color: Colors.red,
+                                                                image: DecorationImage(
+                                                                    image: AssetImage(
+                                                                        "assets/images/quranneww.png"),
+                                                                    fit: BoxFit
+                                                                        .fill),
+                                                              ),
+                                                              child: Align(
+                                                                alignment:
+                                                                Alignment
+                                                                    .center,
+                                                                child: Text(
+                                                                    "${juz
+                                                                        .juzChapterNo!}"),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Space(8),
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets
+                                                              .only(
+                                                              bottom: 8.0),
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                            children: [
+                                                              SizedBox(
+                                                                width:
+                                                                quranCtrl.screenWidth *
+                                                                    0.3,
+                                                                child: Text(
+                                                                  juz.juzNameEn!,
+                                                                  style: TextStyle(
+                                                                      color: Color(
+                                                                          0xff16627C),
+                                                                      fontSize:
+                                                                      17,
+                                                                      fontWeight:
+                                                                      FontWeight
+                                                                          .w600),
+                                                                ),
+                                                              ),
+                                                              Space(4),
+                                                              // Stxt(
+                                                              //   text: "The Opening",
+                                                              //   size: f1,
+                                                              //   color: Color(
+                                                              //       0xff16627C),
+                                                              //   maxLines: 1,),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Spacer(),
+                                                        for(var j in quranCtrl.juz)
+                                                          (j['juz']
+                                                              .toString()
+                                                              .contains(juz
+                                                              .juzNameEn as Pattern))
+                                                              ?
+                                                          Image.asset(
+                                                            "${j['image']}",
+                                                            color: Theme
+                                                                .of(context)
+                                                                .primaryColor,
+                                                            scale: 18,)
+                                                              : Container(),
+                                                        Space(4),
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets
+                                                              .only(
+                                                              right: 8,
+                                                              bottom: 8),
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                            children: [
+                                                              Image.asset(
+                                                                "assets/images/bookmarkout.png",
+                                                                width: 16,
+                                                              ),
+                                                              Space(8),
+                                                              Text(
+                                                                "${juz
+                                                                    .totalVerses}",
                                                                 style: TextStyle(
                                                                     color: Color(
                                                                         0xff16627C),
                                                                     fontSize:
-                                                                    17,
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
+                                                                    12),
                                                               ),
-                                                            ),
-                                                            Space(4),
-                                                            // Stxt(
-                                                            //   text: "The Opening",
-                                                            //   size: f1,
-                                                            //   color: Color(
-                                                            //       0xff16627C),
-                                                            //   maxLines: 1,),
-                                                          ],
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Spacer(),
-                                                      for(var j in quranCtrl.juz)
-                                                        (j['juz']
-                                                            .toString()
-                                                            .contains(juz
-                                                            .juzNameEn as Pattern))
-                                                            ?
-                                                        Image.asset(
-                                                          "${j['image']}",
-                                                          color: Theme
-                                                              .of(context)
-                                                              .primaryColor,
-                                                          scale: 18,)
-                                                            : Container(),
-                                                      Space(4),
-                                                      Padding(
-                                                        padding:
-                                                        const EdgeInsets
-                                                            .only(
-                                                            right: 8,
-                                                            bottom: 8),
-                                                        child: Column(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                          children: [
-                                                            Image.asset(
-                                                              "assets/images/bookmarkout.png",
-                                                              width: 16,
-                                                            ),
-                                                            Space(8),
-                                                            Text(
-                                                              "${juz
-                                                                  .totalVerses}",
-                                                              style: TextStyle(
-                                                                  color: Color(
-                                                                      0xff16627C),
-                                                                  fontSize:
-                                                                  12),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
 
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ]),
-                                      );
-                                    },
+                                          ]),
+                                        );
+                                      },
+                                    ),
                                   );
                                 }),
                               ),

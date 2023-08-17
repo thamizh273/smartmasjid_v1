@@ -55,27 +55,27 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   void onInit() {
 
 
-   if(hh==null&&box1.read('fruits')==null&&FirebaseAuth.instance.currentUser==null){
+   if(hh==null&&box1.read('fruits')==null){
     return;
    }
    if(hh !=null){
      box1.write("fruits",hh[0]);
      box1.write("masjidId",hh[1]);
-     getUserDetails(hh[0],"");
+     getUserDetails(hh[0],);
      getPrayerTime(hh[1]);
      getUpcomingEvents(hh[1]);
 
    }
    if(  box1.read('fruits')!=null){
-     getUserDetails( box1.read('fruits'),"");
+     getUserDetails( box1.read('fruits'));
      getPrayerTime( box1.read('masjidId'));
      getUpcomingEvents(box1.read('masjidId'));
 
    }
-   if(FirebaseAuth.instance.currentUser!=null){
-
-     getUserDetails("",FirebaseAuth.instance.currentUser!.uid);
-   }
+   // if(FirebaseAuth.instance.currentUser!=null){
+   //
+   //   getUserDetails("",FirebaseAuth.instance.currentUser!.uid);
+   // }
   // var ggg=box1.read('fruits')==null?hh[0]: box1.read('fruits');
 
  //  getUserDetails(Get.arguments[0]);
@@ -227,7 +227,7 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     return sss ;
   }
 
-  getUserDetails(passwordlogin,glogin) async {
+  getUserDetails(passwordlogin) async {
 
     //final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
 
@@ -283,7 +283,7 @@ query Query(\$id: String, \$authId: String) {
     """;
     var body ={
       "id": "${passwordlogin}",
-      "authId": "$glogin"
+     // "authId": "$glogin"
      // "id": "$k"
     };
     var res = await  _restCallController.gql_query(header, body);

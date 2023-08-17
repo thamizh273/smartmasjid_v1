@@ -1,5 +1,6 @@
 import 'package:country_state_picker_plus/country_state_picker_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smartmasjid_v1/app/authRepository.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
@@ -479,7 +480,8 @@ class MasjidFinderView extends StatelessWidget {
                                                     //await c.loginGmail(id)(id);
                                                   }else{
                                                   await c.loginGmail(id);}
-
+                                                  await GoogleSignIn().signOut();
+                                                  await FirebaseAuth.instance.signOut();
                                                 // else{
                                                 //   await c.signUpComplete(id);
                                                 // }

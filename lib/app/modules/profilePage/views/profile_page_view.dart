@@ -23,7 +23,7 @@ class ProfilePageView extends GetView<EditProfileController> {
       'icon': Icon(Icons.person),
       "page": EditProfileView()
     },
-    {'name': "Bookmarks", 'icon': Icon(Icons.bookmarks_outlined)},
+    {'name': "Bookmarks", 'icon': Icon(Icons.bookmarks_outlined),},
     {
       'name': "My Masjid",
       'icon': SvgPicture.asset(
@@ -239,6 +239,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) => i['page']
                     ));
+
                     print("click ${i['page']}");
                   },
                   splashColor: Colors.grey.shade300,

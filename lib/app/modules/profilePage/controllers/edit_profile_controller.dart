@@ -53,7 +53,7 @@ class EditProfileController extends GetxController {
   @override
   void onInit() {
    // homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id);
-   homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id,"");
+   homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id,);
     super.onInit();
     dobController.text =
         "${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}";
@@ -160,6 +160,7 @@ class EditProfileController extends GetxController {
     await authen.auth_.signOut();
 
     homectrl.box1.remove('fruits');
+    homectrl.box1.remove('masjidId');
       // Convert to a regular List before updating GetStorage
 
       update(); // Notify GetX that the state has changed

@@ -151,8 +151,9 @@ mutation Mutation(\$masjidid: String, \$profileImage: String, \$firstName: Strin
     print('ss${_langctrl.selectedLang.value}');
     log('ss${_langctrl.selectedLang.value}');
     var header = """
-mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$masjidid: String, \$gmail: String, \$userName: String) {
-  Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_type_: \$userType, masjidid_: \$masjidid, gmail_: \$gmail, user_name_: \$userName) {
+query Login_With_Gmail(\$authId: String, \$language: String, \$userName: String, \$gmail: String, \$userType: String, \$masjidid: String) {
+  Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_name_: \$userName, gmail_: \$gmail, user_type_: \$userType, masjidid_: \$masjidid) {
+    masjid_id
     message
     refresh_token
     token
@@ -169,11 +170,11 @@ mutation Mutation(\$authId: String, \$language: String, \$userType: String, \$ma
       "gmail": "${instance1.gemail}",
       "userName": "${instance1.gname}",
     };
-    var res = await _restCallController.gql_mutation(header, body);
-    print("wwww${res}");
+    var res = await _restCallController.gql_query(header, body);
+    log("wwww${json.encode(res)}");
 
-    if (res.toString().contains("SUCCESS")) {
-      var hh = res["SUCCESS"]["Login_With_Gmail"]["message"];
+    if (res.toString().contains("Login_With_Gmail")) {
+      var hh = res["Login_With_Gmail"]["message"];
       toast(error: "SUCCESS", msg: "${hh}");
       Get.offAllNamed(Routes.MASJID_REQUEST);
 

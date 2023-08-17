@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
 import '../model/quran_detail_model.dart';
@@ -19,7 +20,9 @@ import '../model/quran_model.dart';
 import '../views/qurandetails.dart';
 
 class QuranpageController extends GetxController {
-  final storeBookmark = GetStorage();
+
+  final homectrl=Get.find<HomeController>();
+  //final storeBookmark = GetStorage();
   //TODO: Implement QuranpageController
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   ScrollController scrollController = ScrollController();
@@ -138,7 +141,7 @@ copyText(var index){
     } else {
       buttonsSelected.add(index);
     }
-    storeBookmark.write('buttonsSelected',  buttonsSelected.toList());
+    homectrl.box1.write('buttonsSelected',  buttonsSelected.toList());
     update();
   }
 
@@ -202,13 +205,13 @@ void changeFontFamily(String family) {
   }
 
   @override
-  void onInit() {
-    final storedButtonsSelected = storeBookmark.read<List<dynamic>>('buttonsSelected');
+  void onInit() async {
+    final storedButtonsSelected = homectrl.box1.read<List<dynamic>>('buttonsSelected');
     if (storedButtonsSelected != null) {
       buttonsSelected.assignAll(storedButtonsSelected);
     }
-    quranChapterList();
-    quranjuzList();
+   await quranChapterList();
+    await quranjuzList();
     // quranjuzdetailList();
     // quranjuzdetailList();
     // debounce(searchQuery, (_) => filterList(), time: Duration(milliseconds: 500));
@@ -285,10 +288,15 @@ void changeFontFamily(String family) {
   void deleteIndex(int index) {
     buttonsSelected.remove(index);
     // Convert to a regular List before updating GetStorage
-    storeBookmark.write('buttonsSelected', buttonsSelected.toList());
+    homectrl.box1.write('buttonsSelected', buttonsSelected.toList());
     update(); // Notify GetX that the state has changed
   }
-
+  Future<bool> loadMore() async {
+    print("onLoadMore");
+    await Future.delayed(Duration(seconds: 0, milliseconds: 100));
+    quranChapterList();
+    return true;
+  }
   quranChapterList() async {
     isLoadings0.value = true;
     var header = """

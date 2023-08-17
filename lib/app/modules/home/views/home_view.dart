@@ -451,7 +451,7 @@ class HomeView extends StatelessWidget {
                                       : PrayerTimes();
                                 }),
                                 Obx(() {
-                                  return controller.isloadingiman.value?CupertinoActivityIndicator(): Events(
+                                  return controller.isloadingEvent.value?CupertinoActivityIndicator(): Events(
                                       carouselController:
                                       _carouselController);
                                 }),

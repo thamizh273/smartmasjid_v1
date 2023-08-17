@@ -51,7 +51,7 @@ class Events extends StatelessWidget {
                   )),
             ],
           ),
-          CarouselSlider(
+          _homectr.eventsData.value.getMasjidEvents==null?Container(): CarouselSlider(
               carouselController: _carouselController,
               items: _homectr.eventsData.value.getMasjidEvents! .where((e) => e != null).take(5).map((e) {
                 return Card(

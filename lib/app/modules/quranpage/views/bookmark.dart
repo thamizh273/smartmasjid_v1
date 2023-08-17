@@ -19,7 +19,7 @@ class Bookmark extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: GestureDetector(
-            onTap: (){},
+            onTap: (){Get.back();},
               child: SvgPicture.asset("assets/svg/backnew.svg", fit: BoxFit.scaleDown,)),
           backgroundColor: Theme.of(context).primaryColor,
           title:Text( "Bookmarks"),

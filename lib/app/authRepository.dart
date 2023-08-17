@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,6 +12,7 @@ import 'package:smartmasjid_v1/app/rest_call_controller/rest_call_controller.dar
 import 'package:smartmasjid_v1/app/routes/app_pages.dart';
 
 import '../global.dart';
+import 'modules/register_login/Model/loginGmailModel.dart';
 
 class AuthenticationRespository extends GetxController {
   static AuthenticationRespository get instance => Get.find();
@@ -18,6 +20,7 @@ class AuthenticationRespository extends GetxController {
   late final Rx<User?> firebaseUser;
   var verificationid = "".obs;
   final pinController = TextEditingController().obs;
+  var logingmaildata=LoginGmailModel().obs;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
       RxString guid ="".obs;
@@ -109,8 +112,9 @@ class AuthenticationRespository extends GetxController {
   authId() async {
  log("rrrrrrrrrr${guid.value}");
     var header = """
-mutation Mutation(\$authId: String) {
+query Login_With_Gmail(\$authId: String) {
   Login_With_Gmail(auth_id_: \$authId) {
+    masjid_id
     message
     refresh_token
     token
@@ -122,21 +126,29 @@ mutation Mutation(\$authId: String) {
     var body = {
       "authId": "${guid.value}",
     };
-    var res = await _restCallController.gql_mutation(header, body);
-    print("wwww${res}");
-    if(res.toString().contains("ERROR")){
-     if(res['ERROR']=="Masjid Registration Pending"){
-        Get.toNamed(Routes.MASJID_FINDER);
-     }
-     if(res['ERROR']=="Masjid Approval Pending"){
-       return;
-     }
-    }
+    var res = await _restCallController.gql_query(header, body);
+    log("wwww${res}");
 
-    if (res.toString().contains("SUCCESS")) {
-      var hh = res["SUCCESS"]["Login_With_Gmail"]["message"];
+    if(res =="Masjid Registration Pending"){
+      Get.toNamed(Routes.MASJID_FINDER);
+    }
+    if(res =="Masjid Approval Pending"){
+      return ;
+    }
+    // if(res.toString().contains("ERROR")){
+    //  if(res['ERROR']=="Masjid Registration Pending"){
+    //     Get.toNamed(Routes.MASJID_FINDER);
+    //  }
+    //  if(res['ERROR']=="Masjid Approval Pending"){
+    //    return;
+    //  }
+    // }
+
+    if (res["Login_With_Gmail"]["message"]=="Authentication Successfully") {
+      logingmaildata.value= loginGmailModelFromJson(json.encode(res));
+      var hh = res["Login_With_Gmail"]["message"];
       toast(error: "SUCCESS", msg: "${hh}");
-      Get.offAllNamed(Routes.HOME);
+      await Get.offAllNamed(Routes.HOME,arguments: [ logingmaildata.value.loginWithGmail!.userId,logingmaildata.value.loginWithGmail!.masjidId]);
     }
 
     // if (res.toString().contains("SUCCESS")) {

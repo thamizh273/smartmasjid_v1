@@ -25,7 +25,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
     Future.delayed(Duration(seconds: 4), () {
 
       // if( ctrl.getUserData.value.getUserById!.id==null){return Get.offAllNamed(Routes.LANGUAGE_PAGE);}
-      if(SplashScreenView.homectrl.box1.read('fruits')!=null||FirebaseAuth.instance.currentUser!=null){
+      if(SplashScreenView.homectrl.box1.read('fruits')!=null){
 
           Get.toNamed(Routes.HOME);
 
