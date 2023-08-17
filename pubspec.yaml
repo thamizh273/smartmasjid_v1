@@ -173,3 +173,8 @@ flutter:
         - asset: assets/fonts/Arabictit.ttf
           weight: 500
 
+    - family: Italy
+      fonts:
+        - asset: assets/fonts/Italy.ttf
+          weight: 500
+

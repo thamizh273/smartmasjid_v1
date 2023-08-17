@@ -92,10 +92,12 @@ class DuaDetail extends StatelessWidget {
                                         size: f4,
                                         color: Color(0xff78BDD4),),
                                       Space(12),
-                                      Stxt(
-                                        text: "${duas.engTranslation}",
-                                        size: f4,
-                                        color: Colors.white.withOpacity(0.8),),
+                                      Text("${duas.engTranslation}",style: TextStyle(fontFamily: "Italy", fontSize: 30, color: Colors.white),)
+                                      // Stxt(
+                                      //   family: "Italy",
+                                      //   text: "${duas.engTranslation}",
+                                      //   size: f5,
+                                      //   color: Colors.white.withOpacity(0.8),),
                                     ],
                                   ),
                                 ),

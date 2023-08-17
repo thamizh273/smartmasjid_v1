@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:smartmasjid_v1/app/modules/mymasjidpage/views/mymasjidpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/profilePage/controllers/edit_profile_controller.dart';
 import 'package:smartmasjid_v1/app/modules/profilePage/views/edit_profile_view.dart';
 
@@ -27,7 +28,8 @@ class ProfilePageView extends GetView<EditProfileController> {
     {
       'name': "My Masjid",
       'icon': SvgPicture.asset(
-        'assets/icons/masjid_icon.svg', color: Get.theme.primaryColor,)
+        'assets/icons/masjid_icon.svg', color: Get.theme.primaryColor,),
+      "page": MymasjidpageView()
     },
     {'name': "Activities", 'icon': Icon(Icons.history)},
     {'name': "Family Tree", 'icon': Icon(Icons.family_restroom_outlined)}

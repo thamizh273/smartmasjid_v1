@@ -8,6 +8,8 @@ import '../modules/archivepage/bindings/archivepage_binding.dart';
 import '../modules/archivepage/views/archivepage_view.dart';
 import '../modules/audioplayer/bindings/audioplayer_binding.dart';
 import '../modules/audioplayer/views/audioplayer_view.dart';
+import '../modules/donationpage/bindings/donationpage_binding.dart';
+import '../modules/donationpage/views/donationpage_view.dart';
 import '../modules/duapage/bindings/duapage_binding.dart';
 import '../modules/duapage/views/duapage_view.dart';
 import '../modules/faceAuth/bindings/face_auth_binding.dart';
@@ -34,6 +36,8 @@ import '../modules/membership/bindings/membership_binding.dart';
 import '../modules/membership/views/membership_view.dart';
 import '../modules/messagepage/bindings/messagepage_binding.dart';
 import '../modules/messagepage/views/messagepage_view.dart';
+import '../modules/mymasjidpage/bindings/mymasjidpage_binding.dart';
+import '../modules/mymasjidpage/views/mymasjidpage_view.dart';
 import '../modules/notificationpage/bindings/notificationpage_binding.dart';
 import '../modules/notificationpage/views/notificationpage_view.dart';
 import '../modules/otp_page/bindings/otp_page_binding.dart';
@@ -252,8 +256,18 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.EVENTS,
-      page: () =>  EventsView(),
+      page: () => EventsView(),
       binding: EventsBinding(),
+    ),
+    GetPage(
+      name: _Paths.DONATIONPAGE,
+      page: () => const DonationpageView(),
+      binding: DonationpageBinding(),
+    ),
+    GetPage(
+      name: _Paths.MYMASJIDPAGE,
+      page: () => const MymasjidpageView(),
+      binding: MymasjidpageBinding(),
     ),
   ];
 }
