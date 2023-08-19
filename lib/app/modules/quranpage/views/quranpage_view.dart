@@ -405,6 +405,7 @@ class QuranpageView extends StatelessWidget {
                               radius: Radius.circular(20),
                               child: Obx(() {
                                 return ListView.builder(
+                                  physics: BouncingScrollPhysics(),
                                   key: PageStorageKey<String>("page"),
 
                                   ///store the current page in the list items
@@ -473,65 +474,6 @@ class QuranpageView extends StatelessWidget {
                                                 ),
                                                 child: Row(
                                                   children: [
-                                                    // Column(
-                                                    //   mainAxisAlignment:
-                                                    //   MainAxisAlignment
-                                                    //       .center,
-                                                    //   children: [
-                                                    //     Image(
-                                                    //       image: sura
-                                                    //           .quranType! ==
-                                                    //           "Makki"
-                                                    //           ? AssetImage(
-                                                    //           'assets/images/makka.png')
-                                                    //           : AssetImage(
-                                                    //           'assets/images/madina.png'),
-                                                    //       width: 18,
-                                                    //     ),
-                                                    //     Stxt(
-                                                    //         text:
-                                                    //         sura.quranType!,
-                                                    //         size: f0)
-                                                    //   ],
-                                                    // ),
-                                                    // Space(8),
-                                                    // Padding(
-                                                    //   padding: const EdgeInsets.all(16),
-                                                    //   child: Container(
-                                                    //     width: 40.w,
-                                                    //     height: 40.w,
-                                                    //     child: Transform.rotate(
-                                                    //       angle: 40 *
-                                                    //           (3.1415926535897932 / 180),
-                                                    //       // Converting 30 degrees to radians
-                                                    //       child: Container(
-                                                    //         width: 200,
-                                                    //         height: 200,
-                                                    //         decoration: BoxDecoration(
-                                                    //           borderRadius: BorderRadius
-                                                    //               .circular(8),
-                                                    //           color: Color(0xff16627C),
-                                                    //         ),
-                                                    //         child: Center(
-                                                    //           child: Transform.rotate(
-                                                    //             angle: -40 *
-                                                    //                 (3.1415926535897932 /
-                                                    //                     180),
-                                                    //             child: Text(
-                                                    //               "${sura.suraChapterNo}",
-                                                    //               style: TextStyle(
-                                                    //                   fontSize: 15,
-                                                    //                   fontWeight: FontWeight
-                                                    //                       .bold,
-                                                    //                   color: Colors.white),
-                                                    //             ),
-                                                    //           ),
-                                                    //         ),
-                                                    //       ),
-                                                    //     ),
-                                                    //   ),
-                                                    // ),
-                                                    // Space(8),
                                                     Column(
                                                       crossAxisAlignment:
                                                       CrossAxisAlignment
@@ -745,9 +687,9 @@ class QuranpageView extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 20),
                                 child: Obx(() {
-                                  return quranCtrl.isLoadings0.value?CupertinoActivityIndicator():  LoadMore(
-                                    onLoadMore: () { return quranCtrl.quranChapterList(); },
-                                    child: ListView.builder(
+                                    return ListView.builder(
+                                      physics: BouncingScrollPhysics(),
+                                      key: PageStorageKey<String>("page"),
                                       padding: EdgeInsets.all(0),
                                       controller: quranCtrl.scrollControllerjuz,
                                       itemCount: quranCtrl.filteredjuzItems.length,
@@ -911,7 +853,7 @@ class QuranpageView extends StatelessWidget {
                                                             color: Theme
                                                                 .of(context)
                                                                 .primaryColor,
-                                                            scale: 18,)
+                                                            scale: 16,)
                                                               : Container(),
                                                         Space(4),
                                                         Padding(
@@ -952,8 +894,7 @@ class QuranpageView extends StatelessWidget {
                                           ]),
                                         );
                                       },
-                                    ),
-                                  );
+                                    );
                                 }),
                               ),
                             ),

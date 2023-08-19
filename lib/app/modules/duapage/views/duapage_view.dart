@@ -47,7 +47,7 @@ class DuapageView extends GetView<DuapageController> {
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      "I am Feeling", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                      "I am Feeling", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, ),),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -103,17 +103,18 @@ class DuapageView extends GetView<DuapageController> {
                   Obx(() {
                     return GestureDetector(
                       child: Container(
+                        width: 90.w,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(4)
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(c.isExpanded.value ? "See Less" : "See More",
-                              style: TextStyle(fontSize: 16, color: Theme
-                                  .of(context)
-                                  .primaryColor, fontWeight: FontWeight.w600),),
+                              style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600),),
                             Icon(c.isExpanded.value ? Icons.expand_less : Icons
-                                .expand_more, color: Theme
-                                .of(context)
-                                .primaryColor,),
+                                .expand_more, color:  Colors.white,),
                           ],
                         ),
                       ),
@@ -131,8 +132,8 @@ class DuapageView extends GetView<DuapageController> {
                         scrollDirection: Axis.vertical,
                         controller: c.scrollController,
                         shrinkWrap: true,
-                        itemCount:  c.getduadata.value.getDuasTitleList!.daily!
-                            .length,
+                        itemCount:  c.isExpanded1.value ? c.getduadata.value.getDuasTitleList!.daily!
+                            .length: 4,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: MediaQuery
                               .of(context)
@@ -185,6 +186,29 @@ class DuapageView extends GetView<DuapageController> {
                           );
                         },
                       ),
+                    );
+                  }),
+                  Obx(() {
+                    return GestureDetector(
+                      child: Container(
+                        width: 90.w,
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColor,
+                            borderRadius: BorderRadius.circular(4)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(c.isExpanded1.value ? "See Less" : "See More",
+                              style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600),),
+                            Icon(c.isExpanded1.value ? Icons.expand_less : Icons
+                                .expand_more, color: Colors.white),
+                          ],
+                        ),
+                      ),
+                      onTap: () {
+                        c.isExpanded1.toggle();
+                      },
                     );
                   }),
                   Space(16),

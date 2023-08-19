@@ -14,6 +14,7 @@ class DuapageController extends GetxController {
   //TODO: Implement DuapageController
 
   var isExpanded = false.obs;
+  var isExpanded1 = false.obs;
   ScrollController scrollController = ScrollController();
   ScrollController scrollController1 = ScrollController();
 var isLoadings = false.obs;
@@ -25,6 +26,7 @@ var isLoadings2 = false.obs;
   var getdailydata= DuaDetailModel().obs;
   var fontFamily = "indopak".obs;
   double screenWidth = Get.width;
+  var selectedMenuItem = "Indopak".obs;
 
   final count = 0.obs;
   @override

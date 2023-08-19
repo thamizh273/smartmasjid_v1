@@ -9,7 +9,7 @@ class DuaDetail extends StatelessWidget {
   DuaDetail({super.key});
 
 
-  DuapageController c = Get.put(DuapageController());
+  DuapageController duactrl = Get.put(DuapageController());
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,71 @@ class DuaDetail extends StatelessWidget {
       Scaffold(
         appBar: CustomAppbar(
           tittle: "Dua",
+          action: [
+            PopupMenuButton(
+                icon: Icon(Icons.menu),
+                onSelected: (value) {
+                  duactrl.selectedMenuItem.value = value;
+                },
+                shadowColor: Colors.grey
+                    .shade400,
+                itemBuilder: (BuildContext context) {
+                  return [
+                    PopupMenuItem(
+                        child: Obx(() {
+                          return GestureDetector(
+                            onTap: (){
+                              duactrl.fontFamily.value = "indopak";
+                            },
+                            child: Row(
+                              children: [
+                                Radio(
+                                  activeColor: Get.theme.primaryColor,
+                                  // title: Text("Amiri"),
+                                  value: "indopak",
+                                  groupValue: duactrl.fontFamily.value,
+                                  onChanged: (groupValue) =>
+                                  duactrl.fontFamily.value = groupValue!,
+                                ),
+                                Space(12),
+                                Text(
+                                  "Indopak",
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          );
+                        })),
+                    PopupMenuItem(
+                        child: Obx(() {
+                          return GestureDetector(
+                            onTap: (){
+                              duactrl.fontFamily.value = "qalam";
+                            },
+                            child: Row(
+                              children: [
+                                Radio(
+                                  activeColor: Get.theme.primaryColor,
+                                  // title: Text("Amiri"),
+                                  value: "qalam",
+                                  groupValue: duactrl.fontFamily.value,
+                                  onChanged: (groupValue) =>
+                                  duactrl.fontFamily.value = groupValue!,
+                                ),
+                                Space(12),
+                                Text("Qalam", style: TextStyle(
+                                    fontWeight: FontWeight.w500),),
+                              ],
+                            ),
+                          );
+                        })),
+                  ];
+                }
+            )
+          ],
         ),
         body: Obx(() {
-          return c.isLoadings1.value?loading(context): Padding(
+          return duactrl.isLoadings1.value ? loading(context) : Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
@@ -31,7 +93,8 @@ class DuaDetail extends StatelessWidget {
                     Space(8),
                     Obx(() {
                       return Stxt(
-                        text: "${c.getdetailduadata.value.getDuasVerseList![0]
+                        text: "${duactrl.getdetailduadata.value
+                            .getDuasVerseList![0]
                             .duasNameEn}",
                         size: f4,
                         weight: FontWeight.w500,
@@ -44,16 +107,17 @@ class DuaDetail extends StatelessWidget {
                 Space(16),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: c.getdetailduadata.value.getDuasVerseList!
+                      itemCount: duactrl.getdetailduadata.value
+                          .getDuasVerseList!
                           .length,
                       itemBuilder: (context, index) {
-                        var duas = c.getdetailduadata.value
+                        var duas = duactrl.getdetailduadata.value
                             .getDuasVerseList![index];
 
                         double fontSize = 35.0;
                         return Column(
                           children: [
-                            Stxt(text: "#${index+1}", size: f4, color: Theme
+                            Stxt(text: "#${index + 1}", size: f4, color: Theme
                                 .of(context)
                                 .primaryColor, weight: FontWeight.w600,),
                             Padding(
@@ -71,15 +135,19 @@ class DuaDetail extends StatelessWidget {
                                     crossAxisAlignment: CrossAxisAlignment
                                         .center,
                                     children: [
-                                      Text("${duas.duasArabicText}", style: TextStyle(
-                                        wordSpacing: 5,
-                                        color: Colors.white,
-                                        fontSize: fontSize,
-                                          fontFamily: c.fontFamily
-                                              .value == "indopak"
-                                              ? "Indopak"
-                                              : c.fontFamily.value
-                                      ),),
+                                      Obx(() {
+                                        return Text("${duas.duasArabicText}",
+                                          style: TextStyle(
+                                              wordSpacing: 5,
+                                              color: Colors.white,
+                                              fontSize: fontSize,
+                                              fontFamily: duactrl.fontFamily
+                                                  .value == "indopak"
+                                                  ? "Indopak"
+                                                  : duactrl.fontFamily.value ==
+                                                  "qalam" ? "Qalam" : null
+                                          ),);
+                                      }),
                                       // Stxt(
                                       //   family: "Indopak",
                                       //   text: "${duas.duasArabicText}ِ",
@@ -90,9 +158,12 @@ class DuaDetail extends StatelessWidget {
                                         family: "Inter",
                                         text: "${duas.duasEngText}ِ",
                                         size: f4,
-                                        color: Color(0xff78BDD4),),
+                                        color: Color(0xff78BDD4),textAlign: TextAlign.justify),
                                       Space(12),
-                                      Text("${duas.engTranslation}",style: TextStyle(fontFamily: "Italy", fontSize: 30, color: Colors.white),)
+                                      Text("${duas.engTranslation}",
+                                        style: TextStyle(fontFamily: "Sriracha",
+                                            fontSize: 20,
+                                            color: Colors.white.withOpacity(0.8)),textAlign: TextAlign.justify)
                                       // Stxt(
                                       //   family: "Italy",
                                       //   text: "${duas.engTranslation}",

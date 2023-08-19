@@ -157,15 +157,14 @@ class _QuranDetailsState extends State<QuranDetails> {
                         color: Color(0xff16627C)),
                   ),
                   Space(16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Obx(() {
-                        return Container(
+                  Obx(() {
+                    return Row(
+                      children: [
+                        Container(
                           height: 25.h,
                           width: 25.w,
                           child: Transform.scale(
-                            scale: 0.8,
+                            scale: 1,
                             // Adjust this value to change the checkbox size.
                             child: Checkbox(
                               activeColor: Get.theme.primaryColor,
@@ -180,16 +179,21 @@ class _QuranDetailsState extends State<QuranDetails> {
                               },
                             ),
                           ),
-                        );
-                      }),
-                      Stxt(size: f2, text: 'Arabic',),
-                      Space(8),
-                      Obx(() {
-                        return Container(
+                        ),
+                        Space(8),
+                        Stxt(size: f3, text: 'Arabic',weight: FontWeight.w400,),
+                      ],
+                    );
+                  }),
+                  Space(8),
+                  Obx(() {
+                    return Row(
+                      children: [
+                        Container(
                           height: 25.h,
                           width: 25.w,
                           child: Transform.scale(
-                            scale: 0.8,
+                            scale: 1,
                             // Adjust this value to change the checkbox size.
                             child: Checkbox(
                               activeColor: Get.theme.primaryColor,
@@ -204,16 +208,21 @@ class _QuranDetailsState extends State<QuranDetails> {
                               },
                             ),
                           ),
-                        );
-                      }),
-                      Stxt(size: f2, text: 'English',),
-                      Space(8),
-                      Obx(() {
-                        return Container(
+                        ),
+                        Space(8),
+                        Stxt(size: f3, text: 'English',weight: FontWeight.w400,),
+                      ],
+                    );
+                  }),
+                  Space(8),
+                  Obx(() {
+                    return Row(
+                      children: [
+                        Container(
                           height: 25.h,
                           width: 25.w,
                           child: Transform.scale(
-                            scale: 0.8,
+                            scale: 1,
                             // Adjust this value to change the checkbox size.
                             child: Checkbox(
                               splashRadius: 5,
@@ -229,11 +238,12 @@ class _QuranDetailsState extends State<QuranDetails> {
                               },
                             ),
                           ),
-                        );
-                      }),
-                      Stxt(size: f2, text: 'Tamil',),
-                    ],
-                  ),
+                        ),
+                        Space(8),
+                        Stxt(size: f3, text: 'Tamil',weight: FontWeight.w400,),
+                      ],
+                    );
+                  }),
                   Space(8),
                   // Divider(
                   //   thickness: 1,
@@ -446,29 +456,6 @@ class _QuranDetailsState extends State<QuranDetails> {
                           )
                         ],
                       ),
-                      Obx(() {
-                        return Row(
-                          children: [
-                            Container(
-                              height: 25.h,
-                              width: 25.w,
-                              child: Radio(
-                                activeColor: Get.theme.primaryColor,
-                                // title: Text("Kalam"),
-                                value: "arabictit",
-                                groupValue: c.fontFamily.value,
-                                onChanged: (groupValue) =>
-                                    c.changeFontFamily(groupValue!),
-                              ),
-                            ),
-                            Text("Arabictitle"),
-                            Spacer(),
-                            SvgPicture.asset(
-                                "assets/svg/noorehuda.svg", width: 60,
-                                color: Colors.black.withOpacity(0.6))
-                          ],
-                        );
-                      }),
                     ],
                   ),
                   Divider(
@@ -778,30 +765,6 @@ class _QuranDetailsState extends State<QuranDetails> {
                                   // crossAxisAlignment:
                                   // CrossAxisAlignment.center,
                                   children: [
-
-                                    //  for(var h in pages)
-
-                                    //  (h['verse'].toString().contains(sura.versesKey!.trim()))?
-                                    // Center(
-                                    //   child: Container(
-                                    //     decoration: BoxDecoration(
-                                    //         borderRadius: BorderRadius.circular(
-                                    //             4),
-                                    //         color: Theme
-                                    //             .of(context)
-                                    //             .primaryColor
-                                    //     ),
-                                    //     height: 30,
-                                    //     width: 60,
-                                    //     child: Center(
-                                    //         child: Text("Page ${h['no']}${h['verse']}",
-                                    //           style: TextStyle(
-                                    //               color: Colors.white,
-                                    //               fontWeight: FontWeight
-                                    //                   .w600),)),
-                                    //   ),
-                                    // ):Container(),
-
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
@@ -861,15 +824,12 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                     .suraNameEn} ${sura
                                                     .versesKey}");
 
-                                            //   c.toggleBookmark();
-
                                           },
 
                                           child: Obx(() {
                                             //   print("eeee${c.objectList}");
                                             print("eeee${sura.versesKey
                                                 .toString()}");
-                                            // final isBookmarked = c.isBookmarked.value;
                                             return Icon(
                                               c.buttonsSelected.contains(
                                                   "${c.getqurandetail.value
@@ -899,16 +859,6 @@ class _QuranDetailsState extends State<QuranDetails> {
                                             itemBuilder: (
                                                 BuildContext context) {
                                               return [
-                                                // PopupMenuItem(child: Row(
-                                                //   children: [
-                                                //     Image.asset(
-                                                //       "assets/images/bookmark.png",
-                                                //       width: 20,
-                                                //       color: Colors.black,),
-                                                //     Space(12),
-                                                //     Text("Bookmark"),
-                                                //   ],
-                                                // )),
                                                 PopupMenuItem(
                                                     child: GestureDetector(
                                                       onTap: () {
@@ -949,20 +899,6 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                     ],
                                                   ),
                                                 )),
-                                                // PopupMenuItem(
-                                                //     child: GestureDetector(
-                                                //       onTap: (){
-                                                //         QuranPlanner(context);
-                                                //       },
-                                                //       child: Row(
-                                                //         children: [
-                                                //           Icon(Icons
-                                                //               .next_plan),
-                                                //           Space(12),
-                                                //           Text("Planner"),
-                                                //         ],
-                                                //       ),
-                                                //     )),
                                                 PopupMenuItem(
                                                     child: GestureDetector(
                                                       onTap: () {
@@ -1005,16 +941,6 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       mainAxisAlignment: MainAxisAlignment
                                           .start,
                                       children: [
-                                        // Space(12),
-                                        // Text(
-                                        //   "${sura.versesKey}",
-                                        //   style: TextStyle(
-                                        //       color: Theme
-                                        //           .of(context)
-                                        //           .primaryColor,
-                                        //       fontWeight: FontWeight.w600,
-                                        //       fontSize: 18),
-                                        // ),
                                         55.horizontalSpace,
                                         Space(20.w),
                                         Align(
@@ -1072,140 +998,12 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                   TextAlign.end,
                                                 )
                                                     : SizedBox(),
-                                                // Text(
-                                                //   "${sura.arabicText}",
-                                                //   style: TextStyle(
-                                                //
-                                                //       fontSize: 25,
-                                                //       fontWeight: FontWeight.w500,
-                                                //       color:
-                                                //       Theme
-                                                //           .of(context)
-                                                //           .colorScheme.primary),
-                                                //   textAlign: TextAlign.end,
-                                                // ),
                                               );
                                             })
                                         ),
                                       ],
                                     ),
-                                    // Container(
-                                    //   width: 21.w,
-                                    //   height: 21.w,
-                                    //   child: Transform.rotate(
-                                    //     angle: 40 *
-                                    //         (3.1415926535897932 / 180),
-                                    //     // Converting 30 degrees to radians
-                                    //     child: Container(
-                                    //       width: 200,
-                                    //       height: 200,
-                                    //       decoration: BoxDecoration(
-                                    //         borderRadius:
-                                    //         BorderRadius.circular(4),
-                                    //         color: Color(0xff16627C),
-                                    //       ),
-                                    //       child: Center(
-                                    //         child: Transform.rotate(
-                                    //           angle: -40 *
-                                    //               (3.1415926535897932 /
-                                    //                   180),
-                                    //           child: Text(
-                                    //             "${sura.versesKey}",
-                                    //             style: TextStyle(
-                                    //                 fontSize: 11,
-                                    //                 fontWeight: FontWeight
-                                    //                     .bold,
-                                    //                 color: Colors.white),
-                                    //           ),
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    // Row(
-                                    //   mainAxisAlignment: MainAxisAlignment
-                                    //       .start,
-                                    //   children: [
-                                    //
-                                    //   ],
-                                    // ),
-                                    // Space(8),
-                                    // Row(
-                                    //   children: [
-                                    //     Space(12),
-                                    //
-                                    //     // Container(
-                                    //     //   width: 20.w,
-                                    //     //   height: 20.w,
-                                    //     //   child: Transform.rotate(
-                                    //     //     angle: 40 *
-                                    //     //         (3.1415926535897932 / 180),
-                                    //     //     // Converting 30 degrees to radians
-                                    //     //     child: Container(
-                                    //     //       width: 200,
-                                    //     //       height: 200,
-                                    //     //       decoration: BoxDecoration(
-                                    //     //         borderRadius:
-                                    //     //         BorderRadius.circular(4),
-                                    //     //         color: Color(0xff16627C),
-                                    //     //       ),
-                                    //     //       child: Center(
-                                    //     //         child: Transform.rotate(
-                                    //     //           angle: -40 *
-                                    //     //               (3.1415926535897932 /
-                                    //     //                   180),
-                                    //     //           child: Text(
-                                    //     //             "${sura.ayahNo}",
-                                    //     //             style: TextStyle(
-                                    //     //                 fontSize: 10,
-                                    //     //                 fontWeight: FontWeight
-                                    //     //                     .bold,
-                                    //     //                 color: Colors.white),
-                                    //     //           ),
-                                    //     //         ),
-                                    //     //       ),
-                                    //     //     ),
-                                    //     //   ),
-                                    //     // ),
-                                    //   ],
-                                    // ),
                                     Space(8),
-
-                                    // Row(
-                                    //   children: [
-                                    //     Space(12),
-                                    //
-                                    //   ],
-                                    // ),
-                                    // Row(
-                                    //   children: [
-                                    //     Obx(
-                                    //           () => IconButton(
-                                    //         icon: Icon(controller.isPlaying.value
-                                    //             ? Icons.pause
-                                    //             : Icons.play_arrow),
-                                    //         iconSize: 40.0,
-                                    //         onPressed: () {
-                                    //           if (controller.isPlaying.value) {
-                                    //             controller.pause();
-                                    //           } else {
-                                    //             controller.play();
-                                    //           }
-                                    //         },
-                                    //       ),
-                                    //     ),
-                                    //     Obx(
-                                    //           () => Slider(
-                                    //         value: controller.sliderValue.value,
-                                    //         min: 0.0,
-                                    //         max: controller.totalDuration.inMilliseconds.toDouble(),
-                                    //         onChanged: (value) {
-                                    //           controller.seekTo(value);
-                                    //         },
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
                                     Space(16),
                                     Obx(() {
                                       double fontSize = 18.0;
