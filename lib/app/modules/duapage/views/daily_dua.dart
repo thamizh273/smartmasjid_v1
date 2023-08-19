@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:smartmasjid_v1/app/modules/duapage/controllers/duapage_controller.dart';
@@ -32,10 +33,14 @@ class DailyDua extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Obx(() {
-                        return Stxt(
-                          text: "${duactrl.getdailydata.value.getDuasVerseList![0].title}",
-                          size: f4,
-                          weight: FontWeight.w500,);
+                        return SizedBox(
+                          width: duactrl.screenWidth * 0.7,
+                          child: Stxt(
+                            textAlign: TextAlign.center,
+                            text: "${duactrl.getdailydata.value.getDuasVerseList![0].title}",
+                            size: f4,
+                            weight: FontWeight.w500,),
+                        );
                       }),
                       Space(8),
                       // Stxt(
@@ -50,8 +55,7 @@ class DailyDua extends StatelessWidget {
                   Space(16),
                   Expanded(
                     child: ListView.builder(
-                        itemCount: duactrl.getdailydata.value.getDuasVerseList!
-                            .length,
+                        itemCount: duactrl.getdailydata.value.getDuasVerseList!.length,
                         itemBuilder: (context, index) {
                           var dailydet = duactrl.getdailydata.value
                               .getDuasVerseList![index];
