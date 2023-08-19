@@ -277,6 +277,12 @@ class MembershipView extends GetView<MembershipController> {
                                           .primaryColor : Colors.grey,
                                       borderRadius: BorderRadius.circular(16),
                                     ),
+                                    child: Center(
+                                      child: RotatedBox(
+                                        quarterTurns: 1,
+                                          child: data.monthChart![index]
+                                              .paymentStatus == "paid" ? Stxt(text: 'Paid', size: f2,color: Colors.white.withOpacity(0.7), weight: FontWeight.w600,):Stxt(text: 'UnPaid', size: f2,color: Colors.white.withOpacity(0.5), weight: FontWeight.w600,)),
+                                    ),
                                   ),
                                   Space(4),
                                   Stxt(text: "${data.monthChart![index]

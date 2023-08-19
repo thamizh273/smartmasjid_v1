@@ -179,4 +179,16 @@ flutter:
       fonts:
         - asset: assets/fonts/Italy.ttf
           weight: 500
+    - family: Anton
+      fonts:
+        - asset: assets/fonts/Anton.ttf
+          weight: 500
+    - family: Itim
+      fonts:
+        - asset: assets/fonts/Itim.ttf
+          weight: 500
+    - family: Sriracha
+      fonts:
+        - asset: assets/fonts/Sriracha.ttf
+          weight: 500
 

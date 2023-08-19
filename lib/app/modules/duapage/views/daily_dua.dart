@@ -22,6 +22,69 @@ class DailyDua extends StatelessWidget {
       Scaffold(
           appBar: CustomAppbar(
             tittle: "Dua",
+            action: [
+              PopupMenuButton(
+                  icon: Icon(Icons.menu),
+                  onSelected: (value) {
+                    duactrl.selectedMenuItem.value = value;
+                  },
+                  shadowColor: Colors.grey
+                      .shade400,
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      PopupMenuItem(
+                          child: Obx(() {
+                            return GestureDetector(
+                              onTap: () {
+                                duactrl.fontFamily.value = "indopak";
+                              },
+                              child: Row(
+                                children: [
+                                  Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Amiri"),
+                                    value: "indopak",
+                                    groupValue: duactrl.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                    duactrl.fontFamily.value = groupValue!,
+                                  ),
+                                  Space(12),
+                                  Text(
+                                    "Indopak",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ],
+                              ),
+                            );
+                          })),
+                      PopupMenuItem(
+                          child: Obx(() {
+                            return GestureDetector(
+                              onTap: () {
+                                duactrl.fontFamily.value = "qalam";
+                              },
+                              child: Row(
+                                children: [
+                                  Radio(
+                                    activeColor: Get.theme.primaryColor,
+                                    // title: Text("Amiri"),
+                                    value: "qalam",
+                                    groupValue: duactrl.fontFamily.value,
+                                    onChanged: (groupValue) =>
+                                    duactrl.fontFamily.value = groupValue!,
+                                  ),
+                                  Space(12),
+                                  Text("Qalam", style: TextStyle(
+                                      fontWeight: FontWeight.w500),),
+                                ],
+                              ),
+                            );
+                          })),
+                    ];
+                  }
+              )
+            ],
           ),
           body:
           Obx(() {
@@ -37,7 +100,8 @@ class DailyDua extends StatelessWidget {
                           width: duactrl.screenWidth * 0.7,
                           child: Stxt(
                             textAlign: TextAlign.center,
-                            text: "${duactrl.getdailydata.value.getDuasVerseList![0].title}",
+                            text: "${duactrl.getdailydata.value
+                                .getDuasVerseList![0].title}",
                             size: f4,
                             weight: FontWeight.w500,),
                         );
@@ -55,7 +119,8 @@ class DailyDua extends StatelessWidget {
                   Space(16),
                   Expanded(
                     child: ListView.builder(
-                        itemCount: duactrl.getdailydata.value.getDuasVerseList!.length,
+                        itemCount: duactrl.getdailydata.value.getDuasVerseList!
+                            .length,
                         itemBuilder: (context, index) {
                           var dailydet = duactrl.getdailydata.value
                               .getDuasVerseList![index];
@@ -80,17 +145,21 @@ class DailyDua extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment
                                           .center,
                                       children: [
-                                        Text(
-                                          "${dailydet.duasArabicText}ِ",
-                                          style: TextStyle(
-                                              wordSpacing: 5,
-                                              color: Colors.white,
-                                              fontSize: fontSize,
-                                              fontFamily: duactrl.fontFamily
-                                                  .value == "indopak"
-                                                  ? "Indopak"
-                                                  : duactrl.fontFamily.value
-                                          ),),
+                                        Obx(() {
+                                          return Text(
+                                            "${dailydet.duasArabicText}ِ",
+                                            style: TextStyle(
+                                                wordSpacing: 5,
+                                                color: Colors.white,
+                                                fontSize: fontSize,
+                                                fontFamily: duactrl.fontFamily
+                                                    .value == "indopak"
+                                                    ? "Indopak"
+                                                    : duactrl.fontFamily
+                                                    .value == "qalam"
+                                                    ? "qalam" : null
+                                            ),);
+                                        }),
                                         // Stxt(
                                         //   family: "Indopak",
                                         //   text: "${duas.duasArabicText}ِ",
@@ -101,13 +170,14 @@ class DailyDua extends StatelessWidget {
                                           family: "Inter",
                                           text: "${dailydet.duasEngText}",
                                           size: f4,
-                                          color: Color(0xff78BDD4),),
+                                          color: Color(0xff78BDD4),textAlign: TextAlign.justify),
                                         Space(12),
                                         Stxt(
+                                          family: "Sriracha",
                                           text: "${dailydet.engTranslation}",
                                           size: f4,
                                           color: Colors.white.withOpacity(
-                                              0.8),),
+                                              0.8),textAlign: TextAlign.justify),
                                       ],
                                     ),
                                   ),
