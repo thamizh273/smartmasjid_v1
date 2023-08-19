@@ -6,7 +6,6 @@ import 'package:smartmasjid_v1/app/authRepository.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 import 'package:smartmasjid_v1/utils/color_utils.dart';
 import 'package:smartmasjid_v1/widgets/bgcontainer.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 import '../../../routes/export.dart';
 import '../controllers/otp_page_controller.dart';
 
@@ -164,26 +163,20 @@ class OtpPageView extends GetView<OtpPageController> {
                         // ),
 
                         Obx(() {
-                          return Form(
-                            key: controller.formKey.value,
-                            child: Directionality(
-                              textDirection: TextDirection.ltr,
-                              child: Pinput(
-                                focusNode: controller.focusNode.value,
-                                length: 6,
-                                androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
-                                listenForMultipleSmsOnAndroid: true,
-                                controller: authctrl.pinController.value,
-                                // validator: (s) {
-                                //   return authctrl.errorinotp.value == true ?'Pin is incorrect':null ;
-                                // },
-                                onCompleted: (pin) {
-                                  controller.otpctrl.value = pin;
-                                  OtpPageController.instance.verifyOTP();
-                                  debugPrint('onCompleted: $pin');
-                                },
-                              ),
-                            ),
+                          return Pinput(
+                           // focusNode: controller.focusNode.value,
+                            length: 6,
+                            androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                            listenForMultipleSmsOnAndroid: false,
+                            controller: authctrl.pinController.value,
+                            // validator: (s) {
+                            //   return authctrl.errorinotp.value == true ?'Pin is incorrect':null ;
+                            // },
+                            onCompleted: (pin) {
+                              controller.otpctrl.value = pin;
+                              OtpPageController.instance.verifyOTP();
+                              debugPrint('onCompleted: $pin');
+                            },
                           );
                         }),
 
@@ -229,7 +222,6 @@ class OtpPageView extends GetView<OtpPageController> {
                                 fontSize: 17,
                                 color: Get.theme.colorScheme.secondary,),
                             )),
-                        8.verticalSpace,
                         Obx(() {
                           return Stxt(
                             text: "Remaining Time: ${authctrl.secondsRemaining
@@ -238,7 +230,7 @@ class OtpPageView extends GetView<OtpPageController> {
                             weight: FontWeight.w500,
                             color: Get.theme.colorScheme.secondary,);
                         }),
-                        5.verticalSpace,
+                         10.verticalSpace,
                         Obx(() {
                           return SButton(ontap: () {
                             authctrl.enableResend.value ? controller
@@ -248,11 +240,9 @@ class OtpPageView extends GetView<OtpPageController> {
                               height: 35,
                               width: 120,
                               txtsize: f2,
-                              color: Colors.transparent,
-                              txtClr: authctrl.enableResend.value ? Get.theme
-                                  .colorScheme.secondary : Get.theme.colorScheme
-                                  .secondary.withOpacity(.8),
-                              rad: 3);
+                             color: Colors.transparent,
+                              txtClr: authctrl.enableResend.value ?Get.theme.colorScheme.secondary:Get.theme.colorScheme.secondary.withOpacity(.8),rad: 3);
+
                         }),
 
 
