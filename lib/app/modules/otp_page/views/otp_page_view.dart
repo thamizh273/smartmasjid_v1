@@ -167,13 +167,11 @@ class OtpPageView extends GetView<OtpPageController> {
                           return Form(
                             key: controller.formKey.value,
                             child: Directionality(
-
                               textDirection: TextDirection.ltr,
                               child: Pinput(
-
                                 focusNode: controller.focusNode.value,
                                 length: 6,
-                                androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                                androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
                                 listenForMultipleSmsOnAndroid: true,
                                 controller: authctrl.pinController.value,
                                 // validator: (s) {
@@ -240,7 +238,7 @@ class OtpPageView extends GetView<OtpPageController> {
                             weight: FontWeight.w500,
                             color: Get.theme.colorScheme.secondary,);
                         }),
-                         5.verticalSpace,
+                        5.verticalSpace,
                         Obx(() {
                           return SButton(ontap: () {
                             authctrl.enableResend.value ? controller
@@ -250,9 +248,11 @@ class OtpPageView extends GetView<OtpPageController> {
                               height: 35,
                               width: 120,
                               txtsize: f2,
-                             color: Colors.transparent,
-                              txtClr: authctrl.enableResend.value ?Get.theme.colorScheme.secondary:Get.theme.colorScheme.secondary.withOpacity(.8),rad: 3);
-
+                              color: Colors.transparent,
+                              txtClr: authctrl.enableResend.value ? Get.theme
+                                  .colorScheme.secondary : Get.theme.colorScheme
+                                  .secondary.withOpacity(.8),
+                              rad: 3);
                         }),
 
 
