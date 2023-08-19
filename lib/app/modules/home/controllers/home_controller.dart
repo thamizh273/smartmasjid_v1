@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -12,6 +13,7 @@ import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_cont
 
 import 'package:smartmasjid_v1/app/routes/export.dart';
 
+import '../../../../utils/ansomeNotification.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../Events/Model/eventsModel.dart';
 import '../../imanTracker/model/ImanTrakerEntryModel.dart';
@@ -49,7 +51,9 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   var uid=FirebaseAuth.instance.currentUser;
    var hh=Get.arguments;
   final box1 = GetStorage();
-
+ var hrs="".obs;
+  var min="".obs;
+  var sec="".obs;
 
   @override
   void onInit() {
@@ -105,6 +109,22 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
     super.onClose();
   }
 
+
+  Rx<int> notificationsCounter = 0.obs;
+  // when user click on action button
+  Rx<String> notificationAction = ''.obs;
+
+  incrementCounter() {
+    notificationsCounter.value += 1;
+  }
+
+  decrementCounter() {
+    notificationsCounter.value -= 1;
+  }
+
+  onNotificationActionClicked(String actionKey){
+    notificationAction.value = actionKey;
+  }
   getUpcomingEvents(id) async {
 
     isloadingEvent.value=true;
@@ -204,18 +224,27 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     } else {
       nearestDuration.value = now.millisecondsSinceEpoch.toString();
       nearestDuration1.value = targetDateTime.millisecondsSinceEpoch.toString();
-
-
-
       print("ggggg");
-
     }
 
-    print(remainingDuration);
+    log("ggggg ${remainingDuration}");
     // Extract the remaining hours and minutes
-    var remainingHours = remainingDuration.inHours;
-    int remainingMinutes = remainingDuration.inMinutes.remainder(60);
-    var sss= "${remainingHours} Hrs :${remainingMinutes} min";
+     hrs.value = remainingDuration.inHours.toString();
+    min.value = remainingDuration.inMinutes.remainder(60).toString();
+    sec.value = remainingDuration.inSeconds.remainder(60).toString();
+    var sss= "${hrs.value} :${min.value}:${sec.value}";
+
+    // if(prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].startTime!.toLocal()==DateTime.now().toLocal()){
+    //   AwesomeNotificationsHelper.showNotification(
+    //     title: '${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].prayerName}',
+    //     body: 'Jummha Started',
+    //     id: notificationsCounter.value,
+    //     // actionButtons: [
+    //     //   NotificationActionButton(key: 'submit', label: 'Submit'),
+    //     //   NotificationActionButton(key: 'cancel', label: 'Cancel'),
+    //     // ]
+    //   );
+    // }
     // print(sss);
     // print("ggg");
     // // Output the result
@@ -324,10 +353,10 @@ query Query(\$masjidId: String) {
     isloading1.value=false;
 
     prayerTimeData.value=prayerTimeModelFromJson(json.encode(res));
+
    // print("getUser");
    // log(json.encode(res));
    // print("getUser");
-
   }
   var scaffoldKey = GlobalKey<ScaffoldState>();
 

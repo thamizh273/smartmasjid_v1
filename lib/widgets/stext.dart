@@ -10,7 +10,7 @@ class Stxt extends StatelessWidget {
     required this.text,
     required this.size,
     this.maxLines,
-    this.pad, this.family, this.overflow,
+    this.pad, this.family, this.overflow, this.textDirection,
   }) : super(key: key);
   final String text;
 
@@ -22,12 +22,14 @@ class Stxt extends StatelessWidget {
   final String? family;
   final TextAlign? textAlign;
   final TextOverflow? overflow;
+  final TextDirection? textDirection;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: pad ?? EdgeInsets.zero,
       child: AutoSizeText(
+
         text,
         style: TextStyle(
           overflow:overflow ,
@@ -38,6 +40,7 @@ class Stxt extends StatelessWidget {
         ),
         textAlign: textAlign,
         maxLines: maxLines ?? null,
+        textDirection:textDirection ,
       ),
     );
   }

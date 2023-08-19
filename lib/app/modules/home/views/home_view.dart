@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -14,6 +15,7 @@ import 'package:smartmasjid_v1/app/modules/specialdayspage/views/specialdayspage
 import 'package:smartmasjid_v1/app/modules/zakathpage/views/zakathpage_view.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
+import '../../../../utils/ansomeNotification.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../controllers/home_controller.dart';
@@ -588,7 +590,17 @@ class HomeView extends StatelessWidget {
                                               .colorScheme.secondary,
                                           image: 'events',
                                           title: 'Events',
-                                          onTap: () {},
+                                          onTap: () {
+                                            AwesomeNotificationsHelper.showNotification(
+                                                title: 'test number ${controller.notificationsCounter.value}',
+                                                body: 'test notification number ${controller.notificationsCounter.value}',
+                                                id: controller.notificationsCounter.value,
+                                                // actionButtons: [
+                                                //   NotificationActionButton(key: 'submit', label: 'Submit'),
+                                                //   NotificationActionButton(key: 'cancel', label: 'Cancel'),
+                                                // ]
+                                            );
+                                          },
                                         )
                                       ],
                                     ),
