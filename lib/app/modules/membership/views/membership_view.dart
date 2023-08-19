@@ -127,21 +127,22 @@ class MembershipView extends GetView<MembershipController> {
                            }),
                          ],
                        ),
-                       Container(
-                         height: 36,
-                         width: double.infinity,
-                         decoration: BoxDecoration(
-                             color: Theme.of(context).primaryColor
-                         ),
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           children: [
-                             GestureDetector(
-                                 onTap: (){
-                                   Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuickPay()));
-                                 },
-                                 child: Stxt(text: "Pay Now", size: f3, weight: FontWeight.w600, color: Colors.white,))
-                           ],
+                       GestureDetector(
+                         onTap: (){
+                           Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuickPay()));
+                         },
+                         child: Container(
+                           height: 36,
+                           width: double.infinity,
+                           decoration: BoxDecoration(
+                               color: Theme.of(context).primaryColor
+                           ),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: [
+                               Stxt(text: "Pay Now", size: f3, weight: FontWeight.w600, color: Colors.white,)
+                             ],
+                           ),
                          ),
                        ),
                      ],
@@ -205,6 +206,11 @@ class MembershipView extends GetView<MembershipController> {
                                decoration: BoxDecoration(
                                  color: Colors.grey,
                                  borderRadius: BorderRadius.circular(16),
+                               ),
+                               child: Center(
+                                 child: RotatedBox(
+                                     quarterTurns: -1, // Rotate the text 90 degrees counterclockwise
+                                     child: Stxt(text: "UnPaid", size: f2)),
                                ),
                              ),
                              Space(4),

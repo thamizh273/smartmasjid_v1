@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -57,7 +59,7 @@ class DuapageView extends GetView<DuapageController> {
                           shrinkWrap: true,
                           controller: c.scrollController,
                           itemCount: c.isExpanded.value ? c.getduadata.value
-                              .getDuasTitleList!.feeling!.length : 12,
+                              .getDuasTitleList!.feeling!.length : 9,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: MediaQuery
                                 .of(context)
@@ -129,7 +131,7 @@ class DuapageView extends GetView<DuapageController> {
                         scrollDirection: Axis.vertical,
                         controller: c.scrollController,
                         shrinkWrap: true,
-                        itemCount: c.getduadata.value.getDuasTitleList!.daily!
+                        itemCount:  c.getduadata.value.getDuasTitleList!.daily!
                             .length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: MediaQuery

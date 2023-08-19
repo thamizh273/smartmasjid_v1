@@ -24,6 +24,7 @@ var isLoadings2 = false.obs;
   var getdetailduadata = DuaDetailModel().obs;
   var getdailydata= DuaDetailModel().obs;
   var fontFamily = "indopak".obs;
+  double screenWidth = Get.width;
 
   final count = 0.obs;
   @override
