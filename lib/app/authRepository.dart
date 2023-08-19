@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_cli/common/utils/json_serialize/json_ast/error.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pinput/pinput.dart';
 import 'package:smartmasjid_v1/app/rest_call_controller/rest_call_controller.dart';
@@ -20,14 +21,20 @@ class AuthenticationRespository extends GetxController {
   late final Rx<User?> firebaseUser;
   var verificationid = "".obs;
   final pinController = TextEditingController().obs;
-  var logingmaildata=LoginGmailModel().obs;
+  var logingmaildata = LoginGmailModel().obs;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-      RxString guid ="".obs;
-  RxString gemail ="" .obs;
-  RxString gname ="".obs;
+  RxString guid = "".obs;
+  RxString gemail = "".obs;
+  RxString gname = "".obs;
   final _restCallController = Get.put(restCallController());
-  RxBool gsignBool=false.obs;
+  RxBool gsignBool = false.obs;
+  RxInt resendToken = 0.obs;
+  RxInt secondsRemaining = 120.obs;
+  RxBool enableResend = false.obs;
+  late Timer timer;
+  RxBool errorinotp=false.obs;
+
   @override
   void onReady() {
     // TODO: implement onReady
@@ -39,6 +46,19 @@ class AuthenticationRespository extends GetxController {
     super.onReady();
   }
 
+  void resendCode() {
+    //other code here
+
+    secondsRemaining.value = 120;
+    enableResend.value = false;
+  }
+
+  @override
+  dispose() {
+    timer.cancel();
+    super.dispose();
+  }
+
   // setInitialScreen(User? user) {
   //   user == null
   //       ? Get.offAllNamed(Routes.SPLASH_SCREEN)
@@ -46,8 +66,17 @@ class AuthenticationRespository extends GetxController {
   // }
 
   void phoneAuthentication(phoneno) async {
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (secondsRemaining.value != 0) {
+        secondsRemaining.value--;
+      } else {
+        enableResend.value = true;
+        timer.cancel();
+      }
+    });
     await auth_.verifyPhoneNumber(
       phoneNumber: phoneno,
+      timeout: const Duration(seconds: 120),
       verificationCompleted: (credential) async {
         pinController.value.setText(credential.smsCode.toString());
         await auth_.signInWithCredential(credential);
@@ -58,10 +87,10 @@ class AuthenticationRespository extends GetxController {
         } else {
           toast(error: "Error", msg: 'Something went wrong. Try again.');
         }
-        ;
       },
       codeSent: (verificationId, forceResendingToken) {
         this.verificationid.value = verificationId;
+        resendToken.value = forceResendingToken!;
       },
       codeAutoRetrievalTimeout: (verificationId) {
         this.verificationid.value = verificationId;
@@ -70,9 +99,23 @@ class AuthenticationRespository extends GetxController {
   }
 
   Future<bool> verifyOtp(String otp) async {
-    var credentails = await auth_.signInWithCredential(
-        PhoneAuthProvider.credential(
-            verificationId: verificationid.value, smsCode: otp));
+    var credentails;
+    try {
+      errorinotp.value=false;
+      credentails = await auth_.signInWithCredential(
+          PhoneAuthProvider.credential(
+              verificationId: verificationid.value, smsCode: otp));
+    } catch (e) {
+      errorinotp.value=true;
+      if (pinController.value.length == 0) {
+      return  toast(error: "Error", msg: "Enter 6-digit Otp");
+    }
+
+
+  toast(error: "Error", msg: "Invalid Otp");
+
+    }
+
     return credentails.user != null ? true : false;
   }
 
@@ -83,22 +126,22 @@ class AuthenticationRespository extends GetxController {
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      await googleUser?.authentication;
 
       // Create a new credential
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-      UserCredential userCredential= await _auth.signInWithCredential(credential);
-       guid.value = userCredential.user!.uid;
-       gemail.value = userCredential.user!.email!;
-       gname.value = userCredential.user!.displayName!;
-     // print("$uid");
-     // Get.toNamed(Routes.MASJID_FINDER);
+      UserCredential userCredential = await _auth.signInWithCredential(
+          credential);
+      guid.value = userCredential.user!.uid;
+      gemail.value = userCredential.user!.email!;
+      gname.value = userCredential.user!.displayName!;
+      // print("$uid");
+      // Get.toNamed(Routes.MASJID_FINDER);
       // Once signed in, return the UserCredential
       return userCredential;
-
     } on FirebaseAuthException catch (e) {
       print('Firebase Auth Error: ${e.code} - ${e.message}');
       throw e.message.toString();
@@ -106,11 +149,10 @@ class AuthenticationRespository extends GetxController {
       print('Unexpected error occurred: $e');
       throw e.toString();
     }
-
   }
 
   authId() async {
- log("rrrrrrrrrr${guid.value}");
+    log("rrrrrrrrrr${guid.value}");
     var header = """
 query Login_With_Gmail(\$authId: String) {
   Login_With_Gmail(auth_id_: \$authId) {
@@ -129,11 +171,11 @@ query Login_With_Gmail(\$authId: String) {
     var res = await _restCallController.gql_query(header, body);
     log("wwww${res}");
 
-    if(res =="Masjid Registration Pending"){
+    if (res == "Masjid Registration Pending") {
       Get.toNamed(Routes.MASJID_FINDER);
     }
-    if(res =="Masjid Approval Pending"){
-      return ;
+    if (res == "Masjid Approval Pending") {
+      return;
     }
     // if(res.toString().contains("ERROR")){
     //  if(res['ERROR']=="Masjid Registration Pending"){
@@ -144,11 +186,14 @@ query Login_With_Gmail(\$authId: String) {
     //  }
     // }
 
-    if (res["Login_With_Gmail"]["message"]=="Authentication Successfully") {
-      logingmaildata.value= loginGmailModelFromJson(json.encode(res));
+    if (res["Login_With_Gmail"]["message"] == "Authentication Successfully") {
+      logingmaildata.value = loginGmailModelFromJson(json.encode(res));
       var hh = res["Login_With_Gmail"]["message"];
       toast(error: "SUCCESS", msg: "${hh}");
-      await Get.offAllNamed(Routes.HOME,arguments: [ logingmaildata.value.loginWithGmail!.userId,logingmaildata.value.loginWithGmail!.masjidId]);
+      await Get.offAllNamed(Routes.HOME, arguments: [
+        logingmaildata.value.loginWithGmail!.userId,
+        logingmaildata.value.loginWithGmail!.masjidId
+      ]);
     }
 
     // if (res.toString().contains("SUCCESS")) {

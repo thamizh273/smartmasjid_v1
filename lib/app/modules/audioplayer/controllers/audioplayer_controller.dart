@@ -14,6 +14,8 @@ class AudioplayerController extends GetxController {
   Duration currentPosition = Duration();
 
   final count = 0.obs;
+
+
   @override
   void onInit() {
     super.onInit();

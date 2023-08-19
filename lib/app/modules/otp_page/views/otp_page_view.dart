@@ -1,29 +1,42 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'dart:developer';
 
-import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pinput/pinput.dart';
 import 'package:smartmasjid_v1/app/authRepository.dart';
-import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
+import 'package:smartmasjid_v1/utils/color_utils.dart';
 import 'package:smartmasjid_v1/widgets/bgcontainer.dart';
-
-import '../../../../utils/color_utils.dart';
-import '../../../routes/app_pages.dart';
+import 'package:sms_autofill/sms_autofill.dart';
 import '../../../routes/export.dart';
 import '../controllers/otp_page_controller.dart';
 
-class OtpPageView extends StatelessWidget {
+class OtpPageView extends GetView<OtpPageController> {
   OtpPageView({Key? key}) : super(key: key);
 
-  final Controller = Get.put(OtpPageController());
-  final Controller1 = Get.put(AuthenticationRespository());
+
+  final authctrl = Get.put(AuthenticationRespository());
+  final signupctrl = Get.put(SignupPageController());
 
 
   @override
   Widget build(BuildContext context) {
-    var otp;
+    const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
+    const fillColor = Color.fromRGBO(243, 246, 249, 0);
+    const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
+
+    final defaultPinTheme = PinTheme(
+      width: 56,
+      height: 56,
+      textStyle: const TextStyle(
+        fontSize: 22,
+        color: Color.fromRGBO(30, 60, 87, 1),
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(19),
+        border: Border.all(color: borderColor),
+      ),
+    );
+
     return Scaffold(
       body: BGContainer(
         child: SingleChildScrollView(
@@ -49,50 +62,161 @@ class OtpPageView extends StatelessWidget {
                         Text(
                           "OTP has been sent to your mobile \n number.Please Enter it Below",
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary,
+                              color: Theme
+                                  .of(context)
+                                  .colorScheme
+                                  .secondary,
                               fontSize: 18,
                               fontWeight: FontWeight.w600),
                         ),
                         const SizedBox(
                           height: 20,
                         ),
-                        // Obx(() {
-                        //   return Pinput(
-                        //     length: 6,
-                        //     androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsRetrieverApi,
-                        //     listenForMultipleSmsOnAndroid: true,
-                        //     controller: Controller1.pinController.value,
-                        //     onCompleted: (pin) {
-                        //       OtpPageController.instance.verifyOTP(pin);
-                        //       debugPrint('onCompleted: $pin');
-                        //     },
-                        //   );
-                        // }),
 
-                        OtpTextField(
-                          // clearText: true,
-                          showFieldAsBox: true,
-                          //  autoFocus: true,
-                          numberOfFields: 6,
-                          fillColor: Colors.black.withOpacity(.1),
-                          filled: true,
-                          // onCodeChanged: (pin) {
-                          //   print("Completed: " + pin);
-                          // },
-                          // onCodeChanged: (value) {
-                          //   Controller.codes.value=value;
-                          // },
-                          onSubmit: (code) {
-                            OtpPageController.instance.otp.value = code;
-                            // OtpPageController.instance.verifyOTP(code);
-                            print("otp is $code");
-                          },
-                        ),
+                        // Form(
+                        //   key: controller.formKey.value,
+                        //   child: Column(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: [
+                        //       Directionality(
+                        //         // Specify direction if desired
+                        //         textDirection: TextDirection.ltr,
+                        //         child: Pinput(
+                        //           length: 6,
+                        //           controller: authctrl.pinController.value,
+                        //           focusNode: controller.focusNode.value,
+                        //           androidSmsAutofillMethod:
+                        //           AndroidSmsAutofillMethod.smsUserConsentApi,
+                        //           listenForMultipleSmsOnAndroid: true,
+                        //           defaultPinTheme: defaultPinTheme,
+                        //           // validator: (s) {
+                        //           //   return s == '2222' ? null : 'Pin is incorrect';
+                        //           // },
+                        //           onClipboardFound: (value) {
+                        //             log('onClipboardFound: $value');
+                        //             authctrl.pinController.value.setText(value);
+                        //             // controller.otpctrl.value=value;
+                        //           },
+                        //           hapticFeedbackType: HapticFeedbackType
+                        //               .lightImpact,
+                        //           onSubmitted: (value) {
+                        //             controller.otpctrl.value = value;
+                        //             value.isNotEmpty ? OtpPageController
+                        //                 .instance.verifyOTP() : null;
+                        //             log('onSubmitted: $value');
+                        //           },
+                        //           onCompleted: (pin) {
+                        //             log('onCompleted: $pin');
+                        //             authctrl.pinController.value.setText(pin);
+                        //             pin.isNotEmpty ? OtpPageController.instance
+                        //                 .verifyOTP() : null;
+                        //             controller.otpctrl.value = pin;
+                        //           },
+                        //           // onChanged: (value) {
+                        //           //   log('onChanged: $value');
+                        //           // },
+                        //           cursor: Column(
+                        //             mainAxisAlignment: MainAxisAlignment.end,
+                        //             children: [
+                        //               Container(
+                        //                 margin: const EdgeInsets.only(
+                        //                     bottom: 9),
+                        //                 width: 22,
+                        //                 height: 1,
+                        //                 color: focusedBorderColor,
+                        //               ),
+                        //             ],
+                        //           ),
+                        //           focusedPinTheme: defaultPinTheme.copyWith(
+                        //             decoration: defaultPinTheme.decoration!
+                        //                 .copyWith(
+                        //               borderRadius: BorderRadius.circular(8),
+                        //               border: Border.all(
+                        //                   color: focusedBorderColor),
+                        //             ),
+                        //           ),
+                        //           submittedPinTheme: defaultPinTheme.copyWith(
+                        //             decoration: defaultPinTheme.decoration!
+                        //                 .copyWith(
+                        //               color: fillColor,
+                        //               borderRadius: BorderRadius.circular(19),
+                        //               border: Border.all(
+                        //                   color: focusedBorderColor),
+                        //             ),
+                        //           ),
+                        //           errorPinTheme: defaultPinTheme.copyBorderWith(
+                        //             border: Border.all(color: Colors.redAccent),
+                        //           ),
+                        //         ),
+                        //       ),
+                        //       TextButton(
+                        //         onPressed: () {
+                        //           controller.focusNode.value.unfocus();
+                        //           controller.formKey.value.currentState!
+                        //               .validate();
+                        //         },
+                        //         child: Obx(() {
+                        //           return Text('${authctrl.resendToken.value}');
+                        //         }),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+
+                        Obx(() {
+                          return Form(
+                            key: controller.formKey.value,
+                            child: Directionality(
+
+                              textDirection: TextDirection.ltr,
+                              child: Pinput(
+
+                                focusNode: controller.focusNode.value,
+                                length: 6,
+                                androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                                listenForMultipleSmsOnAndroid: true,
+                                controller: authctrl.pinController.value,
+                                // validator: (s) {
+                                //   return authctrl.errorinotp.value == true ?'Pin is incorrect':null ;
+                                // },
+                                onCompleted: (pin) {
+                                  controller.otpctrl.value = pin;
+                                  OtpPageController.instance.verifyOTP();
+                                  debugPrint('onCompleted: $pin');
+                                },
+                              ),
+                            ),
+                          );
+                        }),
+
+                        // OtpTextField(
+                        //   // clearText: true,
+                        //   showFieldAsBox: true,
+                        //   //  autoFocus: true,
+                        //   numberOfFields: 6,
+                        //   fillColor: Colors.black.withOpacity(.1),
+                        //   filled: true,
+                        //   // onCodeChanged: (pin) {
+                        //   //   print("Completed: " + pin);
+                        //   // },
+                        //   // onCodeChanged: (value) {
+                        //   //   Controller.codes.value=value;
+                        //   // },
+                        //   onSubmit: (code) {
+                        //     OtpPageController.instance.otp.value = code;
+                        //     // OtpPageController.instance.verifyOTP(code);
+                        //     print("otp is $code");
+                        //   },
+                        // ),
                         10.verticalSpace,
+
                         TextButton(
                             style: TextButton.styleFrom(
                                 backgroundColor:
-                                    Theme.of(context).colorScheme.primary,
+                                Theme
+                                    .of(context)
+                                    .colorScheme
+                                    .primary,
                                 foregroundColor: Colors.white,
                                 fixedSize: Size(120, 35)),
                             onPressed: () {
@@ -103,17 +227,34 @@ class OtpPageView extends StatelessWidget {
                             child: Text(
                               "verify",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 17),
+                                fontWeight: FontWeight.w600,
+                                fontSize: 17,
+                                color: Get.theme.colorScheme.secondary,),
                             )),
+                        8.verticalSpace,
+                        Obx(() {
+                          return Stxt(
+                            text: "Remaining Time: ${authctrl.secondsRemaining
+                                .value } sec",
+                            size: f3,
+                            weight: FontWeight.w500,
+                            color: Get.theme.colorScheme.secondary,);
+                        }),
+                         5.verticalSpace,
+                        Obx(() {
+                          return SButton(ontap: () {
+                            authctrl.enableResend.value ? controller
+                                .resendCode() : null;
+                          },
+                              text: "Resend OTP",
+                              height: 35,
+                              width: 120,
+                              txtsize: f2,
+                             color: Colors.transparent,
+                              txtClr: authctrl.enableResend.value ?Get.theme.colorScheme.secondary:Get.theme.colorScheme.secondary.withOpacity(.8),rad: 3);
 
-                        TextButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Resend OTP",
-                              style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.secondary),
-                            )),
+                        }),
+
 
                         // Column(
                         //   mainAxisAlignment: MainAxisAlignment.center,

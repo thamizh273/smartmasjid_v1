@@ -59,6 +59,7 @@ class SignupPageView extends GetView<SignupPageController> {
                       ),
                       Obx(() {
                         return Safa_textfield(
+
                           keyboardType: TextInputType.number,
                           hint: 'Phone',
                           width: .9,
@@ -224,13 +225,18 @@ class SignupPageView extends GetView<SignupPageController> {
                                     .primary),
                           )),
                     Spacer(),
-                      Text(
-                        "Have an account?",
-                        style:
-                        TextStyle(color: Theme
-                            .of(context)
-                            .colorScheme
-                            .secondary),
+                      GestureDetector(
+                        onTap: (){
+                          Get.toNamed(Routes.OTP_PAGE);
+                        },
+                        child: Text(
+                          "Have an account?",
+                          style:
+                          TextStyle(color: Theme
+                              .of(context)
+                              .colorScheme
+                              .secondary),
+                        ),
                       ),
                       Padding(
                         padding:  EdgeInsets.only(top: 6.h,bottom: 25.h),

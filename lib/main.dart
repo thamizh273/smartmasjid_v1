@@ -18,6 +18,7 @@ import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+
   await Hive.initFlutter();
   await GetStorage.init();
   await ScreenUtil.ensureScreenSize();

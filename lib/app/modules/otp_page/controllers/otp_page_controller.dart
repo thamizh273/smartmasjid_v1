@@ -1,20 +1,53 @@
+import 'dart:async';
+
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/authRepository.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
+import '../../signup_page/controllers/signup_page_controller.dart';
 
 class OtpPageController extends GetxController {
+  final signupctrl = Get.put(SignupPageController());
+  final authctrl = Get.put(AuthenticationRespository());
+  //final pinController = TextEditingController().obs;
+  final focusNode = FocusNode().obs;
+  final formKey = GlobalKey<FormState>().obs;
+
 
   static OtpPageController get instance =>Get.find();
 
-     var otp ="".obs;
+     var otpctrl ="".obs;
 
   void verifyOTP() async{
-    var isverified = await AuthenticationRespository.instance.verifyOtp(otp.value);
+    var isverified = await AuthenticationRespository.instance.verifyOtp(otpctrl.value);
+
     isverified?Get.toNamed(Routes.MASJID_FINDER):Get.back();
+    isverified?authctrl.pinController.value.clear():Get.back();
   }
+
+
+  void resendCode() {
+    //other code here
+    authctrl.timer.cancel();
+    authctrl.phoneAuthentication(
+        "+${signupctrl.selectedCountry.value
+            .phoneCode}${signupctrl.phoneCtrl.value
+            .text.trim()}");
+    authctrl.secondsRemaining.value = 120;
+    authctrl.enableResend.value = false;
+
+  }
+
+  @override
+  void dispose() {
+    authctrl.timer.cancel();
+   // authctrl.value.dispose();
+    focusNode.value.dispose();
+    super.dispose();
+  }
+
   //TODO: Implement OtpPageController
 
   // Rx<TextEditingController> phoneCtrl = TextEditingController().obs;
