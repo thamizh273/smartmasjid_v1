@@ -53,6 +53,7 @@ void main() async{
         return GraphQLProvider(
           client: client,
           child: GetMaterialApp(
+
           //  navigatorObservers: [FlutterSmartDialog.observer],
          //   builder: FlutterSmartDialog.init(),
           //  initialBinding: HomeBinding(),

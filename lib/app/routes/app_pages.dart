@@ -58,8 +58,6 @@ import '../modules/prayerdetailspage/bindings/prayerdetailspage_binding.dart';
 import '../modules/prayerdetailspage/views/prayerdetailspage_view.dart';
 import '../modules/prayerpage/bindings/prayerpage_binding.dart';
 import '../modules/prayerpage/views/prayerpage_view.dart';
-import '../modules/prayertimes/bindings/prayertimes_binding.dart';
-import '../modules/prayertimes/views/prayertimes_view.dart';
 import '../modules/profilePage/bindings/profile_page_binding.dart';
 import '../modules/profilePage/views/edit_profile_view.dart';
 import '../modules/profilePage/views/profile_page_view.dart';
@@ -166,11 +164,6 @@ class AppPages {
       name: _Paths.SETTINGSPAGE,
       page: () => SettingspageView(),
       binding: SettingspageBinding(),
-    ),
-    GetPage(
-      name: _Paths.PRAYERTIMES,
-      page: () => const PrayertimesView(),
-      binding: PrayertimesBinding(),
     ),
     GetPage(
       name: _Paths.QURANPAGE,

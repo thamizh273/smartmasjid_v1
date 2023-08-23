@@ -277,7 +277,7 @@ class PrayerTimes extends StatelessWidget {
                                       }else if(asr){
                                         AwesomeNotificationsHelper.showNotification(title: "${praytime[2].prayerName}", body: "Started at ${formatter.format(praytime[2].endTime!.toLocal())}", id: 3);
                                       }else if(mag){
-                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[3].prayerName}", body: "Started at ${formatter.format(praytime[3].endTime!.toLocal())}", id: 4);
+                                       AwesomeNotificationsHelper.showNotification(title: "${praytime[3].prayerName}", body: "Started at ${formatter.format(praytime[3].endTime!.toLocal())}", id: 4);
                                       }else if(isha){
                                         AwesomeNotificationsHelper.showNotification(title: "${praytime[4].prayerName}", body: "Started at ${formatter.format(praytime[4].endTime!.toLocal())}", id: 5);
                                       }

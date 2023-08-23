@@ -17,7 +17,6 @@ abstract class Routes {
   static const WEATHERPAGE = _Paths.WEATHERPAGE;
   static const MESSAGEPAGE = _Paths.MESSAGEPAGE;
   static const SETTINGSPAGE = _Paths.SETTINGSPAGE;
-  static const PRAYERTIMES = _Paths.PRAYERTIMES;
   static const QURANPAGE = _Paths.QURANPAGE;
   static const QIBLAFINDERPAGE = _Paths.QIBLAFINDERPAGE;
   static const PRAYERPAGE = _Paths.PRAYERPAGE;
@@ -68,7 +67,6 @@ abstract class _Paths {
   static const WEATHERPAGE = '/weatherpage';
   static const MESSAGEPAGE = '/messagepage';
   static const SETTINGSPAGE = '/settingspage';
-  static const PRAYERTIMES = '/prayertimes';
   static const QURANPAGE = '/quranpage';
   static const QIBLAFINDERPAGE = '/qiblafinderpage';
   static const PRAYERPAGE = '/prayerpage';

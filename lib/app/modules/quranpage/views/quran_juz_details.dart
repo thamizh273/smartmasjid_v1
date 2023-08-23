@@ -37,7 +37,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: ScrollPhysics(),
-                controller: c.scrollController,
+               // controller: c.scrollControllern,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

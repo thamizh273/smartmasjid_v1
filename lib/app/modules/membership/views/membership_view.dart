@@ -233,7 +233,8 @@ class MembershipView extends GetView<MembershipController> {
                           GestureDetector(
                               onTap: () {
                                 Get.to(PastPayments());
-                                controller.getMembershipPayDetails();
+                                controller.getMembershipPayDetails("currentyear");
+                                controller.dropDownvalue.value ="This Year";
                               },
                               child: Stxt(text: "View all",
                                 size: f3,

@@ -1,27 +1,12 @@
-import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:hive/hive.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:share_plus/share_plus.dart';
+
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/gotoverse.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
-import 'package:smartmasjid_v1/widgets/quranplanner.dart';
-
-import '../../../../theme/theme.dart';
-import '../../../../widgets/space.dart';
 import '../../audioplayer/controllers/audioplayer_controller.dart';
 import '../controllers/quranpage_controller.dart';
-import '../model/quran_detail_model.dart';
-import '../model/quran_model.dart';
+
 
 class QuranDetails extends StatefulWidget {
   late final int index;
@@ -42,10 +27,10 @@ final List<QuranpageController> controllers = List.generate(
 class _QuranDetailsState extends State<QuranDetails> {
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      c.result.value == "0" ? c.scrollToIndex(0) : c.scrollToIndex(
-          int.parse(c.result.value) - 1);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   c.result.value == "0" ? c.scrollToIndex(0) : c.scrollToIndex(
+    //       int.parse(c.result.value) - 1);
+    // });
     return Obx(() {
       return c.isLoadings.value ? loading(context) : Scaffold(
         key: c.scaffoldKey,
@@ -55,7 +40,7 @@ class _QuranDetailsState extends State<QuranDetails> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               physics: ScrollPhysics(),
-              controller: c.scrollController,
+             // controller: c.scrollController,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -772,7 +757,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                         interactive: true,
                         thumbVisibility: false,
                         thickness: 10,
-                        controller: c.scrollControllern,
+                       controller: c.scrollControllern,
                         radius: Radius.circular(20),
                         child: ListView.builder(
                             physics: BouncingScrollPhysics(),

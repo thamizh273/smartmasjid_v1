@@ -269,9 +269,9 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
       timeList[2]=remainingDuration2;
       timeList[3]=remainingDuration3;
       timeList[4]=remainingDuration4;
-      log("w ${timeList[0]}");
-      log("r ${timeList[1]}");
-      log("s ${timeList[2]}");
+      // log("w ${timeList[0]}");
+      // log("r ${timeList[1]}");
+      // log("s ${timeList[2]}");
 
 
 

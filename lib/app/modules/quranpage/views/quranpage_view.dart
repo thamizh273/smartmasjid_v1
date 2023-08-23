@@ -1,14 +1,12 @@
 
-import 'dart:ffi';
 
 import 'package:floating_frosted_bottom_bar/app/frosted_bottom_bar.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
-import 'package:loadmore/loadmore.dart';
+
 import 'package:smartmasjid_v1/app/modules/quranpage/views/notes.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/quran_juz_details.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
@@ -135,7 +133,7 @@ class QuranpageView extends StatelessWidget {
                 borderRadius: BorderRadius.circular(500),
                 duration: const Duration(milliseconds: 800),
                 hideOnScroll: true,
-                body: (BuildContext context, ScrollController controller) {
+                body: (BuildContext context, ScrollController controllerscroll) {
                   return TabBarView(children: [
                     Center(
                       child: Column(
@@ -398,10 +396,11 @@ class QuranpageView extends StatelessWidget {
                           Space(8),
                           Expanded(
                             child: Scrollbar(
+
                               interactive: true,
-                              thumbVisibility: true,
+                             // thumbVisibility: true,
                               thickness: 10,
-                              controller: quranCtrl.scrollController,
+                              controller: quranCtrl.scrollControllerq,
                               radius: Radius.circular(20),
                               child: Obx(() {
                                 return quranCtrl.isLoadings.value? loading(context):ListView.builder(
@@ -411,7 +410,7 @@ class QuranpageView extends StatelessWidget {
                                   ///store the current page in the list items
                                   //  primary: true,
                                   padding: EdgeInsets.all(0),
-                                  controller: quranCtrl.scrollController,
+                                  controller: quranCtrl.scrollControllerq,
                                   itemCount: quranCtrl.filteredItems.length,
                                   itemBuilder: (context, index) {
                                     var sura = quranCtrl.filteredItems[index];
@@ -671,7 +670,7 @@ class QuranpageView extends StatelessWidget {
                               }),
                             ),
                           ),
-                          Space(80)
+                         // Space(80)
                         ],
                       ),
                     ),
@@ -681,9 +680,9 @@ class QuranpageView extends StatelessWidget {
                           Expanded(
                             child: Scrollbar(
                               interactive: true,
-                              thumbVisibility: true,
+                             // thumbVisibility: true,
                               thickness: 10,
-                              controller: quranCtrl.scrollControllerjuz,
+                              controller: quranCtrl.scrollController,
                               radius: Radius.circular(20),
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 20),
@@ -692,7 +691,7 @@ class QuranpageView extends StatelessWidget {
                                       physics: BouncingScrollPhysics(),
                                       key: PageStorageKey<String>("page"),
                                       padding: EdgeInsets.all(0),
-                                      controller: quranCtrl.scrollControllerjuz,
+                                      controller: quranCtrl.scrollController,
                                       itemCount: quranCtrl.filteredjuzItems.length,
                                       itemBuilder: (context, index) {
                                         var juz = quranCtrl.filteredjuzItems[index];

@@ -25,18 +25,14 @@ class QuranpageController extends GetxController {
   //final storeBookmark = GetStorage();
   //TODO: Implement QuranpageController
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  ScrollController scrollController = ScrollController();
+   ScrollController scrollController = ScrollController();
+   ScrollController scrollControllerq = ScrollController();
   ScrollController scrollControllern = ScrollController();
 
-  final ItemScrollController  itemScrollController = ItemScrollController();
+  // final ItemScrollController  itemScrollController = ItemScrollController();
+  //
+  // final ItemScrollController  itemScrollControllerjuz = ItemScrollController();
 
-  final ItemScrollController  itemScrollControllerjuz = ItemScrollController();
-
-
-
-  final ScrollController scrollControllerbot = ScrollController();
-  final ScrollController scrollControllerbot1 = ScrollController();
-  final ScrollController scrollControllerbot2 = ScrollController();
   final ScrollController scrollControllerjuz = ScrollController();
 
   final _restCallController = Get.put(restCallController());
@@ -274,16 +270,23 @@ void changeFontFamily(String family) {
   @override
   void dispose() {
 
-    scrollController.dispose();
+   scrollController.dispose();
+   scrollControllerq.dispose();
+   scrollControllern.dispose();
     super.dispose();
   }
-  void scrollToIndex(int index) {
-    itemScrollController.scrollTo(
-      index: index,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
+
+
+
+
+
+  // void scrollToIndex(int index) {
+  //   itemScrollController.scrollTo(
+  //     index: index,
+  //     duration: Duration(milliseconds: 500),
+  //     curve: Curves.easeInOut,
+  //   );
+  // }
 
 
 

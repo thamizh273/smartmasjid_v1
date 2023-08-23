@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:smartmasjid_v1/utils/color_utils.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../routes/export.dart';
@@ -284,7 +285,7 @@ class PrayerCard extends StatelessWidget {
                 padding: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: Colors.green.shade50),
+                    color: clr_green.shade50),
                 child:  Stxt(
                   text: 'Remaining time : ${remainingTime}',
                   size: f0,
@@ -294,9 +295,7 @@ class PrayerCard extends StatelessWidget {
 
             ],
           ),
-          SizedBox(
-            width: 15,
-          ),
+         12.horizontalSpace,
           Container(
             width: 8,
             decoration: BoxDecoration(

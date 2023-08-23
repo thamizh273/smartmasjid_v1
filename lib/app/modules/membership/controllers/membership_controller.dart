@@ -20,17 +20,10 @@ class MembershipController extends GetxController {
   final isChecked = false.obs;
   final isCheckeddue = false.obs;
   final isCheckedother = false.obs;
-  var expand = <bool>[].obs;
   var expandedIndex = RxInt(-1);
+   RxList expand = [].obs;
 
-  void toggleExpansion(int index) {
-    expand[index] = !expand[index];
-    if (expand[index]) {
-      expandedIndex.value = index;
-    } else {
-      expandedIndex.value = -1;
-    }
-  }
+
 
 
   var fontFamily = "upi".obs;
@@ -42,6 +35,11 @@ class MembershipController extends GetxController {
     getMembershipDetails();
     super.onInit();
 
+  }
+
+  void toggleExpansion(int index) {
+    expand[index] = !expand[index];
+    update(); // Notify GetX that the state has changed
   }
 
   @override
@@ -99,7 +97,7 @@ query Query(\$userId: String!) {
     // log(json.encode(res));
     // print("getMEBER");
   }
-  getMembershipPayDetails() async {
+  getMembershipPayDetails(String type) async {
 
     isloading.value=true;
     var header="""
@@ -121,7 +119,7 @@ query Query(\$userId: String!, \$type: String, \$status: String) {
     """;
     var body ={
       "userId": "${homectrl.getUserData.value.getUserById!.id}",
-      "type": "currentyear",
+      "type": "${type}",
       "status": "paid"
     };
     var res = await  _restCallController.gql_query(header, body);
