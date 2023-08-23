@@ -399,7 +399,7 @@ class QuranpageView extends StatelessWidget {
                           Expanded(
                             child: Scrollbar(
                               interactive: true,
-                              thumbVisibility: true,
+                              // thumbVisibility: true,
                               thickness: 10,
                               controller: quranCtrl.scrollController,
                               radius: Radius.circular(20),
@@ -681,7 +681,7 @@ class QuranpageView extends StatelessWidget {
                           Expanded(
                             child: Scrollbar(
                               interactive: true,
-                              thumbVisibility: true,
+                              // thumbVisibility: true,
                               thickness: 10,
                               controller: quranCtrl.scrollControllerjuz,
                               radius: Radius.circular(20),
