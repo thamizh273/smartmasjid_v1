@@ -6,7 +6,7 @@ import '../../../routes/export.dart';
 class LargerCard extends StatelessWidget {
   const LargerCard({
     super.key,
-    required this.quranImg, required this.buttonTxt, required this.image, required this.title, required this.subtitle, required this.lastseen, this.onPressed,
+    required this.quranImg, required this.buttonTxt, required this.image, required this.title, required this.subtitle, required this.lastseen, this.onTap,
   });
 
   final List quranImg;
@@ -15,7 +15,7 @@ class LargerCard extends StatelessWidget {
   final String title;
   final String subtitle;
   final String lastseen;
-  final void Function()? onPressed;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {

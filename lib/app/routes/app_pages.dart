@@ -2,18 +2,24 @@ import 'package:get/get.dart';
 
 import '../modules/Events/bindings/events_binding.dart';
 import '../modules/Events/views/events_view.dart';
+import '../modules/activitiespage/bindings/activitiespage_binding.dart';
+import '../modules/activitiespage/views/activitiespage_view.dart';
 import '../modules/addweather/bindings/addweather_binding.dart';
 import '../modules/addweather/views/addweather_view.dart';
 import '../modules/archivepage/bindings/archivepage_binding.dart';
 import '../modules/archivepage/views/archivepage_view.dart';
 import '../modules/audioplayer/bindings/audioplayer_binding.dart';
 import '../modules/audioplayer/views/audioplayer_view.dart';
+import '../modules/bookmarkpage/bindings/bookmarkpage_binding.dart';
+import '../modules/bookmarkpage/views/bookmarkpage_view.dart';
 import '../modules/donationpage/bindings/donationpage_binding.dart';
 import '../modules/donationpage/views/donationpage_view.dart';
 import '../modules/duapage/bindings/duapage_binding.dart';
 import '../modules/duapage/views/duapage_view.dart';
 import '../modules/faceAuth/bindings/face_auth_binding.dart';
 import '../modules/faceAuth/views/face_auth_view.dart';
+import '../modules/familytree/bindings/familytree_binding.dart';
+import '../modules/familytree/views/familytree_view.dart';
 import '../modules/hadithchapterdetail/bindings/hadithchapterdetail_binding.dart';
 import '../modules/hadithchapterdetail/views/hadithchapterdetail_view.dart';
 import '../modules/hijripage/bindings/hijripage_binding.dart';
@@ -24,6 +30,8 @@ import '../modules/imanTracker/bindings/iman_tracker_binding.dart';
 import '../modules/imanTracker/views/iman_tracker_view.dart';
 import '../modules/language_page/bindings/language_page_binding.dart';
 import '../modules/language_page/views/language_page_view.dart';
+import '../modules/librarypage/bindings/librarypage_binding.dart';
+import '../modules/librarypage/views/librarypage_view.dart';
 import '../modules/loginPage/bindings/login_page_binding.dart';
 import '../modules/loginPage/views/login_page_view.dart';
 import '../modules/masjidFinder/bindings/masjid_finder_binding.dart';
@@ -32,6 +40,10 @@ import '../modules/masjidRequest/bindings/masjid_request_binding.dart';
 import '../modules/masjidRequest/views/masjid_request_view.dart';
 import '../modules/masjidhistory/bindings/masjidhistory_binding.dart';
 import '../modules/masjidhistory/views/masjidhistory_view.dart';
+import '../modules/masjidnearme/bindings/masjidnearme_binding.dart';
+import '../modules/masjidnearme/views/masjidnearme_view.dart';
+import '../modules/mediapage/bindings/mediapage_binding.dart';
+import '../modules/mediapage/views/mediapage_view.dart';
 import '../modules/membership/bindings/membership_binding.dart';
 import '../modules/membership/views/membership_view.dart';
 import '../modules/messagepage/bindings/messagepage_binding.dart';
@@ -57,6 +69,8 @@ import '../modules/quranpage/bindings/quranpage_binding.dart';
 import '../modules/quranpage/views/quranpage_view.dart';
 import '../modules/register_login/bindings/register_login_binding.dart';
 import '../modules/register_login/views/register_login_view.dart';
+import '../modules/servicepage/bindings/servicepage_binding.dart';
+import '../modules/servicepage/views/servicepage_view.dart';
 import '../modules/settingspage/bindings/settingspage_binding.dart';
 import '../modules/settingspage/views/settingspage_view.dart';
 import '../modules/signup_page/bindings/signup_page_binding.dart';
@@ -268,6 +282,41 @@ class AppPages {
       name: _Paths.MYMASJIDPAGE,
       page: () => const MymasjidpageView(),
       binding: MymasjidpageBinding(),
+    ),
+    GetPage(
+      name: _Paths.SERVICEPAGE,
+      page: () => const ServicepageView(),
+      binding: ServicepageBinding(),
+    ),
+    GetPage(
+      name: _Paths.LIBRARYPAGE,
+      page: () => const LibrarypageView(),
+      binding: LibrarypageBinding(),
+    ),
+    GetPage(
+      name: _Paths.MASJIDNEARME,
+      page: () => const MasjidnearmeView(),
+      binding: MasjidnearmeBinding(),
+    ),
+    GetPage(
+      name: _Paths.MEDIAPAGE,
+      page: () => const MediapageView(),
+      binding: MediapageBinding(),
+    ),
+    GetPage(
+      name: _Paths.BOOKMARKPAGE,
+      page: () => const BookmarkpageView(),
+      binding: BookmarkpageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACTIVITIESPAGE,
+      page: () => const ActivitiespageView(),
+      binding: ActivitiespageBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAMILYTREE,
+      page: () => const FamilytreeView(),
+      binding: FamilytreeBinding(),
     ),
   ];
 }

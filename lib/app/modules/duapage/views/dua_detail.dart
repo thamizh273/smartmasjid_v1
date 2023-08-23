@@ -19,7 +19,7 @@ class DuaDetail extends StatelessWidget {
           tittle: "Dua",
           action: [
             PopupMenuButton(
-                icon: Icon(Icons.menu),
+                // icon: Icon(Icons.menu),
                 onSelected: (value) {
                   duactrl.selectedMenuItem.value = value;
                 },

@@ -7,10 +7,15 @@ import 'package:smartmasjid_v1/app/modules/audioplayer/views/audioplayer_view.da
 import 'package:smartmasjid_v1/app/modules/duapage/views/duapage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
+import 'package:smartmasjid_v1/app/modules/home/Drawer_List/masjid_admins.dart';
+import 'package:smartmasjid_v1/app/modules/home/Drawer_List/masjid_facility.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
+import 'package:smartmasjid_v1/app/modules/librarypage/views/librarypage_view.dart';
 import 'package:smartmasjid_v1/app/modules/masjidhistory/views/masjidhistory_view.dart';
+import 'package:smartmasjid_v1/app/modules/mediapage/views/mediapage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/qiblafinderpage/views/qiblafinderpage_view.dart';
+import 'package:smartmasjid_v1/app/modules/servicepage/views/servicepage_view.dart';
 import 'package:smartmasjid_v1/app/modules/specialdayspage/views/specialdayspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/zakathpage/views/zakathpage_view.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
@@ -18,6 +23,9 @@ import 'package:smartmasjid_v1/widgets/loading.dart';
 import '../../../../utils/ansomeNotification.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
+import '../Drawer_List/masjid_history.dart';
+import '../Drawer_List/masjid_imam.dart';
+import '../Drawer_List/well_wisher.dart';
 import '../controllers/home_controller.dart';
 import '../widgets/imanTracker.dart';
 import '../widgets/mediumCard.dart';
@@ -149,64 +157,93 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                 ),
-                ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Masjiddr.svg"),
-                      Space(16),
-                      Stxt(text: "Masjid  Facilities",
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MasjidFacility()));
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/Masjiddr.svg"),
+                        Space(16),
+                        Stxt(text: "Masjid  Facilities",
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
-                ), ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Historydr.svg"),
-                      Space(16),
-                      Stxt(text: "Masjid History",
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
-                  ),
-                  // onTap: controller.closeDrawer,
                 ),
-                ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Admindr.svg"),
-                      Space(16),
-                      Stxt(text: "Masjid Admins",
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                GestureDetector(
+                  onTap: (){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MasjidHistory()));
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/Historydr.svg"),
+                        Space(16),
+                        Stxt(text: "Masjid History",
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
                 ),
-                ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/imamdr.svg"),
-                      Space(16),
-                      Stxt(text: "Masjid Imams",
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                   Navigator.of(context).push(MaterialPageRoute(builder: (_) => MasjidAdmin()));
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/Admindr.svg"),
+                        Space(16),
+                        Stxt(text: "Masjid Admins",
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
                 ),
-                ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/voldr.svg"),
-                      Space(16),
-                      Stxt(text: "Masjid well-wishers",
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MasjidImam()));
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/imamdr.svg"),
+                        Space(16),
+                        Stxt(text: "Masjid Imams",
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
+                ),
+                GestureDetector(
+                  onTap: (){
+                    Navigator.pop(context);
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => WellWisher()));
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/voldr.svg"),
+                        Space(16),
+                        Stxt(text: "Masjid well-wishers",
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
+                  ),
                 ),
                 Space(16),
                 ListTile(
@@ -296,65 +333,76 @@ class HomeView extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              height: 65.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(16),
-                                    bottomRight: Radius.circular(16),
-                                    topLeft: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(4, 4),
-                                        color: Colors.grey.shade400
-                                    )
+                            GestureDetector(
+                              onTap:(){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (_) => ServicepageView()));
+                              },
+                              child: Container(
+                                height: 65.h,
+                                width: 80.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(16),
+                                      bottomRight: Radius.circular(16),
+                                      topLeft: Radius.circular(16),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 2,
+                                          offset: Offset(4, 4),
+                                          color: Colors.grey.shade400
+                                      )
+                                    ],
+                                    color: Color(0xffD8E4E8)
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/svg/servicedr.svg", width: 40,),
+                                    Stxt(text: "Services", size: f1, color: Theme
+                                        .of(context)
+                                        .primaryColor,)
                                   ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/servicedr.svg", width: 40,),
-                                  Stxt(text: "Services", size: f1, color: Theme
-                                      .of(context)
-                                      .primaryColor,)
-                                ],
+                                ),
                               ),
                             ),
                             Space(30),
-                            Container(
-                              height: 65.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(16),
-                                    bottomLeft: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(-4, 4),
-                                        color: Colors.grey.shade400
-                                    )
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.pop(context);
+                                Get.toNamed(Routes.EVENTS);
+                              },
+                              child: Container(
+                                height: 65.h,
+                                width: 80.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(16),
+                                      bottomLeft: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 2,
+                                          offset: Offset(-4, 4),
+                                          color: Colors.grey.shade400
+                                      )
+                                    ],
+                                    color: Color(0xffD8E4E8)
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/svg/eventsdr.svg", width: 40,),
+                                    Stxt(text: "Events", size: f1, color: Theme
+                                        .of(context)
+                                        .primaryColor,)
                                   ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/eventsdr.svg", width: 40,),
-                                  Stxt(text: "Events", size: f1, color: Theme
-                                      .of(context)
-                                      .primaryColor,)
-                                ],
+                                ),
                               ),
                             ),
                           ],
@@ -495,7 +543,7 @@ class HomeView extends StatelessWidget {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
                                                 builder: (_) =>
-                                                    AudioPlayerScreen()));
+                                                    LibrarypageView()));
                                       },
                                     ),
                                   ],
@@ -508,7 +556,9 @@ class HomeView extends StatelessWidget {
                                       themeData.colorScheme.secondary,
                                       title: 'Masjid Near me',
                                       image: 'masjidFinder',
-                                      onTap: () {},
+                                      onTap: () {
+                                        Get.toNamed(Routes.MASJIDNEARME);
+                                      },
                                     ),
                                     Column(
                                       children: [
@@ -591,15 +641,7 @@ class HomeView extends StatelessWidget {
                                           image: 'events',
                                           title: 'Events',
                                           onTap: () {
-                                            AwesomeNotificationsHelper.showNotification(
-                                                title: 'test number ${controller.notificationsCounter.value}',
-                                                body: 'test notification number ${controller.notificationsCounter.value}',
-                                                id: controller.notificationsCounter.value,
-                                                // actionButtons: [
-                                                //   NotificationActionButton(key: 'submit', label: 'Submit'),
-                                                //   NotificationActionButton(key: 'cancel', label: 'Cancel'),
-                                                // ]
-                                            );
+                                          Get.toNamed(Routes.EVENTS);
                                           },
                                         )
                                       ],
@@ -607,14 +649,19 @@ class HomeView extends StatelessWidget {
                                   ],
                                 ),
                                 buildDivider(themeData),
-                                LargerCard(
-                                  quranImg: quranImg,
-                                  buttonTxt: 'View all',
-                                  image: 'media',
-                                  title: 'Media',
-                                  subtitle:
-                                  'Islamic Videos for ease and\nsuccess in life',
-                                  lastseen: 'Opened 13 hrs ago',
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => MediapageView()));
+                                  },
+                                  child: LargerCard(
+                                    quranImg: quranImg,
+                                    buttonTxt: 'View all',
+                                    image: 'media',
+                                    title: 'Media',
+                                    subtitle:
+                                    'Islamic Videos for ease and\nsuccess in life',
+                                    lastseen: 'Opened 13 hrs ago',
+                                  ),
                                 ),
                                 buildDivider(themeData),
                                 Row(
@@ -622,7 +669,9 @@ class HomeView extends StatelessWidget {
                                     MediumCard(
                                       title: 'Services',
                                       image: 'donation',
-                                      onTap: () {},
+                                      onTap: () {
+                                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => ServicepageView()));
+                                      },
                                     ),
                                     Column(
                                       children: [

@@ -43,6 +43,13 @@ abstract class Routes {
   static const EVENTS = _Paths.EVENTS;
   static const DONATIONPAGE = _Paths.DONATIONPAGE;
   static const MYMASJIDPAGE = _Paths.MYMASJIDPAGE;
+  static const SERVICEPAGE = _Paths.SERVICEPAGE;
+  static const LIBRARYPAGE = _Paths.LIBRARYPAGE;
+  static const MASJIDNEARME = _Paths.MASJIDNEARME;
+  static const MEDIAPAGE = _Paths.MEDIAPAGE;
+  static const BOOKMARKPAGE = _Paths.BOOKMARKPAGE;
+  static const ACTIVITIESPAGE = _Paths.ACTIVITIESPAGE;
+  static const FAMILYTREE = _Paths.FAMILYTREE;
 }
 
 abstract class _Paths {
@@ -87,4 +94,11 @@ abstract class _Paths {
   static const EVENTS = '/events';
   static const DONATIONPAGE = '/donationpage';
   static const MYMASJIDPAGE = '/mymasjidpage';
+  static const SERVICEPAGE = '/servicepage';
+  static const LIBRARYPAGE = '/librarypage';
+  static const MASJIDNEARME = '/masjidnearme';
+  static const MEDIAPAGE = '/mediapage';
+  static const BOOKMARKPAGE = '/bookmarkpage';
+  static const ACTIVITIESPAGE = '/activitiespage';
+  static const FAMILYTREE = '/familytree';
 }
