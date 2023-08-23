@@ -465,7 +465,7 @@ class HomeView extends StatelessWidget {
                                       },
                                       child: SvgPicture.asset(
                                           "assets/svg/notifynew.svg",
-                                          height: 60.h),
+                                          height: 65.h),
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -473,7 +473,7 @@ class HomeView extends StatelessWidget {
                                       },
                                       child: SvgPicture.asset(
                                           "assets/svg/weathernew.svg",
-                                          height: 60.h),
+                                          height: 65.h),
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -481,7 +481,7 @@ class HomeView extends StatelessWidget {
                                       },
                                       child: SvgPicture.asset(
                                           "assets/svg/messagenew.svg",
-                                          height: 60.h),
+                                          height: 65.h),
                                     ),
                                     GestureDetector(
                                       onTap: () {
@@ -489,7 +489,7 @@ class HomeView extends StatelessWidget {
                                       },
                                       child: SvgPicture.asset(
                                           "assets/svg/settingsnew.svg",
-                                          height: 60.h),
+                                          height: 65.h),
                                     ),
                                     Space(2),
                                   ],

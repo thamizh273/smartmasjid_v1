@@ -36,7 +36,7 @@ class PrayerTimes extends StatelessWidget {
           Stxt(
             pad: EdgeInsets.only(left: 10),
             text: 'Prayer Times',
-            size: f2,
+            size: f3,
             color: themeData.primaryColor,
             weight: FontWeight.bold,
           ),
@@ -182,7 +182,7 @@ class PrayerTimes extends StatelessWidget {
                           Expanded(
                             child: ListView(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 12, horizontal: 20.sp),
+                                  vertical: 20, horizontal: 22.sp),
                               children: [
                                 Row(
                                   mainAxisAlignment:
@@ -194,13 +194,13 @@ class PrayerTimes extends StatelessWidget {
                                       "${controller.prayerTimeData.value
                                           .getTodayMasjidPrayerTime!
                                           .todayHijriDate}",
-                                      size: f1,
+                                      size: f2,
                                       color: Colors.white,
                                     ),
                                     Container(
                                       height: 20,
                                       child: Transform.scale(
-                                        scale: .8,
+                                        scale: .9,
                                         child: Switch(
                                           inactiveThumbImage:
                                           Image
@@ -242,9 +242,9 @@ class PrayerTimes extends StatelessWidget {
                                     '${controller.prayerTimeData.value
                                         .getTodayMasjidPrayerTime!
                                         .todayPrayerList![index].prayerName}',
-                                    size: f3,
+                                    size: f4,
                                     color: Colors.white,
-                                    weight: FontWeight.bold,
+                                    weight: FontWeight.w600,
                                   ),
                                 ),
                                 Stxt(
@@ -287,7 +287,7 @@ class PrayerTimes extends StatelessWidget {
                                             .timeList[index]}",
                                         // "-${DateFormat.Hms().format(
                                         //     DateTime.now())}",
-                                        size: f2,
+                                        size: f3,
                                         color: Colors.white,
                                         weight: FontWeight.bold,
                                         textAlign: TextAlign.end,
@@ -310,7 +310,7 @@ class PrayerTimes extends StatelessWidget {
               }).toList(),
               options: CarouselOptions(
                 enlargeStrategy: CenterPageEnlargeStrategy.height,
-                enlargeCenterPage: true,
+                enlargeCenterPage: false,
                 enlargeFactor: .1,
                 padEnds: true,
                 enableInfiniteScroll: false,
@@ -318,8 +318,8 @@ class PrayerTimes extends StatelessWidget {
                     .getTodayMasjidPrayerTime!.todayPrayerList!
                     .indexWhere((prayer) =>
                 prayer.prayerStatus == "future"),
-                height: 130,
-                viewportFraction: .87,
+                height: 150,
+                viewportFraction: .9,
                 onPageChanged: (index, reason) {
                   // Update the index in the controller
                   controller.updateIndex(index);

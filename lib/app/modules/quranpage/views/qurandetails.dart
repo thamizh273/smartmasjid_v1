@@ -1,12 +1,28 @@
-
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hive/hive.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/gotoverse.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
+import 'package:smartmasjid_v1/widgets/quranplanner.dart';
+
+import '../../../../theme/theme.dart';
+import '../../../../widgets/space.dart';
 import '../../audioplayer/controllers/audioplayer_controller.dart';
 import '../controllers/quranpage_controller.dart';
-
+import '../model/quran_detail_model.dart';
+import '../model/quran_model.dart';
 
 class QuranDetails extends StatefulWidget {
   late final int index;
@@ -27,10 +43,10 @@ final List<QuranpageController> controllers = List.generate(
 class _QuranDetailsState extends State<QuranDetails> {
   @override
   Widget build(BuildContext context) {
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   c.result.value == "0" ? c.scrollToIndex(0) : c.scrollToIndex(
-    //       int.parse(c.result.value) - 1);
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      c.result.value == "0" ? c.scrollToIndex(0) : c.scrollToIndex(
+          int.parse(c.result.value) - 1);
+    });
     return Obx(() {
       return c.isLoadings.value ? loading(context) : Scaffold(
         key: c.scaffoldKey,
@@ -40,7 +56,7 @@ class _QuranDetailsState extends State<QuranDetails> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               physics: ScrollPhysics(),
-             // controller: c.scrollController,
+              controller: c.scrollController,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -157,6 +173,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                         Space(8),
                         Stxt(
                           size: f3, text: 'Arabic', weight: FontWeight.w400,),
+
                       ],
                     );
                   }),
@@ -217,6 +234,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                         ),
                         Space(8),
                         Stxt(size: f3, text: 'Tamil', weight: FontWeight.w400,),
+                        ExampleDownloadButton(),
                       ],
                     );
                   }),
@@ -757,7 +775,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                         interactive: true,
                         thumbVisibility: false,
                         thickness: 10,
-                       controller: c.scrollControllern,
+                        controller: c.scrollControllern,
                         radius: Radius.circular(20),
                         child: ListView.builder(
                             physics: BouncingScrollPhysics(),
@@ -1638,3 +1656,324 @@ class CustomDialogBox1 extends StatelessWidget {
   }
 }
 
+class ExampleDownloadButton extends StatefulWidget {
+  const ExampleDownloadButton();
+  @override
+  _ExampleDownloadButtonState createState() => _ExampleDownloadButtonState();
+}
+class _ExampleDownloadButtonState extends State<ExampleDownloadButton> {
+  late final List<DownloadController> _downloadControllers;
+  @override
+  void initState() {
+    super.initState();
+    _downloadControllers = List<DownloadController>.generate(
+      2,
+          (index) => SimulatedDownloadController(onOpenDownload: () {
+        _openDownload(index);
+      }),
+    );
+  }
+  void _openDownload(int index) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Open PDF ${index + 1}'),
+      ),
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SizedBox(
+        height: 10,
+        child: ListView.separated(
+          itemCount: _downloadControllers.length,
+          separatorBuilder: (_, __) => const Space(8),
+          itemBuilder: _buildListItem,
+        ),
+      ),
+    );
+  }
+  Widget _buildListItem(BuildContext context, int index) {
+    final theme = Theme.of(context);
+    final downloadController = _downloadControllers[index];
+    return ListTile(
+      trailing: SizedBox(
+        width: 50,
+        child: AnimatedBuilder(
+          animation: downloadController,
+          builder: (context, child) {
+            return DownloadButton(
+              status: downloadController.downloadStatus,
+              downloadProgress: downloadController.progress,
+              onDownload: downloadController.startDownload,
+              onCancel: downloadController.stopDownload,
+              onOpen: downloadController.openDownload,
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+enum DownloadStatus {
+  notDownloaded,
+  fetchingDownload,
+  downloading,
+  downloaded,
+}
+
+abstract class DownloadController implements ChangeNotifier {
+  DownloadStatus get downloadStatus;
+  double get progress;
+
+  void startDownload();
+  void stopDownload();
+  void openDownload();
+}
+
+class SimulatedDownloadController extends DownloadController
+    with ChangeNotifier {
+  SimulatedDownloadController({
+    DownloadStatus downloadStatus = DownloadStatus.notDownloaded,
+    double progress = 0.0,
+    required VoidCallback onOpenDownload,
+  })  : _downloadStatus = downloadStatus,
+        _progress = progress,
+        _onOpenDownload = onOpenDownload;
+
+  DownloadStatus _downloadStatus;
+  @override
+  DownloadStatus get downloadStatus => _downloadStatus;
+
+  double _progress;
+  @override
+  double get progress => _progress;
+
+  final VoidCallback _onOpenDownload;
+
+  bool _isDownloading = false;
+
+  @override
+  void startDownload() {
+    if (downloadStatus == DownloadStatus.notDownloaded) {
+      _doSimulatedDownload();
+    }
+  }
+
+  @override
+  void stopDownload() {
+    if (_isDownloading) {
+      _isDownloading = false;
+      _downloadStatus = DownloadStatus.notDownloaded;
+      _progress = 0.0;
+      notifyListeners();
+    }
+  }
+
+  @override
+  void openDownload() {
+    if (downloadStatus == DownloadStatus.downloaded) {
+      _onOpenDownload();
+    }
+  }
+
+  Future<void> _doSimulatedDownload() async {
+    _isDownloading = true;
+    _downloadStatus = DownloadStatus.fetchingDownload;
+    notifyListeners();
+
+    // Wait a second to simulate fetch time.
+    await Future<void>.delayed(const Duration(seconds: 1));
+
+    // If the user chose to cancel the download, stop the simulation.
+    if (!_isDownloading) {
+      return;
+    }
+
+    // Shift to the downloading phase.
+    _downloadStatus = DownloadStatus.downloading;
+    notifyListeners();
+
+    const downloadProgressStops = [0.0, 0.15, 0.45, 0.8, 1.0];
+    for (final stop in downloadProgressStops) {
+      // Wait a second to simulate varying download speeds.
+      // await Future<void>.delayed(const Duration(seconds: 1));
+
+      if (!_isDownloading) {
+        return;
+      }
+
+      _progress = stop;
+      notifyListeners();
+    }
+    await Future<void>.delayed(const Duration(seconds: 1));
+
+    if (!_isDownloading) {
+      return;
+    }
+
+    _downloadStatus = DownloadStatus.downloaded;
+    _isDownloading = false;
+    notifyListeners();
+  }
+}
+
+@immutable
+class DownloadButton extends StatelessWidget {
+  const DownloadButton({
+    required this.status,
+    this.downloadProgress = 0.0,
+    required this.onDownload,
+    required this.onCancel,
+    required this.onOpen,
+    this.transitionDuration = const Duration(milliseconds: 500),
+  });
+
+  final DownloadStatus status;
+  final double downloadProgress;
+  final VoidCallback onDownload;
+  final VoidCallback onCancel;
+  final VoidCallback onOpen;
+  final Duration transitionDuration;
+
+  bool get _isDownloading => status == DownloadStatus.downloading;
+  bool get _isFetching => status == DownloadStatus.fetchingDownload;
+  bool get _isDownloaded => status == DownloadStatus.downloaded;
+
+  void _onPressed() {
+    switch (status) {
+      case DownloadStatus.notDownloaded:
+        onDownload();
+        break;
+      case DownloadStatus.fetchingDownload:
+      // do nothing.
+        break;
+      case DownloadStatus.downloading:
+        onCancel();
+        break;
+      case DownloadStatus.downloaded:
+        onOpen();
+        break;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: _onPressed,
+      child: Stack(
+        children: [
+          ButtonShapeWidget(
+            transitionDuration: transitionDuration,
+            isDownloaded: _isDownloaded,
+            isDownloading: _isDownloading,
+            isFetching: _isFetching,
+          ),
+          Positioned.fill(
+            child: AnimatedOpacity(
+              duration: transitionDuration,
+              opacity: _isDownloading || _isFetching ? 1.0 : 0.0,
+              curve: Curves.ease,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  ProgressIndicatorWidget(
+                    downloadProgress: downloadProgress,
+                    isDownloading: _isDownloading,
+                    isFetching: _isFetching,
+                  ),
+                  if (_isDownloading)
+                    const Icon(
+                      Icons.stop,
+                      size: 14,
+                      color: CupertinoColors.activeBlue,
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+@immutable
+class ButtonShapeWidget extends StatelessWidget {
+  const ButtonShapeWidget({
+    key,
+    required this.isDownloading,
+    required this.isDownloaded,
+    required this.isFetching,
+    required this.transitionDuration,
+  });
+  final bool isDownloading;
+  final bool isDownloaded;
+  final bool isFetching;
+  final Duration transitionDuration;
+  @override
+  Widget build(BuildContext context) {
+    var shape = const ShapeDecoration(
+      shape: StadiumBorder(),
+      color: CupertinoColors.lightBackgroundGray,
+    );
+    if (isDownloading || isFetching) {
+      shape = ShapeDecoration(
+        shape: const CircleBorder(),
+        color: Colors.white.withOpacity(0),
+      );
+    }
+    return AnimatedContainer(
+      duration: transitionDuration,
+      curve: Curves.ease,
+      width: double.infinity,
+      decoration: shape,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 6),
+        child: AnimatedOpacity(
+          duration: transitionDuration,
+          opacity: isDownloading || isFetching ? 0.0 : 1.0,
+          curve: Curves.ease,
+          child: Icon(
+              isDownloaded ? Icons.download : Icons.download,
+              color: isDownloaded? Colors.black.withOpacity(0.3):Colors.black
+          ),
+        ),
+      ),
+    );
+  }
+}
+@immutable
+class ProgressIndicatorWidget extends StatelessWidget {
+  const ProgressIndicatorWidget({
+    key,
+    required this.downloadProgress,
+    required this.isDownloading,
+    required this.isFetching,
+  });
+  final double downloadProgress;
+  final bool isDownloading;
+  final bool isFetching;
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: 1,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0, end: downloadProgress),
+        duration: const Duration(milliseconds: 200),
+        builder: (context, progress, child) {
+          return CircularProgressIndicator(
+            backgroundColor: isDownloading
+                ? CupertinoColors.lightBackgroundGray
+                : Colors.white.withOpacity(0),
+            valueColor: AlwaysStoppedAnimation(isFetching
+                ? CupertinoColors.lightBackgroundGray
+                : CupertinoColors.activeBlue),
+            strokeWidth: 2,
+            value: isFetching ? null : progress,
+          );
+        },
+      ),
+    );
+  }
+}

@@ -25,14 +25,14 @@ class Events extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
+               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Events",
-                    style: TextStyle(fontWeight: FontWeight.w600),
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Theme.of(context).primaryColor),
                   ),
-                  Stxt(text: "3 Upcoming Events near you", size: 11)
+                  Stxt(text: "3 Upcoming Events near you", size: 12, weight: FontWeight.w500,)
                 ],
               ),
               TextButton(
@@ -44,8 +44,8 @@ class Events extends StatelessWidget {
                     //       builder: (context) => EventsPage(),
                     //     ));
                   },
-                  child: const Stxt(
-                    text: 'View all', size: f1,
+                  child:  Stxt(
+                    text: 'View all', size: f2,color: Theme.of(context).primaryColor,
                     // "View all",
                     // style: TextStyle(fontWeight: FontWeight.w600),
                   )),

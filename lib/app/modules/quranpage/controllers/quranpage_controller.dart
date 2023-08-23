@@ -88,6 +88,14 @@ class QuranpageController extends GetxController {
   var currentSelectedPages = <int>[].obs;
   RxInt qurandetsilIndex=0.obs;
   RxInt qurandetsilIndex1=0.obs;
+  final RxBool isDownloaded = false.obs;
+  final RxBool isDownloading = false.obs;
+  final RxBool isFetching = false.obs;
+  final RxDouble downloadProgress = 0.0.obs;
+
+  void onPressed() {
+    // Your onPressed logic here
+  }
 
   void shareMessage(index) {
     Share.share("${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
@@ -977,16 +985,16 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     {"verse":'25:56',"no":"365"},
     {"verse":'25:68',"no":"366"},
     {"verse":'26:1',"no":"367"},
-    {"verse":'26:1',"no":"368"},
-    {"verse":'26:1',"no":"369"},
-    {"verse":'26:1',"no":"370"},
-    {"verse":'26:1',"no":"371"},
-    {"verse":'26:1',"no":"372"},
-    {"verse":'26:1',"no":"373"},
-    {"verse":'26:1',"no":"374"},
-    {"verse":'26:1',"no":"375"},
-    {"verse":'26:1',"no":"376"},
-    {"verse":'27:1',"no":"377"},
+    {"verse":'26:25',"no":"368"},
+    {"verse":'26:50',"no":"369"},
+    {"verse":'26:75',"no":"370"},
+    {"verse":'26:100',"no":"371"},
+    {"verse":'26:125',"no":"372"},
+    {"verse":'26:150',"no":"373"},
+    {"verse":'26:175',"no":"374"},
+    {"verse":'26:200',"no":"375"},
+    {"verse":'26:210',"no":"376"},
+    {"verse":'27:220',"no":"377"},
     {"verse":'27:14',"no":"378"},
     {"verse":'27:23',"no":"379"},
     {"verse":'27:36',"no":"380"},
