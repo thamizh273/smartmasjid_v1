@@ -37,102 +37,7 @@ class PrayerTimes extends StatelessWidget {
             weight: FontWeight.bold,
           ),
 
-          // SizedBox(
-          //   height: 100,
-          //
-          //   child: ListView.builder(
-          //     controller: _getScrollController(),
-          //     scrollDirection: Axis.horizontal,
-          //     itemCount: 5,
-          //     itemBuilder: (context, index) {
-          //
-          //       return Container(
-          //         width: 190.w,
-          //                   decoration: BoxDecoration(
-          //                       borderRadius: BorderRadius.circular(5),
-          //                       image: DecorationImage(
-          //                           image: AssetImage(
-          //                             "assets/images/${controller.prayerTime[index]}.png",
-          //                           ),
-          //                           fit: BoxFit.fill)),
-          //                   child: Padding(
-          //                     padding:  EdgeInsets.all(8.sp),
-          //                     child: Column(
-          //                       crossAxisAlignment: CrossAxisAlignment.stretch,
-          //                       children: [
-          //                         Row(
-          //                           mainAxisAlignment:
-          //                           MainAxisAlignment.spaceBetween,
-          //                           children: [
-          //                             const Stxt(
-          //                               text: "3,Dhul Quadah,1444",
-          //                               size: f1,
-          //                               color: Colors.white,
-          //                             ),
-          //                             Container(
-          //                               height: 20,
-          //                               child: Transform.scale(
-          //                                 scale: .8,
-          //                                 child: Switch(
-          //                                   inactiveThumbImage: Image.asset(
-          //                                     "assets/images/alarm_clock.png",
-          //                                   ).image,
-          //                                   activeThumbImage: const AssetImage(
-          //                                       "assets/images/alarm_clock.png"),
-          //                                   inactiveThumbColor: Colors.red[400],
-          //                                   //inactiveTrackColor: Colors.red[400],
-          //                                   activeColor: Colors.green,
-          //
-          //                                   value: controller.alarm.value,
-          //                                   onChanged: (value) {
-          //
-          //                                     controller.alarm.value = value;
-          //
-          //                                   },
-          //
-          //                                   splashRadius: 20,
-          //                                 ),
-          //                               ),
-          //                             )
-          //                           ],
-          //                         ),
-          //                         Padding(
-          //                           padding:
-          //                           const EdgeInsets.symmetric(vertical: 2),
-          //                           child: Stxt(
-          //                             text:
-          //                             '${controller.prayerTime[index][0].toUpperCase()}${controller.prayerTime[index].substring(1)}',
-          //                             size: f3,
-          //                             color: Colors.white,
-          //                             weight: FontWeight.bold,
-          //                           ),
-          //                         ),
-          //                         Stxt(
-          //                           text:
-          //                           "${DateFormat.jm().format(DateTime.now())}",
-          //                           size: 18.sp,
-          //                           color: Colors.white,
-          //                           weight: FontWeight.bold,
-          //                         ),
-          //                         Padding(
-          //                           padding: const EdgeInsets.only(right: 5),
-          //                           child: Stxt(
-          //                             text:
-          //                             "-${DateFormat.Hms().format(DateTime.now())}",
-          //                             size: f2,
-          //                             color: Colors.white,
-          //                             weight: FontWeight.bold,
-          //                             textAlign: TextAlign.end,
-          //                           ),
-          //                         ),
-          //
-          //                       ]),
-          //                   ));},
-          //   ),
-          // ),
-          ///
           Obx(() {
-
             return controller.isloading1.value
                 ? CupertinoActivityIndicator()
                 : CarouselSlider(
@@ -142,12 +47,12 @@ class PrayerTimes extends StatelessWidget {
                 int index = e.key;
                 TodayPrayerList prayerTimeName = e.value;
                 //  print(int.parse(e));
-                controller.rrr.value = controller
-                    .prayerTimeData
-                    .value
-                    .getTodayMasjidPrayerTime!
-                    .todayPrayerList![index]
-                    .startTime.toString();
+                // controller.rrr.value = controller
+                //     .prayerTimeData
+                //     .value
+                //     .getTodayMasjidPrayerTime!
+                //     .todayPrayerList![index]
+                //     .startTime.toString();
                 controller.update();
                 // Timer.periodic(Duration(seconds: 1), (timer) {
                 //   controller.remainTime(); // Increment the count
@@ -155,7 +60,7 @@ class PrayerTimes extends StatelessWidget {
                 return Padding(
                     padding: EdgeInsets.only(
                       top: 5,
-                      bottom: 3,
+                      bottom: 0,
                     ),
                     child: Container(
                       decoration: BoxDecoration(
@@ -245,20 +150,24 @@ class PrayerTimes extends StatelessWidget {
                                   color: Colors.white,
                                   weight: FontWeight.bold,
                                 ),
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(right: 5),
-                                  child: Obx(() {
-                                    return Stxt(
-                                      text:"Start in  ${controller.hrs.value}:${controller.min.value}: ${controller.sec.value}",
-                                      // "-${DateFormat.Hms().format(
-                                      //     DateTime.now())}",
-                                      size: f2,
-                                      color: Colors.white,
-                                      weight: FontWeight.bold,
+                                StreamBuilder<int>(
+                                  stream: Stream.periodic(const Duration(seconds: 1), (i) => i),
+                                  builder: (context, snapshot) {
+                                    final prayer = controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![index];
+                                    final startTime = DateTime.parse(prayer.startTime.toString()).toLocal();
+                                    final remainingTime = controller.getRemainingTime(startTime);
+                                    // print( "vvvv$remainingTime");
+
+                                    return  Text(
+                                      "Starts in $remainingTime",
+                                      style: TextStyle(
+                                        fontSize: f2,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                       textAlign: TextAlign.end,
                                     );
-                                  }),
+                                  },
                                 ),
                               ],
                             ),

@@ -1,4 +1,6 @@
 
+import 'dart:ffi';
+
 import 'package:floating_frosted_bottom_bar/app/frosted_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -285,91 +287,89 @@ class QuranpageView extends StatelessWidget {
                                 SizedBox(
                                  width: 260.w,
                                   height: 30,
-                                  child: Expanded(
-                                    child: ListView.separated(
-                                      shrinkWrap: true,
-                                      // physics: NeverScrollablePhysics(),
-                                        separatorBuilder:
-                                            (BuildContext context,
-                                            int index) =>
-                                        const Space(8),
-                                        itemCount: 7,
-                                        scrollDirection: Axis.horizontal,
-                                        itemBuilder: (context, index) {
-                                          var sura = [
-                                            quranCtrl.getqurandata.value.quranFilter![35],
-                                            quranCtrl.getqurandata.value.quranFilter![54],
-                                            quranCtrl.getqurandata.value.quranFilter![17],
-                                            quranCtrl.getqurandata.value.quranFilter![55],
-                                            quranCtrl.getqurandata.value.quranFilter![66],
-                                            quranCtrl.getqurandata.value
-                                                .quranFilter![111],
-                                            quranCtrl.getqurandata.value
-                                                .quranFilter![112],
-                                          ];
-                                          return GestureDetector(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(
-                                                      4),
-                                                  border: Border.all(
-                                                      color: Theme
-                                                          .of(context)
-                                                          .primaryColor)),
-                                              child: Padding(
-                                                padding:
-                                                const EdgeInsets.all(4.0),
-                                                child: Text(
-                                                  "${sura[index].suraNameEn}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight.w600,
-                                                      fontSize: 14,
-                                                      color: Theme
-                                                          .of(context)
-                                                          .primaryColor),
-                                                ),
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    // physics: NeverScrollablePhysics(),
+                                      separatorBuilder:
+                                          (BuildContext context,
+                                          int index) =>
+                                      const Space(8),
+                                      itemCount: 7,
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        var sura = [
+                                          quranCtrl.getqurandata.value.quranFilter![35],
+                                          quranCtrl.getqurandata.value.quranFilter![54],
+                                          quranCtrl.getqurandata.value.quranFilter![17],
+                                          quranCtrl.getqurandata.value.quranFilter![55],
+                                          quranCtrl.getqurandata.value.quranFilter![66],
+                                          quranCtrl.getqurandata.value
+                                              .quranFilter![111],
+                                          quranCtrl.getqurandata.value
+                                              .quranFilter![112],
+                                        ];
+                                        return GestureDetector(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(
+                                                    4),
+                                                border: Border.all(
+                                                    color: Theme
+                                                        .of(context)
+                                                        .primaryColor)),
+                                            child: Padding(
+                                              padding:
+                                              const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                "${sura[index].suraNameEn}",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                    FontWeight.w600,
+                                                    fontSize: 14,
+                                                    color: Theme
+                                                        .of(context)
+                                                        .primaryColor),
                                               ),
                                             ),
-                                            onTap: () {
-                                              print(
-                                                  "ddd ${sura[index]
-                                                      .suraNameEn}");
-                                              if (sura[index].suraNameEn ==
-                                                  "Ya-Sin") {
-                                                quranCtrl.quranDetailList(36);
-                                              } else if (sura[index]
-                                                  .suraNameEn ==
-                                                  'Ar-Rahman') {
-                                                quranCtrl.quranDetailList(55);
-                                              } else if (sura[index]
-                                                  .suraNameEn ==
-                                                  'Al-Kahf') {
-                                                quranCtrl.quranDetailList(18);
-                                              }
-                                              else if (sura[index].suraNameEn ==
-                                                  "Al-Waqi'ah") {
-                                                quranCtrl.quranDetailList(56);
-                                              } else if (sura[index]
-                                                  .suraNameEn ==
-                                                  'Al-Mulk') {
-                                                quranCtrl.quranDetailList(67);
-                                              } else if (sura[index]
-                                                  .suraNameEn ==
-                                                  'Al-Ikhlas') {
-                                                quranCtrl.quranDetailList(112);
-                                              } else if (sura[index]
-                                                  .suraNameEn ==
-                                                  'Al-Falaq') {
-                                                quranCtrl.quranDetailList(113);
-                                              } else {
-                                                quranCtrl.quranDetailList(18);
-                                              }
-                                            },
-                                          );
-                                        }),
-                                  ),
+                                          ),
+                                          onTap: () {
+                                            print(
+                                                "ddd ${sura[index]
+                                                    .suraNameEn}");
+                                            if (sura[index].suraNameEn ==
+                                                "Ya-Sin") {
+                                              quranCtrl.quranDetailList(36);
+                                            } else if (sura[index]
+                                                .suraNameEn ==
+                                                'Ar-Rahman') {
+                                              quranCtrl.quranDetailList(55);
+                                            } else if (sura[index]
+                                                .suraNameEn ==
+                                                'Al-Kahf') {
+                                              quranCtrl.quranDetailList(18);
+                                            }
+                                            else if (sura[index].suraNameEn ==
+                                                "Al-Waqi'ah") {
+                                              quranCtrl.quranDetailList(56);
+                                            } else if (sura[index]
+                                                .suraNameEn ==
+                                                'Al-Mulk') {
+                                              quranCtrl.quranDetailList(67);
+                                            } else if (sura[index]
+                                                .suraNameEn ==
+                                                'Al-Ikhlas') {
+                                              quranCtrl.quranDetailList(112);
+                                            } else if (sura[index]
+                                                .suraNameEn ==
+                                                'Al-Falaq') {
+                                              quranCtrl.quranDetailList(113);
+                                            } else {
+                                              quranCtrl.quranDetailList(18);
+                                            }
+                                          },
+                                        );
+                                      }),
                                 ),
 
                                 // Space(8),
@@ -404,7 +404,7 @@ class QuranpageView extends StatelessWidget {
                               controller: quranCtrl.scrollController,
                               radius: Radius.circular(20),
                               child: Obx(() {
-                                return ListView.builder(
+                                return quranCtrl.isLoadings.value? loading(context):ListView.builder(
                                   physics: BouncingScrollPhysics(),
                                   key: PageStorageKey<String>("page"),
 
@@ -429,6 +429,7 @@ class QuranpageView extends StatelessWidget {
                                             onTap: () {
                                               print("mmmmmmmm ${index}");
                                               quranCtrl.quranDetailList(index + 1);
+                                              quranCtrl.qurandetsilIndex.value=(index+1);
                                               quranCtrl.result.value = 0.toString();
                                               quranCtrl.passint.value = (index + 1);
                                               print("dddd${quranCtrl.passint.value}");
@@ -710,6 +711,7 @@ class QuranpageView extends StatelessWidget {
                                                   print("mmmmmmmm ${index}");
 
                                                   quranCtrl.quranjuzdetailList(index + 1);
+                                                  quranCtrl.qurandetsilIndex.value=(index+1);
                                                   Navigator.of(context).push(
                                                       MaterialPageRoute(
                                                           builder: (_) =>

@@ -54,6 +54,27 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
  var hrs="".obs;
   var min="".obs;
   var sec="".obs;
+  var lll = "2023-08-21 16:00:00".obs;
+  late final DateTime startTime;
+  final RxInt remainingTime = 0.obs;
+
+
+  String getRemainingTime(DateTime targetDateTime) {
+    DateTime now = DateTime.now();
+    Duration remainingDuration = targetDateTime.difference(now);
+
+    if (remainingDuration.isNegative) {
+      return 'Timed Out';
+    }
+
+    String hrs = remainingDuration.inHours.toString();
+    String min = (remainingDuration.inMinutes % 60).toString();
+    String sec = (remainingDuration.inSeconds % 60).toString();
+
+    return "$hrs:$min:$sec";
+  }
+
+
 
   @override
   void onInit() {
@@ -95,7 +116,33 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
         // }
       },
     );
+   startTimer();
     super.onInit();
+  }
+
+  void startTimer() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      final now = DateTime.now();
+      final difference = startTime.difference(now);
+      remainingTime.value = difference.inSeconds > 0 ? difference.inSeconds : 0;
+    });
+  }
+
+  updateRemainingTime() {
+    DateTime now = DateTime.now();
+    var targetDateTime = DateTime.parse("${lll.value}").toLocal();
+    Duration remainingDuration = targetDateTime.difference(now);
+
+    if (remainingDuration.isNegative) {
+      nearestDuration.value = 'Target time already passed';
+    } else {
+      nearestDuration.value = now.millisecondsSinceEpoch.toString();
+      nearestDuration1.value = targetDateTime.millisecondsSinceEpoch.toString();
+    }
+
+    hrs.value = remainingDuration.inHours.toString();
+    min.value = (remainingDuration.inMinutes % 60).toString();
+    sec.value = (remainingDuration.inSeconds % 60).toString();
   }
 
   @override
@@ -206,17 +253,14 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
       var timer="${remainingDuration.inHours}hrs ${remainingDuration.inMinutes.remainder(60)}min";
       return timer;
   }
-  remainTime(){
+  remainTime() {
     DateTime now = DateTime.now();
-
-
 
     // Target date and time
     var targetDateTime = DateTime.parse("${rrr.value}").toLocal();
 
     // Calculate the remaining duration
     Duration remainingDuration = targetDateTime.difference(now);
-
 
     if (remainingDuration.isNegative) {
       // Target time is in the past
@@ -228,33 +272,16 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     }
 
     log("ggggg ${remainingDuration}");
-    // Extract the remaining hours and minutes
-     hrs.value = remainingDuration.inHours.toString();
-    min.value = remainingDuration.inMinutes.remainder(60).toString();
-    sec.value = remainingDuration.inSeconds.remainder(60).toString();
-    var sss= "${hrs.value} :${min.value}:${sec.value}";
 
-    // if(prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].startTime!.toLocal()==DateTime.now().toLocal()){
-    //   AwesomeNotificationsHelper.showNotification(
-    //     title: '${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].prayerName}',
-    //     body: 'Jummha Started',
-    //     id: notificationsCounter.value,
-    //     // actionButtons: [
-    //     //   NotificationActionButton(key: 'submit', label: 'Submit'),
-    //     //   NotificationActionButton(key: 'cancel', label: 'Cancel'),
-    //     // ]
-    //   );
-    // }
-    // print(sss);
-    // print("ggg");
-    // // Output the result
-    // print("Remaining time: $remainingHours hours and $remainingMinutes minutes");
+    // Extract the remaining hours, minutes, and seconds
+    hrs.value = remainingDuration.inHours.toString();
+    min.value = (remainingDuration.inMinutes % 60).toString();
+    sec.value = (remainingDuration.inSeconds % 60).toString();
 
-    // var ss= DateTime.now().millisecondsSinceEpoch.obs - DateTime.parse("${prayerpageData.value.getMasjidPrayerTimeFilter![0].startTime}").toLocal().microsecondsSinceEpoch;
-    // var kk= DateFormat('hh:mm a').format(DateTime.parse("${ss}"));
-    //  print(kk);
-    return sss ;
+    var sss = "${hrs.value}:${min.value}:${sec.value}";
+    return sss;
   }
+
 
   getUserDetails(passwordlogin) async {
 

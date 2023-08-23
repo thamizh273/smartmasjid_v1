@@ -77,7 +77,7 @@ class QuranpageController extends GetxController {
   RxInt currentIndex = 0.obs;
   RxBool isSelected = false.obs;
   int selectedAdjustedIndex = -1.obs;
-  PageController pageController = PageController();
+  PageController pageController = PageController(initialPage: 0);
   final TextEditingController searchController = TextEditingController();
   final TextEditingController searchjuzController = TextEditingController();
   final Rx<QuranModel> items = QuranModel().obs;
@@ -90,6 +90,8 @@ class QuranpageController extends GetxController {
   var currentVerseSelected = 1.obs;
   var currentSelectedPageIndex = 0.obs;
   var currentSelectedPages = <int>[].obs;
+  RxInt qurandetsilIndex=0.obs;
+  RxInt qurandetsilIndex1=0.obs;
 
   void shareMessage(index) {
     Share.share("${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
@@ -212,6 +214,7 @@ void changeFontFamily(String family) {
     }
    await quranChapterList();
     await quranjuzList();
+    pageController = PageController(initialPage: 0);
     // quranjuzdetailList();
     // quranjuzdetailList();
     // debounce(searchQuery, (_) => filterList(), time: Duration(milliseconds: 500));
@@ -231,7 +234,7 @@ void changeFontFamily(String family) {
         return item.suraNameEn!.toLowerCase().contains(query) || // Add more conditions if needed
             item.suraNameArb!.toLowerCase().contains(query);
       }).toList();
-      filteredItems.assignAll(filteredList);
+      filteredItems().assignAll(filteredList);
     }
   }
   void filterjuzItems() {
