@@ -24,7 +24,7 @@ class OtpPageController extends GetxController {
     var isverified = await AuthenticationRespository.instance.verifyOtp(otpctrl.value);
 
     isverified?Get.toNamed(Routes.MASJID_FINDER):Get.back();
-    isverified?authctrl.pinController.value.clear():Get.back();
+    isverified?authctrl.pinController.value.text="":Get.back();
   }
 
 

@@ -164,18 +164,18 @@ class OtpPageView extends GetView<OtpPageController> {
 
                         Obx(() {
                           return Pinput(
-                           // focusNode: controller.focusNode.value,
+                            focusNode: controller.focusNode.value,
                             length: 6,
-                            androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+                            androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
                             listenForMultipleSmsOnAndroid: false,
                             controller: authctrl.pinController.value,
-                            // validator: (s) {
-                            //   return authctrl.errorinotp.value == true ?'Pin is incorrect':null ;
-                            // },
+                            validator: (s) {
+                             // return authctrl.errorinotp.value == true ?'Pin is incorrect':null ;
+                            },
                             onCompleted: (pin) {
                               controller.otpctrl.value = pin;
-                              OtpPageController.instance.verifyOTP();
-                              debugPrint('onCompleted: $pin');
+                             // OtpPageController.instance.verifyOTP();
+                             // debugPrint('onCompleted: $pin');
                             },
                           );
                         }),

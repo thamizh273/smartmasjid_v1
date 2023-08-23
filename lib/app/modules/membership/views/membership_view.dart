@@ -232,8 +232,8 @@ class MembershipView extends GetView<MembershipController> {
                           Spacer(),
                           GestureDetector(
                               onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (_) => PastPayments()));
+                                Get.to(PastPayments());
+                                controller.getMembershipPayDetails();
                               },
                               child: Stxt(text: "View all",
                                 size: f3,

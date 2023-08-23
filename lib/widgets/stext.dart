@@ -36,7 +36,7 @@ class Stxt extends StatelessWidget {
           fontWeight: weight,
           color: color,
           fontSize: size,
-          fontFamily: family??'Rubik',
+          fontFamily: family??null,
         ),
         textAlign: textAlign,
         maxLines: maxLines ?? null,

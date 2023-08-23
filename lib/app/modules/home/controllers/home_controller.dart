@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 
 import 'package:smartmasjid_v1/app/authRepository.dart';
@@ -35,6 +37,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   RxBool isloading1 = false.obs;
   RxBool isloadingEvent = false.obs;
   RxBool isloadingiman = false.obs;
+  RxBool isdummy = false.obs;
   var getUserData=GetUserModel().obs;
   var prayerTimeData=PrayerTimeModel().obs;
   var eventsData= EventsModel().obs;
@@ -51,10 +54,10 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   var uid=FirebaseAuth.instance.currentUser;
    var hh=Get.arguments;
   final box1 = GetStorage();
- var hrs="".obs;
-  var min="".obs;
-  var sec="".obs;
 
+  List timeList=["0","0","0","0","0"].obs ;
+
+  Timer? timer;
   @override
   void onInit() {
 
@@ -76,6 +79,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
      getUpcomingEvents(box1.read('masjidId'));
 
    }
+
    // if(FirebaseAuth.instance.currentUser!=null){
    //
    //   getUserDetails("",FirebaseAuth.instance.currentUser!.uid);
@@ -95,18 +99,33 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
         // }
       },
     );
+
     super.onInit();
   }
 
   @override
   void onReady() {
+
     super.onReady();
   }
 
   @override
   void onClose() {
     tabController.dispose();
+
+      timer!.cancel();
+
     super.onClose();
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+
+    timer!.cancel();
+
+
+    super.dispose();
   }
 
 
@@ -206,16 +225,21 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
       var timer="${remainingDuration.inHours}hrs ${remainingDuration.inMinutes.remainder(60)}min";
       return timer;
   }
+
+
   remainTime(){
-    DateTime now = DateTime.now();
 
 
 
     // Target date and time
-    var targetDateTime = DateTime.parse("${rrr.value}").toLocal();
+    DateTime now = DateTime.now();
+
+    var targetDateTime=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].startTime}").toLocal();
+
 
     // Calculate the remaining duration
     Duration remainingDuration = targetDateTime.difference(now);
+
 
 
     if (remainingDuration.isNegative) {
@@ -224,37 +248,50 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     } else {
       nearestDuration.value = now.millisecondsSinceEpoch.toString();
       nearestDuration1.value = targetDateTime.millisecondsSinceEpoch.toString();
-      print("ggggg");
+     // print("ggggg");
     }
+    timer= Timer.periodic(Duration(seconds: 1), (timer) {
+      DateTime now = DateTime.now();
+      final outputFormat = DateFormat("HH:mm:ss");
+      var targetDateTime=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].startTime}").toLocal();
+      var targetDateTime1=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![1].startTime}").toLocal();
+      var targetDateTime2=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![2].startTime}").toLocal();
+      var targetDateTime3=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![3].startTime}").toLocal();
+      var targetDateTime4=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![4].startTime}").toLocal();
+      var remainingDuration = outputFormat.format(DateTime(0).add(targetDateTime.difference(now)));
+      var remainingDuration1 = outputFormat.format(DateTime(0).add(targetDateTime1.difference(now)));
+      var remainingDuration2 = outputFormat.format(DateTime(0).add(targetDateTime2.difference(now)));
+      var remainingDuration3 = outputFormat.format(DateTime(0).add(targetDateTime3.difference(now)));
+      var remainingDuration4 = outputFormat.format(DateTime(0).add(targetDateTime4.difference(now)));
 
-    log("ggggg ${remainingDuration}");
+      timeList[0]=remainingDuration;
+      timeList[1]=remainingDuration1;
+      timeList[2]=remainingDuration2;
+      timeList[3]=remainingDuration3;
+      timeList[4]=remainingDuration4;
+      log("w ${timeList[0]}");
+      log("r ${timeList[1]}");
+      log("s ${timeList[2]}");
+
+
+
+     //  var hrs1=remainingDuration.inHours;
+     //  var  min1=remainingDuration.inMinutes.remainder(60) ;
+     //  var  sec1=remainingDuration.inSeconds.remainder(60);
+     // // log("ggggg ${timeList}");
+     //  print("hrs ${hrs1}");
+     //  print("min ${min1}");
+     //  print("sec ${sec1}");
+    });
+
+
     // Extract the remaining hours and minutes
-     hrs.value = remainingDuration.inHours.toString();
-    min.value = remainingDuration.inMinutes.remainder(60).toString();
-    sec.value = remainingDuration.inSeconds.remainder(60).toString();
-    var sss= "${hrs.value} :${min.value}:${sec.value}";
 
-    // if(prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].startTime!.toLocal()==DateTime.now().toLocal()){
-    //   AwesomeNotificationsHelper.showNotification(
-    //     title: '${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].prayerName}',
-    //     body: 'Jummha Started',
-    //     id: notificationsCounter.value,
-    //     // actionButtons: [
-    //     //   NotificationActionButton(key: 'submit', label: 'Submit'),
-    //     //   NotificationActionButton(key: 'cancel', label: 'Cancel'),
-    //     // ]
-    //   );
-    // }
-    // print(sss);
-    // print("ggg");
-    // // Output the result
-    // print("Remaining time: $remainingHours hours and $remainingMinutes minutes");
 
-    // var ss= DateTime.now().millisecondsSinceEpoch.obs - DateTime.parse("${prayerpageData.value.getMasjidPrayerTimeFilter![0].startTime}").toLocal().microsecondsSinceEpoch;
-    // var kk= DateFormat('hh:mm a').format(DateTime.parse("${ss}"));
-    //  print(kk);
-    return sss ;
+    return  ;
   }
+
+
 
   getUserDetails(passwordlogin) async {
 
@@ -317,9 +354,9 @@ query Query(\$id: String, \$authId: String) {
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;
-    print("getUser");
-    log(json.encode(res));
-    print("getUser");
+    // print("getUser");
+    // log(json.encode(res));
+    // print("getUser");
 
    getUserData.value=getUserModelFromJson(json.encode(res));
     getImanTrakerStatus(passwordlogin);
@@ -353,7 +390,7 @@ query Query(\$masjidId: String) {
     isloading1.value=false;
 
     prayerTimeData.value=prayerTimeModelFromJson(json.encode(res));
-
+    remainTime();
    // print("getUser");
    // log(json.encode(res));
    // print("getUser");

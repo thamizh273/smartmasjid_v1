@@ -1,11 +1,14 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/home/Model/prayerTimesModel.dart';
 import 'package:smartmasjid_v1/app/modules/prayerdetailspage/views/prayerdetailspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
 
+import '../../../../utils/ansomeNotification.dart';
 import '../../../routes/export.dart';
 import '../controllers/home_controller.dart';
 
@@ -23,8 +26,9 @@ class PrayerTimes extends StatelessWidget {
         ? Container()
         : GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (_) => PrayerdetailspageView()));
+
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => PrayerdetailspageView()));
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,13 +136,14 @@ class PrayerTimes extends StatelessWidget {
           // ),
           ///
           Obx(() {
-
             return controller.isloading1.value
                 ? CupertinoActivityIndicator()
                 : CarouselSlider(
-
-              items: controller.prayerTimeData.value.getTodayMasjidPrayerTime!
-                  .todayPrayerList!.asMap().entries.map((e) {
+              items: controller.prayerTimeData.value
+                  .getTodayMasjidPrayerTime!.todayPrayerList!
+                  .asMap()
+                  .entries
+                  .map((e) {
                 int index = e.key;
                 TodayPrayerList prayerTimeName = e.value;
                 //  print(int.parse(e));
@@ -147,11 +152,15 @@ class PrayerTimes extends StatelessWidget {
                     .value
                     .getTodayMasjidPrayerTime!
                     .todayPrayerList![index]
-                    .startTime.toString();
-                controller.update();
-                // Timer.periodic(Duration(seconds: 1), (timer) {
-                //   controller.remainTime(); // Increment the count
-                // });
+                    .startTime
+                    .toString();
+
+                // controller.update();
+                // controller.remainTime(index);
+                //  Timer.periodic(Duration(seconds: 1), (timer) {
+                //    controller.remainTime(); // Increment the count
+                //  });
+
                 return Padding(
                     padding: EdgeInsets.only(
                       top: 5,
@@ -167,7 +176,8 @@ class PrayerTimes extends StatelessWidget {
                               ),
                               fit: BoxFit.fill)),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        crossAxisAlignment:
+                        CrossAxisAlignment.stretch,
                         children: [
                           Expanded(
                             child: ListView(
@@ -176,7 +186,8 @@ class PrayerTimes extends StatelessWidget {
                               children: [
                                 Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment
+                                      .spaceBetween,
                                   children: [
                                     Stxt(
                                       text:
@@ -191,12 +202,14 @@ class PrayerTimes extends StatelessWidget {
                                       child: Transform.scale(
                                         scale: .8,
                                         child: Switch(
-                                          inactiveThumbImage: Image
+                                          inactiveThumbImage:
+                                          Image
                                               .asset(
                                             "assets/images/alarm_clock.png",
                                           )
                                               .image,
-                                          activeThumbImage: const AssetImage(
+                                          activeThumbImage:
+                                          const AssetImage(
                                               "assets/images/alarm_clock.png"),
                                           inactiveThumbColor:
                                           Colors.red[400],
@@ -207,7 +220,8 @@ class PrayerTimes extends StatelessWidget {
                                               .prayerTimeData
                                               .value
                                               .getTodayMasjidPrayerTime!
-                                              .todayPrayerList![index]
+                                              .todayPrayerList![
+                                          index]
                                               .notification!,
                                           onChanged: (value) {
                                             controller.alarm.value =
@@ -221,8 +235,8 @@ class PrayerTimes extends StatelessWidget {
                                   ],
                                 ),
                                 Padding(
-                                  padding:
-                                  EdgeInsets.symmetric(vertical: 2),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 2),
                                   child: Stxt(
                                     text:
                                     '${controller.prayerTimeData.value
@@ -246,19 +260,39 @@ class PrayerTimes extends StatelessWidget {
                                   weight: FontWeight.bold,
                                 ),
                                 Padding(
-                                  padding:
-                                  const EdgeInsets.only(right: 5),
-                                  child: Obx(() {
-                                    return Stxt(
-                                      text:"Start in  ${controller.hrs.value}:${controller.min.value}: ${controller.sec.value}",
-                                      // "-${DateFormat.Hms().format(
-                                      //     DateTime.now())}",
-                                      size: f2,
-                                      color: Colors.white,
-                                      weight: FontWeight.bold,
-                                      textAlign: TextAlign.end,
-                                    );
-                                  }),
+                                    padding: const EdgeInsets.only(
+                                        right: 5),
+                                    child: Obx(() {
+                                      var fajr=controller.timeList[0]=="00:00:00";
+                                      var jma=controller.timeList[1]=="00:00:00";
+                                      var asr=controller.timeList[2]=="03:40:00";
+                                      var mag=controller.timeList[3]=="00:00:00";
+                                      var isha=controller.timeList[4]=="00:00:00";
+                                      var praytime=controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList!;
+                                      final formatter = DateFormat('hh:mm:a');
+                                      if(fajr){
+                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[0].prayerName}", body: "Started at ${formatter.format(praytime[0].endTime!.toLocal())}", id: 1);
+                                      }else if(jma){
+                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[1].prayerName}", body: "Started at ${formatter.format(praytime[1].endTime!.toLocal())}", id: 2);
+                                      }else if(asr){
+                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[2].prayerName}", body: "Started at ${formatter.format(praytime[2].endTime!.toLocal())}", id: 3);
+                                      }else if(mag){
+                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[3].prayerName}", body: "Started at ${formatter.format(praytime[3].endTime!.toLocal())}", id: 4);
+                                      }else if(isha){
+                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[4].prayerName}", body: "Started at ${formatter.format(praytime[4].endTime!.toLocal())}", id: 5);
+                                      }
+                                      return Stxt(
+                                        text:
+                                        "Start in  ${controller
+                                            .timeList[index]}",
+                                        // "-${DateFormat.Hms().format(
+                                        //     DateTime.now())}",
+                                        size: f2,
+                                        color: Colors.white,
+                                        weight: FontWeight.bold,
+                                        textAlign: TextAlign.end,
+                                      );
+                                    })
                                 ),
                               ],
                             ),
@@ -275,15 +309,15 @@ class PrayerTimes extends StatelessWidget {
                 );
               }).toList(),
               options: CarouselOptions(
-
                 enlargeStrategy: CenterPageEnlargeStrategy.height,
                 enlargeCenterPage: true,
                 enlargeFactor: .1,
                 padEnds: true,
                 enableInfiniteScroll: false,
                 initialPage: controller.prayerTimeData.value
-                    .getTodayMasjidPrayerTime!.todayPrayerList!.indexWhere((
-                    prayer) => prayer.prayerStatus == "future"),
+                    .getTodayMasjidPrayerTime!.todayPrayerList!
+                    .indexWhere((prayer) =>
+                prayer.prayerStatus == "future"),
                 height: 130,
                 viewportFraction: .87,
                 onPageChanged: (index, reason) {

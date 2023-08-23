@@ -46,12 +46,7 @@ class AuthenticationRespository extends GetxController {
     super.onReady();
   }
 
-  void resendCode() {
-    //other code here
 
-    secondsRemaining.value = 120;
-    enableResend.value = false;
-  }
 
   @override
   dispose() {
@@ -67,6 +62,7 @@ class AuthenticationRespository extends GetxController {
 
   void phoneAuthentication(phoneno) async {
     timer = Timer.periodic(Duration(seconds: 1), (_) {
+      enableResend.value = false;
       if (secondsRemaining.value != 0) {
         secondsRemaining.value--;
       } else {
@@ -171,11 +167,14 @@ query Login_With_Gmail(\$authId: String) {
     var res = await _restCallController.gql_query(header, body);
     log("wwww${res}");
 
-    if (res == "Masjid Registration Pending") {
+    if (res == "Please Complete The Registration Process For Masjid Membership") {
       Get.toNamed(Routes.MASJID_FINDER);
-    }
-    if (res == "Masjid Approval Pending") {
+      toast(error: "ERROR", msg: res);
       return;
+    }
+    if (res == "Request Not Approved") {
+      toast(error: "ERROR", msg: res);
+      return ;
     }
     // if(res.toString().contains("ERROR")){
     //  if(res['ERROR']=="Masjid Registration Pending"){

@@ -54,27 +54,12 @@ class AwesomeNotificationsHelper {
             playSound: true,
             importance: NotificationImportance.Max,
           ),
-          NotificationChannel(
-              channelGroupKey: NotificationChannels.chatChannelGroupKey,
-              channelKey: NotificationChannels.chatChannelKey,
-              channelName: NotificationChannels.chatChannelName,
-              groupKey: NotificationChannels.chatGroupKey,
-              channelDescription: NotificationChannels.chatChannelDescription,
-              defaultColor: Colors.green,
-              ledColor: Colors.white,
-              channelShowBadge: true,
-              playSound: true,
-              importance: NotificationImportance.Max)
         ],
 
         channelGroups: [
           NotificationChannelGroup(
             channelGroupKey: NotificationChannels.generalChannelGroupKey,
             channelGroupName: NotificationChannels.generalChannelGroupName,
-          ),
-          NotificationChannelGroup(
-            channelGroupKey: NotificationChannels.chatChannelGroupKey,
-            channelGroupName: NotificationChannels.chatChannelGroupName,
           )
         ]);
   }

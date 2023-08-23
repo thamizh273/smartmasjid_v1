@@ -88,7 +88,7 @@ class restCallController extends GetxController {
     if (result.hasException) {
       print("loggedpa ${result.exception}");
 
-      if (result.exception!.graphqlErrors == null) {
+      if (result.exception!.graphqlErrors.isEmpty) {
         toast(error: "ERROR", msg: "Network Error");
 
         return;
@@ -97,7 +97,7 @@ class restCallController extends GetxController {
         final errorMessage = graphQLError.message;
         // Handle the error message here
         print(errorMessage);
-        toast(error: "ERROR", msg: errorMessage);
+      //  toast(error: "ERROR", msg: errorMessage);
         return  errorMessage;
       }
       // else if( result.exception!.graphqlErrors[0].message.contains("Data Empty!")){ }
