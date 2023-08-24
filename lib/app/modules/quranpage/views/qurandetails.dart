@@ -35,18 +35,18 @@ class QuranDetails extends StatefulWidget {
 
 final QuranpageController c = Get.put(QuranpageController());
 final AudioplayerController controller = Get.put(AudioplayerController());
-final List<QuranpageController> controllers = List.generate(
-    c.getqurandetail.value.getQuranAyahVerse![0].ayahList!.length, (index) =>
-    Get.put(QuranpageController()));
+// final List<QuranpageController> controllers = List.generate(
+//     c.getqurandetail.value.getQuranAyahVerse![0].ayahList!.length, (index) =>
+//     Get.put(QuranpageController()));
 
 
 class _QuranDetailsState extends State<QuranDetails> {
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      c.result.value == "0" ? c.scrollToIndex(0) : c.scrollToIndex(
-          int.parse(c.result.value) - 1);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   c.result.value == "0" ? c.scrollToIndex(0) : c.scrollToIndex(
+    //       int.parse(c.result.value) - 1);
+    // });
     return Obx(() {
       return c.isLoadings.value ? loading(context) : Scaffold(
         key: c.scaffoldKey,

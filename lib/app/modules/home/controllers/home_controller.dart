@@ -391,9 +391,9 @@ query Query(\$masjidId: String) {
 
     prayerTimeData.value=prayerTimeModelFromJson(json.encode(res));
     remainTime();
-   // print("getUser");
-   // log(json.encode(res));
-   // print("getUser");
+   log("times");
+   log(json.encode(res));
+    log("times");
   }
   var scaffoldKey = GlobalKey<ScaffoldState>();
 

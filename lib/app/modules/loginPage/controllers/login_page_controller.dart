@@ -70,7 +70,6 @@ query Login_User(\$password: String, \$byEmail: String) {
       "byEmail": "${emailLCtrl.value.text}",
       "password": "${passwordLCtrl.value.text}"
     };
-
     // {
     //   "password": "${passwordLCtrl.value.text}",
     //   "byEmail": "${emailLCtrl.value.text}",
@@ -78,13 +77,16 @@ query Login_User(\$password: String, \$byEmail: String) {
     // };
     var res = await _restCallController.gql_query(header, body);
       isLoading.value=false;
+
     getUserId.value=getUserIdModelFromJson(json.encode(res));
 
    print("ttttt");
         log(json.encode(res));
     print("ttttt");
    //         update();
-
+      if(res.toString().contains("ERROR")){
+        toast(error: "Error", msg: "${res["ERROR"]}");
+      }
       if(res.toString().contains("Login_User"))  {
         var hh =res["Login_User"]["message"];
          toast(error: "SUCCESS", msg: "${hh}");
@@ -131,7 +133,9 @@ query Login_User(\$password: String, \$byPhone: String) {
         log(json.encode(res));
     print("ttttt");
            update();
-
+    if(res.toString().contains("ERROR")){
+      toast(error: "Error", msg: "${res["ERROR"]}");
+    }
       if(res.toString().contains("Login_User"))  {
         var hh =res["Login_User"]["message"];
          toast(error: "SUCCESS", msg: "${hh}");

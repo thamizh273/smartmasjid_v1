@@ -92,7 +92,10 @@ class QuranpageController extends GetxController {
   final RxBool isDownloading = false.obs;
   final RxBool isFetching = false.obs;
   final RxDouble downloadProgress = 0.0.obs;
-
+  static const double itemHeight_ = 50;
+  static int initialItemCount_ = 114; // Initial number of items
+  RxInt itemCount_ = initialItemCount_.obs;
+  final scrollController_ = FixedExtentScrollController(initialItem: 114).obs;
   void onPressed() {
     // Your onPressed logic here
   }
@@ -227,6 +230,7 @@ void changeFontFamily(String family) {
     searchController.addListener(filteredItems);
     searchjuzController.addListener(filteredjuzItems);
     super.onInit();
+    scrollController_.value.addListener(_scrollListener);
   }
 
   void filterItems() {
@@ -277,13 +281,22 @@ void changeFontFamily(String family) {
 
   @override
   void dispose() {
-
+    scrollController_.value.removeListener(_scrollListener);
+    scrollController_.value.dispose();
    scrollController.dispose();
    scrollControllerq.dispose();
    scrollControllern.dispose();
     super.dispose();
   }
 
+  void _scrollListener() {
+    if (scrollController_.value.position.extentAfter < itemHeight_ * 2) {
+      // Load more items when reaching near the end
+
+        itemCount_.value += initialItemCount_; // You can adjust the number of items to add
+
+    }
+  }
 
 
 

@@ -169,11 +169,15 @@ query Login_With_Gmail(\$authId: String) {
 
     if (res == "Please Complete The Registration Process For Masjid Membership") {
       Get.toNamed(Routes.MASJID_FINDER);
-      toast(error: "ERROR", msg: res);
+      if(res.toString().contains("ERROR")){
+        toast(error: "Error", msg: "${res["ERROR"]}");
+      }
       return;
     }
     if (res == "Request Not Approved") {
-      toast(error: "ERROR", msg: res);
+      if(res.toString().contains("ERROR")){
+        toast(error: "Error", msg: "${res["ERROR"]}");
+      }
       return ;
     }
     // if(res.toString().contains("ERROR")){

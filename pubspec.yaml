@@ -74,6 +74,7 @@ dependencies:
   shimmer: ^3.0.0
   loadmore: ^2.1.0
   awesome_notifications: ^0.7.4+1
+  clickable_list_wheel_view: ^0.2.0
 
 
 

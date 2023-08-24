@@ -6,7 +6,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/home/Model/prayerTimesModel.dart';
 import 'package:smartmasjid_v1/app/modules/prayerdetailspage/views/prayerdetailspage_view.dart';
-import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
 
 import '../../../../utils/ansomeNotification.dart';
 import '../../../routes/export.dart';
