@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/membership/controllers/membership_controller.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/payment_method.dart';
+import 'package:smartmasjid_v1/app/modules/membership/views/select_month.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../../widgets/space.dart';
@@ -27,18 +28,26 @@ class QuickPay extends StatelessWidget {
                 width: double.infinity,
                decoration: BoxDecoration(
                  borderRadius: BorderRadius.circular(16),
-                 color: Colors.white
+                 color: Colors.white,
+                 boxShadow: [
+                   BoxShadow(
+                     blurRadius: 4,
+                     spreadRadius: 2,
+                     offset: Offset(0,4),
+                     color: Colors.grey.shade400
+                   )
+                 ]
                ),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     children: [
                       Space(8),
-                      Stxt(text: "Pay MemberShip", size: f5, color: Theme.of(context).primaryColor,),
+                      Stxt(text: "Pay MemberShip", size: f5, color: Theme.of(context).primaryColor, weight: FontWeight.w600,),
                       Space(16),
                       Row(
                         children: [
-                          Stxt(text: "I would like to pay for", size: f2),
+                          Stxt(text: "I would like to pay for", size: f2, weight: FontWeight.w500,),
                         ],
                       ),
                   Space(16),
@@ -81,6 +90,11 @@ class QuickPay extends StatelessWidget {
                           Text("Membership Id", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),)
                         ],
                       ),
+                      Container(
+                        height: 30,
+                        child: TextField(
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -88,7 +102,9 @@ class QuickPay extends StatelessWidget {
               Space(16),
               ElevatedButton(
                   onPressed: ()   {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => PaymentMethod()));
+                    // Navigator.of(context).push(MaterialPageRoute(builder: (_) => PaymentMethod()));
+                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => SelectMonth()));
+
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(150, 40),

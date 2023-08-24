@@ -43,10 +43,10 @@ final List<QuranpageController> controllers = List.generate(
 class _QuranDetailsState extends State<QuranDetails> {
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      c.result.value == "0" ? c.scrollToIndex(0) : c.scrollToIndex(
-          int.parse(c.result.value) - 1);
-    });
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   c.result.value == "0" ? c.scrollToIndex(0) : c.scrollToIndex(
+    //       int.parse(c.result.value) - 1);
+    // });
     return Obx(() {
       return c.isLoadings.value ? loading(context) : Scaffold(
         key: c.scaffoldKey,

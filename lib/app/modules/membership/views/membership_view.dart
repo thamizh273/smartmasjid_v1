@@ -172,32 +172,39 @@ class MembershipView extends GetView<MembershipController> {
                                 }),
                               ],
                             ),
-                            Container(
-                              height: 36,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColor
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IgnorePointer(
-                                    ignoring: statusPaid ? true : false,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (_) => QuickPay()));
-                                        },
-                                        child: Stxt(
-                                          text:statusPaid? "Paid" : "Pay Now",
-                                          size: f3,
-                                          weight: FontWeight.w600,
-                                          color: Colors.white,)),
-                                  )
-                                ],
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                        builder: (_) => QuickPay()));
+                              },
+                              child: Container(
+                                height: 36,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Theme
+                                        .of(context)
+                                        .primaryColor
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IgnorePointer(
+                                      ignoring: statusPaid ? true : false,
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (_) => QuickPay()));
+                                          },
+                                          child: Stxt(
+                                            text:statusPaid? "Paid" : "Pay Now",
+                                            size: f3,
+                                            weight: FontWeight.w600,
+                                            color: Colors.white,)),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ],
