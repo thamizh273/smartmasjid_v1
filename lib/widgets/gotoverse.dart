@@ -309,7 +309,6 @@ Future GotoVerse(BuildContext context) {
                   children: [
                        ElevatedButton(
                           onPressed: () {
-
                            c.quranDetailList(c.currentSelected.value+1);
                           },
                           style: ElevatedButton.styleFrom(

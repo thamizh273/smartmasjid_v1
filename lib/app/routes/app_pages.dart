@@ -310,6 +310,9 @@ class AppPages {
       name: _Paths.FAMILYTREE,
       page: () => const FamilytreeView(),
       binding: FamilytreeBinding(),
+      transition: Transition.downToUp,
+      transitionDuration: Duration(seconds: 5)
+
     ),
   ];
 }

@@ -246,9 +246,8 @@ class ProfilePageView extends GetView<EditProfileController> {
               children: [
                 ListTile(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => i['page']
-                    ));
+                  Get.to( i['page']);
+
 
                     print("click ${i['page']}");
                   },

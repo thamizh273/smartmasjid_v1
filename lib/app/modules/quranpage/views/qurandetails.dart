@@ -986,7 +986,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                           mainAxisAlignment: MainAxisAlignment
                                               .start,
                                           children: [
-                                            55.horizontalSpace,
+                                            50.horizontalSpace,
                                             Space(20.w),
                                             Align(
                                                 alignment:
@@ -1039,7 +1039,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                   );
                                                   return SizedBox(
                                                     width: c.screenWidth *
-                                                        0.65,
+                                                        0.68,
                                                     child: c.isCheckedArabic
                                                         .value == true
                                                         ? Text(

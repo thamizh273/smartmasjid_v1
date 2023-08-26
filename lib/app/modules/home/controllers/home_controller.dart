@@ -54,6 +54,11 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   var uid=FirebaseAuth.instance.currentUser;
    var hh=Get.arguments;
   final box1 = GetStorage();
+  final RxBool isExpanded = false.obs;
+
+  void toggleFunction() {
+    isExpanded.value = !isExpanded.value; // Toggle the state
+  }
 
   List timeList=["0","0","0","0","0"].obs ;
 
