@@ -64,8 +64,8 @@ class SelectMonth extends StatelessWidget {
                             children: [
                               Row(
                                 children: [
-                                  Stxt(text: "January",
-                                    size: f3,
+                                  Stxt(text: "December",
+                                    size: f2,
                                     weight: FontWeight.w500,),
                                   Space(8),
                                   Container(
