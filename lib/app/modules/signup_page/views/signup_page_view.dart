@@ -160,6 +160,10 @@ class SignupPageView extends GetView<SignupPageController> {
                               toast(error: "Error", msg: "Enter First name",);
                               return;
                             }
+                            if(controller.lastNameCtrl.value.text.isEmpty){
+                              toast(error: "Error", msg: "Enter Lastname name",);
+                              return;
+                            }
 
                             if(controller.emailCtrl.value.text.isEmpty){
                               toast(error: "Error", msg: "Enter the Email Id",);

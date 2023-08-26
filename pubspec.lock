@@ -209,14 +209,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.0"
-  clickable_list_wheel_view:
-    dependency: "direct main"
-    description:
-      name: clickable_list_wheel_view
-      sha256: "8e664833629d2b84fc5e412d44a4845eaed1a70f0e66e0fb1149f62b749f463f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
   clock:
     dependency: transitive
     description:
@@ -1994,6 +1986,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.2"
+  sticky_grouped_list:
+    dependency: "direct main"
+    description:
+      name: sticky_grouped_list
+      sha256: "40398cb90321f07cbdbdd3049c27a5f048bd75a13abb19453b07a956f53a0eda"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   stream_channel:
     dependency: transitive
     description:

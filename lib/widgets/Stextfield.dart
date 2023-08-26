@@ -101,14 +101,15 @@ class Safa_textfield extends StatefulWidget {
       this.keyboardType,
       this.label,
       this.fillColor,
-      this.length, this.readOnly, this.height, this.contentPad, this.contentHPad,
-       // this.onChanged
+      this.length, this.readOnly, this.height, this.contentPad, this.contentHPad, this.focusNode,
+      this.onChanged, this.validator, this.errorText
       });
 
   final TextEditingController? controller;
 
   final String? hint;
   final String? label;
+  final String? errorText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final double? width;
@@ -120,7 +121,10 @@ class Safa_textfield extends StatefulWidget {
   final int? length;
   final Color? fillColor;
   final TextInputType? keyboardType;
-  //final Function(String?)? onChanged;
+  final FocusNode? focusNode;
+
+  final Function(String?)? onChanged;
+  final String? Function(String?)? validator;
 
 
   @override
@@ -152,7 +156,7 @@ class _Safa_textfieldState extends State<Safa_textfield> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6.h),
       width: MediaQuery.of(context).size.width * (widget.width ?? 1),
-      height: widget.height,
+      height: widget.errorText==null?widget.height:(widget.height!+25),
       // decoration:  BoxDecoration(
       //     gradient: LinearGradient(colors: [
       //       hexStringToColor("818F93"),
@@ -160,9 +164,11 @@ class _Safa_textfieldState extends State<Safa_textfield> {
       //     ]),
       //     borderRadius: BorderRadius.circular(8)),
       child: TextField(
-      //  onChanged: (value) => widget.onChanged!(value),
+
+    // validator: widget.validator,
+       onChanged: (value) => widget.onChanged!(value),
           readOnly:widget.readOnly??false ,
-        focusNode: myFocusNode,
+        focusNode: widget.focusNode??myFocusNode,
         keyboardType: widget.keyboardType ?? TextInputType.text,
         obscureText: widget.obscureText ?? false,
         maxLength: widget.length ?? null,
@@ -172,12 +178,14 @@ class _Safa_textfieldState extends State<Safa_textfield> {
         controller: widget.controller,
 // textCapitalization: TextCapitalization.sentences,
         decoration: InputDecoration(
+          errorText: widget.errorText,
           hintStyle: TextStyle(),
           counterText: "",
           // labelText: widget.label,
           label:widget.label!=null? Container(
             padding: EdgeInsets.symmetric(vertical: 2,horizontal: 4),
             decoration: BoxDecoration(
+
                 borderRadius: BorderRadius.circular(8),
                 color: myFocusNode.hasFocus ? Get.theme.primaryColor: null),
             child: Stxt(

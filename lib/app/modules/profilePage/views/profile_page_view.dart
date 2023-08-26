@@ -282,8 +282,87 @@ class ProfilePageView extends GetView<EditProfileController> {
           Spacer(),
           GestureDetector(
             onTap: ()  {
-              controller.logout();
-              controller.update();
+
+
+              Get.dialog(
+                 // barrierColor:Get.theme.primaryColor.withOpacity(.8),
+
+
+                  Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.h),
+                      child: AlertDialog(
+                        elevation: 10,
+                        backgroundColor: Get.theme.colorScheme
+                            .primary,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                10)),
+                        // title: Center(
+                        //     child: Stxt(
+                        //   text: "Are you Sure?",
+                        //   size: f3,
+                        //   weight: FontWeight.bold,
+                        //   color: Colors.white,
+                        //   textAlign: TextAlign.center,
+                        // )),
+
+                        // contentPadding: EdgeInsets.symmetric(vertical: 20.h,),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment
+                              .center,
+                          children: [
+                            Stxt(
+                              text:
+                              "Logout",
+                              size: f3,
+                              // weight: FontWeight.bold,
+                              color: Colors.white,
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 8,),
+                            Stxt(text: "Confirm to Logout ?",
+                              size: f3,
+                              weight: FontWeight.bold,
+                              color: Colors.white,)
+                          ],
+                        ),
+                        actionsPadding: EdgeInsets.only(bottom: 20),
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .spaceEvenly,
+                            children: [
+                              SButton(
+                                  width: 90.w,
+                                  height: 25.h,
+                                  color: Get.theme.colorScheme
+                                      .secondary,
+                                  ontap: () {
+                                    Get.back();
+                                  },
+                                  text: "Cancel",
+                                  txtsize: f1,
+                                  txtClr:
+                                  Get.theme.colorScheme.primary),
+                              SButton(
+                                  height: 25.h,
+                                  width: 90.w,
+                                  ontap: () async {
+                                    controller.logout();
+                                    controller.update();
+                                  },
+                                  text: "Confirm",
+                                  txtsize: f1,
+                                  txtClr:
+                                  Get.theme.colorScheme.primary),
+                            ],
+                          )
+                        ],
+                        //iconPadding: EdgeInsets.all(20),
+                      )));
+
+
 
               // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => LoginPage()),(_)=>false);
             },
@@ -296,7 +375,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                 ),
                 Obx(() {
                   return  Stxt(
-                    text:controller.isLoadingLogout.value? 'Logout':"LogOut",
+                    text:controller.isLoadingLogout.value? 'Logout':'Logout',
                     size: f3,
                     weight: FontWeight.bold,
                     color: Get.theme.primaryColor,

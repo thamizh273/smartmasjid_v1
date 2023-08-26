@@ -1,82 +1,80 @@
-
-
-import 'package:clickable_list_wheel_view/clickable_list_wheel_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
-void main() => runApp(MyApp());
+/// This example shows the basic usage of the [StickyGroupedListView].
+void main() => runApp(const MyApp());
+
+List<Element> _elements = <Element>[
+  Element(DateTime(2020, 6, 24, 18), 'Got to gym', Icons.fitness_center),
+  Element(DateTime(2020, 6, 24, 9), 'Work', Icons.work),
+  Element(DateTime(2020, 6, 25, 8), 'Buy groceries', Icons.shopping_basket),
+  Element(DateTime(2020, 6, 25, 16), 'Cinema', Icons.movie),
+  Element(DateTime(2020, 6, 25, 20), 'Eat', Icons.fastfood),
+  Element(DateTime(2020, 6, 26, 12), 'Car wash', Icons.local_car_wash),
+  Element(DateTime(2020, 6, 27, 12), 'Car wash', Icons.local_car_wash),
+  Element(DateTime(2020, 6, 27, 13), 'Car wash', Icons.local_car_wash),
+  Element(DateTime(2020, 6, 27, 14), 'Car wash', Icons.local_car_wash),
+  Element(DateTime(2020, 6, 27, 15), 'Car wash', Icons.local_car_wash),
+  Element(DateTime(2020, 6, 28, 12), 'Car wash', Icons.local_car_wash),
+  Element(DateTime(2020, 6, 29, 12), 'Car wash', Icons.local_car_wash),
+  Element(DateTime(2020, 6, 29, 12), 'Car wash', Icons.local_car_wash),
+  Element(DateTime(2020, 6, 30, 12), 'Car wash', Icons.local_car_wash),
+];
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Material(
-        child: MyHomePage(),
+      home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Grouped List View Example'),
+        ),
+        body: StickyGroupedListView<Element, DateTime>(
+          elements: _elements,
+          order: StickyGroupedListOrder.ASC,
+          groupBy: (Element element) => DateTime(
+            element.date.year,
+            element.date.month,
+            element.date.day,
+          ),
+          groupComparator: (DateTime value1, DateTime value2) =>
+              value2.compareTo(value1),
+          itemComparator: (Element element1, Element element2) =>
+              element1.date.compareTo(element2.date),
+          floatingHeader: true,
+          groupSeparatorBuilder: _getGroupSeparator,
+          itemBuilder: _getItem,
+        ),
       ),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  static const double _itemHeight = 60;
-  static const int _initialItemCount = 114; // Initial number of items
-  int _itemCount = _initialItemCount;
-
-  final _scrollController = FixedExtentScrollController();
-  @override
-  void initState() {
-    super.initState();
-    _scrollController.addListener(_scrollListener);
-  }
-
-  @override
-  void dispose() {
-    _scrollController.removeListener(_scrollListener);
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  void _scrollListener() {
-    if (_scrollController.position.extentAfter < _itemHeight * 2) {
-      // Load more items when reaching near the end
-      setState(() {
-        _itemCount += _initialItemCount; // You can adjust the number of items to add
-      });
-    }
-  }
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: ClickableListWheelScrollView(
-          scrollController: _scrollController,
-          itemHeight: _itemHeight,
-          itemCount: _itemCount,
-          onItemTapCallback: (index) {
-            print("onItemTapCallback index: $index");
-          },
-          child: ListWheelScrollView.useDelegate(
-            controller: _scrollController,
-            itemExtent: _itemHeight,
-            physics: FixedExtentScrollPhysics(),
-            overAndUnderCenterOpacity: 0.5,
-            perspective: 0.002,
-            onSelectedItemChanged: (index) {
-              print("${index%_initialItemCount}");
-              // print("onSelectedItemChanged index: $index");
-            },
-            childDelegate: ListWheelChildBuilderDelegate(
-              builder: (context, index) => _child(index),
-              childCount: _itemCount,
+  Widget _getGroupSeparator(Element element) {
+    return SizedBox(
+      height: 50,
+      child: Align(
+        alignment: Alignment.center,
+        child: Container(
+          width: 120,
+          decoration: BoxDecoration(
+            color: Colors.blue[300],
+            border: Border.all(
+              color: Colors.blue[300]!,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(20.0)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              '${element.date.day}. ${element.date.month}, ${element.date.year}',
+              textAlign: TextAlign.center,
             ),
           ),
         ),
@@ -84,18 +82,33 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget _child(int index) {
-    return SizedBox(
-      height: _itemHeight,
-      child: ListTile(
-        leading: Icon(IconData(int.parse("0xe${index + 200}"), fontFamily: 'MaterialIcons'), size: 50),
-        title: Text('Heart Shaker'),
-        subtitle: Text('Description here'),
+  Widget _getItem(BuildContext ctx, Element element) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(6.0),
+      ),
+      elevation: 8.0,
+      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      child: SizedBox(
+        child: ListTile(
+          contentPadding:
+          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          leading: Icon(element.icon),
+          title: Text(element.name),
+          trailing: Text('${element.date.hour}:00'),
+        ),
       ),
     );
   }
 }
 
+class Element {
+  DateTime date;
+  String name;
+  IconData icon;
+
+  Element(this.date, this.name, this.icon);
+}
 ///
 /*
  * Copyright Copenhagen Center for Health Technology (CACHET) at the

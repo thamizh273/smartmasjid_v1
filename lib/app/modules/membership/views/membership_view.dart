@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,18 +8,20 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/past_payments.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/quick_pay.dart';
+import 'package:smartmasjid_v1/app/modules/membership/views/select_month.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../global.dart';
 import '../../../../utils/color_utils.dart';
 import '../../../../widgets/space.dart';
 import '../../../../widgets/stext.dart';
+import '../../home/controllers/home_controller.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/membership_controller.dart';
 
 class MembershipView extends GetView<MembershipController> {
   MembershipView({Key? key}) : super(key: key);
-
+  HomeController homeCtrl = Get.find<HomeController>();
   List<Member> memberList = [
     Member(amount: "500", month: "Jan", image: "assets/images/download.png")
   ];
@@ -193,9 +197,8 @@ class MembershipView extends GetView<MembershipController> {
                                       ignoring: statusPaid ? true : false,
                                       child: GestureDetector(
                                           onTap: () {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (_) => QuickPay()));
+
+                                            controller.membershipPayment("onemonth",false,homeCtrl.getUserData.value.getUserById!.phoneNumber);
                                           },
                                           child: Stxt(
                                             text:statusPaid? "Paid" : "Pay Now",
@@ -212,20 +215,27 @@ class MembershipView extends GetView<MembershipController> {
                       ),
                     ),
                     Space(4),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Stxt(
-                          text: "Pay for Other Membership",
-                          size: f3,
-                          color: Theme
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (_) => QuickPay()));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Stxt(
+                            text: "Pay for Other Membership",
+                            size: f3,
+                            color: Theme
+                                .of(context)
+                                .primaryColor,
+                            weight: FontWeight.w600,),
+                          Icon(Icons.double_arrow_outlined, color: Theme
                               .of(context)
-                              .primaryColor,
-                          weight: FontWeight.w600,),
-                        Icon(Icons.double_arrow_outlined, color: Theme
-                            .of(context)
-                            .primaryColor, size: 20,),
-                      ],
+                              .primaryColor, size: 20,),
+                        ],
+                      ),
                     ),
                     10.verticalSpace,
                     Padding(
@@ -326,82 +336,27 @@ class MembershipView extends GetView<MembershipController> {
                       ),
                     ),
                     Space(16),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Container(
-                              height: 80,
-                              width: 100.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColor
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Stxt(text: "Quarterly",
-                                    size: f4,
-                                    color: Colors.white,),
-                                  Space(16),
-                                  Stxt(text: "₹ 300",
-                                    size: f5,
-                                    color: Colors.white,),
-                                ],
-                              ),
-                            ),
-                            Space(16),
-                            Container(
-                              height: 80,
-                              width: 100.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColor
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Stxt(text: "Half yearly",
-                                    size: f4,
-                                    color: Colors.white,),
-                                  Space(16),
-                                  Stxt(text: "₹ 600",
-                                    size: f5,
-                                    color: Colors.white,),
-                                ],
-                              ),
-                            ),
-                            Space(16),
-                            Container(
-                              height: 80,
-                              width: 100.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  color: Theme
-                                      .of(context)
-                                      .primaryColor
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Stxt(text: "Annually",
-                                    size: f4,
-                                    color: Colors.white,),
-                                  Space(16),
-                                  Stxt(text: "₹ 1,200",
-                                    size: f5,
-                                    color: Colors.white,),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          widgetPayBulk(context,"Quarterly","600",() {
+                            controller.membershipPayment("threemonth",true,homeCtrl.getUserData.value.getUserById!.phoneNumber);
+                            controller.checkboxignore.value=true;
+                            controller.totalPayment.value=600;
+                          }),
+                          widgetPayBulk(context,"Half Yearly","1200",() {
+                            controller.membershipPayment("sixmonth",true,homeCtrl.getUserData.value.getUserById!.phoneNumber);
+                            controller.checkboxignore.value=true;
+                            controller.totalPayment.value=1200;
+                          }),
+                          widgetPayBulk(context,"Annually","1800", () {
+                            controller.membershipPayment("twelvemonth",true,homeCtrl.getUserData.value.getUserById!.phoneNumber);
+                            controller.checkboxignore.value=true;
+                            controller.totalPayment.value=1800;
+                          })
+                        ],
                       ),
                     ),
                     Space(50),
@@ -413,6 +368,35 @@ class MembershipView extends GetView<MembershipController> {
           ],
         );
       }),
+    );
+  }
+
+  GestureDetector widgetPayBulk(BuildContext context,title,amount,Function() ontap) {
+   // controller.isChecked.value=true;
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+                            height: 80.h,
+                            width: 100.w,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Theme
+                                    .of(context)
+                                    .primaryColor
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Stxt(text: "${title}",
+                                  size: f4,
+                                  color: Colors.white,),
+                                Space(16),
+                                Stxt(text: "₹ ${amount}",
+                                  size: f5,
+                                  color: Colors.white,),
+                              ],
+                            ),
+                          ),
     );
   }
 }

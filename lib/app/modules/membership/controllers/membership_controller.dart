@@ -1,29 +1,38 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:get/get.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
+import '../../../routes/export.dart';
 import '../../home/controllers/home_controller.dart';
 import '../model/membershipDetailModel.dart';
 import '../model/membershipPayDetailModel.dart';
+import '../model/membershipPaymentMonthModel.dart';
+import '../views/select_month.dart';
 
 class MembershipController extends GetxController {
   //TODO: Implement MembershipController
   final _restCallController = Get.put(restCallController());
   final homectrl= Get.find<HomeController>();
+  final QuickPayKey = GlobalKey<FormState>();
   var membershipDetailData=MembershipDetailModel().obs;
   var membershipPaymentData=MembershipPayementModel().obs;
+  var membershipPaymentMonthData=MembershipPaymentMonthModel().obs;
+  Rx<TextEditingController> payPhone_ = TextEditingController().obs;
+  Rx<TextEditingController> paymemberId_ = TextEditingController().obs;
   RxBool isloading = false.obs;
+  RxBool isloadingPay = false.obs;
   RxBool switchValue = false.obs;
+  RxBool checkboxignore = false.obs;
   String? value;
   final isChecked = false.obs;
-  final isCheckeddue = false.obs;
-  final isCheckedother = false.obs;
-  var expandedIndex = RxInt(-1);
+  RxList checkedStates=[].obs;
+  // Rx<FocusNode> quickpayFocusNode = FocusNode().obs;
+
    RxList expand = [].obs;
+   RxList paid = [].obs;
 
-
+    RxInt totalPayment=0.obs;
 
 
   var fontFamily = "upi".obs;
@@ -34,6 +43,7 @@ class MembershipController extends GetxController {
   void onInit() {
     getMembershipDetails();
     super.onInit();
+
 
   }
 
@@ -51,7 +61,17 @@ class MembershipController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
+  //
+  // var errorText = ''.obs;
+  // void validateInput() {
+  //   if (payPhone_.value.text.isEmpty&&paymemberId_.value.text.isEmpty) {
+  //     errorText.value = 'Field cannot be empty';
+  //     return;
+  //   }else {
+  //     errorText.value = '';
+  //   }
+  //
+  // }
 
   getMembershipDetails() async {
 
@@ -127,9 +147,56 @@ query Query(\$userId: String!, \$type: String, \$status: String) {
 
     membershipPaymentData.value=membershipPayementModelFromJson(json.encode(res));
 
+    // print("getMEBER");
+    // log(json.encode(res));
+    // print("getMEBER");
+  }
+  membershipPayment(String type,bool checkbox,id) async {
+    print("sssssssssss $id");
+    totalPayment.value=0;
+    isloadingPay.value=true;
+    var header="""
+query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
+  Membership_Payments_(mobile_or_memberid: \$mobileOrMemberid, pay_type: \$payType) {
+    email_id
+    first_name
+    masjid_id
+    membershipid
+    month_list {
+      amount
+      month_due
+      payment_month
+      payment_status
+    }
+    phone_number
+    user_id
+  }
+}
+    """;
+    var body ={
+      "mobileOrMemberid": "${id}",
+      "payType": "$type"
+    };
+    var res = await  _restCallController.gql_query(header, body);
+    isloadingPay.value=false;
+    membershipPaymentMonthData.value=membershipPaymentMonthModelFromJson(json.encode(res));
+
     print("getMEBER");
     log(json.encode(res));
     print("getMEBER");
+    if(res.toString().contains("ERROR")){
+     return toast(error: "Error", msg: "Register Mobile no/ Id Not Found");
+    }
+
+
+      //
+      Get.to(SelectMonth());
+
+   checkedStates.value = List.generate(
+     membershipPaymentMonthData.value
+          .membershipPayments!.monthList!.length,
+          (index) =>checkbox,
+    );
   }
 
 
