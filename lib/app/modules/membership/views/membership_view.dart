@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -30,373 +31,438 @@ class MembershipView extends GetView<MembershipController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {
-        return controller.isloading.value ? loading(context) : Column(
-          children: [
-            Container(
-              height: 180.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 6,
-                      spreadRadius: 6,
-                      offset: Offset(0, 4),
-                      color: Colors.grey.shade400
-                  )
-                ],
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(32),
-                    bottomLeft: Radius.circular(32)),
-                gradient: LinearGradient(colors: [
-                  hexStringToColor("53899B"),
-                  hexStringToColor("23687F"),
-                ]),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Obx(() {
-                  var data = controller.membershipDetailData.value
-                      .getMembershipDetail!;
-                  return Column(
-                    children: [
-                      Space(20),
-                      Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop(MaterialPageRoute(
-                                    builder: (_) => HomeView()));
-                              },
-                              child: SvgPicture.asset(
-                                  "assets/svg/backnew.svg")),
-                          Space(16),
-                          Stxt(text: "Membership", size: f5, weight: FontWeight
-                              .w600, color: Colors.white,),
-                        ],
-                      ),
-                      Space(70),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stxt(text: "Janab. ", size: f5, color: Colors.white),
-                          Stxt(text: "${data.userId!.firstName} ",
-                            size: f5,
-                            color: Colors.white,
-                            weight: FontWeight.w600,),
-
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Stxt(text: "Membership Id: ", size: f3, color: Colors
-                              .white),
-                          Stxt(text: "${data.membershipid}",
-                              size: f3,
-                              color: Colors.white),
-                        ],
-                      ),
-                    ],
-                  );
-                }),
-              ),
-            ),
-
-            Obx(() {
-              var data = controller.membershipDetailData.value
-                  .getMembershipDetail!;
-              var statusPaid=data.monthChart![0]
-                  .paymentStatus == "paid";
-              return Expanded(
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("You are paying to "),
-                        Text("${data.masjidId!.masjidName} ",
-                          style: TextStyle(fontWeight: FontWeight.w600,
-                              fontSize: 16,
-                              color: Theme
-                                  .of(context)
-                                  .primaryColor),),
+        return controller.isloading.value
+            ? loading(context)
+            : Column(
+                children: [
+                  Container(
+                    height: 180.h,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 6,
+                            spreadRadius: 6,
+                            offset: Offset(0, 4),
+                            color: Colors.grey.shade400)
                       ],
+                      borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(32),
+                          bottomLeft: Radius.circular(32)),
+                      gradient: LinearGradient(colors: [
+                        hexStringToColor("53899B"),
+                        hexStringToColor("23687F"),
+                      ]),
                     ),
-                    Space(8),
-                    Padding(
+                    child: Padding(
                       padding: const EdgeInsets.all(16),
-                      child: Container(
-                        height: 150,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            color: Colors.white,
-                            border: Border.all(
-                                color: Theme
-                                    .of(context)
-                                    .primaryColor
-                            )
-                        ),
-                        child: Column(
+                      child: Obx(() {
+                        var data = controller
+                            .membershipDetailData.value.getMembershipDetail!;
+                        return Column(
                           children: [
-                            Space(16),
-                            Stxt(
-                              text: "₹ ${data.currentPayment!
-                                  .amount} ",
-                              size: f5,
-                              weight: FontWeight.bold,),
-                            Space(8),
-                            Stxt(
-                              text: "Membership ${statusPaid
-                                  ? "expire in"
-                                  : "due by"} ${DateFormat('dd MMM yyyy')
-                                  .format(
-                                  DateTime(DateTime.now().year, DateTime.now().month + 1, 0))}",
-                              size: f1,
-                              weight: FontWeight.w500,
-                              color:statusPaid? clr_green:clr_red,),
-                            Space(2),
+                            Space(20),
+                            Row(
+                              children: [
+                                GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context).pop(
+                                          MaterialPageRoute(
+                                              builder: (_) => HomeView()));
+                                    },
+                                    child: SvgPicture.asset(
+                                        "assets/svg/backnew.svg")),
+                                Space(16),
+                                Stxt(
+                                  text: "Membership",
+                                  size: f5,
+                                  weight: FontWeight.w600,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            ),
+                            Space(70),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Stxt(text: "Membership Auto pay", size: f4),
-                                Obx(() {
-                                  return Switch(
-                                    activeColor: Theme
-                                        .of(context)
-                                        .primaryColor,
-                                    value: controller.switchValue.value,
-                                    onChanged: (newValue) {
-                                      controller.switchValue.value = newValue;
-                                    },
-                                  );
-                                }),
+                                Stxt(
+                                    text: "Janab. ",
+                                    size: f5,
+                                    color: Colors.white),
+                                Stxt(
+                                  text: "${data.userId!.firstName} ",
+                                  size: f5,
+                                  color: Colors.white,
+                                  weight: FontWeight.w600,
+                                ),
                               ],
                             ),
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (_) => QuickPay()));
-                              },
-                              child: Container(
-                                height: 36,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    IgnorePointer(
-                                      ignoring: statusPaid ? true : false,
-                                      child: GestureDetector(
-                                          onTap: () {
-
-                                            controller.membershipPayment("onemonth",false,homeCtrl.getUserData.value.getUserById!.phoneNumber);
-                                          },
-                                          child: Stxt(
-                                            text:statusPaid? "Paid" : "Pay Now",
-                                            size: f3,
-                                            weight: FontWeight.w600,
-                                            color: Colors.white,)),
-                                    )
-                                  ],
-                                ),
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Stxt(
+                                    text: "Membership Id: ",
+                                    size: f3,
+                                    color: Colors.white),
+                                Stxt(
+                                    text: "${data.membershipid}",
+                                    size: f3,
+                                    color: Colors.white),
+                              ],
                             ),
                           ],
-                        ),
-                      ),
+                        );
+                      }),
                     ),
-                    Space(4),
-                    GestureDetector(
-                      onTap: (){
-                        Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (_) => QuickPay()));
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  ),
+                  Obx(() {
+                    var data = controller
+                        .membershipDetailData.value.getMembershipDetail!;
+                    var statusPaid =
+                        data.monthChart![0].paymentStatus == "paid";
+                    return Expanded(
+                      child: ListView(
+                        scrollDirection: Axis.vertical,
+                        physics: BouncingScrollPhysics(),
+                        shrinkWrap: true,
                         children: [
-                          Stxt(
-                            text: "Pay for Other Membership",
-                            size: f3,
-                            color: Theme
-                                .of(context)
-                                .primaryColor,
-                            weight: FontWeight.w600,),
-                          Icon(Icons.double_arrow_outlined, color: Theme
-                              .of(context)
-                              .primaryColor, size: 20,),
-                        ],
-                      ),
-                    ),
-                    10.verticalSpace,
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12, left: 12),
-                      child: Row(
-                        children: [
-                          Stxt(text: "Last 6 month",
-                            size: f3,
-                            family: "Inter",
-                            weight: FontWeight.bold,),
-                          Spacer(),
-                          GestureDetector(
-                              onTap: () {
-                                Get.to(PastPayments());
-                                controller.getMembershipPayDetails("currentyear");
-                                controller.dropDownvalue.value ="This Year";
-                              },
-                              child: Stxt(text: "View all",
-                                size: f3,
-                                weight: FontWeight.w600,
-                                color: Theme
-                                    .of(context)
-                                    .primaryColor,)),
-                        ],
-                      ),
-                    ),
-
-                    15.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 270.h,
-                          child: ListView.separated(
-                            reverse: true,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: 6,
-                            separatorBuilder: (BuildContext context,
-                                int index) => 21.horizontalSpace,
-                            itemBuilder: (context, index) {
-                             var monthstatus=data.monthChart![index]
-                                 .paymentStatus == "paid" ;
-                              return Column(
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("You are paying to "),
+                              Text(
+                                "${data.masjidId!.masjidName} ",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 16,
+                                    color: Theme.of(context).primaryColor),
+                              ),
+                            ],
+                          ),
+                          Space(8),
+                          Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Container(
+                              height: 150,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5),
+                                  color: Colors.white,
+                                  border: Border.all(
+                                      color: Theme.of(context).primaryColor)),
+                              child: Column(
                                 children: [
-                                  Text("₹ ${data.monthChart![index].amount}",
-                                    style: TextStyle(fontSize: 15, color: Theme
-                                        .of(context)
-                                        .primaryColor),),
-                                  Space(4),
-                                  Container(
-                                    // child: Align(child: Stxt(text: 'Paid', size: f0,),),
-                                    height: 185.h,
-                                    width: 20.w,
-                                    decoration: BoxDecoration(
-                                      color:monthstatus ? Get.theme
-                                          .primaryColor : Colors.grey,
-                                      borderRadius: BorderRadius.circular(16),
-                                    ),
-                                    child: Center(
-                                      child: RotatedBox(
-                                        quarterTurns: 1,
-                                          child: data.monthChart![index]
-                                              .paymentStatus == "paid" ? Stxt(text: 'Paid', size: f2,color: Colors.white.withOpacity(0.7), weight: FontWeight.w600,):Stxt(text: 'UnPaid', size: f2,color: Colors.white.withOpacity(0.5), weight: FontWeight.w600,)),
+                                  Space(16),
+                                  Stxt(
+                                    text: "₹ ${data.currentPayment!.amount} ",
+                                    size: f5,
+                                    weight: FontWeight.bold,
+                                  ),
+                                  Space(8),
+                                  Stxt(
+                                    text:
+                                        "Membership ${statusPaid ? "expire in" : "due by"} ${DateFormat('dd MMM yyyy').format(DateTime(DateTime.now().year, DateTime.now().month + 1, 0))}",
+                                    size: f1,
+                                    weight: FontWeight.w500,
+                                    color: statusPaid ? clr_green : clr_red,
+                                  ),
+                                  Space(2),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Stxt(
+                                          text: "Membership Auto pay",
+                                          size: f4),
+                                      Obx(() {
+                                        return Switch(
+                                          activeColor:
+                                              Theme.of(context).primaryColor,
+                                          value: controller.switchValue.value,
+                                          onChanged: (newValue) {
+                                            controller.switchValue.value =
+                                                newValue;
+                                          },
+                                        );
+                                      }),
+                                    ],
+                                  ),
+                                  IgnorePointer(
+                                    ignoring: statusPaid ? true : false,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        controller.membershipPayment(
+                                            "onemonth",
+                                            false,
+                                            homeCtrl.getUserData.value
+                                                .getUserById!.phoneNumber);
+                                      },
+                                      child: Container(
+                                        height: 36,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Stxt(
+                                              text: statusPaid
+                                                  ? "Paid"
+                                                  : "Pay Now",
+                                              size: f3,
+                                              weight: FontWeight.w600,
+                                              color: Colors.white,
+                                            )
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  Space(4),
-                                  Stxt(text: "${data.monthChart![index]
-                                      .paymentMonth}",
-                                    size: f2,
-                                    weight: FontWeight.w500,),
-                                  Space(8),
-                              Container(
-
-                              width: 25,
-                              height: 25,
-                              decoration: BoxDecoration(
-                              color: monthstatus?Get.theme.primaryColor:clr_gray,
-                              borderRadius: BorderRadius.circular(20),
-
-                              ),child: Icon(Icons.download_rounded,size: f2,color: clr_white,),),
-                                  // Image.asset(
-                                  //   "assets/images/download.png", width: 25,color: data.monthChart![index]
-                                  //     .paymentStatus == "paid" ?null:Get.theme.primaryColor.withOpacity(.8),)
                                 ],
-                              );
-                            },
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Row(
-                        children: [
-                          Stxt(text: "Pay Bulk", size: f4)
-                        ],
-                      ),
-                    ),
-                    Space(16),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          widgetPayBulk(context,"Quarterly","600",() {
-                            controller.membershipPayment("threemonth",true,homeCtrl.getUserData.value.getUserById!.phoneNumber);
-                            controller.checkboxignore.value=true;
-                            controller.totalPayment.value=600;
-                          }),
-                          widgetPayBulk(context,"Half Yearly","1200",() {
-                            controller.membershipPayment("sixmonth",true,homeCtrl.getUserData.value.getUserById!.phoneNumber);
-                            controller.checkboxignore.value=true;
-                            controller.totalPayment.value=1200;
-                          }),
-                          widgetPayBulk(context,"Annually","1800", () {
-                            controller.membershipPayment("twelvemonth",true,homeCtrl.getUserData.value.getUserById!.phoneNumber);
-                            controller.checkboxignore.value=true;
-                            controller.totalPayment.value=1800;
-                          })
-                        ],
-                      ),
-                    ),
-                    Space(50),
-                  ],
-                ),
-              );
-            }),
+                          Space(4),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (_) => QuickPay()));
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Stxt(
+                                  text: "Pay for Other Members",
+                                  size: f3,
+                                  color: Theme.of(context).primaryColor,
+                                  weight: FontWeight.bold,
+                                ),
+                                Icon(
+                                  Icons.double_arrow_outlined,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 20,
+                                ),
+                              ],
+                            ),
+                          )
+                              .animate(
+                                onPlay: (controller) => controller.repeat(),
+                              )
+                              .shimmer(
+                                  duration: Duration(
+                                seconds: 3,
+                              ),color: clr_yellow),
 
-          ],
-        );
+                          // .tint(color: Get.theme.colorScheme.secondary)
+
+                          10.verticalSpace,
+                          Padding(
+                            padding: const EdgeInsets.only(right: 12, left: 12),
+                            child: Row(
+                              children: [
+                                Stxt(
+                                  text: "Last 6 month",
+                                  size: f3,
+                                  family: "Inter",
+                                  weight: FontWeight.bold,
+                                ),
+                                Spacer(),
+                                GestureDetector(
+                                    onTap: () {
+                                      Get.to(PastPayments());
+                                      controller.getMembershipPayDetails(
+                                          "currentyear");
+                                      controller.dropDownvalue.value =
+                                          "This Year";
+                                    },
+                                    child: Stxt(
+                                      text: "View all",
+                                      size: f3,
+                                      weight: FontWeight.w600,
+                                      color: Theme.of(context).primaryColor,
+                                    )),
+                              ],
+                            ),
+                          ),
+
+                          15.verticalSpace,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 270.h,
+                                child: ListView.separated(
+                                  reverse: true,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: 6,
+                                  separatorBuilder:
+                                      (BuildContext context, int index) =>
+                                          21.horizontalSpace,
+                                  itemBuilder: (context, index) {
+                                    var monthstatus =
+                                        data.monthChart![index].paymentStatus ==
+                                            "paid";
+                                    return Column(
+                                      children: [
+                                        Text(
+                                          "₹ ${data.monthChart![index].amount}",
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                        ),
+                                        Space(4),
+                                        Container(
+                                          // child: Align(child: Stxt(text: 'Paid', size: f0,),),
+                                          height: 185.h,
+                                          width: 20.w,
+                                          decoration: BoxDecoration(
+                                            color: monthstatus
+                                                ? Get.theme.primaryColor
+                                                : Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(16),
+                                          ),
+                                          child: Center(
+                                            child: RotatedBox(
+                                                quarterTurns: 1,
+                                                child: data.monthChart![index]
+                                                            .paymentStatus ==
+                                                        "paid"
+                                                    ? Stxt(
+                                                        text: 'Paid',
+                                                        size: f2,
+                                                        color: Colors.white
+                                                            .withOpacity(0.7),
+                                                        weight: FontWeight.w600,
+                                                      )
+                                                    : Stxt(
+                                                        text: 'UnPaid',
+                                                        size: f2,
+                                                        color: Colors.white
+                                                            .withOpacity(0.5),
+                                                        weight: FontWeight.w600,
+                                                      )),
+                                          ),
+                                        ),
+                                        Space(4),
+                                        Stxt(
+                                          text:
+                                              "${data.monthChart![index].paymentMonth}",
+                                          size: f2,
+                                          weight: FontWeight.w500,
+                                        ),
+                                        Space(8),
+                                        Container(
+                                          width: 25,
+                                          height: 25,
+                                          decoration: BoxDecoration(
+                                            color: monthstatus
+                                                ? Get.theme.primaryColor
+                                                : clr_gray,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Icon(
+                                            Icons.download_rounded,
+                                            size: f2,
+                                            color: clr_white,
+                                          ),
+                                        ),
+                                        // Image.asset(
+                                        //   "assets/images/download.png", width: 25,color: data.monthChart![index]
+                                        //     .paymentStatus == "paid" ?null:Get.theme.primaryColor.withOpacity(.8),)
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Row(
+                              children: [Stxt(text: "Pay Bulk", size: f4)],
+                            ),
+                          ),
+                          Space(16),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                widgetPayBulk(context, "Quarterly", "600", () {
+                                  controller.membershipPayment(
+                                      "threemonth",
+                                      true,
+                                      homeCtrl.getUserData.value.getUserById!
+                                          .phoneNumber);
+                                  controller.checkboxignore.value = true;
+                                  controller.totalPayment.value = 600;
+                                }),
+                                widgetPayBulk(context, "Half Yearly", "1200",
+                                    () {
+                                  controller.membershipPayment(
+                                      "sixmonth",
+                                      true,
+                                      homeCtrl.getUserData.value.getUserById!
+                                          .phoneNumber);
+                                  controller.checkboxignore.value = true;
+                                  controller.totalPayment.value = 1200;
+                                }),
+                                widgetPayBulk(context, "Annually", "1800", () {
+                                  controller.membershipPayment(
+                                      "twelvemonth",
+                                      true,
+                                      homeCtrl.getUserData.value.getUserById!
+                                          .phoneNumber);
+                                  controller.checkboxignore.value = true;
+                                  controller.totalPayment.value = 1800;
+                                })
+                              ],
+                            ),
+                          ),
+                          Space(50),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+              );
       }),
     );
   }
 
-  GestureDetector widgetPayBulk(BuildContext context,title,amount,Function() ontap) {
-   // controller.isChecked.value=true;
+  GestureDetector widgetPayBulk(
+      BuildContext context, title, amount, Function() ontap) {
+    // controller.isChecked.value=true;
     return GestureDetector(
       onTap: ontap,
       child: Container(
-                            height: 80.h,
-                            width: 100.w,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                color: Theme
-                                    .of(context)
-                                    .primaryColor
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Stxt(text: "${title}",
-                                  size: f4,
-                                  color: Colors.white,),
-                                Space(16),
-                                Stxt(text: "₹ ${amount}",
-                                  size: f5,
-                                  color: Colors.white,),
-                              ],
-                            ),
-                          ),
+        height: 80.h,
+        width: 100.w,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Theme.of(context).primaryColor),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stxt(
+              text: "${title}",
+              size: f4,
+              color: Colors.white,
+            ),
+            Space(16),
+            Stxt(
+              text: "₹ ${amount}",
+              size: f5,
+              color: Colors.white,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

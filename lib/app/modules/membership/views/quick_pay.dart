@@ -1,21 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import 'package:pinput/pinput.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/membership/controllers/membership_controller.dart';
-import 'package:smartmasjid_v1/app/modules/membership/views/payment_method.dart';
-import 'package:smartmasjid_v1/app/modules/membership/views/select_month.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/utils/color_utils.dart';
 import 'package:smartmasjid_v1/widgets/Stextfield.dart';
 
-import '../../../../widgets/space.dart';
-
 class QuickPay extends StatelessWidget {
   QuickPay({super.key});
 
-  MembershipController membershipCtrl = Get.put(MembershipController());
-  HomeController homeCtrl = Get.find<HomeController>();
+ final MembershipController membershipCtrl = Get.put(MembershipController());
+ final HomeController homeCtrl = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +26,7 @@ class QuickPay extends StatelessWidget {
             key: membershipCtrl.QuickPayKey,
             child: Column(
               children: [
-                Space(16),
+                const Space(16),
                 Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
@@ -40,14 +36,14 @@ class QuickPay extends StatelessWidget {
                         BoxShadow(
                             blurRadius: 4,
                             spreadRadius: 2,
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             color: Colors.grey.shade400)
                       ]),
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: [
-                        Space(8),
+                        const Space(8),
                         Stxt(
                           text: "Pay MemberShip",
                           size: f5,
@@ -56,11 +52,11 @@ class QuickPay extends StatelessWidget {
                               .primaryColor,
                           weight: FontWeight.w600,
                         ),
-                        Space(16),
+                        const Space(16),
 
-                        Space(16),
+                        const Space(16),
 
-                        Row(
+                        const Row(
                           children: [
                             Text("Mobile Number",
                                 style: TextStyle(
@@ -72,7 +68,7 @@ class QuickPay extends StatelessWidget {
 
                         Obx(() {
                           return Safa_textfield(
-                            keyboardType: TextInputType.numberWithOptions(),
+                            keyboardType: const TextInputType.numberWithOptions(),
                             // errorText: membershipCtrl.errorText.value.isNotEmpty
                             //     ? ""
                             //     : null,
@@ -90,13 +86,13 @@ class QuickPay extends StatelessWidget {
                         }),
                         8.verticalSpace,
 
-                        Text(
+                        const Text(
                           "OR",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         8.verticalSpace,
-                        Row(
+                        const Row(
                           children: [
                             Text(
                               "Membership Id",
@@ -129,29 +125,30 @@ class QuickPay extends StatelessWidget {
                     ),
                   ),
                 ),
-                Space(16),
+                const Space(16),
                 ElevatedButton(
                     onPressed: () {
                       if (membershipCtrl.payPhone_.value.text.isEmpty&&membershipCtrl.paymemberId_.value.text.isEmpty) {
                        return toast(error: "Error", msg: "Required any one field");
                       }
-                      membershipCtrl.membershipPayment(
-                          "onemonth", false, membershipCtrl.payPhone_.value.text.isEmpty?"+${membershipCtrl.paymemberId_.value.text}":membershipCtrl.payPhone_.value.text);
+                      membershipCtrl.paymemberId_.value.text.length==0? membershipCtrl.membershipPayment(
+                          "onemonth", false,"+${membershipCtrl.payPhone_.value.text}"): membershipCtrl.membershipPayment(
+                          "onemonth", false,"${membershipCtrl.paymemberId_.value.text}");
 
                       // Navigator.of(context).push(MaterialPageRoute(builder: (_) => PaymentMethod()));
                     },
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(150, 40),
+                      minimumSize: const Size(150, 40),
                       backgroundColor: Theme
                           .of(context)
                           .primaryColor,
-                      foregroundColor: Color(0xff11323B),
+                      foregroundColor: const Color(0xff11323B),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                       elevation: 4.0,
                     ),
-                    child: Text(
+                    child: const Text(
                       "Pay now",
                       style: TextStyle(
                           fontWeight: FontWeight.w600,

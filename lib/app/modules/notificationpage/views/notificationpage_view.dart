@@ -39,9 +39,7 @@ class NotificationpageView extends GetView<NotificationpageController> {
           ],
         ),
         body: Obx(() {
-          return controller.isloading.value
-              ? loading(context)
-              : controller.notificationData.value.getNotificationLog!.length ==
+          return controller.isloading.value? loading(context):controller.notificationData.value.getNotificationLog!.length ==
                       0
                   ? NoNotificationYet()
                   : ListView.builder(
