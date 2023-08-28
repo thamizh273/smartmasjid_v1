@@ -56,7 +56,7 @@ class _QuranDetailsState extends State<QuranDetails> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               physics: ScrollPhysics(),
-              controller: c.scrollController,
+              // controller: c.scrollControllern,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
@@ -147,14 +147,15 @@ class _QuranDetailsState extends State<QuranDetails> {
                         color: Color(0xff16627C)),
                   ),
                   Space(16),
-                  Obx(() {
-                    return Row(
-                      children: [
-                        Container(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Obx(() {
+                        return Container(
                           height: 25.h,
                           width: 25.w,
                           child: Transform.scale(
-                            scale: 1,
+                            scale: 0.8,
                             // Adjust this value to change the checkbox size.
                             child: Checkbox(
                               activeColor: Get.theme.primaryColor,
@@ -162,30 +163,24 @@ class _QuranDetailsState extends State<QuranDetails> {
                               value: c.isCheckedArabic.value,
                               onChanged: (value) {
                                 c.isCheckedArabic.value = value!;
-                                Future.delayed(Duration(milliseconds: 500), () {
+                                Future.delayed(
+                                    Duration(milliseconds: 500), () {
                                   c.getqurandetail();
                                 });
                                 c.update();
                               },
                             ),
                           ),
-                        ),
-                        Space(8),
-                        Stxt(
-                          size: f3, text: 'Arabic', weight: FontWeight.w400,),
-
-                      ],
-                    );
-                  }),
-                  Space(8),
-                  Obx(() {
-                    return Row(
-                      children: [
-                        Container(
+                        );
+                      }),
+                      Stxt(size: f2, text: 'Arabic',),
+                      Space(8),
+                      Obx(() {
+                        return Container(
                           height: 25.h,
                           width: 25.w,
                           child: Transform.scale(
-                            scale: 1,
+                            scale: 0.8,
                             // Adjust this value to change the checkbox size.
                             child: Checkbox(
                               activeColor: Get.theme.primaryColor,
@@ -193,29 +188,24 @@ class _QuranDetailsState extends State<QuranDetails> {
                               value: c.isCheckedEnglish.value,
                               onChanged: (value) {
                                 c.isCheckedEnglish.value = value!;
-                                Future.delayed(Duration(milliseconds: 500), () {
+                                Future.delayed(
+                                    Duration(milliseconds: 500), () {
                                   c.getqurandetail();
                                 });
                                 c.update();
                               },
                             ),
                           ),
-                        ),
-                        Space(8),
-                        Stxt(
-                          size: f3, text: 'English', weight: FontWeight.w400,),
-                      ],
-                    );
-                  }),
-                  Space(8),
-                  Obx(() {
-                    return Row(
-                      children: [
-                        Container(
+                        );
+                      }),
+                      Stxt(size: f2, text: 'English',),
+                      Space(8),
+                      Obx(() {
+                        return Container(
                           height: 25.h,
                           width: 25.w,
                           child: Transform.scale(
-                            scale: 1,
+                            scale: 0.8,
                             // Adjust this value to change the checkbox size.
                             child: Checkbox(
                               splashRadius: 5,
@@ -224,20 +214,19 @@ class _QuranDetailsState extends State<QuranDetails> {
                               value: c.isCheckedTamil.value,
                               onChanged: (value) {
                                 c.isCheckedTamil.value = value!;
-                                Future.delayed(Duration(milliseconds: 500), () {
+                                Future.delayed(
+                                    Duration(milliseconds: 500), () {
                                   c.getqurandetail();
                                 });
                                 c.update();
                               },
                             ),
                           ),
-                        ),
-                        Space(8),
-                        Stxt(size: f3, text: 'Tamil', weight: FontWeight.w400,),
-                        ExampleDownloadButton(),
-                      ],
-                    );
-                  }),
+                        );
+                      }),
+                      Stxt(size: f2, text: 'Tamil',),
+                    ],
+                  ),
                   Space(8),
                   // Divider(
                   //   thickness: 1,
@@ -279,8 +268,10 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       Text("Noorehira"),
                                       Spacer(),
                                       SvgPicture.asset(
-                                          "assets/svg/noorehira.svg", width: 60,
-                                          color: Colors.black.withOpacity(0.6))
+                                          "assets/svg/noorehira.svg",
+                                          width: 60,
+                                          color: Colors.black.withOpacity(
+                                              0.6))
                                     ],
                                   );
                                 }),
@@ -304,8 +295,10 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       Text("Noorehuda"),
                                       Spacer(),
                                       SvgPicture.asset(
-                                          "assets/svg/noorehuda.svg", width: 60,
-                                          color: Colors.black.withOpacity(0.6))
+                                          "assets/svg/noorehuda.svg",
+                                          width: 60,
+                                          color: Colors.black.withOpacity(
+                                              0.6))
                                     ],
                                   );
                                 }),
@@ -330,7 +323,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       SvgPicture.asset(
                                           "assets/svg/noorehidayat.svg",
                                           width: 60,
-                                          color: Colors.black.withOpacity(0.6))
+                                          color: Colors.black.withOpacity(
+                                              0.6))
                                     ],
                                   );
                                 }),
@@ -367,7 +361,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       Spacer(),
                                       SvgPicture.asset(
                                           "assets/svg/quran.svg", width: 60,
-                                          color: Colors.black.withOpacity(0.6))
+                                          color: Colors.black.withOpacity(
+                                              0.6))
                                     ],
                                   );
                                 }),
@@ -391,7 +386,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       Spacer(),
                                       SvgPicture.asset(
                                           "assets/svg/qalam.svg", width: 60,
-                                          color: Colors.black.withOpacity(0.6))
+                                          color: Colors.black.withOpacity(
+                                              0.6))
                                     ],
                                   );
                                 }),
@@ -416,7 +412,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       Spacer(),
                                       SvgPicture.asset(
                                           "assets/svg/KFGQPC.svg", width: 60,
-                                          color: Colors.black.withOpacity(0.6))
+                                          color: Colors.black.withOpacity(
+                                              0.6))
                                     ],
                                   );
                                 }),
@@ -441,7 +438,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       Spacer(),
                                       SvgPicture.asset(
                                         "assets/svg/amiri.svg", width: 60,
-                                        color: Colors.black.withOpacity(0.5),),
+                                        color: Colors.black.withOpacity(
+                                            0.5),),
                                     ],
                                   );
                                 }),
@@ -450,6 +448,29 @@ class _QuranDetailsState extends State<QuranDetails> {
                           )
                         ],
                       ),
+                      Obx(() {
+                        return Row(
+                          children: [
+                            Container(
+                              height: 25.h,
+                              width: 25.w,
+                              child: Radio(
+                                activeColor: Get.theme.primaryColor,
+                                // title: Text("Kalam"),
+                                value: "arabictit",
+                                groupValue: c.fontFamily.value,
+                                onChanged: (groupValue) =>
+                                    c.changeFontFamily(groupValue!),
+                              ),
+                            ),
+                            Text("Arabictitle"),
+                            Spacer(),
+                            SvgPicture.asset(
+                                "assets/svg/noorehuda.svg", width: 60,
+                                color: Colors.black.withOpacity(0.6))
+                          ],
+                        );
+                      }),
                     ],
                   ),
                   Divider(
@@ -504,7 +525,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                         max: 2,
                         divisions: 2,
                         activeColor: const Color.fromARGB(255, 231, 231, 231),
-                        inactiveColor: const Color.fromARGB(255, 231, 231, 231),
+                        inactiveColor: const Color.fromARGB(
+                            255, 231, 231, 231),
                       );
                     }),
                   ),
@@ -552,7 +574,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                         max: 2,
                         divisions: 2,
                         activeColor: const Color.fromARGB(255, 231, 231, 231),
-                        inactiveColor: const Color.fromARGB(255, 231, 231, 231),
+                        inactiveColor: const Color.fromARGB(
+                            255, 231, 231, 231),
                       );
                     }),
                   ),
@@ -578,6 +601,536 @@ class _QuranDetailsState extends State<QuranDetails> {
             ),
           ),
         ),
+        ///Bargath check
+        // endDrawer: Drawer(
+        //   child: Padding(
+        //     padding: const EdgeInsets.all(16),
+        //     child: SingleChildScrollView(
+        //       scrollDirection: Axis.vertical,
+        //       physics: ScrollPhysics(),
+        //       controller: c.scrollController,
+        //       child: Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         mainAxisSize: MainAxisSize.min,
+        //         children: [
+        //           Space(20),
+        //           Text(
+        //             "Customize your Quran",
+        //             style: TextStyle(
+        //                 fontSize: 18, fontWeight: FontWeight.w600
+        //             ),
+        //           ),
+        //           Space(16),
+        //           Text(
+        //             "View",
+        //             style: TextStyle(
+        //                 fontSize: 18,
+        //                 fontWeight: FontWeight.w600,
+        //                 color: Color(0xff16627C)),
+        //           ),
+        //           Space(8),
+        //           Column(
+        //             crossAxisAlignment: CrossAxisAlignment.center,
+        //             children: [
+        //               Row(
+        //                 children: [
+        //                   Obx(() {
+        //                     return Radio(
+        //                       activeColor: Get.theme.primaryColor,
+        //                       // title: Text("Amiri"),
+        //                       value: "sura",
+        //                       groupValue: c.view.value,
+        //                       onChanged: (groupValue) =>
+        //                           c.view(groupValue!),
+        //                     );
+        //                   }),
+        //                   Text("Sura"),
+        //                   Obx(() {
+        //                     return Radio(
+        //                       activeColor: Get.theme.primaryColor,
+        //                       // title: Text("Amiri"),
+        //                       value: "page",
+        //                       groupValue: c.view.value,
+        //                       onChanged: (groupValue) =>
+        //                           c.view(groupValue!),
+        //                     );
+        //                   }),
+        //                   Text("Page"),
+        //                 ],
+        //               ),
+        //               Space(4),
+        //               Row(
+        //                 children: [
+        //                   Obx(() {
+        //                     return Radio(
+        //                       activeColor: Get.theme.primaryColor,
+        //                       // title: Text("Amiri"),
+        //                       value: "juz",
+        //                       groupValue: c.view.value,
+        //                       onChanged: (groupValue) =>
+        //                           c.view(groupValue!),
+        //                     );
+        //                   }),
+        //                   Text("Juz"),
+        //                   Obx(() {
+        //                     return Radio(
+        //                       activeColor: Get.theme.primaryColor,
+        //                       // title: Text("Amiri"),
+        //                       value: "hizb",
+        //                       groupValue: c.view.value,
+        //                       onChanged: (groupValue) =>
+        //                           c.view(groupValue!),
+        //                     );
+        //                   }),
+        //                   Text("Hizb"),
+        //                 ],
+        //               ),
+        //             ],
+        //           ),
+        //           Divider(
+        //             thickness: 1,
+        //           ),
+        //           Space(16),
+        //           Text(
+        //             "Content",
+        //             style: TextStyle(
+        //                 fontSize: 18,
+        //                 fontWeight: FontWeight.w600,
+        //                 color: Color(0xff16627C)),
+        //           ),
+        //           Space(16),
+        //           Obx(() {
+        //             return Row(
+        //               children: [
+        //                 Container(
+        //                   height: 25.h,
+        //                   width: 25.w,
+        //                   child: Transform.scale(
+        //                     scale: 1,
+        //                     // Adjust this value to change the checkbox size.
+        //                     child: Checkbox(
+        //                       activeColor: Get.theme.primaryColor,
+        //                       checkColor: Colors.white,
+        //                       value: c.isCheckedArabic.value,
+        //                       onChanged: (value) {
+        //                         c.isCheckedArabic.value = value!;
+        //                         Future.delayed(Duration(milliseconds: 500), () {
+        //                           c.getqurandetail();
+        //                         });
+        //                         c.update();
+        //                       },
+        //                     ),
+        //                   ),
+        //                 ),
+        //                 Space(8),
+        //                 Stxt(
+        //                   size: f3, text: 'Arabic', weight: FontWeight.w400,),
+        //
+        //               ],
+        //             );
+        //           }),
+        //           Space(8),
+        //           Obx(() {
+        //             return Row(
+        //               children: [
+        //                 Container(
+        //                   height: 25.h,
+        //                   width: 25.w,
+        //                   child: Transform.scale(
+        //                     scale: 1,
+        //                     // Adjust this value to change the checkbox size.
+        //                     child: Checkbox(
+        //                       activeColor: Get.theme.primaryColor,
+        //                       checkColor: Colors.white,
+        //                       value: c.isCheckedEnglish.value,
+        //                       onChanged: (value) {
+        //                         c.isCheckedEnglish.value = value!;
+        //                         Future.delayed(Duration(milliseconds: 500), () {
+        //                           c.getqurandetail();
+        //                         });
+        //                         c.update();
+        //                       },
+        //                     ),
+        //                   ),
+        //                 ),
+        //                 Space(8),
+        //                 Stxt(
+        //                   size: f3, text: 'English', weight: FontWeight.w400,),
+        //               ],
+        //             );
+        //           }),
+        //           Space(8),
+        //           Obx(() {
+        //             return Row(
+        //               children: [
+        //                 Container(
+        //                   height: 25.h,
+        //                   width: 25.w,
+        //                   child: Transform.scale(
+        //                     scale: 1,
+        //                     // Adjust this value to change the checkbox size.
+        //                     child: Checkbox(
+        //                       splashRadius: 5,
+        //                       activeColor: Get.theme.primaryColor,
+        //                       checkColor: Colors.white,
+        //                       value: c.isCheckedTamil.value,
+        //                       onChanged: (value) {
+        //                         c.isCheckedTamil.value = value!;
+        //                         Future.delayed(Duration(milliseconds: 500), () {
+        //                           c.getqurandetail();
+        //                         });
+        //                         c.update();
+        //                       },
+        //                     ),
+        //                   ),
+        //                 ),
+        //                 Space(8),
+        //                 Stxt(size: f3, text: 'Tamil', weight: FontWeight.w400,),
+        //                 ExampleDownloadButton(),
+        //               ],
+        //             );
+        //           }),
+        //           Space(8),
+        //           // Divider(
+        //           //   thickness: 1,
+        //           // ),
+        //           Space(8),
+        //           Text(
+        //             "Arabic Font",
+        //             style: TextStyle(
+        //                 fontSize: 18,
+        //                 fontWeight: FontWeight.w600,
+        //                 color: Color(0xff16627C)),
+        //           ),
+        //
+        //           Column(
+        //             crossAxisAlignment: CrossAxisAlignment.start,
+        //             children: [
+        //               ExpansionTile(
+        //                 title: Text("IndoPak Script"),
+        //                 children: [
+        //                   ListTile(
+        //                     title: Column(
+        //                       children: [
+        //                         Obx(() {
+        //                           return Row(
+        //                             children: [
+        //                               Container(
+        //                                 height: 25.h,
+        //                                 width: 25.w,
+        //                                 // color: Colors.red,
+        //                                 child: Radio(
+        //                                   activeColor: Get.theme.primaryColor,
+        //                                   // title: Text("Amiri"),
+        //                                   value: "noorehira",
+        //                                   groupValue: c.fontFamily.value,
+        //                                   onChanged: (groupValue) =>
+        //                                       c.changeFontFamily(groupValue!),
+        //                                 ),
+        //                               ),
+        //                               Text("Noorehira"),
+        //                               Spacer(),
+        //                               SvgPicture.asset(
+        //                                   "assets/svg/noorehira.svg", width: 60,
+        //                                   color: Colors.black.withOpacity(0.6))
+        //                             ],
+        //                           );
+        //                         }),
+        //
+        //                         Space(8),
+        //                         Obx(() {
+        //                           return Row(
+        //                             children: [
+        //                               Container(
+        //                                 height: 25.h,
+        //                                 width: 25.w,
+        //                                 child: Radio(
+        //                                   activeColor: Get.theme.primaryColor,
+        //                                   // title: Text("Kalam"),
+        //                                   value: "noorehuda",
+        //                                   groupValue: c.fontFamily.value,
+        //                                   onChanged: (groupValue) =>
+        //                                       c.changeFontFamily(groupValue!),
+        //                                 ),
+        //                               ),
+        //                               Text("Noorehuda"),
+        //                               Spacer(),
+        //                               SvgPicture.asset(
+        //                                   "assets/svg/noorehuda.svg", width: 60,
+        //                                   color: Colors.black.withOpacity(0.6))
+        //                             ],
+        //                           );
+        //                         }),
+        //                         Space(8),
+        //                         Obx(() {
+        //                           return Row(
+        //                             children: [
+        //                               Container(
+        //                                 height: 25.h,
+        //                                 width: 25.w,
+        //                                 child: Radio(
+        //                                   activeColor: Get.theme.primaryColor,
+        //                                   // title: Text("Amiri"),
+        //                                   value: "noorehidayat",
+        //                                   groupValue: c.fontFamily.value,
+        //                                   onChanged: (groupValue) =>
+        //                                   c.fontFamily.value = groupValue!,
+        //                                 ),
+        //                               ),
+        //                               Text("Noorehidayat"),
+        //                               Spacer(),
+        //                               SvgPicture.asset(
+        //                                   "assets/svg/noorehidayat.svg",
+        //                                   width: 60,
+        //                                   color: Colors.black.withOpacity(0.6))
+        //                             ],
+        //                           );
+        //                         }),
+        //                       ],
+        //                     ),
+        //                   )
+        //                 ],
+        //               ),
+        //               // Divider(
+        //               //
+        //               // ),
+        //               ExpansionTile(
+        //                 title: Text("Uthmani/Madani Script"),
+        //                 children: [
+        //                   ListTile(
+        //                     title: Column(
+        //                       children: [
+        //                         Obx(() {
+        //                           return Row(
+        //                             children: [
+        //                               Container(
+        //                                 height: 25.h,
+        //                                 width: 25.w,
+        //                                 child: Radio(
+        //                                   activeColor: Get.theme.primaryColor,
+        //                                   // title: Text("Amiri"),
+        //                                   value: "indopak",
+        //                                   groupValue: c.fontFamily.value,
+        //                                   onChanged: (groupValue) =>
+        //                                       c.changeFontFamily(groupValue!),
+        //                                 ),
+        //                               ),
+        //                               Text("Quran"),
+        //                               Spacer(),
+        //                               SvgPicture.asset(
+        //                                   "assets/svg/quran.svg", width: 60,
+        //                                   color: Colors.black.withOpacity(0.6))
+        //                             ],
+        //                           );
+        //                         }),
+        //                         Space(8),
+        //                         Obx(() {
+        //                           return Row(
+        //                             children: [
+        //                               Container(
+        //                                 height: 25.h,
+        //                                 width: 25.w,
+        //                                 child: Radio(
+        //                                   activeColor: Get.theme.primaryColor,
+        //                                   // title: Text("Kalam"),
+        //                                   value: "qalam",
+        //                                   groupValue: c.fontFamily.value,
+        //                                   onChanged: (groupValue) =>
+        //                                       c.changeFontFamily(groupValue!),
+        //                                 ),
+        //                               ),
+        //                               Text("Qalam"),
+        //                               Spacer(),
+        //                               SvgPicture.asset(
+        //                                   "assets/svg/qalam.svg", width: 60,
+        //                                   color: Colors.black.withOpacity(0.6))
+        //                             ],
+        //                           );
+        //                         }),
+        //                         Space(8),
+        //
+        //                         Obx(() {
+        //                           return Row(
+        //                             children: [
+        //                               Container(
+        //                                 height: 25.h,
+        //                                 width: 25.w,
+        //                                 child: Radio(
+        //                                   activeColor: Get.theme.primaryColor,
+        //                                   // title: Text("Amiri"),
+        //                                   value: "uthami",
+        //                                   groupValue: c.fontFamily.value,
+        //                                   onChanged: (groupValue) =>
+        //                                   c.fontFamily.value = groupValue!,
+        //                                 ),
+        //                               ),
+        //                               Text("KFGQPC Hafs"),
+        //                               Spacer(),
+        //                               SvgPicture.asset(
+        //                                   "assets/svg/KFGQPC.svg", width: 60,
+        //                                   color: Colors.black.withOpacity(0.6))
+        //                             ],
+        //                           );
+        //                         }),
+        //                         Space(8),
+        //                         Obx(() {
+        //                           return Row(
+        //                             children: [
+        //                               Container(
+        //                                 height: 25.h,
+        //                                 width: 25.w,
+        //                                 child: Radio(
+        //                                   activeColor: Get.theme.primaryColor,
+        //                                   // title: Text("Kalam"),
+        //                                   value: "amiri",
+        //                                   groupValue: c.fontFamily.value,
+        //                                   onChanged: (groupValue) =>
+        //                                   c.fontFamily.value =
+        //                                       groupValue!.toString(),
+        //                                 ),
+        //                               ),
+        //                               Text("Amiri"),
+        //                               Spacer(),
+        //                               SvgPicture.asset(
+        //                                 "assets/svg/amiri.svg", width: 60,
+        //                                 color: Colors.black.withOpacity(0.5),),
+        //                             ],
+        //                           );
+        //                         }),
+        //                       ],
+        //                     ),
+        //                   )
+        //                 ],
+        //               ),
+        //             ],
+        //           ),
+        //           Divider(
+        //             thickness: 1,
+        //           ),
+        //           Space(16),
+        //           GestureDetector(
+        //             onTap: () {
+        //               Navigator.of(context).push(
+        //                   MaterialPageRoute(builder: (_) => TajweedRules()));
+        //             },
+        //             child: Row(
+        //               children: [
+        //                 Text("Tajweed Rules", style: TextStyle(
+        //                     fontSize: 15, fontWeight: FontWeight.w600),),
+        //                 Spacer(),
+        //                 Icon(Icons.arrow_forward_ios_outlined, size: 15,)
+        //               ],
+        //             ),
+        //           ),
+        //           Space(16),
+        //           Divider(
+        //             thickness: 1,
+        //           ),
+        //           Space(16),
+        //           // Divider(
+        //           //   thickness: 1,
+        //           // ),
+        //           Text(
+        //             "Arabic Font Size",
+        //             style: TextStyle(
+        //               fontSize: 18,
+        //               fontWeight: FontWeight.w500,
+        //             ),
+        //           ),
+        //           Theme(
+        //             data: Theme.of(context).copyWith(
+        //               sliderTheme: const SliderThemeData(
+        //                 thumbShape: MySliderComponentShape(),
+        //                 // trackShape: SameHeightRoundedSliderTrackShape(),
+        //                 trackHeight: 8,
+        //               ),
+        //             ),
+        //             child: Obx(() {
+        //               // Use Obx to listen to changes in the controller's sliderValue
+        //               return Slider(
+        //                 onChanged: c.setSliderValue,
+        //                 // Call the setSliderValue method from the controller
+        //                 value: c.sliderValue.value,
+        //                 // Use the sliderValue from the controller
+        //                 min: 0,
+        //                 max: 2,
+        //                 divisions: 2,
+        //                 activeColor: const Color.fromARGB(255, 231, 231, 231),
+        //                 inactiveColor: const Color.fromARGB(255, 231, 231, 231),
+        //               );
+        //             }),
+        //           ),
+        //           Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             children: const [
+        //               Padding(
+        //                 padding: EdgeInsets.only(left: 24),
+        //                 child: Text('Small', style: TextStyle(
+        //                     fontSize: 14, fontWeight: FontWeight.w400)),
+        //               ),
+        //               Text('Medium', style: TextStyle(
+        //                   fontSize: 15, fontWeight: FontWeight.w500)),
+        //               Padding(
+        //                 padding: EdgeInsets.only(right: 24),
+        //                 child: Text('Large', style: TextStyle(
+        //                     fontSize: 17, fontWeight: FontWeight.w600)),
+        //               ),
+        //             ],
+        //           ),
+        //           Space(16),
+        //           Text(
+        //             "Translation Font Size",
+        //             style: TextStyle(
+        //               fontSize: 18,
+        //               fontWeight: FontWeight.w500,
+        //             ),
+        //           ),
+        //           Theme(
+        //             data: Theme.of(context).copyWith(
+        //               sliderTheme: const SliderThemeData(
+        //                 thumbShape: MySliderComponentShape1(),
+        //                 // trackShape: SameHeightRoundedSliderTrackShape(),
+        //                 trackHeight: 8,
+        //               ),
+        //             ),
+        //             child: Obx(() {
+        //               // Use Obx to listen to changes in the controller's sliderValue
+        //               return Slider(
+        //                 onChanged: c.setSliderValue1,
+        //                 // Call the setSliderValue method from the controller
+        //                 value: c.sliderValue1.value,
+        //                 // Use the sliderValue from the controller
+        //                 min: 0,
+        //                 max: 2,
+        //                 divisions: 2,
+        //                 activeColor: const Color.fromARGB(255, 231, 231, 231),
+        //                 inactiveColor: const Color.fromARGB(255, 231, 231, 231),
+        //               );
+        //             }),
+        //           ),
+        //           Row(
+        //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //             children: const [
+        //               Padding(
+        //                 padding: EdgeInsets.only(left: 24),
+        //                 child: Text('Small', style: TextStyle(
+        //                     fontSize: 14, fontWeight: FontWeight.w400)),
+        //               ),
+        //               Text('Medium', style: TextStyle(
+        //                   fontSize: 15, fontWeight: FontWeight.w500)),
+        //               Padding(
+        //                 padding: EdgeInsets.only(right: 24),
+        //                 child: Text('Large', style: TextStyle(
+        //                     fontSize: 17, fontWeight: FontWeight.w600)),
+        //               ),
+        //             ],
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        ///
         backgroundColor: Colors.white,
         appBar: CustomAppbar(
           tittle: "${c.getqurandetail.value.getQuranAyahVerse![0].titleArb}",
