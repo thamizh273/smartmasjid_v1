@@ -6,6 +6,7 @@ import 'package:smartmasjid_v1/widgets/stext.dart';
 
 import '../../../../global.dart';
 import '../../../../widgets/space.dart';
+import '../../membership/views/payment_method.dart';
 
 class DonationAmount extends StatelessWidget {
   const DonationAmount({super.key});

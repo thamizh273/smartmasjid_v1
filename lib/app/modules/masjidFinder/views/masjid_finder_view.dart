@@ -527,7 +527,7 @@ class MasjidFinderView extends StatelessWidget {
                           //  Navigator.of(context).push(MaterialPageRoute(builder: (_) => MasjidRequestPage()));
                         },
                         child: Text("join_masjid".tr,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 14)),
                       ),
                     ],

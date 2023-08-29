@@ -34,10 +34,12 @@ class MembershipController extends GetxController {
 
     RxInt totalPayment=0.obs;
 
-
-  var fontFamily = "upi".obs;
+  RxList<bool> boolList = <bool>[true, false, true, false, true].obs;
+  RxInt selectedRadioIndex = 0.obs;
   RxString dropDownvalue="This Year".obs;
-
+  void setSelectedRadio(int index) {
+    selectedRadioIndex.value = index;
+  }
 
   @override
   void onInit() {

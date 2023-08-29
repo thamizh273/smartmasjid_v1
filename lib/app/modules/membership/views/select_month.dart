@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/modules/membership/views/payment_method.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
@@ -207,7 +208,7 @@ class SelectMonth extends StatelessWidget {
                   Space(8),
                   IconButton(onPressed: () {
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => PaymentMethod()));
+                        MaterialPageRoute(builder: (_) => PaymentMethodM()));
                   }, icon: Icon(Icons.send, color: Colors.white, size: 25,))
                 ],
               ),

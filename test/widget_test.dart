@@ -1,114 +1,232 @@
-import 'package:flutter/material.dart';
-import 'package:sticky_grouped_list/sticky_grouped_list.dart';
 
-/// This example shows the basic usage of the [StickyGroupedListView].
+import 'package:flutter/material.dart';
+import 'package:upi_india/upi_india.dart';
+
+
 void main() => runApp(const MyApp());
 
-List<Element> _elements = <Element>[
-  Element(DateTime(2020, 6, 24, 18), 'Got to gym', Icons.fitness_center),
-  Element(DateTime(2020, 6, 24, 9), 'Work', Icons.work),
-  Element(DateTime(2020, 6, 25, 8), 'Buy groceries', Icons.shopping_basket),
-  Element(DateTime(2020, 6, 25, 16), 'Cinema', Icons.movie),
-  Element(DateTime(2020, 6, 25, 20), 'Eat', Icons.fastfood),
-  Element(DateTime(2020, 6, 26, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 27, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 27, 13), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 27, 14), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 27, 15), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 28, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 29, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 29, 12), 'Car wash', Icons.local_car_wash),
-  Element(DateTime(2020, 6, 30, 12), 'Car wash', Icons.local_car_wash),
-];
-
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Grouped List View Example'),
+      title: "Integrate UPI in flutter app",
+      home: UpiPaymentScreen(),
+    );
+  }
+}
+class UpiPaymentScreen extends StatefulWidget {
+  const UpiPaymentScreen({super.key});
+
+  @override
+  _UpiPaymentScreenState createState() => _UpiPaymentScreenState();
+}
+
+class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
+  Future<UpiResponse>? _transaction;
+  final UpiIndia _upiIndia = UpiIndia();
+  List<UpiApp>? apps;
+
+  TextStyle header = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.bold,
+  );
+
+  TextStyle value = const TextStyle(
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+  );
+
+  @override
+  void initState() {
+    _upiIndia.getAllUpiApps(mandatoryTransactionId: false).then((value) {
+      setState(() {
+        apps = value;
+      });
+    }).catchError((e) {
+      apps = [];
+    });
+    super.initState();
+  }
+
+  Future<UpiResponse> initiateTransaction(UpiApp app) async {
+    return _upiIndia.startTransaction(
+        app: app,
+        receiverUpiId: "9514786166@ybl",
+        receiverName: 'Thamizhselvan',
+        transactionRefId: DateTime.now().millisecondsSinceEpoch.toString(),
+        transactionNote: '',
+        amount: 1,
+        merchantId: '');
+  }
+
+  Widget displayUpiApps() {
+    if (apps == null) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (apps!.isEmpty) {
+      return Center(
+        child: Text(
+          "No apps found to handle transaction.",
+          style: header,
         ),
-        body: StickyGroupedListView<Element, DateTime>(
-          elements: _elements,
-          order: StickyGroupedListOrder.ASC,
-          groupBy: (Element element) => DateTime(
-            element.date.year,
-            element.date.month,
-            element.date.day,
+      );
+    } else {
+      return Align(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Wrap(
+            children: apps!.map<Widget>((UpiApp app) {
+              return GestureDetector(
+                onTap: () {
+                  _transaction = initiateTransaction(app);
+                  setState(() {});
+                },
+                child: SizedBox(
+                  height: 200,
+                  width: 100,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 100,
+                        width: 100,
+                        color: Colors.blue.shade900,
+                        
+                       child:
+                        const Icon(
+                          Icons.payment,
+                          size: 60,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(app.name),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
           ),
-          groupComparator: (DateTime value1, DateTime value2) =>
-              value2.compareTo(value1),
-          itemComparator: (Element element1, Element element2) =>
-              element1.date.compareTo(element2.date),
-          floatingHeader: true,
-          groupSeparatorBuilder: _getGroupSeparator,
-          itemBuilder: _getItem,
         ),
+      );
+    }
+  }
+
+  String _upiErrorHandler(error) {
+    switch (error) {
+      case UpiIndiaAppNotInstalledException:
+        return 'Requested app not installed on device';
+      case UpiIndiaUserCancelledException:
+        return 'You cancelled the transaction';
+      case UpiIndiaNullResponseException:
+        return 'Requested app didn\'t return any response';
+      case UpiIndiaInvalidParametersException:
+        return 'Requested app cannot handle the transaction';
+      default:
+        return 'An Unknown error has occurred';
+    }
+  }
+
+  void _checkTxnStatus(String status) {
+    switch (status) {
+      case UpiPaymentStatus.SUCCESS:
+        print('Transaction Successful');
+        break;
+      case UpiPaymentStatus.SUBMITTED:
+        print('Transaction Submitted');
+        break;
+      case UpiPaymentStatus.FAILURE:
+        print('Transaction Failed');
+        break;
+      default:
+        print('Received an Unknown transaction status');
+    }
+  }
+
+  Widget displayTransactionData(title, body) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text("$title: ", style: header),
+          Flexible(
+              child: Text(
+                body,
+                style: value,
+              )),
+        ],
       ),
     );
   }
 
-  Widget _getGroupSeparator(Element element) {
-    return SizedBox(
-      height: 50,
-      child: Align(
-        alignment: Alignment.center,
-        child: Container(
-          width: 120,
-          decoration: BoxDecoration(
-            color: Colors.blue[300],
-            border: Border.all(
-              color: Colors.blue[300]!,
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              '${element.date.day}. ${element.date.month}, ${element.date.year}',
-              textAlign: TextAlign.center,
-            ),
-          ),
-        ),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue.shade900,
+        title: const Text("Integrate UPI"),
       ),
-    );
-  }
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: displayUpiApps(),
+          ),
+          Expanded(
+            child: FutureBuilder(
+              future: _transaction,
+              builder:
+                  (BuildContext context, AsyncSnapshot<UpiResponse> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text(
+                        _upiErrorHandler(snapshot.error.runtimeType),
+                        style: header,
+                      ), // Print's text message on screen
+                    );
+                  }
 
-  Widget _getItem(BuildContext ctx, Element element) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(6.0),
-      ),
-      elevation: 8.0,
-      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-      child: SizedBox(
-        child: ListTile(
-          contentPadding:
-          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          leading: Icon(element.icon),
-          title: Text(element.name),
-          trailing: Text('${element.date.hour}:00'),
-        ),
+                  UpiResponse _upiResponse = snapshot.data!;
+
+                  String txnId = _upiResponse.transactionId ?? 'N/A';
+                  String resCode = _upiResponse.responseCode ?? 'N/A';
+                  String txnRef = _upiResponse.transactionRefId ?? 'N/A';
+                  String status = _upiResponse.status ?? 'N/A';
+                  String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
+                  _checkTxnStatus(status);
+
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        displayTransactionData('Transaction Id', txnId),
+                        displayTransactionData('Response Code', resCode),
+                        displayTransactionData('Reference Id', txnRef),
+                        displayTransactionData('Status', status.toUpperCase()),
+                        displayTransactionData('Approval No', approvalRef),
+                      ],
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: Text(''),
+                  );
+                }
+              },
+            ),
+          )
+        ],
       ),
     );
   }
 }
 
-class Element {
-  DateTime date;
-  String name;
-  IconData icon;
-
-  Element(this.date, this.name, this.icon);
-}
 ///
 /*
  * Copyright Copenhagen Center for Health Technology (CACHET) at the
