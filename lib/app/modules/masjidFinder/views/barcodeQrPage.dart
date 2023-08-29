@@ -273,7 +273,7 @@ class _QRViewExampleState extends State<barcodeQrScanner> {
                               ontap: () {
                                 Get.toNamed(Routes.MASJID_FINDER);
                               },
-                              text: "Cancel",
+                              text: "cancel".tr,
                               txtsize: f1,
                               txtClr:
                               Get.theme.colorScheme.primary),
@@ -293,7 +293,7 @@ class _QRViewExampleState extends State<barcodeQrScanner> {
 
                                 ctrl.update();
                               },
-                              text: "Confirm",
+                              text: "confirm".tr,
                               txtsize: f1,
                               txtClr:
                               Get.theme.colorScheme.primary),

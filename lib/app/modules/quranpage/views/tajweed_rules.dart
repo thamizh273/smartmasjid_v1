@@ -132,7 +132,7 @@ class TajweedRules extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("OR"),
+                  Text("or".tr,),
                 ],
               ),
               Space(8),
@@ -165,7 +165,7 @@ class TajweedRules extends StatelessWidget {
               Space(16),
               Image.asset("assets/images/text5.png",width: 350,),
               Space(8),
-              Text("OR"),
+              Text("or".tr,),
               Space(8),
               Text("When a  is followed by  , the former will become incorperated"
                 "into the latter and will be read with Ghunna."),

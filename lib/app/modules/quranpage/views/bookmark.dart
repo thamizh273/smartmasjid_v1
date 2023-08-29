@@ -22,7 +22,7 @@ class Bookmark extends StatelessWidget {
             onTap: (){Get.back();},
               child: SvgPicture.asset("assets/svg/backnew.svg", fit: BoxFit.scaleDown,)),
           backgroundColor: Theme.of(context).primaryColor,
-          title:Text( "Bookmarks"),
+          title:Text( "Bookmarks".tr),
         bottom: TabBar(
           tabs: [
           Tab(
@@ -46,7 +46,7 @@ class Bookmark extends StatelessWidget {
                     Space(100),
                     Image.asset("assets/images/bookui.png", width: 250,),
                     Space(16),
-                    Stxt(text: "No Bookmarks yet", size: f5, weight: FontWeight.w600,),
+                    Stxt(text: "No Bookmarks yet".tr, size: f5, weight: FontWeight.w600,),
                     Space(16),
                     ElevatedButton(
                         onPressed: () {
@@ -61,10 +61,10 @@ class Bookmark extends StatelessWidget {
                           ),
                           elevation: 4.0,
                         ),
-                        child: Text("Read Holy Quran", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
+                        child: Text("Read Holy Quran".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
                     Space(16),
                     Stxt(text: "Read and add your favourite to\n"
-                        "Bookmarks, that will appear here", size: f2, color: Colors.black.withOpacity(0.4),)
+                        "Bookmarks, that will appear here".tr, size: f2, color: Colors.black.withOpacity(0.4),)
                   ],
                 ),
               )
@@ -182,7 +182,7 @@ class NoBookmark extends StatelessWidget {
             Space(100),
            Image.asset("assets/images/bookui.png", width: 250,),
             Space(16),
-            Stxt(text: "No Bookmarks yet", size: f5, weight: FontWeight.w600,),
+            Stxt(text: "No Bookmarks yet".tr, size: f5, weight: FontWeight.w600,),
             Space(16),
             ElevatedButton(
                 onPressed: () {
@@ -197,10 +197,10 @@ class NoBookmark extends StatelessWidget {
                   ),
                   elevation: 4.0,
                 ),
-                child: Text("Read Holy Quran", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
+                child: Text("Read Holy Quran".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
             Space(16),
             Stxt(text: "Read and add your favourite to\n"
-              "Bookmarks, that will appear here", size: f2, color: Colors.black.withOpacity(0.4),)
+              "Bookmarks, that will appear here".tr, size: f2, color: Colors.black.withOpacity(0.4),)
           ],
         ),
       ),

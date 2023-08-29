@@ -86,8 +86,8 @@ class QuickPay extends StatelessWidget {
                         }),
                         8.verticalSpace,
 
-                        const Text(
-                          "OR",
+                         Text(
+                          "or".tr,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),

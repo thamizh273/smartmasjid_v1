@@ -340,7 +340,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                                   ontap: () {
                                     Get.back();
                                   },
-                                  text: "Cancel",
+                                  text: "cancel".tr,
                                   txtsize: f1,
                                   txtClr:
                                   Get.theme.colorScheme.primary),
@@ -351,7 +351,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                                     controller.logout();
                                     controller.update();
                                   },
-                                  text: "Confirm",
+                                  text: "confirm".tr,
                                   txtsize: f1,
                                   txtClr:
                                   Get.theme.colorScheme.primary),

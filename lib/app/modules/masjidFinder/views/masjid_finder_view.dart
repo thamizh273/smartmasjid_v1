@@ -49,7 +49,7 @@ class MasjidFinderView extends StatelessWidget {
                             height: 5,
                           ),
                           Text(
-                            "Scan",
+                            "Scan".tr,
                             style: TextStyle(
                                 color: Theme
                                     .of(context)
@@ -63,7 +63,7 @@ class MasjidFinderView extends StatelessWidget {
                 ),
               ),
               Text(
-                "Select Your Masjid",
+                "select_your_masjid".tr,
                 style: TextStyle(
                     color: Theme
                         .of(context)
@@ -95,9 +95,9 @@ class MasjidFinderView extends StatelessWidget {
                           child:  CountryStatePickerPlus(
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8)),
-                              countryHintText: "Select Country",
-                              stateHintText: 'Select State',
-                              cityHintText: 'Select City',
+                              countryHintText: "select_country".tr,
+                              stateHintText: 'select_state'.tr,
+                              cityHintText: 'select_city'.tr,
                               dropdownColor:
                               Theme
                                   .of(context)
@@ -163,7 +163,7 @@ class MasjidFinderView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'OR',
+                      'or'.tr,
                       style: TextStyle(
                           color: Theme
                               .of(context)
@@ -237,7 +237,7 @@ class MasjidFinderView extends StatelessWidget {
 
                     decoration: InputDecoration(
                       hintStyle: TextStyle(fontSize: 12),
-                      hintText: 'Search by Masjid Name',
+                      hintText: 'search_by_masjid_name'.tr,
                       // label: Text("Search by Masjid Name", style: TextStyle(fontSize: 12),),
                       filled: true,
                       fillColor: Colors.grey.shade400,
@@ -298,7 +298,7 @@ class MasjidFinderView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                "Searching Results",
+                                "searching_results".tr,
                                 style: TextStyle(
                                     color: Theme
                                         .of(context)
@@ -439,7 +439,7 @@ class MasjidFinderView extends StatelessWidget {
                                       children: [
                                         Stxt(
                                           text:
-                                          "Are you Sure you want to join",
+                                          "are_you_sure_want_to_join".tr,
                                           size: f3,
                                           // weight: FontWeight.bold,
                                           color: Colors.white,
@@ -466,7 +466,7 @@ class MasjidFinderView extends StatelessWidget {
                                               ontap: () {
                                                 Get.back();
                                               },
-                                              text: "Cancel",
+                                              text: "cancel".tr,
                                               txtsize: f1,
                                               txtClr:
                                               Get.theme.colorScheme.primary),
@@ -489,7 +489,7 @@ class MasjidFinderView extends StatelessWidget {
 
                                                 c.update();
                                               },
-                                              text: "Confirm",
+                                              text: "confirm".tr,
                                               txtsize: f1,
                                               txtClr:
                                               Get.theme.colorScheme.primary),
@@ -526,7 +526,7 @@ class MasjidFinderView extends StatelessWidget {
                           //     Routes.LOGIN_PAGE);
                           //  Navigator.of(context).push(MaterialPageRoute(builder: (_) => MasjidRequestPage()));
                         },
-                        child: Text("Join Masjid",
+                        child: Text("join_masjid".tr,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 14)),
                       ),

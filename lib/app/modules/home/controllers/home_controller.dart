@@ -215,8 +215,6 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
 
       DateTime now = DateTime.now();
 
-
-
       // Target date and time
       var targetDateTime = DateTime.parse("${prayerTimeData.value
           .getTodayMasjidPrayerTime!

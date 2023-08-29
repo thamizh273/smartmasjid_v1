@@ -50,7 +50,7 @@ class MessagepageView extends GetView<MessagepageController> {
 
 
     return Scaffold(
-      appBar: CustomAppbar(tittle: 'Messages',
+      appBar: CustomAppbar(tittle: 'Messages'.tr,
         action: [
           IconButton(
               onPressed: () {}, icon: Icon(Icons.refresh, color: Colors.white,))
@@ -171,8 +171,8 @@ class NoMeassage extends StatelessWidget {
           children: [
             SvgPicture.asset("assets/svg/messages.svg"),
             Space(16),
-            Text("No Messages Yet,"),
-            Text("Start your Conversation")
+            Text("No messages yet, start your conversation".tr),
+            // Text("Start your Conversation".tr)
           ],
         ),
       ),
