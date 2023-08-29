@@ -28,9 +28,9 @@ class SignupPageView extends GetView<SignupPageController> {
                   child: Column(
                     children: [
 
-                      const Text(
-                        "Register",
-                        style: TextStyle(
+                       Text(
+                        "register".tr,
+                        style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w800,
                             color: Color(0xffB5C5CA)),
@@ -38,7 +38,7 @@ class SignupPageView extends GetView<SignupPageController> {
                       18.verticalSpace,
 
                       Safa_textfield(
-                        hint: 'First Name',
+                        hint: 'firstname'.tr,
                         width: .9,
                         controller: controller.firstNameCtrl.value,
                         prefixIcon: Icon(Icons.person),
@@ -48,11 +48,11 @@ class SignupPageView extends GetView<SignupPageController> {
                       Safa_textfield(
                         prefixIcon: Icon(Icons.person),
                         controller: controller.lastNameCtrl.value,
-                        hint: ' Last Name',
+                        hint: 'lastname'.tr,
                         width: .9,
                       ),
                       Safa_textfield(
-                        hint: 'Email',
+                        hint: 'email'.tr,
                         width: .9,
                         controller: controller.emailCtrl.value,
                         prefixIcon: Icon(Icons.mail),
@@ -61,7 +61,7 @@ class SignupPageView extends GetView<SignupPageController> {
                         return Safa_textfield(
 
                           keyboardType: TextInputType.number,
-                          hint: 'Phone',
+                          hint: 'phone'.tr,
                           width: .9,
                           controller: controller.phoneCtrl.value,
                           prefixIcon: Container(
@@ -112,7 +112,7 @@ class SignupPageView extends GetView<SignupPageController> {
                       }),
                       Obx(() {
                         return Safa_textfield(
-                            hint: 'Password',
+                            hint: 'password'.tr,
                             width: .9,
                             obscureText: controller.obscureTextpass.value,
                             controller: controller.passwordCtrl.value,
@@ -133,7 +133,7 @@ class SignupPageView extends GetView<SignupPageController> {
                       }),
                       Obx(() {
                         return Safa_textfield(
-                            hint: 'Confirm Password',
+                            hint: 'confirm_password'.tr,
                             width: .9,
                             obscureText: controller.obscureTextcpass.value,
                             controller: controller.passCtrl.value,
@@ -219,7 +219,7 @@ class SignupPageView extends GetView<SignupPageController> {
                             elevation: 4.0,
                           ),
                           child: Text(
-                            "Submit",
+                            "submit".tr,
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 18,
@@ -234,7 +234,7 @@ class SignupPageView extends GetView<SignupPageController> {
                           Get.toNamed(Routes.OTP_PAGE);
                         },
                         child: Text(
-                          "Have an account?",
+                          "already_have_an_account".tr,
                           style:
                           TextStyle(color: Theme
                               .of(context)
@@ -250,7 +250,7 @@ class SignupPageView extends GetView<SignupPageController> {
                               //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
                             },
                             child: Text(
-                              "Login",
+                              "login".tr,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600,
                                   color: Theme

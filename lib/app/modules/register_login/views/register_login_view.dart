@@ -82,7 +82,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                     elevation: 4.0,
                   ),
                   child: Text(
-                    "Register".tr,
+                    "register".tr,
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                   )),
               15.verticalSpace,
@@ -116,12 +116,12 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                     ),
                   ),
                   child: Text(
-                    "Login".tr,
+                    "login".tr,
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                   )),
               15.verticalSpace,
               Text(
-                "Or Continue with".tr,
+                "or_continue_with".tr,
                 style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 15,
@@ -175,7 +175,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                           elevation: 4.0,
                         ),
                         child: Text(
-                          "Guest".tr,
+                          "guest".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600, fontSize: 10),
                         )),

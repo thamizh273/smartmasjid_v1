@@ -58,16 +58,11 @@ class OtpPageView extends GetView<OtpPageController> {
                       children: [
                         Lottie.asset("assets/lottie/otpverify.json",
                             repeat: false, height: 200, width: 200),
-                        Text(
-                          "OTP has been sent to your mobile \n number.Please Enter it Below",
-                          style: TextStyle(
-                              color: Theme
-                                  .of(context)
-                                  .colorScheme
-                                  .secondary,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600),
-                        ),
+                        Stxt(text: 'otp_sent_to_your_mobile_number'.tr, size: f3 , color: Theme
+                            .of(context)
+                            .colorScheme
+                            .secondary,weight: FontWeight.w600,textAlign: TextAlign.center,),
+
                         const SizedBox(
                           height: 20,
                         ),
@@ -216,7 +211,7 @@ class OtpPageView extends GetView<OtpPageController> {
                               //OtpPageController.instance.verifyOTP(Controller.codes.value);
                             },
                             child: Text(
-                              "verify",
+                              "verify".tr,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 17,
@@ -236,7 +231,7 @@ class OtpPageView extends GetView<OtpPageController> {
                             authctrl.enableResend.value ? controller
                                 .resendCode() : null;
                           },
-                              text: "Resend OTP",
+                              text: "resend_otp".tr,
                               height: 35,
                               width: 120,
                               txtsize: f2,

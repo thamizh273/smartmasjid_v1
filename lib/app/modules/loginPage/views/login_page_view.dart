@@ -39,7 +39,7 @@ class LoginPageView extends GetView<LoginPageController> {
               80.verticalSpace,
               Center(
                   child: Text(
-                "Login",
+                "login".tr,
                 style: TextStyle(
                     fontSize: 25.sp,
                     fontWeight: FontWeight.w800,
@@ -52,7 +52,7 @@ class LoginPageView extends GetView<LoginPageController> {
                         controller: controller.phoneLCtrl.value,
                         keyboardType: TextInputType.number,
                         width: .9,
-                        hint: "Phone",
+                        hint: "phone".tr,
                         prefixIcon: Container(
                           padding:
                               EdgeInsets.symmetric(vertical: 7, horizontal: 8),
@@ -85,7 +85,7 @@ class LoginPageView extends GetView<LoginPageController> {
                         keyboardType: TextInputType.emailAddress,
                         controller: controller.emailLCtrl.value,
                         width: .9,
-                        hint: "Email",
+                        hint: "email".tr,
                         prefixIcon: const Icon(Icons.email),
                       );
               }),
@@ -103,7 +103,7 @@ class LoginPageView extends GetView<LoginPageController> {
                         controller.showPhoneNumberField.value
                             ? "Use Phone"
                             : "Use Email",
-                        style: const TextStyle(
+                        style:  TextStyle(
                           fontSize: f1,
                           fontWeight: FontWeight.w500,
                           color: Color(0xffD9D9D9),
@@ -118,7 +118,7 @@ class LoginPageView extends GetView<LoginPageController> {
                   controller: controller.passwordLCtrl.value,
                   obscureText: controller.obscureTextLpass.value,
                   width: .9,
-                  hint: "Password",
+                  hint: "password".tr,
                   suffixIcon: IconButton(
                     onPressed: () {
                       controller.obscureTextLpass.value =
@@ -179,8 +179,8 @@ class LoginPageView extends GetView<LoginPageController> {
                         return Text(
                           (controller.isLoading.value &&
                                   controller.isLoading1.value)
-                              ? "Wait"
-                              : "Login",
+                              ? "wait".tr
+                              : "login".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,
@@ -194,7 +194,7 @@ class LoginPageView extends GetView<LoginPageController> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    "Don't have an account?",
+                    "don't_have_an_account?".tr,
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.secondary),
                   ),
@@ -207,7 +207,7 @@ class LoginPageView extends GetView<LoginPageController> {
                           /// Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) =>()));
                         },
                         child: Text(
-                          "Register",
+                          "register".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Theme.of(context).colorScheme.secondary),

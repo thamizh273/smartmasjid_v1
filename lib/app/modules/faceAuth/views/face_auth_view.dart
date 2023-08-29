@@ -231,12 +231,12 @@ class FaceAuthView extends GetView<FaceAuthController> {
                   child: Padding(
                     padding: EdgeInsets.all(15),
                     child: SButton(
-                      txtsize: f2,
+                      txtsize: f1,
                       text: "Skip".tr,
                       txtClr: Get.theme.colorScheme.primary,
                       height: 20.h,
                       rad: 25,
-                      width: 90,
+                      width: 90.w,
                       pad: 2,
                       ontap: () {
                         Get.toNamed(Routes.SIGNUP_PAGE);
