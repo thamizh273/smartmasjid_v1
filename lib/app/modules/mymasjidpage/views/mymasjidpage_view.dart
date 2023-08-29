@@ -13,7 +13,7 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "My Masjid",
+        tittle: "My Masjid".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -31,7 +31,7 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Stxt(text: "Current Masjid", size: f2, color: Theme.of(context).primaryColor,),
+                    Stxt(text: "Current Masjid".tr, size: f2, color: Theme.of(context).primaryColor,),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(

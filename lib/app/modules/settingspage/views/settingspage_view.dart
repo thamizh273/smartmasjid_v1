@@ -28,7 +28,7 @@ class SettingspageView extends GetView<SettingspageController> {
               children: [
                 SvgPicture.asset("assets/svg/thememode.svg"),
                 Space(16),
-                Text("Dark Mode",
+                Text("Dark Mode".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                 Spacer(),
                 Obx(() {
@@ -51,7 +51,7 @@ class SettingspageView extends GetView<SettingspageController> {
               children: [
                 SvgPicture.asset("assets/svg/language.svg"),
                 Space(16),
-                Text("Language",
+                Text("Language".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                 Spacer(),
                 Icon(Icons.arrow_forward_ios),
@@ -65,7 +65,7 @@ class SettingspageView extends GetView<SettingspageController> {
               children: [
                 SvgPicture.asset("assets/svg/feedback.svg"),
                 Space(16),
-                Text("Feedback",
+                Text("Feedback".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                 Spacer(),
                 Icon(Icons.arrow_forward_ios),
@@ -79,7 +79,7 @@ class SettingspageView extends GetView<SettingspageController> {
               children: [
                 SvgPicture.asset("assets/svg/contact.svg"),
                 Space(16),
-                Text("Contact",
+                Text("Contact".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                 Spacer(),
                 Icon(Icons.arrow_forward_ios),
@@ -93,7 +93,7 @@ class SettingspageView extends GetView<SettingspageController> {
               children: [
                 SvgPicture.asset("assets/svg/rating.svg"),
                 Space(16),
-                Text("Rate our app",
+                Text("Rate our app".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                 Spacer(),
                 Icon(Icons.arrow_forward_ios),
@@ -107,7 +107,7 @@ class SettingspageView extends GetView<SettingspageController> {
               children: [
                 SvgPicture.asset("assets/svg/version.svg"),
                 Space(16),
-                Text("Version",
+                Text("Version".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                 Spacer(),
                 Icon(Icons.arrow_forward_ios),
@@ -121,7 +121,7 @@ class SettingspageView extends GetView<SettingspageController> {
               children: [
                 SvgPicture.asset("assets/svg/share.svg"),
                 Space(16),
-                Text("Share Smart Masjid 2.0",
+                Text("Share Smart Masjid 2.0".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                 Spacer(),
                 Icon(Icons.arrow_forward_ios),
