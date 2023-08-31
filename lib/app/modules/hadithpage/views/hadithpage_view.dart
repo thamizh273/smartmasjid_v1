@@ -21,7 +21,7 @@ class HadithpageView extends GetView<HadithpageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Hadith",
+        tittle: "hadith".tr,
         action: [
           Image.asset("assets/images/bookmark.png", width: 20,),
           Space(20)

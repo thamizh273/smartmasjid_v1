@@ -20,7 +20,7 @@ class EventsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppbar(tittle: "Events"),
+        appBar: CustomAppbar(tittle: "events".tr),
         body: Obx(() {
           return homectrl.isloadingEvent.value?loading(context): Padding(
             padding: const EdgeInsets.all(10),
@@ -31,7 +31,7 @@ class EventsView extends StatelessWidget {
                   height: 10,
                 ),
                 Stxt(
-                  text: 'Upcoming Events',
+                  text: 'upcoming_events'.tr,
                   size: f2,
                   weight: FontWeight.bold,
                   color: Theme
@@ -139,11 +139,11 @@ class EventsView extends StatelessWidget {
                                               color: Theme
                                                   .of(context)
                                                   .primaryColor,
-                                              child: Stxt(text: 'Notify',
+                                              child: Stxt(text: 'notify'.tr,
                                                 size: f1,
                                                 color: clr_white,),
-                                              height: 20,
-                                              width: 80,
+                                              height: 30.h,
+                                              width: 90.w,
                                               ontap: () {}),
                                         ],
                                       ),

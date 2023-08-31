@@ -12,7 +12,7 @@ class ServicepageView extends GetView<ServicepageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Services",
+        tittle: "services".tr,
       ),
       body: Working(),
     );

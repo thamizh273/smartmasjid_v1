@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../../global.dart';
 import '../../../../widgets/space.dart';
@@ -15,7 +16,7 @@ class QuranNotes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Notes",
+        tittle: "notes".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -57,6 +58,7 @@ class QuranNotes extends StatelessWidget {
           ],
         ),
       ),
+      // body: NoNotes(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         child: IconButton(onPressed: (){
@@ -87,9 +89,9 @@ class NoNotes extends StatelessWidget {
             Space(100),
             Image.asset("assets/images/Notebook.png", width: 250,),
             Space(8),
-            Stxt(text: "No Notes yet", size: f5, weight: FontWeight.w600,),
+            Stxt(text: "no_notes_yet".tr, size: f5, weight: FontWeight.w600,),
             Space(16),
-            Stxt(text: "Tap ( Add ) to create a note", size: f2, color: Colors.black.withOpacity(0.5),),
+            Stxt(text: "tap_add_to_create_a_note".tr, size: f2, color: Colors.black.withOpacity(0.5),),
           ],
         ),
       ),

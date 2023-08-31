@@ -50,7 +50,7 @@ class MessagepageView extends GetView<MessagepageController> {
 
 
     return Scaffold(
-      appBar: CustomAppbar(tittle: 'Messages'.tr,
+      appBar: CustomAppbar(tittle: 'messages'.tr,
         action: [
           IconButton(
               onPressed: () {}, icon: Icon(Icons.refresh, color: Colors.white,))
@@ -213,7 +213,7 @@ class CustomDialogBox extends StatelessWidget {
               child: Row(
                 children: [
                   Space(16),
-                  Text("Select", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),),
+                  Text("select".tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),),
                   Spacer(),
                   // Icon(Icons.close, color: Colors.white,),
                   Space(16),
@@ -245,7 +245,7 @@ class CustomDialogBox extends StatelessWidget {
                           .withOpacity(0.4), fontWeight: FontWeight.w600),
                       controller: pass,
                       decoration: InputDecoration(
-                        hintText: 'Search',
+                        hintText: 'search'.tr,
                         // label: Text("Note Title"),
                         filled: true,
                         fillColor: Colors.grey.shade100,

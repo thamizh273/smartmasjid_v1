@@ -12,7 +12,7 @@ class MasjidnearmeView extends GetView<MasjidnearmeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Masjid Near Me",
+        tittle: "masjid_near_me".tr,
       ),
       body: Working(),
     );

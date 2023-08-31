@@ -11,6 +11,7 @@ import '../controllers/language_page_controller.dart';
 
 class LanguagePageView extends GetView<LanguagePageController> {
   LanguagePageView({Key? key}) : super(key: key);
+
   final List locale = [
     {'name': 'ENGLISH', 'locale': const Locale('en', 'US')},
     {'name': 'தமிழ்', 'locale': const Locale('ta', 'IN')},

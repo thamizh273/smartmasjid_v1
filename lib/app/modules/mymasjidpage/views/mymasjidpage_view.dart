@@ -13,7 +13,7 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "My Masjid".tr,
+        tittle: "my_masjid".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -31,7 +31,7 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Stxt(text: "Current Masjid".tr, size: f2, color: Theme.of(context).primaryColor,),
+                    Stxt(text: "current_masjid".tr, size: f2, color: Theme.of(context).primaryColor,),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -73,9 +73,11 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
                     Space(16),
                     Row(
                       children: [
-                        Stxt(text: "Joined on jan 2020", size: f3, weight: FontWeight.w500,),
+                        Stxt(text: "joined_on".tr, size: f3, weight: FontWeight.w500,),
+                        Stxt(text: ": Jan 2020".tr, size: f3, weight: FontWeight.w500,),
                         Spacer(),
-                        Stxt(text: "Members: 198", size: f3, weight: FontWeight.w400,)
+                        Stxt(text: "members".tr, size: f3, weight: FontWeight.w400,),
+                        Stxt(text: ": 198", size: f3, weight: FontWeight.w400,),
                       ],
                     )
                   ],
@@ -97,8 +99,7 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
             //     ),
             //     child: Text("Add Masjid", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
             Spacer(),
-            Stxt(text: "Note: If you join another masjid you need to"
-      "\nPay membership for that masjid too.", size: f2, textAlign: TextAlign.center,)
+            Stxt(text: "note:if_you_join_another_masjid_you_need_to_pay_membership_for_that_masjid_too".tr, size: f2, textAlign: TextAlign.center,)
           ],
         ),
       ),

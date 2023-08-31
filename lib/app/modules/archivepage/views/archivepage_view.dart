@@ -10,7 +10,7 @@ class ArchivepageView extends GetView<ArchivepageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(tittle: "Archived Notifications",),
+      appBar: CustomAppbar(tittle: "archived_notifications".tr,),
     );
   }
 }

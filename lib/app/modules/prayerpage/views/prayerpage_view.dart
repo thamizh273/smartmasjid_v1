@@ -100,7 +100,7 @@ class PrayerpageView extends StatelessWidget {
           },
           ),
           title: Stxt(
-              text: "Prayer Time",
+              text: "prayer_time".tr,
               size: f4,
               weight: FontWeight.bold,
               color: Colors.white),
@@ -130,7 +130,7 @@ class PrayerpageView extends StatelessWidget {
             children: [
 
               Stxt(
-                text: 'Farz Prayer Time',
+                text: 'farz_prayer_time'.tr,
                 size: f4,
                 weight: FontWeight.bold,
                 color: Get.theme.primaryColor,
@@ -168,7 +168,7 @@ class PrayerpageView extends StatelessWidget {
                     return
 
                       PrayerCard(
-                      prayerName: prayertime.prayerName.toString(),
+                      prayerName: prayertime.prayerName.toString().tr,
                       icon: getdata[index]["icon"],
                       start_time: DateFormat('hh:mm a').format(DateTime.parse("${prayertime.startTime}").toLocal()),
                       endTime: DateFormat('hh:mm a').format(DateTime.parse("${prayertime.endTime}").toLocal()),
@@ -192,7 +192,7 @@ class PrayerpageView extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 20, bottom: 10),
                 child: Stxt(
-                  text: 'Prohibited Prayer Time',
+                  text: 'prohibited_prayer_time'.tr,
                   size: f4,
                   weight: FontWeight.bold,
                   color: Get.theme.primaryColor,

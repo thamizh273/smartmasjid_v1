@@ -102,8 +102,8 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                                 image: MemoryImage(
-                              app.icon,
-                            ))),
+                                  app.icon,
+                                ))),
                       ),
                       5.verticalSpace,
                       Stxt(
@@ -163,9 +163,9 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
           Text("$title: ", style: header),
           Flexible(
               child: Text(
-            body,
-            style: value,
-          )),
+                body,
+                style: value,
+              )),
         ],
       ),
     );
@@ -199,7 +199,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
           children: [
             15.verticalSpace,
             ...methods.map((e) {
-             
+
               return Container(
                 margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5),
                 height: 80.h,
@@ -261,7 +261,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                     backgroundColor: clr_white,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                       displayUpiApps(),
+                    displayUpiApps(),
                   );
                 },
                 text: "Pay Now",

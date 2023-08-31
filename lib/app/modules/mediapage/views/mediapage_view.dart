@@ -12,7 +12,7 @@ class MediapageView extends GetView<MediapageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Media",
+        tittle: "media".tr,
       ),
       body: Working(),
     );

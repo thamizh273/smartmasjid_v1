@@ -24,7 +24,7 @@ class NotificationpageView extends GetView<NotificationpageController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppbar(
-          tittle: 'Notifications',
+          tittle: 'notifications'.tr,
           action: [
             IconButton(
                 onPressed: () {
@@ -240,19 +240,19 @@ class NoNotificationYet extends StatelessWidget {
             height: 20,
           ),
           Stxt(
-            text: 'No Notification Yet',
+            text: 'no_notification_yet'.tr,
             size: 20,
             weight: FontWeight.bold,
           ),
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Stxt(
-              text: "When you get notifications, they'll show up \n  here",
+              text: "When_you_get_notifications,_they'll_show_up_here.".tr,
               size: f2,
               textAlign: TextAlign.center,
             ),
           ),
-          SButton(text: 'Refresh', color: Color(0xff19657E), ontap: () {})
+          SButton(text: 'refresh'.tr, color: Color(0xff19657E), ontap: () {})
         ],
       ),
     );

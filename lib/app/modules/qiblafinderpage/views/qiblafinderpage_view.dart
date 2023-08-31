@@ -29,6 +29,7 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Color(0xff0c7b93),
         primaryColorLight: Color(0xff00a8cc),
@@ -40,8 +41,7 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
           colorScheme:
           ColorScheme.fromSwatch().copyWith(secondary: Color(0xffecce6d))),
       home: Scaffold(
-
-        appBar: CustomAppbar(tittle: "Qibla Finder"),
+        appBar: CustomAppbar(tittle: "qibla_finder".tr),
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(

@@ -166,7 +166,7 @@ class HomeView extends StatelessWidget {
                       children: [
                         SvgPicture.asset("assets/svg/Masjiddr.svg"),
                         Space(16),
-                        Stxt(text: "Masjid  Facilities",
+                        Stxt(text: "masjid_facilities".tr,
                           size: f3,
                           weight: FontWeight.w500,)
                       ],
@@ -183,7 +183,7 @@ class HomeView extends StatelessWidget {
                       children: [
                         SvgPicture.asset("assets/svg/Historydr.svg"),
                         Space(16),
-                        Stxt(text: "Masjid History",
+                        Stxt(text: "masjid_history".tr,
                           size: f3,
                           weight: FontWeight.w500,)
                       ],
@@ -201,7 +201,7 @@ class HomeView extends StatelessWidget {
                       children: [
                         SvgPicture.asset("assets/svg/Admindr.svg"),
                         Space(16),
-                        Stxt(text: "Masjid Admins",
+                        Stxt(text: "masjid_admins".tr,
                           size: f3,
                           weight: FontWeight.w500,)
                       ],
@@ -219,7 +219,7 @@ class HomeView extends StatelessWidget {
                       children: [
                         SvgPicture.asset("assets/svg/imamdr.svg"),
                         Space(16),
-                        Stxt(text: "Masjid Imams",
+                        Stxt(text: "masjid_imams".tr,
                           size: f3,
                           weight: FontWeight.w500,)
                       ],
@@ -237,7 +237,7 @@ class HomeView extends StatelessWidget {
                       children: [
                         SvgPicture.asset("assets/svg/voldr.svg"),
                         Space(16),
-                        Stxt(text: "Masjid well-wishers",
+                        Stxt(text: "masjid_well_wishers".tr,
                           size: f3,
                           weight: FontWeight.w500,)
                       ],
@@ -250,7 +250,7 @@ class HomeView extends StatelessWidget {
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Stxt(text: "Quick Menu", size: f4),
+                        Stxt(text: "quick_menu".tr, size: f4),
                         Space(16),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -260,7 +260,8 @@ class HomeView extends StatelessWidget {
                                 Get.toNamed(Routes.PRAYERPAGE);
                               },
                               child: Container(
-                                height: 65.h,
+                                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                                // height: 75.h,
                                 width: 80.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
@@ -282,11 +283,11 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     SvgPicture.asset(
                                       "assets/svg/prayerdr.svg", width: 60,),
-                                    Stxt(text: "Prayer Time",
+                                    Stxt(text: "prayer_time".tr,
                                       size: f1,
                                       color: Theme
                                           .of(context)
-                                          .primaryColor,)
+                                          .primaryColor,textAlign: TextAlign.center,)
                                   ],
                                 ),
                               ),
@@ -297,7 +298,8 @@ class HomeView extends StatelessWidget {
                                 Get.toNamed(Routes.MEMBERSHIP);
                               },
                               child: Container(
-                                height: 65.h,
+                                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                                // height: 65.h,
                                 width: 80.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
@@ -320,7 +322,7 @@ class HomeView extends StatelessWidget {
                                     SvgPicture.asset(
                                       "assets/svg/memberdr.svg", width: 80,),
                                     Stxt(
-                                      text: "Membership", size: f1, color: Theme
+                                      text: "membership".tr, size: f1, color: Theme
                                         .of(context)
                                         .primaryColor,)
                                   ],
@@ -338,7 +340,8 @@ class HomeView extends StatelessWidget {
                                 Navigator.of(context).push(MaterialPageRoute(builder: (_) => ServicepageView()));
                               },
                               child: Container(
-                                height: 65.h,
+                                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                                // height: 65.h,
                                 width: 80.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
@@ -361,7 +364,7 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     SvgPicture.asset(
                                       "assets/svg/servicedr.svg", width: 40,),
-                                    Stxt(text: "Services", size: f1, color: Theme
+                                    Stxt(text: "services".tr, size: f1, color: Theme
                                         .of(context)
                                         .primaryColor,)
                                   ],
@@ -375,7 +378,8 @@ class HomeView extends StatelessWidget {
                                 Get.toNamed(Routes.EVENTS);
                               },
                               child: Container(
-                                height: 65.h,
+                                padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                                // height: 65.h,
                                 width: 80.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
@@ -398,7 +402,7 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     SvgPicture.asset(
                                       "assets/svg/eventsdr.svg", width: 40,),
-                                    Stxt(text: "Events", size: f1, color: Theme
+                                    Stxt(text: "events".tr, size: f1, color: Theme
                                         .of(context)
                                         .primaryColor,)
                                   ],
@@ -414,7 +418,7 @@ class HomeView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Stxt(text: "Leave Masjid",
+                    Stxt(text: "leave_masjid".tr,
                       size: f3,
                       weight: FontWeight.w600,
                       color: Theme
@@ -515,11 +519,11 @@ class HomeView extends StatelessWidget {
                                   },
                                   child: LargerCard(
                                     quranImg: quranImg,
-                                    buttonTxt: 'Continue',
+                                    buttonTxt: 'continue'.tr,
                                     image: 'quran',
-                                    title: 'Quran',
-                                    subtitle: '114 suarhs, 30 Juz',
-                                    lastseen: 'Last read 13 hrs ago',
+                                    title: 'quran'.tr,
+                                    subtitle: '114_surah_30_juz'.tr,
+                                    lastseen: 'last_read_13_hrs_ago'.tr,
                                     // onPressed: getQuranChaptersList,
                                   ),
                                 ),
@@ -528,7 +532,7 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     SmallCard(
                                       image: 'hadith',
-                                      title: 'Hadith',
+                                      title: 'hadith'.tr,
                                       onTap: () {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
@@ -538,7 +542,7 @@ class HomeView extends StatelessWidget {
                                     ),
                                     SmallCard(
                                       image: 'library',
-                                      title: 'Library',
+                                      title: 'library'.tr,
                                       onTap: () {
                                         Navigator.of(context).push(
                                             MaterialPageRoute(
@@ -554,7 +558,7 @@ class HomeView extends StatelessWidget {
                                     MediumCard(
                                       color:
                                       themeData.colorScheme.secondary,
-                                      title: 'Masjid Near me',
+                                      title: 'masjid_near_me'.tr,
                                       image: 'masjidFinder',
                                       onTap: () {
                                         Get.toNamed(Routes.MASJIDNEARME);
@@ -566,7 +570,7 @@ class HomeView extends StatelessWidget {
                                           color: themeData
                                               .colorScheme.secondary,
                                           image: 'qibla_finder',
-                                          title: 'Qibla\nFinder',
+                                          title: 'qibla_finder'.tr,
                                           onTap: () {
                                             Get.to(QiblaFinder());
                                           },
@@ -575,7 +579,7 @@ class HomeView extends StatelessWidget {
                                           color: themeData
                                               .colorScheme.secondary,
                                           image: 'prayer_time',
-                                          title: 'Prayer\nTime',
+                                          title: 'prayer_time'.tr,
                                           onTap: () {
                                             Navigator.push(
                                                 context,
@@ -598,9 +602,9 @@ class HomeView extends StatelessWidget {
                                   },
                                   child: LargerCard(
                                     quranImg: duaImg,
-                                    buttonTxt: 'View all',
+                                    buttonTxt: 'view_all'.tr,
                                     image: 'dua',
-                                    title: 'Dua',
+                                    title: 'dua'.tr,
                                     subtitle:
                                     'Dua for ease and success \n in life',
                                     lastseen: 'Opened 13 hrs ago',
@@ -612,7 +616,7 @@ class HomeView extends StatelessWidget {
                                     MediumCard(
                                       color:
                                       themeData.colorScheme.secondary,
-                                      title: 'Special Days',
+                                      title: 'special_days'.tr,
                                       image: 'special_days',
                                       onTap: () {
                                         Navigator.of(context).push(
@@ -627,7 +631,7 @@ class HomeView extends StatelessWidget {
                                           color: themeData
                                               .colorScheme.secondary,
                                           image: 'hijri_calender',
-                                          title: 'Hijri\nCalender',
+                                          title: 'hijri_calender'.tr,
                                           onTap: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
@@ -639,7 +643,7 @@ class HomeView extends StatelessWidget {
                                           color: themeData
                                               .colorScheme.secondary,
                                           image: 'events',
-                                          title: 'Events',
+                                          title: 'events'.tr,
                                           onTap: () {
                                           Get.toNamed(Routes.EVENTS);
                                           },
@@ -655,9 +659,9 @@ class HomeView extends StatelessWidget {
                                   },
                                   child: LargerCard(
                                     quranImg: quranImg,
-                                    buttonTxt: 'View all',
+                                    buttonTxt: 'view_all'.tr,
                                     image: 'media',
-                                    title: 'Media',
+                                    title: 'media'.tr,
                                     subtitle:
                                     'Islamic Videos for ease and\nsuccess in life',
                                     lastseen: 'Opened 13 hrs ago',
@@ -667,7 +671,7 @@ class HomeView extends StatelessWidget {
                                 Row(
                                   children: [
                                     MediumCard(
-                                      title: 'Services',
+                                      title: 'services'.tr,
                                       image: 'donation',
                                       onTap: () {
                                         Navigator.of(context).push(MaterialPageRoute(builder: (_) => ServicepageView()));
@@ -679,14 +683,14 @@ class HomeView extends StatelessWidget {
                                           rightpad: 3,
                                           maxLines: 1,
                                           image: 'membership',
-                                          title: 'Membership',
+                                          title: 'membership'.tr,
                                           onTap: () {
                                             Get.toNamed(Routes.MEMBERSHIP);
                                           },
                                         ),
                                         SmallCard(
                                           image: 'donation',
-                                          title: 'Donation',
+                                          title: 'donation'.tr,
                                           onTap: () {
                                             Get.toNamed(Routes.DONATIONPAGE);
                                           },
@@ -708,7 +712,7 @@ class HomeView extends StatelessWidget {
                                   CrossAxisAlignment.start,
                                   children: [
                                     MediumCard(
-                                      title: 'Zakath\nCalculator',
+                                      title: 'zakath'.tr,
                                       image: 'zakath',
                                       onTap: () {
                                         Navigator.of(context).push(
@@ -721,7 +725,7 @@ class HomeView extends StatelessWidget {
                                       children: [
                                         SmallCard(
                                           image: 'history',
-                                          title: 'History',
+                                          title: 'history'.tr,
                                           onTap: () {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(

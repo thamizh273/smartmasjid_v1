@@ -18,7 +18,7 @@ class MasjidFacility extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Facilities",
+        tittle: "facilities".tr,
       ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
@@ -27,12 +27,23 @@ class MasjidFacility extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                Stxt(text: "Masjid-e-Nooraniyah facilities are shown here",
-                  size: f3,
-                  weight: FontWeight.w600,
-                  color: Theme
-                      .of(context)
-                      .primaryColor,),
+                Row(
+                  children: [
+                    Stxt(text: "Masjid-e-Nooraniyah",
+                      size: f3,
+                      weight: FontWeight.w600,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,),
+                    Space(4),
+                    Stxt(text: "facilities_are_shown_here".tr,
+                      size: f3,
+                      weight: FontWeight.w600,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,),
+                  ],
+                ),
                 20.verticalSpace,
                 ExpansionWidget(
                   titleBuilder: (double animationValue, double easeInValue,
@@ -74,7 +85,7 @@ class MasjidFacility extends StatelessWidget {
                                             "assets/svg/prayerfac.svg"),
                                         Space(16),
                                         Stxt(
-                                          text: "Prayer Facilities",
+                                          text: "prayer_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
                                         ),
@@ -369,7 +380,7 @@ class MasjidFacility extends StatelessWidget {
                                             "assets/svg/refreshfac.svg"),
                                         Space(16),
                                         Stxt(
-                                          text: "Refresh Facilities",
+                                          text: "refresh_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
                                         ),
@@ -667,7 +678,7 @@ class MasjidFacility extends StatelessWidget {
                                             "assets/images/appearancefac.png"),
                                         Space(16),
                                         Stxt(
-                                          text: "Appearance",
+                                          text: "appearance".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
                                         ),
@@ -965,7 +976,7 @@ class MasjidFacility extends StatelessWidget {
                                             "assets/svg/jamath.svg"),
                                         Space(16),
                                         Stxt(
-                                          text: "Jamath Facilities",
+                                          text: "jamath_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
                                         ),
@@ -1263,7 +1274,7 @@ class MasjidFacility extends StatelessWidget {
                                             "assets/svg/bookfac.svg"),
                                         Space(16),
                                         Stxt(
-                                          text: "Education",
+                                          text: "education".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
                                         ),
@@ -1561,7 +1572,7 @@ class MasjidFacility extends StatelessWidget {
                                             "assets/svg/womenfac.svg"),
                                         Space(16),
                                         Stxt(
-                                          text: "Womens Facilities",
+                                          text: "womens_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
                                         ),
@@ -1858,7 +1869,7 @@ class MasjidFacility extends StatelessWidget {
                                         SvgPicture.asset("assets/svg/cctv.svg"),
                                         Space(16),
                                         Stxt(
-                                          text: "Technical Facilities",
+                                          text: "technical_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
                                         ),
@@ -2155,7 +2166,7 @@ class MasjidFacility extends StatelessWidget {
                                             "assets/svg/handshake.svg"),
                                         Space(16),
                                         Stxt(
-                                          text: "Providing Facilities",
+                                          text: "providing_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
                                         ),

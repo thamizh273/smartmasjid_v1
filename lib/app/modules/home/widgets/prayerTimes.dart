@@ -34,7 +34,7 @@ class PrayerTimes extends StatelessWidget {
         children: [
           Stxt(
             pad: EdgeInsets.only(left: 10),
-            text: 'Prayer Times',
+            text: 'prayer_time'.tr,
             size: f3,
             color: themeData.primaryColor,
             weight: FontWeight.bold,

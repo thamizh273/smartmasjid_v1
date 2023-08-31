@@ -30,7 +30,7 @@ class DuapageView extends GetView<DuapageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Dua",
+        tittle: "dua".tr,
       ),
       body: Center(
         child: Obx(() {
@@ -47,7 +47,7 @@ class DuapageView extends GetView<DuapageController> {
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      "I am Feeling", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, ),),
+                      "i_am_feeling".tr, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500, ),),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -124,7 +124,7 @@ class DuapageView extends GetView<DuapageController> {
                     );
                   }),
                   Space(16),
-                  Stxt(text: "Daily", size: f4, weight: FontWeight.w500,),
+                  Stxt(text: "daily".tr, size: f4, weight: FontWeight.w500,),
                   Space(16),
                   Obx(() {
                     return SizedBox(
@@ -212,7 +212,7 @@ class DuapageView extends GetView<DuapageController> {
                     );
                   }),
                   Space(16),
-                  Stxt(text: "Occasion", size: f4, weight: FontWeight.w500,),
+                  Stxt(text: "occasion".tr, size: f4, weight: FontWeight.w500,),
                   Space(8),
             SizedBox(
               child: GridView.builder(

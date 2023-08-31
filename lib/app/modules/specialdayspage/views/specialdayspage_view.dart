@@ -22,7 +22,7 @@ class SpecialdayspageView extends GetView<SpecialdayspageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppbar(tittle: 'Special Days',
+        appBar: CustomAppbar(tittle: 'special_days'.tr,
         ),
 
         body: FrostedBottomBar(

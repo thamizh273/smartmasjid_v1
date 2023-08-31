@@ -29,7 +29,7 @@ class Events extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Events",
+                    "events".tr,
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Theme.of(context).primaryColor),
                   ),
                   Stxt(text: "3 Upcoming Events near you", size: 12, weight: FontWeight.w500,)
@@ -45,7 +45,7 @@ class Events extends StatelessWidget {
                     //     ));
                   },
                   child:  Stxt(
-                    text: 'View all', size: f2,color: Theme.of(context).primaryColor,
+                    text: 'view_all'.tr, size: f2,color: Theme.of(context).primaryColor,
                     // "View all",
                     // style: TextStyle(fontWeight: FontWeight.w600),
                   )),

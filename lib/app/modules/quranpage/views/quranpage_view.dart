@@ -69,7 +69,7 @@ class QuranpageView extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       showCursor: true,
                       decoration: InputDecoration(
-                          hintText: "Search Sura"
+                          hintText: "search_sura".tr
                       ),
                       onChanged: (value) {
                         quranCtrl.searchQuery.value = value;
@@ -80,7 +80,7 @@ class QuranpageView extends StatelessWidget {
                     );
                   } else {
                     return Text(
-                      "Holy Quran",
+                      "holy_quran".tr,
                       style: TextStyle(color: Colors.white),
                     );
                   }
@@ -115,10 +115,10 @@ class QuranpageView extends StatelessWidget {
                     : TabBar(
                   tabs: [
                     Tab(
-                      text: 'Surah',
+                      text: 'surah'.tr,
                     ),
                     Tab(
-                      text: 'Juz',
+                      text: 'juz'.tr,
                     ),
                   ],
                 ),
@@ -182,7 +182,7 @@ class QuranpageView extends StatelessWidget {
                                       },
                                     ),
                                     Space(4),
-                                    Text("Go To")
+                                    Text("go_to".tr)
                                   ],
                                 ),
                                 Space(25),
@@ -214,7 +214,7 @@ class QuranpageView extends StatelessWidget {
                                       ),
                                     ),
                                     Space(4),
-                                    Text("Last Read")
+                                    Text("last_read".tr)
                                   ],
                                 ),
                                 Space(25),
@@ -241,7 +241,7 @@ class QuranpageView extends StatelessWidget {
                                       ),
                                     ),
                                     Space(4),
-                                    Text("Bookmarks")
+                                    Text("book".tr)
                                   ],
                                 ),
                                 Space(25),
@@ -270,7 +270,7 @@ class QuranpageView extends StatelessWidget {
                                       ),
                                     ),
                                     Space(4),
-                                    Text("Notes")
+                                    Text("notes".tr)
                                   ],
                                 ),
                                 8.horizontalSpace
@@ -282,7 +282,7 @@ class QuranpageView extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text("Quick Links:"),
+                                Text("quick_links:".tr),
                                 Space(8),
                                 SizedBox(
                                  width: 260.w,

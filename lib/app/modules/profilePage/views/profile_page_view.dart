@@ -23,23 +23,23 @@ class ProfilePageView extends GetView<EditProfileController> {
 
   List<Map<String, dynamic>> profile = [
     {
-      'name': "Edit Profile",
+      'name': "edit_profile".tr,
       'icon': Icon(Icons.person),
       "page": EditProfileView()
     },
-    {'name': "Bookmarks", 'icon': Icon(Icons.bookmarks_outlined),
+    {'name': "bookmarks".tr, 'icon': Icon(Icons.bookmarks_outlined),
       "page": BookmarkpageView()
     },
     {
-      'name': "My Masjid",
+      'name': "my_masjid".tr,
       'icon': SvgPicture.asset(
         'assets/icons/masjid_icon.svg', color: Get.theme.primaryColor,),
       "page": MymasjidpageView()
     },
-    {'name': "Activities", 'icon': Icon(Icons.history),
+    {'name': "activities".tr, 'icon': Icon(Icons.history),
       "page": ActivitiespageView()
     },
-    {'name': "Family Tree", 'icon': Icon(Icons.family_restroom_outlined),
+    {'name': "family_tree".tr, 'icon': Icon(Icons.family_restroom_outlined),
       "page": FamilytreeView()}
   ];
 
@@ -65,7 +65,7 @@ class ProfilePageView extends GetView<EditProfileController> {
           },
         ),
         title: Stxt(
-            text: "Profile",
+            text: "profile".tr,
             size: f4,
             weight: FontWeight.bold,
             color: Colors.white),
@@ -281,85 +281,85 @@ class ProfilePageView extends GetView<EditProfileController> {
           Spacer(),
           GestureDetector(
             onTap: ()  {
+              controller.logout();
 
-
-              Get.dialog(
-                 // barrierColor:Get.theme.primaryColor.withOpacity(.8),
-
-
-                  Padding(
-                      padding: EdgeInsets.symmetric(vertical: 20.h),
-                      child: AlertDialog(
-                        elevation: 10,
-                        backgroundColor: Get.theme.colorScheme
-                            .primary,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                10)),
-                        // title: Center(
-                        //     child: Stxt(
-                        //   text: "Are you Sure?",
-                        //   size: f3,
-                        //   weight: FontWeight.bold,
-                        //   color: Colors.white,
-                        //   textAlign: TextAlign.center,
-                        // )),
-
-                        // contentPadding: EdgeInsets.symmetric(vertical: 20.h,),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment
-                              .center,
-                          children: [
-                            Stxt(
-                              text:
-                              "Logout",
-                              size: f3,
-                              // weight: FontWeight.bold,
-                              color: Colors.white,
-                              textAlign: TextAlign.center,
-                            ),
-                            SizedBox(height: 8,),
-                            Stxt(text: "Confirm to Logout ?",
-                              size: f3,
-                              weight: FontWeight.bold,
-                              color: Colors.white,)
-                          ],
-                        ),
-                        actionsPadding: EdgeInsets.only(bottom: 20),
-                        actions: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment
-                                .spaceEvenly,
-                            children: [
-                              SButton(
-                                  width: 90.w,
-                                  height: 25.h,
-                                  color: Get.theme.colorScheme
-                                      .secondary,
-                                  ontap: () {
-                                    Get.back();
-                                  },
-                                  text: "cancel".tr,
-                                  txtsize: f1,
-                                  txtClr:
-                                  Get.theme.colorScheme.primary),
-                              SButton(
-                                  height: 25.h,
-                                  width: 90.w,
-                                  ontap: () async {
-                                    controller.logout();
-                                    controller.update();
-                                  },
-                                  text: "confirm".tr,
-                                  txtsize: f1,
-                                  txtClr:
-                                  Get.theme.colorScheme.primary),
-                            ],
-                          )
-                        ],
-                        //iconPadding: EdgeInsets.all(20),
-                      )));
+              // Get.dialog(
+              //    // barrierColor:Get.theme.primaryColor.withOpacity(.8),
+              //
+              //
+              //     Padding(
+              //         padding: EdgeInsets.symmetric(vertical: 20.h),
+              //         child: AlertDialog(
+              //           elevation: 10,
+              //           backgroundColor: Get.theme.colorScheme
+              //               .primary,
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(
+              //                   10)),
+              //           // title: Center(
+              //           //     child: Stxt(
+              //           //   text: "Are you Sure?",
+              //           //   size: f3,
+              //           //   weight: FontWeight.bold,
+              //           //   color: Colors.white,
+              //           //   textAlign: TextAlign.center,
+              //           // )),
+              //
+              //           // contentPadding: EdgeInsets.symmetric(vertical: 20.h,),
+              //           content: Column(
+              //             mainAxisSize: MainAxisSize.min,
+              //             mainAxisAlignment: MainAxisAlignment
+              //                 .center,
+              //             children: [
+              //               Stxt(
+              //                 text:
+              //                 "Logout",
+              //                 size: f3,
+              //                 // weight: FontWeight.bold,
+              //                 color: Colors.white,
+              //                 textAlign: TextAlign.center,
+              //               ),
+              //               SizedBox(height: 8,),
+              //               Stxt(text: "Confirm to Logout ?",
+              //                 size: f3,
+              //                 weight: FontWeight.bold,
+              //                 color: Colors.white,)
+              //             ],
+              //           ),
+              //           actionsPadding: EdgeInsets.only(bottom: 20),
+              //           actions: [
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment
+              //                   .spaceEvenly,
+              //               children: [
+              //                 SButton(
+              //                     width: 90.w,
+              //                     height: 25.h,
+              //                     color: Get.theme.colorScheme
+              //                         .secondary,
+              //                     ontap: () {
+              //                       Get.back();
+              //                     },
+              //                     text: "cancel".tr,
+              //                     txtsize: f1,
+              //                     txtClr:
+              //                     Get.theme.colorScheme.primary),
+              //                 SButton(
+              //                     height: 25.h,
+              //                     width: 90.w,
+              //                     ontap: () async {
+              //                       controller.logout();
+              //                       controller.update();
+              //                     },
+              //                     text: "confirm".tr,
+              //                     txtsize: f1,
+              //                     txtClr:
+              //                     Get.theme.colorScheme.primary),
+              //               ],
+              //             )
+              //           ],
+              //           //iconPadding: EdgeInsets.all(20),
+              //         )));
 
 
 
@@ -374,7 +374,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                 ),
                 Obx(() {
                   return  Stxt(
-                    text:controller.isLoadingLogout.value? 'Logout':'Logout',
+                    text:controller.isLoadingLogout.value? 'logout'.tr:'logout'.tr,
                     size: f3,
                     weight: FontWeight.bold,
                     color: Get.theme.primaryColor,

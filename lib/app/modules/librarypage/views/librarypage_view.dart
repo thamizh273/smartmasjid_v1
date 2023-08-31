@@ -12,7 +12,7 @@ class LibrarypageView extends GetView<LibrarypageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Library",
+        tittle: "library".tr,
       ),
       body: Working(),
     );

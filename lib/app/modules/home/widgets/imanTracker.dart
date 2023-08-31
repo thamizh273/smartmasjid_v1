@@ -42,7 +42,7 @@ class ImanTracker_widget extends StatelessWidget {
                 ),
                 SizedBox(height: 10,),
                 Stxt(
-                  text: 'Iman \n Tracker',
+                  text: 'iman_tracker'.tr,
                   size: f3,
                   color: themeData.primaryColor,
                   textAlign: TextAlign.center,
@@ -59,7 +59,7 @@ class ImanTracker_widget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
 
-                      Stxt(text: 'Weekly status', size: f1,weight: FontWeight.w500,color: Get.theme.primaryColor,),
+                      Stxt(text: 'weekly_status'.tr, size: f1,weight: FontWeight.w500,color: Get.theme.primaryColor,),
                       SizedBox(width: 2.w,),
 
                     ],
@@ -75,20 +75,20 @@ class ImanTracker_widget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Imanprogress(
-                                themeData: themeData, text: '${imanWeek[0].trackerName![0].toUpperCase()+imanWeek[0].trackerName!.substring(1)}', percent:((imanWeek[0].status!.injamaah!+imanWeek[0].status!.ontime!)/100),),
+                                themeData: themeData, text: 'fajr'.tr, percent:((imanWeek[0].status!.injamaah!+imanWeek[0].status!.ontime!)/100),),
                               Imanprogress(
-                                themeData: themeData, text: '${imanWeek[1].trackerName![0].toUpperCase()+imanWeek[1].trackerName!.substring(1)}', percent: ((imanWeek[1].status!.injamaah!+imanWeek[1].status!.ontime!)/100),),
+                                themeData: themeData, text: 'jummah'.tr, percent: ((imanWeek[1].status!.injamaah!+imanWeek[1].status!.ontime!)/100),),
                               Imanprogress(
-                                themeData: themeData, text: '${imanWeek[2].trackerName![0].toUpperCase()+imanWeek[2].trackerName!.substring(1)}', percent: ((imanWeek[2].status!.injamaah!+imanWeek[2].status!.ontime!)/100),),
+                                themeData: themeData, text: 'dhuhr'.tr, percent: ((imanWeek[2].status!.injamaah!+imanWeek[2].status!.ontime!)/100),),
                             ],
                           ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Imanprogress(themeData: themeData, text: '${imanWeek[3].trackerName![0].toUpperCase()+imanWeek[3].trackerName!.substring(1)}', percent: ((imanWeek[3].status!.injamaah!+imanWeek[3].status!.ontime!)/100),),
-                            Imanprogress(themeData: themeData, text: '${imanWeek[4].trackerName![0].toUpperCase()+imanWeek[4].trackerName!.substring(1)}', percent: ((imanWeek[4].status!.injamaah!+imanWeek[4].status!.ontime!)/100),),
-                            Imanprogress(themeData: themeData, text: '${imanWeek[5].trackerName![0].toUpperCase()+imanWeek[5].trackerName!.substring(1)}', percent: ((imanWeek[5].status!.injamaah!+imanWeek[5].status!.ontime!)/100),),
+                            Imanprogress(themeData: themeData, text: 'asr'.tr, percent: ((imanWeek[3].status!.injamaah!+imanWeek[3].status!.ontime!)/100),),
+                            Imanprogress(themeData: themeData, text: 'maghrib'.tr, percent: ((imanWeek[4].status!.injamaah!+imanWeek[4].status!.ontime!)/100),),
+                            Imanprogress(themeData: themeData, text: 'isha'.tr, percent: ((imanWeek[5].status!.injamaah!+imanWeek[5].status!.ontime!)/100),),
                           ],
                         ),
                       ],
@@ -108,7 +108,7 @@ class ImanTracker_widget extends StatelessWidget {
                       SButton(
                           color: themeData.primaryColor,
                           rad: 5,
-                          height: 20.h,
+                          height: 30.h,
                           width: 140.w,
                           pad: 0,
                           child: Row(
@@ -116,7 +116,7 @@ class ImanTracker_widget extends StatelessWidget {
                             MainAxisAlignment.center,
                             children: [
                               Stxt(
-                                text: "click here to update",
+                                text: "click_here_to_update".tr,
                                 size: f0,color: clr_white
 
                               ),
