@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/payment_method.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
@@ -83,10 +84,18 @@ class SelectMonth extends StatelessWidget {
                             if (memcntrl.checkedStates[index]) {
                               memcntrl.totalPayment.value +=
                                   int.parse(data.amount!);
+                              List<DataObject> newDataList = [
+                                DataObject(amount:int.parse(data.amount.toString()), date_: data.monthDue.toString()),
+                              ];
+                              memcntrl.addDataList(newDataList);
+                             
+
                             } else {
                               memcntrl.totalPayment.value -=
                                   int.parse(data.amount!);
+
                             }
+
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -109,7 +118,7 @@ class SelectMonth extends StatelessWidget {
                                       MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Stxt(
-                                          text: "${data.paymentMonth}",
+                                          text: DateFormat('MMM y').format(DateTime.parse("${data.monthDue!}").toLocal()),
                                           size: f2,
                                           weight: FontWeight.w500,
                                         ),
@@ -174,43 +183,49 @@ class SelectMonth extends StatelessWidget {
               );
             }),
             Spacer(),
-            Container(
-              height: 50.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 2,
-                        spreadRadius: 2,
-                        offset: Offset(0, 4),
-                        color: Colors.grey.shade400
-                    )
-                  ]
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stxt(text: "Pay Membership of ",
-                    size: f3,
-                    weight: FontWeight.w500,
-                    color: Colors.white,),
-                  Space(8),
-                  Obx(() {
-                    return Stxt(text: "₹ ${ memcntrl.totalPayment.value}",
-                      size: f4,
-                      weight: FontWeight.w600,
-                      color: Colors.white,);
-                  }),
-                  Space(8),
-                  IconButton(onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => PaymentMethodM()));
-                  }, icon: Icon(Icons.send, color: Colors.white, size: 25,))
-                ],
+            GestureDetector(
+              onTap: (){
+                memcntrl.Pay_Membership_Payment_Gate_Way();
+               // memcntrl.Pay_Membership_Payment_Gate_Way();
+              },
+              child: Container(
+                height: 50.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(16),
+                    color: Theme
+                        .of(context)
+                        .primaryColor,
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 2,
+                          spreadRadius: 2,
+                          offset: Offset(0, 4),
+                          color: Colors.grey.shade400
+                      )
+                    ]
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stxt(text: "Pay Membership of ",
+                      size: f3,
+                      weight: FontWeight.w500,
+                      color: Colors.white,),
+                    Space(8),
+                    Obx(() {
+                      return Stxt(text: "₹ ${ memcntrl.totalPayment.value}",
+                        size: f4,
+                        weight: FontWeight.w600,
+                        color: Colors.white,);
+                    }),
+                    Space(8),
+                    IconButton(onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => PaymentMethodM()));
+                    }, icon: Icon(Icons.send, color: Colors.white, size: 25,))
+                  ],
+                ),
               ),
             )
           ],

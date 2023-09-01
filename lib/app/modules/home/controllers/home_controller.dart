@@ -32,6 +32,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 
   late TabController tabController;
 
+  RxBool logoutlogin= false.obs;
   RxBool alarm = false.obs;
   RxBool isloading = false.obs;
   RxBool isloading1 = false.obs;
@@ -73,6 +74,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
    if(hh !=null){
      box1.write("fruits",hh[0]);
      box1.write("masjidId",hh[1]);
+     // box1.write("logoutlogin",false);
      getUserDetails(hh[0],);
      getPrayerTime(hh[1]);
      getUpcomingEvents(hh[1]);

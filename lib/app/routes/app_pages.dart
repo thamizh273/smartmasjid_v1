@@ -107,6 +107,7 @@ class AppPages {
       name: _Paths.LANGUAGE_PAGE,
       page: () => LanguagePageView(),
       binding: LanguagePageBinding(),
+
     ),
     GetPage(
       name: _Paths.REGISTER_LOGIN,

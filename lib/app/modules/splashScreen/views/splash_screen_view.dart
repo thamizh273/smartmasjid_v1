@@ -29,6 +29,8 @@ class _SplashScreenViewState extends State<SplashScreenView> {
 
           Get.toNamed(Routes.HOME);
 
+      }else if( SplashScreenView.homectrl.logoutlogin.value==true){
+        Get.toNamed(Routes.REGISTER_LOGIN);
       }
       else {
         print("dddddd ${SplashScreenView.homectrl.box1.read('fruits')}");

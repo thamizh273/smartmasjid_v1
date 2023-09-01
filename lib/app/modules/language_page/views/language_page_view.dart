@@ -12,25 +12,6 @@ import '../controllers/language_page_controller.dart';
 class LanguagePageView extends GetView<LanguagePageController> {
   LanguagePageView({Key? key}) : super(key: key);
 
-  final List locale = [
-    {'name': 'ENGLISH', 'locale': const Locale('en', 'US')},
-    {'name': 'தமிழ்', 'locale': const Locale('ta', 'IN')},
-    {'name': 'French', 'locale': const Locale('fr', 'FR')},
-    {'name': 'हिंदी', 'locale': const Locale('hi', 'IN')},
-    {'name': 'ಕನ್ನಡ', 'locale': const Locale('ka', 'IN')},
-    {'name': 'മലയാളം', 'locale': const Locale('ma', 'IN')},
-    {'name': 'తెలుగు', 'locale': const Locale('te', 'IN')},
-  ];
-
-  updateLanguage(Locale locale) {
-    Localization localization =
-        Get.find(); // Retrieve the instance of Localization
-
-    localization.savePreferredLocale(locale);
-
-    Get.updateLocale(locale);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +20,7 @@ class LanguagePageView extends GetView<LanguagePageController> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              constraints: BoxConstraints(minHeight: 200.h,maxHeight: 240.h),
+              constraints: BoxConstraints(minHeight: 200.h, maxHeight: 240.h),
               width: .9.sw,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
@@ -50,7 +31,12 @@ class LanguagePageView extends GetView<LanguagePageController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Stxt(text: "Choose Your Language".tr, size: f5,weight: FontWeight.w600,maxLines: 1,),
+                    Stxt(
+                      text: "Choose Your Language".tr,
+                      size: f5,
+                      weight: FontWeight.w600,
+                      maxLines: 1,
+                    ),
 
                     Padding(
                       padding: EdgeInsets.only(top: 30.h, bottom: 8.h),
@@ -65,15 +51,32 @@ class LanguagePageView extends GetView<LanguagePageController> {
                         offset: Offset(0, -5),
                         onChanged: (String? newValue) {
                           // Find the corresponding Locale for the selected language
-                          final selectedLocale = locale.firstWhere(
-                              (item) => item['name'] == newValue)['locale'];
-                          updateLanguage(selectedLocale);
+                          final selectedLocale =
+                              controller.locale.firstWhere((item) {
+                               if(item['name']==controller.locale[0]['name']){
+                                 controller.langStore.write('selectedindex', 0);
+                               }else if(item['name']==controller.locale[1]['name']){
+                                 controller.langStore.write('selectedindex', 1);
+                               }else if(item['name']==controller.locale[2]['name']){
+                                 controller.langStore.write('selectedindex', 2);
+                               }else if(item['name']==controller.locale[3]['name']){
+                                 controller.langStore.write('selectedindex', 3);
+                               }else if(item['name']==controller.locale[4]['name']){
+                                 controller.langStore.write('selectedindex', 4);
+                               }else if(item['name']==controller.locale[5]['name']){
+                                 controller.langStore.write('selectedindex', 5);
+                               }else if(item['name']==controller.locale[6]['name']){
+                                 controller.langStore.write('selectedindex', 6);
+                               }
+                            return item['name'] == newValue;
+                          })['locale'];
+                          controller.updateLanguage(selectedLocale);
                           controller.selectedLang.value = newValue!;
                         },
                         hint: 'Select your language',
                         value: controller.selectedLang.value,
                         // Set the initial value to 'ENGLISH'
-                        dropdownItems: locale
+                        dropdownItems: controller.locale
                             .map((item) => item['name'] as String)
                             .toList(),
                       ),
@@ -137,26 +140,30 @@ class LanguagePageView extends GetView<LanguagePageController> {
                     //   hinttext: 'Select your language',
                     // ),
                     Space(16),
-                     Text("you can change it from settings anytime".tr),
+                    Text("you can change it from settings anytime".tr),
                     Space(16),
                     ElevatedButton(
-                        onPressed: () {
-                          Get.toNamed(Routes.REGISTER_LOGIN);
+                      onPressed: () {
+                        Get.toNamed(Routes.REGISTER_LOGIN);
 
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (_) => RegisterLogin()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(100, 30),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.secondary,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          elevation: 4.0,
+                        // Navigator.of(context).push(MaterialPageRoute(builder: (_) => RegisterLogin()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(100, 30),
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.secondary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Stxt(text: "submit".tr, size: f3,weight: FontWeight.w600,maxLines: 1,),
+                        elevation: 4.0,
+                      ),
+                      child: Stxt(
+                        text: "submit".tr,
+                        size: f3,
+                        weight: FontWeight.w600,
+                        maxLines: 1,
+                      ),
                     )
                   ],
                 ),

@@ -130,6 +130,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
               15.verticalSpace,
 
               Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   GestureDetector(

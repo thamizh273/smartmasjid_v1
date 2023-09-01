@@ -9,10 +9,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import 'package:smartmasjid_v1/app/rest_call_controller/rest_call_controller.dart';
 
+import '../../../../utils/localization/localization.dart';
 import '../../../authRepository.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../../home/Model/getUserModel.dart';
+import '../../language_page/controllers/language_page_controller.dart';
 
 class EditProfileController extends GetxController {
   static HomeController get homectrl => Get.find();
@@ -22,6 +24,7 @@ class EditProfileController extends GetxController {
   RxBool isLoadingLogout = false.obs;
   RxBool isLoadingPic = false.obs;
   final _restcallController = Get.put(restCallController());
+  final lanctrl = Get.put(LanguagePageController());
   Rx<XFile> image = XFile('').obs;
   String? base64Image;
   RxBool isPicked = false.obs;
@@ -161,6 +164,11 @@ class EditProfileController extends GetxController {
 
     homectrl.box1.remove('fruits');
     homectrl.box1.remove('masjidId');
+    // lanctrl.langStore.remove('selectedindex');
+    // lanctrl.langStore.remove('selectedLang');
+  //  lanctrl.selectedRadioIndex.value=0;
+
+    lanctrl.update();
       // Convert to a regular List before updating GetStorage
 
       update(); // Notify GetX that the state has changed
@@ -168,6 +176,7 @@ class EditProfileController extends GetxController {
     homectrl.getUserData.value.getUserById!.id='';
     homectrl.getUserData.value.getUserById!.liveStatus=false;
     homectrl.getUserData.value.getUserById=null;
+    homectrl.logoutlogin.value=true;
     homectrl.update();
 
     isLoadingLogout.value = false;
@@ -175,7 +184,7 @@ class EditProfileController extends GetxController {
       var hh = res["SUCCESS"]["Log_Out_User"]['message'];
 
       toast(error: "SUCCESS", msg: "${hh}");
-      Get.offAllNamed(AppPages.INITIAL);
+      Get.offAllNamed(Routes.REGISTER_LOGIN);
     }
     return ;
   }

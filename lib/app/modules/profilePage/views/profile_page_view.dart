@@ -12,15 +12,17 @@ import 'package:smartmasjid_v1/app/modules/mymasjidpage/views/mymasjidpage_view.
 import 'package:smartmasjid_v1/app/modules/profilePage/controllers/edit_profile_controller.dart';
 import 'package:smartmasjid_v1/app/modules/profilePage/views/edit_profile_view.dart';
 
+import '../../../../utils/localization/localization.dart';
 import '../../../routes/export.dart';
 import '../../home/controllers/home_controller.dart';
+import '../../language_page/controllers/language_page_controller.dart';
 import '../controllers/profile_page_controller.dart';
 
 class ProfilePageView extends GetView<EditProfileController> {
   ProfilePageView({Key? key}) : super(key: key);
 
   static HomeController get homeController => Get.find();
-
+  final lanctrl = Get.put(LanguagePageController());
   List<Map<String, dynamic>> profile = [
     {
       'name': "edit_profile".tr,
@@ -283,6 +285,12 @@ class ProfilePageView extends GetView<EditProfileController> {
             onTap: ()  {
               controller.logout();
 
+              // lanctrl.langStore.remove('languageCode');
+              // lanctrl.langStore.remove('countryCode');
+              // lanctrl.updateLanguage('en_US');
+             //  lanctrl.selectedLang.value = "ENGLISH";
+             //  Localization().clearPreferredLocale();
+             // Get.updateLocale(Locale('en', 'US'));
               // Get.dialog(
               //    // barrierColor:Get.theme.primaryColor.withOpacity(.8),
               //

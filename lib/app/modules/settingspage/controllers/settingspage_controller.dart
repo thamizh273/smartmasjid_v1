@@ -1,13 +1,18 @@
 import 'package:get/get.dart';
+import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
+
+import '../../home/controllers/home_controller.dart';
 
 class SettingspageController extends GetxController {
   //TODO: Implement SettingspageController
 
-  final count = 0.obs;
+
   RxBool switchValue = false.obs;
+  final langctl=Get.find<LanguagePageController>();
 
   @override
   void onInit() {
+    langctl.selectedRadioIndex.value = langctl.langStore.read('selectedindex') ?? 0;
     super.onInit();
   }
 
@@ -21,5 +26,5 @@ class SettingspageController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+
 }

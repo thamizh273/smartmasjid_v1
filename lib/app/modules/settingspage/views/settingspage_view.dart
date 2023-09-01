@@ -9,6 +9,7 @@ import '../../../../widgets/space.dart';
 import '../../home/widgets/appBar.dart';
 import '../../language_page/controllers/language_page_controller.dart';
 import '../controllers/settingspage_controller.dart';
+import 'languageList.dart';
 
 class SettingspageView extends GetView<SettingspageController> {
   SettingspageView({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class SettingspageView extends GetView<SettingspageController> {
             Space(16),
             GestureDetector(
               onTap: (){
-               Navigator.of(context).push(MaterialPageRoute(builder: (_) => LanguagePageView()));
+               Get.to(LanguageList());
               },
               child: Container(
                 child: Row(
