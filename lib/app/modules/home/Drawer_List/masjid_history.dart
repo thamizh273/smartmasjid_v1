@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/working.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 
 class MasjidHistory extends StatelessWidget {
   const MasjidHistory({super.key});
@@ -9,7 +10,7 @@ class MasjidHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "History",
+        tittle: "history".tr,
       ),
       body: Working(),
     );

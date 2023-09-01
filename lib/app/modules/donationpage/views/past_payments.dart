@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../../global.dart';
 import '../../../../widgets/space.dart';
@@ -13,7 +14,7 @@ class PastPayments extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Past Donation",
+        tittle: "past_donation".tr,
       ),
       body: ListView.builder(
         physics: BouncingScrollPhysics(),

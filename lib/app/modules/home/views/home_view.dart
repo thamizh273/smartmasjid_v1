@@ -606,7 +606,7 @@ class HomeView extends StatelessWidget {
                                     image: 'dua',
                                     title: 'dua'.tr,
                                     subtitle:
-                                    'Dua for ease and success \n in life',
+                                    'dua_for_ease_and_success_in_life'.tr,
                                     lastseen: 'Opened 13 hrs ago',
                                   ),
                                 ),
@@ -663,7 +663,7 @@ class HomeView extends StatelessWidget {
                                     image: 'media',
                                     title: 'media'.tr,
                                     subtitle:
-                                    'Islamic Videos for ease and\nsuccess in life',
+                                    'islamic_videos_for_ease_and_success_in_life'.tr,
                                     lastseen: 'Opened 13 hrs ago',
                                   ),
                                 ),

@@ -193,7 +193,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppbar(
-          tittle: "Payment",
+          tittle: "payment".tr,
         ),
         body: Column(
           children: [
@@ -255,8 +255,8 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
               );
             }),
             10.verticalSpace,
-            SButton(
-                ontap: () {
+            ElevatedButton(
+                onPressed: ()   {
                   Get.bottomSheet(
                     backgroundColor: clr_white,
                     shape: RoundedRectangleBorder(
@@ -264,9 +264,16 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                     displayUpiApps(),
                   );
                 },
-                text: "Pay Now",
-                color: Get.theme.primaryColor,
-                txtClr: clr_white)
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size(150, 40),
+                  backgroundColor: Theme.of(context).primaryColor,
+                  foregroundColor: Color(0xff11323B),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  elevation: 4.0,
+                ),
+                child: Text("pay_now".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
           ],
         ));
   }

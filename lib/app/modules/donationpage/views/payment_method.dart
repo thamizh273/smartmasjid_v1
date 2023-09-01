@@ -16,7 +16,7 @@ class PaymentMethod extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Payment",
+        tittle: "payment".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -207,7 +207,7 @@ class PaymentMethod extends StatelessWidget {
                   ),
                   elevation: 4.0,
                 ),
-                child: Text("Pay now", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
+                child: Text("pay_now".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
           ],
         ),
       ),

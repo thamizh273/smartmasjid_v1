@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../../global.dart';
 import '../../../../widgets/space.dart';
@@ -14,7 +15,7 @@ class MasjidImam extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       appBar: CustomAppbar(
-        tittle: "Masjid Imam",
+        tittle: "masjid_imams".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

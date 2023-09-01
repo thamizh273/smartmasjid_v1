@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/donationpage/views/payment_method.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
@@ -15,7 +16,7 @@ class DonationAmount extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Donate",
+        tittle: "donation".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -57,7 +58,7 @@ class DonationAmount extends StatelessWidget {
               Space(25),
               Image.asset("assets/images/charity.png"),
               Space(20),
-              Stxt(text: "This fund raised by your Masjid, So your donate amount \nwill be settled to your Masjid", size: f2, weight: FontWeight.w400, textAlign: TextAlign.center,),
+              Stxt(text: "this_fund_raised_by_your_masjid_so_your_donate_amount_will_be_settled_to_your_masjid".tr, size: f2, weight: FontWeight.w400, textAlign: TextAlign.center,),
               Space(16),
               Container(
                 width: double.infinity,
@@ -70,7 +71,7 @@ class DonationAmount extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8),
                   child: TextField(
                     decoration: InputDecoration(
-                      hintText: "Enter Amount"
+                      hintText: "enter_amount".tr
                     ),
                   ),
                 ),
@@ -78,7 +79,7 @@ class DonationAmount extends StatelessWidget {
               Space(8),
               Row(
                 children: [
-                 Stxt(text: "Suggested:", size: f4, color: Theme.of(context).primaryColor, weight: FontWeight.w500,),
+                 Stxt(text: "suggested".tr, size: f4, color: Theme.of(context).primaryColor, weight: FontWeight.w500,),
                   Space(8),
                   Container(
                     decoration: BoxDecoration(
@@ -137,7 +138,7 @@ class DonationAmount extends StatelessWidget {
                         ),
                         elevation: 4.0,
                       ),
-                      child: Text("Donate now", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
+                      child: Text("donate_now".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
                 ],
               ),
             ],

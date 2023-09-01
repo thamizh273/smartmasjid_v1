@@ -19,6 +19,7 @@ import '../../../../widgets/stext.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/membership_controller.dart';
+import 'invoice_page.dart';
 
 class MembershipView extends GetView<MembershipController> {
   MembershipView({Key? key}) : super(key: key);
@@ -74,7 +75,7 @@ class MembershipView extends GetView<MembershipController> {
                                         "assets/svg/backnew.svg")),
                                 Space(16),
                                 Stxt(
-                                  text: "Membership",
+                                  text: "membership".tr,
                                   size: f5,
                                   weight: FontWeight.w600,
                                   color: Colors.white,
@@ -86,7 +87,7 @@ class MembershipView extends GetView<MembershipController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Stxt(
-                                    text: "Janab. ",
+                                    text: "janab".tr,
                                     size: f5,
                                     color: Colors.white),
                                 Stxt(
@@ -101,7 +102,7 @@ class MembershipView extends GetView<MembershipController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Stxt(
-                                    text: "Membership Id: ",
+                                    text: "membership_id".tr,
                                     size: f3,
                                     color: Colors.white),
                                 Stxt(
@@ -129,9 +130,9 @@ class MembershipView extends GetView<MembershipController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("You are paying to "),
+                              Text("you_are_paying_to".tr),
                               Text(
-                                "${data.masjidId!.masjidName} ",
+                                " ${data.masjidId!.masjidName} ",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
@@ -171,7 +172,7 @@ class MembershipView extends GetView<MembershipController> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Stxt(
-                                          text: "Membership Auto pay",
+                                          text: "membership_auto_pay".tr,
                                           size: f4),
                                       Obx(() {
                                         return Switch(
@@ -208,8 +209,8 @@ class MembershipView extends GetView<MembershipController> {
                                           children: [
                                             Stxt(
                                               text: statusPaid
-                                                  ? "Paid"
-                                                  : "Pay Now",
+                                                  ? "paid".tr
+                                                  : "pay_now".tr,
                                               size: f3,
                                               weight: FontWeight.w600,
                                               color: Colors.white,
@@ -233,10 +234,11 @@ class MembershipView extends GetView<MembershipController> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Stxt(
-                                  text: "Pay for Other Members",
+                                  text: "pay_for_other_members".tr,
                                   size: f3,
                                   color: Theme.of(context).primaryColor,
                                   weight: FontWeight.bold,
+                                  textAlign: TextAlign.center,
                                 ),
                                 Icon(
                                   Icons.double_arrow_outlined,
@@ -262,7 +264,7 @@ class MembershipView extends GetView<MembershipController> {
                             child: Row(
                               children: [
                                 Stxt(
-                                  text: "Last 6 month",
+                                  text: "last_month".tr,
                                   size: f3,
                                   family: "Inter",
                                   weight: FontWeight.bold,
@@ -277,7 +279,7 @@ class MembershipView extends GetView<MembershipController> {
                                           "This Year";
                                     },
                                     child: Stxt(
-                                      text: "View all",
+                                      text: "view_all".tr,
                                       size: f3,
                                       weight: FontWeight.w600,
                                       color: Theme.of(context).primaryColor,
@@ -332,14 +334,14 @@ class MembershipView extends GetView<MembershipController> {
                                                             .paymentStatus ==
                                                         "paid"
                                                     ? Stxt(
-                                                        text: 'Paid',
+                                                        text: 'paid'.tr,
                                                         size: f2,
                                                         color: Colors.white
                                                             .withOpacity(0.7),
                                                         weight: FontWeight.w600,
                                                       )
                                                     : Stxt(
-                                                        text: 'UnPaid',
+                                                        text: 'unpaid'.tr,
                                                         size: f2,
                                                         color: Colors.white
                                                             .withOpacity(0.5),
@@ -355,20 +357,25 @@ class MembershipView extends GetView<MembershipController> {
                                           weight: FontWeight.w500,
                                         ),
                                         Space(8),
-                                        Container(
-                                          width: 25,
-                                          height: 25,
-                                          decoration: BoxDecoration(
-                                            color: monthstatus
-                                                ? Get.theme.primaryColor
-                                                : clr_gray,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Icon(
-                                            Icons.download_rounded,
-                                            size: f2,
-                                            color: clr_white,
+                                        GestureDetector(
+                                          onTap: () async{
+                                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => InvoicePage()));
+                                          },
+                                          child: Container(
+                                            width: 25,
+                                            height: 25,
+                                            decoration: BoxDecoration(
+                                              color: monthstatus
+                                                  ? Get.theme.primaryColor
+                                                  : clr_gray,
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Icon(
+                                              Icons.download_rounded,
+                                              size: f2,
+                                              color: clr_white,
+                                            ),
                                           ),
                                         ),
                                         // Image.asset(
@@ -384,7 +391,7 @@ class MembershipView extends GetView<MembershipController> {
                           Padding(
                             padding: const EdgeInsets.only(left: 12),
                             child: Row(
-                              children: [Stxt(text: "Pay Bulk", size: f4)],
+                              children: [Stxt(text: "pay_bulk".tr, size: f4)],
                             ),
                           ),
                           Space(16),
@@ -393,7 +400,7 @@ class MembershipView extends GetView<MembershipController> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                widgetPayBulk(context, "Quarterly", "600", () {
+                                widgetPayBulk(context, "quarterly".tr, "600", () {
                                   controller.membershipPayment(
                                       "threemonth",
                                       true,
@@ -402,7 +409,7 @@ class MembershipView extends GetView<MembershipController> {
                                   controller.checkboxignore.value = true;
                                   controller.totalPayment.value = 600;
                                 }),
-                                widgetPayBulk(context, "Half Yearly", "1200",
+                                widgetPayBulk(context, "half_yearly".tr, "1200",
                                     () {
                                   controller.membershipPayment(
                                       "sixmonth",
@@ -412,7 +419,7 @@ class MembershipView extends GetView<MembershipController> {
                                   controller.checkboxignore.value = true;
                                   controller.totalPayment.value = 1200;
                                 }),
-                                widgetPayBulk(context, "Annually", "1800", () {
+                                widgetPayBulk(context, "annually".tr, "1800", () {
                                   controller.membershipPayment(
                                       "twelvemonth",
                                       true,
