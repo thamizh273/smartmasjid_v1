@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../../../global.dart';
 import '../../../../widgets/space.dart';
@@ -14,7 +15,7 @@ class WellWisher extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Masjid Well-wishers",
+        tittle: "masjid_well_wishers".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -35,7 +36,7 @@ class WellWisher extends StatelessWidget {
                   ]
               ),
               child: Center(
-                child: Stxt(text: "well-wishers", size: f4, color: Colors.white,weight: FontWeight.w500,),
+                child: Stxt(text: "well_wishers".tr, size: f4, color: Colors.white,weight: FontWeight.w500,),
               ),
             ),
             ListView.builder(

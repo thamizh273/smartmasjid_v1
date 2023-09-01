@@ -17,7 +17,7 @@ class QuickPay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Quick Pay",
+        tittle: "quick_pay".tr,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -45,7 +45,7 @@ class QuickPay extends StatelessWidget {
                       children: [
                         const Space(8),
                         Stxt(
-                          text: "Pay MemberShip",
+                          text: "pay_memberShip".tr,
                           size: f5,
                           color: Theme
                               .of(context)
@@ -56,9 +56,9 @@ class QuickPay extends StatelessWidget {
 
                         const Space(16),
 
-                        const Row(
+                         Row(
                           children: [
-                            Text("Mobile Number",
+                            Text("mobile_number".tr,
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
@@ -74,7 +74,7 @@ class QuickPay extends StatelessWidget {
                             //     : null,
                             fillColor: clr_white,
                             height: 40.h,
-                            hint: "Enter Registered Mobile No.(91)",
+                            hint: "register_number".tr,
                             controller: membershipCtrl.payPhone_.value,
                             onChanged: (value) {
 
@@ -92,10 +92,10 @@ class QuickPay extends StatelessWidget {
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         8.verticalSpace,
-                        const Row(
+                         Row(
                           children: [
                             Text(
-                              "Membership Id",
+                              "membership_id".tr,
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w500),
                             )
@@ -148,8 +148,8 @@ class QuickPay extends StatelessWidget {
                       ),
                       elevation: 4.0,
                     ),
-                    child: const Text(
-                      "Pay now",
+                    child:  Text(
+                      "pay_now".tr,
                       style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 18,

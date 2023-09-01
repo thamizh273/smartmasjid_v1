@@ -31,7 +31,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppbar(
-          tittle: "Zakath Calculator",
+          tittle: "zakath".tr,
         ),
         body: FrostedBottomBar(
           width: 330.w,
@@ -54,7 +54,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                       color: Theme.of(context).primaryColor,
                       child: Center(
                         child: Text(
-                          "Cash",
+                          "cash".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 23,
@@ -75,7 +75,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Cash in Hand',
+                              hintText: 'cash_in_hand'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -109,7 +109,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Cash at Bank (SAV)',
+                              hintText: 'cash_at_bank'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -146,7 +146,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Cash at Bank (CUR)',
+                              hintText: 'cash_at_bank(cur)'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -178,7 +178,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Cash at Bank (FD)',
+                              hintText: 'cash_at_bank(fd)'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -210,7 +210,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                       color: Theme.of(context).primaryColor,
                       child: Center(
                         child: Text(
-                          "Gold & Silver",
+                          "gold_silver".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 23,
@@ -230,7 +230,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: '24K Gold',
+                              hintText: 'gold'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -262,7 +262,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Rate per gram',
+                              hintText: 'rate_per_gram'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -299,7 +299,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: '22K Gold',
+                              hintText: 'goldd'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -331,7 +331,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Rate per gram',
+                              hintText: 'rate_per_gram'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -368,7 +368,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Silver',
+                              hintText: 'silver'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -400,7 +400,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Rate per gram',
+                              hintText: 'rate_per_gram'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -427,7 +427,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                     ),
                     Space(4),
                     Text(
-                      "Please Insert the current estimated value",
+                      "please_insert_the_current_estimated_value".tr,
                       style: TextStyle(fontWeight: FontWeight.w400),
                     ),
                     Space(16),
@@ -437,7 +437,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                       color: Theme.of(context).primaryColor,
                       child: Center(
                         child: Text(
-                          "Rent & Income",
+                          "rent_income".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 23,
@@ -457,7 +457,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Rent from home',
+                              hintText: 'rent_from_home'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -489,7 +489,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Rent from land',
+                              hintText: 'rent_from_land'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -526,7 +526,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Rent from building',
+                              hintText: 'rent_from_building'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -558,7 +558,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Business Income',
+                              hintText: 'business_income'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -595,7 +595,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Stock on trade',
+                              hintText: 'stock_on_trade'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -628,7 +628,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                       color: Theme.of(context).primaryColor,
                       child: Center(
                         child: Text(
-                          "Debts & Liabilities",
+                          "debits_liability".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 23,
@@ -648,7 +648,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Debts to family',
+                              hintText: 'debts_to_family'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -680,7 +680,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Debts to friends',
+                              hintText: 'debts_to_friends'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -717,7 +717,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Debts to Relative',
+                              hintText: 'debts_to_relative'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -749,7 +749,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Debts to others',
+                              hintText: 'debts_to_others'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -786,7 +786,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Business Payments',
+                              hintText: 'business_payments'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -818,7 +818,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                                 color: Theme.of(context).colorScheme.primary,
                                 fontWeight: FontWeight.w600),
                             decoration: InputDecoration(
-                              hintText: 'Other Payments',
+                              hintText: 'other_payments'.tr,
                               filled: true,
                               fillColor: Colors.grey.shade300,
                               border: OutlineInputBorder(
@@ -865,7 +865,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                           elevation: 4.0,
                         ),
                         child: Text(
-                          "Calculate",
+                          "calculate".tr,
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 18,

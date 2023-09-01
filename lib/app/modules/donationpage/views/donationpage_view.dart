@@ -18,7 +18,7 @@ class DonationpageView extends GetView<DonationpageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Donation",
+        tittle: "donation".tr,
         action: [
           GestureDetector(
             onTap: (){
@@ -34,7 +34,7 @@ class DonationpageView extends GetView<DonationpageController> {
           children: [
             Image.asset("assets/images/donatead.png"),
             Space(16),
-            Stxt(text: "Your Masjid raises these funds, So these are all will be \nsettled to your Masjid", size: f2, textAlign: TextAlign.center, weight: FontWeight.w500,),
+            Stxt(text: "your_masjid_raises_these_funds,_So_these_are_all_will_be_settled_to_your_masjid.".tr, size: f2, textAlign: TextAlign.center, weight: FontWeight.w500,),
             Space(16),
             Expanded(
               child: ListView.builder(

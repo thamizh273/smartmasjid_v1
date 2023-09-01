@@ -17,7 +17,7 @@ class FamilytreeView extends GetView<FamilytreeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Family Tree",
+        tittle: "family_tree".tr,
       ),
       body: FamilyBG(
           child: Center(

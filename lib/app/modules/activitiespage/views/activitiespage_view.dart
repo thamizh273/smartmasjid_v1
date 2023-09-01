@@ -12,7 +12,7 @@ class ActivitiespageView extends GetView<ActivitiespageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Activities",
+        tittle: "activities".tr,
       ),
       body: Working(),
     );

@@ -12,7 +12,7 @@ class BookmarkpageView extends GetView<BookmarkpageController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "BookMark",
+        tittle: "bookmarks".tr,
       ),
       body: Working(),
     );

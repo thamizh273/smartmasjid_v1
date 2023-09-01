@@ -12,7 +12,7 @@ class MasjidhistoryView extends GetView<MasjidhistoryController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Masjid History",
+        tittle: "masjid_history".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

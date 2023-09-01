@@ -11,7 +11,7 @@ class MasjidAdmin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(tittle: 'Masjid Admins',
+      appBar: CustomAppbar(tittle: 'masjid_admins'.tr,
       ),
       body: ListView.builder(
         physics: BouncingScrollPhysics(),

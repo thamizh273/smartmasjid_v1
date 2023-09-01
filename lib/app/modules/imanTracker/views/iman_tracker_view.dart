@@ -22,15 +22,15 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
 
   // final controller =Get.put(ImanTrackerController());
   List prayerList = [
-    {"icon": "fajr_icon", "name": "Fajr"},
-    {"icon": "dhuhr_icon", "name": "Dhuhr"},
-    {"icon": "asr", "name": "Asr"},
-    {"icon": "magrib", "name": "Magrib"},
-    {"icon": "isha", "name": "Isha"}
+    {"icon": "fajr_icon", "name": "fajr".tr},
+    {"icon": "dhuhr_icon", "name": "dhuhr".tr},
+    {"icon": "asr", "name": "asr".tr},
+    {"icon": "magrib", "name": "maghrib".tr},
+    {"icon": "isha", "name": "isha".tr}
   ];
   List quranList = [
-    {"icon": "read_quran", "name": "Read Quran"},
-    {"icon": "memorize_quran", "name": "Memorize Quran"},
+    {"icon": "read_quran", "name": "read_quran".tr},
+    {"icon": "memorize_quran", "name": "memorize_quran".tr},
   ];
   final theme = Get.theme;
   Map<String, double> dataMap = {
@@ -43,7 +43,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppbar(
-          tittle: "Iman Tracker",
+          tittle: "iman_tracker".tr,
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(5),
             child: TabBar(
@@ -94,7 +94,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                     ),
                     15.verticalSpace,
                     Stxt(
-                      text: "Prayers",
+                      text: "prayers".tr,
                       size: f3,
                       weight: FontWeight.bold,
                     ),
@@ -179,7 +179,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                                         col.prayerId.toString();
                                                     controller.update();
                                                   },
-                                                  text: "Not Prayed",
+                                                  text: "not_prayed".tr,
                                                   prefix: Icon(
                                                     Icons.not_interested,
                                                     color: clr_red,
@@ -198,7 +198,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                                         col.prayerId.toString();
                                                     controller.update();
                                                   },
-                                                  text: "Late",
+                                                  text: "late".tr,
                                                   prefix: Icon(
                                                     Icons.history,
                                                     color: clr_yellow,
@@ -224,7 +224,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                                       col.prayerId.toString();
                                                   controller.update();
                                                 },
-                                                text: "On Time",
+                                                text: "on_time".tr,
                                                 prefix: Icon(
                                                   Icons.man,
                                                   color: clr_blue,
@@ -241,7 +241,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                                       col.prayerId.toString();
                                                   controller.update();
                                                 },
-                                                text: "In Jamaah",
+                                                text: "in_jamaah".tr,
                                                 prefix: Icon(
                                                   Icons.groups,
                                                   color: clr_green,
@@ -310,7 +310,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                             controller.updatestatus();
                                             Navigator.pop(context);
                                           },
-                                          text: "Submit",
+                                          text: "submit".tr,
                                           color: Get.theme.primaryColor,
                                           txtClr: Colors.white)
                                     ],
@@ -333,12 +333,12 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                             width: .2.sw,
                           ),
                           Stxt(
-                            text: "Quran",
+                            text: "quran".tr,
                             size: f3,
                             weight: FontWeight.bold,
                           ),
                           Stxt(
-                            text: "Change Goals",
+                            text: "change_goals".tr,
                             size: f0,
                             weight: FontWeight.bold,
                             color: Get.theme.primaryColor,
@@ -377,7 +377,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                 Row(
                                   children: [
                                     Stxt(
-                                      text: "Read Quran(Daily)",
+                                      text: "read_quran".tr,
                                       size: f2,
                                       weight: FontWeight.bold,
                                     ),
@@ -402,13 +402,13 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                 Row(
                                   children: [
                                     Stxt(
-                                      text: "Memorize Quran(Daily)",
+                                      text: "memorize_quran".tr,
                                       size: f2,
                                       weight: FontWeight.bold,
                                     ),
                                   ],
                                 ),
-                                SButton(ontap: () {}, text: "Submit",color: theme.primaryColor,txtClr: clr_white)
+                                SButton(ontap: () {}, text: "submit".tr,color: theme.primaryColor,txtClr: clr_white)
                               ],
                             ),
                           ));
@@ -452,13 +452,13 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                           color: Colors.white, fontWeight: FontWeight.bold),
                       tabs: [
                         Tab(
-                          text: "This Week",
+                          text: "this_week".tr,
                         ),
                         Tab(
-                          text: "This Month",
+                          text: "this_month".tr,
                         ),
                         Tab(
-                          text: "All Time",
+                          text: "all_time".tr,
                         ),
                       ],
                     ),
@@ -485,7 +485,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
       children: [
         Center(
           child: Stxt(
-            text: 'Prayers Summary',
+            text: 'prayers_summary'.tr,
             size: f2,
             color: theme.primaryColor,
             weight: FontWeight.w500,
@@ -532,7 +532,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
         10.verticalSpace,
         Center(
           child: Stxt(
-            text: 'Quran Summary',
+            text: 'quran_summary'.tr,
             size: f2,
             color: theme.primaryColor,
             weight: FontWeight.w500,

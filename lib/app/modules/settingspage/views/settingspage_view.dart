@@ -22,7 +22,7 @@ class SettingspageView extends GetView<SettingspageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(tittle: 'Settings',
+      appBar: CustomAppbar(tittle: 'settings'.tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

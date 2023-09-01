@@ -15,7 +15,7 @@ class PastPayments extends GetView<MembershipController> {
     var theme = Get.theme;
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Past Payments",
+        tittle: "past_payments".tr,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -41,7 +41,7 @@ class PastPayments extends GetView<MembershipController> {
                     iconSize: 30.r,
                     hint: 'Fliter',
                     value: controller.dropDownvalue.value,
-                    dropdownItems: const ["This Year", "Previous Year"],
+                    dropdownItems:  ["This Year", "previous_year".tr],
                     onChanged: (String? value) {
                       controller.dropDownvalue.value = value!;
                       controller.getMembershipPayDetails(value=="This Year"?"currentyear":"lastyear");
