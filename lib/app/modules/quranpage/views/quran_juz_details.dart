@@ -37,21 +37,21 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 physics: ScrollPhysics(),
-               // controller: c.scrollControllern,
+                // controller: c.scrollControllern,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Space(20),
                     Text(
-                      "Customize your Quran",
+                      "customize_your_quran".tr,
                       style: TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600
                       ),
                     ),
                     Space(16),
                     Text(
-                      "View",
+                      "view".tr,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -73,7 +73,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                     c.view(groupValue!),
                               );
                             }),
-                            Text("Sura"),
+                            Text("surah".tr),
                             Obx(() {
                               return Radio(
                                 activeColor: Get.theme.primaryColor,
@@ -84,7 +84,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                     c.view(groupValue!),
                               );
                             }),
-                            Text("Page"),
+                            Text("page".tr),
                           ],
                         ),
                         Space(4),
@@ -100,7 +100,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                     c.view(groupValue!),
                               );
                             }),
-                            Text("Juz"),
+                            Text("juz".tr),
                             Obx(() {
                               return Radio(
                                 activeColor: Get.theme.primaryColor,
@@ -111,7 +111,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                     c.view(groupValue!),
                               );
                             }),
-                            Text("Hizb"),
+                            Text("hizb".tr),
                           ],
                         ),
                       ],
@@ -121,7 +121,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                     ),
                     Space(16),
                     Text(
-                      "Content",
+                      "translation".tr,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -154,7 +154,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                             ),
                           );
                         }),
-                        Stxt(size: f2, text: 'Arabic',),
+                        Stxt(size: f2, text: 'arabic'.tr,),
                         Space(8),
                         Obx(() {
                           return Container(
@@ -179,7 +179,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                             ),
                           );
                         }),
-                        Stxt(size: f2, text: 'English',),
+                        Stxt(size: f2, text: 'english'.tr,),
                         Space(8),
                         Obx(() {
                           return Container(
@@ -205,7 +205,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                             ),
                           );
                         }),
-                        Stxt(size: f2, text: 'Tamil',),
+                        Stxt(size: f2, text: 'tamil'.tr,),
                       ],
                     ),
                     Space(8),
@@ -214,7 +214,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                     // ),
                     Space(8),
                     Text(
-                      "Arabic Font",
+                      "arabic_font".tr,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -225,7 +225,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ExpansionTile(
-                          title: Text("IndoPak Script"),
+                          title: Text("indoPak_script".tr),
                           children: [
                             ListTile(
                               title: Column(
@@ -246,7 +246,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                 c.changeFontFamily(groupValue!),
                                           ),
                                         ),
-                                        Text("Noorehira"),
+                                        Text("noorehira".tr),
                                         Spacer(),
                                         SvgPicture.asset(
                                             "assets/svg/noorehira.svg",
@@ -273,7 +273,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                 c.changeFontFamily(groupValue!),
                                           ),
                                         ),
-                                        Text("Noorehuda"),
+                                        Text("noorehuda".tr),
                                         Spacer(),
                                         SvgPicture.asset(
                                             "assets/svg/noorehuda.svg",
@@ -299,7 +299,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             c.fontFamily.value = groupValue!,
                                           ),
                                         ),
-                                        Text("Noorehidayat"),
+                                        Text("noorehidayat".tr),
                                         Spacer(),
                                         SvgPicture.asset(
                                             "assets/svg/noorehidayat.svg",
@@ -318,7 +318,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                         //
                         // ),
                         ExpansionTile(
-                          title: Text("Uthmani/Madani Script"),
+                          title: Text("uthmani_madani".tr),
                           children: [
                             ListTile(
                               title: Column(
@@ -338,7 +338,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                 c.changeFontFamily(groupValue!),
                                           ),
                                         ),
-                                        Text("Quran"),
+                                        Text("quran".tr),
                                         Spacer(),
                                         SvgPicture.asset(
                                             "assets/svg/quran.svg", width: 60,
@@ -363,7 +363,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                 c.changeFontFamily(groupValue!),
                                           ),
                                         ),
-                                        Text("Qalam"),
+                                        Text("qalam".tr),
                                         Spacer(),
                                         SvgPicture.asset(
                                             "assets/svg/qalam.svg", width: 60,
@@ -389,7 +389,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             c.fontFamily.value = groupValue!,
                                           ),
                                         ),
-                                        Text("KFGQPC Hafs"),
+                                        Text("hafs".tr),
                                         Spacer(),
                                         SvgPicture.asset(
                                             "assets/svg/KFGQPC.svg", width: 60,
@@ -415,7 +415,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                 groupValue!.toString(),
                                           ),
                                         ),
-                                        Text("Amiri"),
+                                        Text("amiri".tr),
                                         Spacer(),
                                         SvgPicture.asset(
                                           "assets/svg/amiri.svg", width: 60,
@@ -429,29 +429,6 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                             )
                           ],
                         ),
-                        Obx(() {
-                          return Row(
-                            children: [
-                              Container(
-                                height: 25.h,
-                                width: 25.w,
-                                child: Radio(
-                                  activeColor: Get.theme.primaryColor,
-                                  // title: Text("Kalam"),
-                                  value: "arabictit",
-                                  groupValue: c.fontFamily.value,
-                                  onChanged: (groupValue) =>
-                                      c.changeFontFamily(groupValue!),
-                                ),
-                              ),
-                              Text("Arabictitle"),
-                              Spacer(),
-                              SvgPicture.asset(
-                                  "assets/svg/noorehuda.svg", width: 60,
-                                  color: Colors.black.withOpacity(0.6))
-                            ],
-                          );
-                        }),
                       ],
                     ),
                     Divider(
@@ -465,7 +442,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                       },
                       child: Row(
                         children: [
-                          Text("Tajweed Rules", style: TextStyle(
+                          Text("tajweed_rules".tr, style: TextStyle(
                               fontSize: 15, fontWeight: FontWeight.w600),),
                           Spacer(),
                           Icon(Icons.arrow_forward_ios_outlined, size: 15,)
@@ -481,7 +458,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                     //   thickness: 1,
                     // ),
                     Text(
-                      "Arabic Font Size",
+                      "arabic_font_size".tr,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -513,24 +490,24 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children:  [
                         Padding(
                           padding: EdgeInsets.only(left: 24),
-                          child: Text('Small', style: TextStyle(
+                          child: Text('small'.tr, style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
-                        Text('Medium', style: TextStyle(
+                        Text('medium'.tr, style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500)),
                         Padding(
                           padding: EdgeInsets.only(right: 24),
-                          child: Text('Large', style: TextStyle(
+                          child: Text('large'.tr, style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w600)),
                         ),
                       ],
                     ),
                     Space(16),
                     Text(
-                      "Translation Font Size",
+                      "translation_font_size".tr,
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
@@ -562,17 +539,17 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: const [
+                      children:  [
                         Padding(
                           padding: EdgeInsets.only(left: 24),
-                          child: Text('Small', style: TextStyle(
+                          child: Text('small'.tr, style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w400)),
                         ),
-                        Text('Medium', style: TextStyle(
+                        Text('medium'.tr, style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500)),
                         Padding(
                           padding: EdgeInsets.only(right: 24),
-                          child: Text('Large', style: TextStyle(
+                          child: Text('large'.tr, style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.w600)),
                         ),
                       ],

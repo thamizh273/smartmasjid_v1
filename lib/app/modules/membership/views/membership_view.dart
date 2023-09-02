@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/past_payments.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/quick_pay.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/select_month.dart';
+import 'package:smartmasjid_v1/widgets/button_widget.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../global.dart';
@@ -19,7 +20,13 @@ import '../../../../widgets/stext.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/membership_controller.dart';
+import '../model/pdf_model/customer.dart';
+import '../model/pdf_model/invoice.dart';
+import '../model/pdf_model/supplier.dart';
+import '../pdf_helper/pdf_helper.dart';
+import '../pdf_helper/pdf_invoice_helper.dart';
 import 'invoice_page.dart';
+import 'invoice_pdfpage.dart';
 
 class MembershipView extends GetView<MembershipController> {
   MembershipView({Key? key}) : super(key: key);
@@ -364,8 +371,8 @@ class MembershipView extends GetView<MembershipController> {
                                         ),
                                         Space(8),
                                         GestureDetector(
-                                          onTap: () async{
-                                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => InvoicePage()));
+                                          onTap: () {
+                                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => PdfPreviewPage("")));
                                           },
                                           child: Container(
                                             width: 25,

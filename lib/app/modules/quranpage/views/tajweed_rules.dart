@@ -9,7 +9,7 @@ class TajweedRules extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Tajweed Rules",
+        tittle: "tajweed_rules".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -21,9 +21,9 @@ class TajweedRules extends StatelessWidget {
                 children: [
                   Text("مـ", style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xffC92F2F), fontSize: 20),),
                   Space(8),
-                  Stxt(text: "Must Stop", size: f3, weight: FontWeight.w600, color: Color(0xffC92F2F),),
+                  Stxt(text: "must_stop".tr, size: f3, weight: FontWeight.w600, color: Color(0xffC92F2F),),
                   Spacer(),
-                  Stxt(text: "found 22 times", size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
+                  Stxt(text: "found_times".tr, size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
                 ],
               )
               ,
@@ -31,54 +31,54 @@ class TajweedRules extends StatelessWidget {
                 children: [
                   Text("قلى", style: TextStyle(fontWeight: FontWeight.w600, color:Color(0xffB4592C), fontSize: 20),),
                   Space(8),
-                  Stxt(text: "Better to stop", size: f3, weight: FontWeight.w600, color: Color(0xffB4592C),),
+                  Stxt(text: "better_to_stop".tr, size: f3, weight: FontWeight.w600, color: Color(0xffB4592C),),
                   Spacer(),
-                  Stxt(text: "found 603 times", size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
+                  Stxt(text: "found_times1".tr, size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
                 ],
               ),
               Row(
                 children: [
                   Image.asset("assets/images/haq.png", width: 12,),
                   Space(8),
-                  Stxt(text: "Pause at one", size: f3, weight: FontWeight.w600, color: Color(0xffB57D2E),),
+                  Stxt(text: "pause_at_one".tr, size: f3, weight: FontWeight.w600, color: Color(0xffB57D2E),),
                   Spacer(),
-                  Stxt(text: "found 12 times", size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
+                  Stxt(text: "found_times2".tr, size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
                 ],
               ),
               Row(
                 children: [
                   Text("س", style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xffB6AF31), fontSize: 20),),
                   Space(8),
-                  Stxt(text: "A slight pause", size: f3, weight: FontWeight.w600, color: Color(0xffB6AF31),),
+                  Stxt(text: "a_slight_pause".tr, size: f3, weight: FontWeight.w600, color: Color(0xffB6AF31),),
                   Spacer(),
-                  Stxt(text: "found 7 times", size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
+                  Stxt(text: "found_times3".tr, size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
                 ],
               ),
               Row(
                 children: [
                   Text("ج", style: TextStyle(fontWeight: FontWeight.w600, color:Color(0xffA3B734), fontSize: 20),),
                   Space(8),
-                  Stxt(text: "Stop or Continue", size: f3, weight: FontWeight.w600, color:Color(0xffA3B734),),
+                  Stxt(text: "stop_or_continue".tr, size: f3, weight: FontWeight.w600, color:Color(0xffA3B734),),
                   Spacer(),
-                  Stxt(text: "found 1972 times", size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
+                  Stxt(text: "found_times4".tr, size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
                 ],
               ),
               Row(
                 children: [
                   Text("صلى", style: TextStyle(fontWeight: FontWeight.w500, color: Color(0xff94BA3D), fontSize: 20),),
                   Space(8),
-                  Stxt(text: "Better to Continue", size: f3, weight: FontWeight.w600, color: Color(0xff94BA3D),),
+                  Stxt(text: "better_to_continue".tr, size: f3, weight: FontWeight.w600, color: Color(0xff94BA3D),),
                   Spacer(),
-                  Stxt(text: "found 1682 times", size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
+                  Stxt(text: "found_times5".tr, size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
                 ],
               ),
               Row(
                 children: [
                   Text("لا", style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xff6CC152), fontSize: 20),),
                   Space(8),
-                  Stxt(text: "Dont Stop", size: f3, weight: FontWeight.w600, color: Color(0xff6CC152),),
+                  Stxt(text: "dont_stop".tr, size: f3, weight: FontWeight.w600, color: Color(0xff6CC152),),
                   Spacer(),
-                  Stxt(text: "found 68 times", size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
+                  Stxt(text: "found_times6".tr, size: f2, weight: FontWeight.w600, color: Colors.black.withOpacity(0.4),),
                 ],
               ),
               Space(16),
@@ -97,7 +97,7 @@ class TajweedRules extends StatelessWidget {
                   ]
                 ),
                 child: Center(
-                    child: Text("Ghunna (Nasalisation)", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
+                    child: Text("ghunna".tr, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
               ),
               Space(16),
              Image.asset("assets/images/text.png",width: 400,),
@@ -124,7 +124,7 @@ class TajweedRules extends StatelessWidget {
                     ]
                 ),
                 child: Center(
-                    child: Text("Ikhfa’a (Lenition/Hiding)", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
+                    child: Text("ikhfa".tr, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
               ),
               Space(16),
               Image.asset("assets/images/text3.png",width: 350,),
@@ -160,7 +160,7 @@ class TajweedRules extends StatelessWidget {
                     ]
                 ),
                 child: Center(
-                    child: Text("Idgham (Elision/Merging)", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
+                    child: Text("idgham".tr, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
               ),
               Space(16),
               Image.asset("assets/images/text5.png",width: 350,),
@@ -191,7 +191,7 @@ class TajweedRules extends StatelessWidget {
                     ]
                 ),
                 child: Center(
-                    child: Text("Idgham without Ghunna", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
+                    child: Text("idgham_without_ghunna".tr, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
               ),
               Space(16),
               Text("Any ن or ً  ٍ  ٌ  followed by ل or ر will become assimilated into the following letter but the ghunna will not pronounced."),
@@ -217,7 +217,7 @@ class TajweedRules extends StatelessWidget {
                     ]
                 ),
                 child: Center(
-                    child: Text("Iqlab (Assilimilation/Flipping)", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
+                    child: Text("iqlab".tr, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
               ),
               Space(16),
               Image.asset("assets/images/text8.png", width: 350,),
@@ -244,7 +244,7 @@ class TajweedRules extends StatelessWidget {
                     ]
                 ),
                 child: Center(
-                    child: Text("Qalaqala (Echoing)", style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
+                    child: Text("qalaqala".tr, style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: Colors.white),)),
               ),
               Space(16),
               Image.asset("assets/images/text10.png", width: 350,),
