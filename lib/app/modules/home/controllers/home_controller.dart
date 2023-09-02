@@ -32,7 +32,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 
   late TabController tabController;
 
-  RxBool logoutlogin= false.obs;
+
   RxBool alarm = false.obs;
   RxBool isloading = false.obs;
   RxBool isloading1 = false.obs;

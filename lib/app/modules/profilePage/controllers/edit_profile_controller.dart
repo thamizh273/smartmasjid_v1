@@ -176,7 +176,7 @@ class EditProfileController extends GetxController {
     homectrl.getUserData.value.getUserById!.id='';
     homectrl.getUserData.value.getUserById!.liveStatus=false;
     homectrl.getUserData.value.getUserById=null;
-    homectrl.logoutlogin.value=true;
+
     homectrl.update();
 
     isLoadingLogout.value = false;
@@ -184,7 +184,7 @@ class EditProfileController extends GetxController {
       var hh = res["SUCCESS"]["Log_Out_User"]['message'];
 
       toast(error: "SUCCESS", msg: "${hh}");
-      Get.offAllNamed(Routes.REGISTER_LOGIN);
+      Get.offAllNamed(AppPages.INITIAL);
     }
     return ;
   }
