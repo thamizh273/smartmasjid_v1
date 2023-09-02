@@ -32,7 +32,7 @@ class SelectMonth extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppbar(
-        tittle: "Select Month",
+        tittle: "select_month".tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -40,7 +40,7 @@ class SelectMonth extends StatelessWidget {
           children: [
             Stxt(
               text:
-              "Your unpaid membership months are shown here. \nYou can select and pay for them in total or in single months.",
+              "you_unpaid".tr,
               size: f2,
               textAlign: TextAlign.center,
               weight: FontWeight.w500,
@@ -50,7 +50,7 @@ class SelectMonth extends StatelessWidget {
               return memcntrl.isloadingPay.value
                   ? loading(context)
                   : SizedBox(
-                height: 465.h,
+                height: 410.h,
                 child: GridView.builder(
                   // physics: NeverScrollableScrollPhysics(),
                     itemCount: memcntrl.membershipPaymentMonthData.value
@@ -208,7 +208,7 @@ class SelectMonth extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Stxt(text: "Pay Membership of ",
+                    Stxt(text: "pay_membership_of".tr,
                       size: f3,
                       weight: FontWeight.w500,
                       color: Colors.white,),
