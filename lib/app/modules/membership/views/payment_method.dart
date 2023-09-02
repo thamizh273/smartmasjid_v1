@@ -19,7 +19,7 @@ class PaymentMethodM extends StatefulWidget {
 }
 
 class _PaymentMethodMState extends State<PaymentMethodM> {
-  final MembershipController c = Get.put(MembershipController());
+  final MembershipController membrCtrl = Get.put(MembershipController());
   Future<UpiResponse>? _transaction;
   final UpiIndia _upiIndia = UpiIndia();
   List<UpiApp>? apps;
@@ -49,12 +49,11 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
   Future<UpiResponse> initiateTransaction(UpiApp app) async {
     return _upiIndia.startTransaction(
         app: app,
-        receiverUpiId: "9514786166@ybl",
-        receiverName: 'Thamizhselvan',
+        receiverUpiId: "masjidenooraniyya@sbi",
+        receiverName: "${membrCtrl.membershipPaymentMonthData.value.membershipPayments!.masjidName}",
         transactionRefId: DateTime.now().millisecondsSinceEpoch.toString(),
-        transactionNote: '',
-        amount: 1,
-        merchantId: '');
+        amount: membrCtrl.totalPayment.value.toDouble(),
+        merchantId: '19897398237982');
   }
 
   Widget displayUpiApps() {
@@ -75,7 +74,9 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
           children: apps!.map<Widget>((UpiApp app) {
             return GestureDetector(
               onTap: () {
+                 membrCtrl.Pay_Membership_Payment_Gate_Way();
                 _transaction = initiateTransaction(app);
+                Navigator.pop(context);
                 setState(() {});
               },
               child: Padding(
@@ -102,8 +103,8 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                                 image: MemoryImage(
-                                  app.icon,
-                                ))),
+                              app.icon,
+                            ))),
                       ),
                       5.verticalSpace,
                       Stxt(
@@ -138,9 +139,10 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
     }
   }
 
-  void _checkTxnStatus(String status) {
+  void _checkTxnStatus(String status, String txnId) {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
+        membrCtrl.membershipUpiPayment(status,txnId);
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
@@ -163,9 +165,9 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
           Text("$title: ", style: header),
           Flexible(
               child: Text(
-                body,
-                style: value,
-              )),
+            body,
+            style: value,
+          )),
         ],
       ),
     );
@@ -177,16 +179,16 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
       'name': 'UPI Payment',
       'assets': ['gpay', 'paytm', 'phonepe'],
       'enable': true,
-      'val':0
+      'val': 0
     },
     {
       'value': 'card',
       'name': 'Credit/Debit Card',
       'assets': ['visa', 'mastercard'],
-      'val':1
+      'val': 1
     },
-    {'value': 'net_banking', 'name': 'Net Banking', 'assets': [],'val':2},
-    {'value': 'cash', 'name': 'Cash', 'assets': [], 'enable': true,'val':3},
+    {'value': 'net_banking', 'name': 'Net Banking', 'assets': [], 'val': 2},
+    {'value': 'cash', 'name': 'Cash', 'assets': [], 'val': 3},
   ];
 
   @override
@@ -195,86 +197,140 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
         appBar: CustomAppbar(
           tittle: "payment".tr,
         ),
-        body: Column(
-          children: [
-            15.verticalSpace,
-            ...methods.map((e) {
-
-              return Container(
-                margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5),
-                height: 80.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    boxShadow: [
-                      BoxShadow(
-                          blurRadius: 4,
-                          spreadRadius: 4,
-                          offset: Offset(0, 4),
-                          color: Colors.grey.shade400)
-                    ]),
-                child: Row(
-                  children: [
-                    Space(8),
-                    Obx(() {
-                      return Transform.scale(
-                          scale: 1.3,
-                          child: Radio(
-                              activeColor: Get.theme.primaryColor,
-                              // title: Text("Amiri"),
-                              value: e['val'],
-                              groupValue: c.selectedRadioIndex.value,
-                              onChanged: (groupValue) =>
-                                  c.setSelectedRadio(groupValue!)));
-                    }),
-                    Space(8),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Stxt(
-                          text: e['name'].toString(),
-                          size: f4,
-                          weight: FontWeight.bold,
-                        ),
-                        Space(8),
-                        Wrap(
-                            spacing: 16,
-                            children: List.generate(e['assets'].length, (i) {
-                              final asset = e['assets'][i];
-                              return Image.asset(
-                                'assets/images/$asset.png',
-                                height: 20,
-                              );
-                            })),
-                      ],
-                    )
-                  ],
-                ),
-              );
-            }),
-            10.verticalSpace,
-            ElevatedButton(
-                onPressed: ()   {
-                  Get.bottomSheet(
-                    backgroundColor: clr_white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    displayUpiApps(),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(150, 40),
-                  backgroundColor: Theme.of(context).primaryColor,
-                  foregroundColor: Color(0xff11323B),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              15.verticalSpace,
+              ...methods.map((e) {
+                return Container(
+                  margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5),
+                  height: 80.h,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                      color:e['enable']==true? Colors.white:Colors.white.withOpacity(.9),
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: [
+                        e['enable']==true?  BoxShadow(
+                            blurRadius: 4,
+                            spreadRadius: 4,
+                            offset: Offset(0, 4),
+                            color: Colors.grey.shade400):BoxShadow()
+                      ]),
+                  child: Row(
+                    children: [
+                      Space(8),
+                      Obx(() {
+                        return Transform.scale(
+                            scale: 1.3,
+                            child: Radio(
+                                activeColor: Get.theme.primaryColor,
+                                // title: Text("Amiri"),
+                                value: e['val'],
+                                groupValue: membrCtrl.selectedRadioIndex.value,
+                                onChanged: (groupValue) =>
+                                e['enable']==true? membrCtrl.setSelectedRadio(groupValue!):null));
+                      }),
+                      Space(8),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stxt(
+                            text: e['name'].toString(),
+                            size: f4,
+                            weight: FontWeight.bold,
+                          ),
+                          Space(8),
+                          Wrap(
+                              spacing: 16,
+                              children: List.generate(e['assets'].length, (i) {
+                                final asset = e['assets'][i];
+                                return Image.asset(
+                                  'assets/images/$asset.png',
+                                  height: 20,
+                                );
+                              })),
+                        ],
+                      )
+                    ],
                   ),
-                  elevation: 4.0,
-                ),
-                child: Text("pay_now".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
-          ],
+                );
+              }),
+              10.verticalSpace,
+              ElevatedButton(
+                  onPressed: () {
+                    Get.bottomSheet(
+                      backgroundColor: clr_white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      displayUpiApps(),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(150, 40),
+                    backgroundColor: Theme.of(context).primaryColor,
+                    foregroundColor: Color(0xff11323B),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    elevation: 4.0,
+                  ),
+                  child: Text(
+                    "pay_now".tr,
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                        color: Colors.white),
+                  )),
+              10.verticalSpace,
+              FutureBuilder(
+                future: _transaction,
+                builder: (BuildContext context,
+                    AsyncSnapshot<UpiResponse> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                          _upiErrorHandler(snapshot.error.runtimeType),
+                          style: header,
+                        ), // Print's text message on screen
+                      );
+                    }
+
+                    UpiResponse _upiResponse = snapshot.data!;
+                    String txnId = _upiResponse.transactionId ?? 'N/A';
+                    String resCode = _upiResponse.responseCode ?? 'N/A';
+                    String txnRef = _upiResponse.transactionRefId ?? 'N/A';
+                    String status = _upiResponse.status ?? 'N/A';
+                    String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
+                    _checkTxnStatus(status,txnId);
+                    //  print('trans  $status');
+                    //    if(status=="SUCCESS"){
+                    // membrCtrl.membershipUpiPayment("dfghj","dfghj");
+                    //    }
+                    //
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                         // displayTransactionData('Transaction Id', txnId),
+                         // displayTransactionData('Response Code', resCode),
+                         // displayTransactionData('Reference Id', txnRef),
+                          displayTransactionData(
+                              'Status', status.toUpperCase()),
+                         // displayTransactionData('Approval No', approvalRef),
+                        ],
+                      ),
+                    );
+                  } else
+                    return Center(
+                      child: Text(''),
+                    );
+                },
+              ),
+            ],
+          ),
         ));
   }
 }

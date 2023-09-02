@@ -1,15 +1,9 @@
-import 'dart:ffi';
 
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/payment_method.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
-import 'package:smartmasjid_v1/widgets/stext.dart';
-
-import '../../../../widgets/space.dart';
-import '../../donationpage/views/payment_method.dart';
 import '../controllers/membership_controller.dart';
 
 class SelectMonth extends StatelessWidget {
@@ -72,7 +66,8 @@ class SelectMonth extends StatelessWidget {
                           .membershipPayments!.monthList![index];
 
                       return IgnorePointer(
-                        ignoring: data.paymentStatus=='paid'?true:false,
+                        ignoring:memcntrl.checkboxignore.value==true? true:data.paymentStatus=='paid'?true:false,
+
                         child: GestureDetector(
                           onTap: (){
                             memcntrl.checkedStates[index] =
@@ -84,16 +79,12 @@ class SelectMonth extends StatelessWidget {
                             if (memcntrl.checkedStates[index]) {
                               memcntrl.totalPayment.value +=
                                   int.parse(data.amount!);
-                              List<DataObject> newDataList = [
-                                DataObject(amount:int.parse(data.amount.toString()), date_: data.monthDue.toString()),
-                              ];
-                              memcntrl.addDataList(newDataList);
-                             
 
+                              memcntrl.listofmonthPay.add(data.monthDue.toString());
                             } else {
                               memcntrl.totalPayment.value -=
                                   int.parse(data.amount!);
-
+                              memcntrl.listofmonthPay.remove(data.monthDue.toString());
                             }
 
                           },
@@ -185,8 +176,9 @@ class SelectMonth extends StatelessWidget {
             Spacer(),
             GestureDetector(
               onTap: (){
-                memcntrl.Pay_Membership_Payment_Gate_Way();
-               // memcntrl.Pay_Membership_Payment_Gate_Way();
+                Get.to(PaymentMethodM());
+
+
               },
               child: Container(
                 height: 50.h,
@@ -214,7 +206,9 @@ class SelectMonth extends StatelessWidget {
                       color: Colors.white,),
                     Space(8),
                     Obx(() {
-                      return Stxt(text: "₹ ${ memcntrl.totalPayment.value}",
+
+
+                      return Stxt(text: "₹ ${memcntrl.totalPayment.value}",
                         size: f4,
                         weight: FontWeight.w600,
                         color: Colors.white,);

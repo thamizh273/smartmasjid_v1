@@ -96,7 +96,7 @@ class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
                         height: 100,
                         width: 100,
                         color: Colors.blue.shade900,
-                        
+
                        child:
                         const Icon(
                           Icons.payment,
@@ -134,6 +134,7 @@ class _UpiPaymentScreenState extends State<UpiPaymentScreen> {
   void _checkTxnStatus(String status) {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
+
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:

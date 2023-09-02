@@ -82,7 +82,7 @@ class MembershipView extends GetView<MembershipController> {
                                 ),
                               ],
                             ),
-                            Space(70),
+                           60.verticalSpace,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -94,10 +94,11 @@ class MembershipView extends GetView<MembershipController> {
                                   text: "${data.userId!.firstName} ",
                                   size: f5,
                                   color: Colors.white,
-                                  weight: FontWeight.w600,
+                                  weight: FontWeight.w500,
                                 ),
                               ],
                             ),
+                            10.verticalSpace,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -106,9 +107,9 @@ class MembershipView extends GetView<MembershipController> {
                                     size: f3,
                                     color: Colors.white),
                                 Stxt(
-                                    text: "${data.membershipid}",
+                                    text: " ${data.membershipid}",
                                     size: f3,
-                                    color: Colors.white),
+                                    color: Colors.white,weight: FontWeight.w500,),
                               ],
                             ),
                           ],
@@ -119,8 +120,11 @@ class MembershipView extends GetView<MembershipController> {
                   Obx(() {
                     var data = controller
                         .membershipDetailData.value.getMembershipDetail!;
-                    var statusPaid =
-                        data.monthChart![0].paymentStatus == "paid";
+
+
+                    DateTime timestamp =data.currentPayment!.expireDate=="null"?DateTime.now():DateTime.parse(data.currentPayment!.expireDate.toString());
+                    DateTime currentDate = DateTime.now();
+                    bool isBeforeCurrentMonth = timestamp.month < currentDate.month;
                     return Expanded(
                       child: ListView(
                         scrollDirection: Axis.vertical,
@@ -144,7 +148,7 @@ class MembershipView extends GetView<MembershipController> {
                           Padding(
                             padding: const EdgeInsets.all(16),
                             child: Container(
-                              height: 150,
+                              height: 164,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
@@ -153,21 +157,28 @@ class MembershipView extends GetView<MembershipController> {
                                       color: Theme.of(context).primaryColor)),
                               child: Column(
                                 children: [
-                                  Space(16),
-                                  Stxt(
-                                    text: "₹ ${data.currentPayment!.amount} ",
-                                    size: f5,
-                                    weight: FontWeight.bold,
+                                  data.currentPayment!.expireDate=="null"?14.verticalSpace:14.verticalSpace,
+                                  Container(
+                                   // decoration: BoxDecoration(borderRadius: BorderRadius.circular(2),color: clr_gray.shade300),
+                                    height: 40,width: 80,
+                                    child: Center(
+                                      child: Stxt(
+                                        text: "₹ ${data.currentPayment!.amount} ",
+                                        size: f5,
+                                        weight: FontWeight.bold,textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ),
-                                  Space(8),
-                                  Stxt(
+
+                                  data.currentPayment!.expireDate=="null"?8.verticalSpace:    Stxt(
+                                    pad: EdgeInsets.only(top: 6.h),
                                     text:
-                                        "Membership ${statusPaid ? "expire in" : "due by"} ${DateFormat('dd MMM yyyy').format(DateTime(DateTime.now().year, DateTime.now().month + 1, 0))}",
+                                  "Membership ${isBeforeCurrentMonth ?"expired ": "valid till" } ${DateFormat('dd MMM yyyy').format(DateTime.parse("${data.currentPayment!.expireDate}").toLocal())}",
                                     size: f1,
                                     weight: FontWeight.w500,
-                                    color: statusPaid ? clr_green : clr_red,
+                                    color:isBeforeCurrentMonth ? clr_red : clr_green,
                                   ),
-                                  Space(2),
+                                 
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -187,36 +198,31 @@ class MembershipView extends GetView<MembershipController> {
                                       }),
                                     ],
                                   ),
-                                  IgnorePointer(
-                                    ignoring: statusPaid ? true : false,
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        controller.membershipPayment(
-                                            "onemonth",
-                                            false,
-                                            homeCtrl.getUserData.value
-                                                .getUserById!.phoneNumber);
-                                      },
-                                      child: Container(
-                                        height: 36,
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Stxt(
-                                              text: statusPaid
-                                                  ? "paid".tr
-                                                  : "pay_now".tr,
-                                              size: f3,
-                                              weight: FontWeight.w600,
-                                              color: Colors.white,
-                                            )
-                                          ],
-                                        ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      controller.membershipPayment(
+                                          "onemonth",
+                                          false,
+                                          homeCtrl.getUserData.value
+                                              .getUserById!.phoneNumber);
+                                    },
+                                    child: Container(
+                                      height: 36,
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Stxt(
+                                            text: "pay_now".tr,
+                                            size: f3,
+                                            weight: FontWeight.w600,
+                                            color: Colors.white,
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -293,15 +299,16 @@ class MembershipView extends GetView<MembershipController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
+
                                 height: 270.h,
                                 child: ListView.separated(
-                                  reverse: true,
+
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
                                   itemCount: 6,
                                   separatorBuilder:
                                       (BuildContext context, int index) =>
-                                          21.horizontalSpace,
+                                          30.horizontalSpace,
                                   itemBuilder: (context, index) {
                                     var monthstatus =
                                         data.monthChart![index].paymentStatus ==
@@ -351,8 +358,7 @@ class MembershipView extends GetView<MembershipController> {
                                         ),
                                         Space(4),
                                         Stxt(
-                                          text:
-                                              "${data.monthChart![index].paymentMonth}",
+                                          text: DateFormat('MMM').format(DateTime.parse("${data.monthChart![index].paymentMonth}").toLocal()),
                                           size: f2,
                                           weight: FontWeight.w500,
                                         ),
@@ -400,16 +406,16 @@ class MembershipView extends GetView<MembershipController> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                widgetPayBulk(context, "quarterly".tr, "600", () {
+                                widgetPayBulk(context, "quarterly".tr, "${data.currentPayment!.amount!*3}", () {
                                   controller.membershipPayment(
                                       "threemonth",
                                       true,
                                       homeCtrl.getUserData.value.getUserById!
                                           .phoneNumber);
                                   controller.checkboxignore.value = true;
-                                  controller.totalPayment.value = 600;
+                                  controller.totalPayment.value = data.currentPayment!.amount!*3;
                                 }),
-                                widgetPayBulk(context, "half_yearly".tr, "1200",
+                                widgetPayBulk(context, "half_yearly".tr, "${data.currentPayment!.amount!*6}",
                                     () {
                                   controller.membershipPayment(
                                       "sixmonth",
@@ -417,16 +423,16 @@ class MembershipView extends GetView<MembershipController> {
                                       homeCtrl.getUserData.value.getUserById!
                                           .phoneNumber);
                                   controller.checkboxignore.value = true;
-                                  controller.totalPayment.value = 1200;
+                                  controller.totalPayment.value = data.currentPayment!.amount!*6;
                                 }),
-                                widgetPayBulk(context, "annually".tr, "1800", () {
+                                widgetPayBulk(context, "annually".tr, "${data.currentPayment!.amount!*12}", () {
                                   controller.membershipPayment(
                                       "twelvemonth",
                                       true,
                                       homeCtrl.getUserData.value.getUserById!
                                           .phoneNumber);
                                   controller.checkboxignore.value = true;
-                                  controller.totalPayment.value = 1800;
+                                  controller.totalPayment.value = data.currentPayment!.amount!*12;
                                 })
                               ],
                             ),

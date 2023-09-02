@@ -37,6 +37,8 @@ class MembershipPayments {
   List<MonthList>? monthList;
   String? phoneNumber;
   String? userId;
+  String? masjidName;
+  String? masjidUpiId;
 
   MembershipPayments({
     this.typename,
@@ -47,6 +49,8 @@ class MembershipPayments {
     this.monthList,
     this.phoneNumber,
     this.userId,
+    this.masjidName,
+    this.masjidUpiId,
   });
 
   factory MembershipPayments.fromJson(Map<String, dynamic> json) => MembershipPayments(
@@ -58,6 +62,8 @@ class MembershipPayments {
     monthList: json["month_list"] == null ? [] : List<MonthList>.from(json["month_list"]!.map((x) => MonthList.fromJson(x))),
     phoneNumber: json["phone_number"],
     userId: json["user_id"],
+    masjidName: json["masjid_name"],
+    masjidUpiId: json["masjid_upi_id"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,13 +75,15 @@ class MembershipPayments {
     "month_list": monthList == null ? [] : List<dynamic>.from(monthList!.map((x) => x.toJson())),
     "phone_number": phoneNumber,
     "user_id": userId,
+    "masjid_name": masjidName,
+    "masjid_upi_id": masjidUpiId,
   };
 }
 
 class MonthList {
   Typename? typename;
   String? amount;
-  String? monthDue;
+  DateTime? monthDue;
   String? paymentMonth;
   String? paymentStatus;
 
@@ -90,7 +98,7 @@ class MonthList {
   factory MonthList.fromJson(Map<String, dynamic> json) => MonthList(
     typename: typenameValues.map[json["__typename"]]!,
     amount: json["amount"],
-    monthDue: json["month_due"],
+    monthDue: json["month_due"] == null ? null : DateTime.parse(json["month_due"]),
     paymentMonth: json["payment_month"],
     paymentStatus: json["payment_status"],
   );
@@ -98,7 +106,7 @@ class MonthList {
   Map<String, dynamic> toJson() => {
     "__typename": typenameValues.reverse[typename],
     "amount": amount,
-    "month_due": monthDue,
+    "month_due": monthDue?.toIso8601String(),
     "payment_month": paymentMonth,
     "payment_status": paymentStatus,
   };

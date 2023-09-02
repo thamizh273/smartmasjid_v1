@@ -54,7 +54,8 @@ class PastPayments extends GetView<MembershipController> {
             Obx(() {
               return controller.isloading.value
                   ? loading(context)
-                  : ListView.builder(
+                  :controller.membershipPaymentData.value
+                  .getMembershipPaymentDetail!.length==0?SizedBox(height:.7.sh,child: Center(child: Stxt(text: "No Record Found", size: f4))):  ListView.builder(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: controller.membershipPaymentData.value
@@ -90,7 +91,7 @@ class PastPayments extends GetView<MembershipController> {
                                   text:
                                   '${DateFormat('MMMM yyyy').format(
                                       DateTime.parse(
-                                          data.paymentMonth.toString()))}',
+                                          data.paymentMonth.toString()).toLocal())}',
                                   // text: "June 2023",
                                   size: f3,
                                   weight: FontWeight.w500),
