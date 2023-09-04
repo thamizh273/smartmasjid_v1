@@ -1,142 +1,142 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:zoom_pinch_overlay/zoom_pinch_overlay.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'dart:math' as math;
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+void main() async {
+  runApp(const MyApp(
+  ));
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title}) : super(key: key);
+class MyApp extends StatelessWidget {
 
-  final String? title;
+
+  const MyApp({super.key});
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  Widget build(BuildContext context) => MaterialApp(
+    home:  MyHomePage(),
+  );
+}
+
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Widget listRow(int profile, int image, int likes, String name, String text) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(children: [
-              CircleAvatar(
-                backgroundImage:
-                NetworkImage('https://picsum.photos/800?image=$profile'),
-              ),
-              SizedBox(width: 8),
-              Text(name)
-            ]),
-          ),
-          ZoomOverlay(
-              modalBarrierColor: Colors.black12, // optional
-              minScale: 0.5, // optional
-              maxScale: 3.0, // optional
-              twoTouchOnly: true,
-              animationDuration: Duration(milliseconds: 300),
-              animationCurve: Curves.fastOutSlowIn,
-              onScaleStart: () {
-                debugPrint('zooming!');
-              }, // optional
-              onScaleStop: () {
-                debugPrint('zooming ended!');
-              }, // optional
-              child: CachedNetworkImage(
-                  imageUrl: 'https://picsum.photos/800?image=$image')),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child:
-            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Row(children: [
-              //       FaIcon(
-              //         FontAwesomeIcons.heart,
-              //         color: Colors.black54,
-              //       ),
-              //       SizedBox(width: 16),
-              //       FaIcon(
-              //         FontAwesomeIcons.comment,
-              //         color: Colors.black54,
-              //       ),
-              //       SizedBox(width: 16),
-              //       FaIcon(
-              //         FontAwesomeIcons.paperPlane,
-              //         color: Colors.black54,
-              //       ),
-              //     ]),
-              //     FaIcon(
-              //       FontAwesomeIcons.bookmark,
-              //       color: Colors.black54,
-              //     )
-              //   ],
-              // ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: Text('$likes likes'),
-              ),
-              RichText(
-                  text: TextSpan(
-                      text: name,
-                      style: TextStyle(
-                          color: Colors.black87,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: ' ' + text,
-                          style: TextStyle(
-                              color: Colors.black87,
-                              fontSize: 14,
-                              fontWeight: FontWeight.normal),
-                        )
-                      ]))
-            ]),
-          ),
-          SizedBox(height: 10)
-        ]);
-  }
+  List<String> courseList = [
+    "Dart",
+    "Flutter",
+    "Java",
+    "Kotlin",
+    "Swift",
+    "Angular",
+    "React",
+    "Spring",
+    "JavaScript",
+    "C++",
+    "Python",
+    "Android",
+    "Iconic",
+    "Xamarin"
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            backgroundColor: Colors.white,
-            centerTitle: false,
-            title: Text('Instagram',
-                style: GoogleFonts.cookie(
-                    fontStyle: FontStyle.italic,
-                    color: Colors.black87,
-                    fontSize: 38)),
-            systemOverlayStyle: SystemUiOverlayStyle.dark),
-        body: ListView(
-          children: <Widget>[
-            listRow(1027, 1062, 36, 'mary.porter',
-                'Lucy doesnt want to get out of bed today, its far too cold for the little darling.'),
-            listRow(324, 557, 65, 'paul.bishop',
-                'Looks like its going to be a rough crossing.'),
-            listRow(453, 585, 29, 'mel_fortwright',
-                'The stands are packed, this is going to be a good game !'),
-            listRow(64, 653, 18, 'robDavidJuiceMan', 'My office for day.'),
-          ],
-        ));
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Listview Item Download Progress"),
+      ),
+      body: ListView.builder(
+        itemCount: courseList.length,
+        itemBuilder: (context, index) {
+          return CourseListItem(courseName: courseList[index]);
+        },
+      ),
+    );
   }
 }
+
+
+class CourseListItem extends StatefulWidget {
+  const CourseListItem({Key? key, required this.courseName}) : super(key: key);
+
+  final String courseName;
+
+  @override
+  State<CourseListItem> createState() => _CourseListItemPage();
+}
+
+class _CourseListItemPage extends State<CourseListItem> {
+  int downloadProgress = 0;
+
+  bool isDownloadStarted = false;
+
+  bool isDownloadFinish = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+        title: Text(widget.courseName),
+        leading: CircleAvatar(
+          radius: 20,
+          backgroundColor:
+          Color((math.Random().nextDouble() * 0xFFFFFF).toInt())
+              .withOpacity(1.0),
+          child: Text(
+            widget.courseName.substring(0, 1),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+        trailing: Column(children: [
+          Visibility(
+              visible: isDownloadStarted,
+              child: CircularPercentIndicator(
+                radius: 20.0,
+                lineWidth: 3.0,
+                percent: (downloadProgress / 100),
+                center: Text(
+                  "$downloadProgress%",
+                  style: const TextStyle(fontSize: 12, color: Colors.blue),
+                ),
+                progressColor: Colors.blue,
+              )),
+          Visibility(
+              visible: !isDownloadStarted,
+              child: IconButton(
+                icon: const Icon(Icons.download),
+                color: isDownloadFinish ? Colors.green : Colors.grey,
+                onPressed: downloadCourse,
+              ))
+        ]));
+  }
+
+  void downloadCourse() async {
+    isDownloadStarted = true;
+    isDownloadFinish = false;
+    downloadProgress = 0;
+    setState(() {});
+
+    //Download logic
+    while (downloadProgress < 100) {
+      // Get download progress
+      downloadProgress += 10;
+      setState(() {});
+      if (downloadProgress == 100) {
+        isDownloadFinish = true;
+        isDownloadStarted = false;
+        setState(() {});
+        break;
+      }
+      await Future.delayed(const Duration(milliseconds: 500));
+    }
+  }
+}
+
+
