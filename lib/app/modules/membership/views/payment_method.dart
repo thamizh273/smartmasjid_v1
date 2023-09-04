@@ -50,8 +50,12 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
     return _upiIndia.startTransaction(
         app: app,
         receiverUpiId: "masjidenooraniyya@sbi",
-        receiverName: "${membrCtrl.membershipPaymentMonthData.value.membershipPayments!.masjidName}",
-        transactionRefId: DateTime.now().millisecondsSinceEpoch.toString(),
+        receiverName: "${membrCtrl.membershipPaymentMonthData.value
+            .membershipPayments!.masjidName}",
+        transactionRefId: DateTime
+            .now()
+            .millisecondsSinceEpoch
+            .toString(),
         amount: membrCtrl.totalPayment.value.toDouble(),
         merchantId: '19897398237982');
   }
@@ -74,7 +78,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
           children: apps!.map<Widget>((UpiApp app) {
             return GestureDetector(
               onTap: () {
-                 membrCtrl.Pay_Membership_Payment_Gate_Way();
+                membrCtrl.Pay_Membership_Payment_Gate_Way();
                 _transaction = initiateTransaction(app);
                 Navigator.pop(context);
                 setState(() {});
@@ -103,8 +107,8 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                             borderRadius: BorderRadius.circular(10),
                             image: DecorationImage(
                                 image: MemoryImage(
-                              app.icon,
-                            ))),
+                                  app.icon,
+                                ))),
                       ),
                       5.verticalSpace,
                       Stxt(
@@ -142,7 +146,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
   void _checkTxnStatus(String status, String txnId) {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
-        membrCtrl.membershipUpiPayment(status,txnId);
+        membrCtrl.membershipUpiPayment(status, txnId);
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
@@ -165,9 +169,9 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
           Text("$title: ", style: header),
           Flexible(
               child: Text(
-            body,
-            style: value,
-          )),
+                body,
+                style: value,
+              )),
         ],
       ),
     );
@@ -207,14 +211,15 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                   height: 80.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color:e['enable']==true? Colors.white:Colors.white.withOpacity(.9),
+                      color: e['enable'] == true ? Colors.white : Colors.white
+                          .withOpacity(.9),
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
-                        e['enable']==true?  BoxShadow(
+                        e['enable'] == true ? BoxShadow(
                             blurRadius: 4,
                             spreadRadius: 4,
                             offset: Offset(0, 4),
-                            color: Colors.grey.shade400):BoxShadow()
+                            color: Colors.grey.shade400) : BoxShadow()
                       ]),
                   child: Row(
                     children: [
@@ -228,7 +233,8 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                                 value: e['val'],
                                 groupValue: membrCtrl.selectedRadioIndex.value,
                                 onChanged: (groupValue) =>
-                                e['enable']==true? membrCtrl.setSelectedRadio(groupValue!):null));
+                                e['enable'] == true ? membrCtrl
+                                    .setSelectedRadio(groupValue!) : null));
                       }),
                       Space(8),
                       Column(
@@ -268,7 +274,9 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(150, 40),
-                    backgroundColor: Theme.of(context).primaryColor,
+                    backgroundColor: Theme
+                        .of(context)
+                        .primaryColor,
                     foregroundColor: Color(0xff11323B),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -303,7 +311,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                     String txnRef = _upiResponse.transactionRefId ?? 'N/A';
                     String status = _upiResponse.status ?? 'N/A';
                     String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
-                    _checkTxnStatus(status,txnId);
+                    _checkTxnStatus(status, txnId);
                     //  print('trans  $status');
                     //    if(status=="SUCCESS"){
                     // membrCtrl.membershipUpiPayment("dfghj","dfghj");
@@ -314,12 +322,12 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                         // displayTransactionData('Transaction Id', txnId),
-                         // displayTransactionData('Response Code', resCode),
-                         // displayTransactionData('Reference Id', txnRef),
+                          // displayTransactionData('Transaction Id', txnId),
+                          // displayTransactionData('Response Code', resCode),
+                          // displayTransactionData('Reference Id', txnRef),
                           displayTransactionData(
                               'Status', status.toUpperCase()),
-                         // displayTransactionData('Approval No', approvalRef),
+                          // displayTransactionData('Approval No', approvalRef),
                         ],
                       ),
                     );

@@ -35,6 +35,9 @@ class GetMembershipDetail {
   List<MonthChart>? monthChart;
   CurrentPayment? currentPayment;
   UserId? userId;
+  int? bulkPayAnnual;
+  int? bulkPaySix;
+  int? bulkPayThree;
 
   GetMembershipDetail({
     this.typename,
@@ -43,6 +46,9 @@ class GetMembershipDetail {
     this.monthChart,
     this.currentPayment,
     this.userId,
+    this.bulkPayAnnual,
+    this.bulkPaySix,
+    this.bulkPayThree,
   });
 
   factory GetMembershipDetail.fromJson(Map<String, dynamic> json) => GetMembershipDetail(
@@ -52,6 +58,9 @@ class GetMembershipDetail {
     monthChart: json["month_chart"] == null ? [] : List<MonthChart>.from(json["month_chart"]!.map((x) => MonthChart.fromJson(x))),
     currentPayment: json["current_payment"] == null ? null : CurrentPayment.fromJson(json["current_payment"]),
     userId: json["user_id"] == null ? null : UserId.fromJson(json["user_id"]),
+    bulkPayAnnual: json["bulk_pay_annual"],
+    bulkPaySix: json["bulk_pay_six"],
+    bulkPayThree: json["bulk_pay_three"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -61,15 +70,18 @@ class GetMembershipDetail {
     "month_chart": monthChart == null ? [] : List<dynamic>.from(monthChart!.map((x) => x.toJson())),
     "current_payment": currentPayment?.toJson(),
     "user_id": userId?.toJson(),
+    "bulk_pay_annual": bulkPayAnnual,
+    "bulk_pay_six": bulkPaySix,
+    "bulk_pay_three": bulkPayThree,
   };
 }
 
 class CurrentPayment {
   String? typename;
   int? amount;
-  String? paymentMonth;
+  DateTime? paymentMonth;
   String? paymentStatus;
-  String? expireDate;
+  DateTime? expireDate;
 
   CurrentPayment({
     this.typename,
@@ -82,17 +94,17 @@ class CurrentPayment {
   factory CurrentPayment.fromJson(Map<String, dynamic> json) => CurrentPayment(
     typename: json["__typename"],
     amount: json["amount"],
-    paymentMonth: json["payment_month"],
+    paymentMonth: json["payment_month"] == null ? null : DateTime.parse(json["payment_month"]),
     paymentStatus: json["payment_status"],
-    expireDate: json["expire_date"],
+    expireDate: json["expire_date"] == null ? null : DateTime.parse(json["expire_date"]),
   );
 
   Map<String, dynamic> toJson() => {
     "__typename": typename,
     "amount": amount,
-    "payment_month": paymentMonth,
+    "payment_month": paymentMonth?.toIso8601String(),
     "payment_status": paymentStatus,
-    "expire_date": expireDate,
+    "expire_date": expireDate?.toIso8601String(),
   };
 }
 
@@ -123,7 +135,7 @@ class MasjidId {
 class MonthChart {
   String? typename;
   String? amount;
-  String? paymentMonth;
+  DateTime? paymentMonth;
   String? paymentStatus;
 
   MonthChart({
@@ -136,14 +148,14 @@ class MonthChart {
   factory MonthChart.fromJson(Map<String, dynamic> json) => MonthChart(
     typename: json["__typename"],
     amount: json["amount"],
-    paymentMonth: json["payment_month"],
+    paymentMonth: json["payment_month"] == null ? null : DateTime.parse(json["payment_month"]),
     paymentStatus: json["payment_status"],
   );
 
   Map<String, dynamic> toJson() => {
     "__typename": typename,
     "amount": amount,
-    "payment_month": paymentMonth,
+    "payment_month": paymentMonth?.toIso8601String(),
     "payment_status": paymentStatus,
   };
 }

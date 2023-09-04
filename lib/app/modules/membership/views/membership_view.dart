@@ -212,6 +212,7 @@ class MembershipView extends GetView<MembershipController> {
                                           false,
                                           homeCtrl.getUserData.value
                                               .getUserById!.phoneNumber);
+                                      controller.checkboxignore.value=false;
                                     },
                                     child: Container(
                                       height: 36,
@@ -413,16 +414,15 @@ class MembershipView extends GetView<MembershipController> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                widgetPayBulk(context, "quarterly".tr, "${data.currentPayment!.amount!*3}", () {
+                                widgetPayBulk(context, "quarterly".tr, "${data.bulkPayThree}", () {
                                   controller.membershipPayment(
                                       "threemonth",
                                       true,
                                       homeCtrl.getUserData.value.getUserById!
                                           .phoneNumber);
                                   controller.checkboxignore.value = true;
-                                  controller.totalPayment.value = data.currentPayment!.amount!*3;
                                 }),
-                                widgetPayBulk(context, "half_yearly".tr, "${data.currentPayment!.amount!*6}",
+                                widgetPayBulk(context, "half_yearly".tr, "${data.bulkPaySix}",
                                     () {
                                   controller.membershipPayment(
                                       "sixmonth",
@@ -430,16 +430,16 @@ class MembershipView extends GetView<MembershipController> {
                                       homeCtrl.getUserData.value.getUserById!
                                           .phoneNumber);
                                   controller.checkboxignore.value = true;
-                                  controller.totalPayment.value = data.currentPayment!.amount!*6;
+
                                 }),
-                                widgetPayBulk(context, "annually".tr, "${data.currentPayment!.amount!*12}", () {
+                                widgetPayBulk(context, "annually".tr, "${data.bulkPayAnnual}", () {
                                   controller.membershipPayment(
                                       "twelvemonth",
                                       true,
                                       homeCtrl.getUserData.value.getUserById!
                                           .phoneNumber);
                                   controller.checkboxignore.value = true;
-                                  controller.totalPayment.value = data.currentPayment!.amount!*12;
+
                                 })
                               ],
                             ),

@@ -39,6 +39,7 @@ class MembershipPayments {
   String? userId;
   String? masjidName;
   String? masjidUpiId;
+  int? totalAmountPay;
 
   MembershipPayments({
     this.typename,
@@ -51,6 +52,7 @@ class MembershipPayments {
     this.userId,
     this.masjidName,
     this.masjidUpiId,
+    this.totalAmountPay,
   });
 
   factory MembershipPayments.fromJson(Map<String, dynamic> json) => MembershipPayments(
@@ -64,6 +66,7 @@ class MembershipPayments {
     userId: json["user_id"],
     masjidName: json["masjid_name"],
     masjidUpiId: json["masjid_upi_id"],
+    totalAmountPay: json["total_amount_pay"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -77,11 +80,12 @@ class MembershipPayments {
     "user_id": userId,
     "masjid_name": masjidName,
     "masjid_upi_id": masjidUpiId,
+    "total_amount_pay": totalAmountPay,
   };
 }
 
 class MonthList {
-  Typename? typename;
+  String? typename;
   String? amount;
   DateTime? monthDue;
   String? paymentMonth;
@@ -96,7 +100,7 @@ class MonthList {
   });
 
   factory MonthList.fromJson(Map<String, dynamic> json) => MonthList(
-    typename: typenameValues.map[json["__typename"]]!,
+    typename: json["__typename"],
     amount: json["amount"],
     monthDue: json["month_due"] == null ? null : DateTime.parse(json["month_due"]),
     paymentMonth: json["payment_month"],
@@ -104,30 +108,10 @@ class MonthList {
   );
 
   Map<String, dynamic> toJson() => {
-    "__typename": typenameValues.reverse[typename],
+    "__typename": typename,
     "amount": amount,
     "month_due": monthDue?.toIso8601String(),
     "payment_month": paymentMonth,
     "payment_status": paymentStatus,
   };
-}
-
-enum Typename {
-  MONTH_LIST_MEMBERSHIP
-}
-
-final typenameValues = EnumValues({
-  "month_list_membership": Typename.MONTH_LIST_MEMBERSHIP
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
 }

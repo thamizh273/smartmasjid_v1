@@ -10,7 +10,7 @@ import '../../../routes/export.dart';
 
 @immutable
 class PdfPreviewPage extends StatelessWidget {
-  String? text;
+ final String? text;
   PdfPreviewPage(this.text, {Key? key}) : super(key: key);
 
   @override

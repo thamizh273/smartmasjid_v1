@@ -109,6 +109,9 @@ query Query(\$userId: String!) {
       user_unique_id
       phone_number
     }
+    bulk_pay_annual
+    bulk_pay_six
+    bulk_pay_three
   }
 }
     """;
@@ -119,7 +122,7 @@ query Query(\$userId: String!) {
     isloading.value=false;
 
     membershipDetailData.value=membershipDetailModelFromJson(json.encode(res));
-
+    //
     // print("getMEBER");
     // log(json.encode(res));
     // print("getMEBER");
@@ -186,9 +189,9 @@ query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$
 
     payMembershipPaymentGateWayData.value=payMembershipPaymentGateWayModelFromJson(json.encode(res));
 
-    print("getMEBER");
-    log(json.encode(res));
-    print("getMEBER");
+    // print("getMEBER");
+    // log(json.encode(res));
+    // print("getMEBER");
   }
   membershipPayment(String type,bool checkbox,id) async {
     print("sssssssssss $id");
@@ -211,6 +214,7 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     user_id
     masjid_name
     masjid_upi_id
+    total_amount_pay
   }
 }
     """;
@@ -222,9 +226,9 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     isloadingPay.value=false;
     membershipPaymentMonthData.value=membershipPaymentMonthModelFromJson(json.encode(res));
 
-    // print("getMEBER");
-    // log(json.encode(res));
-    // print("getMEBER");
+    print("getMEBER");
+    log(json.encode(res));
+    print("getMEBER");
     if(res.toString().contains("ERROR")){
      return toast(error: "Error", msg: "Register Mobile no/ Id Not Found");
     }

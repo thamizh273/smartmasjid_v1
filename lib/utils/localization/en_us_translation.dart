@@ -250,7 +250,7 @@ final Map<String, String> enUs = {
   "annually" : "Annually",
   "select_month" : "Select Month",
   "you_unpaid" : "Your unpaid membership months are shown here. \nYou can select and pay for them in total or in single months.",
-  "pay_membership_of " : "Pay Membership of ",
+  "pay_membership_of" : "Pay Membership of ",
   "quick_pay" : "Quick Pay",
   "pay_memberShip" : "Pay MemberShip",
   "register_number" : "Enter Registered Mobile No.(91)",
