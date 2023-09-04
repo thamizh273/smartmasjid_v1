@@ -91,6 +91,7 @@ dependencies:
 
 
 
+
   flutter: 
     sdk: flutter
 
@@ -106,6 +107,7 @@ dependency_overrides:
   firebase_analytics: ^10.4.4
   weather:
   http: ^1.1.0
+
 
 flutter: 
   assets: 

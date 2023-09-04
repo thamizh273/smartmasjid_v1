@@ -10,7 +10,7 @@ import '../../../routes/export.dart';
 
 @immutable
 class PdfPreviewPage extends StatelessWidget {
-  String? text;
+  final String? text;
   PdfPreviewPage(this.text, {Key? key}) : super(key: key);
 
   @override
@@ -25,8 +25,8 @@ class PdfPreviewPage extends StatelessWidget {
 
   Future<Uint8List> makePdf() async {
     final pdf = pw.Document();
-    final ByteData bytes = await rootBundle.load('assets/images/masjidlogoinvoice.png');
-    final ByteData bytess = await rootBundle.load('assets/images/borderinvoice.png');
+    final ByteData bytes = await rootBundle.load('assets/images/masjidinvoicelogo.png');
+    final ByteData bytess = await rootBundle.load('assets/images/bordernew.png');
     final Uint8List byteList = bytes.buffer.asUint8List();
     final Uint8List byteLists = bytess.buffer.asUint8List();
     pdf.addPage(

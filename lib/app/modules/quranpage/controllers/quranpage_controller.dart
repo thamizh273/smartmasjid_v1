@@ -96,6 +96,27 @@ class QuranpageController extends GetxController {
   static int initialItemCount_ = 114; // Initial number of items
   RxInt itemCount_ = initialItemCount_.obs;
   final scrollController_ = FixedExtentScrollController(initialItem: 114).obs;
+  late final String courseName;
+  var isDownloadStarted = false.obs; // Use RxBool for reactive boolean
+  var isDownloadFinish = false.obs; // Use RxBool for reactive boolean
+
+  void downloadCourse() async {
+    isDownloadStarted.value = true;
+    isDownloadFinish.value = false;
+    downloadProgress.value = 0;
+
+    // Download logic
+    while (downloadProgress.value < 100) {
+      await Future.delayed(const Duration(milliseconds: 500));
+      downloadProgress.value += 10;
+
+      if (downloadProgress.value == 100) {
+        isDownloadFinish.value = true;
+        isDownloadStarted.value = false;
+        break;
+      }
+    }
+  }
   void onPressed() {
     // Your onPressed logic here
   }
