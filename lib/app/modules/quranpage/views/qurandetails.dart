@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
@@ -221,12 +222,13 @@ class _QuranDetailsState extends State<QuranDetails> {
                   ),
                   Space(8),
                   GestureDetector(
-                    onTap: (){
+                    onTap: () {
                       showModalBottomSheet(
                         backgroundColor:
                         Colors.transparent,
                         context: context,
                         builder: (BuildContext context) {
+                          List<String> downloadedItems = [];
                           List<String> courseList = [
                             "தமிழ் (Tamil)",
                             "اردو (Urdu)",
@@ -247,36 +249,66 @@ class _QuranDetailsState extends State<QuranDetails> {
                               padding: const EdgeInsets.all(16),
                               child: Column(
                                 children: [
-                                  Stxt(text: "Add Language", size: f4, weight: FontWeight.w600, color: Theme.of(context).primaryColor,),
+                                  Stxt(text: "Add Language",
+                                    size: f4,
+                                    weight: FontWeight.w600,
+                                    color: Theme
+                                        .of(context)
+                                        .primaryColor,),
                                   Space(4),
                                   Safa_textfield(
                                     hint: "Search",
                                     fillColor: Colors.grey.shade50,
                                     suffixIcon: Icon(Icons.search),
                                   ),
-                                  Space(8),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Stxt(text: "Downloads", size: f4, weight: FontWeight.w600, color: Theme.of(context).primaryColor,),
-                                    ],
-                                  ),
-                                  // Row(
-                                  //   mainAxisAlignment: MainAxisAlignment.start,
-                                  //   children: [
-                                  //     Stxt(text: "தமிழ் (Tamil)", size: f3),
-                                  //     Spacer(),
-                                  //     IconButton(onPressed: (){}, icon: Icon(Icons.download_for_offline_outlined))
-                                  //   ],
-                                  // ),
-                                  Expanded(
-                                    child: ListView.builder(
-                                      itemCount: courseList.length,
-                                      itemBuilder: (context, index) {
-                                        return CourseListItem(courseName: courseList[index]);
-                                      },
-                                    ),
-                                  ),
+                                 Expanded(
+                                   child: ListView(
+                                     shrinkWrap: true,
+                                     children: [
+                                     Space(8),
+                                     Row(
+                                       mainAxisAlignment: MainAxisAlignment.start,
+                                       children: [
+                                         Stxt(text: "Downloads",
+                                           size: f4,
+                                           weight: FontWeight.w600,
+                                           color: Theme
+                                               .of(context)
+                                               .primaryColor,),
+                                       ],
+                                     ),
+                                     ListView.builder(
+                                       shrinkWrap: true,
+                                       physics: NeverScrollableScrollPhysics(),
+                                       itemCount: courseList.length,
+                                       itemBuilder: (context, index) {
+                                         return CourseListItem(
+                                             courseName: courseList[index]);
+                                       },
+                                     ),
+                                     Space(16),
+                                     Row(
+                                       mainAxisAlignment: MainAxisAlignment.start,
+                                       children: [
+                                         Stxt(text: "Featured Languages",
+                                           size: f4,
+                                           weight: FontWeight.w600,
+                                           color: Theme
+                                               .of(context)
+                                               .primaryColor,),
+                                       ],
+                                     ),
+                                     ListView.builder(
+                                       shrinkWrap: true,
+                                       physics: NeverScrollableScrollPhysics(),
+                                       itemCount: downloadedItems.length,
+                                       itemBuilder: (context, index) {
+                                         return CourseListItem(
+                                             courseName: courseList[index]);
+                                       },
+                                     ),
+                                   ],),
+                                 )
                                   // Divider(
                                   //   thickness: 1,
                                   // )
@@ -288,7 +320,11 @@ class _QuranDetailsState extends State<QuranDetails> {
                       );
                     },
                     child: Center(
-                      child:Stxt(text: "+ Add Language", size: f2, weight: FontWeight.w600, color: Theme.of(context).primaryColor,) ,
+                      child: Stxt(
+                        text: "+ Add Language", size: f2, weight: FontWeight
+                          .w600, color: Theme
+                          .of(context)
+                          .primaryColor,),
                     ),
                   ),
                   Space(8),
@@ -573,7 +609,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:  [
+                    children: [
                       Padding(
                         padding: EdgeInsets.only(left: 24),
                         child: Text('small'.tr, style: TextStyle(
@@ -622,7 +658,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:  [
+                    children: [
                       Padding(
                         padding: EdgeInsets.only(left: 24),
                         child: Text('small'.tr, style: TextStyle(
@@ -681,15 +717,16 @@ class _QuranDetailsState extends State<QuranDetails> {
           pageSnapping: true,
           physics: ScrollPhysics(),
           controller: c.pageController,
-          onPageChanged: (page){
-            c.quranDetailList(c.qurandetsilIndex.value+(page));
+          onPageChanged: (page) {
+            c.quranDetailList(c.qurandetsilIndex.value + (page));
           },
-        itemCount: c.getqurandata.value.quranFilter!.length, // Replace with the actual number of pages
+          itemCount: c.getqurandata.value.quranFilter!.length,
+          // Replace with the actual number of pages
           itemBuilder: (context, pageIndex) {
-           // print(pageIndex + 1);
+            // print(pageIndex + 1);
 
             return Obx(() {
-              return (c.isLoadings1.value)?loading(context): Padding(
+              return (c.isLoadings1.value) ? loading(context) : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
@@ -1065,8 +1102,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                   if (sliderValue == 1) {
                                                     // Set font size to 35.0 when sliderValue is 1 (Medium)
                                                     fontSize = 45.0;
-                                                  } else
-                                                  if (sliderValue == 2) {
+                                                  } else if (sliderValue == 2) {
                                                     // Set font size to 40.0 when sliderValue is 2 (Large)
                                                     fontSize = 55.0;
                                                   }
@@ -1734,7 +1770,25 @@ class _CourseListItemPage extends State<CourseListItem> {
   int downloadProgress = 0;
   bool isDownloadStarted = false;
   bool isDownloadFinish = false;
-  bool isItemDownloaded = false; // New flag to track if item is downloaded
+  bool isItemDownloaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Load download state from shared preferences
+    loadDownloadState();
+  }
+
+  void loadDownloadState() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isItemDownloaded = prefs.getBool(widget.courseName) ?? false;
+      if (isItemDownloaded) {
+        // If the item is downloaded, set progress to 100%
+        downloadProgress = 100;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1742,60 +1796,71 @@ class _CourseListItemPage extends State<CourseListItem> {
       title: Text(widget.courseName),
       leading: CircleAvatar(
         radius: 20,
-        backgroundColor: Color((math.Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(0.5),
+        backgroundColor: Theme.of(context).primaryColor.withOpacity(0.9),
         child: Text(
           widget.courseName.substring(0, 1),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      trailing: Column(
-        children: [
-          Visibility(
-            visible: isDownloadStarted,
-            child: CircularPercentIndicator(
-              radius: 20.0,
-              lineWidth: 3.0,
-              percent: (downloadProgress / 100),
-              center: Text(
-                "$downloadProgress%",
-                style: const TextStyle(fontSize: 12, color: Colors.blue),
-              ),
-              progressColor: Colors.blue,
-            ),
-          ),
-          Visibility(
-            visible: !isDownloadStarted && !isItemDownloaded, // Only show download button if not started and not downloaded
-            child: IconButton(
-              icon: Icon(Icons.download_for_offline_outlined),
-              color: Colors.grey,
-              onPressed: downloadCourse,
-            ),
-          ),
-          Visibility(
-            visible: isItemDownloaded, // Show checkbox if item is downloaded
-            child: Container(
-              height: 25.h,
-              width: 25.w,
-              child: Transform.scale(
-                scale: 0.8,
-                child: Checkbox(
-                  activeColor: Get.theme.primaryColor,
-                  checkColor: Colors.white,
-                  value: c.isCheckedTamil.value,
-                  onChanged: (value) {
-                    c.isCheckedTamil.value = value!;
-                    Future.delayed(Duration(milliseconds: 500), () {
-                      c.getqurandetail();
-                    });
-                    c.update();
-                  },
+      trailing: Container(
+        width: 70, // Adjust the width as needed
+        child: Column(
+          children: [
+            Visibility(
+              visible: isDownloadStarted,
+              child: CircularPercentIndicator(
+                radius: 20.0,
+                lineWidth: 3.0,
+                percent: (downloadProgress / 100),
+                center: Text(
+                  "$downloadProgress%",
+                  style:  TextStyle(fontSize: 12, color: Theme.of(context).primaryColor),
                 ),
+                progressColor:Theme.of(context).primaryColor,
               ),
             ),
-          ),
-        ],
+            Visibility(
+              visible: !isDownloadStarted && !isItemDownloaded,
+              // Only show download button if not started and not downloaded
+              child: IconButton(
+                icon: Icon(Icons.download_for_offline_outlined),
+                color: Colors.grey,
+                onPressed: downloadCourse,
+              ),
+            ),
+            Visibility(
+              visible: isItemDownloaded, // Show checkbox if item is downloaded
+              child: Obx(() {
+                return Container(
+                  height: 30.h,
+                  width: 30.w,
+                  child: Transform.scale(
+                    scale: 1,
+                    child: Checkbox(
+                      activeColor: Get.theme.primaryColor,
+                      checkColor: Colors.white,
+                      value: c.isCheckedTamil.value,
+                      onChanged: (value) {
+                        c.isCheckedTamil.value = value!;
+                        Future.delayed(Duration(milliseconds: 500), () {
+                          c.getqurandetail();
+                        });
+                        c.update();
+                      },
+                    ),
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void saveDownloadState(bool downloaded) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool(widget.courseName, downloaded);
   }
 
   void downloadCourse() async {
@@ -1819,12 +1884,21 @@ class _CourseListItemPage extends State<CourseListItem> {
       if (downloadProgress == 100) {
         isDownloadFinish = true;
         isDownloadStarted = false;
-        isItemDownloaded = true; // Set item as downloaded
+        isItemDownloaded = true;
         setState(() {});
+        // Update the stored value in shared preferences
+        saveDownloadState(true);
+        moveItemToDownloads();
         break;
       }
       await Future.delayed(const Duration(milliseconds: 500));
     }
   }
+  void moveItemToDownloads() {
+    // Implement the logic to move the item to the downloads list.
+    // You can do this by updating a state variable or calling a function in the parent widget.
+  }
 }
+
+
 

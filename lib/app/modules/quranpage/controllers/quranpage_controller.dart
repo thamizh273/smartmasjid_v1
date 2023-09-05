@@ -58,6 +58,7 @@ class QuranpageController extends GetxController {
   final isCheckedArabic = true.obs;
   final isCheckedEnglish = true.obs;
   final isCheckedTamil = false.obs;
+  var isCheckedTamill = "tamil".obs;
   double screenWidth = Get.width;
   var fontFamily = "indopak".obs;
   var view = "sura".obs;
