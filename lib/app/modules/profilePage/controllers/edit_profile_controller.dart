@@ -28,7 +28,7 @@ class EditProfileController extends GetxController {
   Rx<XFile> image = XFile('').obs;
   String? base64Image;
   RxBool isPicked = false.obs;
-
+  RxBool ontap =false.obs;
   //TODO: Implement EditProfileController
   var selectedDate = DateTime.now().obs;
   var dobController = TextEditingController();

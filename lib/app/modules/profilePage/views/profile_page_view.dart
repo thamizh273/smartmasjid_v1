@@ -13,6 +13,7 @@ import 'package:smartmasjid_v1/app/modules/profilePage/controllers/edit_profile_
 import 'package:smartmasjid_v1/app/modules/profilePage/views/edit_profile_view.dart';
 
 import '../../../../utils/localization/localization.dart';
+import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../language_page/controllers/language_page_controller.dart';
@@ -39,7 +40,7 @@ class ProfilePageView extends GetView<EditProfileController> {
       "page": MymasjidpageView()
     },
     {'name': "activities".tr, 'icon': Icon(Icons.history),
-      "page": ActivitiespageView()
+      "page": "Trans"
     },
     {'name': "family_tree".tr, 'icon': Icon(Icons.family_restroom_outlined),
       "page": FamilytreeView()}
@@ -248,7 +249,7 @@ class ProfilePageView extends GetView<EditProfileController> {
               children: [
                 ListTile(
                   onTap: () {
-                  Get.to( i['page']);
+                    i['page']=="Trans"?Get.toNamed(Routes.ACTIVITIESPAGE):  Get.to( i['page']);
 
 
                     print("click ${i['page']}");

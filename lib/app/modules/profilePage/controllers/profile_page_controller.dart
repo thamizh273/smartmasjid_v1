@@ -12,6 +12,7 @@ class ProfilePageController extends GetxController {
   static HomeController get homectrl => Get.find();
   final _restcallController = Get.put(restCallController());
  RxBool isLoading =false.obs;
+ RxBool ontap =false.obs;
   @override
   void onInit() {
     super.onInit();

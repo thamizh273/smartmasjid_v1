@@ -161,7 +161,7 @@ final Map<String, String> enUs = {
   "* There_is_one_day_among_the_seven_days_in_Islam_that_Allah_has_declared_to_be_very_important." : "* There is one day among the seven days in Islam that Allah has declared to be very important.",
   "profile" : "Profile",
   "edit_profile" : "Edit Profile",
-  "activities" : "Activities",
+  "activities" : "Transaction History",
   "family_tree" : "Family Tree",
   "logout" : "Logout",
   "first_name" : "First Name",

@@ -304,7 +304,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ACTIVITIESPAGE,
-      page: () => const ActivitiespageView(),
+      page: () =>  ActivitiespageView(),
       binding: ActivitiespageBinding(),
     ),
     GetPage(

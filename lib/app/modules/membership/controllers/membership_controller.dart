@@ -164,8 +164,8 @@ query Query(\$userId: String!, \$type: String, \$status: String) {
   Pay_Membership_Payment_Gate_Way() async {
     isloadingGateway.value=true;
     var header="""
-query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$membership: String!, \$paymentId: String!, \$monthOfPay: [String!]!, \$totalAmount: Int!) {
-  Pay_Membership_Payment_Gate_Way(user_id: \$userId, masjid_id: \$masjidId, membership_: \$membership, payment_id: \$paymentId, month_of_pay: \$monthOfPay, total_amount: \$totalAmount) {
+query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$membership: String!, \$paymentId: String!, \$monthOfPay: [String!]!, \$totalAmount: Int!, \$senderId: String) {
+  Pay_Membership_Payment_Gate_Way(user_id: \$userId, masjid_id: \$masjidId, membership_: \$membership, payment_id: \$paymentId, month_of_pay: \$monthOfPay, total_amount: \$totalAmount, sender_id: \$senderId) {
     _id
     code
     masjid_id
@@ -182,6 +182,7 @@ query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$
       "paymentId": "${membershipPaymentMonthData.value.membershipPayments!.masjidUpiId}",
       "monthOfPay": listofmonthPay,
       "totalAmount": totalPayment.value,
+      "senderId": "${homectrl.getUserData.value.getUserById!.id}"
     };
 
     var res = await  _restCallController.gql_query(header, body);
@@ -189,9 +190,9 @@ query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$
 
     payMembershipPaymentGateWayData.value=payMembershipPaymentGateWayModelFromJson(json.encode(res));
 
-    // print("getMEBER");
-    // log(json.encode(res));
-    // print("getMEBER");
+    print("getMEBERs");
+    log(json.encode(res));
+    print("getMEBERs");
   }
   membershipPayment(String type,bool checkbox,id) async {
     print("sssssssssss $id");
@@ -226,9 +227,9 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     isloadingPay.value=false;
     membershipPaymentMonthData.value=membershipPaymentMonthModelFromJson(json.encode(res));
 
-    print("getMEBER");
-    log(json.encode(res));
-    print("getMEBER");
+    // print("getMEBER");
+    // log(json.encode(res));
+    // print("getMEBER");
     if(res.toString().contains("ERROR")){
      return toast(error: "Error", msg: "Register Mobile no/ Id Not Found");
     }
