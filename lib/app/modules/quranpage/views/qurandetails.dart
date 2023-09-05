@@ -222,99 +222,184 @@ class _QuranDetailsState extends State<QuranDetails> {
                   ),
                   Space(8),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      const String downloadedItemsKey = 'downloadedItems';
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
                       showModalBottomSheet(
                         backgroundColor:
                         Colors.transparent,
                         context: context,
                         builder: (BuildContext context) {
-                          List<String> downloadedItems = [];
-                          List<String> courseList = [
-                            "தமிழ் (Tamil)",
-                            "اردو (Urdu)",
-                            "മലയാളം (Malayalam)",
-                            "తెలుగు (Telugu)",
+                          List<String> downloadedItems = prefs.getStringList(downloadedItemsKey) ?? [];
+                          List<String> featuredLanguages = prefs.getStringList(downloadedItemsKey) ??[];
+                          List<String> courseNames  = [
+                            "Tamil (தமிழ்)",
+                            "Urdu (اردو)",
+                            "Malayalam (മലയാളം)",
+                            "Telugu (తెలుగు)",
                           ];
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                BorderRadius.only(
-                                    topLeft: Radius
-                                        .circular(32),
-                                    topRight: Radius
-                                        .circular(
-                                        32))),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16),
-                              child: Column(
-                                children: [
-                                  Stxt(text: "Add Language",
-                                    size: f4,
-                                    weight: FontWeight.w600,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor,),
-                                  Space(4),
-                                  Safa_textfield(
-                                    hint: "Search",
-                                    fillColor: Colors.grey.shade50,
-                                    suffixIcon: Icon(Icons.search),
-                                  ),
-                                 Expanded(
-                                   child: ListView(
-                                     shrinkWrap: true,
-                                     children: [
-                                     Space(8),
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.start,
+                          return StatefulBuilder(
+                            builder: (BuildContext context, StateSetter setState) {
+                              List<RxBool> checkedStates = List.generate(featuredLanguages.length, (_) => RxBool(false));
+                              return Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                  BorderRadius.only(
+                                      topLeft: Radius
+                                          .circular(32),
+                                      topRight: Radius
+                                          .circular(
+                                          32))),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16),
+                                child: Column(
+                                  children: [
+                                    Stxt(text: "Add Language",
+                                      size: f4,
+                                      weight: FontWeight.w600,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,),
+                                    Space(4),
+                                    Safa_textfield(
+                                      hint: "Search",
+                                      fillColor: Colors.grey.shade50,
+                                      suffixIcon: GestureDetector(
+                                        onTap: (){
+                                        },
+                                          child: Icon(Icons.search)),
+                                    ),
+                                    Space(8),
+                                   Expanded(
+                                     child: ListView(
+                                       shrinkWrap: true,
                                        children: [
-                                         Stxt(text: "Downloads",
-                                           size: f4,
-                                           weight: FontWeight.w600,
-                                           color: Theme
-                                               .of(context)
-                                               .primaryColor,),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
+                                             Stxt(text: "Downloads",
+                                               size: f4,
+                                               weight: FontWeight.w600,
+                                               color: Theme
+                                                   .of(context)
+                                                   .primaryColor,),
+                                           ],
+                                         ),
+                                         Space(8),
+                                         featuredLanguages.isEmpty? Center(child: Text("No Downloads Found")):ListView.builder(
+                                           physics: NeverScrollableScrollPhysics(),
+                                           shrinkWrap: true,
+                                           itemCount: featuredLanguages.length,
+                                           itemBuilder: (context, index) {
+                                             final featuredLanguage = featuredLanguages[index];
+                                             return ListTile(
+                                               leading:  Obx(() {
+                                                 return Container(
+                                                   height: 30.h,
+                                                   width: 30.w,
+                                                   child: Transform.scale(
+                                                     scale: 1,
+                                                     child: Checkbox(
+                                                       activeColor: Get.theme.primaryColor,
+                                                       checkColor: Colors.white,
+                                                       value: checkedStates[index].value,
+                                                       onChanged: (value) {
+                                                         checkedStates[index](value!);
+                                                         Future.delayed(Duration(milliseconds: 500), () {
+                                                           c.getqurandetail();
+                                                         });
+                                                         c.update();
+                                                       },
+                                                     ),
+                                                   ),
+                                                 );
+                                               }),
+                                               trailing: GestureDetector(
+                                                 onTap: () async {
+                                                   // Delete the item from the list and update the downloaded items list
+                                                   setState(() {
+                                                     featuredLanguages.removeAt(index);
+                                                     downloadedItems.remove(featuredLanguage);
+                                                     checkedStates.removeAt(index);
+                                                   });
+                                                   await prefs.setStringList(downloadedItemsKey, downloadedItems);
+                                                 },
+                                                 child: Icon(Icons.delete),
+                                               ),
+                                               title: Text(featuredLanguage),
+                                             );
+                                           },
+                                         ),
+                                         Space(16),
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.start,
+                                           children: [
+                                             Stxt(text: "Featured Languages",
+                                               size: f4,
+                                               weight: FontWeight.w600,
+                                               color: Theme
+                                                   .of(context)
+                                                   .primaryColor,),
+                                           ],
+                                         ),
+                                         ListView.builder(
+                                           physics: NeverScrollableScrollPhysics(),
+                                           shrinkWrap: true,
+                                           itemCount: courseNames.length,
+                                           itemBuilder: (context, index) {
+                                             final courseName = courseNames[index];
+                                             final isDownloaded = downloadedItems.contains(courseName);
+                                             print("lll${courseNames}");
+
+                                             // Check if the item is already downloaded
+                                             if (downloadedItems.contains(courseName)) {
+                                               return ListTile(
+                                                 title: Text(courseName),
+                                                 // Display a checkmark icon for downloaded items
+                                                 trailing: isDownloaded
+                                                     ? Icon(Icons.check)
+                                                     : GestureDetector(
+                                                   onTap: () async {
+                                                     // Download the item and update the downloaded items list
+                                                     setState(() {
+                                                       downloadedItems.add(courseName);
+                                                       featuredLanguages.add(courseName);
+                                                     });
+                                                     await prefs.setStringList(downloadedItemsKey, downloadedItems);
+                                                   },
+                                                   child: Icon(Icons.download), // Change to your download icon
+                                                 ),
+                                               );
+                                             } else {
+                                               // Display a download item for items not downloaded
+                                               return CourseListItem(
+                                                 courseName: courseName,
+                                                 onDownloadComplete: (String downloadedCourseName) async {
+                                                   setState(() {
+                                                     // Update the downloadedItems list
+                                                     downloadedItems.add(downloadedCourseName);
+                                                     // Move the item to the featuredLanguages list
+                                                     featuredLanguages.add(downloadedCourseName);
+                                                   });
+                                                   await prefs.setStringList(downloadedItemsKey, downloadedItems);
+                                                 },
+                                               );
+                                             }
+                                           },
+                                         ),
                                        ],
                                      ),
-                                     ListView.builder(
-                                       shrinkWrap: true,
-                                       physics: NeverScrollableScrollPhysics(),
-                                       itemCount: courseList.length,
-                                       itemBuilder: (context, index) {
-                                         return CourseListItem(
-                                             courseName: courseList[index]);
-                                       },
-                                     ),
-                                     Space(16),
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.start,
-                                       children: [
-                                         Stxt(text: "Featured Languages",
-                                           size: f4,
-                                           weight: FontWeight.w600,
-                                           color: Theme
-                                               .of(context)
-                                               .primaryColor,),
-                                       ],
-                                     ),
-                                     ListView.builder(
-                                       shrinkWrap: true,
-                                       physics: NeverScrollableScrollPhysics(),
-                                       itemCount: downloadedItems.length,
-                                       itemBuilder: (context, index) {
-                                         return CourseListItem(
-                                             courseName: courseList[index]);
-                                       },
-                                     ),
-                                   ],),
-                                 )
-                                  // Divider(
-                                  //   thickness: 1,
-                                  // )
-                                ],
+                                   )
+
+                                    // Divider(
+                                    //   thickness: 1,
+                                    // )
+                                  ],
+                                ),
                               ),
-                            ),
+                            );
+                          },
                           );
                         },
                       );
@@ -1655,8 +1740,10 @@ class ProfilePageController extends GetxController {
 }
 
 class CustomDialogBox1 extends StatelessWidget {
-  TextEditingController pass = TextEditingController();
-  TextEditingController c = TextEditingController();
+ final TextEditingController pass = TextEditingController();
+  final TextEditingController c = TextEditingController();
+
+  CustomDialogBox1({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -1758,9 +1845,14 @@ class CustomDialogBox1 extends StatelessWidget {
 
 
 class CourseListItem extends StatefulWidget {
-  const CourseListItem({Key? key, required this.courseName}) : super(key: key);
+  const CourseListItem({
+    Key? key,
+    required this.courseName,
+    required this.onDownloadComplete,
+  }) : super(key: key);
 
   final String courseName;
+  final Function(String) onDownloadComplete;
 
   @override
   State<CourseListItem> createState() => _CourseListItemPage();
@@ -1771,24 +1863,6 @@ class _CourseListItemPage extends State<CourseListItem> {
   bool isDownloadStarted = false;
   bool isDownloadFinish = false;
   bool isItemDownloaded = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // Load download state from shared preferences
-    loadDownloadState();
-  }
-
-  void loadDownloadState() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      isItemDownloaded = prefs.getBool(widget.courseName) ?? false;
-      if (isItemDownloaded) {
-        // If the item is downloaded, set progress to 100%
-        downloadProgress = 100;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -1802,7 +1876,7 @@ class _CourseListItemPage extends State<CourseListItem> {
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),
-      trailing: Container(
+      trailing:Container(
         width: 70, // Adjust the width as needed
         child: Column(
           children: [
@@ -1858,45 +1932,46 @@ class _CourseListItemPage extends State<CourseListItem> {
     );
   }
 
-  void saveDownloadState(bool downloaded) async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setBool(widget.courseName, downloaded);
+  @override
+  void initState() {
+    super.initState();
+    // Load download state from shared preferences
+    // loadDownloadState();
   }
 
-  void downloadCourse() async {
-    if (isItemDownloaded) {
-      // If the item is already downloaded, return without doing anything
-      return;
-    }
+  void loadDownloadState() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isItemDownloaded = prefs.getBool(widget.courseName) ?? false;
+      if (isItemDownloaded) {
+        // If the item is downloaded, set progress to 100%
+        downloadProgress = 100;
+      }
+    });
+  }
 
+
+
+  void downloadCourse() async {
     if (!isDownloadStarted) {
-      // If download is not started, set the flag and reset progress
       isDownloadStarted = true;
       downloadProgress = 0;
       setState(() {});
     }
 
-    // Download logic
+    // Simulate download progress
     while (downloadProgress < 100) {
-      // Get download progress
+      await Future.delayed(const Duration(milliseconds: 500));
       downloadProgress += 10;
       setState(() {});
+
       if (downloadProgress == 100) {
         isDownloadFinish = true;
         isDownloadStarted = false;
-        isItemDownloaded = true;
-        setState(() {});
-        // Update the stored value in shared preferences
-        saveDownloadState(true);
-        moveItemToDownloads();
-        break;
+        // Call the callback to notify the parent widget of the download completion
+        widget.onDownloadComplete(widget.courseName);
       }
-      await Future.delayed(const Duration(milliseconds: 500));
     }
-  }
-  void moveItemToDownloads() {
-    // Implement the logic to move the item to the downloads list.
-    // You can do this by updating a state variable or calling a function in the parent widget.
   }
 }
 
