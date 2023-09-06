@@ -52,8 +52,8 @@ query Get_Transaction_History(\$userId: ID!) {
 
     tansactionHistoryData.value=transactionHistoryModelFromJson(json.encode(res));
 
-    print("gettrans");
-    log(json.encode(res));
-    print("gettrans");
+    // print("gettrans");
+    // log(json.encode(res));
+    // print("gettrans");
   }
 }
