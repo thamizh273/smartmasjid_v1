@@ -99,7 +99,8 @@ class QuranpageController extends GetxController {
   final scrollController_ = FixedExtentScrollController(initialItem: 114).obs;
   late final String courseName;
   var isDownloadStarted = false.obs; // Use RxBool for reactive boolean
-  var isDownloadFinish = false.obs; // Use RxBool for reactive boolean
+  var isDownloadFinish = false.obs;
+
 
   void downloadCourse() async {
     isDownloadStarted.value = true;

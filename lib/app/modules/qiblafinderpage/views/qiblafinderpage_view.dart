@@ -31,9 +31,9 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Color(0xff0c7b93),
-        primaryColorLight: Color(0xff00a8cc),
-        primaryColorDark: Color(0xff27496d),
+        primaryColor: Color(0xff4C7380),
+        primaryColorLight: Color(0xff4C7380),
+        primaryColorDark: Color(0xff4C7380),
         colorScheme:
         ColorScheme.fromSwatch().copyWith(secondary: Color(0xffecce6d)),
       ),
@@ -45,10 +45,10 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
         body: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.transparent,
-              image: DecorationImage(
-                  image: AssetImage("assets/svg/qublabg.png"),
-                  fit: BoxFit.cover)
+              color:Color(0xffD8E4E8),
+              // image: DecorationImage(
+              //     image: AssetImage("assets/svg/qublabg.png"),
+              //     fit: BoxFit.cover)
           ),
           child: FutureBuilder(
             future: _deviceSupport,
@@ -283,12 +283,12 @@ class _QiblahCompassState extends State<QiblahCompass> {
 }
 
 class QiblahCompassWidget extends StatelessWidget {
-  final _compassSvg = Image.asset('assets/images/compass.png');
+  final _compassSvg = Image.asset('assets/images/compassneww.png');
   final _needleSvg = Image.asset(
-    "assets/images/needle.png",
+    "assets/images/needlenewww.png",
     fit: BoxFit.contain,
-    height: 300,
-    alignment: Alignment.center,
+    height: 200,
+    alignment: Alignment.centerRight,
   );
 
 
