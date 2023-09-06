@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:pinput/pinput.dart';
 import 'package:smartmasjid_v1/app/modules/donationpage/views/donation_next_page.dart';
 import 'package:smartmasjid_v1/app/modules/donationpage/views/past_payments.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
@@ -17,7 +18,7 @@ import '../../../../widgets/space.dart';
 import '../controllers/donationpage_controller.dart';
 
 class DonationpageView extends GetView<DonationpageController> {
-  const DonationpageView({Key? key}) : super(key: key);
+   DonationpageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +28,7 @@ class DonationpageView extends GetView<DonationpageController> {
           action: [
             GestureDetector(
                 onTap: () {
+                  controller.getpastDonaion();
                   Navigator.of(context)
                       .push(MaterialPageRoute(builder: (_) => PastPayments()));
                 },
@@ -68,10 +70,16 @@ class DonationpageView extends GetView<DonationpageController> {
                               int daysAgo = difference.inDays;
                               return GestureDetector(
                                 onTap: () {
+                                  controller.donationindexpass.value=index;
+                                  controller.amount.value="";
+                                  controller.amountxtD.value.length>=1? controller.amountxtD.value.clear():null;
+                                  controller.update();
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (_) => DonationAmount(
                                             index: index, ago: daysAgo,
                                           )));
+
+
                                 },
                                 child: Padding(
                                   padding:

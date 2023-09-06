@@ -271,6 +271,7 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
 
 
     if (res.toString().contains("SUCCESS")) {
+
       getMembershipDetails();
       Get.offNamed(Routes.MEMBERSHIP);
 
@@ -279,6 +280,6 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     }
     return res;
   }
-  var total=0.0.obs;
+
 
 }

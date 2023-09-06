@@ -269,7 +269,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DONATIONPAGE,
-      page: () => const DonationpageView(),
+      page: () =>  DonationpageView(),
       binding: DonationpageBinding(),
     ),
     GetPage(

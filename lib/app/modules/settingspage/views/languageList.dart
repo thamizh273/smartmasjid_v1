@@ -38,16 +38,18 @@ final langCtrl=Get.put(LanguagePageController());
               tileColor:clr_white,
               title: Stxt(text: "${langCtrl.locale[index]['name']}", size: f2,color: Get.theme.primaryColor,weight: FontWeight.bold,),
               leading: Obx(() {
-                return Transform.scale(
-                    scale: 1.3,
-                    child: Radio(
-                        activeColor: Get.theme.primaryColor,
-                        // title: Text("Amiri"),
-                        value: index,
-                        groupValue: langCtrl.selectedRadioIndex.value,
-                        onChanged: (groupValue) {
-                         // controller.selectedRadioIndex.value = groupValue!;
-                        }));
+                return IgnorePointer(
+                  child: Transform.scale(
+                      scale: 1.3,
+                      child: Radio(
+                          activeColor: Get.theme.primaryColor,
+                          // title: Text("Amiri"),
+                          value: index,
+                          groupValue: langCtrl.selectedRadioIndex.value,
+                          onChanged: (groupValue) {
+                           // controller.selectedRadioIndex.value = groupValue!;
+                          })),
+                );
               }),
 
             ),
