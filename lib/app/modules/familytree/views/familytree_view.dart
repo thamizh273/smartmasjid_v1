@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/utils/color_utils.dart';
+import 'package:smartmasjid_v1/widgets/Stextfield.dart';
 import 'package:smartmasjid_v1/widgets/familybg.dart';
 import 'package:smartmasjid_v1/widgets/small_bg_tree.dart';
 
@@ -243,27 +244,193 @@ class CustomDialogBox1 extends StatelessWidget {
             ],
           ),
           Space(16),
-          Container(
-            height: 35.h,
-            width: 140.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Theme.of(context).primaryColor,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0, right: 8),
-              child: Row(
-                  children: [
-                    Icon(Icons.edit, color: Colors.white,),
-                    Space(8),
-                    Stxt(text: "Edit Details", size: f3, color: Colors.white,)
-                  ],
+          GestureDetector(
+            onTap: (){
+              showDialog(
+                context: context,
+                builder: (
+                    BuildContext context) {
+                  return CustomDialogBox(
+                  );
+                },
+              );
+            },
+            child: Container(
+              height: 35.h,
+              width: 140.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Theme.of(context).primaryColor,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8),
+                child: Row(
+                    children: [
+                      Icon(Icons.edit, color: Colors.white,),
+                      Space(8),
+                      Stxt(text: "Edit Details", size: f3, color: Colors.white,)
+                    ],
+                ),
               ),
             ),
           ),
           Space(16),
         ],
       ),
+    );
+  }
+}
+class CustomDialogBox extends StatelessWidget {
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController c = TextEditingController();
+
+  CustomDialogBox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: _buildDialogContent(context),
+    );
+  }
+
+  Widget _buildDialogContent(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      // padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        children: [
+          Container(
+            height: 50.h,
+            width: double.infinity,
+           color: Theme.of(context).primaryColor,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              child: Row(
+                children: [
+                  Stxt(text: "Edit Family Member", size: f4, color: Colors.white, weight: FontWeight.w500,),
+                  Spacer(),
+                  Icon(Icons.close, color: Colors.white,)
+                ],
+              ),
+            ),
+          ),
+          Space(16),
+          CircleAvatar(
+            radius: 50,
+            child: Image.asset("assets/images/picdr.png"),
+          ),
+          Space(4),
+          Stxt(text: "Edit Profile Picture", size: f3, color: Theme.of(context).primaryColor,weight: FontWeight.w600,),
+          Space(16),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Row(
+              children: [
+                Stxt(text: "Name*", size: f4, color: Colors.black,)
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Safa_textfield(
+              hint: "Enter Your Name",
+              fillColor: Colors.white,
+            ),
+          ),
+          Space(8),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Stxt(text: "Age*", size: f4, color: Colors.black,),
+                Stxt(text: "Gender*", size: f4, color: Colors.black,),
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16, left: 16),
+                child: Container(
+                  width: 110.w,
+                  child: Safa_textfield(
+                    hint: "Enter Age",
+                    fillColor: Colors.white,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 16, left: 16),
+                child: Container(
+                  width: 110.w,
+                  child: Safa_textfield(
+                    hint: "Enter Gender",
+                    fillColor: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Row(
+              children: [
+                Stxt(text: "Marital Status*", size: f4, color: Colors.black,)
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Safa_textfield(
+              hint: "Enter Your status",
+              fillColor: Colors.white,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Row(
+              children: [
+                Stxt(text: "Relationship", size: f4, color: Colors.black,)
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Safa_textfield(
+              hint: "Enter Your relation  ",
+              fillColor: Colors.white,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Row(
+              children: [
+                Stxt(text: "Bio", size: f4, color: Colors.black,)
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16, left: 16),
+            child: Container(
+              height: 200,
+              child: Safa_textfield(
+                hint: "",
+                fillColor: Colors.white,
+              ),
+            ),
+          ),
+        ],
+      )
     );
   }
 }

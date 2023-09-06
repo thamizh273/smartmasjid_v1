@@ -137,6 +137,7 @@ class _CourseListItemPage extends State<CourseListItem> {
       await Future.delayed(const Duration(milliseconds: 500));
     }
   }
+
 }
 
 

@@ -43,30 +43,71 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
       home: Scaffold(
         appBar: CustomAppbar(tittle: "qibla_finder".tr),
         body: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              color:Color(0xffD8E4E8),
-              // image: DecorationImage(
-              //     image: AssetImage("assets/svg/qublabg.png"),
-              //     fit: BoxFit.cover)
-          ),
-          child: FutureBuilder(
-            future: _deviceSupport,
-            builder: (_, AsyncSnapshot<bool?> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting)
-                return LoadingIndicator();
-              if (snapshot.hasError)
-                return Center(
-                  child: Text("Error: ${snapshot.error.toString()}"),
-                );
-
-             // if (snapshot.data!)
-                return QiblahCompass();
-            //  else
-               // return QiblahMaps();
-            },
-          ),
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color:Color(0xffD8E4E8),
+            // image: DecorationImage(
+            //     image: AssetImage("assets/svg/qublabg.png"),
+            //     fit: BoxFit.cover)
         ),
+        child: Column(
+          children: [
+            Space(50),
+            FutureBuilder(
+              future: _deviceSupport,
+              builder: (_, AsyncSnapshot<bool?> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting)
+                  return LoadingIndicator();
+                if (snapshot.hasError)
+                  return Center(
+                    child: Text("Error: ${snapshot.error.toString()}"),
+                  );
+
+               // if (snapshot.data!)
+                  return QiblahCompass();
+              //  else
+                 // return QiblahMaps();
+              },
+            ),
+            Space(30),
+            StreamBuilder<LocationData>(
+              stream: Location.instance.onLocationChanged,
+              builder: (context, snap){
+
+                if(snap.data == null) return CupertinoActivityIndicator();
+                return Column(
+                  children: [
+                    CustomCard(
+                      color: Color(0xffD8E4E8),
+                      margin: EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      child: Row(
+                        children: [
+                          Text('Latitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+                          const Space(8),
+                          Text('${snap.data?.latitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
+                        ],
+                      ), border: true, shadow: false,),
+                    const Space(16),
+                    CustomCard(
+                      color: Color(0xffD8E4E8),
+                      margin: EdgeInsets.symmetric(horizontal: 16),
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      child: Row(
+                        children: [
+                          Text('Longitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+                          const Space(8),
+                          Text('${snap.data?.longitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
+                        ],
+                      ), border: true, shadow: false,),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+          ),
+
       ),
     );
   }
@@ -283,7 +324,7 @@ class _QiblahCompassState extends State<QiblahCompass> {
 }
 
 class QiblahCompassWidget extends StatelessWidget {
-  final _compassSvg = Image.asset('assets/images/compassneww.png');
+  final _compassSvg = Image.asset('assets/images/compnew.png');
   final _needleSvg = Image.asset(
     "assets/images/needlenewww.png",
     fit: BoxFit.contain,
@@ -322,7 +363,7 @@ class QiblahCompassWidget extends StatelessWidget {
               ],
             ),
             10.verticalSpace,
-            Stxt(text: "Angle ${qiblahDirection.offset.toStringAsFixed(3)}°",
+            Stxt(text: "Angle ${qiblahDirection.offset* (pi / 180) * -1}°",
               size: f2,
               weight: FontWeight.w500,),
             // Obx(() {
