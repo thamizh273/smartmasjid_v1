@@ -896,9 +896,9 @@ class _QuranDetailsState extends State<QuranDetails> {
                                         SizedBox(
                                           width: 73.w,
                                           child: Stxt(
-                                            text: "${c.getqurandetail.value
+                                            text: ("sura_name_en_${c.getqurandetail.value
                                                 .getQuranAyahVerse![0]
-                                                .suraNameEn}",
+                                                .suraNameEn}").tr,
                                             size: f2,
                                             color: Theme
                                                 .of(context)
@@ -910,8 +910,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                                       ],
                                     ),
                                   ),
-                                  Stxt(text: "${c.getqurandetail.value
-                                      .getQuranAyahVerse![0].titleEn}",
+                                  Stxt(text: ("sura_name_title_${c.getqurandetail.value
+                                      .getQuranAyahVerse![0].titleEn}").tr,
                                     size: f1,
                                     color: Theme
                                         .of(context)

@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 
 import '../../../../utils/localization/localization.dart';
 import '../../../routes/export.dart';
+import '../../quranpage/model/quran_model.dart';
 
 class LanguagePageController extends GetxController {
   //TODO: Implement LanguagePageController
@@ -17,7 +18,6 @@ class LanguagePageController extends GetxController {
     {'name': 'తెలుగు', 'locale': const Locale('te', 'IN')},
   ];
   RxString selectedLang="".obs;
-
   final langStore = GetStorage();
   RxInt selectedRadioIndex = 0.obs;
   @override

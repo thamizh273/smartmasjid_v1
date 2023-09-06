@@ -1308,4 +1308,8 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     {"verse":'113:1',"no":"604"},
     {"verse":'114:1',"no":"604"},
   ];
+
+
 }
+
+
