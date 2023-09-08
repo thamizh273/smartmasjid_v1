@@ -58,6 +58,10 @@ class QuranpageController extends GetxController {
   final isCheckedArabic = true.obs;
   final isCheckedEnglish = true.obs;
   final isCheckedTamil = false.obs;
+  final isCheckedTelugu = false.obs;
+  final isCheckedUrdu = false.obs;
+  final isCheckedMalayalam = false.obs;
+  final isCheckedHindi = false.obs;
   var isCheckedTamill = "tamil".obs;
   double screenWidth = Get.width;
   var fontFamily = "indopak".obs;
@@ -244,6 +248,7 @@ void changeFontFamily(String family) {
     }
    await quranChapterList();
     await quranjuzList();
+    // quranDetailList(1);
     pageController = PageController(initialPage: 0);
     // quranjuzdetailList();
     // quranjuzdetailList();
@@ -390,20 +395,24 @@ query Query(\$getChapterByMsId: String) {
 query Query(\$chapterNo: String!) {
   Get_Quran_Ayah_Verse(chapter_no: \$chapterNo) {
     sura_chapter_no
-    ayah_list {
-      arabic_text
-      ayah_no
-      verses_key
-      arabic_audio
-      eng_translation
-      tamil_translation
-      hindi_translation
-    }
     sura_name_en
     makki_madina
     title_arb
     title_en
     total_verses
+    arabic_starting_text
+    ayah_list {
+      verses_key
+      ayah_no
+      arabic_text
+      eng_translation
+      tamil_translation
+      hindi_translation
+      malayalam_translation
+      telugu_translation
+      arabic_audio
+      urdu_translation
+    }
   }
 }
     """;
@@ -418,7 +427,7 @@ query Query(\$chapterNo: String!) {
     // print("lllll");
     log("data new ${json.encode(res)}");
     isLoadings1.value = false;
-    getqurandetail.value = qurandetailModelFromJson(json.encode(res));
+    getqurandetail.value = quranDetailModelFromJson(json.encode(res));
     Get.to(QuranDetails());
     update();
   }
