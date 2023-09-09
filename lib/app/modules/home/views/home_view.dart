@@ -23,6 +23,7 @@ import 'package:smartmasjid_v1/widgets/loading.dart';
 import '../../../../utils/ansomeNotification.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
+import '../../masjidnearme/helper/custom_marker_info_window.dart';
 import '../Drawer_List/masjid_history.dart';
 import '../Drawer_List/masjid_imam.dart';
 import '../Drawer_List/well_wisher.dart';
@@ -561,7 +562,7 @@ class HomeView extends StatelessWidget {
                                       title: 'masjid_near_me'.tr,
                                       image: 'masjidFinder',
                                       onTap: () {
-                                        Get.toNamed(Routes.MASJIDNEARME);
+                                        Get.to(CustomMarketInfoWindow());
                                       },
                                     ),
                                     Column(
