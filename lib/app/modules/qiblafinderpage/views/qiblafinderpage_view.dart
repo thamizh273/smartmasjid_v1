@@ -323,8 +323,18 @@ class _QiblahCompassState extends State<QiblahCompass> {
   }
 }
 
-class QiblahCompassWidget extends StatelessWidget {
-  final _compassSvg = Image.asset('assets/images/compnew.png');
+class QiblahCompassWidget extends StatefulWidget {
+  @override
+  State<QiblahCompassWidget> createState() => _QiblahCompassWidgetState();
+}
+
+Animation<double>? animation;
+AnimationController? _animationController;
+double begin = 0.0;
+
+class _QiblahCompassWidgetState extends State<QiblahCompassWidget> with SingleTickerProviderStateMixin {
+  final _compassSvg = Image.asset('assets/images/compassupd.png');
+
   final _needleSvg = Image.asset(
     "assets/images/needlenewww.png",
     fit: BoxFit.contain,
@@ -332,17 +342,26 @@ class QiblahCompassWidget extends StatelessWidget {
     alignment: Alignment.centerRight,
   );
 
-
+  @override
+  void initState() {
+    _animationController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    animation = Tween(begin: 0.0, end: 0.0).animate(_animationController!);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FlutterQiblah.qiblahStream,
-      builder: (_, AsyncSnapshot<QiblahDirection> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting)
-          return LoadingIndicator();
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(alignment: Alignment.center, child: const CircularProgressIndicator(color: Colors.white,));
+        }
 
-        final qiblahDirection = snapshot.data!;
+        final qiblahDirection = snapshot.data;
+        animation = Tween(begin: begin, end: (qiblahDirection!.qiblah * (pi / 180) * -1)).animate(_animationController!);
+        begin = (qiblahDirection.qiblah * (pi / 180) * -1);
+        _animationController!.forward(from: 0);
 
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -350,16 +369,16 @@ class QiblahCompassWidget extends StatelessWidget {
             Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                Transform.rotate(
-                  angle: (qiblahDirection.direction * (pi / 180) * -1),
-                  child: _compassSvg,
+                AnimatedBuilder(animation: animation!,
+                  builder: (context, child) => Transform.rotate(
+                      angle: animation!.value,
+                      child: _compassSvg),
                 ),
-                Transform.rotate(
-                  angle: (qiblahDirection.qiblah * (pi / 180) * -1),
-                  alignment: Alignment.center,
-                  child: _needleSvg,
-                ),
-
+                AnimatedBuilder(animation: animation!,
+                  builder: (context, child) => Transform.rotate(
+                      angle: animation!.value,
+                      child: _needleSvg),
+                )
               ],
             ),
             10.verticalSpace,

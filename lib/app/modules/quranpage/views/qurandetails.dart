@@ -233,8 +233,8 @@ class _QuranDetailsState extends State<QuranDetails> {
                           List<String> downloadedItems = prefs.getStringList(downloadedItemsKey) ?? [];
                           List<String> featuredLanguages = prefs.getStringList(downloadedItemsKey) ??[];
                           List<String> courseNames  = [
-                            "Tamil (தமிழ்)",
                             "Urdu (اردو)",
+                            "Hindi (हिंदी)",
                             "Malayalam (മലയാളം)",
                             "Telugu (తెలుగు)",
                           ];
@@ -294,7 +294,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                            itemBuilder: (context, index) {
                                              final featuredLanguage = featuredLanguages[index];
                                              return ListTile(
-                                               leading:  Obx(() {
+                                               leading: featuredLanguage== "Urdu (اردو)"? Obx(() {
                                                  return Container(
                                                    height: 30.h,
                                                    width: 30.w,
@@ -303,9 +303,9 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                      child: Checkbox(
                                                        activeColor: Get.theme.primaryColor,
                                                        checkColor: Colors.white,
-                                                       value: checkedStates[index].value,
+                                                       value: c.isCheckedUrdu.value,
                                                        onChanged: (value) {
-                                                         checkedStates[index](value!);
+                                                         c.isCheckedUrdu(value!);
                                                          Future.delayed(Duration(milliseconds: 500), () {
                                                            c.getqurandetail();
                                                          });
@@ -314,7 +314,67 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                      ),
                                                    ),
                                                  );
-                                               }),
+                                               }): featuredLanguage== "Telugu (తెలుగు)"? Obx(() {
+                                                 return Container(
+                                                   height: 30.h,
+                                                   width: 30.w,
+                                                   child: Transform.scale(
+                                                     scale: 1,
+                                                     child: Checkbox(
+                                                       activeColor: Get.theme.primaryColor,
+                                                       checkColor: Colors.white,
+                                                       value: c.isCheckedTelugu.value,
+                                                       onChanged: (value) {
+                                                         c.isCheckedTelugu(value!);
+                                                         Future.delayed(Duration(milliseconds: 500), () {
+                                                           c.getqurandetail();
+                                                         });
+                                                         c.update();
+                                                       },
+                                                     ),
+                                                   ),
+                                                 );
+                                               }): featuredLanguage== "Malayalam (മലയാളം)"? Obx(() {
+                                                 return Container(
+                                                   height: 30.h,
+                                                   width: 30.w,
+                                                   child: Transform.scale(
+                                                     scale: 1,
+                                                     child: Checkbox(
+                                                       activeColor: Get.theme.primaryColor,
+                                                       checkColor: Colors.white,
+                                                       value: c.isCheckedMalayalam.value,
+                                                       onChanged: (value) {
+                                                         c.isCheckedMalayalam(value!);
+                                                         Future.delayed(Duration(milliseconds: 500), () {
+                                                           c.getqurandetail();
+                                                         });
+                                                         c.update();
+                                                       },
+                                                     ),
+                                                   ),
+                                                 );
+                                               }) : featuredLanguage== "Hindi (हिंदी)"? Obx(() {
+                                                 return Container(
+                                                   height: 30.h,
+                                                   width: 30.w,
+                                                   child: Transform.scale(
+                                                     scale: 1,
+                                                     child: Checkbox(
+                                                       activeColor: Get.theme.primaryColor,
+                                                       checkColor: Colors.white,
+                                                       value: c.isCheckedHindi.value,
+                                                       onChanged: (value) {
+                                                         c.isCheckedHindi(value!);
+                                                         Future.delayed(Duration(milliseconds: 500), () {
+                                                           c.getqurandetail();
+                                                         });
+                                                         c.update();
+                                                       },
+                                                     ),
+                                                   ),
+                                                 );
+                                               }) : null,
                                                trailing: GestureDetector(
                                                  onTap: () async {
                                                    // Delete the item from the list and update the downloaded items list
@@ -953,7 +1013,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                         ),
                       ),
                     ),
-                    Space(16),
+                    // Space(8),
                     Expanded(
                       child: c.isLoadings1.value
                           ? loading(context)
@@ -964,352 +1024,544 @@ class _QuranDetailsState extends State<QuranDetails> {
                         controller: c.scrollControllern,
                         radius: Radius.circular(20),
                         child: ListView.builder(
-                            physics: BouncingScrollPhysics(),
-                            controller: c.scrollControllern,
-                            itemCount: c.getqurandetail.value
-                                .getQuranAyahVerse![0].ayahList!.length,
-                            itemBuilder: (context, index) {
-                              var sura = c.getqurandetail.value
-                                  .getQuranAyahVerse![0].ayahList![index];
-                              print("versess${sura.versesKey}");
-                              return Container(
-                                  width: double.infinity,
-                                  // color: Colors.red,
-                                  child: Padding(
-                                    padding: EdgeInsets.all(10.r),
-                                    child: Column(
-                                      // crossAxisAlignment:
-                                      // CrossAxisAlignment.center,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .start,
-                                          children: [
-                                            Text(
-                                              "${sura.versesKey}",
-                                              style: TextStyle(
+                          shrinkWrap: true,
+                          physics: BouncingScrollPhysics(),
+                          controller: c.scrollControllern,
+                          itemCount: c.getqurandetail.value
+                              .getQuranAyahVerse![0].ayahList!.length,
+                          itemBuilder: (context, index) {
+                            var sura = c.getqurandetail.value
+                                .getQuranAyahVerse![0].ayahList![index];
+                            print("versess${sura.versesKey}");
+                            return Container(
+                                width: double.infinity,
+                                // color: Colors.red,
+                                child: Padding(
+                                  padding: EdgeInsets.all(10.r),
+                                  child: Column(
+                                    // crossAxisAlignment:
+                                    // CrossAxisAlignment.center,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Align(
+                                              alignment:
+                                              Alignment.centerLeft,
+                                              child: Obx(() {
+                                                double fontSize = 40.0;
+                                                String fontFamily = c
+                                                    .fontFamily
+                                                    .value;
+                                                double sliderValue = c
+                                                    .sliderValue.value;
+                                                if (sliderValue == 1) {
+                                                  // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                  fontSize = 45.0;
+                                                } else if (sliderValue == 2) {
+                                                  // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                  fontSize = 55.0;
+                                                }
+                                                TextStyle textStyle = TextStyle(
+                                                  wordSpacing: 10,
+                                                  fontSize: fontSize,
+                                                  fontFamily: c.fontFamily
+                                                      .value == "indopak"
+                                                      ? "Indopak"
+                                                      : c.fontFamily
+                                                      .value ==
+                                                      "qalam"
+                                                      ? "Qalam" : c
+                                                      .fontFamily
+                                                      .value == "uthami"
+                                                      ? "Uthami" : c
+                                                      .fontFamily
+                                                      .value == "amiri"
+                                                      ? "Amiri" : c
+                                                      .fontFamily
+                                                      .value == "noorehira"
+                                                      ? "Noorehira" : c
+                                                      .fontFamily
+                                                      .value == "noorehuda"
+                                                      ? "Noorehuda" : c
+                                                      .fontFamily
+                                                      .value ==
+                                                      "noorehidayat"
+                                                      ? "Noorehidayat" : c
+                                                      .fontFamily
+                                                      .value == "arabictit"
+                                                      ? "Arabictitle"
+                                                      : null, // Use the default font if "Amiri" is not selected
+                                                );
+                                                return SizedBox(
+                                                  width: c.screenWidth * 0.68,
+                                                  child: c.getqurandetail.value.getQuranAyahVerse![0].suraNameEn == "Al-Fatihah"
+                                                      ? Container():
+                                                  c.isCheckedArabic
+                                                      .value == true && sura.versesKey!.startsWith(RegExp(r'^[1-9][0-9]*:1$'))
+                                                      ? Text(
+                                                    "${c.getqurandetail.value.getQuranAyahVerse![0].arabicStartingText}",
+                                                    style: textStyle,
+                                                    textAlign:
+                                                    TextAlign.end,
+                                                  )
+                                                     :SizedBox(),
+                                                );
+                                              })
+                                          ),
+                                          // if (sura.versesKey!.startsWith(RegExp(r'^[1-9][0-9]*:1$')))
+                                          //   Stxt(
+                                          //   text: "${c.getqurandetail.value.getQuranAyahVerse![0].arabicStartingText}",
+                                          //   size: f5,
+                                          // ),
+                                        ],
+                                      ),
+                                      16.verticalSpace,
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .start,
+                                        children: [
+                                          Text(
+                                            "${sura.versesKey}",
+                                            style: TextStyle(
+                                                color: Theme
+                                                    .of(context)
+                                                    .primaryColor,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18),
+                                          ),
+                                          Spacer(),
+                                          ...c.pages.map((e) =>
+                                          e['verse'] == sura.versesKey
+                                              ? Center(
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(
+                                                      4),
                                                   color: Theme
                                                       .of(context)
-                                                      .primaryColor,
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 18),
-                                            ),
-                                            Spacer(),
-                                            ...c.pages.map((e) =>
-                                            e['verse'] == sura.versesKey
-                                                ? Center(
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(
-                                                        4),
-                                                    color: Theme
-                                                        .of(context)
-                                                        .primaryColor
-                                                ),
-                                                height: 30,
-                                                width: 70,
-                                                child: Center(
-                                                    child: Text(
-                                                      "Page ${e['no']}",
-                                                      style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight: FontWeight
-                                                              .w600),)),
+                                                      .primaryColor
                                               ),
-                                            )
-                                                : Container()).toList(),
-                                            Space(40),
-                                            Icon(
-                                              Icons.play_circle,
-                                              color: Theme
-                                                  .of(context)
-                                                  .primaryColor,
+                                              height: 30,
+                                              width: 70,
+                                              child: Center(
+                                                  child: Text(
+                                                    "Page ${e['no']}",
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight
+                                                            .w600),)),
                                             ),
-                                            Space(12),
-                                            GestureDetector(
+                                          )
+                                              : Container()).toList(),
+                                          Space(40),
+                                          Icon(
+                                            Icons.play_circle,
+                                            color: Theme
+                                                .of(context)
+                                                .primaryColor,
+                                          ),
+                                          Space(12),
+                                          GestureDetector(
 
-                                              onTap: () {
-                                                print('ssss${c.getqurandetail
-                                                    .value
-                                                    .getQuranAyahVerse![0]
-                                                    .suraNameEn}');
-                                                // if(c.passint.value==sura.versesKey![0]){
-                                                //   print("ggg");
-                                                //   c.toogle(index);
-                                                // }
-                                                c.toogle(
-                                                    "${c.getqurandetail.value
+                                            onTap: () {
+                                              print('ssss${c.getqurandetail
+                                                  .value
+                                                  .getQuranAyahVerse![0]
+                                                  .suraNameEn}');
+                                              // if(c.passint.value==sura.versesKey![0]){
+                                              //   print("ggg");
+                                              //   c.toogle(index);
+                                              // }
+                                              c.toogle(
+                                                  "${c.getqurandetail.value
+                                                      .getQuranAyahVerse![0]
+                                                      .suraNameEn} ${sura
+                                                      .versesKey}");
+                                            },
+
+                                            child: Obx(() {
+                                              //   print("eeee${c.objectList}");
+                                              print("eeee${sura.versesKey
+                                                  .toString()}");
+                                              return Icon(
+                                                c.buttonsSelected.contains(
+                                                    "${c.getqurandetail
+                                                        .value
                                                         .getQuranAyahVerse![0]
                                                         .suraNameEn} ${sura
-                                                        .versesKey}");
-                                              },
-
+                                                        .versesKey}")
+                                                    ? Icons.bookmark
+                                                    : Icons
+                                                    .bookmark_outline,
+                                                color: c.buttonsSelected
+                                                    .contains(
+                                                    "${c.getqurandetail
+                                                        .value
+                                                        .getQuranAyahVerse![0]
+                                                        .suraNameEn} ${sura
+                                                        .versesKey}")
+                                                    ? Theme
+                                                    .of(context)
+                                                    .primaryColor
+                                                    : Theme
+                                                    .of(context)
+                                                    .primaryColor, // Use different colors for bookmarked and not bookmarked states
+                                              );
+                                            }),
+                                          ),
+                                          PopupMenuButton(
+                                              shadowColor: Colors.grey
+                                                  .shade400,
+                                              itemBuilder: (
+                                                  BuildContext context) {
+                                                return [
+                                                  PopupMenuItem(
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          c.copyToClipboard(
+                                                              index);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Obx(() {
+                                                              return Icon(
+                                                                  c.copy
+                                                                      .contains(
+                                                                      "${c
+                                                                          .getqurandetail
+                                                                          .value
+                                                                          .getQuranAyahVerse![0]
+                                                                          .ayahList![0]
+                                                                          .arabicText} ${sura
+                                                                          .versesKey} ${sura
+                                                                          .engTranslation}")
+                                                                      ? Icons
+                                                                      .copy
+                                                                      : Icons
+                                                                      .copy);
+                                                            }),
+                                                            Space(12),
+                                                            Text("Copy"),
+                                                          ],
+                                                        ),
+                                                      )),
+                                                  PopupMenuItem(
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          c.shareMessage(
+                                                              index);
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Icon(Icons
+                                                                .share),
+                                                            Space(12),
+                                                            Text("Share"),
+                                                          ],
+                                                        ),
+                                                      )),
+                                                  PopupMenuItem(
+                                                      child: GestureDetector(
+                                                        onTap: () {
+                                                          showDialog(
+                                                            context: context,
+                                                            builder: (
+                                                                BuildContext context) {
+                                                              return CustomDialogBox1(
+                                                                // title: 'Custom Dialog Title',
+                                                                // content:
+                                                                // 'This is the content of the custom dialog box.',
+                                                                // onPressed: () {
+                                                                //   Navigator
+                                                                //       .pop(
+                                                                //       context); // Closes the dialog box when the button is pressed.
+                                                                // },
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                        child: Row(
+                                                          children: [
+                                                            Image.asset(
+                                                              "assets/images/notes.png",
+                                                              width: 20,
+                                                              color: Colors
+                                                                  .black,),
+                                                            Space(12),
+                                                            Text(
+                                                                "Create Notes"),
+                                                          ],
+                                                        ),
+                                                      )),
+                                                ];
+                                              }
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .start,
+                                        children: [
+                                          50.horizontalSpace,
+                                          Space(20.w),
+                                          Align(
+                                              alignment:
+                                              Alignment.centerLeft,
                                               child: Obx(() {
-                                                //   print("eeee${c.objectList}");
-                                                print("eeee${sura.versesKey
-                                                    .toString()}");
-                                                return Icon(
-                                                  c.buttonsSelected.contains(
-                                                      "${c.getqurandetail
-                                                          .value
-                                                          .getQuranAyahVerse![0]
-                                                          .suraNameEn} ${sura
-                                                          .versesKey}")
-                                                      ? Icons.bookmark
-                                                      : Icons
-                                                      .bookmark_outline,
-                                                  color: c.buttonsSelected
-                                                      .contains(
-                                                      "${c.getqurandetail
-                                                          .value
-                                                          .getQuranAyahVerse![0]
-                                                          .suraNameEn} ${sura
-                                                          .versesKey}")
-                                                      ? Theme
-                                                      .of(context)
-                                                      .primaryColor
-                                                      : Theme
-                                                      .of(context)
-                                                      .primaryColor, // Use different colors for bookmarked and not bookmarked states
-                                                );
-                                              }),
-                                            ),
-                                            PopupMenuButton(
-                                                shadowColor: Colors.grey
-                                                    .shade400,
-                                                itemBuilder: (
-                                                    BuildContext context) {
-                                                  return [
-                                                    PopupMenuItem(
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            c.copyToClipboard(
-                                                                index);
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Row(
-                                                            children: [
-                                                              Obx(() {
-                                                                return Icon(
-                                                                    c.copy
-                                                                        .contains(
-                                                                        "${c
-                                                                            .getqurandetail
-                                                                            .value
-                                                                            .getQuranAyahVerse![0]
-                                                                            .ayahList![0]
-                                                                            .arabicText} ${sura
-                                                                            .versesKey} ${sura
-                                                                            .engTranslation}")
-                                                                        ? Icons
-                                                                        .copy
-                                                                        : Icons
-                                                                        .copy);
-                                                              }),
-                                                              Space(12),
-                                                              Text("Copy"),
-                                                            ],
-                                                          ),
-                                                        )),
-                                                    PopupMenuItem(
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            c.shareMessage(
-                                                                index);
-                                                            Navigator.pop(
-                                                                context);
-                                                          },
-                                                          child: Row(
-                                                            children: [
-                                                              Icon(Icons
-                                                                  .share),
-                                                              Space(12),
-                                                              Text("Share"),
-                                                            ],
-                                                          ),
-                                                        )),
-                                                    PopupMenuItem(
-                                                        child: GestureDetector(
-                                                          onTap: () {
-                                                            showDialog(
-                                                              context: context,
-                                                              builder: (
-                                                                  BuildContext context) {
-                                                                return CustomDialogBox1(
-                                                                  // title: 'Custom Dialog Title',
-                                                                  // content:
-                                                                  // 'This is the content of the custom dialog box.',
-                                                                  // onPressed: () {
-                                                                  //   Navigator
-                                                                  //       .pop(
-                                                                  //       context); // Closes the dialog box when the button is pressed.
-                                                                  // },
-                                                                );
-                                                              },
-                                                            );
-                                                          },
-                                                          child: Row(
-                                                            children: [
-                                                              Image.asset(
-                                                                "assets/images/notes.png",
-                                                                width: 20,
-                                                                color: Colors
-                                                                    .black,),
-                                                              Space(12),
-                                                              Text(
-                                                                  "Create Notes"),
-                                                            ],
-                                                          ),
-                                                        )),
-                                                  ];
+                                                double fontSize = 40.0;
+                                                String fontFamily = c
+                                                    .fontFamily
+                                                    .value;
+                                                double sliderValue = c
+                                                    .sliderValue.value;
+                                                if (sliderValue == 1) {
+                                                  // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                  fontSize = 45.0;
+                                                } else if (sliderValue == 2) {
+                                                  // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                  fontSize = 55.0;
                                                 }
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .start,
-                                          children: [
-                                            50.horizontalSpace,
-                                            Space(20.w),
-                                            Align(
-                                                alignment:
-                                                Alignment.centerLeft,
-                                                child: Obx(() {
-                                                  double fontSize = 40.0;
-                                                  String fontFamily = c
+                                                TextStyle textStyle = TextStyle(
+                                                  wordSpacing: 10,
+                                                  fontSize: fontSize,
+                                                  fontFamily: c.fontFamily
+                                                      .value == "indopak"
+                                                      ? "Indopak"
+                                                      : c.fontFamily
+                                                      .value ==
+                                                      "qalam"
+                                                      ? "Qalam" : c
                                                       .fontFamily
-                                                      .value;
-                                                  double sliderValue = c
-                                                      .sliderValue.value;
-                                                  if (sliderValue == 1) {
-                                                    // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                    fontSize = 45.0;
-                                                  } else if (sliderValue == 2) {
-                                                    // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                    fontSize = 55.0;
-                                                  }
-                                                  TextStyle textStyle = TextStyle(
-                                                    wordSpacing: 10,
-                                                    fontSize: fontSize,
-                                                    fontFamily: c.fontFamily
-                                                        .value == "indopak"
-                                                        ? "Indopak"
-                                                        : c.fontFamily
-                                                        .value ==
-                                                        "qalam"
-                                                        ? "Qalam" : c
-                                                        .fontFamily
-                                                        .value == "uthami"
-                                                        ? "Uthami" : c
-                                                        .fontFamily
-                                                        .value == "amiri"
-                                                        ? "Amiri" : c
-                                                        .fontFamily
-                                                        .value == "noorehira"
-                                                        ? "Noorehira" : c
-                                                        .fontFamily
-                                                        .value == "noorehuda"
-                                                        ? "Noorehuda" : c
-                                                        .fontFamily
-                                                        .value ==
-                                                        "noorehidayat"
-                                                        ? "Noorehidayat" : c
-                                                        .fontFamily
-                                                        .value == "arabictit"
-                                                        ? "Arabictitle"
-                                                        : null, // Use the default font if "Amiri" is not selected
-                                                  );
-                                                  return SizedBox(
-                                                    width: c.screenWidth *
-                                                        0.68,
-                                                    child: c.isCheckedArabic
-                                                        .value == true
-                                                        ? Text(
-                                                      "${sura.arabicText}",
-                                                      style: textStyle,
-                                                      textAlign:
-                                                      TextAlign.end,
-                                                    )
-                                                        : SizedBox(),
-                                                  );
-                                                })
-                                            ),
-                                          ],
-                                        ),
-                                        Space(8),
-                                        Space(16),
-                                        Obx(() {
-                                          double fontSize = 18.0;
-                                          double sliderValue = c.sliderValue1
-                                              .value;
-                                          if (sliderValue == 1) {
-                                            // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                            fontSize = 22.0;
-                                          } else if (sliderValue == 2) {
-                                            // Set font size to 40.0 when sliderValue is 2 (Large)
-                                            fontSize = 25.0;
-                                          }
-                                          return SizedBox(
-                                              width: .9.sw,
-                                              child: Align(
-                                                  alignment: Alignment
-                                                      .centerLeft,
-                                                  child:
-                                                  c.isCheckedEnglish.value ==
-                                                      true
+                                                      .value == "uthami"
+                                                      ? "Uthami" : c
+                                                      .fontFamily
+                                                      .value == "amiri"
+                                                      ? "Amiri" : c
+                                                      .fontFamily
+                                                      .value == "noorehira"
+                                                      ? "Noorehira" : c
+                                                      .fontFamily
+                                                      .value == "noorehuda"
+                                                      ? "Noorehuda" : c
+                                                      .fontFamily
+                                                      .value ==
+                                                      "noorehidayat"
+                                                      ? "Noorehidayat" : c
+                                                      .fontFamily
+                                                      .value == "arabictit"
+                                                      ? "Arabictitle"
+                                                      : null, // Use the default font if "Amiri" is not selected
+                                                );
+                                                return SizedBox(
+                                                  width: c.screenWidth *
+                                                      0.68,
+                                                  child: c.isCheckedArabic
+                                                      .value == true
                                                       ? Text(
-                                                    "${sura.engTranslation}",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w500,
-                                                        fontSize: fontSize),
+                                                    "${sura.arabicText}",
+                                                    style: textStyle,
+                                                    textAlign:
+                                                    TextAlign.end,
                                                   )
-                                                      : SizedBox()));
-                                        }),
-                                        Space(16),
-                                        Obx(() {
-                                          double fontSize = 18.0;
-                                          double sliderValue = c.sliderValue1
-                                              .value;
-                                          if (sliderValue == 1) {
-                                            // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                            fontSize = 22.0;
-                                          } else if (sliderValue == 2) {
-                                            // Set font size to 40.0 when sliderValue is 2 (Large)
-                                            fontSize = 25.0;
-                                          }
-                                          return SizedBox(
-                                              width: .9.sw,
-                                              child: Align(
-                                                  alignment: Alignment.center,
-                                                  child: c.isCheckedTamil
-                                                      .value
-                                                      ? Text(
-                                                    "${sura
-                                                        .tamilTranslation}",
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w500,
-                                                        fontSize: fontSize),
-                                                  )
-                                                      : SizedBox.shrink()));
-                                        }),
-                                        Space(16),
-                                        Image.asset(
-                                          "assets/images/qurandivider.png",
-                                          scale: 4,
-                                          width: 310.w,
-                                        )
-                                      ],
-                                    ),
-                                  ));
-                            }
-                        ),
+                                                      : SizedBox(),
+                                                );
+                                              })
+                                          ),
+                                        ],
+                                      ),
+                                      Space(8),
+                                      Space(16),
+                                      Obx(() {
+                                        double fontSize = 18.0;
+                                        double sliderValue = c.sliderValue1
+                                            .value;
+                                        if (sliderValue == 1) {
+                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                          fontSize = 22.0;
+                                        } else if (sliderValue == 2) {
+                                          // Set font size to 40.0 when sliderValue is 2 (Large)
+                                          fontSize = 25.0;
+                                        }
+                                        return SizedBox(
+                                            width: .9.sw,
+                                            child: Align(
+                                                alignment: Alignment
+                                                    .centerLeft,
+                                                child:
+                                                c.isCheckedEnglish.value ==
+                                                    true
+                                                    ? Text(
+                                                  "${sura.engTranslation}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      fontSize: fontSize),
+                                                )
+                                                    : SizedBox()));
+                                      }),
+                                      Space(16),
+                                      Obx(() {
+                                        double fontSize = 18.0;
+                                        double sliderValue = c.sliderValue1
+                                            .value;
+                                        if (sliderValue == 1) {
+                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                          fontSize = 22.0;
+                                        } else if (sliderValue == 2) {
+                                          // Set font size to 40.0 when sliderValue is 2 (Large)
+                                          fontSize = 25.0;
+                                        }
+                                        return SizedBox(
+                                            width: .9.sw,
+                                            child: Align(
+                                                alignment: Alignment.center,
+                                                child: c.isCheckedTamil
+                                                    .value
+                                                    ? Text(
+                                                  "${sura
+                                                      .tamilTranslation}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      fontSize: fontSize),
+                                                )
+                                                    : SizedBox.shrink()));
+                                      }),
+                                      Space(16),
+                                      Obx(() {
+                                        double fontSize = 18.0;
+                                        double sliderValue = c.sliderValue1
+                                            .value;
+                                        if (sliderValue == 1) {
+                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                          fontSize = 22.0;
+                                        } else if (sliderValue == 2) {
+                                          // Set font size to 40.0 when sliderValue is 2 (Large)
+                                          fontSize = 25.0;
+                                        }
+                                        return SizedBox(
+                                            width: .9.sw,
+                                            child: Align(
+                                                alignment: Alignment.center,
+                                                child: c.isCheckedUrdu
+                                                    .value
+                                                    ? Text(
+                                                  "${sura
+                                                      .urduTranslation}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      fontSize: fontSize),
+                                                )
+                                                    : SizedBox.shrink()));
+                                      }),
+                                      Space(16),
+                                      Obx(() {
+                                        double fontSize = 18.0;
+                                        double sliderValue = c.sliderValue1
+                                            .value;
+                                        if (sliderValue == 1) {
+                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                          fontSize = 22.0;
+                                        } else if (sliderValue == 2) {
+                                          // Set font size to 40.0 when sliderValue is 2 (Large)
+                                          fontSize = 25.0;
+                                        }
+                                        return SizedBox(
+                                            width: .9.sw,
+                                            child: Align(
+                                                alignment: Alignment.center,
+                                                child: c.isCheckedHindi
+                                                    .value
+                                                    ? Text(
+                                                  "${sura
+                                                      .hindiTranslation}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      fontSize: fontSize),
+                                                )
+                                                    : SizedBox.shrink()));
+                                      }),
+                                      Space(16),
+                                      Obx(() {
+                                        double fontSize = 18.0;
+                                        double sliderValue = c.sliderValue1
+                                            .value;
+                                        if (sliderValue == 1) {
+                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                          fontSize = 22.0;
+                                        } else if (sliderValue == 2) {
+                                          // Set font size to 40.0 when sliderValue is 2 (Large)
+                                          fontSize = 25.0;
+                                        }
+                                        return SizedBox(
+                                            width: .9.sw,
+                                            child: Align(
+                                                alignment: Alignment.center,
+                                                child: c.isCheckedMalayalam
+                                                    .value
+                                                    ? Text(
+                                                  "${sura
+                                                      .malayalamTranslation}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      fontSize: fontSize),
+                                                )
+                                                    : SizedBox.shrink()));
+                                      }),
+                                      Space(16),
+                                      Obx(() {
+                                        double fontSize = 18.0;
+                                        double sliderValue = c.sliderValue1
+                                            .value;
+                                        if (sliderValue == 1) {
+                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                          fontSize = 22.0;
+                                        } else if (sliderValue == 2) {
+                                          // Set font size to 40.0 when sliderValue is 2 (Large)
+                                          fontSize = 25.0;
+                                        }
+                                        return SizedBox(
+                                            width: .9.sw,
+                                            child: Align(
+                                                alignment: Alignment.center,
+                                                child: c.isCheckedTelugu
+                                                    .value
+                                                    ? Text(
+                                                  "${sura
+                                                      .teluguTranslation}",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                      FontWeight
+                                                          .w500,
+                                                      fontSize: fontSize),
+                                                )
+                                                    : SizedBox.shrink()));
+                                      }),
+                                      Space(8),
+                                      Image.asset(
+                                        "assets/images/qurandivider.png",
+                                        scale: 4,
+                                        width: 310.w,
+                                      )
+                                    ],
+                                  ),
+                                ));
+                          }
+                          ),
                       ),
                     )
                   ],
