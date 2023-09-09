@@ -7,18 +7,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:231830520319:android:980f69d1bd6db37b53e7ca",
+        "mobilesdk_app_id": "1:231830520319:android:d2c5a1623403283453e7ca",
         "android_client_info": {
-          "package_name": "com.safatech.smart_masjid_versionnew"
+          "package_name": "com.safatech.smartmasjid_v1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "231830520319-bsu5rdi5k7cirdj2tr4n8bp87pi90d1v.apps.googleusercontent.com",
+          "client_id": "231830520319-9akms2alrs4618jk6lo0knnsd7nn7vc7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.safatech.smart_masjid_versionnew",
-            "certificate_hash": "170f6604c98917c70def877b347d11bcbdfe95f7"
+            "package_name": "com.safatech.smartmasjid_v1",
+            "certificate_hash": "c3b522038f67c82a92e51a60fc5c028cec5c7f19"
           }
         },
         {
@@ -35,37 +35,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "231830520319-3aufvk15i62md91ao9lebt1gqqhqa8cn.apps.googleusercontent.com",
+              "client_id": "231830520319-2pdb26v9rj57mj7qsr18885850nl8dii.apps.googleusercontent.com",
               "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:231830520319:android:d2c5a1623403283453e7ca",
-        "android_client_info": {
-          "package_name": "com.safatech.smartmasjid_v1"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "231830520319-sfo6t8fkm30rj465rr2q3go60gqr7j20.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBwEp25O_n2RkVfTPW8tM0mofplU0tDQtY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
+            },
             {
-              "client_id": "231830520319-3aufvk15i62md91ao9lebt1gqqhqa8cn.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "231830520319-ssae890oohpgp3n4pg6ur8c5jqulqenl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.safatech.smartmasjidV1"
+              }
             }
           ]
         }

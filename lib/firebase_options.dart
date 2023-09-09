@@ -70,7 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '231830520319',
     projectId: 'smart-masjid-371016',
     storageBucket: 'smart-masjid-371016.appspot.com',
-    androidClientId: '231830520319-bsu5rdi5k7cirdj2tr4n8bp87pi90d1v.apps.googleusercontent.com',
+    androidClientId: '231830520319-9akms2alrs4618jk6lo0knnsd7nn7vc7.apps.googleusercontent.com',
     iosClientId: '231830520319-ssae890oohpgp3n4pg6ur8c5jqulqenl.apps.googleusercontent.com',
     iosBundleId: 'com.safatech.smartmasjidV1',
   );

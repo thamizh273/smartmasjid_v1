@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smartmasjid_v1/app/modules/otp_page/controllers/otp_page_controller.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 
 import '../../../../utils/color_utils.dart';
@@ -13,11 +14,13 @@ import '../../../../widgets/bgcontainer_register.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../controllers/login_page_controller.dart';
+import 'forgetPassword.dart';
 
 class LoginPageView extends GetView<LoginPageController> {
   LoginPageView({Key? key}) : super(key: key);
 
   final signctrl = Get.put<SignupPageController>(SignupPageController());
+  final otpctrl = Get.put<OtpPageController>(OtpPageController());
 
   // storeTokenLocally(String apiToken) async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -134,6 +137,30 @@ class LoginPageView extends GetView<LoginPageController> {
                   prefixIcon: Icon(Icons.lock_outline_rounded),
                 );
               }),
+              2.verticalSpace,
+              InkWell(
+                onTap: (){
+                  print(controller.phoneLCtrl.value.text);
+                  controller.showPhoneNumberField.value=false;
+                  if (controller.phoneLCtrl.value.text.isEmpty) {
+                    toast(
+                        error: "Error",
+                        msg: "Enter Phone Number ");
+                    return;
+                  }
+                  otpctrl.forgetpassotp.value=true;
+                //  Get.to(ForgetPassword());
+                  signctrl.forgetcheckuserValid();
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Stxt(text: "Forget Password ?", size: f1,weight: FontWeight.w500,
+                      color: Color(0xffD9D9D9),),
+                  25.horizontalSpace,
+                  ],
+                ),
+              ),
               8.verticalSpace,
               Padding(
                 padding: const EdgeInsets.all(16),

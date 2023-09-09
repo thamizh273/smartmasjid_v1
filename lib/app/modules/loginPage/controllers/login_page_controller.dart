@@ -5,7 +5,9 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
+import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 
+import '../../../authRepository.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
@@ -15,11 +17,14 @@ import '../Model/logineithmobileNo.dart';
 class LoginPageController extends GetxController {
   //TODO: Implement LoginPageController
   final _restCallController = Get.put(restCallController());
-
+  static SignupPageController get instance =>Get.find();
   Rx<TextEditingController> emailLCtrl = TextEditingController().obs;
   Rx<TextEditingController> phoneLCtrl = TextEditingController().obs;
   Rx<TextEditingController> passwordLCtrl = TextEditingController().obs;
-
+  Rx<TextEditingController> repasswordLCtrl = TextEditingController().obs;
+  Rx<TextEditingController> reConfirmpasswordLCtrl = TextEditingController().obs;
+  RxBool reobscureTextpass = true.obs;
+  RxBool reConfirmobscureTextpass = true.obs;
   RxBool obscureTextLpass = true.obs;
   RxBool showPhoneNumberField = true.obs;
   RxBool isLoading = false.obs;
@@ -47,7 +52,32 @@ class LoginPageController extends GetxController {
 
 
 
+  updatePassword() async {
+    print("${phoneLCtrl.value.text}");
+    print("${repasswordLCtrl.value.text}");
+    print("${reConfirmpasswordLCtrl.value.text}");
+    print("${SignupPageController.instance.selectedCountry.value}");
+    var header = """
+mutation Forgot_Password(\$phoneNumber: String!, \$passWord: String, \$repeatPassword: String) {
+  Forgot_Password(phone_number_: \$phoneNumber, pass_word_: \$passWord, repeat_password: \$repeatPassword)
+}
+    """;
 
+    var body = {
+      "phoneNumber": "+${SignupPageController.instance.selectedCountry.value.phoneCode}${phoneLCtrl.value.text}",
+      "passWord": "${repasswordLCtrl.value.text}",
+      "repeatPassword": "${reConfirmpasswordLCtrl.value.text}"
+    };
+    var res = await _restCallController.gql_mutation(header, body);
+
+    if (res.toString().contains("SUCCESS")) {
+     // var hh = res["SUCCESS"]["Register_User"]["message"];
+      toast(error: "SUCCESS", msg: "Updated Successfully");
+      Get.offAllNamed(Routes.LOGIN_PAGE);
+
+    }
+    return;
+  }
 
 
   signUpUser() async {

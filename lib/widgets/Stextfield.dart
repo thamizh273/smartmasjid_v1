@@ -166,7 +166,7 @@ class _Safa_textfieldState extends State<Safa_textfield> {
       child: TextField(
 
     // validator: widget.validator,
-       onChanged: (value) => widget.onChanged!(value),
+       onChanged:widget.onChanged==null?(value){}:((value) => widget.onChanged!(value)),
           readOnly:widget.readOnly??false ,
         focusNode: widget.focusNode??myFocusNode,
         keyboardType: widget.keyboardType ?? TextInputType.text,
@@ -187,7 +187,7 @@ class _Safa_textfieldState extends State<Safa_textfield> {
             decoration: BoxDecoration(
 
                 borderRadius: BorderRadius.circular(8),
-                color: myFocusNode.hasFocus ? Get.theme.primaryColor: null),
+                color: myFocusNode.hasFocus ? Get.theme.primaryColor: clr_gray.shade200),
             child: Stxt(
               text: '${widget.label}',color: myFocusNode.hasFocus ?Colors.white:null,
               size: f2,
@@ -201,11 +201,16 @@ class _Safa_textfieldState extends State<Safa_textfield> {
           suffixIcon: widget.suffixIcon,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
+            borderSide:  BorderSide(
+              color: Colors.grey,
+// Change the border color for focused state
+              width: 2.0, // Change the border width for focused state
+            ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
             borderSide:  BorderSide(
-              color: myFocusNode.hasFocus?Get.theme.primaryColor:Colors.grey,
+              color: Get.theme.primaryColor,
 // Change the border color for focused state
               width: 2.0, // Change the border width for focused state
             ),

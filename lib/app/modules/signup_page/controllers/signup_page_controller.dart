@@ -1,5 +1,8 @@
 
 
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:country_picker/country_picker.dart';
 import 'package:country_state_picker/country_state_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,14 +11,18 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:smartmasjid_v1/app/authRepository.dart';
 
+import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
+import '../../loginPage/controllers/login_page_controller.dart';
+import '../model/checkUserModel.dart';
 
 class SignupPageController extends GetxController {
   //TODO: Implement SignupPageController
   static SignupPageController get instance =>Get.find();
-
-
+    var checkuserData=CheckUserModel().obs;
+  final _restCallController = Get.put(restCallController());
+  final _logincontrl = Get.put(LoginPageController());
   Rx<Country> selectedCountry = Country(
     phoneCode: "91",
     countryCode: "IN",
@@ -38,6 +45,7 @@ class SignupPageController extends GetxController {
   Rx<TextEditingController> lastNameCtrl = TextEditingController().obs;
   RxBool obscureTextpass = true.obs;
   RxBool obscureTextcpass = true.obs;
+  RxBool isLoadingscheckuser = true.obs;
 
 //  RxInt resendOtp = 0.obs;
 //  var verificationid = "".obs;
@@ -49,7 +57,77 @@ class SignupPageController extends GetxController {
  void phoneAuthentication(String phoneno ){
    AuthenticationRespository.instance.phoneAuthentication(phoneno);
  }
+  checkuserValid() async {
+   print("${emailCtrl.value.text}");
+   print("+${selectedCountry.value.phoneCode}${phoneCtrl.value.text}");
+    isLoadingscheckuser.value = true;
+    var header = """
+query Query(\$emailId: String, \$phoneNumber: String) {
+  Check_User_Valid_Verification(email_id_: \$emailId, phone_number_: \$phoneNumber)
+}
+    """;
 
+    var body = {
+      "emailId": "${emailCtrl.value.text}",
+      "phoneNumber": "+${selectedCountry.value.phoneCode}${phoneCtrl.value.text}"
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data sign ${json.encode(res)}");
+    isLoadingscheckuser.value = false;
+  checkuserData.value = checkUserModelFromJson(json.encode(res));
+    if(res.toString().contains("Please use a different email or phone number to proceed")){
+      toast(error: "Error", msg: res["Check_User_Valid_Verification"]);
+
+      return  ;
+    } else{
+      phoneAuthentication("+${selectedCountry.value.phoneCode}${phoneCtrl.value.text.trim()}");
+      Get.toNamed(Routes.OTP_PAGE);
+
+    }
+   update();
+
+
+
+  }
+  forgetcheckuserValid() async {
+    print("+${selectedCountry.value.phoneCode}${_logincontrl.phoneLCtrl.value.text}");
+    isLoadingscheckuser.value = true;
+    var header = """
+query Query(\$emailId: String, \$phoneNumber: String) {
+  Check_User_Valid_Verification(email_id_: \$emailId, phone_number_: \$phoneNumber)
+}
+    """;
+
+    var body = {
+      "emailId": "qwe",
+      "phoneNumber": "+${selectedCountry.value.phoneCode}${_logincontrl.phoneLCtrl.value.text}"
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data sign ${json.encode(res)}");
+    isLoadingscheckuser.value = false;
+  checkuserData.value = checkUserModelFromJson(json.encode(res));
+    if(res.toString().contains("Please use a different email or phone number to proceed")){
+      toast(error: "Error", msg: "Otp sent your Mobile no");
+      phoneAuthentication("+${selectedCountry.value.phoneCode}${_logincontrl.phoneLCtrl.value.text.trim()}");
+      
+      Get.toNamed(Routes.OTP_PAGE);
+      return  ;
+    } else{
+
+     toast(error: 'Error', msg: "User Not Fount");
+
+    }
+   update();
+
+
+
+  }
 
 // Future<UserCredential?> createUserWithPhoneAndPassword() async {
 //   print(otp1.value);

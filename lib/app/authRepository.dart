@@ -167,14 +167,14 @@ query Login_With_Gmail(\$authId: String) {
     var res = await _restCallController.gql_query(header, body);
     log("wwww${res}");
 
-    if (res == "Please Complete The Registration Process For Masjid Membership") {
+    if (res["ERROR"] == "Please Complete The Registration Process For Masjid Membership") {
       Get.toNamed(Routes.MASJID_FINDER);
       if(res.toString().contains("ERROR")){
         toast(error: "Error", msg: "${res["ERROR"]}");
       }
       return;
     }
-    if (res == "Request Not Approved") {
+    if (res["ERROR"] == "Request Not Approved") {
       if(res.toString().contains("ERROR")){
         toast(error: "Error", msg: "${res["ERROR"]}");
       }

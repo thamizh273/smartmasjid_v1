@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/authRepository.dart';
+import 'package:smartmasjid_v1/app/modules/loginPage/views/forgetPassword.dart';
 
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
@@ -19,12 +20,17 @@ class OtpPageController extends GetxController {
   static OtpPageController get instance =>Get.find();
 
      var otpctrl ="".obs;
-
+     var forgetpassotp=false.obs;
   void verifyOTP() async{
     var isverified = await AuthenticationRespository.instance.verifyOtp(otpctrl.value);
+    if( forgetpassotp.value==true){
+      isverified?Get.to(ForgetPassword()):Get.back();
+    }else{
+      isverified?Get.toNamed(Routes.MASJID_FINDER):Get.back();
+      isverified?authctrl.pinController.value.text="":Get.back();
+    }
 
-    isverified?Get.toNamed(Routes.MASJID_FINDER):Get.back();
-    isverified?authctrl.pinController.value.text="":Get.back();
+
   }
 
 

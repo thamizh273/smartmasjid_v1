@@ -16,7 +16,7 @@ class SignupPageView extends GetView<SignupPageController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+
       body: Form(
         key: formkey_,
         child: BGContainerRegister(
@@ -201,10 +201,10 @@ class SignupPageView extends GetView<SignupPageController> {
                               return;
                             }
                             if(formkey_.currentState!.validate()){
-                              SignupPageController.instance.phoneAuthentication("+${controller.selectedCountry.value.phoneCode}${controller.phoneCtrl.value.text.trim()}");
+                              controller.checkuserValid();
                             }
                             // controller.verifyPhoneNumber();
-                            Get.toNamed(Routes.OTP_PAGE);
+
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(150, 40),

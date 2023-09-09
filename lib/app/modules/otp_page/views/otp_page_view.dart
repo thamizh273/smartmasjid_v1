@@ -208,6 +208,7 @@ class OtpPageView extends GetView<OtpPageController> {
                             onPressed: () {
                               OtpPageController.instance.verifyOTP();
 
+
                               //OtpPageController.instance.verifyOTP(Controller.codes.value);
                             },
                             child: Text(
