@@ -18,7 +18,7 @@ import 'package:smartmasjid_v1/widgets/safa_dropdown2.dart';
 import '../../../routes/export.dart';
 
 class ImanTrackerView extends GetView<ImanTrackerController> {
-  ImanTrackerView({Key? key}) : super(key: key);
+   ImanTrackerView({Key? key}) : super(key: key);
 
   // final controller =Get.put(ImanTrackerController());
   List prayerList = [
@@ -45,10 +45,10 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
         appBar: CustomAppbar(
           tittle: "iman_tracker".tr,
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(5),
+            preferredSize: Size.fromHeight(2),
             child: TabBar(
               padding: EdgeInsets.all(0),
-              labelPadding: EdgeInsets.all(2),
+              labelPadding: EdgeInsets.all(5),
               controller: controller.tabctrl,
               tabs: controller.myTabs,
               onTap: (v) {
@@ -56,7 +56,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
               },
             ),
           ),
-          height: 80.h,
+          height: 100.h,
         ),
         body: TabBarView(
           controller: controller.tabctrl,

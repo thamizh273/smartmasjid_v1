@@ -14,6 +14,7 @@ import 'package:smartmasjid_v1/widgets/loading.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
 
 import '../../../../widgets/space.dart';
+import '../../language_page/controllers/language_page_controller.dart';
 import '../controllers/duapage_controller.dart';
 import 'dua_detail.dart';
 
@@ -24,6 +25,7 @@ class DuapageView extends GetView<DuapageController> {
   final Color oddItemColor = Color(0xffB5CCD4);
   final Color evenItemColor = Color(0xff6C9AA9);
   final Color other = Color(0xff84ABB7);
+  final langCtrl=Get.put(LanguagePageController());
 
 
   @override
@@ -88,7 +90,8 @@ class DuapageView extends GetView<DuapageController> {
                                 ),
                                 // color: RandomColorModel().getColor(),
                                 child: Center(
-                                  child: Text("${dua.duasNameEn}",
+                                  child: Text(langCtrl.selectedLang.value=="ENGLISH"?dua.duasNameEn.toString():
+                                  langCtrl.selectedLang.value=="தமிழ்"?dua.duasNameTamil.toString():dua.duasNameHindi.toString(),
                                       style: TextStyle(
                                           fontSize: 18, color: Colors.black),
                                       textAlign: TextAlign.center),

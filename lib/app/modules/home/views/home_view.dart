@@ -749,7 +749,11 @@ class HomeView extends StatelessWidget {
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset("assets/svg/masjidbot.svg"),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(Routes.MASJIDNEARME);
+                          },
+                            child: SvgPicture.asset("assets/svg/masjidbot.svg")),
                         Space(8),
                         GestureDetector(
                             onTap: () {
@@ -760,9 +764,17 @@ class HomeView extends StatelessWidget {
                         Space(8),
                         SvgPicture.asset("assets/svg/homebot.svg"),
                         Space(8),
-                        SvgPicture.asset("assets/svg/mediabot.svg"),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(Routes.MEDIAPAGE);
+                          },
+                            child: SvgPicture.asset("assets/svg/mediabot.svg")),
                         Space(8),
-                        SvgPicture.asset("assets/svg/donatebot.svg"),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(Routes.DONATIONPAGE);
+                          },
+                            child: SvgPicture.asset("assets/svg/donatebot.svg")),
                       ]))));
     });
   }

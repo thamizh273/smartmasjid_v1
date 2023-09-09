@@ -333,7 +333,7 @@ AnimationController? _animationController;
 double begin = 0.0;
 
 class _QiblahCompassWidgetState extends State<QiblahCompassWidget> with SingleTickerProviderStateMixin {
-  final _compassSvg = Image.asset('assets/images/compassupd.png');
+  final _compassSvg = Image.asset('assets/images/com.png');
 
   final _needleSvg = Image.asset(
     "assets/images/needlenewww.png",
