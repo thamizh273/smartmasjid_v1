@@ -49,13 +49,26 @@ var isLoadings2 = false.obs;
   duaList() async {
     isLoadings.value = true;
     var header = """
-query Get_Duas_Title_List_(\$masjidId: String) {
+query Get_Duas_Verse_List(\$masjidId: String) {
   Get_Duas_Title_List_(masjid_id: \$masjidId) {
     feeling {
       duas_name_en
       duas_name_arb
       duas_name_tamil
       duas_name_hindi
+      duas_name_malayalam
+      duas_name_telugu
+      duas_name_urdu
+      others_name
+      titles_list {
+        title
+        title_arb
+        title_hindi
+        title_malayalam
+        title_telugu
+        title_tamil
+        title_urdu
+      }
       duas_type
     }
     daily {
@@ -63,8 +76,18 @@ query Get_Duas_Title_List_(\$masjidId: String) {
       duas_name_arb
       duas_name_tamil
       duas_name_hindi
+      duas_name_malayalam
+      duas_name_telugu
+      duas_name_urdu
+      others_name
       titles_list {
         title
+        title_arb
+        title_malayalam
+        title_telugu
+        title_tamil
+        title_hindi
+        title_urdu
       }
       duas_type
     }
@@ -73,8 +96,18 @@ query Get_Duas_Title_List_(\$masjidId: String) {
       duas_name_arb
       duas_name_tamil
       duas_name_hindi
+      duas_name_malayalam
+      duas_name_telugu
+      duas_name_urdu
+      others_name
       titles_list {
         title
+        title_arb
+        title_malayalam
+        title_telugu
+        title_tamil
+        title_hindi
+        title_urdu
       }
       duas_type
     }

@@ -62,7 +62,7 @@ class ImanTrackerController extends GetxController with GetSingleTickerProviderS
   //   colorIndices[index] = (colorIndices[index] + 1) % cardColors.length;
   // }
   final List<Tab> myTabs = <Tab>[
-    Tab(text: 'entry'.tr),
+    Tab(text: 'entry'.tr,),
     Tab(text: 'stats'.tr),
   ];
   getImanTrakerEntry() async {

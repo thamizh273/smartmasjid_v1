@@ -59,9 +59,13 @@ class GetDuasTitleList {
 class Daily {
   DailyTypename? typename;
   String? duasNameEn;
-  dynamic duasNameArb;
-  dynamic duasNameTamil;
-  dynamic duasNameHindi;
+  String? duasNameArb;
+  String? duasNameTamil;
+  String? duasNameHindi;
+  String? duasNameMalayalam;
+  String? duasNameTelugu;
+  String? duasNameUrdu;
+  List<dynamic>? othersName;
   List<TitlesList>? titlesList;
   DuasType? duasType;
 
@@ -71,6 +75,10 @@ class Daily {
     this.duasNameArb,
     this.duasNameTamil,
     this.duasNameHindi,
+    this.duasNameMalayalam,
+    this.duasNameTelugu,
+    this.duasNameUrdu,
+    this.othersName,
     this.titlesList,
     this.duasType,
   });
@@ -81,6 +89,10 @@ class Daily {
     duasNameArb: json["duas_name_arb"],
     duasNameTamil: json["duas_name_tamil"],
     duasNameHindi: json["duas_name_hindi"],
+    duasNameMalayalam: json["duas_name_malayalam"],
+    duasNameTelugu: json["duas_name_telugu"],
+    duasNameUrdu: json["duas_name_urdu"],
+    othersName: json["others_name"] == null ? [] : List<dynamic>.from(json["others_name"]!.map((x) => x)),
     titlesList: json["titles_list"] == null ? [] : List<TitlesList>.from(json["titles_list"]!.map((x) => TitlesList.fromJson(x))),
     duasType: duasTypeValues.map[json["duas_type"]]!,
   );
@@ -91,6 +103,10 @@ class Daily {
     "duas_name_arb": duasNameArb,
     "duas_name_tamil": duasNameTamil,
     "duas_name_hindi": duasNameHindi,
+    "duas_name_malayalam": duasNameMalayalam,
+    "duas_name_telugu": duasNameTelugu,
+    "duas_name_urdu": duasNameUrdu,
+    "others_name": othersName == null ? [] : List<dynamic>.from(othersName!.map((x) => x)),
     "titles_list": titlesList == null ? [] : List<dynamic>.from(titlesList!.map((x) => x.toJson())),
     "duas_type": duasTypeValues.reverse[duasType],
   };
@@ -111,20 +127,44 @@ final duasTypeValues = EnumValues({
 class TitlesList {
   TitlesListTypename? typename;
   String? title;
+  String? titleArb;
+  String? titleMalayalam;
+  String? titleTelugu;
+  String? titleTamil;
+  String? titleHindi;
+  String? titleUrdu;
 
   TitlesList({
     this.typename,
     this.title,
+    this.titleArb,
+    this.titleMalayalam,
+    this.titleTelugu,
+    this.titleTamil,
+    this.titleHindi,
+    this.titleUrdu,
   });
 
   factory TitlesList.fromJson(Map<String, dynamic> json) => TitlesList(
     typename: titlesListTypenameValues.map[json["__typename"]]!,
     title: json["title"],
+    titleArb: json["title_arb"],
+    titleMalayalam: json["title_malayalam"],
+    titleTelugu: json["title_telugu"],
+    titleTamil: json["title_tamil"],
+    titleHindi: json["title_hindi"],
+    titleUrdu: json["title_urdu"],
   );
 
   Map<String, dynamic> toJson() => {
     "__typename": titlesListTypenameValues.reverse[typename],
     "title": title,
+    "title_arb": titleArb,
+    "title_malayalam": titleMalayalam,
+    "title_telugu": titleTelugu,
+    "title_tamil": titleTamil,
+    "title_hindi": titleHindi,
+    "title_urdu": titleUrdu,
   };
 }
 

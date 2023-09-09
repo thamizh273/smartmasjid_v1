@@ -528,16 +528,10 @@ class QuranpageView extends StatelessWidget {
                                                     SingleChildScrollView(
                                                       child: Padding(
                                                         padding:
-                                                        const EdgeInsets
-                                                            .only(
-                                                            bottom: 8.0),
+                                                        const EdgeInsets.only(bottom: 8.0),
                                                         child: Column(
-                                                          mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
+                                                          mainAxisAlignment: MainAxisAlignment.center,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
                                                             Text(
                                                               ('sura_name_en_${sura.suraNameEn}').tr,
@@ -672,8 +666,7 @@ class QuranpageView extends StatelessWidget {
                                                           ),
                                                           Space(8),
                                                           Text(
-                                                            "${sura
-                                                                .totalVerses}",
+                                                            "${sura.totalVerses}",
                                                             style: TextStyle(
                                                                 color: Color(
                                                                     0xff16627C),

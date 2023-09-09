@@ -107,7 +107,7 @@ class DonationpageView extends GetView<DonationpageController> {
                                                 borderRadius:
                                                     BorderRadius.circular(8.r),
                                                 image: data.image == null
-                                                    ? DecorationImage(
+                                                    ? const DecorationImage(
                                                         image: AssetImage(
                                                           "assets/images/masjidselc.png",
                                                         ),
@@ -188,7 +188,7 @@ class DonationpageView extends GetView<DonationpageController> {
                                                           .primaryColor),
                                                   color: Theme.of(context)
                                                       .primaryColor),
-                                              child: Center(
+                                              child: const Center(
                                                 child: Icon(
                                                   Icons
                                                       .arrow_forward_ios_outlined,

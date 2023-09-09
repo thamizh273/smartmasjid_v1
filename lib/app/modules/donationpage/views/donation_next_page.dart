@@ -175,21 +175,35 @@ class DonationAmount extends StatelessWidget {
               ),
               16.verticalSpace,
               Center(
-                  child: SButton(
-                      ontap: () {
-
+                  child: ElevatedButton(
+                      onPressed: () {
                         if(donationamount_ctrl.amount.value.isNotEmpty){
                           ctxs.receiverName.value=data.masjidId!.masjidName.toString();
                           ctxs.amount.value=double.parse(donationamount_ctrl.amount.value);
                           Get.to(PaymentsMethods(controllerMethod: () { donationamount_ctrl.donationPayment(); },  controllerMethod2: donationamount_ctrl.donationPaymentsuccess));
                           return;
                         }
-                         toast(error: "Hint", msg: "Enter Amount");
-
+                        toast(error: "Hint", msg: "Enter Amount");
                       },
-                      text: "donate_now".tr,
-                      color: theme.primaryColor,
-                      txtClr: clr_white))
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(150, 40),
+                        backgroundColor: Theme
+                            .of(context)
+                            .primaryColor,
+                        foregroundColor: const Color(0xff11323B),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        elevation: 4.0,
+                      ),
+                      child:  Text(
+                        "donate_now".tr,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            color: Colors.white),
+                      )),
+              )
             ],
           ),
         ),
@@ -197,3 +211,5 @@ class DonationAmount extends StatelessWidget {
     );
   }
 }
+
+
