@@ -527,7 +527,7 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     {"sura": "Maryam", "image":"assets/images/19. Maryam.png"},
     {"sura": "Taha", "image":"assets/images/20. Taha.png"},
     {"sura": "Al-Anbya", "image":"assets/images/21. Al-Anbya.png"},
-    {"sura": "Al-Hajj", "image":"assets/images/22. Al-Hajj.png"},
+    {"sura": "Al-Hajj", "image":"assets/images/22. Al-hajj.png"},
     {"sura": "Al-Mu'minun", "image":"assets/images/23. Al-Muminum.png"},
     {"sura": "An-Nur", "image":"assets/images/24. An-Nur.png"},
     {"sura": "Al-Furqan", "image":"assets/images/25. Al-Furqan.png"},

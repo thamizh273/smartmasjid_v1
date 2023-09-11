@@ -10,12 +10,12 @@ class LanguagePageController extends GetxController {
 
   final List locale = [
     {'name': 'ENGLISH', 'locale': const Locale('en', 'US')},
-    {'name': 'தமிழ்', 'locale': const Locale('ta', 'IN')},
-    {'name': 'French', 'locale': const Locale('fr', 'FR')},
-    {'name': 'हिंदी', 'locale': const Locale('hi', 'IN')},
-    {'name': 'ಕನ್ನಡ', 'locale': const Locale('ka', 'IN')},
-    {'name': 'മലയാളം', 'locale': const Locale('ma', 'IN')},
-    {'name': 'తెలుగు', 'locale': const Locale('te', 'IN')},
+    {'name': 'Tamil(தமிழ்)', 'locale': const Locale('ta', 'IN')},
+    {'name': 'Urdu(اردو)', 'locale': const Locale('ur', 'UR')},
+    {'name': 'Hindi(हिंदी)', 'locale': const Locale('hi', 'IN')},
+    // {'name': 'ಕನ್ನಡ', 'locale': const Locale('ka', 'IN')},
+    {'name': 'Malayalam(മലയാളം)', 'locale': const Locale('ma', 'IN')},
+    {'name': 'Telugu(తెలుగు)', 'locale': const Locale('te', 'IN')},
   ];
   RxString selectedLang="".obs;
   final langStore = GetStorage();
