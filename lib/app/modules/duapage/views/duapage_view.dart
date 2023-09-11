@@ -91,8 +91,12 @@ class DuapageView extends GetView<DuapageController> {
                                 // color: RandomColorModel().getColor(),
                                 child: Center(
                                   child: Text(langCtrl.selectedLang.value=="ENGLISH"?dua.duasNameEn.toString():
-                                  langCtrl.selectedLang.value=="தமிழ்"?dua.duasNameTamil.toString():dua.duasNameHindi.toString(),
-                                      style: TextStyle(
+                                  langCtrl.selectedLang.value=="Tamil(தமிழ்)"?dua.duasNameTamil.toString():
+                                  langCtrl.selectedLang.value=="Urdu(اردو)"?dua.duasNameUrdu.toString():
+                                  langCtrl.selectedLang.value=="Hindi(हिंदी)"?dua.duasNameHindi.toString():
+                                  langCtrl.selectedLang.value=="Malayalam(മലയാളം)"?dua.duasNameMalayalam.toString():
+                                  langCtrl.selectedLang.value=="Telugu(తెలుగు)"?dua.duasNameTelugu.toString():dua.duasNameEn.toString(),
+                                      style: const TextStyle(
                                           fontSize: 18, color: Colors.black),
                                       textAlign: TextAlign.center),
                                 ),
@@ -114,7 +118,7 @@ class DuapageView extends GetView<DuapageController> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(c.isExpanded.value ? "See Less" : "See More",
+                            Text(c.isExpanded.value   ? "See Less" : "See More",
                               style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.w600),),
                             Icon(c.isExpanded.value ? Icons.expand_less : Icons
                                 .expand_more, color:  Colors.white,),
@@ -178,9 +182,16 @@ class DuapageView extends GetView<DuapageController> {
                                           "assets/images/${c.getduadata.value.getDuasTitleList!.daily![index].duasNameEn!.toLowerCase()}.png")
                                     ),
                                     SizedBox(width: 8),
-                                    Text(
-                                      "${daily.duasNameEn}",
-                                      style: TextStyle(fontSize: 16),
+                                    SizedBox(
+                                      width: .16.sw,
+                                      child: Text(langCtrl.selectedLang.value=="ENGLISH"? daily.duasNameEn.toString():
+                                      langCtrl.selectedLang.value=="Tamil(தமிழ்)"? daily.duasNameTamil.toString():
+                                      langCtrl.selectedLang.value=="Hindi(हिंदी)"? daily.duasNameHindi.toString():
+                                      langCtrl.selectedLang.value=="Urdu(اردو)"? daily.duasNameUrdu.toString():
+                                      langCtrl.selectedLang.value=="Malayalam(മലയാളം)"? daily.duasNameMalayalam.toString():
+                                      langCtrl.selectedLang.value=="Telugu(తెలుగు)"? daily.duasNameTelugu.toString():daily.duasNameEn.toString(),
+                                        style: TextStyle(fontSize: 16),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -258,13 +269,19 @@ class DuapageView extends GetView<DuapageController> {
                                   borderRadius: BorderRadius.circular(
                                       20),
                                 ),
-                                child:  Image.asset("assets/images/${c.getduadata.value.getDuasTitleList!.occasion![index].duasNameEn!}.png")
+                                child:  Image.asset("assets/images/${c.getduadata.value.getDuasTitleList!.occasion![index].duasNameEn!.toLowerCase()}.png")
                             ),
                             SizedBox(width: 8),
                             SizedBox(
                               width: .2.sw,
                               child: Text(
-                                "${occasion.duasNameEn}",
+                                langCtrl.selectedLang.value=="ENGLISH"?occasion.duasNameEn.toString():
+                                langCtrl.selectedLang.value=="Tamil(தமிழ்)"?occasion.duasNameTamil.toString():
+                                langCtrl.selectedLang.value=="Urdu(اردو)"?occasion.duasNameUrdu.toString():
+                                langCtrl.selectedLang.value=="Hindi(हिंदी)"?occasion.duasNameHindi.toString():
+                                langCtrl.selectedLang.value=="Malayalam(മലയാളം)"?occasion.duasNameMalayalam.toString():
+                                langCtrl.selectedLang.value=="Telugu(తెలుగు)"?occasion.duasNameTelugu.toString():
+                                occasion.duasNameEn.toString(),
                                 style: TextStyle(fontSize: 16),
                               ),
                             ),
@@ -292,6 +309,7 @@ class CustomDialogBox extends StatelessWidget {
   TextEditingController pass = TextEditingController();
   TextEditingController c = TextEditingController();
   final  duaCtrl =Get.put( DuapageController());
+  final langCtrl=Get.put(LanguagePageController());
 
   CustomDialogBox(this.index);
   int index;
@@ -304,11 +322,31 @@ class CustomDialogBox extends StatelessWidget {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: _buildDialogContent(context,duaList[index].duasNameEn,duaList[index].titlesList!.map((e) => e.title).toList(),duaList[index].titlesList!.length),
+      child: _buildDialogContent(context,
+          ///title
+          langCtrl.selectedLang.value=="ENGLISH"?duaList[index].duasNameEn:
+          langCtrl.selectedLang.value=="Tamil(தமிழ்)"?duaList[index].duasNameTamil:
+          langCtrl.selectedLang.value=="Urdu(اردو)"?duaList[index].duasNameUrdu:
+          langCtrl.selectedLang.value=="Hindi(हिंदी)"?duaList[index].duasNameHindi:
+          langCtrl.selectedLang.value=="Malayalam(മലയാളം)"?duaList[index].duasNameMalayalam:
+          langCtrl.selectedLang.value=="Telugu(తెలుగు)"?duaList[index].duasNameTelugu: duaList[index].duasNameEn,
+
+          ///items
+          langCtrl.selectedLang.value=="ENGLISH"?duaList[index].titlesList!.map((e) => e.title).toList():
+          langCtrl.selectedLang.value=="Tamil(தமிழ்)"?duaList[index].titlesList!.map((e) => e.titleTamil).toList():
+          langCtrl.selectedLang.value=="Urdu(اردو)"?duaList[index].titlesList!.map((e) => e.titleUrdu).toList():
+          langCtrl.selectedLang.value=="Hindi(हिंदी)"?duaList[index].titlesList!.map((e) => e.titleHindi).toList():
+          langCtrl.selectedLang.value=="Malayalam(മലയാളം)"?duaList[index].titlesList!.map((e) => e.titleMalayalam).toList():
+          langCtrl.selectedLang.value=="Telugu(తెలుగు)"?duaList[index].titlesList!.map((e) => e.titleTelugu).toList():
+          duaList[index].titlesList!.map((e) => e.title),
+
+          ///Count
+          duaList[index].titlesList!.length),
     );
   }
 
   Widget _buildDialogContent(BuildContext context, String? title,  items, int count, ) {
+    var duaList=duaCtrl.getduadata.value.getDuasTitleList!.daily!;
     print(count);
     print(items);
     print(title);
@@ -332,7 +370,7 @@ class CustomDialogBox extends StatelessWidget {
                       .primaryColor)
               ),
               child: Image.asset(
-                "assets/images/${title!.toLowerCase()}.png", fit: BoxFit.fill,),
+                "assets/images/${duaList[index].duasNameEn!.toLowerCase()}.png", fit: BoxFit.fill,),
             ),
             Space(16),
             Stxt(text: "${title}", size: f5, weight: FontWeight.w500,),
@@ -386,9 +424,10 @@ class CustomDialogBox extends StatelessWidget {
   }
 }
 class CustomDialogBox1 extends StatelessWidget {
-  TextEditingController pass = TextEditingController();
-  TextEditingController c = TextEditingController();
+   TextEditingController pass = TextEditingController();
+   TextEditingController c = TextEditingController();
   final  duaCtrl =Get.put( DuapageController());
+   final langCtrl=Get.put(LanguagePageController());
 
   CustomDialogBox1(this.index);
   int index;
@@ -401,11 +440,33 @@ class CustomDialogBox1 extends StatelessWidget {
       ),
       elevation: 0,
       backgroundColor: Colors.transparent,
-      child: _buildDialogContent(context,occasionList[index].duasNameEn,occasionList[index].titlesList!.map((e) => e.title).toList(),occasionList[index].titlesList!.length),
+      child: _buildDialogContent(context,
+          ///title
+          langCtrl.selectedLang.value=="ENGLISH"?occasionList[index].duasNameEn:
+          langCtrl.selectedLang.value=="Tamil(தமிழ்)"?occasionList[index].duasNameTamil:
+          langCtrl.selectedLang.value=="Urdu(اردو)"?occasionList[index].duasNameUrdu:
+          langCtrl.selectedLang.value=="Hindi(हिंदी)"?occasionList[index].duasNameUrdu:
+          langCtrl.selectedLang.value=="Malayalam(മലയാളം)"?occasionList[index].duasNameMalayalam:
+          langCtrl.selectedLang.value=="Telugu(తెలుగు)"?occasionList[index].duasNameTelugu:
+      occasionList[index].duasNameEn,
+
+          ///items
+          langCtrl.selectedLang.value=="ENGLISH"?occasionList[index].titlesList!.map((e) => e.title).toList():
+          langCtrl.selectedLang.value=="Tamil(தமிழ்)"?occasionList[index].titlesList!.map((e) => e.titleTamil).toList():
+          langCtrl.selectedLang.value=="Urdu(اردو)"?occasionList[index].titlesList!.map((e) => e.titleUrdu).toList():
+          langCtrl.selectedLang.value=="Hindi(हिंदी)"?occasionList[index].titlesList!.map((e) => e.titleHindi).toList():
+          langCtrl.selectedLang.value=="Malayalam(മലയാളം)"?occasionList[index].titlesList!.map((e) => e.titleMalayalam).toList():
+          langCtrl.selectedLang.value=="Telugu(తెలుగు)"?occasionList[index].titlesList!.map((e) => e.titleTelugu).toList():
+          occasionList[index].titlesList!.map((e) => e.title).toList(),
+
+
+          ///count
+          occasionList[index].titlesList!.length),
     );
   }
 
   Widget _buildDialogContent(BuildContext context, String? title,  items, int count, ) {
+    var occasionList=duaCtrl.getduadata.value.getDuasTitleList!.occasion!;
     print(count);
     print(items);
     print(title);
@@ -429,7 +490,7 @@ class CustomDialogBox1 extends StatelessWidget {
                       .primaryColor)
               ),
               child: Image.asset(
-                "assets/images/${title!}.png", fit: BoxFit.fill,),
+                "assets/images/${occasionList[index].duasNameEn!.toLowerCase()}.png", fit: BoxFit.fill,),
             ),
             Space(16),
             Stxt(text: "${title}", size: f5, weight: FontWeight.w500,),
