@@ -8,6 +8,9 @@
         android:icon="@mipmap/ic_launcher">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD21_QPrlP2N-YaEwvDEGvrdHdFi75FVwA"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="notification_channel" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -7,7 +7,10 @@ import 'package:get_storage/get_storage.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:overlay_support/overlay_support.dart';
 import 'package:smartmasjid_v1/utils/ansomeNotification.dart';
+import 'package:smartmasjid_v1/utils/fcm_notification/fcm_helper.dart';
+import 'package:smartmasjid_v1/utils/fcm_notification/local_notification_helper.dart';
 
 import 'package:smartmasjid_v1/utils/localization/localization.dart';
 
@@ -15,6 +18,7 @@ import 'app/authRepository.dart';
 import 'app/modules/home/bindings/home_binding.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/export.dart';
+import 'data/local/my_shared_pref.dart';
 import 'firebase_options.dart';
 
 void main() async{
@@ -30,6 +34,9 @@ void main() async{
   ).then((value) => Get.put(AuthenticationRespository()));
   await initHiveForFlutter();
   await AwesomeNotificationsHelper.init();
+  await MySharedPref.init();
+  await FcmHelper.initFcm();
+  LocalNotificationHelper.initializeNotifications();
 
   // HomeController().get_user("92owFV2zwZfyKnIJdcTEopBkLHE3");
   final WebSocketLink websocketLink = WebSocketLink(
@@ -51,32 +58,34 @@ void main() async{
   Get.put<Localization>(Localization());
 
   runApp(
-    ScreenUtilInit(
-        builder: (BuildContext context, Widget? child) {
-        return GraphQLProvider(
-          client: client,
-          child: GetMaterialApp(
+    OverlaySupport(
+      child: ScreenUtilInit(
+          builder: (BuildContext context, Widget? child) {
+          return GraphQLProvider(
+            client: client,
+            child: GetMaterialApp(
 
-          //  navigatorObservers: [FlutterSmartDialog.observer],
-         //   builder: FlutterSmartDialog.init(),
-          //  initialBinding: HomeBinding(),
-            debugShowCheckedModeBanner: false,
-            initialBinding: HomeBinding(),
-            translations: localization,
-            fallbackLocale: const Locale('en', 'US'),
-            locale: initialLocale,
-            title: "Application",
-            theme: ThemeService().lightTheme,
-            darkTheme: ThemeService().darkTheme,
-            themeMode: ThemeService().getThemeMode(),
-            initialRoute:AppPages.INITIAL,
-            getPages: AppPages.routes,
-              builder:(context,child){
-                return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: child!);
-              }
-          ),
-        );
-      }
+            //  navigatorObservers: [FlutterSmartDialog.observer],
+           //   builder: FlutterSmartDialog.init(),
+            //  initialBinding: HomeBinding(),
+              debugShowCheckedModeBanner: false,
+              initialBinding: HomeBinding(),
+              translations: localization,
+              fallbackLocale: const Locale('en', 'US'),
+              locale: initialLocale,
+              title: "Application",
+              theme: ThemeService().lightTheme,
+              darkTheme: ThemeService().darkTheme,
+              themeMode: ThemeService().getThemeMode(),
+              initialRoute:AppPages.INITIAL,
+              getPages: AppPages.routes,
+                builder:(context,child){
+                  return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: child!);
+                }
+            ),
+          );
+        }
+      ),
     ),
   );
 }
