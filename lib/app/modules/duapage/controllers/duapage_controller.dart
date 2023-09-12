@@ -32,7 +32,7 @@ var isLoadings2 = false.obs;
   @override
   void onInit() {
     duaList();
-    // duadetailList();
+  // duadetailList("");
     super.onInit();
   }
 
@@ -129,20 +129,37 @@ query Get_Duas_Verse_List(\$masjidId: String) {
     update();
   }
   duadetailList(String? duasNameEn) async {
+    // print( "dua dua ${duasNameEn}");
     isLoadings1.value = true;
     var header = """
-query Query(\$titleName: String) {
+query Get_Duas_Verse_List(\$titleName: String) {
   Get_Duas_Verse_List(title_name: \$titleName) {
-    duas_name_en
-    duas_name_arb
-    duas_name_tamil
-    duas_name_hindi
-    duas_arabic_text
-    duas_eng_text
-    eng_translation
-    tamil_translation
-    hindi_translation
+    duas_verses {
+      duas_name_en
+      duas_name_arb
+      duas_name_tamil
+      duas_name_hindi
+      duas_name_malayalam
+      duas_name_telugu
+      duas_name_urdu
+      duas_arabic_text
+      duas_eng_text
+      arb_translation
+      eng_translation
+      tamil_translation
+      hindi_translation
+      malayalam_translation
+      telugu_translation
+      urdu_translation
+      title
+    }
     title
+    title_arb
+    title_malayalam
+    title_telugu
+    title_hindi
+    title_tamil
+    title_urdu
   }
 }
     """;
@@ -155,7 +172,7 @@ query Query(\$titleName: String) {
     // print("lllll");
     // print(json.encode(res));
     // print("lllll");
-    log("data dua ${json.encode(res)}");
+    log("data duaaaa ${json.encode(res)}");
     isLoadings1.value = false;
     getdetailduadata.value = duaDetailModelFromJson(json.encode(res));
    // Get.to(DuaDetail());
@@ -164,18 +181,34 @@ query Query(\$titleName: String) {
   duadaily(String? duasNameEn) async {
     isLoadings2.value = true;
     var header = """
-query Query(\$titleName: String) {
+query Get_Duas_Verse_List(\$titleName: String) {
   Get_Duas_Verse_List(title_name: \$titleName) {
-    duas_name_en
-    duas_name_arb
-    duas_name_tamil
-    duas_name_hindi
-    duas_arabic_text
-    duas_eng_text
-    eng_translation
-    tamil_translation
-    hindi_translation
+    duas_verses {
+      duas_name_en
+      duas_name_arb
+      duas_name_tamil
+      duas_name_hindi
+      duas_name_malayalam
+      duas_name_telugu
+      duas_name_urdu
+      duas_arabic_text
+      duas_eng_text
+      arb_translation
+      eng_translation
+      tamil_translation
+      hindi_translation
+      malayalam_translation
+      telugu_translation
+      urdu_translation
+      title
+    }
     title
+    title_arb
+    title_malayalam
+    title_telugu
+    title_hindi
+    title_tamil
+    title_urdu
   }
 }
     """;

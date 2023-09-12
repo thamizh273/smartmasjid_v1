@@ -5,11 +5,14 @@ import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
 
+import '../../language_page/controllers/language_page_controller.dart';
+
 class DuaDetail extends StatelessWidget {
   DuaDetail({super.key});
 
 
   DuapageController duactrl = Get.put(DuapageController());
+  final langCtrl=Get.put(LanguagePageController());
 
   @override
   Widget build(BuildContext context) {
@@ -89,13 +92,19 @@ class DuaDetail extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Stxt(
-                      text: "I Am Feeling", size: f4, weight: FontWeight.w500,),
+                      text: "i_am_feeling".tr, size: f4, weight: FontWeight.w500,),
                     Space(8),
                     Obx(() {
+                      var detaildua = duactrl.getdetailduadata.value.getDuasVerseList!.duasVerses![0];
                       return Stxt(
-                        text: "${duactrl.getdetailduadata.value
-                            .getDuasVerseList![0]
-                            .duasNameEn}",
+                        text:
+                        langCtrl.selectedLang.value=="ENGLISH"? detaildua.duasNameEn.toString():
+                        langCtrl.selectedLang.value=="Tamil(தமிழ்)"? detaildua.duasNameTamil.toString():
+                        langCtrl.selectedLang.value=="Hindi(हिंदी)"? detaildua.duasNameHindi.toString():
+                        langCtrl.selectedLang.value=="Urdu(اردو)"? detaildua.duasNameUrdu.toString():
+                        langCtrl.selectedLang.value=="Malayalam(മലയാളം)"? detaildua.duasNameMalayalam.toString():
+                        langCtrl.selectedLang.value=="Telugu(తెలుగు)"? detaildua.duasNameTelugu.toString():
+                        detaildua.duasNameEn.toString(),
                         size: f4,
                         weight: FontWeight.w500,
                         color: Theme
@@ -108,11 +117,10 @@ class DuaDetail extends StatelessWidget {
                 Expanded(
                   child: ListView.builder(
                       itemCount: duactrl.getdetailduadata.value
-                          .getDuasVerseList!
-                          .length,
+                          .getDuasVerseList!.duasVerses!.length,
                       itemBuilder: (context, index) {
                         var duas = duactrl.getdetailduadata.value
-                            .getDuasVerseList![index];
+                            .getDuasVerseList!.duasVerses![index];
 
                         double fontSize = 35.0;
                         return Column(
@@ -160,7 +168,14 @@ class DuaDetail extends StatelessWidget {
                                         size: f4,
                                         color: Color(0xff78BDD4),textAlign: TextAlign.justify),
                                       Space(12),
-                                      Text("${duas.engTranslation}",
+                                      Text(
+                                          langCtrl.selectedLang.value=="ENGLISH"? duas.engTranslation.toString():
+                                          langCtrl.selectedLang.value=="Tamil(தமிழ்)"? duas.tamilTranslation.toString():
+                                          langCtrl.selectedLang.value=="Hindi(हिंदी)"? duas.hindiTranslation.toString():
+                                          langCtrl.selectedLang.value=="Urdu(اردو)"? duas.urduTranslation.toString():
+                                          langCtrl.selectedLang.value=="Malayalam(മലയാളം)"? duas.malayalamTranslation.toString():
+                                          langCtrl.selectedLang.value=="Telugu(తెలుగు)"? duas.teluguTranslation.toString():
+                                          duas.engTranslation.toString(),
                                         style: TextStyle(fontFamily: "Sriracha",
                                             fontSize: 20,
                                             color: Colors.white.withOpacity(0.8)),textAlign: TextAlign.justify)
