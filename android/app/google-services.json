@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:231830520319:android:d2c5a1623403283453e7ca",
         "android_client_info": {
-          "package_name": "com.safatech.smartmasjid_v1"
+          "package_name": "com.safatech.ummati"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "231830520319-9akms2alrs4618jk6lo0knnsd7nn7vc7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.safatech.smartmasjid_v1",
+            "package_name": "com.safatech.ummati",
             "certificate_hash": "c3b522038f67c82a92e51a60fc5c028cec5c7f19"
           }
         },

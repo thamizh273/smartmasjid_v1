@@ -390,8 +390,8 @@ class CustomDialogBox extends StatelessWidget {
                         onTap: (){
                           Navigator.pop(context);
                           Get.to(DailyDua());
-                          print(" ffff${items[index]}");
-                          duaCtrl.duadaily(items[index]);
+                          print(" ffff${duaList[index].titlesList!.map((e) => e.title).toList()}");
+                          duaCtrl.duadaily(duaList[index].titlesList!.map((e) => e.title).toList()[index]);
 
                         },
                         child: Padding(
@@ -510,7 +510,7 @@ class CustomDialogBox1 extends StatelessWidget {
                           Navigator.pop(context);
                           Get.to(DailyDua());
                           print("ffff${items[index]}");
-                          duaCtrl.duadaily(items[index]);
+                          duaCtrl.duadaily(occasionList[index].titlesList!.map((e) => e.title).toList()[index]);
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8),

@@ -9,12 +9,14 @@ import '../../../../widgets/loading.dart';
 import '../../../../widgets/space.dart';
 import '../../../../widgets/stext.dart';
 import '../../home/widgets/appBar.dart';
+import '../../language_page/controllers/language_page_controller.dart';
 
 
 class DailyDua extends StatelessWidget {
   DailyDua({super.key});
 
   final DuapageController duactrl = Get.put(DuapageController());
+  final langCtrl=Get.put(LanguagePageController());
 
   @override
   Widget build(BuildContext context) {
@@ -86,8 +88,7 @@ class DailyDua extends StatelessWidget {
               )
             ],
           ),
-          body:
-          Obx(() {
+          body: Obx(() {
             return duactrl.isLoadings2.value ? loading(context) : Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -96,16 +97,24 @@ class DailyDua extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Obx(() {
+                        var titlename = duactrl.getdailydata.value.getDuasVerseList!;
                         return SizedBox(
                           width: duactrl.screenWidth * 0.7,
                           child: Stxt(
                             textAlign: TextAlign.center,
-                            text: "${duactrl.getdailydata.value
-                                .getDuasVerseList![0].title}",
+                            text:
+                            langCtrl.selectedLang.value=="ENGLISH"?titlename.title.toString():
+                            langCtrl.selectedLang.value=="Tamil(தமிழ்)"?titlename.titleTamil.toString():
+                            langCtrl.selectedLang.value=="Hindi(हिंदी)"?titlename.titleHindi.toString():
+                            langCtrl.selectedLang.value=="Urdu(اردو)"?titlename.titleUrdu.toString():
+                            langCtrl.selectedLang.value=="Malayalam(മലയാളം)"?titlename.titleMalayalam.toString():
+                            langCtrl.selectedLang.value=="Telugu(తెలుగు)"?titlename.titleTelugu.toString():
+                            titlename.title.toString(),
                             size: f4,
                             weight: FontWeight.w500,),
                         );
                       }),
+
                       Space(8),
                       // Stxt(
                       //  text: "Sleeping",
@@ -119,11 +128,11 @@ class DailyDua extends StatelessWidget {
                   Space(16),
                   Expanded(
                     child: ListView.builder(
-                        itemCount: duactrl.getdailydata.value.getDuasVerseList!
+                        itemCount: duactrl.getdailydata.value.getDuasVerseList!.duasVerses!
                             .length,
                         itemBuilder: (context, index) {
                           var dailydet = duactrl.getdailydata.value
-                              .getDuasVerseList![index];
+                              .getDuasVerseList!.duasVerses![index];
                           double fontSize = 35.0;
                           return Column(
                             children: [
@@ -167,17 +176,26 @@ class DailyDua extends StatelessWidget {
                                         //   color: Colors.white,),
                                         Space(12),
                                         Stxt(
-                                          family: "Inter",
-                                          text: "${dailydet.duasEngText}",
-                                          size: f4,
-                                          color: Color(0xff78BDD4),textAlign: TextAlign.justify),
+                                            family: "Inter",
+                                            text: "${dailydet.duasEngText}",
+                                            size: f4,
+                                            color: Color(0xff78BDD4),
+                                            textAlign: TextAlign.justify),
                                         Space(12),
                                         Stxt(
-                                          family: "Sriracha",
-                                          text: "${dailydet.engTranslation}",
-                                          size: f4,
-                                          color: Colors.white.withOpacity(
-                                              0.8),textAlign: TextAlign.justify),
+                                            family: "Sriracha",
+                                            text:
+                                            langCtrl.selectedLang.value=="ENGLISH"?dailydet.engTranslation.toString():
+                                            langCtrl.selectedLang.value=="Tamil(தமிழ்)"?dailydet.tamilTranslation.toString():
+                                            langCtrl.selectedLang.value=="Hindi(हिंदी)"?dailydet.hindiTranslation.toString():
+                                            langCtrl.selectedLang.value=="Urdu(اردو)"?dailydet.urduTranslation.toString():
+                                            langCtrl.selectedLang.value=="Malayalam(മലയാളം)"?dailydet.malayalamTranslation.toString():
+                                            langCtrl.selectedLang.value=="Telugu(తెలుగు)"?dailydet.teluguTranslation.toString():
+                                            dailydet.engTranslation.toString(),
+                                            size: f4,
+                                            color: Colors.white.withOpacity(
+                                                0.8),
+                                            textAlign: TextAlign.justify),
                                       ],
                                     ),
                                   ),
