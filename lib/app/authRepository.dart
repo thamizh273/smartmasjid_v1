@@ -12,6 +12,7 @@ import 'package:pinput/pinput.dart';
 import 'package:smartmasjid_v1/app/rest_call_controller/rest_call_controller.dart';
 import 'package:smartmasjid_v1/app/routes/app_pages.dart';
 
+import '../data/local/my_shared_pref.dart';
 import '../global.dart';
 import 'modules/register_login/Model/loginGmailModel.dart';
 
@@ -150,8 +151,8 @@ class AuthenticationRespository extends GetxController {
   authId() async {
     log("rrrrrrrrrr${guid.value}");
     var header = """
-query Login_With_Gmail(\$authId: String) {
-  Login_With_Gmail(auth_id_: \$authId) {
+query Login_With_Gmail(\$authId: String, \$deviceId: String!) {
+  Login_With_Gmail(auth_id_: \$authId, device_id: \$deviceId) {
     masjid_id
     message
     refresh_token
@@ -163,6 +164,7 @@ query Login_With_Gmail(\$authId: String) {
 
     var body = {
       "authId": "${guid.value}",
+      "deviceId": "${MySharedPref.getFcmToken()}",
     };
     var res = await _restCallController.gql_query(header, body);
     log("wwww${res}");
@@ -195,7 +197,8 @@ query Login_With_Gmail(\$authId: String) {
       toast(error: "SUCCESS", msg: "${hh}");
       await Get.offAllNamed(Routes.HOME, arguments: [
         logingmaildata.value.loginWithGmail!.userId,
-        logingmaildata.value.loginWithGmail!.masjidId
+        logingmaildata.value.loginWithGmail!.masjidId,
+        logingmaildata.value.loginWithGmail!.token
       ]);
     }
 

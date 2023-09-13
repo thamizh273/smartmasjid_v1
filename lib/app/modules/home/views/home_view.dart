@@ -21,6 +21,7 @@ import 'package:smartmasjid_v1/app/modules/zakathpage/views/zakathpage_view.dart
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../utils/ansomeNotification.dart';
+import '../../../../utils/fcm_notification/fcm_helper.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../../masjidnearme/helper/custom_marker_info_window.dart';
@@ -62,7 +63,7 @@ class HomeView extends StatelessWidget {
             leading: GestureDetector(
               onTap: () => controller.openDrawer(),
               onDoubleTap: () {
-                Get.toNamed(Routes.SPLASH_SCREEN);
+
               },
               child: Padding(
                 padding: const EdgeInsets.all(6.0),

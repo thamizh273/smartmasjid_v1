@@ -14,6 +14,7 @@ import 'package:smartmasjid_v1/app/modules/home/Model/prayerTimesModel.dart';
 import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_controller.dart';
 
 import 'package:smartmasjid_v1/app/routes/export.dart';
+import 'package:smartmasjid_v1/data/local/my_shared_pref.dart';
 
 import '../../../../utils/ansomeNotification.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
@@ -74,14 +75,15 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
    if(hh !=null){
      box1.write("fruits",hh[0]);
      box1.write("masjidId",hh[1]);
+     box1.write("token",hh[2]);
      // box1.write("logoutlogin",false);
-     getUserDetails(hh[0],);
+     getUserDetails(hh[0],hh[2]);
      getPrayerTime(hh[1]);
      getUpcomingEvents(hh[1]);
 
    }
    if(  box1.read('fruits')!=null){
-     getUserDetails( box1.read('fruits'));
+     getUserDetails( box1.read('fruits'),box1.read('token'));
      getPrayerTime( box1.read('masjidId'));
      getUpcomingEvents(box1.read('masjidId'));
 
@@ -177,9 +179,9 @@ query Query(\$masjidId: ID!) {
     isloadingEvent.value=false;
 
     eventsData.value=eventsModelFromJson(json.encode(res));
-    print("getevent");
-    log(json.encode(res));
-    print("getevent");
+    // print("getevent");
+    // log(json.encode(res));
+    // print("getevent");
 
   }
   getImanTrakerStatus(id) async {
@@ -208,9 +210,9 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     isloadingiman.value=false;
 
     imanStatusData.value=imanTrakerStatusModelFromJson(json.encode(res));
-    print("getstatus");
-    log(json.encode(res));
-    print("getstaus");
+    // print("getstatus");
+    // log(json.encode(res));
+    // print("getstaus");
 
   }
   prayerDetailRT(index){
@@ -298,7 +300,7 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
 
 
 
-  getUserDetails(passwordlogin) async {
+  getUserDetails(passwordlogin, tokenid) async {
 
     //final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
 
@@ -310,8 +312,8 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
 
     print("hhhhh $passwordlogin");
     var header="""
-query Query(\$id: String, \$authId: String) {
-  Get_User_By_Id(id_: \$id, auth_id_: \$authId) {
+query Query(\$id: String, \$authId: String,\$deviceId: String,\$token: String!) {
+  Get_User_By_Id(id_: \$id, auth_id_: \$authId,device_id: \$deviceId,token: \$token) {
         id
     profile_image
     auth_uid
@@ -354,14 +356,16 @@ query Query(\$id: String, \$authId: String) {
     """;
     var body ={
       "id": "${passwordlogin}",
+      "deviceId": "${MySharedPref.getFcmToken()}",
+      "token": "${tokenid}",
      // "authId": "$glogin"
      // "id": "$k"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;
-    // print("getUser");
-    // log(json.encode(res));
-    // print("getUser");
+    print("getUser");
+    log(json.encode(res));
+    print("getUser");
 
    getUserData.value=getUserModelFromJson(json.encode(res));
     getImanTrakerStatus(passwordlogin);
@@ -396,9 +400,9 @@ query Query(\$masjidId: String) {
 
     prayerTimeData.value=prayerTimeModelFromJson(json.encode(res));
     remainTime();
-   log("times");
-   log(json.encode(res));
-    log("times");
+   // log("times");
+   // log(json.encode(res));
+   //  log("times");
   }
   var scaffoldKey = GlobalKey<ScaffoldState>();
 

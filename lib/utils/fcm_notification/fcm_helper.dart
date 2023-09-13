@@ -66,7 +66,7 @@ class FcmHelper {
   static Future<void> _generateFcmToken() async {
     try {
       var token = await messaging.getToken();
-      print("eeeeeeeee$token");
+
       if (token != null) {
         MySharedPref.setFcmToken(token);
         _sendFcmTokenToServer();
@@ -81,16 +81,24 @@ class FcmHelper {
   }
 
   static _sendFcmTokenToServer() {
-    var token = MySharedPref.getFcmToken( );
+    var token = MySharedPref.getFcmToken();
+    print("eeeeeeeee$token");
     // TODO SEND FCM TOKEN TO SERVER
   }
 
   @pragma('vm:entry-point')
   static Future<void> fcmBackgroundHandler(RemoteMessage message) async {
+    print('tittle:${message.notification?.title}');
+    print('body:${message.notification?.body}');
+    print('payload:${message.data}');
+
     LocalNotificationHelper.showNotification(
+
       title: message.notification?.title ?? 'Title',
       body: message.notification?.body ?? 'Body',
       payload: jsonEncode(message.data.cast()),
+
+
     );
   }
 

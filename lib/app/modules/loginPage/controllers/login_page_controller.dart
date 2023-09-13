@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
 
+import '../../../../data/local/my_shared_pref.dart';
 import '../../../authRepository.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
@@ -86,19 +87,20 @@ mutation Forgot_Password(\$phoneNumber: String!, \$passWord: String, \$repeatPas
     //masjidListdata.value.getMasjidFilter=null;
 
     var header = """
-query Login_User(\$password: String, \$byEmail: String) {
-  Login_User(password_: \$password, by_email: \$byEmail) {
+query Login_User(\$password: String, \$deviceId: String!, \$byEmail: String) {
+  Login_User(password_: \$password, device_id: \$deviceId, by_email: \$byEmail) {
+    masjid_id
     message
     refresh_token
     token
     user_id
-    masjid_id
   }
 }
     """;
     var body = {
       "byEmail": "${emailLCtrl.value.text}",
-      "password": "${passwordLCtrl.value.text}"
+      "password": "${passwordLCtrl.value.text}",
+      "deviceId": "${MySharedPref.getFcmToken()}"
     };
     // {
     //   "password": "${passwordLCtrl.value.text}",
@@ -123,7 +125,7 @@ query Login_User(\$password: String, \$byEmail: String) {
         print("ff");
         print( getUserId.value.loginUser!.userId);
 
-     await Get.offAllNamed(Routes.HOME,arguments: [ getUserId.value.loginUser!.userId,getUserId.value.loginUser!.masjidId]);
+     await Get.offAllNamed(Routes.HOME,arguments: [ getUserId.value.loginUser!.userId,getUserId.value.loginUser!.masjidId,getUserId.value.loginUser!.token]);
         // print("ff");
         // print(getUserId.value.loginUser!.userId);
     }
@@ -140,19 +142,20 @@ query Login_User(\$password: String, \$byEmail: String) {
     //masjidListdata.value.getMasjidFilter=null;
 
     var header = """
-query Login_User(\$password: String, \$byPhone: String) {
-  Login_User(password_: \$password, by_phone: \$byPhone) {
+query Login_User(\$password: String, \$deviceId: String!, \$byPhone: String) {
+  Login_User(password_: \$password, device_id: \$deviceId, by_phone: \$byPhone) {
+    masjid_id
     message
     refresh_token
     token
     user_id
-    masjid_id
   }
 }
     """;
     var body = {
       "byPhone": "+${phoneCode}${phoneLCtrl.value.text}",
-      "password": "${passwordLCtrl.value.text}"
+      "password": "${passwordLCtrl.value.text}",
+      "deviceId": "${MySharedPref.getFcmToken()}"
     };
 
     var res = await _restCallController.gql_query(header, body);

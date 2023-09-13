@@ -56,7 +56,7 @@ class EditProfileController extends GetxController {
   @override
   void onInit() {
    // homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id);
-   homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id,);
+   homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id,"${homectrl.box1.read('token')}");
     super.onInit();
     dobController.text =
         "${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}";
@@ -164,6 +164,7 @@ class EditProfileController extends GetxController {
 
     homectrl.box1.remove('fruits');
     homectrl.box1.remove('masjidId');
+    homectrl.box1.remove('token');
     // lanctrl.langStore.remove('selectedindex');
     // lanctrl.langStore.remove('selectedLang');
   //  lanctrl.selectedRadioIndex.value=0;
