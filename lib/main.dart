@@ -22,10 +22,10 @@ import 'data/local/my_shared_pref.dart';
 import 'firebase_options.dart';
 
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp],
-  );
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations(
+  //   [DeviceOrientation.portraitUp],
+  // );
   await Hive.initFlutter();
   await GetStorage.init();
   await ScreenUtil.ensureScreenSize();

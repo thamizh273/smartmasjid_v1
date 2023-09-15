@@ -1,414 +1,105 @@
-
-
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:graphview/GraphView.dart';
+import 'package:in_app_review/in_app_review.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
-void main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Home());
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Column(children: [
-            SizedBox(
-              height: 20,
-            ),
-            MaterialButton(
-                color: Colors.redAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TreeViewPage(),
-                  ),
-                ),
-                child: Text(
-                  'Tree View (BuchheimWalker)',
-                  style: TextStyle(fontSize: 30),
-                )),
-            SizedBox(
-              height: 20,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-            MaterialButton(
-                color: Colors.redAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TreeViewPageFromJson(),
-                  ),
-                ),
-                child: Text(
-                  'Tree View From Json(BuchheimWalker)',
-                  style: TextStyle(fontSize: 30),
-                )),
-            SizedBox(
-              height: 20,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-          ]),
-        ),
-      ),
-    );
-  }
-
-  Widget createNode(String nodeText) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.red,
-        border: Border.all(color: Colors.white, width: 1),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Center(
-        child: Text(
-          nodeText,
-          style: TextStyle(fontSize: 10),
-        ),
-      ),
+    return MaterialApp(
+      title: 'Rating Dialog Demo',
+      theme: ThemeData.dark(),
+      home: SettingspageView(),
     );
   }
 }
 
 
+class SettingspageView extends StatefulWidget {
+  const SettingspageView();
 
-
-
-
-class TreeViewPageFromJson extends StatefulWidget {
   @override
-  _TreeViewPageFromJsonState createState() => _TreeViewPageFromJsonState();
+  SettingsPageState createState() => new SettingsPageState();
 }
 
-class _TreeViewPageFromJsonState extends State<TreeViewPageFromJson> {
-  var json = {
-    'nodes': [
-      {'id': 1, 'label': 'circle'},
-      {'id': 2, 'label': 'ellipse'},
-      {'id': 3, 'label': 'database'},
-      {'id': 4, 'label': 'box'},
-      {'id': 5, 'label': 'diamond'},
-      {'id': 6, 'label': 'dot'},
-      {'id': 7, 'label': 'square'},
-      {'id': 8, 'label': 'triangle'},
-    ],
-    'edges': [
-      {'from': 1, 'to': 2},
-      {'from': 2, 'to': 3},
-      {'from': 2, 'to': 4},
-      {'from': 2, 'to': 5},
-      {'from': 5, 'to': 6},
-      {'from': 5, 'to': 7},
-      {'from': 6, 'to': 8}
-    ]
-  };
+class SettingsPageState extends State<SettingspageView> {
+  // show the rating dialog
+  void _showRatingDialog() {
+    // actual store listing review & rating
+    void _rateAndReviewApp() async {
+      // refer to: https://pub.dev/packages/in_app_review
+      final _inAppReview = InAppReview.instance;
+
+      if (await _inAppReview.isAvailable()) {
+        print('request actual review from store');
+        _inAppReview.requestReview();
+      } else {
+        print('open actual store listing');
+        // TODO: use your own store ids
+        _inAppReview.openStoreListing(
+          appStoreId: '<your app store id>',
+          microsoftStoreId: '<your microsoft store id>',
+        );
+      }
+    }
+
+    final _dialog = RatingDialog(
+      initialRating: 1.0,
+      // your app's name?
+      title: Text(
+        'Rating Dialog',
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      // encourage your user to leave a high rating?
+      message: Text(
+        'Tap a star to set your rating. Add more description here if you want.',
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 15),
+      ),
+      // your app's logo?
+      image: const FlutterLogo(size: 100),
+      submitButtonText: 'Submit',
+      commentHint: 'Set your custom comment hint',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        print('rating: ${response.rating}, comment: ${response.comment}');
+
+        // TODO: add your own logic
+        if (response.rating < 3.0) {
+          // send their comments to your email or anywhere you wish
+          // ask the user to contact you instead of leaving a bad review
+        } else {
+          _rateAndReviewApp();
+        }
+      },
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      barrierDismissible: true, // set to false if you want to force a rating
+      builder: (context) => _dialog,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Wrap(
-              children: [
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.siblingSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Sibling Separation'),
-                    onChanged: (text) {
-                      builder.siblingSeparation = int.tryParse(text) ?? 100;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.levelSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Level Separation'),
-                    onChanged: (text) {
-                      builder.levelSeparation = int.tryParse(text) ?? 100;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.subtreeSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Subtree separation'),
-                    onChanged: (text) {
-                      builder.subtreeSeparation = int.tryParse(text) ?? 100;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.orientation.toString(),
-                    decoration: InputDecoration(labelText: 'Orientation'),
-                    onChanged: (text) {
-                      builder.orientation = int.tryParse(text) ?? 100;
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: InteractiveViewer(
-                  constrained: false,
-                  boundaryMargin: EdgeInsets.all(100),
-                  minScale: 0.01,
-                  maxScale: 5.6,
-                  child: GraphView(
-                    graph: graph,
-                    algorithm: BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
-                    paint: Paint()
-                      ..color = Colors.green
-                      ..strokeWidth = 1
-                      ..style = PaintingStyle.stroke,
-                    builder: (Node node) {
-                      // I can decide what widget should be shown here based on the id
-                      var a = node.key!.value as int?;
-                      var nodes = json['nodes']!;
-                      var nodeValue = nodes.firstWhere((element) => element['id'] == a);
-                      return rectangleWidget(nodeValue['label'] as String?);
-                    },
-                  )),
-            ),
-          ],
-        ));
-  }
-
-  Widget rectangleWidget(String? a) {
-    return InkWell(
-      onTap: () {
-        print('clicked');
-      },
-      child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            boxShadow: [
-              BoxShadow(color: Colors.blue[100]!, spreadRadius: 1),
-            ],
+      appBar: AppBar(title: const Text('Rating Dialog Example')),
+      body: Container(
+        child: Center(
+          child: ElevatedButton(
+            child: const Text('Show Rating Dialog'),
+            onPressed: _showRatingDialog,
           ),
-          child: Text('${a}')),
+        ),
+      ),
     );
   }
-
-  final Graph graph = Graph()..isTree = true;
-  BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
-
-  @override
-  void initState() {
-    var edges = json['edges']!;
-    edges.forEach((element) {
-      var fromNodeId = element['from'];
-      var toNodeId = element['to'];
-      graph.addEdge(Node.Id(fromNodeId), Node.Id(toNodeId));
-    });
-
-    builder
-      ..siblingSeparation = (100)
-      ..levelSeparation = (150)
-      ..subtreeSeparation = (150)
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
-  }
 }
 
-class TreeViewPage extends StatefulWidget {
-  @override
-  _TreeViewPageState createState() => _TreeViewPageState();
-}
-
-class _TreeViewPageState extends State<TreeViewPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Wrap(
-              children: [
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.siblingSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Sibling Separation'),
-                    onChanged: (text) {
-                      builder.siblingSeparation = int.tryParse(text) ?? 100;
-                      this.setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.levelSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Level Separation'),
-                    onChanged: (text) {
-                      builder.levelSeparation = int.tryParse(text) ?? 100;
-                      this.setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.subtreeSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Subtree separation'),
-                    onChanged: (text) {
-                      builder.subtreeSeparation = int.tryParse(text) ?? 100;
-                      this.setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.orientation.toString(),
-                    decoration: InputDecoration(labelText: 'Orientation'),
-                    onChanged: (text) {
-                      builder.orientation = int.tryParse(text) ?? 100;
-                      this.setState(() {});
-                    },
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    final node12 = Node.Id(r.nextInt(100));
-                    var edge = graph.getNodeAtPosition(r.nextInt(graph.nodeCount()));
-                    print(edge);
-                    graph.addEdge(edge, node12);
-                    setState(() {});
-                  },
-                  child: Text('Add'),
-                )
-              ],
-            ),
-            Expanded(
-              child: InteractiveViewer(
-                  constrained: false,
-                  boundaryMargin: EdgeInsets.all(100),
-                  minScale: 0.01,
-                  maxScale: 5.6,
-                  child: GraphView(
-                    graph: graph,
-                    algorithm: BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
-                    paint: Paint()
-                      ..color = Colors.green
-                      ..strokeWidth = 1
-                      ..style = PaintingStyle.stroke,
-                    builder: (Node node) {
-                      // I can decide what widget should be shown here based on the id
-                      var a = node.key!.value as int?;
-                      return rectangleWidget(a);
-                    },
-                  )),
-            ),
-          ],
-        ));
-  }
-
-  Random r = Random();
-
-  Widget rectangleWidget(int? a) {
-    return InkWell(
-      onTap: () {
-        print('clicked');
-      },
-      child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            boxShadow: [
-              BoxShadow(color: Colors.blue[100]!, spreadRadius: 1),
-            ],
-          ),
-          child: Text('Node ${a}')),
-    );
-  }
-
-  final Graph graph = Graph()..isTree = true;
-  BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
-
-  @override
-  void initState() {
-    final node1 = Node.Id(1);
-    final node2 = Node.Id(2);
-    final node3 = Node.Id(3);
-    final node4 = Node.Id(4);
-    final node5 = Node.Id(5);
-    final node6 = Node.Id(6);
-    final node8 = Node.Id(7);
-    final node7 = Node.Id(8);
-    final node9 = Node.Id(9);
-    final node10 = Node.Id(10);
-    final node11 = Node.Id(11);
-    final node12 = Node.Id(12);
-    graph.addEdge(node1, node2);
-    graph.addEdge(node1, node3, paint: Paint()..color = Colors.red);
-    graph.addEdge(node1, node4, paint: Paint()..color = Colors.blue);
-    graph.addEdge(node2, node5);
-    graph.addEdge(node2, node6);
-    graph.addEdge(node6, node7, paint: Paint()..color = Colors.red);
-    graph.addEdge(node6, node8, paint: Paint()..color = Colors.red);
-    graph.addEdge(node4, node9);
-    graph.addEdge(node4, node10, paint: Paint()..color = Colors.black);
-    graph.addEdge(node4, node11, paint: Paint()..color = Colors.red);
-    graph.addEdge(node11, node12);
-
-    builder
-      ..siblingSeparation = (100)
-      ..levelSeparation = (150)
-      ..subtreeSeparation = (150)
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
-  }
-}
-
-
-
-var builder = SugiyamaConfiguration();

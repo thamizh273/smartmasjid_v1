@@ -72,17 +72,20 @@ class Events extends StatelessWidget {
                                 height: 85,
                                 width: 140,
                               )
-                            : Container(
-                                height: 85,
-                                width: 140,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(5),
-                                  image: DecorationImage(
-                                    image: MemoryImage(
-                                        base64Decode(e.image.toString())),
-                                    fit: BoxFit.cover,
-                                  ),
-                                )),
+                            : Flexible(
+                              flex: 1,
+                              child: Container(
+                                  height: 85,
+                                  // width: 140,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    image: DecorationImage(
+                                      image: MemoryImage(
+                                          base64Decode(e.image.toString())),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  )),
+                            ),
                         const SizedBox(
                           height: 8,
                         ),

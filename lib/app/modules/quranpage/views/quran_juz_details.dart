@@ -608,64 +608,91 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      Container(
-                        height: 80.h,
-                        width: 350.w,
-                        decoration: BoxDecoration(
-                          // color: Colors.red,
-                            image: DecorationImage(
-                                image: AssetImage(
-                                  "assets/images/qurantitle.png",
-                                ),
-                                fit: BoxFit.fill)),
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Row(
-                            children: [
-                              Space(32),
-                              Container(
-                                height: 50,
-                                width: 50,
-                                // color: Colors.red,
-                                child: Center(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center,
-                                      children: [
-                                        // Image(
-                                        //   image: makki == "Makki" ? AssetImage(
-                                        //       'assets/images/makka.png') : AssetImage(
-                                        //       'assets/images/madina.png'),
-                                        //   width: 20,
-                                        //   height: 20,
-                                        // ),
-                                        Space(4),
-                                        Obx(() {
-                                          final ctrl = c.getquranjuzdetail.value
-                                              .getQuranJuzVersesList![0];
-                                          return Text(
-                                            "${ctrl.juzChapterNo}",
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w500,
+                      Stack(
+                          children: [
+                            Center(
+                              child: Container(
+                                height: 80.h,
+                                width: 330.w,
+                                decoration: BoxDecoration(
+                                  // color: Colors.red,
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                          "assets/images/quranheader.png",
+                                        ),
+                                        fit: BoxFit.fill)),
+                                child: Padding(
+                                  padding:  EdgeInsets.only(left: 40.sp),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Obx(() {
+                                            final ctrl = c.getquranjuzdetail.value
+                                                .getQuranJuzVersesList![0];
+                                            return Text(
+                                              "${ctrl.juzChapterNo}",
+                                              style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.w500,
+                                                  color: Theme
+                                                      .of(context)
+                                                      .primaryColor),
+                                            );
+                                          }),
+                                          Stxt(text: "Juz",
+                                            size: f2,
+                                            color: Theme
+                                                .of(context)
+                                                .primaryColor,
+                                            weight: FontWeight.w500,),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 40.sp),
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Stxt(text: "Ayah",
+                                              size: f1,
+                                              color: Theme
+                                                  .of(context)
+                                                  .primaryColor,
+                                              weight: FontWeight.w500,),
+                                            Obx(() {
+                                              final ctrl = c.getquranjuzdetail.value
+                                                  .getQuranJuzVersesList![0];
+                                              return Stxt(
+                                                text: "${ctrl.totalVerses}",
+                                                size: f2,
                                                 color: Theme
                                                     .of(context)
-                                                    .primaryColor),
-                                          );
-                                        }),
-                                        Stxt(text: "Juz",
-                                          size: f2,
-                                          color: Theme
-                                              .of(context)
-                                              .primaryColor,
-                                          weight: FontWeight.w500,)
-                                      ],
-                                    )),
+                                                    .primaryColor,
+                                                weight: FontWeight.w500,);
+                                            })
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
                               ),
-                              Space(30),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 8, right: 32, left: 40),
+                            ),
+                            Center(
+                              heightFactor: 1.5.sp,
+                              child: Container(
+                                height: 50.sp,
+                                width: 180.sp,
+                                decoration: BoxDecoration(
+                                  // color: Colors.red,
+                                    image: DecorationImage(
+                                        image: AssetImage(
+                                          "assets/images/quranvector.png",
+                                        ),
+                                        fit: BoxFit.fill)),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -681,7 +708,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                               .center,
                                           children: [
                                             Text(
-                                              "${ctrl.juzChapterNo}.",
+                                              "${ctrl.juzChapterNo}. ",
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 13,
@@ -713,46 +740,11 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             .of(context)
                                             .primaryColor,);
                                     })
-                                    // Text(
-                                    //   ,
-                                    //   style: TextStyle(
-                                    //       fontSize: 12,
-                                    //       fontFamily: "Roboto",
-                                    //       color: Theme
-                                    //           .of(context)
-                                    //           .primaryColor),
-                                    // ),
                                   ],
                                 ),
                               ),
-                              Spacer(),
-                              Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Stxt(text: "Ayah",
-                                        size: f1,
-                                        color: Theme
-                                            .of(context)
-                                            .primaryColor,
-                                        weight: FontWeight.w500,),
-                                      Obx(() {
-                                        final ctrl = c.getquranjuzdetail.value
-                                            .getQuranJuzVersesList![0];
-                                        return Stxt(
-                                          text: "${ctrl.totalVerses}",
-                                          size: f2,
-                                          color: Theme
-                                              .of(context)
-                                              .primaryColor,
-                                          weight: FontWeight.w500,);
-                                      })
-                                    ],
-                                  )),
-                              Space(40)
-                            ],
-                          ),
-                        ),
+                            ),
+                          ]
                       ),
                       Space(16),
                       Expanded(

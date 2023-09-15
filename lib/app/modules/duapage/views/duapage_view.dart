@@ -184,7 +184,8 @@ class DuapageView extends GetView<DuapageController> {
                                     SizedBox(width: 8),
                                     SizedBox(
                                       width: .16.sw,
-                                      child: Text(langCtrl.selectedLang.value=="ENGLISH"? daily.duasNameEn.toString():
+                                      child: Text(
+                                        langCtrl.selectedLang.value=="ENGLISH"? daily.duasNameEn.toString():
                                       langCtrl.selectedLang.value=="Tamil(தமிழ்)"? daily.duasNameTamil.toString():
                                       langCtrl.selectedLang.value=="Hindi(हिंदी)"? daily.duasNameHindi.toString():
                                       langCtrl.selectedLang.value=="Urdu(اردو)"? daily.duasNameUrdu.toString():

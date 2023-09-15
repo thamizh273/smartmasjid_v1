@@ -42,7 +42,7 @@ class LargerCard extends StatelessWidget {
                         bottom: 10),
                     color: Colors.grey.shade400,
                     child: Container(
-                      width: 140,
+                      // width: 140,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage(

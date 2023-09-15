@@ -21,8 +21,8 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
           width: 1.sw,
           fit: BoxFit.cover,
         ),
-        child: SizedBox(
-          height: .63.sh,
+        child: Flexible(
+          flex: 1,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
