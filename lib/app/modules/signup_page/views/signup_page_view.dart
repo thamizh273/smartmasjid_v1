@@ -20,7 +20,8 @@ class SignupPageView extends GetView<SignupPageController> {
       body: Form(
         key: formkey_,
         child: BGContainerRegister(
-          child: Expanded(
+          child: Flexible(
+            flex: 1,
             child: ListView(
               children: [
                 SizedBox(
@@ -242,22 +243,25 @@ class SignupPageView extends GetView<SignupPageController> {
                               .secondary),
                         ),
                       ),
-                      Padding(
-                        padding:  EdgeInsets.only(top: 6.h,bottom: 25.h),
-                        child: GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.LOGIN_PAGE);
-                              //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
-                            },
-                            child: Text(
-                              "login".tr,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Theme
-                                      .of(context)
-                                      .colorScheme
-                                      .secondary),
-                            )),
+                      Flexible(
+                        flex: 1,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.LOGIN_PAGE);
+                                //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
+                              },
+                              child: Text(
+                                "login".tr,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme
+                                        .of(context)
+                                        .colorScheme
+                                        .secondary),
+                              )),
+                        ),
                       )
                     ],
                   ),

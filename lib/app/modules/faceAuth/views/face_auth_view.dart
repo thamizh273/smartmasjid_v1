@@ -119,7 +119,12 @@ class FaceAuthView extends GetView<FaceAuthController> {
                               SizedBox(
                                 height: 20,
                               ),
-                              Stxt(text: 'Please make sure your Photo clearly shows your face'.tr, size: f4,weight: FontWeight.w400,color: Get.theme.colorScheme.secondary,textAlign: TextAlign.center,),
+                              Flexible(
+                                flex: 2,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Stxt(text: 'Please make sure your Photo clearly shows your face'.tr, size: f4,weight: FontWeight.w400,color: Get.theme.colorScheme.secondary,textAlign: TextAlign.center,),
+                                  )),
 
                               SizedBox(
                                 height: 20,
@@ -226,21 +231,24 @@ class FaceAuthView extends GetView<FaceAuthController> {
                   ),
                 ),
                 // 70.verticalSpace,
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: EdgeInsets.all(15),
-                    child: SButton(
-                      txtsize: f1,
-                      text: "Skip".tr,
-                      txtClr: Get.theme.colorScheme.primary,
-                      height: 20.h,
-                      rad: 25,
-                      width: 90.w,
-                      pad: 2,
-                      ontap: () {
-                        Get.toNamed(Routes.SIGNUP_PAGE);
-                      },
+                Flexible(
+                  flex: 1,
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: SButton(
+                        txtsize: f1,
+                        text: "Skip".tr,
+                        txtClr: Get.theme.colorScheme.primary,
+                        height: 20.h,
+                        rad: 25,
+                        width: 90.w,
+                        pad: 2,
+                        ontap: () {
+                          Get.toNamed(Routes.SIGNUP_PAGE);
+                        },
+                      ),
                     ),
                   ),
                 ),

@@ -28,6 +28,7 @@ class QuranDetails extends StatefulWidget {
 
 final QuranpageController c = Get.put(QuranpageController());
 final AudioplayerController controller = Get.put(AudioplayerController());
+
 // final List<QuranpageController> controllers = List.generate(
 //     c.getqurandetail.value.getQuranAyahVerse![0].ayahList!.length, (index) =>
 //     Get.put(QuranpageController()));
@@ -875,27 +876,25 @@ class _QuranDetailsState extends State<QuranDetails> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Container(
-                      height: 80.h,
-                      width: 330.w,
-                      decoration: BoxDecoration(
-                        // color: Colors.red,
-                          image: DecorationImage(
-                              image: AssetImage(
-                                "assets/images/qurantitle.png",
-                              ),
-                              fit: BoxFit.fill)),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Row(
-                          children: [
-                            Space(32),
-                            Container(
-                              height: 50,
-                              width: 50,
-                              // color: Colors.red,
-                              child: Center(
-                                  child: Column(
+                    Stack(
+                      children: [
+                        Center(
+                          child: Container(
+                          height: 80.h,
+                          width: 330.w,
+                          decoration: BoxDecoration(
+                            // color: Colors.red,
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                    "assets/images/quranheader.png",
+                                  ),
+                                  fit: BoxFit.fill)),
+                            child: Padding(
+                              padding:  EdgeInsets.only(left: 30.sp),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Image(
@@ -927,94 +926,107 @@ class _QuranDetailsState extends State<QuranDetails> {
                                             .primaryColor,
                                         weight: FontWeight.w500,)
                                     ],
-                                  )),
-                            ),
-                            // Space(60),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 8, right: 32, left: 40),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      GotoVerse(context);
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center,
+                                  ),
+                                  Spacer(),
+                                  Padding(
+                                    padding: EdgeInsets.only(right: 40.sp),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text("${c.getqurandetail.value
-                                            .getQuranAyahVerse![0]
-                                            .suraChapterNo}. ",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontSize: 13,
-                                              color: Theme
-                                                  .of(context)
-                                                  .primaryColor),),
-                                        SizedBox(
-                                          width: 73.w,
-                                          child: Stxt(
-                                            text: ("sura_name_en_${c.getqurandetail.value
-                                                .getQuranAyahVerse![0]
-                                                .suraNameEn}").tr,
-                                            size: f2,
-                                            color: Theme
-                                                .of(context)
-                                                .primaryColor,
-                                            weight: FontWeight.w500,
-                                            maxLines: 1,),
-                                        ),
-                                        // Icon(Icons.arrow_drop_down_outlined)
+                                        Stxt(text: "Ayah",
+                                          size: f1,
+                                          color: Theme
+                                              .of(context)
+                                              .primaryColor,
+                                          weight: FontWeight.w500,),
+                                        Stxt(text: "${c.getqurandetail.value
+                                            .getQuranAyahVerse![0].totalVerses}",
+                                          size: f2,
+                                          color: Theme
+                                              .of(context)
+                                              .primaryColor,
+                                          weight: FontWeight.w500,)
                                       ],
                                     ),
-                                  ),
-                                  Stxt(text: ("sura_name_title_${c.getqurandetail.value
-                                      .getQuranAyahVerse![0].titleEn}").tr,
-                                    size: f1,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor,)
-                                  // Text(
-                                  //   ,
-                                  //   style: TextStyle(
-                                  //       fontSize: 12,
-                                  //       fontFamily: "Roboto",
-                                  //       color: Theme
-                                  //           .of(context)
-                                  //           .primaryColor),
-                                  // ),
+                                  )
                                 ],
                               ),
                             ),
-                            Spacer(),
-                            Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Stxt(text: "Ayah",
-                                      size: f1,
-                                      color: Theme
-                                          .of(context)
-                                          .primaryColor,
-                                      weight: FontWeight.w500,),
-                                    Stxt(text: "${c.getqurandetail.value
-                                        .getQuranAyahVerse![0].totalVerses}",
-                                      size: f2,
-                                      color: Theme
-                                          .of(context)
-                                          .primaryColor,
-                                      weight: FontWeight.w500,)
-                                  ],
-                                )),
-                            Space(40)
-                          ],
-                        ),
                       ),
+                        ),
+                        Center(
+                          heightFactor: 1.5.sp,
+                          child: Container(
+                            height: 50.sp,
+                            width: 180.sp,
+                            decoration: BoxDecoration(
+                              // color: Colors.red,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                      "assets/images/quranvector.png",
+                                    ),
+                                    fit: BoxFit.fill)),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    GotoVerse(context);
+                                  },
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("${c.getqurandetail.value
+                                          .getQuranAyahVerse![0]
+                                          .suraChapterNo}. ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 13,
+                                            color: Theme
+                                                .of(context)
+                                                .primaryColor),),
+                                      SizedBox(
+                                        // width: 73.w,
+                                        child: Stxt(
+                                          text: ("sura_name_en_${c.getqurandetail.value
+                                              .getQuranAyahVerse![0]
+                                              .suraNameEn}").tr,
+                                          size: f2,
+                                          color: Theme
+                                              .of(context)
+                                              .primaryColor,
+                                          weight: FontWeight.w500,
+                                          maxLines: 1,),
+                                      ),
+                                      // Icon(Icons.arrow_drop_down_outlined)
+                                    ],
+                                  ),
+                                ),
+                                Space(4),
+                                Stxt(text: ("sura_name_title_${c.getqurandetail.value
+                                    .getQuranAyahVerse![0].titleEn}").tr,
+                                  size: f1,
+                                  color: Theme
+                                      .of(context)
+                                      .primaryColor,)
+                                // Text(
+                                //   ,
+                                //   style: TextStyle(
+                                //       fontSize: 12,
+                                //       fontFamily: "Roboto",
+                                //       color: Theme
+                                //           .of(context)
+                                //           .primaryColor),
+                                // ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ]
                     ),
                     // Space(8),
-                    Expanded(
+                    Flexible(
+                      flex: 1,
                       child: c.isLoadings1.value
                           ? loading(context)
                           : Scrollbar(
@@ -1043,11 +1055,10 @@ class _QuranDetailsState extends State<QuranDetails> {
                                     // CrossAxisAlignment.center,
                                     children: [
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Align(
-                                              alignment:
-                                              Alignment.centerLeft,
+                                              alignment: Alignment.centerLeft,
                                               child: Obx(() {
                                                 double fontSize = 40.0;
                                                 String fontFamily = c
@@ -1094,7 +1105,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       : null, // Use the default font if "Amiri" is not selected
                                                 );
                                                 return SizedBox(
-                                                  width: c.screenWidth * 0.68,
+                                                  width: 280.sp,
                                                   child: c.getqurandetail.value.getQuranAyahVerse![0].suraNameEn == "Al-Fatihah"
                                                       ? Container():
                                                   c.isCheckedArabic
@@ -1305,10 +1316,9 @@ class _QuranDetailsState extends State<QuranDetails> {
                                         ],
                                       ),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .start,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
-                                          50.horizontalSpace,
+                                          // 50.horizontalSpace,
                                           Space(20.w),
                                           Align(
                                               alignment:
@@ -1359,8 +1369,7 @@ class _QuranDetailsState extends State<QuranDetails> {
                                                       : null, // Use the default font if "Amiri" is not selected
                                                 );
                                                 return SizedBox(
-                                                  width: c.screenWidth *
-                                                      0.68,
+                                                  width: 300.sp,
                                                   child: c.isCheckedArabic
                                                       .value == true
                                                       ? Text(

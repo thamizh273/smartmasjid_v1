@@ -18,7 +18,7 @@ class LanguagePageView extends GetView<LanguagePageController> {
       body: BGContainerAuth(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding:  EdgeInsets.all(8.0),
             child: Container(
               constraints: BoxConstraints(minHeight: 200.h, maxHeight: 240.h),
               width: .9.sw,
@@ -142,27 +142,30 @@ class LanguagePageView extends GetView<LanguagePageController> {
                     Space(16),
                     Text("you can change it from settings anytime".tr),
                     Space(16),
-                    ElevatedButton(
-                      onPressed: () {
-                        Get.toNamed(Routes.REGISTER_LOGIN);
+                    Flexible(
+                      flex: 1,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Get.toNamed(Routes.REGISTER_LOGIN);
 
-                        // Navigator.of(context).push(MaterialPageRoute(builder: (_) => RegisterLogin()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(100, 30),
-                        backgroundColor: Theme.of(context).colorScheme.primary,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          // Navigator.of(context).push(MaterialPageRoute(builder: (_) => RegisterLogin()));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(100, 30),
+                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          foregroundColor:
+                              Theme.of(context).colorScheme.secondary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          elevation: 4.0,
                         ),
-                        elevation: 4.0,
-                      ),
-                      child: Stxt(
-                        text: "submit".tr,
-                        size: f3,
-                        weight: FontWeight.w600,
-                        maxLines: 1,
+                        child: Stxt(
+                          text: "submit".tr,
+                          size: f3,
+                          weight: FontWeight.w600,
+                          maxLines: 1,
+                        ),
                       ),
                     )
                   ],
