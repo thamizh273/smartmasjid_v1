@@ -23,11 +23,15 @@ class MembershipController extends GetxController {
   Rx<TextEditingController> payPhone_ = TextEditingController().obs;
   Rx<TextEditingController> paymemberId_ = TextEditingController().obs;
   RxBool isloading = false.obs;
+  RxBool isloading1 = false.obs;
+  RxBool isloadingtrascomplete = false.obs;
   RxBool upiLoading = false.obs;
   RxBool isloadingPay = false.obs;
   RxBool switchValue = false.obs;
   RxBool checkboxignore = false.obs;
   RxBool isloadingGateway = false.obs;
+  RxBool payforOthers = false.obs;
+
   String? value;
   final isChecked = false.obs;
   RxList checkedStates=[].obs;
@@ -81,7 +85,8 @@ class MembershipController extends GetxController {
   // }
 
   getMembershipDetails() async {
-
+ payforOthers.value=false;
+print("rrrrr ${homectrl.getUserData.value.getUserById!.id}");
     isloading.value=true;
     var header="""
 query Query(\$userId: String!) {
@@ -122,14 +127,14 @@ query Query(\$userId: String!) {
     isloading.value=false;
 
     membershipDetailData.value=membershipDetailModelFromJson(json.encode(res));
-    //
-    // print("getMEBER");
-    // log(json.encode(res));
-    // print("getMEBER");
+
+    print("getMEBER");
+    log(json.encode(res));
+    print("getMEBER");
   }
   getMembershipPayDetails(String type) async {
 
-    isloading.value=true;
+    isloading1.value=true;
     var header="""
 query Query(\$userId: String!, \$type: String, \$status: String) {
   Get_Membership_Payment_Detail(user_id: \$userId, type_: \$type, status_: \$status) {
@@ -153,13 +158,13 @@ query Query(\$userId: String!, \$type: String, \$status: String) {
       "status": "paid"
     };
     var res = await  _restCallController.gql_query(header, body);
-    isloading.value=false;
+    isloading1.value=false;
 
     membershipPaymentData.value=membershipPayementModelFromJson(json.encode(res));
 
-    // print("getMEBER");
-    // log(json.encode(res));
-    // print("getMEBER");
+    print("getMEBER");
+    log(json.encode(res));
+    print("getMEBER");
   }
   Pay_Membership_Payment_Gate_Way() async {
     isloadingGateway.value=true;
@@ -246,7 +251,7 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
   }
 
   membershipUpiPayment(String status, String txnId) async {
-
+    isloadingtrascomplete.value=true;
     var header =
     """mutation Membership_Payment_GateWay_Authentication_(\$id: ID!, \$userId: String!, \$paymentId: String!, \$masjidId: String!, \$token: String!, \$code: String!, \$transactionId: String, \$status: String) {
   Membership_Payment_GateWay_Authentication_(_id: \$id, user_id: \$userId, payment_id: \$paymentId, masjid_id: \$masjidId, token: \$token, code: \$code, transaction_id: \$transactionId, status_: \$status) {
@@ -268,12 +273,13 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     };
     var res = await _restCallController.gql_mutation(header, body);
     print(json.encode(res));
-
+    isloadingtrascomplete.value=false;
 
     if (res.toString().contains("SUCCESS")) {
 
-      getMembershipDetails();
-      Get.offNamed(Routes.MEMBERSHIP);
+     getMembershipDetails();
+     payforOthers.value==true? Get.close(3):    Get.close(2);
+        //Get.offAndToNamed(Routes.HOME);
 
       // var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "${status}");

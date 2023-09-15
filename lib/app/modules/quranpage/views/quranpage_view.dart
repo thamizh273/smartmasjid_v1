@@ -1,6 +1,4 @@
 
-import 'dart:ffi';
-
 import 'package:floating_frosted_bottom_bar/app/frosted_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

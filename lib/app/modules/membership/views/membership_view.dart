@@ -1,4 +1,4 @@
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -9,8 +9,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/past_payments.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/quick_pay.dart';
-import 'package:smartmasjid_v1/app/modules/membership/views/select_month.dart';
-import 'package:smartmasjid_v1/widgets/button_widget.dart';
+
+
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../global.dart';
@@ -20,18 +20,14 @@ import '../../../../widgets/stext.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../home/views/home_view.dart';
 import '../controllers/membership_controller.dart';
-import '../model/pdf_model/customer.dart';
-import '../model/pdf_model/invoice.dart';
-import '../model/pdf_model/supplier.dart';
-import '../pdf_helper/pdf_helper.dart';
-import '../pdf_helper/pdf_invoice_helper.dart';
-import 'invoice_page.dart';
 import 'invoice_pdfpage.dart';
+
+
 
 class MembershipView extends GetView<MembershipController> {
   MembershipView({Key? key}) : super(key: key);
-  HomeController homeCtrl = Get.find<HomeController>();
-  List<Member> memberList = [
+ final HomeController homeCtrl = Get.find<HomeController>();
+ final List<Member> memberList = [
     Member(amount: "500", month: "Jan", image: "assets/images/download.png")
   ];
 
@@ -99,6 +95,7 @@ class MembershipView extends GetView<MembershipController> {
                                     color: Colors.white),
                                 Stxt(
                                   text: "${data.userId!.firstName} ",
+                                 // text: "",
                                   size: f5,
                                   color: Colors.white,
                                   weight: FontWeight.w500,
@@ -114,7 +111,8 @@ class MembershipView extends GetView<MembershipController> {
                                     size: f3,
                                     color: Colors.white),
                                 Stxt(
-                                    text: " ${data.membershipid}",
+                                   text: " ${data.membershipid}",
+                                   // text: " ",
                                     size: f3,
                                     color: Colors.white,weight: FontWeight.w500,),
                               ],
@@ -155,7 +153,7 @@ class MembershipView extends GetView<MembershipController> {
                           Padding(
                             padding: const EdgeInsets.all(16),
                             child: Container(
-                              height: 164,
+                              height:  data.currentPayment!.expireDate=="null"?152:164,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5),
@@ -164,7 +162,7 @@ class MembershipView extends GetView<MembershipController> {
                                       color: Theme.of(context).primaryColor)),
                               child: Column(
                                 children: [
-                                  data.currentPayment!.expireDate=="null"?14.verticalSpace:14.verticalSpace,
+                               data.currentPayment!.expireDate=="null"?14.verticalSpace:14.verticalSpace,
                                   Container(
                                    // decoration: BoxDecoration(borderRadius: BorderRadius.circular(2),color: clr_gray.shade300),
                                     height: 40,width: 80,
@@ -185,7 +183,7 @@ class MembershipView extends GetView<MembershipController> {
                                     weight: FontWeight.w500,
                                     color:isBeforeCurrentMonth ? clr_red : clr_green,
                                   ),
-                                 
+
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -205,6 +203,7 @@ class MembershipView extends GetView<MembershipController> {
                                       }),
                                     ],
                                   ),
+
                                   GestureDetector(
                                     onTap: () {
                                       controller.membershipPayment(
@@ -243,6 +242,7 @@ class MembershipView extends GetView<MembershipController> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (_) => QuickPay()));
+                              controller.payforOthers.value=true;
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -286,7 +286,7 @@ class MembershipView extends GetView<MembershipController> {
                                 Spacer(),
                                 GestureDetector(
                                     onTap: () {
-                                      Get.to(PastPayments());
+                                      Get.to(PastPaymentsMembership());
                                       controller.getMembershipPayDetails(
                                           "currentyear");
                                       controller.dropDownvalue.value =

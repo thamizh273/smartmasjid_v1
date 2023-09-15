@@ -7,7 +7,7 @@ import '../utils/color_utils.dart';
 
 class PaymentsMethods extends StatefulWidget {
   final VoidCallback controllerMethod;
-  final Function(String status,String trans) controllerMethod2;
+  final Function(String status, String trans) controllerMethod2;
 
 
   PaymentsMethods(
@@ -54,21 +54,20 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
   void _checkTxnStatus(String status, String txnId) {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
-
-        widget.controllerMethod2(status,txnId);
+        widget.controllerMethod2(status, txnId);
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
         print('Transaction Submitted');
         break;
       case UpiPaymentStatus.FAILURE:
-
         print('Transaction Failed');
         break;
       default:
         print('Received an Unknown transaction status');
     }
   }
+
   String _upiErrorHandler(error) {
     switch (error) {
       case UpiIndiaAppNotInstalledException:
@@ -83,20 +82,21 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
         return 'An Unknown error has occurred';
     }
   }
+
   Widget displayTransactionData(title, body) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("$title: ", style:  TextStyle(
+          Text("$title: ", style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
           )),
           Flexible(
               child: Text(
                 body,
-                style:  TextStyle(
+                style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -105,6 +105,7 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
       ),
     );
   }
+
   Future<UpiResponse> initiateTransaction(UpiApp app) async {
     return _upiIndia.startTransaction(
         app: app,
@@ -185,6 +186,7 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
       );
     }
   }
+
   @override
   void initState() {
     _upiIndia.getAllUpiApps(mandatoryTransactionId: false).then((value) {
@@ -197,6 +199,7 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
     // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -302,13 +305,14 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasError) {
                       return Center(
-                        child: Obx(() {
-                          return Text(
-                            _upiErrorHandler(
-                                snapshot.error.runtimeType),
-                            style: header,
-                          );
-                        }), // Print's text message on screen
+                          child: Obx(() {
+                            return Text(
+                              _upiErrorHandler(
+                                  snapshot.error.runtimeType),
+                              style: header,
+                            );
+                          })
+                        // Print's text message on screen
                       );
                     }
 
@@ -319,11 +323,10 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
                     String status = _upiResponse.status ?? 'N/A';
                     String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
                     _checkTxnStatus(status, txnId);
-                     print('trans  $status');
-                       if(status=="FAILURE"){
-                         toast(error: "FAILURE", msg: 'Transaction Failed');
-
-                       }
+                    print('trans  $status');
+                    if (status == "FAILURE") {
+                      toast(error: "FAILURE", msg: 'Transaction Failed');
+                    }
 
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -367,7 +370,6 @@ class PaymentMethodsController extends GetxController {
 
   @override
   void onInit() {
-
     super.onInit();
   }
 
@@ -380,12 +382,6 @@ class PaymentMethodsController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
-
-
-
-
-
 
 
 }

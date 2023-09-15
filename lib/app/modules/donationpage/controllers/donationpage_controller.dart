@@ -90,6 +90,8 @@ query Get_Masjid_Donations(\$userId: ID!) {
     // print("gettrans");
   }
   donationPayment() async {
+
+
     isloadingdpay.value=true;
     var header="""
 query Payment_Gate_Way_(\$userId: String!, \$id: String, \$id2: String, \$masjidId: String, \$amount: Float, \$type: String) {
@@ -156,7 +158,8 @@ mutation Payment_Gate_Way_Authentication(\$id: ID!, \$userId: String!, \$payment
 
     if (res.toString().contains("SUCCESS")) {
       getDonation();
-      Get.offAndToNamed(Routes.DONATIONPAGE);
+      Get.close(2);
+
 
       // var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "Successfully Donated");

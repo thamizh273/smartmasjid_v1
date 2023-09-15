@@ -1,414 +1,287 @@
-
+// Copyright 2019 The Fuchsia Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:graphview/GraphView.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+const numberOfItems = 5001;
+const minItemHeight = 20.0;
+const maxItemHeight = 150.0;
+const scrollDuration = Duration(seconds: 2);
+
+const randomMax = 1 << 32;
 
 void main() {
-  runApp(MyApp());
+  runApp(ScrollablePositionedListExample());
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: Home());
-  }
-}
-
-class Home extends StatelessWidget {
-  const Home({
-    Key? key,
-  }) : super(key: key);
+// The root widget for the example app.
+class ScrollablePositionedListExample extends StatelessWidget {
+  const ScrollablePositionedListExample({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Center(
-          child: Column(children: [
-            SizedBox(
-              height: 20,
-            ),
-            MaterialButton(
-                color: Colors.redAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TreeViewPage(),
-                  ),
-                ),
-                child: Text(
-                  'Tree View (BuchheimWalker)',
-                  style: TextStyle(fontSize: 30),
-                )),
-            SizedBox(
-              height: 20,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-            MaterialButton(
-                color: Colors.redAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TreeViewPageFromJson(),
-                  ),
-                ),
-                child: Text(
-                  'Tree View From Json(BuchheimWalker)',
-                  style: TextStyle(fontSize: 30),
-                )),
-            SizedBox(
-              height: 20,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-            SizedBox(
-              height: 20,
-            ),
-
-          ]),
-        ),
-      ),
-    );
-  }
-
-  Widget createNode(String nodeText) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.red,
-        border: Border.all(color: Colors.white, width: 1),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Center(
-        child: Text(
-          nodeText,
-          style: TextStyle(fontSize: 10),
-        ),
-      ),
+    return MaterialApp(
+      title: 'ScrollablePositionedList Example',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: const ScrollablePositionedListPage(),
     );
   }
 }
 
+/// Example widget that uses [ScrollablePositionedList].
+///
+/// Shows a [ScrollablePositionedList] along with the following controls:
+///   - Buttons to jump or scroll to certain items in the list.
+///   - Slider to control the alignment of the items being scrolled or jumped
+///   to.
+///   - A checkbox to reverse the list.
+///
+/// If the device this example is being used on is in portrait mode, the list
+/// will be vertically scrollable, and if the device is in landscape mode, the
+/// list will be horizontally scrollable.
+class ScrollablePositionedListPage extends StatefulWidget {
+  const ScrollablePositionedListPage({Key? key}) : super(key: key);
 
-
-
-
-
-class TreeViewPageFromJson extends StatefulWidget {
   @override
-  _TreeViewPageFromJsonState createState() => _TreeViewPageFromJsonState();
+  _ScrollablePositionedListPageState createState() =>
+      _ScrollablePositionedListPageState();
 }
 
-class _TreeViewPageFromJsonState extends State<TreeViewPageFromJson> {
-  var json = {
-    'nodes': [
-      {'id': 1, 'label': 'circle'},
-      {'id': 2, 'label': 'ellipse'},
-      {'id': 3, 'label': 'database'},
-      {'id': 4, 'label': 'box'},
-      {'id': 5, 'label': 'diamond'},
-      {'id': 6, 'label': 'dot'},
-      {'id': 7, 'label': 'square'},
-      {'id': 8, 'label': 'triangle'},
+class _ScrollablePositionedListPageState
+    extends State<ScrollablePositionedListPage> {
+  /// Controller to scroll or jump to a particular item.
+  final ItemScrollController itemScrollController = ItemScrollController();
+
+  /// Controller to scroll a certain number of pixels relative to the current
+  /// scroll offset.
+  final ScrollOffsetController scrollOffsetController =
+  ScrollOffsetController();
+
+  /// Listener that reports the position of items when the list is scrolled.
+  final ItemPositionsListener itemPositionsListener =
+  ItemPositionsListener.create();
+  late List<double> itemHeights;
+  late List<Color> itemColors;
+  bool reversed = false;
+
+  /// The alignment to be used next time the user scrolls or jumps to an item.
+  double alignment = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    final heightGenerator = Random(328902348);
+    final colorGenerator = Random(42490823);
+    itemHeights = List<double>.generate(
+        numberOfItems,
+            (int _) =>
+        heightGenerator.nextDouble() * (maxItemHeight - minItemHeight) +
+            minItemHeight);
+    itemColors = List<Color>.generate(numberOfItems,
+            (int _) => Color(colorGenerator.nextInt(randomMax)).withOpacity(1));
+  }
+
+  @override
+  Widget build(BuildContext context) => Material(
+    child: OrientationBuilder(
+      builder: (context, orientation) => Column(
+        children: <Widget>[
+          Expanded(
+            child: list(orientation),
+          ),
+          positionsView,
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Column(
+                children: <Widget>[
+                  scrollControlButtons,
+                  scrollOffsetControlButtons,
+                  const SizedBox(height: 10),
+                  jumpControlButtons,
+                  alignmentControl,
+                ],
+              ),
+            ],
+          )
+        ],
+      ),
+    ),
+  );
+
+  Widget get alignmentControl => Row(
+    mainAxisSize: MainAxisSize.max,
+    children: <Widget>[
+      const Text('Alignment: '),
+      SizedBox(
+        width: 200,
+        child: SliderTheme(
+          data: SliderThemeData(
+            showValueIndicator: ShowValueIndicator.always,
+          ),
+          child: Slider(
+            value: alignment,
+            label: alignment.toStringAsFixed(2),
+            onChanged: (double value) => setState(() => alignment = value),
+          ),
+        ),
+      ),
     ],
-    'edges': [
-      {'from': 1, 'to': 2},
-      {'from': 2, 'to': 3},
-      {'from': 2, 'to': 4},
-      {'from': 2, 'to': 5},
-      {'from': 5, 'to': 6},
-      {'from': 5, 'to': 7},
-      {'from': 6, 'to': 8}
-    ]
-  };
+  );
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Wrap(
-              children: [
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.siblingSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Sibling Separation'),
-                    onChanged: (text) {
-                      builder.siblingSeparation = int.tryParse(text) ?? 100;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.levelSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Level Separation'),
-                    onChanged: (text) {
-                      builder.levelSeparation = int.tryParse(text) ?? 100;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.subtreeSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Subtree separation'),
-                    onChanged: (text) {
-                      builder.subtreeSeparation = int.tryParse(text) ?? 100;
-                      setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.orientation.toString(),
-                    decoration: InputDecoration(labelText: 'Orientation'),
-                    onChanged: (text) {
-                      builder.orientation = int.tryParse(text) ?? 100;
-                      setState(() {});
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: InteractiveViewer(
-                  constrained: false,
-                  boundaryMargin: EdgeInsets.all(100),
-                  minScale: 0.01,
-                  maxScale: 5.6,
-                  child: GraphView(
-                    graph: graph,
-                    algorithm: BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
-                    paint: Paint()
-                      ..color = Colors.green
-                      ..strokeWidth = 1
-                      ..style = PaintingStyle.stroke,
-                    builder: (Node node) {
-                      // I can decide what widget should be shown here based on the id
-                      var a = node.key!.value as int?;
-                      var nodes = json['nodes']!;
-                      var nodeValue = nodes.firstWhere((element) => element['id'] == a);
-                      return rectangleWidget(nodeValue['label'] as String?);
-                    },
-                  )),
-            ),
-          ],
-        ));
-  }
+  Widget list(Orientation orientation) => ScrollablePositionedList.builder(
+    itemCount: numberOfItems,
+    itemBuilder: (context, index) => item(index, orientation),
+    itemScrollController: itemScrollController,
+    itemPositionsListener: itemPositionsListener,
+    scrollOffsetController: scrollOffsetController,
+    reverse: reversed,
+    scrollDirection: orientation == Orientation.portrait
+        ? Axis.vertical
+        : Axis.horizontal,
+  );
 
-  Widget rectangleWidget(String? a) {
-    return InkWell(
-      onTap: () {
-        print('clicked');
-      },
+  Widget get positionsView => ValueListenableBuilder<Iterable<ItemPosition>>(
+    valueListenable: itemPositionsListener.itemPositions,
+    builder: (context, positions, child) {
+      int? min;
+      int? max;
+      if (positions.isNotEmpty) {
+        // Determine the first visible item by finding the item with the
+        // smallest trailing edge that is greater than 0.  i.e. the first
+        // item whose trailing edge in visible in the viewport.
+        min = positions
+            .where((ItemPosition position) => position.itemTrailingEdge > 0)
+            .reduce((ItemPosition min, ItemPosition position) =>
+        position.itemTrailingEdge < min.itemTrailingEdge
+            ? position
+            : min)
+            .index;
+        // Determine the last visible item by finding the item with the
+        // greatest leading edge that is less than 1.  i.e. the last
+        // item whose leading edge in visible in the viewport.
+        max = positions
+            .where((ItemPosition position) => position.itemLeadingEdge < 1)
+            .reduce((ItemPosition max, ItemPosition position) =>
+        position.itemLeadingEdge > max.itemLeadingEdge
+            ? position
+            : max)
+            .index;
+      }
+      return Row(
+        children: <Widget>[
+          Expanded(child: Text('First Item: ${min ?? ''}')),
+          Expanded(child: Text('Last Item: ${max ?? ''}')),
+          const Text('Reversed: '),
+          Checkbox(
+              value: reversed,
+              onChanged: (bool? value) => setState(() {
+                reversed = value!;
+              }))
+        ],
+      );
+    },
+  );
+
+  Widget get scrollControlButtons => Row(
+    children: <Widget>[
+      const Text('scroll to'),
+      scrollItemButton(0),
+      scrollItemButton(5),
+      scrollItemButton(10),
+      scrollItemButton(100),
+      scrollItemButton(1000),
+      scrollItemButton(5000),
+    ],
+  );
+
+  Widget get scrollOffsetControlButtons => Row(
+    children: <Widget>[
+      const Text('scroll by'),
+      scrollOffsetButton(-1000),
+      scrollOffsetButton(-100),
+      scrollOffsetButton(-10),
+      scrollOffsetButton(10),
+      scrollOffsetButton(100),
+      scrollOffsetButton(1000),
+    ],
+  );
+
+  Widget get jumpControlButtons => Row(
+    children: <Widget>[
+      const Text('jump to'),
+      jumpButton(0),
+      jumpButton(5),
+      jumpButton(10),
+      jumpButton(100),
+      jumpButton(1000),
+      jumpButton(5000),
+    ],
+  );
+
+  ButtonStyle _scrollButtonStyle({required double horizonalPadding}) =>
+      ButtonStyle(
+        padding: MaterialStateProperty.all(
+          EdgeInsets.symmetric(horizontal: horizonalPadding, vertical: 0),
+        ),
+        minimumSize: MaterialStateProperty.all(Size.zero),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      );
+
+  Widget scrollItemButton(int value) => TextButton(
+    key: ValueKey<String>('Scroll$value'),
+    onPressed: () => scrollTo(value),
+    child: Text('$value'),
+    style: _scrollButtonStyle(horizonalPadding: 20),
+  );
+
+  Widget scrollOffsetButton(int value) => TextButton(
+    key: ValueKey<String>('Scroll$value'),
+    onPressed: () => scrollBy(value.toDouble()),
+    child: Text('$value'),
+    style: _scrollButtonStyle(horizonalPadding: 10),
+  );
+
+  Widget scrollPixelButton(int value) => TextButton(
+    key: ValueKey<String>('Scroll$value'),
+    onPressed: () => scrollTo(value),
+    child: Text('$value'),
+    style: _scrollButtonStyle(horizonalPadding: 20),
+  );
+
+  Widget jumpButton(int value) => TextButton(
+    key: ValueKey<String>('Jump$value'),
+    onPressed: () => jumpTo(value),
+    child: Text('$value'),
+    style: _scrollButtonStyle(horizonalPadding: 20),
+  );
+
+  void scrollTo(int index) => itemScrollController.scrollTo(
+      index: index,
+      duration: scrollDuration,
+      curve: Curves.easeInOutCubic,
+      alignment: alignment);
+
+  void scrollBy(double offset) => scrollOffsetController.animateScroll(
+      offset: offset, duration: scrollDuration, curve: Curves.easeInOutCubic);
+
+  void jumpTo(int index) =>
+      itemScrollController.jumpTo(index: index, alignment: alignment);
+
+  /// Generate item number [i].
+  Widget item(int i, Orientation orientation) {
+    return SizedBox(
+      height: orientation == Orientation.portrait ? itemHeights[i] : null,
+      width: orientation == Orientation.landscape ? itemHeights[i] : null,
       child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            boxShadow: [
-              BoxShadow(color: Colors.blue[100]!, spreadRadius: 1),
-            ],
-          ),
-          child: Text('${a}')),
+        color: itemColors[i],
+        child: Center(
+          child: Text('Item $i'),
+        ),
+      ),
     );
   }
-
-  final Graph graph = Graph()..isTree = true;
-  BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
-
-  @override
-  void initState() {
-    var edges = json['edges']!;
-    edges.forEach((element) {
-      var fromNodeId = element['from'];
-      var toNodeId = element['to'];
-      graph.addEdge(Node.Id(fromNodeId), Node.Id(toNodeId));
-    });
-
-    builder
-      ..siblingSeparation = (100)
-      ..levelSeparation = (150)
-      ..subtreeSeparation = (150)
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
-  }
 }
-
-class TreeViewPage extends StatefulWidget {
-  @override
-  _TreeViewPageState createState() => _TreeViewPageState();
-}
-
-class _TreeViewPageState extends State<TreeViewPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Wrap(
-              children: [
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.siblingSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Sibling Separation'),
-                    onChanged: (text) {
-                      builder.siblingSeparation = int.tryParse(text) ?? 100;
-                      this.setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.levelSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Level Separation'),
-                    onChanged: (text) {
-                      builder.levelSeparation = int.tryParse(text) ?? 100;
-                      this.setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.subtreeSeparation.toString(),
-                    decoration: InputDecoration(labelText: 'Subtree separation'),
-                    onChanged: (text) {
-                      builder.subtreeSeparation = int.tryParse(text) ?? 100;
-                      this.setState(() {});
-                    },
-                  ),
-                ),
-                Container(
-                  width: 100,
-                  child: TextFormField(
-                    initialValue: builder.orientation.toString(),
-                    decoration: InputDecoration(labelText: 'Orientation'),
-                    onChanged: (text) {
-                      builder.orientation = int.tryParse(text) ?? 100;
-                      this.setState(() {});
-                    },
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    final node12 = Node.Id(r.nextInt(100));
-                    var edge = graph.getNodeAtPosition(r.nextInt(graph.nodeCount()));
-                    print(edge);
-                    graph.addEdge(edge, node12);
-                    setState(() {});
-                  },
-                  child: Text('Add'),
-                )
-              ],
-            ),
-            Expanded(
-              child: InteractiveViewer(
-                  constrained: false,
-                  boundaryMargin: EdgeInsets.all(100),
-                  minScale: 0.01,
-                  maxScale: 5.6,
-                  child: GraphView(
-                    graph: graph,
-                    algorithm: BuchheimWalkerAlgorithm(builder, TreeEdgeRenderer(builder)),
-                    paint: Paint()
-                      ..color = Colors.green
-                      ..strokeWidth = 1
-                      ..style = PaintingStyle.stroke,
-                    builder: (Node node) {
-                      // I can decide what widget should be shown here based on the id
-                      var a = node.key!.value as int?;
-                      return rectangleWidget(a);
-                    },
-                  )),
-            ),
-          ],
-        ));
-  }
-
-  Random r = Random();
-
-  Widget rectangleWidget(int? a) {
-    return InkWell(
-      onTap: () {
-        print('clicked');
-      },
-      child: Container(
-          padding: EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            boxShadow: [
-              BoxShadow(color: Colors.blue[100]!, spreadRadius: 1),
-            ],
-          ),
-          child: Text('Node ${a}')),
-    );
-  }
-
-  final Graph graph = Graph()..isTree = true;
-  BuchheimWalkerConfiguration builder = BuchheimWalkerConfiguration();
-
-  @override
-  void initState() {
-    final node1 = Node.Id(1);
-    final node2 = Node.Id(2);
-    final node3 = Node.Id(3);
-    final node4 = Node.Id(4);
-    final node5 = Node.Id(5);
-    final node6 = Node.Id(6);
-    final node8 = Node.Id(7);
-    final node7 = Node.Id(8);
-    final node9 = Node.Id(9);
-    final node10 = Node.Id(10);
-    final node11 = Node.Id(11);
-    final node12 = Node.Id(12);
-    graph.addEdge(node1, node2);
-    graph.addEdge(node1, node3, paint: Paint()..color = Colors.red);
-    graph.addEdge(node1, node4, paint: Paint()..color = Colors.blue);
-    graph.addEdge(node2, node5);
-    graph.addEdge(node2, node6);
-    graph.addEdge(node6, node7, paint: Paint()..color = Colors.red);
-    graph.addEdge(node6, node8, paint: Paint()..color = Colors.red);
-    graph.addEdge(node4, node9);
-    graph.addEdge(node4, node10, paint: Paint()..color = Colors.black);
-    graph.addEdge(node4, node11, paint: Paint()..color = Colors.red);
-    graph.addEdge(node11, node12);
-
-    builder
-      ..siblingSeparation = (100)
-      ..levelSeparation = (150)
-      ..subtreeSeparation = (150)
-      ..orientation = (BuchheimWalkerConfiguration.ORIENTATION_TOP_BOTTOM);
-  }
-}
-
-
-
-var builder = SugiyamaConfiguration();

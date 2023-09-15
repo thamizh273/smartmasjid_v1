@@ -7,6 +7,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
+import 'package:smartmasjid_v1/app/modules/profilePage/views/profile_page_view.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/rest_call_controller/rest_call_controller.dart';
 
 import '../../../../utils/localization/localization.dart';
@@ -27,7 +29,9 @@ class EditProfileController extends GetxController {
   final lanctrl = Get.put(LanguagePageController());
   Rx<XFile> image = XFile('').obs;
   String? base64Image;
+  RxString name= "${homectrl.getUserData.value.getUserById!.firstName}" "${homectrl.getUserData.value.getUserById!.lastName}".obs;
   RxBool isPicked = false.obs;
+  RxBool dummy = false.obs;
   RxBool ontap =false.obs;
   //TODO: Implement EditProfileController
   var selectedDate = DateTime.now().obs;
@@ -276,11 +280,14 @@ class EditProfileController extends GetxController {
     };
     var res = await _restcallController.gql_mutation(header, body);
     print(json.encode(res));
-    // homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id);
-    // homectrl.getUserData.canUpdate;
+
+  
     // homectrl.update();
 
-    homectrl.getUserData.value.getUserById!.firstName = firstnamectrl.text;
+    isLoading.value = false;
+    homectrl.getUserData.value.getUserById!.firstName =  firstnamectrl.text;
+    name.value =  firstnamectrl.text+lastnamectrl.text;
+
     homectrl.getUserData.value.getUserById!.lastName = lastnamectrl.text;
     homectrl.getUserData.value.getUserById!.address![0].streetName =
         streetctrl.text;
@@ -292,15 +299,18 @@ class EditProfileController extends GetxController {
     homectrl.getUserData.value.getUserById!.address![0].state = statectrl.text;
     homectrl.getUserData.value.getUserById!.address![0].pincode =
         pincodectrl.text;
+
     homectrl.refresh();
     homectrl.update();
-    update();
-    isLoading.value = false;
-    update();
+
+
     if (res.toString().contains("SUCCESS")) {
+
       var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "${hh}");
-      Get.offNamed(Routes.PROFILE_PAGE);
+    Get.close(1);
+
+
     }
     return res;
   }

@@ -143,10 +143,10 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
     }
   }
 
-  void _checkTxnStatus(String status, String txnId) {
+  Future<void> _checkTxnStatus(String status, String txnId) async {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
-        membrCtrl.membershipUpiPayment(status, txnId);
+       await membrCtrl.membershipUpiPayment(status, txnId);
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:

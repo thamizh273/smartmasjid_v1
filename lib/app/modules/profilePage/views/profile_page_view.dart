@@ -24,7 +24,7 @@ class ProfilePageView extends GetView<EditProfileController> {
 
   static HomeController get homeController => Get.find();
   final lanctrl = Get.put(LanguagePageController());
-  List<Map<String, dynamic>> profile = [
+  final List<Map<String, dynamic>> profile = [
     {
       'name': "edit_profile".tr,
       'icon': Icon(Icons.person),
@@ -214,10 +214,10 @@ class ProfilePageView extends GetView<EditProfileController> {
                 Padding(
                   padding: EdgeInsets.all(6.0),
                   child: Column(
-                    children: [ Text("${homectrl
-                        .firstName}${homectrl
-                        .lastName}", style: TextStyle(
-                        color: Colors.white),),
+                    children: [ Obx(() {
+                      return Text("${controller.name.value}", style: TextStyle(
+                          color: Colors.white),);
+                    }),
 
 
                       Text("${homectrl.emailId}",
@@ -249,7 +249,9 @@ class ProfilePageView extends GetView<EditProfileController> {
               children: [
                 ListTile(
                   onTap: () {
-                    i['page']=="Trans"?Get.toNamed(Routes.ACTIVITIESPAGE):  Get.to( i['page']);
+                    i['page'] == "Trans"
+                        ? Get.toNamed(Routes.ACTIVITIESPAGE)
+                        : Get.to(i['page']);
 
 
                     print("click ${i['page']}");
@@ -283,15 +285,15 @@ class ProfilePageView extends GetView<EditProfileController> {
             ),
           Spacer(),
           GestureDetector(
-            onTap: ()  {
+            onTap: () {
               controller.logout();
 
               // lanctrl.langStore.remove('languageCode');
               // lanctrl.langStore.remove('countryCode');
               // lanctrl.updateLanguage('en_US');
-             //  lanctrl.selectedLang.value = "ENGLISH";
-             //  Localization().clearPreferredLocale();
-             // Get.updateLocale(Locale('en', 'US'));
+              //  lanctrl.selectedLang.value = "ENGLISH";
+              //  Localization().clearPreferredLocale();
+              // Get.updateLocale(Locale('en', 'US'));
               // Get.dialog(
               //    // barrierColor:Get.theme.primaryColor.withOpacity(.8),
               //
@@ -371,7 +373,6 @@ class ProfilePageView extends GetView<EditProfileController> {
               //         )));
 
 
-
               // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => LoginPage()),(_)=>false);
             },
             child: Row(
@@ -382,8 +383,10 @@ class ProfilePageView extends GetView<EditProfileController> {
                   width: 5,
                 ),
                 Obx(() {
-                  return  Stxt(
-                    text:controller.isLoadingLogout.value? 'logout'.tr:'logout'.tr,
+                  return Stxt(
+                    text: controller.isLoadingLogout.value
+                        ? 'logout'.tr
+                        : 'logout'.tr,
                     size: f3,
                     weight: FontWeight.bold,
                     color: Get.theme.primaryColor,

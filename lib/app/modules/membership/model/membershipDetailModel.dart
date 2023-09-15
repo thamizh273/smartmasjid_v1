@@ -81,7 +81,7 @@ class CurrentPayment {
   int? amount;
   DateTime? paymentMonth;
   String? paymentStatus;
-  DateTime? expireDate;
+  String? expireDate;
 
   CurrentPayment({
     this.typename,
@@ -96,7 +96,7 @@ class CurrentPayment {
     amount: json["amount"],
     paymentMonth: json["payment_month"] == null ? null : DateTime.parse(json["payment_month"]),
     paymentStatus: json["payment_status"],
-    expireDate: json["expire_date"] == null ? null : DateTime.parse(json["expire_date"]),
+    expireDate: json["expire_date"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -104,7 +104,7 @@ class CurrentPayment {
     "amount": amount,
     "payment_month": paymentMonth?.toIso8601String(),
     "payment_status": paymentStatus,
-    "expire_date": expireDate?.toIso8601String(),
+    "expire_date": expireDate,
   };
 }
 

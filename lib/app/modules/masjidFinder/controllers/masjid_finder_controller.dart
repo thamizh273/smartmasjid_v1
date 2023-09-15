@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
 import 'package:smartmasjid_v1/app/modules/signup_page/controllers/signup_page_controller.dart';
+import '../../../../data/local/my_shared_pref.dart';
 import '../../../authRepository.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
@@ -151,8 +152,8 @@ mutation Mutation(\$masjidid: String, \$profileImage: String, \$firstName: Strin
     print('ss${_langctrl.selectedLang.value}');
     log('ss${_langctrl.selectedLang.value}');
     var header = """
-query Login_With_Gmail(\$authId: String, \$language: String, \$userName: String, \$gmail: String, \$userType: String, \$masjidid: String) {
-  Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_name_: \$userName, gmail_: \$gmail, user_type_: \$userType, masjidid_: \$masjidid) {
+query Login_With_Gmail(\$authId: String, \$language: String, \$userName: String, \$gmail: String, \$userType: String, \$masjidid: String, \$deviceId: String!) {
+  Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_name_: \$userName, gmail_: \$gmail, user_type_: \$userType, masjidid_: \$masjidid, device_id: \$deviceId) {
     masjid_id
     message
     refresh_token
@@ -169,6 +170,7 @@ query Login_With_Gmail(\$authId: String, \$language: String, \$userName: String,
       "masjidid": "${id}",
       "gmail": "${instance1.gemail}",
       "userName": "${instance1.gname}",
+      "deviceId": "${MySharedPref.getFcmToken()}",
     };
     var res = await _restCallController.gql_query(header, body);
     log("wwww${json.encode(res)}");

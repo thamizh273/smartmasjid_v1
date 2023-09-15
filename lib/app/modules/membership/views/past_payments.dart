@@ -7,8 +7,8 @@ import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../widgets/safa_dropdown2.dart';
 
-class PastPayments extends GetView<MembershipController> {
-  const PastPayments({super.key});
+class PastPaymentsMembership extends GetView<MembershipController> {
+  const PastPaymentsMembership({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,7 @@ class PastPayments extends GetView<MembershipController> {
             ),
             10.verticalSpace,
             Obx(() {
-              return controller.isloading.value
+              return controller.isloading1.value
                   ? loading(context)
                   :controller.membershipPaymentData.value
                   .getMembershipPaymentDetail!.length==0?SizedBox(height:.7.sh,child: Center(child: Stxt(text: "No Record Found", size: f4))):  ListView.builder(

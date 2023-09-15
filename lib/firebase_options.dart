@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBwEp25O_n2RkVfTPW8tM0mofplU0tDQtY',
-    appId: '1:231830520319:android:d2c5a1623403283453e7ca',
+    appId: '1:231830520319:android:3bbd326b044970c453e7ca',
     messagingSenderId: '231830520319',
     projectId: 'smart-masjid-371016',
     storageBucket: 'smart-masjid-371016.appspot.com',
@@ -70,7 +70,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '231830520319',
     projectId: 'smart-masjid-371016',
     storageBucket: 'smart-masjid-371016.appspot.com',
-    androidClientId: '231830520319-9akms2alrs4618jk6lo0knnsd7nn7vc7.apps.googleusercontent.com',
+    androidClientId: '231830520319-2er68221rkk2a76cpigtvlr0vcddujdm.apps.googleusercontent.com',
     iosClientId: '231830520319-ssae890oohpgp3n4pg6ur8c5jqulqenl.apps.googleusercontent.com',
     iosBundleId: 'com.safatech.smartmasjidV1',
   );
