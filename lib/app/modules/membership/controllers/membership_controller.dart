@@ -284,6 +284,7 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
       // var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "${status}");
     }
+
     return res;
   }
 

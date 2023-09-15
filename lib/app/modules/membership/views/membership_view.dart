@@ -206,6 +206,7 @@ class MembershipView extends GetView<MembershipController> {
 
                                   GestureDetector(
                                     onTap: () {
+                                      controller.payforOthers.value=false;
                                       controller.membershipPayment(
                                           "onemonth",
                                           false,
@@ -415,6 +416,7 @@ class MembershipView extends GetView<MembershipController> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 widgetPayBulk(context, "quarterly".tr, "${data.bulkPayThree}", () {
+                                  controller.payforOthers.value=false;
                                   controller.membershipPayment(
                                       "threemonth",
                                       true,
@@ -424,6 +426,7 @@ class MembershipView extends GetView<MembershipController> {
                                 }),
                                 widgetPayBulk(context, "half_yearly".tr, "${data.bulkPaySix}",
                                     () {
+                                      controller.payforOthers.value=false;
                                   controller.membershipPayment(
                                       "sixmonth",
                                       true,
@@ -433,6 +436,7 @@ class MembershipView extends GetView<MembershipController> {
 
                                 }),
                                 widgetPayBulk(context, "annually".tr, "${data.bulkPayAnnual}", () {
+                                  controller.payforOthers.value=false;
                                   controller.membershipPayment(
                                       "twelvemonth",
                                       true,
