@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/modules/messagepage/views/chat_page.dart';
 import 'package:smartmasjid_v1/widgets/Stextfield.dart';
 
 import '../../../../utils/color_utils.dart';
@@ -33,7 +34,7 @@ class ChatUserListPage extends StatelessWidget {
                               hint: "Search".tr,
                               suffixIcon: IconButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                //  Navigator.pop(context);
                                 },
                                 icon: Icon(Icons.search),
                               )),
@@ -49,6 +50,9 @@ class ChatUserListPage extends StatelessWidget {
                                 var data = chatUserListCtrl_.chatListUserData.value
                                     .getChatUserList![index];
                                 return ListTile(
+                                  onTap: (){
+                                    Get.to(ChatPage(username: data.userName!, profileImg: data.profileImage!,));
+                                  },
                                   hoverColor: Colors.brown,
                                   splashColor: Colors.red,
                                   selectedColor: Colors.yellow,
