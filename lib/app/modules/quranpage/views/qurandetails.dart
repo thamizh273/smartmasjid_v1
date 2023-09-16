@@ -954,8 +954,9 @@ class QuranDetails extends StatelessWidget {
                             ),
                       ),
                         ),
-                        Center(
-                          heightFactor: 1.5.sp,
+                        Positioned(
+                          top: 15.h,
+                          left: .23.sw,
                           child: Container(
                             height: 50.sp,
                             width: 180.sp,
