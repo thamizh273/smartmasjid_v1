@@ -51,6 +51,7 @@ class ChatUserListPage extends StatelessWidget {
                                     .getChatUserList![index];
                                 return ListTile(
                                   onTap: (){
+                                    chatUserListCtrl_.get_chatMessage();
                                     Get.to(ChatPage(username: data.userName!, profileImg: data.profileImage!,));
                                   },
                                   hoverColor: Colors.brown,

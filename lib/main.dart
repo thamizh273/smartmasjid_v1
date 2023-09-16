@@ -25,7 +25,7 @@ import 'firebase_options.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
-    [DeviceOrientation.portraitUp,DeviceOrientation.landscapeLeft],
+    [DeviceOrientation.portraitUp],
   );
   await Hive.initFlutter();
   await GetStorage.init();

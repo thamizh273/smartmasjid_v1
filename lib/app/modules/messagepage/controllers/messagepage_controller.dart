@@ -14,6 +14,7 @@ class MessagepageController extends GetxController {
 
   var isLoadings = false.obs;
   var isLoadingschatUserList = false.obs;
+  var isLoadingschatmessage = false.obs;
   final TextEditingController input = TextEditingController();
   final _restCallController = Get.put(restCallController());
   final _homeController= Get.find<HomeController>();
@@ -108,7 +109,7 @@ query Get_Chat_User_List(\$userId: ID!, \$searchBy: String) {
    // update();
   }
   get_chatMessage() async {
-    isLoadingschatUserList.value = true;
+    isLoadingschatmessage.value = true;
     var header = """
 query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: String!, \$id: ID) {
   Read_Chat_Message(user_id: \$userId, chat_roomid: \$chatRoomid, messaging_id: \$messagingId, _id: \$id) {
@@ -131,11 +132,11 @@ query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: Str
       "id": "ee9ba092-384d-49ee-8bdf-c750854b1522"
     };
     var res = await _restCallController.gql_query(header, body);
-    log("getchatUser");
+    log("getmessage");
     log(json.encode(res));
-    log("getchatUser");
-    isLoadingschatUserList.value = false;
-    chatListUserData.value = chatUserListModelFromJson(json.encode(res));
+    log("getmessage");
+    isLoadingschatmessage.value = false;
+   // chatListUserData.value = chatUserListModelFromJson(json.encode(res));
    // update();
   }
 }
