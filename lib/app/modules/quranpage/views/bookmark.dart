@@ -7,7 +7,7 @@ import '../../../routes/export.dart';
 class Bookmark extends StatelessWidget {
   Bookmark({super.key});
 
-  final controller = Get.put(QuranpageController());
+  final qcontroller = Get.put(QuranpageController());
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +69,8 @@ class Bookmark extends StatelessWidget {
               )
             ),
             Obx(() {
-            return controller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
-              itemCount: controller.buttonsSelected.length,
+            return qcontroller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
+              itemCount: qcontroller.buttonsSelected.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
@@ -78,37 +78,37 @@ class Bookmark extends StatelessWidget {
                       elevation: 5,
                       child: ListTile(
                         title: Stxt(
-                          text: "${controller.buttonsSelected[index]}",
+                          text: "${qcontroller.buttonsSelected[index]}",
                           size: f2,
                           weight: FontWeight.bold,
                         ), onTap: () {
-                        var symbolIndex = controller.buttonsSelected[index].indexOf(
+                        var symbolIndex = qcontroller.buttonsSelected[index].indexOf(
                             symbol);
                         if (symbolIndex != -1 && symbolIndex <
-                            controller.buttonsSelected[index].length - 1) {
-                          c.result.value = controller.buttonsSelected[index]
+                            qcontroller.buttonsSelected[index].length - 1) {
+                          qcontroller.result.value = qcontroller.buttonsSelected[index]
                               .substring(symbolIndex + 1)
                               .trim();
-                          print(c.result.value.toString()); // Output: "12"
+                          print(qcontroller.result.value.toString()); // Output: "12"
                         }
-                        var spaceIndex = controller.buttonsSelected[index].indexOf(
+                        var spaceIndex = qcontroller.buttonsSelected[index].indexOf(
                             space);
-                        var symbol1Index = controller.buttonsSelected[index].indexOf(
+                        var symbol1Index = qcontroller.buttonsSelected[index].indexOf(
                             symbol);
 
                         if (spaceIndex != -1 && symbol1Index != -1 &&
                             spaceIndex < symbol1Index) {
-                          c.result1.value = controller.buttonsSelected[index]
+                          qcontroller.result1.value = qcontroller.buttonsSelected[index]
                               .substring(spaceIndex + 1, symbol1Index)
                               .trim();
-                          print(c.result1.value); // Output: "17"
+                          print(qcontroller.result1.value); // Output: "17"
                         }
                         //  Get.to(QuranDetails());
-                        controller.quranDetailList(c.result1.value);
+                        qcontroller.quranDetailList(qcontroller.result1.value);
                       }, trailing: IconButton(onPressed: () {
-                        controller.buttonsSelected.removeAt(index);
-                        controller.deleteIndex(index);
-                        controller.update();
+                        qcontroller.buttonsSelected.removeAt(index);
+                        qcontroller.deleteIndex(index);
+                        qcontroller.update();
                       }, icon: Icon(Icons.delete)),
                       )),
                 );
@@ -116,8 +116,8 @@ class Bookmark extends StatelessWidget {
             );
           }),
             Obx(() {
-              return controller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
-                itemCount: controller.buttonsSelected.length,
+              return qcontroller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
+                itemCount: qcontroller.buttonsSelected.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
@@ -125,37 +125,37 @@ class Bookmark extends StatelessWidget {
                         elevation: 5,
                         child: ListTile(
                           title: Stxt(
-                            text: "${controller.buttonsSelected[index]}",
+                            text: "${qcontroller.buttonsSelected[index]}",
                             size: f2,
                             weight: FontWeight.bold,
                           ), onTap: () {
-                          var symbolIndex = controller.buttonsSelected[index].indexOf(
+                          var symbolIndex = qcontroller.buttonsSelected[index].indexOf(
                               symbol);
                           if (symbolIndex != -1 && symbolIndex <
-                              controller.buttonsSelected[index].length - 1) {
-                            c.result.value = controller.buttonsSelected[index]
+                              qcontroller.buttonsSelected[index].length - 1) {
+                            qcontroller.result.value = qcontroller.buttonsSelected[index]
                                 .substring(symbolIndex + 1)
                                 .trim();
-                            print(c.result.value.toString()); // Output: "12"
+                            print(qcontroller.result.value.toString()); // Output: "12"
                           }
-                          var spaceIndex = controller.buttonsSelected[index].indexOf(
+                          var spaceIndex = qcontroller.buttonsSelected[index].indexOf(
                               space);
-                          var symbol1Index = controller.buttonsSelected[index].indexOf(
+                          var symbol1Index = qcontroller.buttonsSelected[index].indexOf(
                               symbol);
 
                           if (spaceIndex != -1 && symbol1Index != -1 &&
                               spaceIndex < symbol1Index) {
-                            c.result1.value = controller.buttonsSelected[index]
+                            qcontroller.result1.value = qcontroller.buttonsSelected[index]
                                 .substring(spaceIndex + 1, symbol1Index)
                                 .trim();
-                            print(c.result1.value); // Output: "17"
+                            print(qcontroller.result1.value); // Output: "17"
                           }
                           //  Get.to(QuranDetails());
-                          controller.quranDetailList(c.result1.value);
+                          qcontroller.quranDetailList(qcontroller.result1.value);
                         }, trailing: IconButton(onPressed: () {
-                          controller.buttonsSelected.removeAt(index);
-                          controller.deleteIndex(index);
-                          controller.update();
+                          qcontroller.buttonsSelected.removeAt(index);
+                          qcontroller.deleteIndex(index);
+                          qcontroller.update();
                         }, icon: Icon(Icons.delete)),
                         )),
                   );

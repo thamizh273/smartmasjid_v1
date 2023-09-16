@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/controllers/quranpage_controller.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/space.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
 
-import '../app/modules/quranpage/views/qurandetails.dart';
 import '../global.dart';
 
 Future QuranPlanner(BuildContext context) {
+  final quranplannerCtrl=Get.put(QuranpageController());
   return showModalBottomSheet(
     backgroundColor: Colors.transparent,
     context: context,
@@ -80,9 +82,9 @@ Future QuranPlanner(BuildContext context) {
                     Spacer(),
                     Obx(() {
                       return Switch(
-                        value: c.switchValue.value,
+                        value: quranplannerCtrl.switchValue.value,
                         onChanged: (newValue) {
-                          c.switchValue.value = newValue;
+                          quranplannerCtrl.switchValue.value = newValue;
                         },
                       );
                     }),

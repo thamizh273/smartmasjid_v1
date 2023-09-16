@@ -301,16 +301,15 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
 
 
   getUserDetails(passwordlogin, tokenid) async {
-
     //final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
-
     // var jjj = box1.read('fruits');
    // print('Stored list: $jjj');
-
     isloading.value=true;
 
 
     print("hhhhh $passwordlogin");
+    print("hhhhh ${MySharedPref.getFcmToken()}");
+    print("hhhhh $tokenid");
     var header="""
 query Query(\$id: String, \$authId: String,\$deviceId: String,\$token: String!) {
   Get_User_By_Id(id_: \$id, auth_id_: \$authId,device_id: \$deviceId,token: \$token) {

@@ -10,7 +10,7 @@ import 'package:smartmasjid_v1/widgets/space.dart';
 
 import '../app/modules/quranpage/views/qurandetails.dart';
 
-final QuranpageController c = Get.put(QuranpageController());
+final QuranpageController quranPageCtrl_ = Get.put(QuranpageController());
 
 Future GotoVerse(BuildContext context) {
   return showModalBottomSheet(
@@ -111,7 +111,7 @@ Future GotoVerse(BuildContext context) {
                 children: [
                   Obx(() {
                     return SizedBox(
-                      width: c.screenWidth * 0.43,
+                      width: quranPageCtrl_.screenWidth * 0.43,
                       height: 250.h,
                       child: Stack(
                           children: [
@@ -128,20 +128,20 @@ Future GotoVerse(BuildContext context) {
                               ),
                             ),
                             ListWheelScrollView.useDelegate(
-                              controller: c.scrollController_.value,
+                              controller: quranPageCtrl_.scrollController_.value,
                               // controller: FixedExtentScrollController(
                               //   initialItem: c.getqurandata.value.quranFilter!
                               //       .length, // Initial item index for continuous scrolling
                               // ),
 
                               childDelegate: ListWheelChildBuilderDelegate(
-                                childCount: c.itemCount_.value,
+                                childCount: quranPageCtrl_.itemCount_.value,
 
                                 builder: (BuildContext context, int index) {
-                                  var adjustedIndex = index % c.getqurandata.value.quranFilter!.length;
+                                  var adjustedIndex = index % quranPageCtrl_.getqurandata.value.quranFilter!.length;
 
-                                   var sura = c.getqurandata.value.quranFilter![adjustedIndex].suraNameEn;
-                                  var chap = c.getqurandata.value.quranFilter![adjustedIndex].suraChapterNo;
+                                   var sura = quranPageCtrl_.getqurandata.value.quranFilter![adjustedIndex].suraNameEn;
+                                  var chap = quranPageCtrl_.getqurandata.value.quranFilter![adjustedIndex].suraChapterNo;
                                   return Container(
                                     child:
                                     ListTile(
@@ -175,7 +175,7 @@ Future GotoVerse(BuildContext context) {
                               itemExtent: 50,
                               onSelectedItemChanged: (index) {
                                 // Handle selected day change
-                                c.currentSelected.value = index % c.getqurandata.value.quranFilter!.length;
+                                quranPageCtrl_.currentSelected.value = index % quranPageCtrl_.getqurandata.value.quranFilter!.length;
 
                                 // c.currentVerseSelected.value = -1;
                               },
@@ -189,7 +189,7 @@ Future GotoVerse(BuildContext context) {
                   }),
                   Obx(() {
                     return SizedBox(
-                      width: c.screenWidth * 0.17,
+                      width: quranPageCtrl_.screenWidth * 0.17,
                       height: 250.h,
                       child: Stack(
                           children: [
@@ -209,16 +209,16 @@ Future GotoVerse(BuildContext context) {
                               controller: FixedExtentScrollController(
                                 initialItem:(
                                     int.parse(
-                                        "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}")*100),
+                                        "${quranPageCtrl_.getqurandata.value.quranFilter![quranPageCtrl_.currentSelected.value].totalVerses}")*100),
                               ),
                               childDelegate: ListWheelChildBuilderDelegate(
                                 childCount:int.parse(
-                                    "${c.getqurandata.value.quranFilter![c
+                                    "${quranPageCtrl_.getqurandata.value.quranFilter![quranPageCtrl_
                                         .currentSelected.value].totalVerses}")*200,
 
                                 builder: (BuildContext context, int index) {
                                   var adjustedIndex = index % int.parse(
-                                      "${c.getqurandata.value.quranFilter![c.currentSelected.value].totalVerses}" );
+                                      "${quranPageCtrl_.getqurandata.value.quranFilter![quranPageCtrl_.currentSelected.value].totalVerses}" );
                                   print('cin${adjustedIndex}');
                                   return ListTile(
                                     dense: false,
@@ -244,7 +244,7 @@ Future GotoVerse(BuildContext context) {
                     );
                   }),
                   SizedBox(
-                    width: c.screenWidth * 0.31,
+                    width: quranPageCtrl_.screenWidth * 0.31,
                     height: 250.h,
                     child: Stack(
                         children: [
@@ -262,9 +262,9 @@ Future GotoVerse(BuildContext context) {
                           ),
                           ListWheelScrollView.useDelegate(
                             controller: FixedExtentScrollController(
-                              initialItem:c.pages.length*1 ),// Initial item index for continuous scrolling
+                              initialItem:quranPageCtrl_.pages.length*1 ),// Initial item index for continuous scrolling
                             childDelegate: ListWheelChildBuilderDelegate(
-                              childCount: c.pages.length*2,
+                              childCount: quranPageCtrl_.pages.length*2,
                               builder: (BuildContext context, int index) {
                                
                                 return ListTile(
@@ -272,7 +272,7 @@ Future GotoVerse(BuildContext context) {
                                   title: Center(
                                     child:
                                     Text(
-                                      c.pages[index%c.pages.length]['no'].toString(),
+                                      quranPageCtrl_.pages[index%quranPageCtrl_.pages.length]['no'].toString(),
                                       style:
                                       TextStyle(color: Colors.white),
                                     ),
@@ -309,7 +309,7 @@ Future GotoVerse(BuildContext context) {
                   children: [
                        ElevatedButton(
                           onPressed: () {
-                           c.quranDetailList(c.currentSelected.value+1);
+                          // c.quranDetailList(c.currentSelected.value+1);
                           },
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(130, 30),

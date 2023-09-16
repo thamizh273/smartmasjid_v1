@@ -128,10 +128,10 @@ class QuranpageController extends GetxController {
   }
 
   void shareMessage(index) {
-    Share.share("${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
-        "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].arabicText}"
-        "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].engTranslation}"
-        "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].tamilTranslation}");
+    Share.share("${getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
+        "${getqurandetail.value.getQuranAyahVerse![0].ayahList![index].arabicText}"
+        "${getqurandetail.value.getQuranAyahVerse![0].ayahList![index].engTranslation}"
+        "${getqurandetail.value.getQuranAyahVerse![0].ayahList![index].tamilTranslation}");
   }
 
   Future<void> fetchMoreData() async {
@@ -152,9 +152,9 @@ class QuranpageController extends GetxController {
   }
   var copy = [].obs;
   void copyToClipboard(index) {
-      Clipboard.setData(ClipboardData(text:"${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
-          "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].arabicText}"
-          "${c.getqurandetail.value.getQuranAyahVerse![0].ayahList![index].engTranslation}"));
+      Clipboard.setData(ClipboardData(text:"${getqurandetail.value.getQuranAyahVerse![0].ayahList![index].versesKey}"
+          "${getqurandetail.value.getQuranAyahVerse![0].ayahList![index].arabicText}"
+          "${getqurandetail.value.getQuranAyahVerse![0].ayahList![index].engTranslation}"));
     Get.snackbar('Copied', 'Text copied to clipboard!',
         backgroundColor: Colors.green,
         colorText: Colors.white,
@@ -197,13 +197,13 @@ void setLastReadIndex(int index) {
 
   void onItemClick(int index) {
     print("mmmmmmmm $index");
-    c.quranDetailList(index + 1);
+    quranDetailList(index + 1);
     // Add the clicked item index to the clickedItems list
     clickedItems.add(index);
   }
   void onItemClick1(int index) {
     print("mmmmmmmm $index");
-    c.quranjuzdetailList(index + 1);
+    quranjuzdetailList(index + 1);
     // Add the clicked item index to the clickedItems list
     clickedItems.add(index);
   }
@@ -228,7 +228,7 @@ void changeFontFamily(String family) {
       clearSearch();
     } else {
       // Set back the previous search query
-      c.searchQuery.value = c.savedSearchQuery.value;
+     searchQuery.value = savedSearchQuery.value;
     }
   }
 
@@ -527,7 +527,7 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     {"sura": "Maryam", "image":"assets/images/19. Maryam.png"},
     {"sura": "Taha", "image":"assets/images/20. Taha.png"},
     {"sura": "Al-Anbya", "image":"assets/images/21. Al-Anbya.png"},
-    {"sura": "Al-Hajj", "image":"assets/images/22. Al-Hajj.png"},
+    {"sura": "Al-Hajj", "image":"assets/images/22. Al-hajj.png"},
     {"sura": "Al-Mu'minun", "image":"assets/images/23. Al-Muminum.png"},
     {"sura": "An-Nur", "image":"assets/images/24. An-Nur.png"},
     {"sura": "Al-Furqan", "image":"assets/images/25. Al-Furqan.png"},

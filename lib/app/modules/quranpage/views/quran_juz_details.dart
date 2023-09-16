@@ -22,15 +22,15 @@ class QuranJuzDetails extends StatefulWidget {
   State<QuranJuzDetails> createState() => _QuranJuzDetailsState();
 }
 
-final c = Get.put(QuranpageController());
+final juzquranCtrl_ = Get.put(QuranpageController());
 
 
 class _QuranJuzDetailsState extends State<QuranJuzDetails> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return c.isLoadingsJuz.value ? loading(context) : Scaffold(
-          key: c.scaffoldKey,
+      return juzquranCtrl_.isLoadingsJuz.value ? loading(context) : Scaffold(
+          key: juzquranCtrl_.scaffoldKey,
           endDrawer: Drawer(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -68,9 +68,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                 activeColor: Get.theme.primaryColor,
                                 // title: Text("Amiri"),
                                 value: "sura",
-                                groupValue: c.view.value,
+                                groupValue: juzquranCtrl_.view.value,
                                 onChanged: (groupValue) =>
-                                    c.view(groupValue!),
+                                    juzquranCtrl_.view(groupValue!),
                               );
                             }),
                             Text("surah".tr),
@@ -79,9 +79,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                 activeColor: Get.theme.primaryColor,
                                 // title: Text("Amiri"),
                                 value: "page",
-                                groupValue: c.view.value,
+                                groupValue: juzquranCtrl_.view.value,
                                 onChanged: (groupValue) =>
-                                    c.view(groupValue!),
+                                    juzquranCtrl_.view(groupValue!),
                               );
                             }),
                             Text("page".tr),
@@ -95,9 +95,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                 activeColor: Get.theme.primaryColor,
                                 // title: Text("Amiri"),
                                 value: "juz",
-                                groupValue: c.view.value,
+                                groupValue: juzquranCtrl_.view.value,
                                 onChanged: (groupValue) =>
-                                    c.view(groupValue!),
+                                    juzquranCtrl_.view(groupValue!),
                               );
                             }),
                             Text("juz".tr),
@@ -106,9 +106,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                 activeColor: Get.theme.primaryColor,
                                 // title: Text("Amiri"),
                                 value: "hizb",
-                                groupValue: c.view.value,
+                                groupValue: juzquranCtrl_.view.value,
                                 onChanged: (groupValue) =>
-                                    c.view(groupValue!),
+                                    juzquranCtrl_.view(groupValue!),
                               );
                             }),
                             Text("hizb".tr),
@@ -141,14 +141,14 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                               child: Checkbox(
                                 activeColor: Get.theme.primaryColor,
                                 checkColor: Colors.white,
-                                value: c.isCheckedArabic.value,
+                                value: juzquranCtrl_.isCheckedArabic.value,
                                 onChanged: (value) {
-                                  c.isCheckedArabic.value = value!;
+                                  juzquranCtrl_.isCheckedArabic.value = value!;
                                   Future.delayed(
                                       Duration(milliseconds: 500), () {
-                                    c.getqurandetail();
+                                    juzquranCtrl_.getqurandetail();
                                   });
-                                  c.update();
+                                  juzquranCtrl_.update();
                                 },
                               ),
                             ),
@@ -166,14 +166,14 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                               child: Checkbox(
                                 activeColor: Get.theme.primaryColor,
                                 checkColor: Colors.white,
-                                value: c.isCheckedEnglish.value,
+                                value: juzquranCtrl_.isCheckedEnglish.value,
                                 onChanged: (value) {
-                                  c.isCheckedEnglish.value = value!;
+                                  juzquranCtrl_.isCheckedEnglish.value = value!;
                                   Future.delayed(
                                       Duration(milliseconds: 500), () {
-                                    c.getqurandetail();
+                                    juzquranCtrl_.getqurandetail();
                                   });
-                                  c.update();
+                                  juzquranCtrl_.update();
                                 },
                               ),
                             ),
@@ -192,14 +192,14 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                 splashRadius: 5,
                                 activeColor: Get.theme.primaryColor,
                                 checkColor: Colors.white,
-                                value: c.isCheckedTamil.value,
+                                value: juzquranCtrl_.isCheckedTamil.value,
                                 onChanged: (value) {
-                                  c.isCheckedTamil.value = value!;
+                                  juzquranCtrl_.isCheckedTamil.value = value!;
                                   Future.delayed(
                                       Duration(milliseconds: 500), () {
-                                    c.getqurandetail();
+                                    juzquranCtrl_.getqurandetail();
                                   });
-                                  c.update();
+                                  juzquranCtrl_.update();
                                 },
                               ),
                             ),
@@ -241,9 +241,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             activeColor: Get.theme.primaryColor,
                                             // title: Text("Amiri"),
                                             value: "noorehira",
-                                            groupValue: c.fontFamily.value,
+                                            groupValue: juzquranCtrl_.fontFamily.value,
                                             onChanged: (groupValue) =>
-                                                c.changeFontFamily(groupValue!),
+                                                juzquranCtrl_.changeFontFamily(groupValue!),
                                           ),
                                         ),
                                         Text("noorehira".tr),
@@ -268,9 +268,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             activeColor: Get.theme.primaryColor,
                                             // title: Text("Kalam"),
                                             value: "noorehuda",
-                                            groupValue: c.fontFamily.value,
+                                            groupValue: juzquranCtrl_.fontFamily.value,
                                             onChanged: (groupValue) =>
-                                                c.changeFontFamily(groupValue!),
+                                                juzquranCtrl_.changeFontFamily(groupValue!),
                                           ),
                                         ),
                                         Text("noorehuda".tr),
@@ -294,9 +294,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             activeColor: Get.theme.primaryColor,
                                             // title: Text("Amiri"),
                                             value: "noorehidayat",
-                                            groupValue: c.fontFamily.value,
+                                            groupValue: juzquranCtrl_.fontFamily.value,
                                             onChanged: (groupValue) =>
-                                            c.fontFamily.value = groupValue!,
+                                            juzquranCtrl_.fontFamily.value = groupValue!,
                                           ),
                                         ),
                                         Text("noorehidayat".tr),
@@ -333,9 +333,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             activeColor: Get.theme.primaryColor,
                                             // title: Text("Amiri"),
                                             value: "indopak",
-                                            groupValue: c.fontFamily.value,
+                                            groupValue: juzquranCtrl_.fontFamily.value,
                                             onChanged: (groupValue) =>
-                                                c.changeFontFamily(groupValue!),
+                                                juzquranCtrl_.changeFontFamily(groupValue!),
                                           ),
                                         ),
                                         Text("quran".tr),
@@ -358,9 +358,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             activeColor: Get.theme.primaryColor,
                                             // title: Text("Kalam"),
                                             value: "qalam",
-                                            groupValue: c.fontFamily.value,
+                                            groupValue: juzquranCtrl_.fontFamily.value,
                                             onChanged: (groupValue) =>
-                                                c.changeFontFamily(groupValue!),
+                                                juzquranCtrl_.changeFontFamily(groupValue!),
                                           ),
                                         ),
                                         Text("qalam".tr),
@@ -384,9 +384,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             activeColor: Get.theme.primaryColor,
                                             // title: Text("Amiri"),
                                             value: "uthami",
-                                            groupValue: c.fontFamily.value,
+                                            groupValue: juzquranCtrl_.fontFamily.value,
                                             onChanged: (groupValue) =>
-                                            c.fontFamily.value = groupValue!,
+                                            juzquranCtrl_.fontFamily.value = groupValue!,
                                           ),
                                         ),
                                         Text("hafs".tr),
@@ -409,9 +409,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                             activeColor: Get.theme.primaryColor,
                                             // title: Text("Kalam"),
                                             value: "amiri",
-                                            groupValue: c.fontFamily.value,
+                                            groupValue: juzquranCtrl_.fontFamily.value,
                                             onChanged: (groupValue) =>
-                                            c.fontFamily.value =
+                                            juzquranCtrl_.fontFamily.value =
                                                 groupValue!.toString(),
                                           ),
                                         ),
@@ -475,9 +475,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                       child: Obx(() {
                         // Use Obx to listen to changes in the controller's sliderValue
                         return Slider(
-                          onChanged: c.setSliderValue,
+                          onChanged: juzquranCtrl_.setSliderValue,
                           // Call the setSliderValue method from the controller
-                          value: c.sliderValue.value,
+                          value: juzquranCtrl_.sliderValue.value,
                           // Use the sliderValue from the controller
                           min: 0,
                           max: 2,
@@ -524,9 +524,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                       child: Obx(() {
                         // Use Obx to listen to changes in the controller's sliderValue
                         return Slider(
-                          onChanged: c.setSliderValue1,
+                          onChanged: juzquranCtrl_.setSliderValue1,
                           // Call the setSliderValue method from the controller
-                          value: c.sliderValue1.value,
+                          value: juzquranCtrl_.sliderValue1.value,
                           // Use the sliderValue from the controller
                           min: 0,
                           max: 2,
@@ -585,7 +585,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                         //     );
                         //   },
                         // );
-                        c.openEndDrawer();
+                        juzquranCtrl_.openEndDrawer();
                       },
                       child: SvgPicture.asset("assets/svg/customize.svg")),
                   Space(22),
@@ -599,12 +599,12 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
             physics: ScrollPhysics(),
             // controller: c.pageController,
             onPageChanged: (page) {
-              c.quranjuzdetailList(c.qurandetsilIndex.value + (page+1));
+              juzquranCtrl_.quranjuzdetailList(juzquranCtrl_.qurandetsilIndex.value + (page+1));
             },
-            itemCount: c.getquranjuz.value.getQuranJuzChapter!.length,
+            itemCount: juzquranCtrl_.getquranjuz.value.getQuranJuzChapter!.length,
             itemBuilder: (BuildContext context, int index) {
               return Obx(() {
-                return (c.isLoadingsJuz.value)?loading(context):Padding(
+                return (juzquranCtrl_.isLoadingsJuz.value)?loading(context):Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
@@ -630,7 +630,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Obx(() {
-                                            final ctrl = c.getquranjuzdetail.value
+                                            final ctrl = juzquranCtrl_.getquranjuzdetail.value
                                                 .getQuranJuzVersesList![0];
                                             return Text(
                                               "${ctrl.juzChapterNo}",
@@ -663,7 +663,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                   .primaryColor,
                                               weight: FontWeight.w500,),
                                             Obx(() {
-                                              final ctrl = c.getquranjuzdetail.value
+                                              final ctrl = juzquranCtrl_.getquranjuzdetail.value
                                                   .getQuranJuzVersesList![0];
                                               return Stxt(
                                                 text: "${ctrl.totalVerses}",
@@ -701,7 +701,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                         GotoVerse(context);
                                       },
                                       child: Obx(() {
-                                        final ctrl = c.getquranjuzdetail.value
+                                        final ctrl = juzquranCtrl_.getquranjuzdetail.value
                                             .getQuranJuzVersesList![0];
                                         return Row(
                                           mainAxisAlignment: MainAxisAlignment
@@ -732,7 +732,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                       }),
                                     ),
                                     Obx(() {
-                                      final ctrl = c.getquranjuzdetail.value
+                                      final ctrl = juzquranCtrl_.getquranjuzdetail.value
                                           .getQuranJuzVersesList![0];
                                       return Stxt(
                                         text: "${ctrl.juzNameArb}", size: f1,
@@ -751,14 +751,14 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                           child:
 
                           Obx(() {
-                            return c.isLoadingsJuz.value
+                            return juzquranCtrl_.isLoadingsJuz.value
                                 ? loading(context)
                                 : ListView
                                 .builder(
-                                itemCount: c.getquranjuzdetail.value
+                                itemCount: juzquranCtrl_.getquranjuzdetail.value
                                     .getQuranJuzVersesList![0].ayahList!.length,
                                 itemBuilder: (context, index) {
-                                  var juz = c.getquranjuzdetail.value
+                                  var juz = juzquranCtrl_.getquranjuzdetail.value
                                       .getQuranJuzVersesList![0]
                                       .ayahList![index];
                                   return Container(
@@ -777,7 +777,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                       .end,
                                                   children: [
                                                     // Space(8),
-                                                    ...c.pages.map((e) =>
+                                                    ...juzquranCtrl_.pages.map((e) =>
                                                     e['verse'] == juz.versesKey
                                                         ? Center(
                                                       child: Container(
@@ -813,7 +813,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                     GestureDetector(
 
                                                       onTap: () {
-                                                        print('ssss${c
+                                                        print('ssss${juzquranCtrl_
                                                             .getquranjuzdetail
                                                             .value
                                                             .getQuranJuzVersesList![0]
@@ -822,8 +822,8 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                         //   print("ggg");
                                                         //   c.toogle(index);
                                                         // }
-                                                        c.toogle(
-                                                            "${c
+                                                        juzquranCtrl_.toogle(
+                                                            "${juzquranCtrl_
                                                                 .getquranjuzdetail
                                                                 .value
                                                                 .getQuranJuzVersesList![0]
@@ -846,9 +846,9 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                                 .toString()}");
                                                         // final isBookmarked = c.isBookmarked.value;
                                                         return Icon(
-                                                          c.buttonsSelected
+                                                          juzquranCtrl_.buttonsSelected
                                                               .contains(
-                                                              "${c
+                                                              "${juzquranCtrl_
                                                                   .getquranjuzdetail
                                                                   .value
                                                                   .getQuranJuzVersesList![0]
@@ -857,10 +857,10 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                               ? Icons.bookmark
                                                               : Icons
                                                               .bookmark_outline,
-                                                          color: c
+                                                          color: juzquranCtrl_
                                                               .buttonsSelected
                                                               .contains(
-                                                              "${c
+                                                              "${juzquranCtrl_
                                                                   .getquranjuzdetail
                                                                   .value
                                                                   .getQuranJuzVersesList![0]
@@ -987,10 +987,10 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                         Alignment.centerLeft,
                                                         child: Obx(() {
                                                           double fontSize = 40.0;
-                                                          String fontFamily = c
+                                                          String fontFamily = juzquranCtrl_
                                                               .fontFamily
                                                               .value;
-                                                          double sliderValue = c
+                                                          double sliderValue = juzquranCtrl_
                                                               .sliderValue
                                                               .value;
                                                           if (sliderValue ==
@@ -1006,38 +1006,38 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                           TextStyle textStyle = TextStyle(
                                                             wordSpacing: 10,
                                                             fontSize: fontSize,
-                                                            fontFamily: c
+                                                            fontFamily: juzquranCtrl_
                                                                 .fontFamily
                                                                 .value ==
                                                                 "indopak"
                                                                 ? "Indopak"
-                                                                : c.fontFamily
+                                                                : juzquranCtrl_.fontFamily
                                                                 .value ==
                                                                 "qalam"
-                                                                ? "Qalam" : c
+                                                                ? "Qalam" : juzquranCtrl_
                                                                 .fontFamily
                                                                 .value ==
                                                                 "uthami"
-                                                                ? "Uthami" : c
+                                                                ? "Uthami" : juzquranCtrl_
                                                                 .fontFamily
                                                                 .value ==
                                                                 "amiri"
-                                                                ? "Amiri" : c
+                                                                ? "Amiri" : juzquranCtrl_
                                                                 .fontFamily
                                                                 .value ==
                                                                 "noorehira"
                                                                 ? "Noorehira"
-                                                                : c
+                                                                : juzquranCtrl_
                                                                 .fontFamily
                                                                 .value ==
                                                                 "noorehuda"
                                                                 ? "Noorehuda"
-                                                                : c
+                                                                : juzquranCtrl_
                                                                 .fontFamily
                                                                 .value ==
                                                                 "noorehidayat"
                                                                 ? "Noorehidayat"
-                                                                : c
+                                                                : juzquranCtrl_
                                                                 .fontFamily
                                                                 .value ==
                                                                 "arabictit"
@@ -1045,10 +1045,10 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                                 : null, // Use the default font if "Amiri" is not selected
                                                           );
                                                           return SizedBox(
-                                                            width: c
+                                                            width: juzquranCtrl_
                                                                 .screenWidth *
                                                                 0.65,
-                                                            child: c
+                                                            child: juzquranCtrl_
                                                                 .isCheckedArabic
                                                                 .value == true
                                                                 ? Text(
@@ -1196,7 +1196,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                 Space(16),
                                                 Obx(() {
                                                   double fontSize = 18.0;
-                                                  double sliderValue = c
+                                                  double sliderValue = juzquranCtrl_
                                                       .sliderValue1
                                                       .value;
                                                   if (sliderValue == 1) {
@@ -1212,7 +1212,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                           alignment: Alignment
                                                               .center,
                                                           child:
-                                                          c.isCheckedEnglish
+                                                          juzquranCtrl_.isCheckedEnglish
                                                               .value ==
                                                               true
                                                               ? Text(
@@ -1229,7 +1229,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                 Space(16),
                                                 Obx(() {
                                                   double fontSize = 18.0;
-                                                  double sliderValue = c
+                                                  double sliderValue = juzquranCtrl_
                                                       .sliderValue1
                                                       .value;
                                                   if (sliderValue == 1) {
@@ -1244,7 +1244,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                       child: Align(
                                                           alignment: Alignment
                                                               .center,
-                                                          child: c
+                                                          child: juzquranCtrl_
                                                               .isCheckedTamil
                                                               .value
                                                               ? Text(
