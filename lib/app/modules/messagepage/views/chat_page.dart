@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
@@ -8,18 +10,16 @@ import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
 
 
-class ChatPage extends StatefulWidget {
-  final Chat chat;
-   ChatPage({super.key, required this.chat });
-   final MessagepageController c = Get.put(MessagepageController());
+
+class ChatPage extends StatelessWidget {
+
+   ChatPage({super.key, required this.username,required this.profileImg});
+   final String username;
+   final String profileImg;
+   final MessagepageController messageCtrl = Get.put(MessagepageController());
 
 
-  @override
-  State<ChatPage> createState() => _ChatPageState();
-}
-
-class _ChatPageState extends State<ChatPage> {
-  List<Messages> messagesList = [
+ final List<Messages> messagesList = [
     Messages(message: 'Hello', time: '8.30 pm'),
     Messages(message: 'Hii', time: '8.30 pm'),
     Messages(message: 'Hello', time: '8.30 pm'),
@@ -41,19 +41,20 @@ class _ChatPageState extends State<ChatPage> {
           title: Row(
             children: [
               Container(
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
                 ),
                 clipBehavior: Clip.antiAlias,
-                child: Image.asset(
-                  widget.chat.user.profile!,
-                  fit: BoxFit.fitHeight,
-                  width: 40,
-                  height: 40,
-                ),
+                child: profileImg== "null"
+                    ? Image.asset("assets/images/app_logo.png")
+                    : Image(
+                    image: MemoryImage(base64Decode(profileImg
+                        .toString())))
               ),
               Space(16),
-              Flexible(child: Text(widget.chat.user.name)),
+              Flexible(child: Text('${username}')),
             ],
           ),
           titleSpacing: 0,
@@ -206,9 +207,9 @@ class _ChatPageState extends State<ChatPage> {
                     ),
                   ),
                   IconButton(onPressed: () {
-                    setState(() {
+                  //  setState(() {
                       messagesList.add(Messages(message: input.text, time: '12:08 pm'));
-                    });
+                   // });
                   }, icon: Icon(Icons.send, color:  Theme.of(context).primaryColor,))
                 ],
               ),

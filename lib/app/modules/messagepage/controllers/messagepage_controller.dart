@@ -14,6 +14,7 @@ class MessagepageController extends GetxController {
 
   var isLoadings = false.obs;
   var isLoadingschatUserList = false.obs;
+  var isLoadingschatmessage = false.obs;
   final TextEditingController input = TextEditingController();
   final _restCallController = Get.put(restCallController());
   final _homeController= Get.find<HomeController>();
@@ -105,6 +106,37 @@ query Get_Chat_User_List(\$userId: ID!, \$searchBy: String) {
     log("getchatUser");
     isLoadingschatUserList.value = false;
     chatListUserData.value = chatUserListModelFromJson(json.encode(res));
+   // update();
+  }
+  get_chatMessage() async {
+    isLoadingschatmessage.value = true;
+    var header = """
+query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: String!, \$id: ID) {
+  Read_Chat_Message(user_id: \$userId, chat_roomid: \$chatRoomid, messaging_id: \$messagingId, _id: \$id) {
+    message {
+      message
+      type
+      time
+    }
+    chat_roomid
+    receiver_room_id
+    user_id
+    id
+    messaging_id
+  }
+}
+    """;
+    var body = {  "userId": "${_homeController.getUserData.value.getUserById!.id}",
+      "chatRoomid": "GdbY39VuwT9l,zNLdUloEetux,gHypLV5chwXp,kcqt21Jy43cZ,yvFauwjO9gbs,MJL1z0wNmbgP,t9iOA89phWgS,L4oVaqW1ZlQv,WIqwU0oB9Y1i,K4ImARlITH8i,preNoRfXT6uO,EVyoihMSuIll",
+      "messagingId": "b6ab433e-d345-4a70-8c6a-a2820954ca55",
+      "id": "ee9ba092-384d-49ee-8bdf-c750854b1522"
+    };
+    var res = await _restCallController.gql_query(header, body);
+    log("getmessage");
+    log(json.encode(res));
+    log("getmessage");
+    isLoadingschatmessage.value = false;
+   // chatListUserData.value = chatUserListModelFromJson(json.encode(res));
    // update();
   }
 }
