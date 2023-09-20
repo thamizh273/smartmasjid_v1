@@ -4,9 +4,11 @@ import 'dart:developer';
 
 
 
+import 'package:android_intent/android_intent.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 import 'package:smartmasjid_v1/app/authRepository.dart';
@@ -57,9 +59,31 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
    var hh=Get.arguments;
   final box1 = GetStorage();
   final RxBool isExpanded = false.obs;
+  final RxBool status = false.obs;
 
   void toggleFunction() {
     isExpanded.value = !isExpanded.value; // Toggle the state
+  }
+  void openLocationSetting() async {
+    const AndroidIntent intent = AndroidIntent(
+      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+    );
+    await intent.launch();
+  }
+
+  Future<bool> checkLocationEnabled() async {
+    final AndroidIntent intent = AndroidIntent(
+      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+    );
+
+    try {
+      await intent.launch();
+      // Location settings were opened, assume location services will be enabled
+      return true;
+    } catch (e) {
+      // Location settings could not be opened, assume location services are disabled
+      return false;
+    }
   }
 
   List timeList=["0","0","0","0","0"].obs ;
@@ -108,7 +132,6 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
         // }
       },
     );
-
     super.onInit();
   }
 

@@ -355,20 +355,25 @@ void changeFontFamily(String family) {
   quranChapterList() async {
     isLoadings0.value = true;
     var header = """
-query Query(\$getChapterByMsId: String) {
+query Quran_Filter(\$getChapterByMsId: String) {
   Quran_Filter(get_chapter_by_ms_id: \$getChapterByMsId) {
-    id
     masjid_id
     sura_chapter_no
-    sura_name_arb
     sura_name_en
-    sura_name_hindi
+    sura_name_arb
     sura_name_tamil
+    sura_name_hindi
+    sura_name_malayalam
+    sura_name_telugu
+    sura_name_urdu
     title_en
-    title_hindi
     title_tamil
-    total_verses
+    title_hindi
     title_arabic
+    title_malayalam
+    title_telugu
+    title_urdu
+    total_verses
     quran_type
   }
 }

@@ -1,7 +1,5 @@
-
-
-
-import 'package:firebase_core/firebase_core.dart';
+import 'package:android_intent/android_intent.dart';
+import  'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get_storage/get_storage.dart';
@@ -90,3 +88,4 @@ void main() async{
     ),
   );
 }
+

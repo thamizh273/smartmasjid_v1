@@ -1,105 +1,165 @@
-// import 'package:flutter/material.dart';
-// import 'package:in_app_review/in_app_review.dart';
-// import 'package:rating_dialog/rating_dialog.dart';
-//
-// void main() => runApp(MyApp());
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Rating Dialog Demo',
-//       theme: ThemeData.dark(),
-//       home: SettingspageView(),
-//     );
-//   }
-// }
-//
-//
-// class SettingspageView extends StatefulWidget {
-//   const SettingspageView();
-//
-//   @override
-//   SettingsPageState createState() => new SettingsPageState();
-// }
-//
-// class SettingsPageState extends State<SettingspageView> {
-//   // show the rating dialog
-//   void _showRatingDialog() {
-//     // actual store listing review & rating
-//     void _rateAndReviewApp() async {
-//       // refer to: https://pub.dev/packages/in_app_review
-//       final _inAppReview = InAppReview.instance;
-//
-//       if (await _inAppReview.isAvailable()) {
-//         print('request actual review from store');
-//         _inAppReview.requestReview();
-//       } else {
-//         print('open actual store listing');
-//         // TODO: use your own store ids
-//         _inAppReview.openStoreListing(
-//           appStoreId: '<your app store id>',
-//           microsoftStoreId: '<your microsoft store id>',
-//         );
-//       }
-//     }
-//
-//     final _dialog = RatingDialog(
-//       initialRating: 1.0,
-//       // your app's name?
-//       title: Text(
-//         'Rating Dialog',
-//         textAlign: TextAlign.center,
-//         style: const TextStyle(
-//           fontSize: 25,
-//           fontWeight: FontWeight.bold,
-//         ),
-//       ),
-//       // encourage your user to leave a high rating?
-//       message: Text(
-//         'Tap a star to set your rating. Add more description here if you want.',
-//         textAlign: TextAlign.center,
-//         style: const TextStyle(fontSize: 15),
-//       ),
-//       // your app's logo?
-//       image: const FlutterLogo(size: 100),
-//       submitButtonText: 'Submit',
-//       commentHint: 'Set your custom comment hint',
-//       onCancelled: () => print('cancelled'),
-//       onSubmitted: (response) {
-//         print('rating: ${response.rating}, comment: ${response.comment}');
-//
-//         // TODO: add your own logic
-//         if (response.rating < 3.0) {
-//           // send their comments to your email or anywhere you wish
-//           // ask the user to contact you instead of leaving a bad review
-//         } else {
-//           _rateAndReviewApp();
-//         }
-//       },
-//     );
-//
-//     // show the dialog
-//     showDialog(
-//       context: context,
-//       barrierDismissible: true, // set to false if you want to force a rating
-//       builder: (context) => _dialog,
-//     );
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text('Rating Dialog Example')),
-//       body: Container(
-//         child: Center(
-//           child: ElevatedButton(
-//             child: const Text('Show Rating Dialog'),
-//             onPressed: _showRatingDialog,
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-//
+import 'package:baseflow_plugin_template/baseflow_plugin_template.dart';
+import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: PermissionHandlerWidget(),
+    );
+  }
+}
+
+class PermissionHandlerWidget extends StatefulWidget {
+  /// Create a page containing the functionality of this plugin
+  static ExamplePage createPage() {
+    return ExamplePage(
+        Icons.location_on, (context) => PermissionHandlerWidget());
+  }
+
+  @override
+  _PermissionHandlerWidgetState createState() =>
+      _PermissionHandlerWidgetState();
+}
+
+class _PermissionHandlerWidgetState extends State<PermissionHandlerWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Permission Handler"),
+      ),
+      body: Center(
+        child: ListView(
+            children: Permission.values
+                .where((permission) {
+              if (Platform.isIOS) {
+                return permission != Permission.unknown &&
+                    permission != Permission.sms &&
+                    permission != Permission.storage &&
+                    permission != Permission.ignoreBatteryOptimizations &&
+                    permission != Permission.accessMediaLocation &&
+                    permission != Permission.activityRecognition &&
+                    permission != Permission.manageExternalStorage &&
+                    permission != Permission.systemAlertWindow &&
+                    permission != Permission.requestInstallPackages &&
+                    permission != Permission.accessNotificationPolicy &&
+                    permission != Permission.bluetoothScan &&
+                    permission != Permission.bluetoothAdvertise &&
+                    permission != Permission.bluetoothConnect;
+              } else {
+                return permission != Permission.unknown &&
+                    permission != Permission.mediaLibrary &&
+                    permission != Permission.photos &&
+                    permission != Permission.photosAddOnly &&
+                    permission != Permission.reminders &&
+                    permission != Permission.appTrackingTransparency &&
+                    permission != Permission.criticalAlerts;
+              }
+            })
+                .map((permission) => PermissionWidget(permission))
+                .toList()),
+      ),
+    );
+  }
+}
+
+class PermissionWidget extends StatefulWidget {
+  const PermissionWidget(this._permission);
+
+  final Permission _permission;
+
+  @override
+  _PermissionState createState() => _PermissionState(_permission);
+}
+
+class _PermissionState extends State<PermissionWidget> {
+  _PermissionState(this._permission);
+
+  final Permission _permission;
+  PermissionStatus _permissionStatus = PermissionStatus.denied;
+
+  @override
+  void initState() {
+    super.initState();
+    _listenForPermissionStatus();
+  }
+
+  void _listenForPermissionStatus() async {
+    final status = await _permission.status;
+    setState(() => _permissionStatus = status);
+  }
+
+  Color getPermissionColor() {
+    switch (_permissionStatus) {
+      case PermissionStatus.denied:
+        return Colors.red;
+      case PermissionStatus.granted:
+        return Colors.green;
+      case PermissionStatus.limited:
+        return Colors.orange;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        _permission.toString(),
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
+      subtitle: Text(
+        _permissionStatus.toString(),
+        style: TextStyle(color: getPermissionColor()),
+      ),
+      trailing: (_permission is PermissionWithService)
+          ? IconButton(
+          icon: const Icon(
+            Icons.info,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            checkServiceStatus(
+                context, _permission as PermissionWithService);
+          })
+          : null,
+      onTap: () {
+        requestPermission(_permission);
+      },
+    );
+  }
+
+  void checkServiceStatus(
+      BuildContext context, PermissionWithService permission) async {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text((await permission.serviceStatus).toString()),
+    ));
+  }
+
+  Future<void> requestPermission(Permission permission) async {
+    final status = await permission.request();
+
+    setState(() {
+      print(status);
+      _permissionStatus = status;
+      print(_permissionStatus);
+    });
+  }
+}

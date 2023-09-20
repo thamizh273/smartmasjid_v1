@@ -46,7 +46,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
         body: SizedBox(
       height: context.height,
       child: Lottie.asset(
-        "assets/lottie/splash.json",
+        "assets/lottie/splashnew.json",
         repeat: false,
         height: context.height,
         width: double.infinity,

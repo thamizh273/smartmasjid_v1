@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:country_state_picker_plus/country_state_picker_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -412,10 +413,11 @@ class MasjidFinderView extends StatelessWidget {
                               c.masjidListdata.value.getMasjidFilter![index].id;
 
                           Get.dialog(
-
                               Padding(
                                   padding: EdgeInsets.symmetric(vertical: 20.h),
                                   child: AlertDialog(
+                                    insetPadding: EdgeInsets.zero,
+                                    contentPadding: EdgeInsets.zero,
                                     elevation: 10,
                                     backgroundColor: Get.theme.colorScheme
                                         .primary,
@@ -432,25 +434,40 @@ class MasjidFinderView extends StatelessWidget {
                                     // )),
 
                                     // contentPadding: EdgeInsets.symmetric(vertical: 20.h,),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center,
-                                      children: [
-                                        Stxt(
-                                          text:
-                                          "are_you_sure_want_to_join".tr,
-                                          size: f3,
-                                          // weight: FontWeight.bold,
-                                          color: Colors.white,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        SizedBox(height: 8,),
-                                        Stxt(text: "${c.masjidListdata.value.getMasjidFilter![index].masjidName} ?",
-                                          size: f3,
-                                          weight: FontWeight.bold,
-                                          color: Colors.white,)
-                                      ],
+                                    title: SizedBox(
+                                      height: 80.h,
+                                      width: 90.w,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment
+                                            .center,
+                                        children: [
+                                          AutoSizeText(
+                                            textAlign: TextAlign.center,
+                                            "are_you_sure_want_to_join".tr,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold
+                                            ),
+                                            // size: f3,
+                                            // // weight: FontWeight.bold,
+                                            // color: Colors.white,
+                                            // textAlign: TextAlign.center,
+                                          ),
+                                          SizedBox(height: 8,),
+                                          AutoSizeText( "${c.masjidListdata.value.getMasjidFilter![index].masjidName} ?",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                            // size: f3,
+                                            // weight: FontWeight.bold,
+                                            // color: Colors.white,
+                                          )
+                                        ],
+                                      ),
                                     ),
                                     actionsPadding: EdgeInsets.only(bottom: 20),
                                     actions: [
@@ -475,13 +492,13 @@ class MasjidFinderView extends StatelessWidget {
                                               width: 90.w,
                                               ontap: () async {
 
-                                                  if(AuthenticationRespository.instance.gsignBool.value==false){
-                                                    await c.signUpComplete(id);
-                                                    //await c.loginGmail(id)(id);
-                                                  }else{
+                                                if(AuthenticationRespository.instance.gsignBool.value==false){
+                                                  await c.signUpComplete(id);
+                                                  //await c.loginGmail(id)(id);
+                                                }else{
                                                   await c.loginGmail(id);}
-                                                  await GoogleSignIn().signOut();
-                                                  await FirebaseAuth.instance.signOut();
+                                                await GoogleSignIn().signOut();
+                                                await FirebaseAuth.instance.signOut();
                                                 // else{
                                                 //   await c.signUpComplete(id);
                                                 // }
@@ -497,7 +514,9 @@ class MasjidFinderView extends StatelessWidget {
                                       )
                                     ],
                                     //iconPadding: EdgeInsets.all(20),
-                                  )));
+                                  )
+                              )
+                          );
 
                           // Get.defaultDialog(
                           //
