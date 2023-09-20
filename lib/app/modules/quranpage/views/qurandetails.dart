@@ -1109,6 +1109,8 @@ class QuranDetails extends StatelessWidget {
                                                   width: 280.sp,
                                                   child: quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn == "Al-Fatihah"
                                                       ? Container():
+                                                     quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn == "At-Tawbah"
+                                                ? Container() :
                                                   quranPageCtrl_.isCheckedArabic
                                                       .value == true && sura.versesKey!.startsWith(RegExp(r'^[1-9][0-9]*:1$'))
                                                       ? Text(
