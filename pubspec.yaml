@@ -40,7 +40,7 @@ dependencies:
   firebase_messaging: ^14.6.8
   sms_autofill: ^2.3.0
   timer_count_down: ^2.2.2
-  google_sign_in: ^6.1.4
+  google_sign_in: ^6.1.5
   flutter_otp_text_field: ^1.1.1
   flutter_hooks: ^0.18.2
   google_fonts:
@@ -227,4 +227,17 @@ flutter:
       fonts:
         - asset: assets/fonts/Sriracha.ttf
           weight: 500
+    - family: Neirizi
+      fonts:
+        - asset: assets/fonts/Neirizi.ttf
+          weight: 500
+    - family: Now
+      fonts:
+        - asset: assets/fonts/Now.ttf
+          weight: 500
+    - family: Kitab
+      fonts:
+        - asset: assets/fonts/Kitab.ttf
+          weight: 500
+
 

@@ -28,14 +28,14 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
             children: [
               30.verticalSpace,
               Image.asset(
-                "assets/images/masjidlogonew.png",
-                scale: 4,
+                "assets/images/slogonw.png",
+                scale: 2,
               ),
               SizedBox(
                 height: 8.h,
               ),
               Text(
-                "Smart Masjid",
+                "Ummati",
                 style: TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
@@ -108,8 +108,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                     // );
                   },
                   style: OutlinedButton.styleFrom(
-                    minimumSize: Size(200, 45),
-                    primary: Color(0xffD9D9D9),
+                    foregroundColor: Color(0xffD9D9D9), minimumSize: Size(200, 45),
                     side: BorderSide(color: Color(0xffD9D9D9)),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),

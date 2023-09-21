@@ -215,7 +215,7 @@ class MembershipView extends GetView<MembershipController> {
                                       controller.checkboxignore.value=false;
                                     },
                                     child: Container(
-                                      height: 36,
+                                      height: 29.h,
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                           color:

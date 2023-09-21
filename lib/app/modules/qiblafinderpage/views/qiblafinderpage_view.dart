@@ -336,7 +336,7 @@ class _QiblahCompassWidgetState extends State<QiblahCompassWidget> with SingleTi
   final _compassSvg = Image.asset('assets/images/com.png');
 
   final _needleSvg = Image.asset(
-    "assets/images/needlenewww.png",
+    "assets/images/finalneedle.png",
     fit: BoxFit.contain,
     height: 200,
     alignment: Alignment.centerRight,

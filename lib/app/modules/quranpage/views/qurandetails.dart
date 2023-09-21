@@ -597,7 +597,7 @@ class QuranDetails extends StatelessWidget {
                                         child: Radio(
                                           activeColor: Get.theme.primaryColor,
                                           // title: Text("Amiri"),
-                                          value: "indopak",
+                                          value: "kitab",
                                           groupValue: quranPageCtrl_.fontFamily.value,
                                           onChanged: (groupValue) =>
                                               quranPageCtrl_.changeFontFamily(groupValue!),
@@ -1344,8 +1344,8 @@ class QuranDetails extends StatelessWidget {
                                                   wordSpacing: 10,
                                                   fontSize: fontSize,
                                                   fontFamily: quranPageCtrl_.fontFamily
-                                                      .value == "indopak"
-                                                      ? "Indopak"
+                                                      .value == "kitab"
+                                                      ? "Kitab"
                                                       : quranPageCtrl_.fontFamily
                                                       .value ==
                                                       "qalam"
