@@ -4,8 +4,6 @@ import 'package:pinput/pinput.dart';
 import 'package:smartmasjid_v1/app/routes/app_pages.dart';
 import 'package:smartmasjid_v1/widgets/Stextfield.dart';
 import 'package:smartmasjid_v1/widgets/bgcontainer_register.dart';
-import '../../../../utils/color_utils.dart';
-import '../../../../widgets/bgcontainer_auth.dart';
 import '../../../routes/export.dart';
 import '../controllers/signup_page_controller.dart';
 
@@ -42,21 +40,22 @@ class SignupPageView extends GetView<SignupPageController> {
                         hint: 'firstname'.tr,
                         width: .9,
                         controller: controller.firstNameCtrl.value,
-                        prefixIcon: Icon(Icons.person),
+                        prefixIcon: const Icon(Icons.person),
                       ),
 
                       12.horizontalSpace,
                       Safa_textfield(
-                        prefixIcon: Icon(Icons.person),
+                        prefixIcon: const Icon(Icons.person),
                         controller: controller.lastNameCtrl.value,
                         hint: 'lastname'.tr,
                         width: .9,
                       ),
-                      Safa_textfield(
+                      SignupPageController.instance2.gsignBool.isTrue?Container(): Safa_textfield(
+                        readOnly: SignupPageController.instance2.gsignBool.isTrue?true:false,
                         hint: 'email'.tr,
                         width: .9,
                         controller: controller.emailCtrl.value,
-                        prefixIcon: Icon(Icons.mail),
+                        prefixIcon: const Icon(Icons.mail),
                       ),
                       Obx(() {
                         return Safa_textfield(
@@ -112,12 +111,12 @@ class SignupPageView extends GetView<SignupPageController> {
                         );
                       }),
                       Obx(() {
-                        return Safa_textfield(
+                        return SignupPageController.instance2.gsignBool.isTrue?Container(): Safa_textfield(
                             hint: 'password'.tr,
                             width: .9,
                             obscureText: controller.obscureTextpass.value,
                             controller: controller.passwordCtrl.value,
-                            prefixIcon: Icon(Icons.lock_outline_rounded),
+                            prefixIcon: const Icon(Icons.lock_outline_rounded),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 controller.obscureTextpass.value =
@@ -133,12 +132,12 @@ class SignupPageView extends GetView<SignupPageController> {
                         );
                       }),
                       Obx(() {
-                        return Safa_textfield(
+                        return SignupPageController.instance2.gsignBool.isTrue?Container(): Safa_textfield(
                             hint: 'confirm_password'.tr,
                             width: .9,
                             obscureText: controller.obscureTextcpass.value,
                             controller: controller.passCtrl.value,
-                            prefixIcon: Icon(Icons.lock_outline_rounded),
+                            prefixIcon: const Icon(Icons.lock_outline_rounded),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 controller.obscureTextcpass.value =
@@ -166,12 +165,12 @@ class SignupPageView extends GetView<SignupPageController> {
                               return;
                             }
 
-                            if(controller.emailCtrl.value.text.isEmpty){
+                            if(SignupPageController.instance2.gsignBool.isTrue?controller.passwordCtrl.value.text.isNotEmpty:controller.emailCtrl.value.text.isEmpty){
                               toast(error: "Error", msg: "Enter the Email Id",);
 
                               return;
                             }
-                            if (!GetUtils.isEmail(controller.emailCtrl.value.text)
+                            if (SignupPageController.instance2.gsignBool.isTrue?controller.passwordCtrl.value.text.isNotEmpty:!GetUtils.isEmail(controller.emailCtrl.value.text)
                             ){ toast(error: "Error", msg: "Enter valid Email Id",);
 
                             return;}
@@ -181,39 +180,43 @@ class SignupPageView extends GetView<SignupPageController> {
 
                               return;
                             }
-                            if(controller.passwordCtrl.value.text.isEmpty){
+                            if(SignupPageController.instance2.gsignBool.isTrue?controller.passwordCtrl.value.text.isNotEmpty:controller.passwordCtrl.value.text.isEmpty){
                               toast(error: "Error", msg: "Enter Password",);
 
                               return;
                             }
-                            if(controller.passwordCtrl.value.length<=7){
+                            if(SignupPageController.instance2.gsignBool.isTrue?controller.passwordCtrl.value.text.isNotEmpty:controller.passwordCtrl.value.length<=7){
                               toast(error: "Error", msg: "Password must be 8 digit",);
 
                               return;
                             }
-                            if(controller.passCtrl.value.text.isEmpty){
+                            if(SignupPageController.instance2.gsignBool.isTrue?controller.passwordCtrl.value.text.isNotEmpty:controller.passCtrl.value.text.isEmpty){
                               toast(error: "Error", msg: "Enter the Confirm Password",);
 
                               return;
                             }
-                            if(controller.passwordCtrl.value.text!=controller.passCtrl.value.text){
+                            if(SignupPageController.instance2.gsignBool.isTrue?controller.passwordCtrl.value.text.isNotEmpty:(controller.passwordCtrl.value.text!=controller.passCtrl.value.text)){
                               toast(error: "Error", msg: "Enter the Password not match",);
 
                               return;
                             }
-                            if(formkey_.currentState!.validate()){
-                              controller.checkuserValid();
+                            if(SignupPageController.instance2.gsignBool.isTrue){
+
+                              if(formkey_.currentState!.validate()){
+                                controller.checkuserValid();
+                              }
                             }
+
                             // controller.verifyPhoneNumber();
 
                           },
                           style: ElevatedButton.styleFrom(
-                            minimumSize: Size(150, 40),
+                            minimumSize: const Size(150, 40),
                             backgroundColor: Theme
                                 .of(context)
                                 .colorScheme
                                 .secondary,
-                            foregroundColor: Color(0xff11323B),
+                            foregroundColor: const Color(0xff11323B),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
@@ -229,7 +232,7 @@ class SignupPageView extends GetView<SignupPageController> {
                                     .colorScheme
                                     .primary),
                           )),
-                    Spacer(),
+                    const Spacer(),
                       GestureDetector(
                         onTap: (){
                           Get.toNamed(Routes.OTP_PAGE);

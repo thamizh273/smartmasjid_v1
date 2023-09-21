@@ -33,6 +33,7 @@ class AuthenticationRespository extends GetxController {
   RxInt resendToken = 0.obs;
   RxInt secondsRemaining = 120.obs;
   RxBool enableResend = false.obs;
+  RxBool gsignhidetextfield = false.obs;
   late Timer timer;
   RxBool errorinotp=false.obs;
 
@@ -170,13 +171,16 @@ query Login_With_Gmail(\$authId: String, \$deviceId: String!) {
     log("wwww${res}");
 
     if (res["ERROR"] == "Please Complete The Registration Process For Masjid Membership") {
-      Get.toNamed(Routes.MASJID_FINDER);
+
+      Get.toNamed(Routes.SIGNUP_PAGE);
       if(res.toString().contains("ERROR")){
         toast(error: "Error", msg: "${res["ERROR"]}");
       }
       return;
     }
     if (res["ERROR"] == "Request Not Approved") {
+      await GoogleSignIn().signOut();
+      await FirebaseAuth.instance.signOut();
       if(res.toString().contains("ERROR")){
         toast(error: "Error", msg: "${res["ERROR"]}");
       }

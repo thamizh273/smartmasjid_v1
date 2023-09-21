@@ -169,7 +169,7 @@ class _CustomMarketInfoWindowState extends State<CustomMarketInfoWindow> {
             currentLat.toString() +
             ',' +
             currentLng.toString() +
-            '&radius=1500&type=mosque&key=AIzaSyBwEp25O_n2RkVfTPW8tM0mofplU0tDQtY');
+            '&radius=1500&type=mosque&key=AIzaSyD21_QPrlP2N-YaEwvDEGvrdHdFi75FVwA');
 
     var response = await http.post(url);
 

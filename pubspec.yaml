@@ -1,5 +1,5 @@
 name: smartmasjid_v1
-version: 1.0.0+4
+version: 1.0.0+5
 publish_to: none
 description: A new Flutter project.
 environment: 
@@ -37,7 +37,7 @@ dependencies:
   location_platform_interface:
   location: ^5.0.0
   cloud_firestore: ^4.9.1
-  firebase_messaging: ^14.6.7
+  firebase_messaging: ^14.6.8
   sms_autofill: ^2.3.0
   timer_count_down: ^2.2.2
   google_sign_in: ^6.1.4

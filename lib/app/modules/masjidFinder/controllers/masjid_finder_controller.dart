@@ -151,9 +151,14 @@ mutation Mutation(\$masjidid: String, \$profileImage: String, \$firstName: Strin
     log('ss${id}');
     print('ss${_langctrl.selectedLang.value}');
     log('ss${_langctrl.selectedLang.value}');
+    log('ss${_signctrl.firstNameCtrl.value.text}');
+    log('ss${_signctrl.lastNameCtrl.value.text}');
+    log('ss${MySharedPref.getFcmToken()}');
+
+    log("ss +${_signctrl.selectedCountry.value.phoneCode}${_signctrl.phoneCtrl.value.text}");
     var header = """
-query Login_With_Gmail(\$authId: String, \$language: String, \$userName: String, \$gmail: String, \$userType: String, \$masjidid: String, \$deviceId: String!) {
-  Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_name_: \$userName, gmail_: \$gmail, user_type_: \$userType, masjidid_: \$masjidid, device_id: \$deviceId) {
+query Login_With_Gmail(\$authId: String, \$language: String, \$userName: String, \$gmail: String, \$userType: String, \$masjidid: String, \$deviceId: String!, \$phoneNumber: String) {
+  Login_With_Gmail(auth_id_: \$authId, language_: \$language, user_name_: \$userName, gmail_: \$gmail, user_type_: \$userType, masjidid_: \$masjidid, device_id: \$deviceId, phone_number: \$phoneNumber) {
     masjid_id
     message
     refresh_token
@@ -169,8 +174,9 @@ query Login_With_Gmail(\$authId: String, \$language: String, \$userName: String,
       "userType": "member",
       "masjidid": "${id}",
       "gmail": "${instance1.gemail}",
-      "userName": "${instance1.gname}",
+      "userName": "${_signctrl.firstNameCtrl.value.text+_signctrl.lastNameCtrl.value.text}",
       "deviceId": "${MySharedPref.getFcmToken()}",
+      "phoneNumber": "+${_signctrl.selectedCountry.value.phoneCode}""${_signctrl.phoneCtrl.value.text}",
     };
     var res = await _restCallController.gql_query(header, body);
     log("wwww${json.encode(res)}");

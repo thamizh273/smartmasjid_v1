@@ -20,9 +20,19 @@ import '../model/checkUserModel.dart';
 class SignupPageController extends GetxController {
   //TODO: Implement SignupPageController
   static SignupPageController get instance =>Get.find();
+  static AuthenticationRespository get instance2 => Get.find();
     var checkuserData=CheckUserModel().obs;
   final _restCallController = Get.put(restCallController());
   final _logincontrl = Get.put(LoginPageController());
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    print("ppppp${instance2.gemail.value}");
+    print("ppppppp${instance2.gname.value}");
+    super.onInit();
+  }
+
   Rx<Country> selectedCountry = Country(
     phoneCode: "91",
     countryCode: "IN",
@@ -68,7 +78,7 @@ query Query(\$emailId: String, \$phoneNumber: String) {
     """;
 
     var body = {
-      "emailId": "${emailCtrl.value.text}",
+      "emailId":instance2.gsignBool.isTrue?instance2.gname.value:"${emailCtrl.value.text}",
       "phoneNumber": "+${selectedCountry.value.phoneCode}${phoneCtrl.value.text}"
     };
     var res = await _restCallController.gql_query(header, body);
@@ -82,11 +92,18 @@ query Query(\$emailId: String, \$phoneNumber: String) {
       toast(error: "Error", msg: res["Check_User_Valid_Verification"]);
 
       return  ;
-    } else{
+    }else if(instance2.gsignBool.isTrue){
+      Get.toNamed(Routes.MASJID_FINDER);
+    }
+    else if(res.toString().contains("The provided email address or phone number is available for registration")){
       phoneAuthentication("+${selectedCountry.value.phoneCode}${phoneCtrl.value.text.trim()}");
       Get.toNamed(Routes.OTP_PAGE);
-
     }
+    // else{
+    //   phoneAuthentication("+${selectedCountry.value.phoneCode}${phoneCtrl.value.text.trim()}");
+    //   Get.toNamed(Routes.OTP_PAGE);
+    //
+    // }
    update();
 
 
