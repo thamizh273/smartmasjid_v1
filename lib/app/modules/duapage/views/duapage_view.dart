@@ -154,7 +154,8 @@ class DuapageView extends GetView<DuapageController> {
                         Obx(() {
                           return GestureDetector(
                             child: Container(
-                              width: 90.w,
+                              width: 100.w,
+                              height: 30.h,
                               decoration: BoxDecoration(
                                   color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(4)),
@@ -166,7 +167,7 @@ class DuapageView extends GetView<DuapageController> {
                                         ? "See Less"
                                         : "See More",
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 16,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600),
                                   ),
@@ -297,7 +298,8 @@ class DuapageView extends GetView<DuapageController> {
                         Obx(() {
                           return GestureDetector(
                             child: Container(
-                              width: 90.w,
+                              width: 100.w,
+                              height: 30.h,
                               decoration: BoxDecoration(
                                   color: Theme.of(context).primaryColor,
                                   borderRadius: BorderRadius.circular(4)),
@@ -309,7 +311,7 @@ class DuapageView extends GetView<DuapageController> {
                                         ? "See Less"
                                         : "See More",
                                     style: TextStyle(
-                                        fontSize: 14,
+                                        fontSize: 16,
                                         color: Colors.white,
                                         fontWeight: FontWeight.w600),
                                   ),
@@ -566,11 +568,8 @@ class CustomDialogBox extends StatelessWidget {
                       Navigator.pop(context);
                       Get.to(DailyDua());
                       print(
-                          " ffff${duaList[index].titlesList!.map((e) => e.title).toList()}");
-                      duaCtrl.duadaily(duaList[index]
-                          .titlesList!
-                          .map((e) => e.title)
-                          .toList()[index]);
+                          " ffff${duaList[index].titlesList!.map((e) => e.title![index]).toString()}");
+                      duaCtrl.duadaily(items[index]);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8),
@@ -736,10 +735,7 @@ class CustomDialogBox1 extends StatelessWidget {
                       Navigator.pop(context);
                       Get.to(DailyDua());
                       print("ffff${items[index]}");
-                      duaCtrl.duadaily(occasionList[index]
-                          .titlesList!
-                          .map((e) => e.title)
-                          .toList()[index]);
+                      duaCtrl.duadaily(items[index]);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8),

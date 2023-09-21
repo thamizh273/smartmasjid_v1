@@ -186,29 +186,29 @@ query Get_Duas_Verse_List(\$titleName: String) {
     duas_verses {
       duas_name_en
       duas_name_arb
+      duas_arabic_text
+      arb_translation
+      title
       duas_name_tamil
       duas_name_hindi
-      duas_name_malayalam
       duas_name_telugu
+      duas_name_malayalam
       duas_name_urdu
-      duas_arabic_text
       duas_eng_text
-      arb_translation
       eng_translation
       tamil_translation
       hindi_translation
       malayalam_translation
       telugu_translation
       urdu_translation
-      title
     }
     title
     title_arb
     title_malayalam
     title_telugu
-    title_hindi
     title_tamil
     title_urdu
+    title_hindi
   }
 }
     """;

@@ -231,9 +231,13 @@ flutter:
       fonts:
         - asset: assets/fonts/Neirizi.ttf
           weight: 500
-    - family: New
+    - family: Now
       fonts:
-        - asset: assets/fonts/New.ttf
+        - asset: assets/fonts/Now.ttf
+          weight: 500
+    - family: Kitab
+      fonts:
+        - asset: assets/fonts/Kitab.ttf
           weight: 500
 
 
