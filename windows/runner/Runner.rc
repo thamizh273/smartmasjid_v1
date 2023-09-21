@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.safatech" "\0"
-            VALUE "FileDescription", "smartmasjid_v1" "\0"
+            VALUE "FileDescription", "Ummati" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "smartmasjid_v1" "\0"
+            VALUE "InternalName", "Ummati" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.safatech. All rights reserved." "\0"
             VALUE "OriginalFilename", "smartmasjid_v1.exe" "\0"
-            VALUE "ProductName", "smartmasjid_v1" "\0"
+            VALUE "ProductName", "Ummati" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -47,13 +47,13 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD21_QPrlP2N-YaEwvDEGvrdHdFi75FVwA',
-    appId: '1:231830520319:web:fe3d02c1e896bcfd53e7ca',
+    apiKey: 'AIzaSyAayOjj7R0iSUdQqLiF-mtwjHHKWBL9XFg',
+    appId: '1:231830520319:web:f88cb07b9eebaec353e7ca',
     messagingSenderId: '231830520319',
     projectId: 'smart-masjid-371016',
     authDomain: 'smart-masjid-371016.firebaseapp.com',
     storageBucket: 'smart-masjid-371016.appspot.com',
-    measurementId: 'G-Z57495P39W',
+    measurementId: 'G-3CPGKBGP2D',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
@@ -65,13 +65,13 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAayOjj7R0iSUdQqLiF-mtwjHHKWBL9XFg',
-    appId: '1:231830520319:ios:76373730dabdf98b53e7ca',
+    apiKey: 'AIzaSyBYGHqdjt17YO0SDBYI7UuL5rsuI0YaNZs',
+    appId: '1:231830520319:ios:6c3a32df1a7c7a6a53e7ca',
     messagingSenderId: '231830520319',
     projectId: 'smart-masjid-371016',
     storageBucket: 'smart-masjid-371016.appspot.com',
-    androidClientId: '231830520319-2er68221rkk2a76cpigtvlr0vcddujdm.apps.googleusercontent.com',
-    iosClientId: '231830520319-ssae890oohpgp3n4pg6ur8c5jqulqenl.apps.googleusercontent.com',
-    iosBundleId: 'com.safatech.smartmasjidV1',
+    androidClientId: '231830520319-q84mprlfsv13ugujsg62l4k6hvtocg6b.apps.googleusercontent.com',
+    iosClientId: '231830520319-0mktse2alomr7vp1esiid7dpuu44m9uo.apps.googleusercontent.com',
+    iosBundleId: 'com.safatech.ummati',
   );
 }

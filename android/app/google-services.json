@@ -39,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "231830520319-b5ap2gt59pa0535q3o0fc2spm8ititfk.apps.googleusercontent.com",
+              "client_id": "231830520319-0mktse2alomr7vp1esiid7dpuu44m9uo.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.chat.chat.RunnerTests"
+                "bundle_id": "com.safatech.ummati"
               }
             }
           ]
