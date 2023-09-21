@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "231830520319-2er68221rkk2a76cpigtvlr0vcddujdm.apps.googleusercontent.com",
+          "client_id": "231830520319-q84mprlfsv13ugujsg62l4k6hvtocg6b.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.safatech.ummati",
-            "certificate_hash": "c3b522038f67c82a92e51a60fc5c028cec5c7f19"
+            "certificate_hash": "170f6604c98917c70def877b347d11bcbdfe95f7"
           }
         },
         {
@@ -39,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "231830520319-b5ap2gt59pa0535q3o0fc2spm8ititfk.apps.googleusercontent.com",
+              "client_id": "231830520319-0mktse2alomr7vp1esiid7dpuu44m9uo.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.chat.chat.RunnerTests"
+                "bundle_id": "com.safatech.ummati"
               }
             }
           ]

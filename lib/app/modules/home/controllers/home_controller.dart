@@ -437,5 +437,4 @@ query Query(\$masjidId: String) {
   }
 
 
-  // void increment() => count.value++;
 }

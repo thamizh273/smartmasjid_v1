@@ -11,6 +11,7 @@ import 'package:smartmasjid_v1/app/modules/profilePage/views/profile_page_view.d
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/rest_call_controller/rest_call_controller.dart';
 
+import '../../../../data/local/my_shared_pref.dart';
 import '../../../../utils/localization/localization.dart';
 import '../../../authRepository.dart';
 import '../../../routes/app_pages.dart';
@@ -165,10 +166,10 @@ class EditProfileController extends GetxController {
     // homectrl.update();
     await GoogleSignIn().signOut();
     await authen.auth_.signOut();
-
     homectrl.box1.remove('fruits');
     homectrl.box1.remove('masjidId');
     homectrl.box1.remove('token');
+    MySharedPref.clear();
     // lanctrl.langStore.remove('selectedindex');
     // lanctrl.langStore.remove('selectedLang');
   //  lanctrl.selectedRadioIndex.value=0;
@@ -176,7 +177,7 @@ class EditProfileController extends GetxController {
     lanctrl.update();
       // Convert to a regular List before updating GetStorage
 
-      update(); // Notify GetX that the state has changed
+    update(); // Notify GetX that the state has changed
 
     homectrl.getUserData.value.getUserById!.id='';
     homectrl.getUserData.value.getUserById!.liveStatus=false;

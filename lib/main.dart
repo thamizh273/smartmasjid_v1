@@ -1,4 +1,3 @@
-import 'package:android_intent/android_intent.dart';
 import  'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 
@@ -39,7 +38,7 @@ void main() async{
 
   // HomeController().get_user("92owFV2zwZfyKnIJdcTEopBkLHE3");
   final WebSocketLink websocketLink = WebSocketLink(
-    'wss://smasjidgraphqlserver-3gw3zjicpa-uc.a.run.app/smasjidql',
+    'wss://smasjidgraphqlserver-3gw3zjicpa-uc.a.run.app/smasjid',
    // 'wss://192.168.29.234:4000/ecomql',
 
     config: const SocketClientConfig(
