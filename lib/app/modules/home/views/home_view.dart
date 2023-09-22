@@ -67,15 +67,14 @@ class HomeView extends StatelessWidget {
                 color: Color(0xffD8E4E8),
               ),
             ),
-            leading: GestureDetector(
-              onTap: () => controller.openDrawer(),
-              onDoubleTap: () {
+            leading: Padding(
+              padding:  EdgeInsets.only(top: 10, left: 10, bottom: 6),
+              child: GestureDetector(
+                onTap: () => controller.openDrawer(),
+                onDoubleTap: () {
 
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(2),
-                child: SvgPicture.asset("assets/svg/slogonew.svg",
-                    height: 30.00, width: 40.00),
+                },
+                child: Image.asset("assets/images/slogonw.png",),
               ),
             ),
             title: Text(
