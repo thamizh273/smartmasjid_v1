@@ -169,6 +169,7 @@ class EditProfileController extends GetxController {
     homectrl.box1.remove('fruits');
     homectrl.box1.remove('masjidId');
     homectrl.box1.remove('token');
+    homectrl.hh[0]=false;
 
     // lanctrl.langStore.remove('selectedindex');
     // lanctrl.langStore.remove('selectedLang');

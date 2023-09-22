@@ -26,3 +26,11 @@ toast({required String error, required String msg}) {
         color: Colors.white,
       ));
 }
+
+
+guestmessage(){
+  Get.defaultDialog(
+    title: "Message",
+    middleText: "Register with Masjid"
+  );
+}

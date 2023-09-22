@@ -17,12 +17,13 @@ class Events extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var guest =_homectr.hh[0]==true;
     final themeData = Theme.of(context);
-    return Container(
+    return  guest?Container():Container(
       padding: EdgeInsets.only(left: 10),
       child: Column(
         children: [
-          Row(
+         Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
                Column(

@@ -15,7 +15,7 @@ class _MasjidnearmeViewState extends State<MasjidnearmeView> {
 
   Completer<GoogleMapController> _controller = Completer();
   List<Marker> _marker = [];
-  List<Marker> _list =  [
+  final List<Marker> _list =  [
     Marker(markerId: MarkerId('1'),
         position: LatLng(79.8083, -122.085749655962),
         infoWindow: InfoWindow(
@@ -23,7 +23,7 @@ class _MasjidnearmeViewState extends State<MasjidnearmeView> {
         )
     ),
 
-    Marker(markerId: MarkerId('2'),
+    const Marker(markerId: MarkerId('2'),
         position: LatLng(79.8083, -11.9416),
         infoWindow: InfoWindow(
             title: 'Second Position'

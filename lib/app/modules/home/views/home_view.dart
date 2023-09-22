@@ -56,6 +56,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Obx(() {
+      var guest =controller.hh[0]==true;
       return controller.isloading.value
           ? loading(context)
           : Scaffold(
@@ -77,7 +78,7 @@ class HomeView extends StatelessWidget {
                 child: Image.asset("assets/images/slogonw.png",),
               ),
             ),
-            title: Text(
+            title: Text(guest?"Ummati":
               "${controller.getUserData.value.getUserById!.masjidId!
                   .masjidName}",
               style: TextStyle(color: Theme
@@ -101,11 +102,12 @@ class HomeView extends StatelessWidget {
                       radius: 21.5,
                       backgroundColor: themeData.primaryColor,
                       child: Obx(() {
-                        var imageBytes = base64Decode(controller
-                            .getUserData.value.getUserById!.profileImage
-                            .toString());
-                        return controller.getUserData.value.getUserById!
-                            .profileImage == "null"
+                        // var imageBytes = base64Decode(controller
+                        //     .getUserData.value.getUserById!.profileImage
+                        //     .toString());
+                       var guestnull= controller.getUserData.value.getUserById==null;
+                        return (guestnull||controller.getUserData.value.getUserById!
+                            .profileImage == "null")
                             ? CircleAvatar(
                           foregroundImage:
                           AssetImage("assets/images/avathar.png"),
@@ -114,7 +116,9 @@ class HomeView extends StatelessWidget {
                         )
                             : CircleAvatar(
                           // foregroundImage: AssetImage("assets/images/avathar.png"),
-                          foregroundImage: MemoryImage(imageBytes),
+                          foregroundImage: MemoryImage(base64Decode(controller
+                                .getUserData.value.getUserById!.profileImage
+                            .toString())),
                           radius: 20,
                           backgroundColor: Colors.white,
                         );
@@ -476,7 +480,7 @@ class HomeView extends StatelessWidget {
                                         Space(2),
                                         GestureDetector(
                                           onTap: () {
-                                            Get.toNamed(
+                                       guest?guestmessage():     Get.toNamed(
                                                 Routes.NOTIFICATIONPAGE);
                                           },
                                           child: SvgPicture.asset(
@@ -493,7 +497,7 @@ class HomeView extends StatelessWidget {
                                         ),
                                         GestureDetector(
                                           onTap: () {
-                                            Get.toNamed(Routes.MESSAGEPAGE);
+                                            guest?guestmessage():      Get.toNamed(Routes.MESSAGEPAGE);
                                           },
                                           child: SvgPicture.asset(
                                               "assets/svg/messagenew.svg",
@@ -510,7 +514,7 @@ class HomeView extends StatelessWidget {
                                         Space(2),
                                       ],
                                     ),
-                                    Space(8),
+                                    guest?Container():    Space(8),
                                     Obx(() {
                                       return controller.isloading1.value
                                           ? CupertinoActivityIndicator()
@@ -521,7 +525,7 @@ class HomeView extends StatelessWidget {
                                           carouselController:
                                           _carouselController);
                                     }),
-                                    SizedBox(
+                                    guest?Container(): SizedBox(
                                       height: 5.h,
                                     ),
                                     buildDivider(themeData),
@@ -680,16 +684,16 @@ class HomeView extends StatelessWidget {
                                       ),
                                     ),
                                     buildDivider(themeData),
-                                    Row(
+                                          Row(
                                       children: [
                                         MediumCard(
                                           title: 'services'.tr,
                                           image: 'donation',
                                           onTap: () {
-                                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => ServicepageView()));
+                                            guest?guestmessage():     Navigator.of(context).push(MaterialPageRoute(builder: (_) => ServicepageView()));
                                           },
                                         ),
-                                        Column(
+                                    Column(
                                           children: [
                                             SmallCard(
                                               rightpad: 3,
@@ -697,22 +701,22 @@ class HomeView extends StatelessWidget {
                                               image: 'membership',
                                               title: 'membership'.tr,
                                               onTap: () {
-                                                Get.toNamed(Routes.MEMBERSHIP);
+                                                guest?guestmessage():     Get.toNamed(Routes.MEMBERSHIP);
                                               },
                                             ),
                                             SmallCard(
                                               image: 'donation',
                                               title: 'donation'.tr,
                                               onTap: () {
-                                                Get.toNamed(Routes.DONATIONPAGE);
+                                                guest?guestmessage():    Get.toNamed(Routes.DONATIONPAGE);
                                               },
                                             )
                                           ],
                                         ),
                                       ],
                                     ),
-                                    buildDivider(themeData),
-                                    Obx(() {
+                                 buildDivider(themeData),
+                                       Obx(() {
                                       return controller.isloadingiman.value
                                           ? CupertinoActivityIndicator()
                                           : ImanTracker_widget(
@@ -733,13 +737,13 @@ class HomeView extends StatelessWidget {
                                                         ZakathpageView()));
                                           },
                                         ),
-                                        Column(
+                                              Column(
                                           children: [
                                             SmallCard(
                                               image: 'history',
                                               title: 'history'.tr,
                                               onTap: () {
-                                                Navigator.of(context).push(
+                                                guest?guestmessage():       Navigator.of(context).push(
                                                     MaterialPageRoute(
                                                         builder: (_) =>
                                                             MasjidhistoryView()));

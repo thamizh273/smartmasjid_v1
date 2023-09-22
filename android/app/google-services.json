@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "231830520319-ijjj667mbj3ao5t4rle96lsthajpdvd9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safatech.ummati",
+            "certificate_hash": "b5d2ef34f450bfe1b06d0b5d7c8c06e94cc9673c"
+          }
+        },
+        {
           "client_id": "231830520319-kml63ntjhunlrpd1vuf8allidr0a1kds.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -35,6 +43,14 @@
           "android_info": {
             "package_name": "com.safatech.ummati",
             "certificate_hash": "c3b522038f67c82a92e51a60fc5c028cec5c7f19"
+          }
+        },
+        {
+          "client_id": "231830520319-ss9h11ofsbdqnnur6v5fdat49hgpgjg3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safatech.ummati",
+            "certificate_hash": "170f6604c98917c70def877b347d11bcbdfe95f7"
           }
         }
       ],
