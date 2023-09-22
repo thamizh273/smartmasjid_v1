@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
@@ -11,6 +12,7 @@ import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 import 'package:smartmasjid_v1/widgets/stext.dart';
 
+import '../../../../utils/color_utils.dart';
 import '../../../../widgets/space.dart';
 import '../../language_page/controllers/language_page_controller.dart';
 import '../controllers/duapage_controller.dart';
@@ -157,7 +159,8 @@ class DuapageView extends GetView<DuapageController> {
                               width: 100.w,
                               height: 30.h,
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
+                                  border: Border.all(color: Theme.of(context).primaryColor, width: 1),
+                                  color: Theme.of(context).primaryColor.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(4)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -168,22 +171,27 @@ class DuapageView extends GetView<DuapageController> {
                                         : "See More",
                                     style: TextStyle(
                                         fontSize: 16,
-                                        color: Colors.white,
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Icon(
-                                    c.isExpanded.value
-                                        ? Icons.expand_less
-                                        : Icons.expand_more,
-                                    color: Colors.white,
-                                  ),
+                                      c.isExpanded.value
+                                          ? Icons.expand_less
+                                          : Icons.expand_more,
+                                      color:Theme.of(context).primaryColor),
                                 ],
                               ),
                             ),
                             onTap: () {
                               c.isExpanded.toggle();
                             },
-                          );
+                          ).animate(
+                          onPlay: (controller) => controller.repeat(),
+                          )
+                              .shimmer(
+                          duration: Duration(
+                          seconds: 3,
+                          ),color: Colors.white.withOpacity(0.5));
                         }),
                         Space(16),
                         Stxt(
@@ -301,7 +309,8 @@ class DuapageView extends GetView<DuapageController> {
                               width: 100.w,
                               height: 30.h,
                               decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
+                                border: Border.all(color: Theme.of(context).primaryColor),
+                                  color: Theme.of(context).primaryColor.withOpacity(0.3),
                                   borderRadius: BorderRadius.circular(4)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -312,22 +321,29 @@ class DuapageView extends GetView<DuapageController> {
                                         : "See More",
                                     style: TextStyle(
                                         fontSize: 16,
-                                        color: Colors.white,
+                                        color: Theme.of(context).primaryColor,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Icon(
                                       c.isExpanded1.value
                                           ? Icons.expand_less
                                           : Icons.expand_more,
-                                      color: Colors.white),
+                                      color:Theme.of(context).primaryColor),
                                 ],
                               ),
                             ),
                             onTap: () {
                               c.isExpanded1.toggle();
                             },
-                          );
+                          ).animate(
+                            onPlay: (controller) => controller.repeat(),
+                          )
+                              .shimmer(
+                              duration: Duration(
+                                seconds: 3,
+                              ),color: Colors.white.withOpacity(0.5));
                         }),
+
                         Space(16),
                         Stxt(
                           text: "occasion".tr,
