@@ -7,28 +7,40 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:231830520319:android:3bbd326b044970c453e7ca",
+        "mobilesdk_app_id": "1:231830520319:android:0c546ffeed7e73bb53e7ca",
         "android_client_info": {
           "package_name": "com.safatech.ummati"
         }
       },
       "oauth_client": [
         {
-          "client_id": "231830520319-nkrgmfb7ball0u6a15ht27q1iagidd2v.apps.googleusercontent.com",
+          "client_id": "231830520319-24mbvlqapf4coi58at7d4qr01ip1ngct.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safatech.ummati",
+            "certificate_hash": "eddea1e6dbfb098f91de97d51ede6ab02627d5f7"
+          }
+        },
+        {
+          "client_id": "231830520319-kml63ntjhunlrpd1vuf8allidr0a1kds.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safatech.ummati",
+            "certificate_hash": "87fee3820d7af63a1d4e8f8f27f78e4bbb164441"
+          }
+        },
+        {
+          "client_id": "231830520319-sa5e7ddufmv84dbluccp68ffnn9tgk4s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.safatech.ummati",
             "certificate_hash": "c3b522038f67c82a92e51a60fc5c028cec5c7f19"
           }
-        },
-        {
-          "client_id": "231830520319-sfo6t8fkm30rj465rr2q3go60gqr7j20.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBwEp25O_n2RkVfTPW8tM0mofplU0tDQtY"
+          "current_key": "AIzaSyBI5_oODLgQ9PpPSrPq2HSiD7sWRFqZVes"
         }
       ],
       "services": {
@@ -37,13 +49,6 @@
             {
               "client_id": "231830520319-2pdb26v9rj57mj7qsr18885850nl8dii.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "231830520319-0mktse2alomr7vp1esiid7dpuu44m9uo.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.safatech.ummati"
-              }
             }
           ]
         }

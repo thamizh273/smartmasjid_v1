@@ -200,12 +200,12 @@ class SignupPageView extends GetView<SignupPageController> {
 
                               return;
                             }
-                            if(SignupPageController.instance2.gsignBool.isTrue){
+                          //  if(SignupPageController.instance2.gsignBool.isTrue){
 
                               if(formkey_.currentState!.validate()){
                                 controller.checkuserValid();
                               }
-                            }
+                         //   }
 
                             // controller.verifyPhoneNumber();
 
