@@ -66,7 +66,7 @@ class SettingsPageState extends State<SettingspageView> {
         style: const TextStyle(fontSize: 15),
       ),
       // your app's logo?
-      image: Image.asset("assets/images/masjidlogonew.png", fit: BoxFit.scaleDown,),
+      image: Image.asset("assets/images/slogonw.png", fit: BoxFit.scaleDown,),
       submitButtonText: 'Submit',
       commentHint: 'Comment our app',
       onCancelled: () => print('cancelled'),

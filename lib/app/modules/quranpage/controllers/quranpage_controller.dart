@@ -64,7 +64,7 @@ class QuranpageController extends GetxController {
   final isCheckedHindi = false.obs;
   var isCheckedTamill = "tamil".obs;
   double screenWidth = Get.width;
-  var fontFamily = "indopak".obs;
+  var fontFamily = "uthami".obs;
   var view = "sura".obs;
   final media = Get.mediaQuery;
   final padExtend = 16.0;
