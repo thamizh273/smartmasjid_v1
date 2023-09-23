@@ -21,7 +21,7 @@ class ImanTracker_widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     var guest= homectrl.hh[0]==true;
+     var guest= homectrl.ggg==true;
     var imanWeek= guest==true?null:homectrl.imanStatusData.value.getImanTrackerStatus!;
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 9),

@@ -9,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
+import 'package:smartmasjid_v1/app/modules/quranpage/views/quran_juz_details.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
 import '../model/quran_detail_model.dart';
@@ -79,6 +80,7 @@ class QuranpageController extends GetxController {
   RxBool isSelected = false.obs;
   int selectedAdjustedIndex = -1.obs;
   PageController pageController = PageController(initialPage: 0);
+  PageController pageControllerjuz = PageController();
   final TextEditingController searchController = TextEditingController();
   final TextEditingController searchjuzController = TextEditingController();
   final Rx<QuranModel> items = QuranModel().obs;
@@ -250,6 +252,7 @@ void changeFontFamily(String family) {
     await quranjuzList();
     // quranDetailList(1);
     pageController = PageController(initialPage: 0);
+    pageControllerjuz = PageController();
     // quranjuzdetailList();
     // quranjuzdetailList();
     // debounce(searchQuery, (_) => filterList(), time: Duration(milliseconds: 500));
@@ -505,7 +508,7 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     log("data data ${json.encode(res)}");
     isLoadingsJuz.value = false;
     getquranjuzdetail.value = quranjuzdetailModelFromJson(json.encode(res));
-
+    Get.to(QuranJuzDetails());
     update();
   }
 

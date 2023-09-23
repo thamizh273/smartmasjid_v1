@@ -56,7 +56,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Obx(() {
-      var guest =controller.hh[0]==true;
+      var guest =controller.ggg==true;
       return controller.isloading.value
           ? loading(context)
           : Scaffold(
