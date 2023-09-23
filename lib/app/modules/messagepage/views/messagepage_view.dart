@@ -46,7 +46,7 @@ class MessagepageView extends GetView<MessagepageController> {
       body: Obx(() {
         return controller.isLoadings.value
             ? loading(context)
-            : ListView.builder(
+            : controller.chatroomData.value.getChatroom!.chat!.isEmpty?NoMeassage():ListView.builder(
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount:
@@ -54,7 +54,7 @@ class MessagepageView extends GetView<MessagepageController> {
             itemBuilder: (context, index) {
               var data =
               controller.chatroomData.value.getChatroom!.chat![index];
-              return GestureDetector(
+              return  GestureDetector(
                 onTap: () {
                   //   Navigator.of(context).push(
                   // MaterialPageRoute(builder: (context) {
@@ -187,8 +187,7 @@ class NoMeassage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return  Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -198,8 +197,8 @@ class NoMeassage extends StatelessWidget {
             // Text("Start your Conversation".tr)
           ],
         ),
-      ),
-    );
+      );
+
   }
 }
 

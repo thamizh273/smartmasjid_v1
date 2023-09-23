@@ -54,9 +54,10 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var guest =controller.ggg==true;
     final themeData = Theme.of(context);
     return Obx(() {
-      var guest =controller.hh[0]==true;
+
       return controller.isloading.value
           ? loading(context)
           : Scaffold(
@@ -71,10 +72,8 @@ class HomeView extends StatelessWidget {
             leading: Padding(
               padding:  EdgeInsets.only(top: 10, left: 10, bottom: 6),
               child: GestureDetector(
-                onTap: () => controller.openDrawer(),
-                onDoubleTap: () {
+                onTap: () { guest?guestmessage(): controller.openDrawer();},
 
-                },
                 child: Image.asset("assets/images/slogonw.png",),
               ),
             ),
@@ -93,7 +92,7 @@ class HomeView extends StatelessWidget {
                     // List<int> imageBytes =  base64Decode("${controller.getUserData.value.getUserById!.profileImage!.data}");
                     // print("${controller.getUserData.value.getUserById!.profileImage!.data}");
                     // print('wwww $imageBytes');
-                    Get.toNamed(Routes.PROFILE_PAGE);
+                    guest?guestmessage(): Get.toNamed(Routes.PROFILE_PAGE);
                   },
                   child: Hero(
                     //  transitionOnUserGestures : true,
@@ -661,7 +660,7 @@ class HomeView extends StatelessWidget {
                                               image: 'events',
                                               title: 'events'.tr,
                                               onTap: () {
-                                                Get.toNamed(Routes.EVENTS);
+                                                guest?guestmessage():   Get.toNamed(Routes.EVENTS);
                                               },
                                             )
                                           ],
@@ -862,6 +861,7 @@ class HomeView extends StatelessWidget {
                           size: 20,
                         ),
                       )),
+
                 ],
               )
             ],
@@ -891,6 +891,7 @@ class Imanprogress extends StatelessWidget {
           Stxt(
             text: text,
             size: f2,
+
           ),
           SizedBox(
             height: 5,

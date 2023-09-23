@@ -27,9 +27,9 @@ void main() async{
   await Hive.initFlutter();
   await GetStorage.init();
   await ScreenUtil.ensureScreenSize();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  ).then((value) => Get.put(AuthenticationRespository()));
+  // await Firebase.initializeApp(
+  //   options: DefaultFirebaseOptions.currentPlatform,
+  // ).then((value) => Get.put(AuthenticationRespository()));
   await initHiveForFlutter();
   await AwesomeNotificationsHelper.init();
   await MySharedPref.init();

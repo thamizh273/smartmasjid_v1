@@ -151,14 +151,15 @@ class EditProfileController extends GetxController {
     isLoadingLogout.value = true;
 
     var header =
-    """mutation Log_Out_User(\$userId: ID!) {
-  Log_Out_User(user_id_: \$userId) {
+    """mutation Log_Out_User(\$userId: ID!,\$deviceId: String) {
+  Log_Out_User(user_id_: \$userId, device_id: \$deviceId) {
     message
     user_id
   }
 }""";
     var body = {
       "userId": "${homectrl.getUserData.value.getUserById!.id}",
+      "deviceId": "${MySharedPref.getFcmToken()}"
     };
     var res = await _restcallController.gql_mutation(header, body);
     log(json.encode(res));
@@ -169,7 +170,7 @@ class EditProfileController extends GetxController {
     homectrl.box1.remove('fruits');
     homectrl.box1.remove('masjidId');
     homectrl.box1.remove('token');
-    homectrl.hh[0]=false;
+   // homectrl.hh[0]=false;
 
     // lanctrl.langStore.remove('selectedindex');
     // lanctrl.langStore.remove('selectedLang');
@@ -192,6 +193,7 @@ class EditProfileController extends GetxController {
 
       toast(error: "SUCCESS", msg: "${hh}");
       Get.offAllNamed(AppPages.INITIAL);
+
     }
     return ;
   }

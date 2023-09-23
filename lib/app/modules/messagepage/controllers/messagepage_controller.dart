@@ -7,6 +7,7 @@ import '../../../routes/export.dart';
 import '../../home/controllers/home_controller.dart';
 import '../model/chatUserListModel.dart';
 import '../model/chatroomModel.dart';
+import '../model/read_Chat_Message_Model.dart';
 
 class MessagepageController extends GetxController {
   //TODO: Implement MessagepageController
@@ -20,6 +21,7 @@ class MessagepageController extends GetxController {
   final _homeController= Get.find<HomeController>();
   var chatroomData=ChatroomModel().obs;
   var chatListUserData=ChatUserListModel().obs;
+  var readChatMessageData=ReadChatMessageModel().obs;
   @override
   void onInit() {
     get_chatroom();
@@ -71,10 +73,10 @@ query Get_Chatroom(\$userId: ID!) {
       "userId": "${_homeController.getUserData.value.getUserById!.id}"
     };
     var res = await _restCallController.gql_query(header, body);
-    log("getchat");
-
-    log(json.encode(res));
-    log("getchat");
+    // log("getchat");
+    //
+    // log(json.encode(res));
+    // log("getchat");
     isLoadings.value = false;
     chatroomData.value = chatroomModelFromJson(json.encode(res));
     update();
@@ -101,14 +103,19 @@ query Get_Chat_User_List(\$userId: ID!, \$searchBy: String) {
       "searchBy": ""
     };
     var res = await _restCallController.gql_query(header, body);
-    log("getchatUser");
-    log(json.encode(res));
-    log("getchatUser");
+    // log("getchatUser");
+    // log(json.encode(res));
+    // log("getchatUser");
     isLoadingschatUserList.value = false;
     chatListUserData.value = chatUserListModelFromJson(json.encode(res));
    // update();
   }
-  get_chatMessage() async {
+  get_chatMessage(String? reciverID) async {
+    print("rr1${_homeController.getUserData.value.getUserById!.id}");
+    print("rr2${chatroomData.value.getChatroom!.chatRoomid}");
+    print("rr3${reciverID}");
+    print("rr4${chatroomData.value.getChatroom!.id}");
+    print("rrrrrrrrrrr");
     isLoadingschatmessage.value = true;
     var header = """
 query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: String!, \$id: ID) {
@@ -127,16 +134,16 @@ query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: Str
 }
     """;
     var body = {  "userId": "${_homeController.getUserData.value.getUserById!.id}",
-      "chatRoomid": "GdbY39VuwT9l,zNLdUloEetux,gHypLV5chwXp,kcqt21Jy43cZ,yvFauwjO9gbs,MJL1z0wNmbgP,t9iOA89phWgS,L4oVaqW1ZlQv,WIqwU0oB9Y1i,K4ImARlITH8i,preNoRfXT6uO,EVyoihMSuIll",
-      "messagingId": "b6ab433e-d345-4a70-8c6a-a2820954ca55",
-      "id": "ee9ba092-384d-49ee-8bdf-c750854b1522"
+      "chatRoomid": "${chatroomData.value.getChatroom!.chatRoomid}",
+      "messagingId": "${reciverID}",
+      "id": "${chatroomData.value.getChatroom!.id}"
     };
     var res = await _restCallController.gql_query(header, body);
     log("getmessage");
     log(json.encode(res));
     log("getmessage");
     isLoadingschatmessage.value = false;
-   // chatListUserData.value = chatUserListModelFromJson(json.encode(res));
-   // update();
+    readChatMessageData.value = readChatMessageModelFromJson(json.encode(res));
+    update();
   }
 }

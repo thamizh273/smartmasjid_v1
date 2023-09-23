@@ -49,13 +49,15 @@ class ThemeService {
   );
 
   final darkTheme = ThemeData.dark().copyWith(
-    colorScheme: ColorScheme.fromSwatch(primarySwatch: primarycolor)
-        .copyWith(background: Colors.white)
-        .copyWith(secondary: Color(0xffD2D1D1))
+    colorScheme: ColorScheme.fromSwatch(primarySwatch: accentcolor)
+        .copyWith(background: Color(0xff100F0F))
+        .copyWith(secondary: Color(0xffE2DCC8))
         .copyWith(primary: accentcolor),
-    primaryColor: primarycolor,
+    scaffoldBackgroundColor: Color(0xff100F0F),
+    primaryColor: accentcolor,
     appBarTheme: const AppBarTheme(),
     dividerColor: Colors.white54,
+    shadowColor: Colors.grey.withOpacity(0.07),
   );
   final _getStorage = GetStorage();
 

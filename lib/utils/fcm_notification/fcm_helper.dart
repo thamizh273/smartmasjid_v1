@@ -5,7 +5,10 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:logger/logger.dart';
+import '../../app/authRepository.dart';
+import '../../app/routes/export.dart';
 import '../../data/local/my_shared_pref.dart';
+import '../../firebase_options.dart';
 import 'local_notification_helper.dart';
 
 class FcmHelper {
@@ -21,8 +24,8 @@ class FcmHelper {
       // initialize fcm and firebase core
       await Firebase.initializeApp(
           // TODO: uncomment this line if you connected to firebase via cli
-          // options: DefaultFirebaseOptions.currentPlatform,
-          );
+          options: DefaultFirebaseOptions.currentPlatform,
+          ).then((value) => Get.put(AuthenticationRespository()));
 
       // initialize firebase
       messaging = FirebaseMessaging.instance;
@@ -83,6 +86,7 @@ class FcmHelper {
   static _sendFcmTokenToServer() {
     var token = MySharedPref.getFcmToken();
     print("eeeeeeeee$token");
+    print("eeeeeeeee${MySharedPref.getFcmToken()}");
     // TODO SEND FCM TOKEN TO SERVER
   }
 

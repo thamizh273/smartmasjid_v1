@@ -97,6 +97,7 @@ dependencies:
   in_app_review: ^2.0.6
   android_intent: ^2.0.2
   baseflow_plugin_template: ^2.1.2
+  chat_bubbles: ^1.5.0
 
 
 

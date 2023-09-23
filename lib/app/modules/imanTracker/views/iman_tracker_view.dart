@@ -21,19 +21,19 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
    ImanTrackerView({Key? key}) : super(key: key);
 
   // final controller =Get.put(ImanTrackerController());
-  List prayerList = [
+ final List prayerList = [
     {"icon": "fajr_icon", "name": "fajr".tr},
     {"icon": "dhuhr_icon", "name": "dhuhr".tr},
     {"icon": "asr", "name": "asr".tr},
     {"icon": "magrib", "name": "maghrib".tr},
     {"icon": "isha", "name": "isha".tr}
   ];
-  List quranList = [
+   final List quranList = [
     {"icon": "read_quran", "name": "read_quran".tr},
     {"icon": "memorize_quran", "name": "memorize_quran".tr},
   ];
   final theme = Get.theme;
-  Map<String, double> dataMap = {
+   final Map<String, double> dataMap = {
     "Completed": 5,
     "Partial": 3,
     "Not Reading": 2,
