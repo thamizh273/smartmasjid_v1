@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:231830520319:android:0c546ffeed7e73bb53e7ca",
         "android_client_info": {
-          "package_name": "com.safatech.ummati"
+          "package_name": "com.safa.ummati"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "231830520319-24mbvlqapf4coi58at7d4qr01ip1ngct.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.safatech.ummati",
+            "package_name": "com.safa.ummati",
             "certificate_hash": "eddea1e6dbfb098f91de97d51ede6ab02627d5f7"
           }
         },
@@ -25,7 +25,7 @@
           "client_id": "231830520319-ijjj667mbj3ao5t4rle96lsthajpdvd9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.safatech.ummati",
+            "package_name": "com.safa.ummati",
             "certificate_hash": "b5d2ef34f450bfe1b06d0b5d7c8c06e94cc9673c"
           }
         },
@@ -33,7 +33,7 @@
           "client_id": "231830520319-kml63ntjhunlrpd1vuf8allidr0a1kds.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.safatech.ummati",
+            "package_name": "com.safa.ummati",
             "certificate_hash": "87fee3820d7af63a1d4e8f8f27f78e4bbb164441"
           }
         },
@@ -41,7 +41,7 @@
           "client_id": "231830520319-sa5e7ddufmv84dbluccp68ffnn9tgk4s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.safatech.ummati",
+            "package_name": "com.safa.ummati",
             "certificate_hash": "c3b522038f67c82a92e51a60fc5c028cec5c7f19"
           }
         },
@@ -49,7 +49,7 @@
           "client_id": "231830520319-ss9h11ofsbdqnnur6v5fdat49hgpgjg3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.safatech.ummati",
+            "package_name": "com.safa.ummati",
             "certificate_hash": "170f6604c98917c70def877b347d11bcbdfe95f7"
           }
         }

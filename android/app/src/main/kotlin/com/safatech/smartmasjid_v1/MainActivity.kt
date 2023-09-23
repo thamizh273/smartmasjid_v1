@@ -1,4 +1,4 @@
-package com.safatech.ummati
+package com.safa.ummati
 
 import io.flutter.embedding.android.FlutterActivity
 

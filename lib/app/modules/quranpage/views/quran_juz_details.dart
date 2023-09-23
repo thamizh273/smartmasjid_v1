@@ -15,17 +15,10 @@ import '../../../../widgets/stext.dart';
 import '../../home/widgets/appBar.dart';
 import '../controllers/quranpage_controller.dart';
 
-class QuranJuzDetails extends StatefulWidget {
-  const QuranJuzDetails({super.key});
+class QuranJuzDetails extends StatelessWidget {
+   QuranJuzDetails({super.key});
+  final QuranpageController juzquranCtrl_ = Get.put(QuranpageController());
 
-  @override
-  State<QuranJuzDetails> createState() => _QuranJuzDetailsState();
-}
-
-final juzquranCtrl_ = Get.put(QuranpageController());
-
-
-class _QuranJuzDetailsState extends State<QuranJuzDetails> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -597,12 +590,15 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
             scrollBehavior: ScrollBehavior(),
             pageSnapping: true,
             physics: ScrollPhysics(),
-            // controller: c.pageController,
+            controller: juzquranCtrl_.pageControllerjuz,
             onPageChanged: (page) {
-              juzquranCtrl_.quranjuzdetailList(juzquranCtrl_.qurandetsilIndex.value + (page+1));
+              // print("yyyy${juzquranCtrl_.qurandetsilIndex1.value + 1}");
+               print("yyyy${juzquranCtrl_.getquranjuz.value.getQuranJuzChapter!.length}");
+               juzquranCtrl_.quranjuzdetailList(juzquranCtrl_.qurandetsilIndex1.value + (page));
             },
             itemCount: juzquranCtrl_.getquranjuz.value.getQuranJuzChapter!.length,
-            itemBuilder: (BuildContext context, int index) {
+            itemBuilder: (context, pageIndex) {
+               print("plpl${pageIndex}");
               return Obx(() {
                 return (juzquranCtrl_.isLoadingsJuz.value)?loading(context):Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -912,20 +908,6 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                                         "Share"),
                                                                   ],
                                                                 )),
-                                                            // PopupMenuItem(
-                                                            //     child: GestureDetector(
-                                                            //       onTap: (){
-                                                            //         QuranPlanner(context);
-                                                            //       },
-                                                            //       child: Row(
-                                                            //         children: [
-                                                            //           Icon(Icons
-                                                            //               .next_plan),
-                                                            //           Space(12),
-                                                            //           Text("Planner"),
-                                                            //         ],
-                                                            //       ),
-                                                            //     )),
                                                             PopupMenuItem(
                                                                 child: GestureDetector(
                                                                   onTap: () {
@@ -1006,11 +988,7 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                           TextStyle textStyle = TextStyle(
                                                             wordSpacing: 10,
                                                             fontSize: fontSize,
-                                                            fontFamily: juzquranCtrl_
-                                                                .fontFamily
-                                                                .value ==
-                                                                "indopak"
-                                                                ? "Indopak"
+                                                            fontFamily: juzquranCtrl_.fontFamily.value == "indopak" ? "Indopak"
                                                                 : juzquranCtrl_.fontFamily
                                                                 .value ==
                                                                 "qalam"
@@ -1059,140 +1037,12 @@ class _QuranJuzDetailsState extends State<QuranJuzDetails> {
                                                               TextAlign.end,
                                                             )
                                                                 : SizedBox(),
-                                                            // Text(
-                                                            //   "${sura.arabicText}",
-                                                            //   style: TextStyle(
-                                                            //
-                                                            //       fontSize: 25,
-                                                            //       fontWeight: FontWeight.w500,
-                                                            //       color:
-                                                            //       Theme
-                                                            //           .of(context)
-                                                            //           .colorScheme.primary),
-                                                            //   textAlign: TextAlign.end,
-                                                            // ),
                                                           );
                                                         })
                                                     ),
                                                   ],
                                                 ),
-                                                // Container(
-                                                //   width: 21.w,
-                                                //   height: 21.w,
-                                                //   child: Transform.rotate(
-                                                //     angle: 40 *
-                                                //         (3.1415926535897932 / 180),
-                                                //     // Converting 30 degrees to radians
-                                                //     child: Container(
-                                                //       width: 200,
-                                                //       height: 200,
-                                                //       decoration: BoxDecoration(
-                                                //         borderRadius:
-                                                //         BorderRadius.circular(4),
-                                                //         color: Color(0xff16627C),
-                                                //       ),
-                                                //       child: Center(
-                                                //         child: Transform.rotate(
-                                                //           angle: -40 *
-                                                //               (3.1415926535897932 /
-                                                //                   180),
-                                                //           child: Text(
-                                                //             "${sura.versesKey}",
-                                                //             style: TextStyle(
-                                                //                 fontSize: 11,
-                                                //                 fontWeight: FontWeight
-                                                //                     .bold,
-                                                //                 color: Colors.white),
-                                                //           ),
-                                                //         ),
-                                                //       ),
-                                                //     ),
-                                                //   ),
-                                                // ),
-                                                // Row(
-                                                //   mainAxisAlignment: MainAxisAlignment
-                                                //       .start,
-                                                //   children: [
-                                                //
-                                                //   ],
-                                                // ),
-                                                // Space(8),
-                                                // Row(
-                                                //   children: [
-                                                //     Space(12),
-                                                //
-                                                //     // Container(
-                                                //     //   width: 20.w,
-                                                //     //   height: 20.w,
-                                                //     //   child: Transform.rotate(
-                                                //     //     angle: 40 *
-                                                //     //         (3.1415926535897932 / 180),
-                                                //     //     // Converting 30 degrees to radians
-                                                //     //     child: Container(
-                                                //     //       width: 200,
-                                                //     //       height: 200,
-                                                //     //       decoration: BoxDecoration(
-                                                //     //         borderRadius:
-                                                //     //         BorderRadius.circular(4),
-                                                //     //         color: Color(0xff16627C),
-                                                //     //       ),
-                                                //     //       child: Center(
-                                                //     //         child: Transform.rotate(
-                                                //     //           angle: -40 *
-                                                //     //               (3.1415926535897932 /
-                                                //     //                   180),
-                                                //     //           child: Text(
-                                                //     //             "${sura.ayahNo}",
-                                                //     //             style: TextStyle(
-                                                //     //                 fontSize: 10,
-                                                //     //                 fontWeight: FontWeight
-                                                //     //                     .bold,
-                                                //     //                 color: Colors.white),
-                                                //     //           ),
-                                                //     //         ),
-                                                //     //       ),
-                                                //     //     ),
-                                                //     //   ),
-                                                //     // ),
-                                                //   ],
-                                                // ),
                                                 Space(8),
-
-                                                // Row(
-                                                //   children: [
-                                                //     Space(12),
-                                                //
-                                                //   ],
-                                                // ),
-                                                // Row(
-                                                //   children: [
-                                                //     Obx(
-                                                //           () => IconButton(
-                                                //         icon: Icon(controller.isPlaying.value
-                                                //             ? Icons.pause
-                                                //             : Icons.play_arrow),
-                                                //         iconSize: 40.0,
-                                                //         onPressed: () {
-                                                //           if (controller.isPlaying.value) {
-                                                //             controller.pause();
-                                                //           } else {
-                                                //             controller.play();
-                                                //           }
-                                                //         },
-                                                //       ),
-                                                //     ),
-                                                //     Obx(
-                                                //           () => Slider(
-                                                //         value: controller.sliderValue.value,
-                                                //         min: 0.0,
-                                                //         max: controller.totalDuration.inMilliseconds.toDouble(),
-                                                //         onChanged: (value) {
-                                                //           controller.seekTo(value);
-                                                //         },
-                                                //       ),
-                                                //     ),
-                                                //   ],
-                                                // ),
                                                 Space(16),
                                                 Obx(() {
                                                   double fontSize = 18.0;

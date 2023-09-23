@@ -442,13 +442,10 @@ class QuranpageView extends StatelessWidget {
                                             dense: true,
                                             title: GestureDetector(
                                               onTap: () {
-                                                print("mmmmmmmm ${index}");
-                                                quranCtrl.quranDetailList(
-                                                    index + 1);
-                                                quranCtrl.qurandetsilIndex.value =
-                                                (index + 1);
-                                                quranCtrl.result.value =
-                                                    0.toString();
+                                                print("bbbbb ${index}");
+                                                quranCtrl.quranDetailList(index + 1);
+                                                quranCtrl.qurandetsilIndex.value = (index + 1);
+                                                quranCtrl.result.value = 0.toString();
                                                 quranCtrl.passint.value =
                                                 (index + 1);
                                                 print("dddd${quranCtrl.passint
@@ -730,15 +727,14 @@ class QuranpageView extends StatelessWidget {
                                             title: GestureDetector(
                                               onTap: () {
                                                 print("mmmmmmmm ${index}");
+                                                print("lolo ${ quranCtrl.qurandetsilIndex1.value}");
 
-                                                quranCtrl.quranjuzdetailList(
-                                                    index + 1);
-                                                quranCtrl.qurandetsilIndex
-                                                    .value = (index + 1);
-                                                Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                        builder: (_) =>
-                                                            QuranJuzDetails()));
+                                                quranCtrl.quranjuzdetailList(index + 1);
+                                                quranCtrl.qurandetsilIndex1.value == (index + 1);
+                                                // Navigator.of(context).push(
+                                                //     MaterialPageRoute(
+                                                //         builder: (_) =>
+                                                //             QuranJuzDetails()));
                                               },
                                               child: Align(
                                                 alignment:
