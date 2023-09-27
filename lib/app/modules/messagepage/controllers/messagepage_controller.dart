@@ -2,20 +2,29 @@ import 'dart:convert';
 import 'dart:developer';
 
 
+import 'package:chatview/chatview.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
+import '../../../server/config.dart';
 import '../../home/controllers/home_controller.dart';
 import '../model/chatUserListModel.dart';
 import '../model/chatroomModel.dart';
 import '../model/read_Chat_Message_Model.dart';
+import '../views/chattest.dart';
 
 class MessagepageController extends GetxController {
   //TODO: Implement MessagepageController
 
+var userNames="".obs;
+var int=0.obs;
 
+  RxInt indexof=0.obs;
   var isLoadings = false.obs;
   var isLoadingschatUserList = false.obs;
   var isLoadingschatmessage = false.obs;
+  var isLoadingssendmsg = false.obs;
   final TextEditingController input = TextEditingController();
   final _restCallController = Get.put(restCallController());
   final _homeController= Get.find<HomeController>();
@@ -110,7 +119,7 @@ query Get_Chat_User_List(\$userId: ID!, \$searchBy: String) {
     chatListUserData.value = chatUserListModelFromJson(json.encode(res));
    // update();
   }
-  get_chatMessage(String? reciverID) async {
+  get_chatMessage(String? reciverID, String? firstName) async {
     print("rr1${_homeController.getUserData.value.getUserById!.id}");
     print("rr2${chatroomData.value.getChatroom!.chatRoomid}");
     print("rr3${reciverID}");
@@ -118,8 +127,8 @@ query Get_Chat_User_List(\$userId: ID!, \$searchBy: String) {
     print("rrrrrrrrrrr");
     isLoadingschatmessage.value = true;
     var header = """
-query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: String!, \$id: ID) {
-  Read_Chat_Message(user_id: \$userId, chat_roomid: \$chatRoomid, messaging_id: \$messagingId, _id: \$id) {
+query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: String!, \$id: ID, \$limit: Float) {
+  Read_Chat_Message(user_id: \$userId, chat_roomid: \$chatRoomid, messaging_id: \$messagingId, _id: \$id, limit: \$limit) {
     message {
       message
       type
@@ -136,7 +145,8 @@ query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: Str
     var body = {  "userId": "${_homeController.getUserData.value.getUserById!.id}",
       "chatRoomid": "${chatroomData.value.getChatroom!.chatRoomid}",
       "messagingId": "${reciverID}",
-      "id": "${chatroomData.value.getChatroom!.id}"
+      "id": "${chatroomData.value.getChatroom!.id}",
+      "limit": 15
     };
     var res = await _restCallController.gql_query(header, body);
     log("getmessage");
@@ -144,6 +154,49 @@ query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: Str
     log("getmessage");
     isLoadingschatmessage.value = false;
     readChatMessageData.value = readChatMessageModelFromJson(json.encode(res));
+    Get.to(ChatScreen( firstName: "$firstName"));
     update();
   }
+
+final messages = RxList<String>();
+void addMessage(String message) {
+  messages.add(message);
 }
+
+sentmeaasage(String msg,) async {
+  isLoadingssendmsg.value=true;
+  var header =
+  """mutation Sent_Chat_Message(\$userId: ID!, \$receiverId: ID!, \$id: ID!, \$senderRoomid: String!, \$receiverRoomId: String!, \$message: String!) {
+  Sent_Chat_Message(user_id: \$userId, receiver_id: \$receiverId, id_: \$id, sender_roomid: \$senderRoomid, receiver_room_id: \$receiverRoomId, message: \$message) {
+    message
+    time
+  }
+}""";
+  var body = {  "userId": "${_homeController.getUserData.value.getUserById!.id}",
+    "receiverId": "${readChatMessageData.value.readChatMessage!.messagingId}",
+    "id": "${chatroomData.value.getChatroom!.id}",
+    "senderRoomid": "${chatroomData.value.getChatroom!.chatRoomid}",
+    "receiverRoomId": "${readChatMessageData.value.readChatMessage!.receiverRoomId}",
+    "message": "${msg}"
+  };
+  var res = await _restCallController.gql_mutation(header, body);
+  print(json.encode(res));
+  isLoadingssendmsg.value=false;
+
+  // if (res.toString().contains("SUCCESS")) {
+  //
+  //   getMembershipDetails();
+  //   payforOthers.value==true? Get.close(3):    Get.close(2);
+  //   //Get.offAndToNamed(Routes.HOME);
+  //
+  //   // var hh = res["SUCCESS"]["Update_User"];
+  //   toast(error: "SUCCESS", msg: "${status}");
+  // }
+
+  return res;
+}
+
+
+
+}
+

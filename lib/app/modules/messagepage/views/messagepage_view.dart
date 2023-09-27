@@ -17,10 +17,10 @@ import 'package:smartmasjid_v1/widgets/stext.dart';
 import '../../../../widgets/space.dart';
 import '../../home/widgets/appBar.dart';
 import '../controllers/messagepage_controller.dart';
+import 'chattest.dart';
 
 class MessagepageView extends GetView<MessagepageController> {
   MessagepageView({Key? key}) : super(key: key);
-  MessagepageController c = Get.put(MessagepageController());
 
 // List<Chat> chatList = [
 //   Chat(profile: "assets/images/pic.png", lastmessage: "Admin", name: "Masjid-e-nooraniya", time: "2hrs ago"),
@@ -52,10 +52,13 @@ class MessagepageView extends GetView<MessagepageController> {
             itemCount:
             controller.chatroomData.value.getChatroom!.chat!.length,
             itemBuilder: (context, index) {
-              var data =
-              controller.chatroomData.value.getChatroom!.chat![index];
+              var data = controller.chatroomData.value.getChatroom!.chat![index];
+
               return  GestureDetector(
                 onTap: () {
+                  controller.indexof.value=index;
+                  controller.get_chatMessage(data.messagingId!.id,data.messagingId!.firstName.toString());
+                 // controller.isLoadingschatmessage.isTrue?loading(context): Get.to(ChatScreen( firstName: data.messagingId!.firstName.toString(),));
                   //   Navigator.of(context).push(
                   // MaterialPageRoute(builder: (context) {
                   //   return ChatPage(chat: chat);
