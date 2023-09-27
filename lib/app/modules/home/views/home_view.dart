@@ -66,7 +66,7 @@ class HomeView extends StatelessWidget {
             titleSpacing: 10,
             flexibleSpace: Container(
               decoration: const BoxDecoration(
-                color: Color(0xffD8E4E8),
+                //color: Color(0xffD8E4E8),
               ),
             ),
             leading: Padding(
@@ -159,7 +159,8 @@ class HomeView extends StatelessWidget {
                           Space(16),
                           SizedBox(
                               width: 0.45.sw,
-                              child: Stxt(text: "Masjid-e-Nooraniah",
+                              child: Stxt(text: "${controller.getUserData.value.getUserById!.masjidId!
+                                  .masjidName}",
                                 size: f5,
                                 weight: FontWeight.w600,
                                 color: Colors.white,))
@@ -811,17 +812,17 @@ class HomeView extends StatelessWidget {
         preferredSize: Size.fromHeight(40),
         child: Container(
           height: 35,
-          color: const Color(0xff4C7380),
+          color: Get.isDarkMode == false  ? Color(0xffD8E4E8) : Color(0xff4C7380),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               DropdownButtonHideUnderline(
                 child: DropdownButton2(
-                    hint: const Row(
+                    hint:  Row(
                       children: [
                         Icon(
                           Icons.location_on_sharp,
-                          color: Colors.white,
+                          color: Get.theme.primaryColor ,
                           size: 21,
                         ),
                         SizedBox(
@@ -829,7 +830,7 @@ class HomeView extends StatelessWidget {
                         ),
                         Text(
                           'Puducherry',
-                          style: TextStyle(fontSize: 14, color: Colors.white
+                          style: TextStyle(fontSize: 14, color: Get.theme.primaryColor
                             // color: Theme.of(context).hintColor,
                           ),
                         ),
