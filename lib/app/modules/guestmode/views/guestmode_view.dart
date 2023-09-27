@@ -5,10 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:location/location.dart';
 import 'package:location_platform_interface/location_platform_interface.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:smartmasjid_v1/app/modules/audioplayer/views/audioplayer_view.dart';
 import 'package:smartmasjid_v1/app/modules/duapage/views/duapage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart';
@@ -31,26 +33,93 @@ import '../../../../utils/ansomeNotification.dart';
 import '../../../../utils/fcm_notification/fcm_helper.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
+import '../../home/widgets/mediumCard.dart';
 import '../../masjidnearme/helper/custom_marker_info_window.dart';
-import '../Drawer_List/masjid_history.dart';
-import '../Drawer_List/masjid_imam.dart';
-import '../Drawer_List/well_wisher.dart';
-import '../controllers/home_controller.dart';
-import '../widgets/imanTracker.dart';
-import '../widgets/mediumCard.dart';
-import '../widgets/prayerTimes.dart';
+import '../../settingspage/views/languageList.dart';
+import '../controllers/guestmode_controller.dart';
 
-class HomeView extends StatelessWidget {
-  HomeView({Key? key}) : super(key: key);
-  final HomeController controller = Get.find<HomeController>();
+
+class GuestmodeView extends StatefulWidget {
+  GuestmodeView({Key? key}) : super(key: key);
+
+  @override
+  State<GuestmodeView> createState() => _GuestmodeViewState();
+}
+
+class _GuestmodeViewState extends State<GuestmodeView> {
+  final GuestmodeController controller = Get.find<GuestmodeController>();
 
   CarouselController _carouselController = CarouselController();
+
   final List<String> items = ["Pondicherry", "villupuram"];
 
   // final List<String> imgList = ['fajr', 'dhuhar'];
-
   List quranImg = ['quran_list_img1', 'quran_list_img2', 'quran_list_img3'];
+
   List duaImg = ['dua_img1', 'dua_img2', 'dua_img3'];
+  void showRatingDialog() {
+    // actual store listing review & rating
+    void _rateAndReviewApp() async {
+      // refer to: https://pub.dev/packages/in_app_review
+      final _inAppReview = InAppReview.instance;
+
+      if (await _inAppReview.isAvailable()) {
+        print('request actual review from store');
+        _inAppReview.requestReview();
+      } else {
+        print('open actual store listing');
+        // TODO: use your own store ids
+        _inAppReview.openStoreListing(
+          appStoreId: '<your app store id>',
+          microsoftStoreId: '<your microsoft store id>',
+        );
+      }
+    }
+
+    final _dialog = RatingDialog(
+      starColor: Theme.of(context).primaryColor,
+      initialRating: 1.0,
+      // your app's name?
+      title: Text(
+        'Ummati',
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      // encourage your user to leave a high rating?
+      message: Text(
+        'Tap a star to set your rating. Add more description here if you want.',
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 15),
+      ),
+      // your app's logo?
+      image: Image.asset("assets/images/slogonw.png", fit: BoxFit.scaleDown,),
+      submitButtonText: 'Submit',
+      commentHint: 'Comment our app',
+      onCancelled: () => print('cancelled'),
+      onSubmitted: (response) {
+        print('rating: ${response.rating}, comment: ${response.comment}');
+
+        // TODO: add your own logic
+        if (response.rating < 3.0) {
+          // send their comments to your email or anywhere you wish
+          // ask the user to contact you instead of leaving a bad review
+        } else {
+          _rateAndReviewApp();
+        }
+      },
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      barrierDismissible: true, // set to false if you want to force a rating
+      builder: (context) => _dialog,
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +147,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
           title: Text(
-            "${controller.getUserData.value.getUserById!.masjidId!
-                .masjidName}",
+            "Ummati",
             style: TextStyle(color: Get.theme.hoverColor),
           ),
           actions: [
@@ -160,9 +228,7 @@ class HomeView extends StatelessWidget {
                         SizedBox(
                             width: 0.45.sw,
                             child: Stxt(
-                              text: "${controller.getUserData.value.getUserById!
-                                  .masjidId!
-                                  .masjidName}",
+                              text: "Ummati",
                               size: f5,
                               weight: FontWeight.w600,
                               color: Colors.white,))
@@ -171,282 +237,136 @@ class HomeView extends StatelessWidget {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => MasjidFacility()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Masjiddr.svg"),
-                      Space(16),
-                      Stxt(text: "masjid_facilities".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
-                  ),
-                  // onTap: controller.closeDrawer,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => MasjidHistory()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Historydr.svg"),
-                      Space(16),
-                      Stxt(text: "masjid_history".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
-                  ),
-                  // onTap: controller.closeDrawer,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => MasjidAdmin()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Admindr.svg"),
-                      Space(16),
-                      Stxt(text: "masjid_admins".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
-                  ),
-                  // onTap: controller.closeDrawer,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => MasjidImam()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/imamdr.svg"),
-                      Space(16),
-                      Stxt(text: "masjid_imams".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
-                  ),
-                  // onTap: controller.closeDrawer,
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => WellWisher()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/voldr.svg"),
-                      Space(16),
-                      Stxt(text: "masjid_well_wishers".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
-                  ),
-                  // onTap: controller.closeDrawer,
-                ),
-              ),
-              Space(16),
-              ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stxt(text: "quick_menu".tr, size: f4),
-                      Space(16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/thememode.svg"),
+                        Space(16),
+                        Text("dark_Mode".tr,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                        Spacer(),
+                        Obx(() {
+                          return Switch(
+                            value: controller.switchValue.value,
+                            onChanged: (newValue) {
+                              controller.switchValue.value = newValue;
+                              ThemeService().changeTheme();
+
+                            },
+                          );
+                        }),
+                      ],
+                    ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    Space(16),
+                    GestureDetector(
+                      onTap: (){
+                        Get.to(LanguageList());
+                      },
+                      child: Container(
+                        child: Row(
+                          children: [
+                            SvgPicture.asset("assets/svg/language.svg"),
+                            Space(16),
+                            Text("language".tr,
+                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                            Spacer(),
+                            Icon(Icons.arrow_forward_ios),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    Space(16),
+                    Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/feedback.svg"),
+                        Space(16),
+                        Text("feedback".tr,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    Space(16),
+                    Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/contact.svg"),
+                        Space(16),
+                        Text("contact".tr,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    Space(16),
+                    InkWell(
+                      onTap: (){
+                        showRatingDialog();
+                      },
+                      child: Row(
                         children: [
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.PRAYERPAGE);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
-                              // height: 75.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                    topLeft: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(4, 4),
-                                        color: Colors.grey.shade400
-                                    )
-                                  ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/prayerdr.svg", width: 60,),
-                                  Stxt(text: "prayer_time".tr,
-                                    size: f1,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor,
-                                    textAlign: TextAlign.center,)
-                                ],
-                              ),
-                            ),
-                          ),
-                          Space(30),
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.MEMBERSHIP);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
-                              // height: 65.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                    topLeft: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(-4, 4),
-                                        color: Colors.grey.shade400
-                                    )
-                                  ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/memberdr.svg", width: 80,),
-                                  Stxt(
-                                    text: "membership".tr,
-                                    size: f1,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor,)
-                                ],
-                              ),
-                            ),
-                          ),
+                          SvgPicture.asset("assets/svg/rating.svg"),
+                          const Space(16),
+                          Text("rate_our_app".tr,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                          Spacer(),
+                          Icon(Icons.arrow_forward_ios),
                         ],
                       ),
-                      Space(16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => ServicepageView()));
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
-                              // height: 65.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(16),
-                                    bottomRight: Radius.circular(16),
-                                    topLeft: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(4, 4),
-                                        color: Colors.grey.shade400
-                                    )
-                                  ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/servicedr.svg", width: 40,),
-                                  Stxt(
-                                    text: "services".tr, size: f1, color: Theme
-                                      .of(context)
-                                      .primaryColor,)
-                                ],
-                              ),
-                            ),
-                          ),
-                          Space(30),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                              Get.toNamed(Routes.EVENTS);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
-                              // height: 65.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(16),
-                                    bottomLeft: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(-4, 4),
-                                        color: Colors.grey.shade400
-                                    )
-                                  ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/eventsdr.svg", width: 40,),
-                                  Stxt(text: "events".tr, size: f1, color: Theme
-                                      .of(context)
-                                      .primaryColor,)
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
+                    ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    Space(16),
+                    Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/version.svg"),
+                        Space(16),
+                        Text("version".tr,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                    Space(16),
+                    Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/share.svg"),
+                        Space(16),
+                        Text("share".tr,
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                        Spacer(),
+                        Icon(Icons.arrow_forward_ios),
+                      ],
+                    ),
+                    Divider(
+                      thickness: 1,
+                    ),
+                  ],
+                ),
               ),
-              Space(50),
+              100.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Stxt(text: "leave_masjid".tr,
+                  Stxt(text: "Exit Guest".tr,
                     size: f3,
                     weight: FontWeight.w600,
                     color: Theme
@@ -585,11 +505,11 @@ class HomeView extends StatelessWidget {
                                   ),
                                   Space(20),
                                   Space(8),
-                                  Obx(() {
-                                    return controller.isloading1.value
-                                        ? CupertinoActivityIndicator()
-                                        : PrayerTimes();
-                                  }),
+                                  // Obx(() {
+                                  //   return controller.isloading1.value
+                                  //       ? CupertinoActivityIndicator()
+                                  //       : PrayerTimes();
+                                  // }),
                                   Obx(() {
                                     return controller.isloadingEvent.value
                                         ? CupertinoActivityIndicator()
@@ -778,14 +698,14 @@ class HomeView extends StatelessWidget {
                                             image: 'membership',
                                             title: 'membership'.tr,
                                             onTap: () {
-                                              Get.toNamed(Routes.MEMBERSHIP);
+                                              //Get.toNamed(Routes.MEMBERSHIP);
                                             },
                                           ),
                                           SmallCard(
                                             image: 'donation',
                                             title: 'donation'.tr,
                                             onTap: () {
-                                              Get.toNamed(Routes.DONATIONPAGE);
+                                              // Get.toNamed(Routes.DONATIONPAGE);
                                             },
                                           )
                                         ],
@@ -793,12 +713,12 @@ class HomeView extends StatelessWidget {
                                     ],
                                   ),
                                   buildDivider(themeData),
-                                  Obx(() {
-                                    return controller.isloadingiman.value
-                                        ? CupertinoActivityIndicator()
-                                        : ImanTracker_widget(
-                                        themeData: themeData);
-                                  }),
+                                  // Obx(() {
+                                  //   return controller.isloadingiman.value
+                                  //       ? CupertinoActivityIndicator()
+                                  //       : ImanTracker_widget(
+                                  //       themeData: themeData);
+                                  // }),
                                   buildDivider(themeData),
                                   Row(
                                     crossAxisAlignment:
@@ -820,10 +740,10 @@ class HomeView extends StatelessWidget {
                                             image: 'history',
                                             title: 'history'.tr,
                                             onTap: () {
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (_) =>
-                                                          MasjidhistoryView()));
+                                              // Navigator.of(context).push(
+                                              //     MaterialPageRoute(
+                                              //         builder: (_) =>
+                                              //             MasjidhistoryView()));
                                             },
                                           ),
                                         ],
@@ -899,7 +819,7 @@ class HomeView extends StatelessWidget {
         child: Container(
           height: 35,
           color: Get.theme.hoverColor,
-          child:Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Space(16),
@@ -1022,7 +942,7 @@ class TabsIcon extends StatelessWidget {
 class Location_permission extends StatelessWidget {
   Location_permission({super.key});
 
-  final HomeController con = Get.find<HomeController>();
+  final GuestmodeController con = Get.find<GuestmodeController>();
 
   @override
   Widget build(BuildContext context) {

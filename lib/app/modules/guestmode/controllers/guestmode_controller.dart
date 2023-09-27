@@ -27,7 +27,7 @@ import '../../imanTracker/model/ImanTrakerEntryModel.dart';
 import '../../imanTracker/model/imanTrakerStatusModel.dart';
 import '../Model/getUserModel.dart';
 
-class HomeController extends GetxController with GetSingleTickerProviderStateMixin{
+class GuestmodeController extends GetxController with GetSingleTickerProviderStateMixin{
   //TODO: Implement HomeController
   final _restCallController = Get.put(restCallController());
   final _authCtrl = Get.put(AuthenticationRespository());
@@ -49,20 +49,21 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   var eventsData= EventsModel().obs;
 
   var prayerTime =['fajr', 'dhuhr', 'asr', 'magrib', 'isha'];
-     // var imageBytes=images.obs;
+  // var imageBytes=images.obs;
   var currentIndex  = 0.obs;
   void updateIndex(int index) {
     currentIndex.value = index;
   }
   RxString nearestDuration = ''.obs;
   RxString nearestDuration1 = ''.obs;   var rrr="".obs;
- //var uid= Get.arguments[0];
+  //var uid= Get.arguments[0];
   var uid=FirebaseAuth.instance.currentUser;
-   var hh=Get.arguments;
-   var ggg=false;
+  var hh=Get.arguments;
+  var ggg=false;
   final box1 = GetStorage();
   final RxBool isExpanded = false.obs;
   final RxBool status = false.obs;
+  RxBool switchValue = false.obs;
 
   void toggleFunction() {
     isExpanded.value = !isExpanded.value; // Toggle the state
@@ -114,58 +115,12 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
       print("Error: $e");
     }
   }
+
   @override
   void onInit() {
 
 
-   if(hh==null&&box1.read('fruits')==null){
-    return;
-   }
-   // if(hh[0]==true){
-   //   isloading.value=true;
-   //   isloadingiman.value=true;
-   //
-   //  Future.delayed(Duration(milliseconds: 500), (){
-   //    isloading.value=false;
-   //    isloadingiman.value=false;
-   //  });
-   //   tabController = TabController(length: 1, vsync: this);
-   //   tabController.animation!.addListener(
-   //         () {
-   //       final value =  tabController.animation!.value.round();
-   //       // if (value != currentPage && mounted) {
-   //       //   changePage(value);
-   //       // }
-   //     },
-   //   );
-   //   return ;
-   // }
-   if(hh !=null){
-     box1.write("fruits",hh[0]);
-     box1.write("masjidId",hh[1]);
-     box1.write("token",hh[2]);
-     // box1.write("logoutlogin",false);
-     getUserDetails(hh[0],hh[2]);
-     getPrayerTime(hh[1]);
-     getUpcomingEvents(hh[1]);
 
-   }
-   if(  box1.read('fruits')!=null){
-     getUserDetails( box1.read('fruits'),box1.read('token'));
-     getPrayerTime( box1.read('masjidId'));
-     getUpcomingEvents(box1.read('masjidId'));
-
-   }
-
-   // if(FirebaseAuth.instance.currentUser!=null){
-   //
-   //   getUserDetails("",FirebaseAuth.instance.currentUser!.uid);
-   // }
-  // var ggg=box1.read('fruits')==null?hh[0]: box1.read('fruits');
-
- //  getUserDetails(Get.arguments[0]);
-  // getUserDetails("5b52cef8-1c88-48ac-bd76-a092cd5ad200");
-   // getPrayerTime();
 
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
@@ -177,7 +132,9 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
       },
     );
     super.onInit();
-   fetchCityName();
+    fetchCityName();
+
+
   }
 
   @override
@@ -190,7 +147,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   void onClose() {
     tabController.dispose();
 
-      timer!.cancel();
+    timer!.cancel();
 
     super.onClose();
   }
@@ -285,20 +242,20 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
   }
   prayerDetailRT(index){
 
-      DateTime now = DateTime.now();
+    DateTime now = DateTime.now();
 
-      // Target date and time
-      var targetDateTime = DateTime.parse("${prayerTimeData.value
-          .getTodayMasjidPrayerTime!
-          .todayPrayerList![index]
-          .startTime}").toLocal();
+    // Target date and time
+    var targetDateTime = DateTime.parse("${prayerTimeData.value
+        .getTodayMasjidPrayerTime!
+        .todayPrayerList![index]
+        .startTime}").toLocal();
 
-      // Calculate the remaining duration
-      Duration remainingDuration = targetDateTime.difference(now);
-      var remainingHours = remainingDuration.inHours;
-      int remainingMinutes = remainingDuration.inMinutes.remainder(60);
-      var timer="${remainingDuration.inHours}hrs ${remainingDuration.inMinutes.remainder(60)}min";
-      return timer;
+    // Calculate the remaining duration
+    Duration remainingDuration = targetDateTime.difference(now);
+    var remainingHours = remainingDuration.inHours;
+    int remainingMinutes = remainingDuration.inMinutes.remainder(60);
+    var timer="${remainingDuration.inHours}hrs ${remainingDuration.inMinutes.remainder(60)}min";
+    return timer;
   }
 
 
@@ -323,7 +280,7 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     } else {
       nearestDuration.value = now.millisecondsSinceEpoch.toString();
       nearestDuration1.value = targetDateTime.millisecondsSinceEpoch.toString();
-     // print("ggggg");
+      // print("ggggg");
     }
     timer= Timer.periodic(Duration(seconds: 1), (timer) {
       DateTime now = DateTime.now();
@@ -350,13 +307,13 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
 
 
 
-     //  var hrs1=remainingDuration.inHours;
-     //  var  min1=remainingDuration.inMinutes.remainder(60) ;
-     //  var  sec1=remainingDuration.inSeconds.remainder(60);
-     // // log("ggggg ${timeList}");
-     //  print("hrs ${hrs1}");
-     //  print("min ${min1}");
-     //  print("sec ${sec1}");
+      //  var hrs1=remainingDuration.inHours;
+      //  var  min1=remainingDuration.inMinutes.remainder(60) ;
+      //  var  sec1=remainingDuration.inSeconds.remainder(60);
+      // // log("ggggg ${timeList}");
+      //  print("hrs ${hrs1}");
+      //  print("min ${min1}");
+      //  print("sec ${sec1}");
     });
 
 
@@ -371,7 +328,7 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
   getUserDetails(passwordlogin, tokenid) async {
     //final user =FirebaseAuth.instance.currentUser==null ?"":FirebaseAuth.instance.currentUser!.uid;
     // var jjj = box1.read('fruits');
-   // print('Stored list: $jjj');
+    // print('Stored list: $jjj');
     isloading.value=true;
 
 
@@ -425,8 +382,8 @@ query Query(\$id: String, \$authId: String,\$deviceId: String,\$token: String!) 
       "id": "${passwordlogin}",
       "deviceId": "${MySharedPref.getFcmToken()}",
       "token": "${tokenid}",
-     // "authId": "$glogin"
-     // "id": "$k"
+      // "authId": "$glogin"
+      // "id": "$k"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading.value=false;
@@ -434,7 +391,7 @@ query Query(\$id: String, \$authId: String,\$deviceId: String,\$token: String!) 
     log(json.encode(res));
     print("getUser");
 
-   getUserData.value=getUserModelFromJson(json.encode(res));
+    getUserData.value=getUserModelFromJson(json.encode(res));
     getImanTrakerStatus(passwordlogin);
 
   }
@@ -467,9 +424,9 @@ query Query(\$masjidId: String) {
 
     prayerTimeData.value=prayerTimeModelFromJson(json.encode(res));
     remainTime();
-   // log("times");
-   // log(json.encode(res));
-   //  log("times");
+    // log("times");
+    // log(json.encode(res));
+    //  log("times");
   }
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
