@@ -35,6 +35,7 @@ class QuranpageController extends GetxController {
   // final ItemScrollController  itemScrollControllerjuz = ItemScrollController();
 
   final ScrollController scrollControllerjuz = ScrollController();
+  final ScrollController scrollControllera = ScrollController();
 
   final _restCallController = Get.put(restCallController());
   RxInt currentSelected = 1.obs;
@@ -80,7 +81,7 @@ class QuranpageController extends GetxController {
   RxBool isSelected = false.obs;
   int selectedAdjustedIndex = -1.obs;
   PageController pageController = PageController(initialPage: 0);
-  PageController pageControllerjuz = PageController();
+  PageController pageControllerjuz = PageController(initialPage: 0);
   final TextEditingController searchController = TextEditingController();
   final TextEditingController searchjuzController = TextEditingController();
   final Rx<QuranModel> items = QuranModel().obs;
@@ -252,7 +253,7 @@ void changeFontFamily(String family) {
     await quranjuzList();
     // quranDetailList(1);
     pageController = PageController(initialPage: 0);
-    pageControllerjuz = PageController();
+    pageControllerjuz = PageController(initialPage: 0);
     // quranjuzdetailList();
     // quranjuzdetailList();
     // debounce(searchQuery, (_) => filterList(), time: Duration(milliseconds: 500));

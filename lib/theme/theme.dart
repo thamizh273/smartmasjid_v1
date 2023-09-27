@@ -35,6 +35,22 @@ class ThemeService {
     },
   );
   static const int _primarycolorValue = 0xff4C7380;
+  static const MaterialColor secondcolor = MaterialColor(
+    _secondcolorValue,
+    <int, Color>{
+      50: Color(0xffD8E4E8),
+      100: Color(0xffD8E4E8),
+      200: Color(0xffD8E4E8),
+      300: Color(0xffD8E4E8),
+      400: Color(0xffD8E4E8),
+      500: Color(_secondcolorValue),
+      600: Color(0xffD8E4E8),
+      700: Color(0xffD8E4E8),
+      800: Color(0xffD8E4E8),
+      900: Color(0xffD8E4E8),
+    },
+  );
+  static const int _secondcolorValue = 0xffD8E4E8;
   final lightTheme = ThemeData.light().copyWith(
     iconTheme: IconThemeData(color: Colors.black87),
     colorScheme: ColorScheme.fromSwatch(primarySwatch: primarycolor)
@@ -42,7 +58,9 @@ class ThemeService {
         .copyWith(secondary: Color(0xffD2D1D1))
         .copyWith(primary: accentcolor),
     primaryColor: primarycolor,
-    appBarTheme: const AppBarTheme(),
+    appBarTheme: const AppBarTheme(
+      color: Color(0xffD8E4E8),
+    ),
     scaffoldBackgroundColor: Color(0xffD8E4E8),
     dividerColor: Colors.black12,
     shadowColor: Colors.black.withOpacity(0.07),
@@ -50,12 +68,15 @@ class ThemeService {
 
   final darkTheme = ThemeData.dark().copyWith(
     colorScheme: ColorScheme.fromSwatch(primarySwatch: accentcolor)
-        .copyWith(background: Color(0xff100F0F))
-        .copyWith(secondary: Color(0xffE2DCC8))
+        .copyWith(background: Color(0xffD8E4E8))
+        .copyWith(secondary: Color(0xffD8E4E8))
         .copyWith(primary: accentcolor),
-    scaffoldBackgroundColor: Color(0xff100F0F),
+    focusColor: Color(0xffD8E4E8),
+    scaffoldBackgroundColor: Color(0xff446874),
     primaryColor: accentcolor,
-    appBarTheme: const AppBarTheme(),
+    appBarTheme: const AppBarTheme(
+      color: Color(0xff446874)
+    ),
     dividerColor: Colors.white54,
     shadowColor: Colors.grey.withOpacity(0.07),
   );

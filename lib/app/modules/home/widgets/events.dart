@@ -56,6 +56,7 @@ class Events extends StatelessWidget {
               carouselController: _carouselController,
               items: _homectr.eventsData.value.getMasjidEvents! .where((e) => e != null).take(5).map((e) {
                 return Card(
+                  color:Get.isDarkMode? ThemeService.primarycolor : Colors.white,
                   surfaceTintColor: themeData.primaryColor,
                   shadowColor: themeData.primaryColor,
                   elevation: 5,
@@ -93,7 +94,7 @@ class Events extends StatelessWidget {
                         Stxt(
                           text: " ${e.description}",
                           size: f1,
-                          color: themeData.primaryColor,
+                          color: ThemeService.accentcolor,
                           weight: FontWeight.bold,
                           maxLines: 2,
                           family: "Inter",
@@ -113,11 +114,13 @@ class Events extends StatelessWidget {
                             children: [
                               Icon(
                                 Icons.location_on_sharp,
+                                color: ThemeService.accentcolor,
                                 size: f2,
                               ),
                               stxtN(
                                 text: " ${e.masjidId!.masjidName}",
                                 size: f1,
+                                color: ThemeService.accentcolor,
                                 weight: FontWeight.w500,
                               )
                             ],
@@ -128,6 +131,7 @@ class Events extends StatelessWidget {
                           children: [
                             Icon(
                               Icons.access_time_filled_outlined,
+                              color: ThemeService.accentcolor,
                               size: f1,
                             ),
                             SizedBox(
@@ -138,6 +142,7 @@ class Events extends StatelessWidget {
                                     DateTime.parse(
                                         "${e.startTime!.toLocal()}")),
                                 weight: FontWeight.w400,
+                                color: ThemeService.accentcolor,
                                 size: f0,
                               ),
                             )

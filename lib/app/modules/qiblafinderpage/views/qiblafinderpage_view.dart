@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -77,29 +78,63 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
                 if(snap.data == null) return CupertinoActivityIndicator();
                 return Column(
                   children: [
-                    CustomCard(
-                      color: Color(0xffD8E4E8),
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      child: Row(
-                        children: [
-                          Text('Latitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
-                          const Space(8),
-                          Text('${snap.data?.latitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
-                        ],
-                      ), border: true, shadow: false,),
-                    const Space(16),
-                    CustomCard(
-                      color: Color(0xffD8E4E8),
-                      margin: EdgeInsets.symmetric(horizontal: 16),
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      child: Row(
-                        children: [
-                          Text('Longitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
-                          const Space(8),
-                          Text('${snap.data?.longitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
-                        ],
-                      ), border: true, shadow: false,),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Container(
+                        height: 30.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Theme.of(context).primaryColor, width: 2),
+                          color: Theme.of(context).primaryColor.withOpacity(0.3)
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text('Latitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+                              const Space(8),
+                              Text('${snap.data?.latitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
+                            ],
+                          ),
+                        ),
+                      ).animate(
+                        onPlay: (controller) => controller.repeat(),
+                      )
+                          .shimmer(
+                          duration: Duration(
+                            seconds: 6,
+                          ),color: Colors.white.withOpacity(0.5)),
+                    ),
+                    //const Space(8),
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Container(
+                        height: 30.h,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: Theme.of(context).primaryColor, width: 2),
+                            color: Theme.of(context).primaryColor.withOpacity(0.3)
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Text('Longitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+                              const Space(8),
+                              Text('${snap.data?.longitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
+                            ],
+                          ),
+                        ),
+                      ).animate(
+                        onPlay: (controller) => controller.repeat(),
+                      )
+                          .shimmer(
+                          duration: Duration(
+                            seconds: 6,
+                          ),color: Colors.white.withOpacity(0.5)),
+                    ),
                   ],
                 );
               },
