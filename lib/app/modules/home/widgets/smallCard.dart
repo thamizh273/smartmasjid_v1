@@ -67,8 +67,8 @@ class SmallCard extends StatelessWidget {
                         padding: EdgeInsets.only(left: 5.w, right:rightpad?? 10.w),
                         child: VerticalDivider(
                           color: color != null
-                              ? themeData.primaryColor.withOpacity(.2)
-                              : themeData.scaffoldBackgroundColor.withOpacity(.4),
+                              ? Get.theme.primaryColor.withOpacity(0.4)
+                              : Get.theme.appBarTheme.backgroundColor!.withOpacity(0.7),
                           thickness: 1.5,
                           width: 8.w,
                           endIndent: 5.h,

@@ -58,6 +58,7 @@ class ThemeService {
         .copyWith(secondary: Color(0xffD2D1D1))
         .copyWith(primary: accentcolor),
     primaryColor: primarycolor,
+    hoverColor: primarycolor,
     appBarTheme: const AppBarTheme(
       color: Color(0xffD8E4E8),
     ),
@@ -71,6 +72,7 @@ class ThemeService {
         .copyWith(background: Color(0xffD8E4E8))
         .copyWith(secondary: Color(0xffD8E4E8))
         .copyWith(primary: accentcolor),
+    hoverColor: Color(0xffD8E4E8),
     focusColor: Color(0xffD8E4E8),
     scaffoldBackgroundColor: Color(0xff446874),
     primaryColor: accentcolor,

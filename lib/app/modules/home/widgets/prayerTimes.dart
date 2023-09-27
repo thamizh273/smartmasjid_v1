@@ -36,7 +36,7 @@ class PrayerTimes extends StatelessWidget {
             pad: EdgeInsets.only(left: 10),
             text: 'prayer_time'.tr,
             size: f3,
-            color: themeData.primaryColor,
+            color: Get.theme.hoverColor,
             weight: FontWeight.bold,
           ),
 

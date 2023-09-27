@@ -49,6 +49,7 @@ abstract class Routes {
   static const BOOKMARKPAGE = _Paths.BOOKMARKPAGE;
   static const ACTIVITIESPAGE = _Paths.ACTIVITIESPAGE;
   static const FAMILYTREE = _Paths.FAMILYTREE;
+  static const GUESTMODE = _Paths.GUESTMODE;
 }
 
 abstract class _Paths {
@@ -99,4 +100,5 @@ abstract class _Paths {
   static const BOOKMARKPAGE = '/bookmarkpage';
   static const ACTIVITIESPAGE = '/activitiespage';
   static const FAMILYTREE = '/familytree';
+  static const GUESTMODE = '/guestmode';
 }

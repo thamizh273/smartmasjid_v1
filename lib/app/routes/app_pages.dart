@@ -20,6 +20,8 @@ import '../modules/faceAuth/bindings/face_auth_binding.dart';
 import '../modules/faceAuth/views/face_auth_view.dart';
 import '../modules/familytree/bindings/familytree_binding.dart';
 import '../modules/familytree/views/familytree_view.dart';
+import '../modules/guestmode/bindings/guestmode_binding.dart';
+import '../modules/guestmode/views/guestmode_view.dart';
 import '../modules/hadithchapterdetail/bindings/hadithchapterdetail_binding.dart';
 import '../modules/hadithchapterdetail/views/hadithchapterdetail_view.dart';
 import '../modules/hijripage/bindings/hijripage_binding.dart';
@@ -107,7 +109,6 @@ class AppPages {
       name: _Paths.LANGUAGE_PAGE,
       page: () => LanguagePageView(),
       binding: LanguagePageBinding(),
-
     ),
     GetPage(
       name: _Paths.REGISTER_LOGIN,
@@ -269,7 +270,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DONATIONPAGE,
-      page: () =>  DonationpageView(),
+      page: () => DonationpageView(),
       binding: DonationpageBinding(),
     ),
     GetPage(
@@ -304,16 +305,19 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ACTIVITIESPAGE,
-      page: () =>  ActivitiespageView(),
+      page: () => ActivitiespageView(),
       binding: ActivitiespageBinding(),
     ),
     GetPage(
-      name: _Paths.FAMILYTREE,
-      page: () => const FamilytreeView(),
-      binding: FamilytreeBinding(),
-      transition: Transition.downToUp,
-      transitionDuration: Duration(seconds: 5)
-
+        name: _Paths.FAMILYTREE,
+        page: () => const FamilytreeView(),
+        binding: FamilytreeBinding(),
+        transition: Transition.downToUp,
+        transitionDuration: Duration(seconds: 5)),
+    GetPage(
+      name: _Paths.GUESTMODE,
+      page: () =>  GuestmodeView(),
+      binding: GuestmodeBinding(),
     ),
   ];
 }
