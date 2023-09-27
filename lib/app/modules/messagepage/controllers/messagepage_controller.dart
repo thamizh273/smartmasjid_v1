@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:chatview/chatview.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:intl/intl.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
@@ -12,15 +13,17 @@ import '../../home/controllers/home_controller.dart';
 import '../model/chatUserListModel.dart';
 import '../model/chatroomModel.dart';
 import '../model/read_Chat_Message_Model.dart';
+import '../model/theme.dart';
 import '../views/chattest.dart';
 
 class MessagepageController extends GetxController {
   //TODO: Implement MessagepageController
 
 var userNames="".obs;
-var int=0.obs;
-
+var limit=50.obs;
+  var datestatus="".obs;
   RxInt indexof=0.obs;
+
   var isLoadings = false.obs;
   var isLoadingschatUserList = false.obs;
   var isLoadingschatmessage = false.obs;
@@ -31,8 +34,12 @@ var int=0.obs;
   var chatroomData=ChatroomModel().obs;
   var chatListUserData=ChatUserListModel().obs;
   var readChatMessageData=ReadChatMessageModel().obs;
-  @override
+    AppTheme theme = LightTheme() ;
+
+
+@override
   void onInit() {
+
     get_chatroom();
     super.onInit();
   }
@@ -44,9 +51,15 @@ var int=0.obs;
 
   @override
   void onClose() {
+   // scrollControllermesage_.dispose(); //
     super.onClose();
+    leaveChat();
   }
-
+@override
+void dispose() {
+  //scrollControllermesage_.dispose(); // Dispose of the ScrollController
+  super.dispose();
+}
   get_chatroom() async {
    // print("eeee ${_homeController.getUserData.value.getUserById!.masjidId!.id}");
     //masjidListdata.value.getMasjidFilter=null;
@@ -119,7 +132,7 @@ query Get_Chat_User_List(\$userId: ID!, \$searchBy: String) {
     chatListUserData.value = chatUserListModelFromJson(json.encode(res));
    // update();
   }
-  get_chatMessage(String? reciverID, String? firstName) async {
+  get_chatMessage(String? reciverID, String? firstName, String profile) async {
     print("rr1${_homeController.getUserData.value.getUserById!.id}");
     print("rr2${chatroomData.value.getChatroom!.chatRoomid}");
     print("rr3${reciverID}");
@@ -139,6 +152,9 @@ query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: Str
     user_id
     id
     messaging_id
+    receiver_name
+    last_seen
+    live_status
   }
 }
     """;
@@ -146,16 +162,30 @@ query Read_Chat_Message(\$userId: ID!, \$chatRoomid: String!, \$messagingId: Str
       "chatRoomid": "${chatroomData.value.getChatroom!.chatRoomid}",
       "messagingId": "${reciverID}",
       "id": "${chatroomData.value.getChatroom!.id}",
-      "limit": 15
+      "limit": 10
     };
     var res = await _restCallController.gql_query(header, body);
-    log("getmessage");
+    log("getmessage1");
     log(json.encode(res));
-    log("getmessage");
+    log("getmessage1");
     isLoadingschatmessage.value = false;
     readChatMessageData.value = readChatMessageModelFromJson(json.encode(res));
-    Get.to(ChatScreen( firstName: "$firstName"));
+   var timestamp=  readChatMessageData.value.readChatMessage!.lastSeen!.toLocal();
+      final now = DateTime.now();
+      final yesterday = now.subtract(Duration(days: 1));
+      final isToday = now.day == timestamp.day;
+      final isYesterday = yesterday.day == timestamp.day;
+    Get.to(ChatScreen( firstName: "$firstName",profileImg:"$profile",));
     update();
+      if (isToday) {
+        return datestatus.value= DateFormat('h:mm a').format(timestamp);
+      } else if (isYesterday) {
+        return datestatus.value= 'Yesterday';
+      } else {
+        return datestatus.value= DateFormat('dd MMM').format(timestamp);
+      }
+
+
   }
 
 final messages = RxList<String>();
@@ -195,8 +225,46 @@ sentmeaasage(String msg,) async {
 
   return res;
 }
+leaveChat() async {
+  isLoadingssendmsg.value=true;
+  var header =
+  """mutation Mutation(\$userId: ID!, \$chatRoomid: String) {
+  ChatRoom_Leave(user_id: \$userId, chat_roomid: \$chatRoomid)
+}""";
+  var body = {
+    "userId": "${_homeController.getUserData.value.getUserById!.id}",
+    "chatRoomid": "${chatroomData.value.getChatroom!.chatRoomid}"
+  };
+  var res = await _restCallController.gql_mutation(header, body);
+  print(json.encode(res));
+  isLoadingssendmsg.value=false;
 
+  // if (res.toString().contains("SUCCESS")) {
+  //
+  //   getMembershipDetails();
+  //   payforOthers.value==true? Get.close(3):    Get.close(2);
+  //   //Get.offAndToNamed(Routes.HOME);
+  //
+  //   // var hh = res["SUCCESS"]["Update_User"];
+  //   toast(error: "SUCCESS", msg: "${status}");
+  // }
 
+  return res;
+}
+
+RxBool isDarkTheme = false.obs;
+void onThemeIconTap() {
+
+    if (isDarkTheme.value) {
+     LightTheme();
+      isDarkTheme.value = false;
+    } else {
+       DarkTheme();
+      isDarkTheme.value = true;
+    }
 
 }
+}
+
+
 

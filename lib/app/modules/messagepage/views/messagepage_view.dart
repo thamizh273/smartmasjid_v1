@@ -46,19 +46,24 @@ class MessagepageView extends GetView<MessagepageController> {
       body: Obx(() {
         return controller.isLoadings.value
             ? loading(context)
-            : controller.chatroomData.value.getChatroom!.chat!.isEmpty?NoMeassage():ListView.builder(
+            : controller.chatroomData.value.getChatroom!.chat!.isEmpty
+            ? NoMeassage()
+            : ListView.builder(
             physics: BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount:
             controller.chatroomData.value.getChatroom!.chat!.length,
             itemBuilder: (context, index) {
-              var data = controller.chatroomData.value.getChatroom!.chat![index];
+              var data = controller.chatroomData.value.getChatroom!
+                  .chat![index];
 
-              return  GestureDetector(
+              return GestureDetector(
                 onTap: () {
-                  controller.indexof.value=index;
-                  controller.get_chatMessage(data.messagingId!.id,data.messagingId!.firstName.toString());
-                 // controller.isLoadingschatmessage.isTrue?loading(context): Get.to(ChatScreen( firstName: data.messagingId!.firstName.toString(),));
+                  controller.indexof.value = index;
+                  controller.get_chatMessage(data.messagingId!.id,
+                      data.messagingId!.firstName.toString(),
+                      data.messagingId!.profileImage.toString());
+                  // controller.isLoadingschatmessage.isTrue?loading(context): Get.to(ChatScreen( firstName: data.messagingId!.firstName.toString(),));
                   //   Navigator.of(context).push(
                   // MaterialPageRoute(builder: (context) {
                   //   return ChatPage(chat: chat);
@@ -89,6 +94,7 @@ class MessagepageView extends GetView<MessagepageController> {
                               width: 60,
                               height: 60,
                               decoration: BoxDecoration(
+                                color: Get.theme.hoverColor,
                                 borderRadius: BorderRadius.circular(50.r),
                               ),
                               child: data.messagingId!.profileImage == "null"
@@ -190,21 +196,19 @@ class NoMeassage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset("assets/svg/messages.svg"),
-            Space(16),
-            Text("No messages yet, start your conversation".tr),
-            // Text("Start your Conversation".tr)
-          ],
-        ),
-      );
-
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset("assets/svg/messages.svg"),
+          Space(16),
+          Text("No messages yet, start your conversation".tr),
+          // Text("Start your Conversation".tr)
+        ],
+      ),
+    );
   }
 }
-
 
 
 //

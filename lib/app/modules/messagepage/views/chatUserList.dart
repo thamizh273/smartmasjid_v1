@@ -53,7 +53,7 @@ class ChatUserListPage extends StatelessWidget {
                                   onTap: (){
                                     chatUserListCtrl_.indexof.value=index;
                                     //chatUserListCtrl_.get_chatMessage(data.userId!.id);
-                                    chatUserListCtrl_.get_chatMessage(data.userId!.id,data.userName.toString());
+                                    chatUserListCtrl_.get_chatMessage(data.userId!.id,data.userName.toString(),"${data.profileImage}");
                                   },
                                   hoverColor: Colors.brown,
                                   splashColor: Colors.red,
@@ -64,6 +64,7 @@ class ChatUserListPage extends StatelessWidget {
                                   leading: ClipRRect(
                                     borderRadius:BorderRadius.circular(50),
                                     child: Container(
+                                        width: 50,height: 50,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
                                       ),

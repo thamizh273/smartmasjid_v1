@@ -36,6 +36,9 @@ class ReadChatMessage {
   String? userId;
   String? id;
   String? messagingId;
+  String? receiverName;
+  DateTime? lastSeen;
+  bool? liveStatus;
 
   ReadChatMessage({
     this.typename,
@@ -45,6 +48,9 @@ class ReadChatMessage {
     this.userId,
     this.id,
     this.messagingId,
+    this.receiverName,
+    this.lastSeen,
+    this.liveStatus,
   });
 
   factory ReadChatMessage.fromJson(Map<String, dynamic> json) => ReadChatMessage(
@@ -55,6 +61,9 @@ class ReadChatMessage {
     userId: json["user_id"],
     id: json["id"],
     messagingId: json["messaging_id"],
+    receiverName: json["receiver_name"],
+    lastSeen: json["last_seen"] == null ? null : DateTime.parse(json["last_seen"]),
+    liveStatus: json["live_status"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -65,6 +74,9 @@ class ReadChatMessage {
     "user_id": userId,
     "id": id,
     "messaging_id": messagingId,
+    "receiver_name": receiverName,
+    "last_seen": lastSeen?.toIso8601String(),
+    "live_status": liveStatus,
   };
 }
 
