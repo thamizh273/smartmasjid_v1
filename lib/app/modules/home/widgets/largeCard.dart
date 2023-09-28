@@ -6,7 +6,7 @@ import '../../../routes/export.dart';
 class LargerCard extends StatelessWidget {
   const LargerCard({
     super.key,
-    required this.quranImg, required this.buttonTxt, required this.image, required this.title, required this.subtitle, required this.lastseen, this.onTap,
+    required this.quranImg, required this.buttonTxt, required this.image, required this.title, required this.subtitle,  this.lastseen, this.onTap,
   });
 
   final List quranImg;
@@ -14,7 +14,7 @@ class LargerCard extends StatelessWidget {
   final String image;
   final String title;
   final String subtitle;
-  final String lastseen;
+   final String? lastseen;
   final void Function()? onTap;
 
   @override
@@ -123,10 +123,10 @@ class LargerCard extends StatelessWidget {
                           ],
                         ), ontap: () {  }),
                     SizedBox(
-                      height: 5,
+                       height:lastseen==null? 0:5,
                     ),
-                    Stxt(
-                      text: lastseen,
+                    lastseen==null? Container() :Stxt(
+                      text: lastseen!,
                       size: f0.sp,
                       color: Colors.white,
                     ),

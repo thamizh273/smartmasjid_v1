@@ -1,11 +1,9 @@
+import 'dart:async';
 
-
-
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:marquee_text/marquee_text.dart';
+import 'package:marquee_text/vertical_marquee_text.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -15,67 +13,61 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: HomePage(),
     );
   }
 }
+ class HomePage extends StatelessWidget {
+   const HomePage({super.key});
 
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
+   @override
+   Widget build(BuildContext context) {
+     return Scaffold(
+       body: Container(
+         width: double.infinity,
+         color: Colors.green,
+         child: Column(
+       children: [
+       /// horizontal marquee
+       MarqueeText(
+         alwaysScroll: true,
+       text: TextSpan(
+         text: 'This is long long long text...',
+       ),
+       style: TextStyle(
+         fontSize: 24,
+         color: Colors.white,
+       ),
+       speed: 30,
+     ),
 
-class _MyHomePageState extends State<MyHomePage> {
-  String cityName = "Unknown"; // To store the city name
+     /// vertical marquee
+     // VerticalMarqueeText(
+     // text: TextSpan(
+     // children: <InlineSpan>[
+     // TextSpan(
+     // text: '''
+     //          This is long long long text...
+     //          This is long long long text...
+     //          This is long long long text...
+     //          ''',
+     // ),
+     // ],
+     // ),
+     // style: TextStyle(
+     // fontSize: 24,
+     // color: Colors.white,
+     // ),
+     // speed: 30,
+     // ),
+     ],
+     ),
+     ),
+     );
+   }
+ }
 
-  // Function to fetch the city name using geolocation
-  Future<void> fetchCityName() async {
-    try {
-      // Get the current position (latitude and longitude)
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
 
-      // Use reverse geocoding to get the city name from coordinates
-      List<Placemark> placemarks = await placemarkFromCoordinates(
-        position.latitude,
-        position.longitude,
-      );
 
-      // Update the cityName state variable with the city name
-      setState(() {
-        cityName = placemarks.first.locality ?? "Unknown";
-      });
-    } catch (e) {
-      print("Error: $e");
-    }
-  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('City Name Finder'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'City Name:',
-              style: TextStyle(fontSize: 20),
-            ),
-            Text(
-              cityName,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: fetchCityName,
-              child: Text('Get City Name'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+

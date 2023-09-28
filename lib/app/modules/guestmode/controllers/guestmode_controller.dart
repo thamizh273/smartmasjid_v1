@@ -108,7 +108,8 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
         position.latitude,
         position.longitude,
       );
-      print("cdcdcd${cityName}");
+      print("lat ${position.latitude}");
+      print("long ${position.longitude}");
       // Update the cityName state variable with the city name
       cityName.value = placemarks.first.locality ?? "Finding city...";
     } catch (e) {

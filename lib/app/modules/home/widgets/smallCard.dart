@@ -35,6 +35,14 @@ class SmallCard extends StatelessWidget {
         child: Container(
           margin: EdgeInsets.all(5),
           decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 3,
+                spreadRadius: 2,
+                color: Get.theme.highlightColor,
+                offset: Offset(0,2)
+              )
+            ],
               borderRadius: BorderRadius.circular(8),
              color: color ?? themeData.primaryColor,
               // boxShadow: [
