@@ -22,6 +22,7 @@ import 'package:smartmasjid_v1/data/local/my_shared_pref.dart';
 
 import '../../../../utils/ansomeNotification.dart';
 import '../../../rest_call_controller/rest_call_controller.dart';
+import '../../../routes/app_pages.dart';
 import '../../Events/Model/eventsModel.dart';
 import '../../imanTracker/model/ImanTrakerEntryModel.dart';
 import '../../imanTracker/model/imanTrakerStatusModel.dart';
@@ -59,7 +60,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
  //var uid= Get.arguments[0];
   var uid=FirebaseAuth.instance.currentUser;
    var hh=Get.arguments;
-   var ggg=false;
+
   final box1 = GetStorage();
   final RxBool isExpanded = false.obs;
   final RxBool status = false.obs;
@@ -121,25 +122,9 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
    if(hh==null&&box1.read('fruits')==null){
     return;
    }
-   // if(hh[0]==true){
-   //   isloading.value=true;
-   //   isloadingiman.value=true;
-   //
-   //  Future.delayed(Duration(milliseconds: 500), (){
-   //    isloading.value=false;
-   //    isloadingiman.value=false;
-   //  });
-   //   tabController = TabController(length: 1, vsync: this);
-   //   tabController.animation!.addListener(
-   //         () {
-   //       final value =  tabController.animation!.value.round();
-   //       // if (value != currentPage && mounted) {
-   //       //   changePage(value);
-   //       // }
-   //     },
-   //   );
-   //   return ;
-   // }
+
+
+
    if(hh !=null){
      box1.write("fruits",hh[0]);
      box1.write("masjidId",hh[1]);

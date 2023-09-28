@@ -47,7 +47,7 @@ class GuestmodeView extends StatefulWidget {
 }
 
 class _GuestmodeViewState extends State<GuestmodeView> {
-  final GuestmodeController controller = Get.find<GuestmodeController>();
+  final GuestmodeController controllerguest = Get.find<GuestmodeController>();
 
   CarouselController _carouselController = CarouselController();
 
@@ -125,7 +125,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Obx(() {
-      return controller.isloading.value
+      return controllerguest.isloading.value
           ? loading(context)
           : Scaffold(
         backgroundColor: themeData.scaffoldBackgroundColor,
@@ -140,7 +140,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
             padding: EdgeInsets.only(top: 10, left: 10, bottom: 6),
             child: GestureDetector(
               onTap: () {
-                controller.openDrawer();
+                controllerguest.openDrawer();
               },
 
               child: Image.asset("assets/images/slogonw.png",),
@@ -170,10 +170,10 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                       // var imageBytes = base64Decode(controller
                       //     .getUserData.value.getUserById!.profileImage
                       //     .toString());
-                      var guestnull = controller.getUserData.value
+                      var guestnull = controllerguest.getUserData.value
                           .getUserById == null;
                       return (guestnull ||
-                          controller.getUserData.value.getUserById!
+                          controllerguest.getUserData.value.getUserById!
                               .profileImage == "null")
                           ? CircleAvatar(
                         foregroundImage:
@@ -183,7 +183,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                       )
                           : CircleAvatar(
                         // foregroundImage: AssetImage("assets/images/avathar.png"),
-                        foregroundImage: MemoryImage(base64Decode(controller
+                        foregroundImage: MemoryImage(base64Decode(controllerguest
                             .getUserData.value.getUserById!.profileImage
                             .toString())),
                         radius: 20,
@@ -200,7 +200,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
           ],
           bottom: buildPreferredSize(context),
         ),
-        key: controller.scaffoldKey,
+        key: controllerguest.scaffoldKey,
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -250,9 +250,9 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                         Spacer(),
                         Obx(() {
                           return Switch(
-                            value: controller.switchValue.value,
+                            value: controllerguest.switchValue.value,
                             onChanged: (newValue) {
-                              controller.switchValue.value = newValue;
+                              controllerguest.switchValue.value = newValue;
                               ThemeService().changeTheme();
 
                             },
@@ -363,20 +363,24 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                 ),
               ),
               100.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stxt(text: "Exit Guest".tr,
-                    size: f3,
-                    weight: FontWeight.w600,
-                    color: Theme
-                        .of(context)
-                        .primaryColor,),
-                  Space(16),
-                  Icon(Icons.logout, color: Theme
-                      .of(context)
-                      .primaryColor)
-                ],
+              InkWell(
+                onTap: (){
+                  controllerguest.guesttoken.remove('guest');
+                  Get.offAllNamed(AppPages.INITIAL);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stxt(text: "Exit Guest".tr,
+                      size: f3,
+                      weight: FontWeight.w600,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,),
+                    Space(16),
+                    Icon(Icons.logout, color: Theme.of(context).primaryColor)
+                  ],
+                ),
               )
             ],
           ),
@@ -396,7 +400,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                 hideOnScroll: true,
                 body: (context, controllers) =>
                     TabBarView(
-                        controller: controller.tabController,
+                        controller: controllerguest.tabController,
                         dragStartBehavior: DragStartBehavior.down,
                         physics: BouncingScrollPhysics(),
                         children: [
@@ -511,7 +515,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                   //       : PrayerTimes();
                                   // }),
                                   Obx(() {
-                                    return controller.isloadingEvent.value
+                                    return controllerguest.isloadingEvent.value
                                         ? CupertinoActivityIndicator()
                                         : Events(
                                         carouselController:
@@ -833,7 +837,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
               ),
               Obx(() {
                 return Text(
-                  '${controller.cityName.value}',
+                  '${controllerguest.cityName.value}',
                   style: TextStyle(
                       fontSize: 14, color: Get.theme.appBarTheme.backgroundColor
                     // color: Theme.of(context).hintColor,

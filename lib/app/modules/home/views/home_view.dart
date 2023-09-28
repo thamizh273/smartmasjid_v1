@@ -606,6 +606,7 @@ class HomeView extends StatelessWidget {
                                       Get.toNamed(Routes.QURANPAGE);
                                     },
                                     child: LargerCard(
+                                    ignorOntap: true,
                                       quranImg: quranImg,
                                       buttonTxt: 'continue'.tr,
                                       image: 'quran',
@@ -689,6 +690,7 @@ class HomeView extends StatelessWidget {
                                               builder: (_) => DuapageView()));
                                     },
                                     child: LargerCard(
+                                      ignorOntap: true,
                                       quranImg: duaImg,
                                       buttonTxt: 'view_all'.tr,
                                       image: 'dua',
@@ -748,6 +750,7 @@ class HomeView extends StatelessWidget {
                                               builder: (_) => MediapageView()));
                                     },
                                     child: LargerCard(
+                                      ignorOntap: true,
                                       quranImg: quranImg,
                                       buttonTxt: 'view_all'.tr,
                                       image: 'media',

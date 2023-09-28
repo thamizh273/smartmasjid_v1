@@ -21,8 +21,8 @@ class ImanTracker_widget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     var guest= homectrl.ggg==true;
-    var imanWeek= guest==true?null:homectrl.imanStatusData.value.getImanTrackerStatus!;
+
+    var imanWeek=homectrl.imanStatusData.value.getImanTrackerStatus!;
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 9),
       shape: RoundedRectangleBorder(
@@ -76,20 +76,20 @@ class ImanTracker_widget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Imanprogress(
-                                themeData: themeData, text: 'fajr'.tr, percent:((imanWeek==null?100:imanWeek[0].status!.injamaah!+imanWeek[0].status!.ontime!)/100),),
+                                themeData: themeData, text: 'fajr'.tr, percent:((imanWeek[0].status!.injamaah!+imanWeek[0].status!.ontime!)/100),),
                               Imanprogress(
-                                themeData: themeData, text: 'jummah'.tr, percent: ((imanWeek==null?100:imanWeek[1].status!.injamaah!+imanWeek[1].status!.ontime!)/100),),
+                                themeData: themeData, text: 'jummah'.tr, percent: ((imanWeek[1].status!.injamaah!+imanWeek[1].status!.ontime!)/100),),
                               Imanprogress(
-                                themeData: themeData, text: 'dhuhr'.tr, percent: ((imanWeek==null?100:imanWeek[2].status!.injamaah!+imanWeek[2].status!.ontime!)/100),),
+                                themeData: themeData, text: 'dhuhr'.tr, percent: ((imanWeek[2].status!.injamaah!+imanWeek[2].status!.ontime!)/100),),
                             ],
                           ),
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Imanprogress(themeData: themeData, text: 'asr'.tr, percent: ((imanWeek==null?100:imanWeek[3].status!.injamaah!+imanWeek[3].status!.ontime!)/100),),
-                            Imanprogress(themeData: themeData, text: 'maghrib'.tr, percent: ((imanWeek==null?100:imanWeek[4].status!.injamaah!+imanWeek[4].status!.ontime!)/100),),
-                            Imanprogress(themeData: themeData, text: 'isha'.tr, percent: ((imanWeek==null?100:imanWeek[5].status!.injamaah!+imanWeek[5].status!.ontime!)/100),),
+                            Imanprogress(themeData: themeData, text: 'asr'.tr, percent: ((imanWeek[3].status!.injamaah!+imanWeek[3].status!.ontime!)/100),),
+                            Imanprogress(themeData: themeData, text: 'maghrib'.tr, percent: ((imanWeek[4].status!.injamaah!+imanWeek[4].status!.ontime!)/100),),
+                            Imanprogress(themeData: themeData, text: 'isha'.tr, percent: ((imanWeek[5].status!.injamaah!+imanWeek[5].status!.ontime!)/100),),
                           ],
                         ),
                       ],
@@ -131,7 +131,7 @@ class ImanTracker_widget extends StatelessWidget {
                               )
                             ],
                           ), ontap: (){
-                        guest?guestmessage():    Get.toNamed(Routes.IMAN_TRACKER);
+                      Get.toNamed(Routes.IMAN_TRACKER);
                             
                       }),
 

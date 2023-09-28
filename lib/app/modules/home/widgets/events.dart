@@ -17,9 +17,9 @@ class Events extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var guest =_homectr.ggg==true;
+
     final themeData = Theme.of(context);
-    return  guest?Container():Container(
+    return Container(
       padding: EdgeInsets.only(left: 10),
       child: Column(
         children: [

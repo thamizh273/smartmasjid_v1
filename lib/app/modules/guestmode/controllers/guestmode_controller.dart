@@ -30,8 +30,6 @@ import '../Model/getUserModel.dart';
 class GuestmodeController extends GetxController with GetSingleTickerProviderStateMixin{
   //TODO: Implement HomeController
   final _restCallController = Get.put(restCallController());
-  final _authCtrl = Get.put(AuthenticationRespository());
-  final _la = Get.put(LoginPageController());
 
   var imanStatusData= ImanTrakerStatusModel().obs;
 
@@ -58,9 +56,9 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
   RxString nearestDuration1 = ''.obs;   var rrr="".obs;
   //var uid= Get.arguments[0];
   var uid=FirebaseAuth.instance.currentUser;
-  var hh=Get.arguments;
-  var ggg=false;
-  final box1 = GetStorage();
+
+
+
   final RxBool isExpanded = false.obs;
   final RxBool status = false.obs;
   RxBool switchValue = false.obs;
@@ -115,24 +113,43 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
       print("Error: $e");
     }
   }
+  var arg=Get.arguments;
 
+  final guesttoken = GetStorage();
   @override
   void onInit() {
+     if(arg==null&&guesttoken.read('guest')==null){
+       return;
+     }if(arg!=null){
+       guesttoken.write("guest",arg[0]);
+       tabController = TabController(length: 1, vsync: this);
+       tabController.animation!.addListener(
+             () {
+           final value =  tabController.animation!.value.round();
+           // if (value != currentPage && mounted) {
+           //   changePage(value);
+           // }
+         },
+       );
+       fetchCityName();
+       return;
+     }if(guesttoken.read('guest')!=null){
+       tabController = TabController(length: 1, vsync: this);
+       tabController.animation!.addListener(
+             () {
+           final value =  tabController.animation!.value.round();
+           // if (value != currentPage && mounted) {
+           //   changePage(value);
+           // }
+         },
+       );
+       fetchCityName();
+       return;
+     }
 
 
-
-
-    tabController = TabController(length: 1, vsync: this);
-    tabController.animation!.addListener(
-          () {
-        final value =  tabController.animation!.value.round();
-        // if (value != currentPage && mounted) {
-        //   changePage(value);
-        // }
-      },
-    );
     super.onInit();
-    fetchCityName();
+
 
 
   }

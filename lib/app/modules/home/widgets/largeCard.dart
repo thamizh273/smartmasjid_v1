@@ -6,10 +6,11 @@ import '../../../routes/export.dart';
 class LargerCard extends StatelessWidget {
   const LargerCard({
     super.key,
-    required this.quranImg, required this.buttonTxt, required this.image, required this.title, required this.subtitle, required this.lastseen, this.onTap,
+    required this.quranImg, required this.buttonTxt, required this.image, required this.title, required this.subtitle, required this.lastseen, this.onTap, this.ignorOntap,
   });
 
   final List quranImg;
+  final bool? ignorOntap;
   final String buttonTxt;
   final String image;
   final String title;
@@ -100,28 +101,31 @@ class LargerCard extends StatelessWidget {
                 Spacer(),
                 Column(
                   children: [
-                    SButton(
-                        rad: 5,
-                        height: 20,
-                        width: 90,
-                        pad: 0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Stxt(
-                              text: buttonTxt,
-                              size: f2,
-                              color: themeData.primaryColor,
-                            ),
-                            SizedBox(
-                              width: 5.w,
-                            ),
-                            SvgPicture.asset(
-                              'assets/svg/arrow.svg',
-                              width: 10.w,
-                            )
-                          ],
-                        ), ontap: () {  }),
+                    IgnorePointer(
+                      ignoring:ignorOntap?? false,
+                      child: SButton(
+                          rad: 5,
+                          height: 20,
+                          width: 90,
+                          pad: 0,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Stxt(
+                                text: buttonTxt,
+                                size: f2,
+                                color: themeData.primaryColor,
+                              ),
+                              SizedBox(
+                                width: 5.w,
+                              ),
+                              SvgPicture.asset(
+                                'assets/svg/arrow.svg',
+                                width: 10.w,
+                              )
+                            ],
+                          ), ontap: () {  }),
+                    ),
                     SizedBox(
                       height: 5,
                     ),

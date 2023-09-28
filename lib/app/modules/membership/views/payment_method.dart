@@ -193,6 +193,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
     },
     {'value': 'net_banking', 'name': 'Net Banking', 'assets': [], 'val': 2},
     {'value': 'cash', 'name': 'Cash', 'assets': [], 'val': 3},
+    {'value': 'wallwt', 'name': 'Wallet', 'assets': [], 'val': 4},
   ];
 
   @override
