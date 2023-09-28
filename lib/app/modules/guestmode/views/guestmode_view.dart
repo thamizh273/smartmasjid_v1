@@ -4,10 +4,13 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:location/location.dart';
 import 'package:location_platform_interface/location_platform_interface.dart';
+import 'package:marquee_text/marquee_direction.dart';
+import 'package:marquee_text/marquee_text.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rating_dialog/rating_dialog.dart';
@@ -47,7 +50,7 @@ class GuestmodeView extends StatefulWidget {
 }
 
 class _GuestmodeViewState extends State<GuestmodeView> {
-  final GuestmodeController controllerguest = Get.find<GuestmodeController>();
+  final GuestmodeController controller = Get.find<GuestmodeController>();
 
   CarouselController _carouselController = CarouselController();
 
@@ -125,7 +128,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
     return Obx(() {
-      return controllerguest.isloading.value
+      return controller.isloading.value
           ? loading(context)
           : Scaffold(
         backgroundColor: themeData.scaffoldBackgroundColor,
@@ -140,7 +143,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
             padding: EdgeInsets.only(top: 10, left: 10, bottom: 6),
             child: GestureDetector(
               onTap: () {
-                controllerguest.openDrawer();
+                controller.openDrawer();
               },
 
               child: Image.asset("assets/images/slogonw.png",),
@@ -166,41 +169,22 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                   child: CircleAvatar(
                     radius: 21.5,
                     backgroundColor: themeData.primaryColor,
-                    child: Obx(() {
-                      // var imageBytes = base64Decode(controller
-                      //     .getUserData.value.getUserById!.profileImage
-                      //     .toString());
-                      var guestnull = controllerguest.getUserData.value
-                          .getUserById == null;
-                      return (guestnull ||
-                          controllerguest.getUserData.value.getUserById!
-                              .profileImage == "null")
-                          ? CircleAvatar(
+                    child: CircleAvatar(
                         foregroundImage:
-                        AssetImage("assets/images/avathar.png"),
-                        radius: 20,
-                        backgroundColor: Colors.white,
-                      )
-                          : CircleAvatar(
-                        // foregroundImage: AssetImage("assets/images/avathar.png"),
-                        foregroundImage: MemoryImage(base64Decode(controllerguest
-                            .getUserData.value.getUserById!.profileImage
-                            .toString())),
-                        radius: 20,
-                        backgroundColor: Colors.white,
-                      );
-                    }),
-                  ),
+                        AssetImage("assets/images/guestlogo.png",),
+                        radius: 15,
+                        backgroundColor: Colors.transparent,
+                      ),
                 ),
               ),
             )
 
 //             ),
-//           )
+          )
           ],
           bottom: buildPreferredSize(context),
         ),
-        key: controllerguest.scaffoldKey,
+        key: controller.scaffoldKey,
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -250,9 +234,9 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                         Spacer(),
                         Obx(() {
                           return Switch(
-                            value: controllerguest.switchValue.value,
+                            value: controller.switchValue.value,
                             onChanged: (newValue) {
-                              controllerguest.switchValue.value = newValue;
+                              controller.switchValue.value = newValue;
                               ThemeService().changeTheme();
 
                             },
@@ -363,24 +347,20 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                 ),
               ),
               100.verticalSpace,
-              InkWell(
-                onTap: (){
-                  controllerguest.guesttoken.remove('guest');
-                  Get.offAllNamed(AppPages.INITIAL);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stxt(text: "Exit Guest".tr,
-                      size: f3,
-                      weight: FontWeight.w600,
-                      color: Theme
-                          .of(context)
-                          .primaryColor,),
-                    Space(16),
-                    Icon(Icons.logout, color: Theme.of(context).primaryColor)
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Stxt(text: "Exit Guest".tr,
+                    size: f3,
+                    weight: FontWeight.w600,
+                    color: Theme
+                        .of(context)
+                        .primaryColor,),
+                  Space(16),
+                  Icon(Icons.logout, color: Theme
+                      .of(context)
+                      .primaryColor)
+                ],
               )
             ],
           ),
@@ -400,7 +380,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                 hideOnScroll: true,
                 body: (context, controllers) =>
                     TabBarView(
-                        controller: controllerguest.tabController,
+                        controller: controller.tabController,
                         dragStartBehavior: DragStartBehavior.down,
                         physics: BouncingScrollPhysics(),
                         children: [
@@ -514,17 +494,33 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                   //       ? CupertinoActivityIndicator()
                                   //       : PrayerTimes();
                                   // }),
-                                  Obx(() {
-                                    return controllerguest.isloadingEvent.value
-                                        ? CupertinoActivityIndicator()
-                                        : Events(
-                                        carouselController:
-                                        _carouselController);
-                                  }),
+                                  // Obx(() {
+                                  //   return controller.isloadingEvent.value
+                                  //       ? CupertinoActivityIndicator()
+                                  //       : Events(
+                                  //       carouselController:
+                                  //       _carouselController);
+                                  // }),
+                                  MarqueeText(
+                                    marqueeDirection: MarqueeDirection.ltr,
+                                    alwaysScroll: true,
+                                    text: TextSpan(
+                                        text: '📢...Connect to Smart Masjid...📢',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600, fontSize: 18,
+                                            color: Get.theme.hoverColor
+                                        )
+                                    ),
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.white,
+                                    ),
+                                    speed: 20,
+                                  ),
                                   SizedBox(
                                     height: 5.h,
                                   ),
-                                  buildDivider(themeData),
+                                  // buildDivider(themeData),
                                   GestureDetector(
                                     onTap: () {
                                       Get.toNamed(Routes.QURANPAGE);
@@ -535,7 +531,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                       image: 'quran',
                                       title: 'quran'.tr,
                                       subtitle: '114_surah_30_juz'.tr,
-                                      lastseen: 'last_read_13_hrs_ago'.tr,
+                                     // lastseen: 'last_read_13_hrs_ago'.tr,
                                       // onPressed: getQuranChaptersList,
                                     ),
                                   ),
@@ -619,7 +615,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                       title: 'dua'.tr,
                                       subtitle:
                                       'dua_for_ease_and_success_in_life'.tr,
-                                      lastseen: 'Opened 13 hrs ago',
+                                      //lastseen: 'Opened 13 hrs ago',
                                     ),
                                   ),
                                   buildDivider(themeData),
@@ -679,19 +675,49 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                       subtitle:
                                       'islamic_videos_for_ease_and_success_in_life'
                                           .tr,
-                                      lastseen: 'Opened 13 hrs ago',
+                                      //lastseen: 'Opened 13 hrs ago',
                                     ),
                                   ),
                                   buildDivider(themeData),
+                                  // Row(
+                                  //   mainAxisAlignment: MainAxisAlignment.center,
+                                  //   children: [
+                                  //
+                                  //     // Stxt(text: "Connect to Smart Masjid", size: f3, weight: FontWeight.bold, color: Get.theme.hoverColor,)
+                                  //   ],
+                                  // ).animate(
+                                  //   onPlay: (controller) => controller.repeat(),
+                                  // )
+                                  //     .shimmer(
+                                  //     duration: Duration(
+                                  //       seconds: 3,
+                                  //     ),color: Colors.orange.withOpacity(0.5)),
+                                  MarqueeText(
+                                    marqueeDirection: MarqueeDirection.ltr,
+                                    alwaysScroll: true,
+                                    text: TextSpan(
+                                      text: '💠...Connect to Smart Masjid...💠',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.w600, fontSize: 18,
+                                        color: Get.theme.hoverColor
+                                      )
+                                    ),
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.white,
+                                    ),
+                                    speed: 20,
+                                  ),
+                                  Space(4),
                                   Row(
                                     children: [
                                       MediumCard(
                                         title: 'services'.tr,
                                         image: 'donation',
                                         onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(builder: (_) =>
-                                                  ServicepageView()));
+                                          // Navigator.of(context).push(
+                                          //     MaterialPageRoute(builder: (_) =>
+                                          //         ServicepageView()));
                                         },
                                       ),
                                       Column(
@@ -723,7 +749,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                   //       : ImanTracker_widget(
                                   //       themeData: themeData);
                                   // }),
-                                  buildDivider(themeData),
+                                  // buildDivider(themeData),
                                   Row(
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
@@ -837,7 +863,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
               ),
               Obx(() {
                 return Text(
-                  '${controllerguest.cityName.value}',
+                  '${controller.cityName.value}',
                   style: TextStyle(
                       fontSize: 14, color: Get.theme.appBarTheme.backgroundColor
                     // color: Theme.of(context).hintColor,

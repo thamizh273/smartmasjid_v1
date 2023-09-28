@@ -108,7 +108,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
         position.latitude,
         position.longitude,
       );
-      print("cdcdcd${cityName}");
+      print("cdcdcd${position.latitude}");
       // Update the cityName state variable with the city name
       cityName.value = placemarks.first.locality ?? "Finding city...";
     } catch (e) {
