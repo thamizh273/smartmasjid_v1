@@ -22,7 +22,7 @@ class MediumCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-
+          title =="services".tr ? Image.asset("assets/gif/service.gif", scale: 2,):
           Image.asset(
             'assets/images/$image.png',
             fit: BoxFit.cover,

@@ -467,10 +467,10 @@ class HomeView extends StatelessWidget {
             // if(snap.data == null) return CupertinoActivityIndicator();
             return FrostedBottomBar(
                 width: 330.w,
-                opacity: .8,
+                opacity: 1,
                 sigmaX: 10,
                 sigmaY: 10,
-                bottomBarColor: Get.theme.hoverColor,
+                bottomBarColor: Get.theme.hintColor,
                 borderRadius: BorderRadius.circular(500),
                 duration: const Duration(milliseconds: 800),
                 hideOnScroll: true,
@@ -850,7 +850,7 @@ class HomeView extends StatelessWidget {
                               },
                               child: SvgPicture.asset(
                                 "assets/svg/masjidbot.svg",
-                                color: Get.theme.appBarTheme.backgroundColor,)),
+                                color: Get.theme.focusColor,)),
                           Space(8),
                           GestureDetector(
                               onTap: () {
@@ -858,27 +858,24 @@ class HomeView extends StatelessWidget {
                               },
                               child: SvgPicture.asset(
                                   "assets/svg/quranbot.svg",
-                                  color: Get.theme.appBarTheme
-                                      .backgroundColor)),
+                                  color: Get.theme.focusColor)),
                           Space(8),
                           SvgPicture.asset("assets/svg/homebot.svg", color: Get
-                              .theme.appBarTheme.backgroundColor),
+                              .theme.focusColor),
                           Space(8),
                           InkWell(
                               onTap: () {
                                 Get.toNamed(Routes.MEDIAPAGE);
                               },
                               child: SvgPicture.asset("assets/svg/mediabot.svg",
-                                  color: Get.theme.appBarTheme
-                                      .backgroundColor)),
+                                  color: Get.theme.focusColor)),
                           Space(8),
                           InkWell(
                               onTap: () {
                                 Get.toNamed(Routes.QIBLAFINDERPAGE);
                               },
                               child: SvgPicture.asset("assets/svg/qiblabot.svg",
-                                  color: Get.theme.appBarTheme
-                                      .backgroundColor)),
+                                  color: Get.theme.focusColor)),
                         ])));
           },
         ),

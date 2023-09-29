@@ -9,6 +9,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:location/location.dart';
 import 'package:location_platform_interface/location_platform_interface.dart';
+import 'package:lottie/lottie.dart';
 import 'package:marquee_text/marquee_direction.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -158,10 +159,6 @@ class _GuestmodeViewState extends State<GuestmodeView> {
               padding: EdgeInsets.only(right: 10),
               child: GestureDetector(
                 onTap: () {
-                  // List<int> imageBytes =  base64Decode("${controller.getUserData.value.getUserById!.profileImage!.data}");
-                  // print("${controller.getUserData.value.getUserById!.profileImage!.data}");
-                  // print('wwww $imageBytes');
-                  Get.toNamed(Routes.PROFILE_PAGE);
                 },
                 child: Hero(
                   //  transitionOnUserGestures : true,
@@ -347,20 +344,26 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                 ),
               ),
               100.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stxt(text: "Exit Guest".tr,
-                    size: f3,
-                    weight: FontWeight.w600,
-                    color: Theme
+              InkWell(
+                onTap: (){
+                  controller.guesttoken.remove("guest");
+                  Get.offAllNamed(AppPages.INITIAL);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stxt(text: "Exit Guest".tr,
+                      size: f3,
+                      weight: FontWeight.w600,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,),
+                    Space(16),
+                    Icon(Icons.logout, color: Theme
                         .of(context)
-                        .primaryColor,),
-                  Space(16),
-                  Icon(Icons.logout, color: Theme
-                      .of(context)
-                      .primaryColor)
-                ],
+                        .primaryColor)
+                  ],
+                ),
               )
             ],
           ),
@@ -443,7 +446,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                       ),
                                       GestureDetector(
                                           onTap: () {
-                                            Get.toNamed(Routes.MESSAGEPAGE);
+                                            //Get.toNamed(Routes.MESSAGEPAGE);
                                           },
                                           child: Container(
                                             height: 48.h,
@@ -505,7 +508,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                     marqueeDirection: MarqueeDirection.ltr,
                                     alwaysScroll: true,
                                     text: TextSpan(
-                                        text: '📢...Connect to Smart Masjid...📢',
+                                        text: 'Connect to Smart Masjid...📢',
                                         style: TextStyle(
                                             fontWeight: FontWeight.w600, fontSize: 18,
                                             color: Get.theme.hoverColor
@@ -518,7 +521,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                     speed: 20,
                                   ),
                                   SizedBox(
-                                    height: 5.h,
+                                    height: 10.h,
                                   ),
                                   // buildDivider(themeData),
                                   GestureDetector(
@@ -526,6 +529,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                       Get.toNamed(Routes.QURANPAGE);
                                     },
                                     child: LargerCard(
+                                      ignorOntap: true,
                                       quranImg: quranImg,
                                       buttonTxt: 'continue'.tr,
                                       image: 'quran',
@@ -589,12 +593,12 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             image: 'prayer_time',
                                             title: 'prayer_time'.tr,
                                             onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PrayerpageView(),
-                                                  ));
+                                              // Navigator.push(
+                                              //     context,
+                                              //     MaterialPageRoute(
+                                              //       builder: (context) =>
+                                              //           PrayerpageView(),
+                                              //     ));
                                             },
                                           )
                                         ],
@@ -609,6 +613,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                               builder: (_) => DuapageView()));
                                     },
                                     child: LargerCard(
+                                      ignorOntap: true,
                                       quranImg: duaImg,
                                       buttonTxt: 'view_all'.tr,
                                       image: 'dua',
@@ -668,6 +673,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                               builder: (_) => MediapageView()));
                                     },
                                     child: LargerCard(
+                                      ignorOntap: true,
                                       quranImg: quranImg,
                                       buttonTxt: 'view_all'.tr,
                                       image: 'media',
@@ -715,9 +721,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                         title: 'services'.tr,
                                         image: 'donation',
                                         onTap: () {
-                                          // Navigator.of(context).push(
-                                          //     MaterialPageRoute(builder: (_) =>
-                                          //         ServicepageView()));
+
                                         },
                                       ),
                                       Column(
