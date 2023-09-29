@@ -347,20 +347,26 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                 ),
               ),
               100.verticalSpace,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stxt(text: "Exit Guest".tr,
-                    size: f3,
-                    weight: FontWeight.w600,
-                    color: Theme
+              InkWell(
+                onTap: (){
+                  controller.guesttoken.remove("guest");
+                  Get.offAllNamed(AppPages.INITIAL);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stxt(text: "Exit Guest".tr,
+                      size: f3,
+                      weight: FontWeight.w600,
+                      color: Theme
+                          .of(context)
+                          .primaryColor,),
+                    Space(16),
+                    Icon(Icons.logout, color: Theme
                         .of(context)
-                        .primaryColor,),
-                  Space(16),
-                  Icon(Icons.logout, color: Theme
-                      .of(context)
-                      .primaryColor)
-                ],
+                        .primaryColor)
+                  ],
+                ),
               )
             ],
           ),
