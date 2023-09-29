@@ -126,24 +126,56 @@ class EventsView extends StatelessWidget {
                                       Row(
                                          crossAxisAlignment: CrossAxisAlignment.end,
                                         mainAxisAlignment: MainAxisAlignment
-                                            .end,
+                                            .start,
                                         children: [
+                                          Container(
+                                            height: 30.h,
+                                            width: 80.w,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(4),
+                                              border: Border.all(color: Get.theme.hoverColor),
+                                              color: Colors.white
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                2.horizontalSpace,
+                                                Icon(Icons.notifications_active, size: 15,),
+                                                3.horizontalSpace,
+                                                Stxt(text: 'Notify me'.tr,
+                                                        size: f1,
+                                                        color: Get.theme.hoverColor, weight: FontWeight.bold,),
+                                              ],
+                                            ),
 
+                                          ),
+                                          // SButton(
+                                          //     prefix: Icon(
+                                          //       Icons.notifications_active,
+                                          //       size: f2, color: clr_white,),
+                                          //
+                                          //     pad: 2.0,
+                                          //     rad: 5.0,
+                                          //     color: Theme
+                                          //         .of(context)
+                                          //         .primaryColor,
+                                          //     child: Stxt(text: 'notify'.tr,
+                                          //       size: f1,
+                                          //       color: clr_white,),
+                                          //     height: 30.h,
+                                          //     width: 90.w,
+                                          //     ontap: () {}),
+                                          Space(16),
                                           SButton(
-                                              prefix: Icon(
-                                                Icons.notifications_active,
-                                                size: f2, color: clr_white,),
-
                                               pad: 2.0,
                                               rad: 5.0,
                                               color: Theme
                                                   .of(context)
                                                   .primaryColor,
-                                              child: Stxt(text: 'notify'.tr,
+                                              child: Stxt(text: 'Book Now',
                                                 size: f1,
                                                 color: clr_white,),
                                               height: 30.h,
-                                              width: 90.w,
+                                              width: 80.w,
                                               ontap: () {}),
                                         ],
                                       ),

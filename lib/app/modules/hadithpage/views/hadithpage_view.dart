@@ -7,47 +7,57 @@ import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/mediumCard.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/smallCard.dart';
 import 'package:smartmasjid_v1/widgets/hadith_card.dart';
+import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../widgets/space.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/hadithpage_controller.dart';
 
 class HadithpageView extends GetView<HadithpageController> {
-   HadithpageView({Key? key}) : super(key: key);
-
+  HadithpageView({Key? key}) : super(key: key);
+  final hadithcntrl = Get.put(HadithpageController());
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppbar(
-        tittle: "hadith".tr,
-        action: [
-          Image.asset("assets/images/bookmark.png", width: 20,),
-          Space(20)
-        ],
-      ),
-      body: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          Color backgroundColor = index % 2 == 0 ? Color(0xffDCDBD7) : Color(0xffBCDDF2);
-          return Padding(
-            padding: const EdgeInsets.only(left: 16, right: 16, bottom: 4, top: 4),
-            child: HadithCard(
-              color: backgroundColor,
-              title: "Sahih Al-Bukhari",
-              subtit: "صحيح البخاري",
-              tit: "7563 Hadith",
-              image: "bukari",
-              border: Border.all(
-                color: Colors.red
-              ),
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => HadithChapter()));
-              },),
+        appBar: CustomAppbar(
+          tittle: "hadith".tr,
+          action: [
+            Image.asset("assets/images/bookmark.png", width: 20,),
+            Space(20)
+          ],
+        ),
+        body: Obx(() {
+          return hadithcntrl.isLoadings1.value ? loading(context) : ListView.builder(
+              physics: BouncingScrollPhysics(),
+              itemCount: hadithcntrl.gethadithdata.value.getHadithsCollection!.length,
+              itemBuilder: (context, index) {
+                var hadith = hadithcntrl.gethadithdata.value
+                    .getHadithsCollection![index];
+                Color backgroundColor = index % 2 == 0
+                    ? Color(0xffDCDBD7)
+                    : Color(0xffBCDDF2);
+                return Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, bottom: 4, top: 4),
+                  child: HadithCard(
+                    color: backgroundColor,
+                    title: "${hadith.collectionNameEn}",
+                    subtit: "${hadith.collectionNameArb}",
+                    tit: "${hadith.totalChapters} Hadith",
+                    image: "bukari",
+                    border: Border.all(
+                        color: Colors.red
+                    ),
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => HadithChapter()));
+                    },),
+                );
+              }
           );
-        }
-      )
+        })
     );
   }
 }

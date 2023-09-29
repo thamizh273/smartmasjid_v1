@@ -60,6 +60,8 @@ class ThemeService {
     primaryColor: primarycolor,
     hoverColor: primarycolor,
     highlightColor: Colors.grey.shade400,
+    hintColor: Color(0xff11323B),
+    focusColor: Color(0xffD8E4E8),
     appBarTheme: const AppBarTheme(
       color: Color(0xffD8E4E8),
     ),
@@ -78,6 +80,7 @@ class ThemeService {
     focusColor: Color(0xffD8E4E8),
     scaffoldBackgroundColor: Color(0xff446874),
     primaryColor: accentcolor,
+    hintColor: Color(0xff11323B),
     appBarTheme: const AppBarTheme(
       color: Color(0xff446874)
     ),
