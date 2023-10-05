@@ -140,12 +140,13 @@ class DonationpageView extends GetView<DonationpageController> {
                                                     weight: FontWeight.w600,
                                                     overflow:
                                                         TextOverflow.ellipsis,
+                                                    color: Get.theme.primaryColor,
                                                   ),
 
                                                   Stxt(
                                                     text: "$daysAgo days left",
                                                     size: f1,
-                                                    color: Colors.black
+                                                    color: Get.theme.primaryColor
                                                         .withOpacity(0.5),
                                                   ),
                                                 ],
@@ -155,6 +156,7 @@ class DonationpageView extends GetView<DonationpageController> {
                                                 text: "${data.donationType}",
                                                 size: f2,
                                                 weight: FontWeight.w400,
+                                                color: Get.theme.primaryColor,
                                               ),
                                               Space(8),
                                               Stxt(

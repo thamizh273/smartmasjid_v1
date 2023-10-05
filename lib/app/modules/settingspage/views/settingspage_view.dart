@@ -102,7 +102,7 @@ class SettingsPageState extends State<SettingspageView> {
           children: [
             Row(
               children: [
-                SvgPicture.asset("assets/svg/thememode.svg"),
+                SvgPicture.asset("assets/svg/thememode.svg", color: Get.theme.hoverColor,),
                 Space(16),
                 Text("dark_Mode".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -130,7 +130,7 @@ class SettingsPageState extends State<SettingspageView> {
               child: Container(
                 child: Row(
                   children: [
-                    SvgPicture.asset("assets/svg/language.svg"),
+                    SvgPicture.asset("assets/svg/language.svg", color: Get.theme.hoverColor,),
                     Space(16),
                     Text("language".tr,
                       style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -146,7 +146,7 @@ class SettingsPageState extends State<SettingspageView> {
             Space(16),
             Row(
               children: [
-                SvgPicture.asset("assets/svg/feedback.svg"),
+                SvgPicture.asset("assets/svg/feedback.svg",color: Get.theme.hoverColor,),
                 Space(16),
                 Text("feedback".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -160,7 +160,7 @@ class SettingsPageState extends State<SettingspageView> {
             Space(16),
             Row(
               children: [
-                SvgPicture.asset("assets/svg/contact.svg"),
+                SvgPicture.asset("assets/svg/contact.svg", color: Get.theme.hoverColor,),
                 Space(16),
                 Text("contact".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -178,7 +178,7 @@ class SettingsPageState extends State<SettingspageView> {
               },
               child: Row(
                 children: [
-                  SvgPicture.asset("assets/svg/rating.svg"),
+                  SvgPicture.asset("assets/svg/rating.svg", color: Get.theme.hoverColor,),
                   const Space(16),
                   Text("rate_our_app".tr,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -193,7 +193,7 @@ class SettingsPageState extends State<SettingspageView> {
             Space(16),
             Row(
               children: [
-                SvgPicture.asset("assets/svg/version.svg"),
+                SvgPicture.asset("assets/svg/version.svg", color: Get.theme.hoverColor,),
                 Space(16),
                 Text("version".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -207,7 +207,7 @@ class SettingsPageState extends State<SettingspageView> {
             Space(16),
             Row(
               children: [
-                SvgPicture.asset("assets/svg/share.svg"),
+                SvgPicture.asset("assets/svg/share.svg", color: Get.theme.hoverColor,),
                 Space(16),
                 Text("share".tr,
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),

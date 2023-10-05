@@ -4,7 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:smartmasjid_v1/widgets/loading.dart';
 
+import '../../../../widgets/safa_dropdown2.dart';
 import '../../../../widgets/space.dart';
 import '../../../routes/app_pages.dart';
 import '../../home/views/home_view.dart';
@@ -12,19 +14,15 @@ import '../../home/widgets/appBar.dart';
 import '../controllers/specialdayspage_controller.dart';
 
 class SpecialdayspageView extends GetView<SpecialdayspageController> {
-   SpecialdayspageView({Key? key}) : super(key: key);
+  SpecialdayspageView({Key? key}) : super(key: key);
+  final spclcntrl = Get.put(SpecialdayspageController());
 
-  List<SpclDays> daysList = [
-    SpclDays(text: "Shab e Meraj 2023", month: "Feb", year: "Sunday, 27th Rajab 1444h", date: "19"),
-    SpclDays(text: "Shab e Barat 2023", month: "Mar", year: "Wednesday, 15th Shaban 1444h", date: "08"),
-    SpclDays(text: "Ramadan 2023", month: "Mar", year: "Friday, 1st Ramadan 1444h", date: "24"),
-  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppbar(tittle: 'special_days'.tr,
+        appBar: CustomAppbar(
+          tittle: 'special_days'.tr,
         ),
-
         body: FrostedBottomBar(
           width: 330.w,
           opacity: .8,
@@ -35,119 +33,191 @@ class SpecialdayspageView extends GetView<SpecialdayspageController> {
           duration: const Duration(milliseconds: 800),
           hideOnScroll: true,
           body: (BuildContext context, ScrollController controller) {
-            return  Column(
+            return Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 20,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4),
-                        color: Theme.of(context).primaryColor
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Obx(() {
+                        return SafaDropdownButton2(
+                          dropdownDecoration: BoxDecoration(
+                            color: Get.theme.primaryColor,
+                          ),
+                          buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Get.theme.primaryColor.withOpacity(0.6)),
+                          buttonPadding: EdgeInsets.symmetric(horizontal: 7),
+                          buttonWidth: 110,
+                          buttonHeight: 35,
+                          dropdownWidth: 120,
+                          offset: Offset(-12, -5),
+                          icon: const Icon(Icons.arrow_drop_down_outlined),
+                          iconSize: 30.r,
+                          hint: 'Fliter',
+                          value: spclcntrl.dropDownvalue.value,
+                          dropdownItems: [
+                            "This Month",
+                            "This Year",
+                            "Next Year"
+                          ],
+                          onChanged: (String? value) {
+                            if (value == "This Month") {
+                              spclcntrl.dropDownvalue.value = value!;
+                              var date = DateTime.now().month;
+                              spclcntrl.specialDays("$date");
+                            } else {
+                              spclcntrl.dropDownvalue.value = value!;
+                              var date = DateTime.now().year;
+                              spclcntrl.specialDays(value == "This Year"
+                                  ? "$date"
+                                  : "${date + 1}");
+                            }
+                          },
+                        );
+                      }),
                     ),
-                    child: Center(child: Text("2023", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500, fontSize: 15),)),
-                  ),
+                  ],
                 ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ListView.builder(
-                        itemCount: daysList.length,
-                        itemBuilder: (context, index) {
-                          SpclDays spcldays = daysList[index];
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 80.h,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: Colors.grey.shade400
-                              ),
-                              child: Center(
-                                child: ListTile(
-                                  leading: Container(
-                                    height: 50.h,
-                                    width: 50.h,
-                                    color: Colors.white,
-                                    child: Column(
-                                      children: [
-                                        SizedBox(
-                                            height: 16.h,
-                                            width: double.infinity,
-                                            child: Container(
-                                              color: Theme.of(context).primaryColor,
-                                              child: Center(child: Text("${spcldays.month}", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),)),
-                                            )),
-                                        SizedBox(
-                                            child: Container(
-                                              height: 37,
-                                              width: double.infinity,
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text("${spcldays.date}", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),),
-                                                ],
-                                              ),
-                                              color: Colors.white,
-                                            ))
-                                      ],
+                    child: Obx(() {
+                      if (spclcntrl.isLoadings0.value) {
+                        return loading(context);
+                      } else {
+                        final holyDays = spclcntrl.getspecialdays.value.getHolyDays!;
+                        if (holyDays.isEmpty) {
+                          // Show "No special days found" message when the list is empty
+                          return Center(
+                            child: Text("No special days found", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                          );
+                        } else {
+                          return ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              itemCount: spclcntrl
+                                  .getspecialdays.value.getHolyDays!.length,
+                              itemBuilder: (context, index) {
+                                var spcldays = spclcntrl
+                                    .getspecialdays.value.getHolyDays![index];
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 4, bottom: 4, right: 8, left: 8),
+                                  child: Container(
+                                    height: 80.h,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: Get.theme.primaryColor)),
+                                    child: Center(
+                                      child: ListTile(
+                                        leading: Container(
+                                          height: 50.h,
+                                          width: 50.h,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(
+                                                  height: 16.h,
+                                                  width: double.infinity,
+                                                  child: Container(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    child: Center(
+                                                        child: Text(
+                                                      "${spcldays.month}",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.w500),
+                                                    )),
+                                                  )),
+                                              SizedBox(
+                                                  child: Container(
+                                                height: 26.h,
+                                                width: double.infinity,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.black12,
+                                                ),
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      "${spcldays.date}",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          fontSize: 20,
+                                                          color: Get.theme
+                                                              .primaryColor),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ))
+                                            ],
+                                          ),
+                                        ),
+                                        title: Text(
+                                          "${spcldays.holydaysName}",
+                                          style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              color: Get.theme.primaryColor),
+                                        ),
+                                        subtitle: Text(
+                                          "${spcldays.day}, ${spcldays.arabicDate}",
+                                          style: TextStyle(
+                                              fontSize: 14,
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  title: Text("${spcldays.text}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-                                  subtitle:  Text("${spcldays.year}", style: TextStyle(fontSize: 14, color: Theme.of(context).primaryColor),),
-                                ),
-                              ),
-                            ),
-                          );
+                                );
+                              });
                         }
-
-                    ),
+                      }
+                    }),
                   ),
                 ),
+                Space(70),
               ],
             );
-          }, child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SvgPicture.asset("assets/svg/masjidbot.svg"),
-              Space(8),
-              GestureDetector(
-                  onTap: (){
-                    Get.toNamed(Routes.QURANPAGE);
-                  },
-                  child: SvgPicture.asset("assets/svg/quranbot.svg")),
-              Space(8),
-              GestureDetector(
-                  onTap: (){
-                    Navigator.of(context).pop(MaterialPageRoute(builder: (_) => HomeView()));
-                  },
-                  child: SvgPicture.asset("assets/svg/homebot.svg")),
-              Space(8),
-              SvgPicture.asset("assets/svg/mediabot.svg"),
-              Space(8),
-              SvgPicture.asset("assets/svg/donatebot.svg"),
-            ],
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SvgPicture.asset("assets/svg/masjidbot.svg"),
+                Space(8),
+                GestureDetector(
+                    onTap: () {
+                      Get.toNamed(Routes.QURANPAGE);
+                    },
+                    child: SvgPicture.asset("assets/svg/quranbot.svg")),
+                Space(8),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pop(MaterialPageRoute(builder: (_) => HomeView()));
+                    },
+                    child: SvgPicture.asset("assets/svg/homebot.svg")),
+                Space(8),
+                SvgPicture.asset("assets/svg/mediabot.svg"),
+                Space(8),
+                SvgPicture.asset("assets/svg/donatebot.svg"),
+              ],
+            ),
           ),
-        ),)
-    );
+        ));
   }
-}
-
-
-class SpclDays{
-  String? text;
-  String? month;
-  String? date;
-  String? year;
-
-  SpclDays({
-    this.text,
-    this.month,
-    this.date,
-    this.year,
-  });
 }

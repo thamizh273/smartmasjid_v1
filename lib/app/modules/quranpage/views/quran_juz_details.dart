@@ -4,11 +4,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../global.dart';
+import '../../../../widgets/Stextfield.dart';
 import '../../../../widgets/gotoverse.dart';
 import '../../../../widgets/space.dart';
 import '../../../../widgets/stext.dart';
@@ -25,6 +27,7 @@ class QuranJuzDetails extends StatelessWidget {
       return juzquranCtrl_.isLoading.value ? loading(context) : Scaffold(
           key: juzquranCtrl_.scaffoldKey,
           endDrawer: Drawer(
+            backgroundColor: Get.theme.scaffoldBackgroundColor,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: SingleChildScrollView(
@@ -48,7 +51,7 @@ class QuranJuzDetails extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff16627C)),
+                          color: Get.theme.hoverColor),
                     ),
                     Space(8),
                     Column(
@@ -118,7 +121,7 @@ class QuranJuzDetails extends StatelessWidget {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff16627C)),
+                          color: Get.theme.hoverColor),
                     ),
                     Space(16),
                     Row(
@@ -202,16 +205,256 @@ class QuranJuzDetails extends StatelessWidget {
                       ],
                     ),
                     Space(8),
-                    // Divider(
-                    //   thickness: 1,
-                    // ),
+                    GestureDetector(
+                      onTap: () async {
+                        const String downloadedItemsKey = 'downloadedItems';
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        showModalBottomSheet(
+                          backgroundColor:
+                          Colors.transparent,
+                          context: context,
+                          builder: (BuildContext context) {
+                            List<String> downloadedItems = prefs.getStringList(downloadedItemsKey) ?? [];
+                            List<String> featuredLanguages = prefs.getStringList(downloadedItemsKey) ??[];
+                            List<String> courseNames  = [
+                              "Urdu (اردو)",
+                              "Hindi (हिंदी)",
+                              "Malayalam (മലയാളം)",
+                              "Telugu (తెలుగు)",
+                            ];
+                            return StatefulBuilder(
+                              builder: (BuildContext context, StateSetter setState) {
+                                List<RxBool> checkedStates = List.generate(featuredLanguages.length, (_) => RxBool(false));
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      color: Get.theme.scaffoldBackgroundColor,
+                                      borderRadius:
+                                      BorderRadius.only(
+                                          topLeft: Radius
+                                              .circular(32),
+                                          topRight: Radius
+                                              .circular(
+                                              32))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Column(
+                                      children: [
+                                        Stxt(text: "Add Language",
+                                            size: f4,
+                                            weight: FontWeight.w600,
+                                            color: Get.theme.hoverColor),
+                                        Space(4),
+                                        Safa_textfield(
+                                          hint: "Search",
+                                          fillColor: Colors.grey.shade50,
+                                          suffixIcon: GestureDetector(
+                                              onTap: (){
+                                              },
+                                              child: Icon(Icons.search)),
+                                        ),
+                                        Space(8),
+                                        Expanded(
+                                          child: ListView(
+                                            shrinkWrap: true,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Stxt(text: "Downloads",
+                                                      size: f4,
+                                                      weight: FontWeight.w600,
+                                                      color: Get.theme.hoverColor),
+                                                ],
+                                              ),
+                                              Space(8),
+                                              featuredLanguages.isEmpty? Center(child: Text("No Downloads Found")):ListView.builder(
+                                                physics: NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount: featuredLanguages.length,
+                                                itemBuilder: (context, index) {
+                                                  final featuredLanguage = featuredLanguages[index];
+                                                  return ListTile(
+                                                    leading: featuredLanguage== "Urdu (اردو)"? Obx(() {
+                                                      return Container(
+                                                        height: 30.h,
+                                                        width: 30.w,
+                                                        child: Transform.scale(
+                                                          scale: 1,
+                                                          child: Checkbox(
+                                                            activeColor: Get.theme.primaryColor,
+                                                            checkColor: Colors.white,
+                                                            value: juzquranCtrl_.isCheckedUrdu.value,
+                                                            onChanged: (value) {
+                                                              juzquranCtrl_.isCheckedUrdu(value!);
+                                                              Future.delayed(Duration(milliseconds: 500), () {
+                                                                juzquranCtrl_.getquranjuzdetail();
+                                                              });
+                                                              juzquranCtrl_.update();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }): featuredLanguage== "Telugu (తెలుగు)"? Obx(() {
+                                                      return Container(
+                                                        height: 30.h,
+                                                        width: 30.w,
+                                                        child: Transform.scale(
+                                                          scale: 1,
+                                                          child: Checkbox(
+                                                            activeColor: Get.theme.primaryColor,
+                                                            checkColor: Colors.white,
+                                                            value: juzquranCtrl_.isCheckedTelugu.value,
+                                                            onChanged: (value) {
+                                                              juzquranCtrl_.isCheckedTelugu(value!);
+                                                              Future.delayed(Duration(milliseconds: 500), () {
+                                                                juzquranCtrl_.getquranjuzdetail();
+                                                              });
+                                                              juzquranCtrl_.update();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }): featuredLanguage== "Malayalam (മലയാളം)"? Obx(() {
+                                                      return Container(
+                                                        height: 30.h,
+                                                        width: 30.w,
+                                                        child: Transform.scale(
+                                                          scale: 1,
+                                                          child: Checkbox(
+                                                            activeColor: Get.theme.primaryColor,
+                                                            checkColor: Colors.white,
+                                                            value: juzquranCtrl_.isCheckedMalayalam.value,
+                                                            onChanged: (value) {
+                                                              juzquranCtrl_.isCheckedMalayalam(value!);
+                                                              Future.delayed(Duration(milliseconds: 500), () {
+                                                                juzquranCtrl_.getquranjuzdetail();
+                                                              });
+                                                              juzquranCtrl_.update();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }) : featuredLanguage== "Hindi (हिंदी)"? Obx(() {
+                                                      return Container(
+                                                        height: 30.h,
+                                                        width: 30.w,
+                                                        child: Transform.scale(
+                                                          scale: 1,
+                                                          child: Checkbox(
+                                                            activeColor: Get.theme.primaryColor,
+                                                            checkColor: Colors.white,
+                                                            value: juzquranCtrl_.isCheckedHindi.value,
+                                                            onChanged: (value) {
+                                                              juzquranCtrl_.isCheckedHindi(value!);
+                                                              Future.delayed(Duration(milliseconds: 500), () {
+                                                                juzquranCtrl_.getquranjuzdetail();
+                                                              });
+                                                              juzquranCtrl_.update();
+                                                            },
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }) : null,
+                                                    trailing: GestureDetector(
+                                                      onTap: () async {
+                                                        // Delete the item from the list and update the downloaded items list
+                                                        setState(() {
+                                                          featuredLanguages.removeAt(index);
+                                                          downloadedItems.remove(featuredLanguage);
+                                                          checkedStates.removeAt(index);
+                                                        });
+                                                        await prefs.setStringList(downloadedItemsKey, downloadedItems);
+                                                      },
+                                                      child: Icon(Icons.delete),
+                                                    ),
+                                                    title: Text(featuredLanguage),
+                                                  );
+                                                },
+                                              ),
+                                              Space(16),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  Stxt(text: "Featured Languages",
+                                                      size: f4,
+                                                      weight: FontWeight.w600,
+                                                      color: Get.theme.hoverColor),
+                                                ],
+                                              ),
+                                              ListView.builder(
+                                                physics: NeverScrollableScrollPhysics(),
+                                                shrinkWrap: true,
+                                                itemCount: courseNames.length,
+                                                itemBuilder: (context, index) {
+                                                  final courseName = courseNames[index];
+                                                  final isDownloaded = downloadedItems.contains(courseName);
+                                                  print("lll${courseNames}");
+
+                                                  // Check if the item is already downloaded
+                                                  if (downloadedItems.contains(courseName)) {
+                                                    return ListTile(
+                                                      title: Text(courseName),
+                                                      // Display a checkmark icon for downloaded items
+                                                      trailing: isDownloaded
+                                                          ? Icon(Icons.check)
+                                                          : GestureDetector(
+                                                        onTap: () async {
+                                                          // Download the item and update the downloaded items list
+                                                          setState(() {
+                                                            downloadedItems.add(courseName);
+                                                            featuredLanguages.add(courseName);
+                                                          });
+                                                          await prefs.setStringList(downloadedItemsKey, downloadedItems);
+                                                        },
+                                                        child: Icon(Icons.download), // Change to your download icon
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    // Display a download item for items not downloaded
+                                                    return CourseListItem(
+                                                      courseName: courseName,
+                                                      onDownloadComplete: (String downloadedCourseName) async {
+                                                        setState(() {
+                                                          // Update the downloadedItems list
+                                                          downloadedItems.add(downloadedCourseName);
+                                                          // Move the item to the featuredLanguages list
+                                                          featuredLanguages.add(downloadedCourseName);
+                                                        });
+                                                        await prefs.setStringList(downloadedItemsKey, downloadedItems);
+                                                      },
+                                                    );
+                                                  }
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        )
+
+                                        // Divider(
+                                        //   thickness: 1,
+                                        // )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        );
+                      },
+                      child: Center(
+                        child: Stxt(
+                          text: "+ Add Language", size: f2, weight: FontWeight
+                            .w600, color: Get.theme.hoverColor,),
+                      ),
+                    ),
                     Space(8),
                     Text(
                       "arabic_font".tr,
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xff16627C)),
+                          color: Get.theme.hoverColor),
                     ),
 
                     Column(
@@ -552,7 +795,7 @@ class QuranJuzDetails extends StatelessWidget {
               ),
             ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Get.theme.colorScheme.background,
           appBar: CustomAppbar(
             tittle: "",
             action: [
@@ -807,9 +1050,7 @@ class QuranJuzDetails extends StatelessWidget {
                                                       Space(40),
                                                       Icon(
                                                         Icons.play_circle,
-                                                        color: Theme
-                                                            .of(context)
-                                                            .primaryColor,
+                                                        color: Get.theme.hoverColor,
                                                       ),
                                                       Space(12),
                                                       GestureDetector(
@@ -868,12 +1109,8 @@ class QuranJuzDetails extends StatelessWidget {
                                                                     .getQuranJuzVersesList![0]
                                                                     .juzNameEn} ${juz
                                                                     .versesKey}")
-                                                                ? Theme
-                                                                .of(context)
-                                                                .primaryColor
-                                                                : Theme
-                                                                .of(context)
-                                                                .primaryColor, // Use different colors for bookmarked and not bookmarked states
+                                                                ? Get.theme.hoverColor
+                                                                : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
                                                           );
                                                         }),
 
@@ -961,9 +1198,7 @@ class QuranJuzDetails extends StatelessWidget {
                                                       Text(
                                                         "${juz.versesKey}",
                                                         style: TextStyle(
-                                                            color: Theme
-                                                                .of(context)
-                                                                .primaryColor,
+                                                            color: Get.theme.hoverColor,
                                                             fontWeight: FontWeight
                                                                 .w600,
                                                             fontSize: 18),
@@ -1115,11 +1350,136 @@ class QuranJuzDetails extends StatelessWidget {
                                                                 : SizedBox
                                                                 .shrink()));
                                                   }),
+                                                  Obx(() {
+                                                    double fontSize = 18.0;
+                                                    double sliderValue = juzquranCtrl_
+                                                        .sliderValue1
+                                                        .value;
+                                                    if (sliderValue == 1) {
+                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                      fontSize = 22.0;
+                                                    } else if (sliderValue == 2) {
+                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                      fontSize = 25.0;
+                                                    }
+                                                    return SizedBox(
+                                                        width: .9.sw,
+                                                        child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: juzquranCtrl_
+                                                                .isCheckedUrdu
+                                                                .value
+                                                                ? Text(
+                                                              "${juz.urduTranslation}",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                                  fontSize: fontSize),
+                                                            )
+                                                                : SizedBox
+                                                                .shrink()));
+                                                  }),  Obx(() {
+                                                    double fontSize = 18.0;
+                                                    double sliderValue = juzquranCtrl_
+                                                        .sliderValue1
+                                                        .value;
+                                                    if (sliderValue == 1) {
+                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                      fontSize = 22.0;
+                                                    } else if (sliderValue == 2) {
+                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                      fontSize = 25.0;
+                                                    }
+                                                    return SizedBox(
+                                                        width: .9.sw,
+                                                        child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: juzquranCtrl_
+                                                                .isCheckedHindi
+                                                                .value
+                                                                ? Text(
+                                                              "${juz
+                                                                  .hindiTranslation}",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                                  fontSize: fontSize),
+                                                            )
+                                                                : SizedBox
+                                                                .shrink()));
+                                                  }),  Obx(() {
+                                                    double fontSize = 18.0;
+                                                    double sliderValue = juzquranCtrl_
+                                                        .sliderValue1
+                                                        .value;
+                                                    if (sliderValue == 1) {
+                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                      fontSize = 22.0;
+                                                    } else if (sliderValue == 2) {
+                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                      fontSize = 25.0;
+                                                    }
+                                                    return SizedBox(
+                                                        width: .9.sw,
+                                                        child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: juzquranCtrl_
+                                                                .isCheckedMalayalam
+                                                                .value
+                                                                ? Text(
+                                                              "${juz
+                                                                  .malayalamTranslation}",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                                  fontSize: fontSize),
+                                                            )
+                                                                : SizedBox
+                                                                .shrink()));
+                                                  }),  Obx(() {
+                                                    double fontSize = 18.0;
+                                                    double sliderValue = juzquranCtrl_
+                                                        .sliderValue1
+                                                        .value;
+                                                    if (sliderValue == 1) {
+                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                      fontSize = 22.0;
+                                                    } else if (sliderValue == 2) {
+                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                      fontSize = 25.0;
+                                                    }
+                                                    return SizedBox(
+                                                        width: .9.sw,
+                                                        child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: juzquranCtrl_
+                                                                .isCheckedTelugu
+                                                                .value
+                                                                ? Text(
+                                                              "${juz
+                                                                  .teluguTranslation}",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                                  fontSize: fontSize),
+                                                            )
+                                                                : SizedBox
+                                                                .shrink()));
+                                                  }),
                                                   Space(16),
                                                   Image.asset(
                                                     "assets/images/qurandivider.png",
                                                     scale: 4,
                                                     width: 310.w,
+                                                     color: Get.theme.hoverColor
                                                   )
                                                 ],
                                               ),

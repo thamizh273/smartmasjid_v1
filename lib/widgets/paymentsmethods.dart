@@ -174,6 +174,7 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
                         text: "${app.name}",
                         size: f2,
                         weight: FontWeight.bold,
+                        color: Get.theme.primaryColor,
                       ),
                       10.verticalSpace,
                     ],
@@ -216,7 +217,7 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
                   height: 80.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                      color: e['enable'] == true ? Colors.white : Colors.white
+                      color: e['enable'] == true ? Colors.white : Get.theme.shadowColor
                           .withOpacity(.9),
                       borderRadius: BorderRadius.circular(8),
                       boxShadow: [
@@ -224,7 +225,7 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
                             blurRadius: 4,
                             spreadRadius: 4,
                             offset: Offset(0, 4),
-                            color: Colors.grey.shade400) : BoxShadow()
+                            color: Get.theme.shadowColor) : BoxShadow()
                       ]),
                   child: Row(
                     children: [
@@ -251,6 +252,7 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
                             text: e['name'].toString(),
                             size: f4,
                             weight: FontWeight.bold,
+                            color: Get.theme.primaryColor,
                           ),
                           Space(8),
                           Wrap(

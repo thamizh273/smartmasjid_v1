@@ -29,27 +29,16 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Color(0xff4C7380),
-        primaryColorLight: Color(0xff4C7380),
-        primaryColorDark: Color(0xff4C7380),
-        colorScheme:
-        ColorScheme.fromSwatch().copyWith(secondary: Color(0xffecce6d)),
-      ),
-      darkTheme: ThemeData.dark().copyWith(
-          colorScheme:
-          ColorScheme.fromSwatch().copyWith(secondary: Color(0xffecce6d))),
-      home: Scaffold(
-        appBar: CustomAppbar(tittle: "qibla_finder".tr),
-        body: Container(
+    return Scaffold(
+      appBar: CustomAppbar(tittle: "qibla_finder".tr),
+      backgroundColor: Get.theme.scaffoldBackgroundColor,
+      body: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-            color:Color(0xffD8E4E8),
-            // image: DecorationImage(
-            //     image: AssetImage("assets/svg/qublabg.png"),
-            //     fit: BoxFit.cover)
+          color: Get.theme.scaffoldBackgroundColor,
+          // image: DecorationImage(
+          //     image: AssetImage("assets/svg/qublabg.png"),
+          //     fit: BoxFit.cover)
         ),
         child: Column(
           children: [
@@ -64,10 +53,10 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
                     child: Text("Error: ${snapshot.error.toString()}"),
                   );
 
-               // if (snapshot.data!)
-                  return QiblahCompass();
-              //  else
-                 // return QiblahMaps();
+                // if (snapshot.data!)
+                return QiblahCompass();
+                //  else
+                // return QiblahMaps();
               },
             ),
             Space(30),
@@ -86,15 +75,15 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(color: Theme.of(context).primaryColor, width: 2),
-                          color: Theme.of(context).primaryColor.withOpacity(0.3)
+                            color: Theme.of(context).primaryColor.withOpacity(0.3)
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              Text('Latitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+                              Text('Latitude :', style: TextStyle(color:  Get.theme.hoverColor, fontWeight: FontWeight.bold),),
                               const Space(8),
-                              Text('${snap.data?.latitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
+                              Text('${snap.data?.latitude}', style: TextStyle( fontWeight: FontWeight.normal),),
                             ],
                           ),
                         ),
@@ -121,9 +110,9 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
                             children: [
-                              Text('Longitude :', style: TextStyle(color: Theme.of(context).primaryColor, fontWeight: FontWeight.bold),),
+                              Text('Longitude :', style: TextStyle(color:  Get.theme.hoverColor, fontWeight: FontWeight.bold),),
                               const Space(8),
-                              Text('${snap.data?.longitude}', style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),),
+                              Text('${snap.data?.longitude}', style: TextStyle(fontWeight: FontWeight.normal),),
                             ],
                           ),
                         ),
@@ -141,9 +130,8 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
             ),
           ],
         ),
-          ),
-
       ),
+
     );
   }
 

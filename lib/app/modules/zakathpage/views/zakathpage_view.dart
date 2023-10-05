@@ -44,6 +44,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
           hideOnScroll: true,
           body: (BuildContext context, ScrollController controller) {
             return SingleChildScrollView(
+             physics: BouncingScrollPhysics(),
               child: Center(
                 child: Column(
                   children: [
@@ -64,7 +65,7 @@ class _ZakathpageViewState extends State<ZakathpageView> {
                     ),
                     Space(16),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
 
                         Container(
@@ -961,12 +962,16 @@ class _ZakathSummaryState extends State<ZakathSummary> {
     return Scaffold(
       body: Column(
         children: [
-          const Space(16),
+          const Space(30),
           Row(
             children: [
-              const Padding(
+               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16),
-                child: Text(""),
+                child: InkWell(
+                  onTap: (){
+                    Navigator.of(context).pop(MaterialPageRoute(builder: (_) => ZakathpageView()));
+                  },
+                    child: SvgPicture.asset("assets/svg/backnew.svg", color: Get.theme.hoverColor,)),
               ),
               const Spacer(),
               // const TitleArt(
@@ -993,7 +998,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
                                   .textTheme
                                   .titleSmall
                                   ?.copyWith(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Get.theme.hoverColor,
                                       fontWeight: FontWeight.w700),
                             )),
                             tableItem(
@@ -1003,7 +1008,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
                                       .textTheme
                                       .titleSmall
                                       ?.copyWith(
-                                          color: Theme.of(context).primaryColor,
+                                          color: Get.theme.hoverColor,
                                           fontWeight: FontWeight.w700),
                                 ),
                                 alignment: Alignment.center),
@@ -1017,7 +1022,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
                                   .textTheme
                                   .titleSmall
                                   ?.copyWith(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Get.theme.hoverColor,
                                       fontWeight: FontWeight.w500),
                             )),
                             tableItem(
@@ -1036,7 +1041,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
                                   .textTheme
                                   .titleSmall
                                   ?.copyWith(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Get.theme.hoverColor,
                                       fontWeight: FontWeight.w500),
                             )),
                             tableItem(
@@ -1054,7 +1059,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
                                   .textTheme
                                   .titleSmall
                                   ?.copyWith(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Get.theme.hoverColor,
                                       fontWeight: FontWeight.w500),
                             )),
                             tableItem(
@@ -1072,7 +1077,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
                                   .textTheme
                                   .titleSmall
                                   ?.copyWith(
-                                      color: Theme.of(context).primaryColor,
+                                      color: Get.theme.hoverColor,
                                       fontWeight: FontWeight.w500),
                             )),
                             tableItem(
@@ -1137,7 +1142,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
                       'Payable Amount',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           color:
-                              Theme.of(context).primaryColor.withOpacity(0.9)),
+                          Get.theme.hoverColor.withOpacity(0.9)),
                     ))
                   ],
                 )
@@ -1157,7 +1162,7 @@ class _ZakathSummaryState extends State<ZakathSummary> {
     final body = Container(
       alignment: alignment,
       decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).primaryColor, width: 0.5),
+          border: Border.all(color: Get.theme.hoverColor, width: 0.5),
           color: Theme.of(context).canvasColor),
       padding: padding,
       child: child,

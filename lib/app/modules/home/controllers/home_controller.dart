@@ -11,11 +11,15 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:quick_actions_android/quick_actions_android.dart';
 
 
 import 'package:smartmasjid_v1/app/authRepository.dart';
 import 'package:smartmasjid_v1/app/modules/home/Model/prayerTimesModel.dart';
+import 'package:smartmasjid_v1/app/modules/imanTracker/views/iman_tracker_view.dart';
 import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_controller.dart';
+import 'package:smartmasjid_v1/app/modules/masjidnearme/views/masjidnearme_view.dart';
+import 'package:smartmasjid_v1/app/modules/qiblafinderpage/views/qiblafinderpage_view.dart';
 
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/data/local/my_shared_pref.dart';
@@ -48,6 +52,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   var getUserData=GetUserModel().obs;
   var prayerTimeData=PrayerTimeModel().obs;
   var eventsData= EventsModel().obs;
+  final shortcut = 'no action set'.obs;
 
   var prayerTime =['fajr', 'dhuhr', 'asr', 'magrib', 'isha'];
      // var imageBytes=images.obs;
@@ -64,31 +69,33 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   final box1 = GetStorage();
   final RxBool isExpanded = false.obs;
   final RxBool status = false.obs;
+  late PageController pageController;
+  RxInt activePageIndex = 0.obs;
 
   void toggleFunction() {
     isExpanded.value = !isExpanded.value; // Toggle the state
   }
-  void openLocationSetting() async {
-    const AndroidIntent intent = AndroidIntent(
-      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
-    );
-    await intent.launch();
-  }
-
-  Future<bool> checkLocationEnabled() async {
-    final AndroidIntent intent = AndroidIntent(
-      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
-    );
-
-    try {
-      await intent.launch();
-      // Location settings were opened, assume location services will be enabled
-      return true;
-    } catch (e) {
-      // Location settings could not be opened, assume location services are disabled
-      return false;
-    }
-  }
+  // void openLocationSetting() async {
+  //   const AndroidIntent intent = AndroidIntent(
+  //     action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+  //   );
+  //   await intent.launch();
+  // }
+  //
+  // Future<bool> checkLocationEnabled() async {
+  //   final AndroidIntent intent = AndroidIntent(
+  //     action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+  //   );
+  //
+  //   try {
+  //     await intent.launch();
+  //     // Location settings were opened, assume location services will be enabled
+  //     return true;
+  //   } catch (e) {
+  //     // Location settings could not be opened, assume location services are disabled
+  //     return false;
+  //   }
+  // }
 
   List timeList=["0","0","0","0","0"].obs ;
 
@@ -117,6 +124,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   }
   @override
   void onInit() {
+
 
 
    if(hh==null&&box1.read('fruits')==null){
@@ -162,7 +170,46 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
       },
     );
     super.onInit();
+   pageController = PageController();
    fetchCityName();
+   final QuickActionsAndroid quickActions = QuickActionsAndroid();
+   quickActions.initialize((String shortcutType) {
+     shortcut.value = '$shortcutType has launched';
+   });
+   quickActions.setShortcutItems(<ShortcutItem>[
+     const ShortcutItem(
+       type: 'qibla_finder',
+       localizedTitle: 'Qibla Finder',
+       icon: 'qibla',
+     ),
+     const ShortcutItem(
+       type: 'masjid_near_me',
+       localizedTitle: 'Masjid Near Me',
+       icon: 'masjid',
+     ),
+     const ShortcutItem(
+       type: 'iman_tracker',
+       localizedTitle: 'Iman Tracker',
+       icon: 'iman',
+     ),
+   ]);
+   quickActions.initialize((type) {
+     if (type == "qibla_finder"){
+       Get.to(QiblaFinder());
+     }
+     else if (type == "masjid_near_me"){
+       Get.to(MasjidnearmeView());
+     }
+     else if (type == "iman_tracker"){
+       Get.to(ImanTrackerView());
+     }
+   });
+  }
+
+  void initializeQuickActions() {
+
+
+
   }
 
   @override
@@ -182,6 +229,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
 
   @override
   void dispose() {
+    pageController.dispose();
     tabController.dispose();
 
     timer!.cancel();
@@ -190,10 +238,41 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
     super.dispose();
   }
 
+  void onInfo() {
+    pageController.animateToPage(0,
+        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+
+  void onFalicilities() {
+    pageController.animateToPage(1,
+        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+  void onGallery() {
+    pageController.animateToPage(2,
+        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+  void onRenovation() {
+    pageController.animateToPage(3,
+        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+  void onProperties() {
+    pageController.animateToPage(4,
+        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+  void onBoardMembers() {
+    pageController.animateToPage(5,
+        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+  void onMaqbara() {
+    pageController.animateToPage(6,
+        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+  }
+
 
   Rx<int> notificationsCounter = 0.obs;
   // when user click on action button
   Rx<String> notificationAction = ''.obs;
+  ScrollController scrollController = ScrollController();
 
   incrementCounter() {
     notificationsCounter.value += 1;

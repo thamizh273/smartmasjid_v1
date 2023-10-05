@@ -48,7 +48,7 @@ class MembershipView extends GetView<MembershipController> {
                             blurRadius: 6,
                             spreadRadius: 6,
                             offset: Offset(0, 4),
-                            color: Colors.grey.shade400)
+                            color: Get.theme.shadowColor)
                       ],
                       borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(32),
@@ -145,7 +145,7 @@ class MembershipView extends GetView<MembershipController> {
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
-                                    color: Theme.of(context).primaryColor),
+                                    color: Get.theme.hoverColor),
                               ),
                             ],
                           ),
@@ -171,6 +171,7 @@ class MembershipView extends GetView<MembershipController> {
                                         text: "₹ ${data.currentPayment!.amount} ",
                                         size: f5,
                                         weight: FontWeight.bold,textAlign: TextAlign.center,
+                                        color: Get.theme.primaryColor,
                                       ),
                                     ),
                                   ),
@@ -189,6 +190,7 @@ class MembershipView extends GetView<MembershipController> {
                                     children: [
                                       Stxt(
                                           text: "membership_auto_pay".tr,
+                                          color: Get.theme.primaryColor,
                                           size: f4),
                                       Obx(() {
                                         return Switch(
@@ -251,13 +253,13 @@ class MembershipView extends GetView<MembershipController> {
                                 Stxt(
                                   text: "pay_for_other_members".tr,
                                   size: f3,
-                                  color: Theme.of(context).primaryColor,
+                                  color: Get.theme.hoverColor,
                                   weight: FontWeight.bold,
                                   textAlign: TextAlign.center,
                                 ),
                                 Icon(
                                   Icons.double_arrow_outlined,
-                                  color: Theme.of(context).primaryColor,
+                                  color: Get.theme.hoverColor,
                                   size: 20,
                                 ),
                               ],
@@ -297,7 +299,7 @@ class MembershipView extends GetView<MembershipController> {
                                       text: "view_all".tr,
                                       size: f3,
                                       weight: FontWeight.w600,
-                                      color: Theme.of(context).primaryColor,
+                                      color: Get.theme.hoverColor,
                                     )),
                               ],
                             ),
@@ -328,8 +330,7 @@ class MembershipView extends GetView<MembershipController> {
                                           "₹ ${data.monthChart![index].amount}",
                                           style: TextStyle(
                                               fontSize: 15,
-                                              color: Theme.of(context)
-                                                  .primaryColor),
+                                              color: Get.theme.hoverColor),
                                         ),
                                         Space(4),
                                         Container(

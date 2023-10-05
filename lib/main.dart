@@ -6,6 +6,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:quick_actions_android/quick_actions_android.dart';
+import 'package:smartmasjid_v1/app/modules/imanTracker/views/iman_tracker_view.dart';
+import 'package:smartmasjid_v1/app/modules/masjidnearme/views/masjidnearme_view.dart';
 import 'package:smartmasjid_v1/utils/ansomeNotification.dart';
 import 'package:smartmasjid_v1/utils/fcm_notification/fcm_helper.dart';
 import 'package:smartmasjid_v1/utils/fcm_notification/local_notification_helper.dart';
@@ -14,6 +17,7 @@ import 'package:smartmasjid_v1/utils/localization/localization.dart';
 
 import 'app/authRepository.dart';
 import 'app/modules/home/bindings/home_binding.dart';
+import 'app/modules/qiblafinderpage/views/qiblafinderpage_view.dart';
 import 'app/routes/app_pages.dart';
 import 'app/routes/export.dart';
 import 'data/local/my_shared_pref.dart';
@@ -80,11 +84,80 @@ void main() async{
                 builder:(context,child){
                   return MediaQuery(data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0), child: child!);
                 }
+
             ),
           );
         }
       ),
     ),
   );
+}
+
+class ShotcutApp extends StatefulWidget {
+  const ShotcutApp({super.key});
+
+  @override
+  State<ShotcutApp> createState() => _MyShotcutAppState();
+}
+
+class _MyShotcutAppState extends State<ShotcutApp> {
+  String shortcut = 'no action set';
+
+  @override
+  void initState() {
+    super.initState();
+
+    final QuickActionsAndroid quickActions = QuickActionsAndroid();
+    quickActions.initialize((String shortcutType) {
+      setState(() {
+        shortcut = '$shortcutType has launched';
+      });
+    });
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+        type: 'qibla_finder',
+        localizedTitle: 'Qibla Finder',
+        //icon: 'AppIcon',
+      ),
+      const ShortcutItem(
+        type: 'masjid_near_me',
+        localizedTitle: 'Masjid Near Me',
+        //icon: 'ic_launcher'
+      ),
+      const ShortcutItem(
+        type: 'iman_tracker',
+        localizedTitle: 'Iman Tracker',
+        //icon: 'ic_launcher'
+      ),
+    ]);
+
+    quickActions.initialize((type) {
+      if(type == "qibla_finder") {
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => QiblaFinder()));
+      }
+      else if(type == "masjid_near_me") {
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => MasjidnearmeView()));
+      }
+      else if(type == "iman_tracker") {
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => ImanTrackerView()));
+      }
+    });
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(shortcut),
+      ),
+      body: const Center(
+        child: Text('On home screen, long press the app icon to '
+            'get Action one or Action two options. Tapping on that action should  '
+            'set the toolbar title.'),
+      ),
+    );
+  }
 }
 

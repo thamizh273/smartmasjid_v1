@@ -29,7 +29,7 @@ class SafaDropdownButton2 extends StatelessWidget {
     this.scrollbarThickness,
     this.scrollbarAlwaysShow,
     this.offset = Offset.zero,
-    super.key,
+    super.key, this.style,
   });
   final String hint;
   final String? value;
@@ -56,6 +56,7 @@ class SafaDropdownButton2 extends StatelessWidget {
   final double? scrollbarThickness;
   final bool? scrollbarAlwaysShow;
   final Offset offset;
+  final TextStyle? style;
 
   @override
   Widget build(BuildContext context) {

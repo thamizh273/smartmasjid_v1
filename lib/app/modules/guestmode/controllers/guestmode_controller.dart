@@ -14,6 +14,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 
 import 'package:smartmasjid_v1/app/authRepository.dart';
+import 'package:smartmasjid_v1/app/modules/guestmode/Model/prayerTimesModel.dart';
 import 'package:smartmasjid_v1/app/modules/home/Model/prayerTimesModel.dart';
 import 'package:smartmasjid_v1/app/modules/loginPage/controllers/login_page_controller.dart';
 
@@ -27,7 +28,7 @@ import '../../imanTracker/model/ImanTrakerEntryModel.dart';
 import '../../imanTracker/model/imanTrakerStatusModel.dart';
 import '../Model/getUserModel.dart';
 
-class GuestmodeController extends GetxController with GetSingleTickerProviderStateMixin{
+class GuestmodeController extends GetxController with GetTickerProviderStateMixin{
   //TODO: Implement HomeController
   final _restCallController = Get.put(restCallController());
 
@@ -38,15 +39,20 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
 
   RxBool alarm = false.obs;
   RxBool isloading = false.obs;
+  RxBool isLoading=false.obs;
   RxBool isloading1 = false.obs;
   RxBool isloadingEvent = false.obs;
   RxBool isloadingiman = false.obs;
   RxBool isdummy = false.obs;
+  RxInt index = 0.obs;
   var getUserData=GetUserModel().obs;
-  var prayerTimeData=PrayerTimeModel().obs;
+  var guestprayertime=GuestPrayerModel().obs;
   var eventsData= EventsModel().obs;
 
-  var prayerTime =['fajr', 'dhuhr', 'asr', 'magrib', 'isha'];
+  var prayerTime =['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+  var prayerName =['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+  CarouselController carouselController = CarouselController();
+
   // var imageBytes=images.obs;
   var currentIndex  = 0.obs;
   void updateIndex(int index) {
@@ -56,8 +62,9 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
   RxString nearestDuration1 = ''.obs;   var rrr="".obs;
   //var uid= Get.arguments[0];
   var uid=FirebaseAuth.instance.currentUser;
-
-
+  late AnimationController animationController;
+  late Animation<double> animation;
+  RxBool showFirstImage = true.obs; // Use RxBool for observable
 
   final RxBool isExpanded = false.obs;
   final RxBool status = false.obs;
@@ -66,27 +73,27 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
   void toggleFunction() {
     isExpanded.value = !isExpanded.value; // Toggle the state
   }
-  void openLocationSetting() async {
-    const AndroidIntent intent = AndroidIntent(
-      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
-    );
-    await intent.launch();
-  }
-
-  Future<bool> checkLocationEnabled() async {
-    final AndroidIntent intent = AndroidIntent(
-      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
-    );
-
-    try {
-      await intent.launch();
-      // Location settings were opened, assume location services will be enabled
-      return true;
-    } catch (e) {
-      // Location settings could not be opened, assume location services are disabled
-      return false;
-    }
-  }
+  // void openLocationSetting() async {
+  //   const AndroidIntent intent = AndroidIntent(
+  //     action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+  //   );
+  //   await intent.launch();
+  // }
+  //
+  // Future<bool> checkLocationEnabled() async {
+  //   final AndroidIntent intent = AndroidIntent(
+  //     action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+  //   );
+  //
+  //   try {
+  //     await intent.launch();
+  //     // Location settings were opened, assume location services will be enabled
+  //     return true;
+  //   } catch (e) {
+  //     // Location settings could not be opened, assume location services are disabled
+  //     return false;
+  //   }
+  // }
 
   List timeList=["0","0","0","0","0"].obs ;
 
@@ -119,6 +126,31 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
   final guesttoken = GetStorage();
   @override
   void onInit() {
+    // Create an AnimationController with a duration of 1 second and repeat it in reverse.
+    animationController = AnimationController(
+      animationBehavior: AnimationBehavior.preserve,
+      vsync: this,
+      duration: const Duration(seconds: 4),
+      reverseDuration: const Duration(seconds: 1),
+    )..addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        showFirstImage.value = !showFirstImage.value; // Toggle between images
+        animationController.reverse(); // Reverse the animation
+      } else if (status == AnimationStatus.dismissed) {
+        animationController.forward(); // Start the animation again
+      }
+    });
+
+    // Create a CurvedAnimation that uses the animationController and applies an ease-in curve.
+    animation = CurvedAnimation(
+      parent: animationController,
+      curve: Curves.fastLinearToSlowEaseIn,
+    );
+
+    // Start the animation when the controller is first initialized.
+    animationController.forward();
+    carouselController = CarouselController();
+    getPrayerTime();
      if(arg==null&&guesttoken.read('guest')==null){
        return;
      }if(arg!=null){
@@ -147,10 +179,7 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
        fetchCityName();
        return;
      }
-
-
     super.onInit();
-
 
 
   }
@@ -163,7 +192,8 @@ class GuestmodeController extends GetxController with GetSingleTickerProviderSta
 
   @override
   void onClose() {
-    tabController.dispose();
+    // Dispose of the animation controller when it's no longer needed to avoid memory leaks.
+    animationController.dispose();
 
     timer!.cancel();
 
@@ -258,15 +288,14 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     // print("getstaus");
 
   }
+
+
   prayerDetailRT(index){
 
     DateTime now = DateTime.now();
 
     // Target date and time
-    var targetDateTime = DateTime.parse("${prayerTimeData.value
-        .getTodayMasjidPrayerTime!
-        .todayPrayerList![index]
-        .startTime}").toLocal();
+    var targetDateTime = DateTime.parse("${guestprayertime.value.getPrayerTimeGuest!.prayer}").toLocal();
 
     // Calculate the remaining duration
     Duration remainingDuration = targetDateTime.difference(now);
@@ -284,7 +313,7 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     // Target date and time
     DateTime now = DateTime.now();
 
-    var targetDateTime=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].startTime}").toLocal();
+    var targetDateTime=DateTime.parse("${guestprayertime.value.getPrayerTimeGuest!.prayer}").toLocal();
 
 
     // Calculate the remaining duration
@@ -303,11 +332,11 @@ query Query(\$userId: ID!, \$trackerType: String, \$status: String) {
     timer= Timer.periodic(Duration(seconds: 1), (timer) {
       DateTime now = DateTime.now();
       final outputFormat = DateFormat("HH:mm:ss");
-      var targetDateTime=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![0].startTime}").toLocal();
-      var targetDateTime1=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![1].startTime}").toLocal();
-      var targetDateTime2=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![2].startTime}").toLocal();
-      var targetDateTime3=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![3].startTime}").toLocal();
-      var targetDateTime4=DateTime.parse("${prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList![4].startTime}").toLocal();
+      var targetDateTime=DateTime.parse("${guestprayertime.value.getPrayerTimeGuest!.prayer}").toLocal();
+      var targetDateTime1=DateTime.parse("${guestprayertime.value.getPrayerTimeGuest!.prayer}").toLocal();
+      var targetDateTime2=DateTime.parse("${guestprayertime.value.getPrayerTimeGuest!.prayer}").toLocal();
+      var targetDateTime3=DateTime.parse("${guestprayertime.value.getPrayerTimeGuest!.prayer}").toLocal();
+      var targetDateTime4=DateTime.parse("${guestprayertime.value.getPrayerTimeGuest!.prayer}").toLocal();
       var remainingDuration = outputFormat.format(DateTime(0).add(targetDateTime.difference(now)));
       var remainingDuration1 = outputFormat.format(DateTime(0).add(targetDateTime1.difference(now)));
       var remainingDuration2 = outputFormat.format(DateTime(0).add(targetDateTime2.difference(now)));
@@ -413,37 +442,33 @@ query Query(\$id: String, \$authId: String,\$deviceId: String,\$token: String!) 
     getImanTrakerStatus(passwordlogin);
 
   }
-  getPrayerTime(d) async {
+
+  getPrayerTime() async {
 
     isloading1.value=true;
     var header="""
-query Query(\$masjidId: String) {
-  Get_Today_Masjid_Prayer_Time(masjid_id_: \$masjidId) {
-    today_prayer_list {
-      end_time
-      id
-      image
-      masjid_id
-      notification
-      prayer_name
-      prayer_status
-      start_time
-    }
+query Get_Prayer_Time_guest(\$latitude: String, \$longitude: String) {
+  Get_Prayer_Time_guest(latitude: \$latitude, longitude: \$longitude) {
+    prayer
+    city
+    current_date
     today_hijri_date
   }
 }
     """;
     var body ={
       //"masjidId": "a4fee385-0641-4dce-bd42-f35ee278ce35"
-      "masjidId": "$d"
+      "latitude": "11.9507308",
+      "longitude": "79.8309292"
     };
     var res = await  _restCallController.gql_query(header, body);
     isloading1.value=false;
 
-    prayerTimeData.value=prayerTimeModelFromJson(json.encode(res));
-    remainTime();
+    guestprayertime.value=guestPrayerModelFromJson(json.encode(res));
+    //remainTime();
     // log("times");
-    // log(json.encode(res));
+    log("ggggg${json.encode(res)}");
+    update();
     //  log("times");
   }
   var scaffoldKey = GlobalKey<ScaffoldState>();

@@ -136,11 +136,13 @@ class NotificationpageView extends GetView<NotificationpageController> {
                               //   text: 'szdfxghvj.',
                               size: f2,
                               weight: FontWeight.bold,
+                              color: Get.theme.primaryColor,
                             ),
                             subtitle: Stxt(
                               //   text: '${data.description}',
                               text: '${data.description}',
                               size: f1,
+                              color: Get.theme.primaryColor,
                             ),
                             trailing: Column(
                               crossAxisAlignment: CrossAxisAlignment.end,
@@ -153,6 +155,7 @@ class NotificationpageView extends GetView<NotificationpageController> {
                                       DateTime.parse(
                                           "${data.createdAt!.toLocal()}")),
                                   size: f1,
+                                  color: Get.theme.primaryColor,
                                 ),
                               ],
                             ),

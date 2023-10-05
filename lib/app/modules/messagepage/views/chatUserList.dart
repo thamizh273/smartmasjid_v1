@@ -82,6 +82,7 @@ class ChatUserListPage extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     size: f2,
                                     weight: FontWeight.w600,
+                                    color: Get.theme.primaryColor,
                                   ),
                                   subtitle: Stxt(
                                     text: "${data.post}",

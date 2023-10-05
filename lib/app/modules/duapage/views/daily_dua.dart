@@ -136,9 +136,7 @@ class DailyDua extends StatelessWidget {
                           double fontSize = 35.0;
                           return Column(
                             children: [
-                              Stxt(text: "#${index + 1}", size: f4, color: Theme
-                                  .of(context)
-                                  .primaryColor, weight: FontWeight.w600,),
+                              Stxt(text: "#${index + 1}", size: f4, color: Get.theme.hoverColor, weight: FontWeight.w600,),
                               Padding(
                                 padding: const EdgeInsets.only(
                                     top: 8.0, bottom: 8),

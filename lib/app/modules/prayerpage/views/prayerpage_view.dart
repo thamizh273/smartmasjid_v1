@@ -21,7 +21,7 @@ class PrayerpageView extends StatelessWidget {
   //   'assets/icons/fajr_icon.svg'
   // ];
 
-  List<Map<String, dynamic>> getdata = [
+  final List<Map<String, dynamic>> getdata = [
     {
       "name": 'fajr',
       'icon': 'assets/icons/fajr_icon.svg',
@@ -60,7 +60,7 @@ class PrayerpageView extends StatelessWidget {
       "end": "12:14"
     },
   ];
-  List<Map<String, dynamic>> getdataProhibited = [
+  final List<Map<String, dynamic>> getdataProhibited = [
     {
       "name": 'Sunrise',
       'icon': 'assets/icons/fajr_icon.svg',
@@ -133,7 +133,7 @@ class PrayerpageView extends StatelessWidget {
                 text: 'farz_prayer_time'.tr,
                 size: f4,
                 weight: FontWeight.bold,
-                color: Get.theme.primaryColor,
+                color: Get.theme.hoverColor,
               ),
               // for(var prayertime in ctrl.prayerpageData.value
               //     .getMasjidPrayerTimeFilter!)
@@ -172,9 +172,9 @@ class PrayerpageView extends StatelessWidget {
                       icon: getdata[index]["icon"],
                       start_time: DateFormat('hh:mm a').format(DateTime.parse("${prayertime.startTime}").toLocal()),
                       endTime: DateFormat('hh:mm a').format(DateTime.parse("${prayertime.endTime}").toLocal()),
-                      colors: Color(0xffA8A8A8),
+                      colors: Colors.white,
                        remainingTime: prayertime.prayerStatus=="future"? ctrl.remainTime():"null",
-                      txtClr: Colors.black.withOpacity(.8),
+                      txtClr: Get.theme.primaryColor,
                     );
                   },),
                 );
@@ -205,7 +205,7 @@ class PrayerpageView extends StatelessWidget {
                   icon: i['icon'],
                   start_time: i['start'],
                   endTime: i['end'],
-                  colors: Color(0xffC91717),
+                  colors: Colors.red.withOpacity(0.8),
                 ),
             ],
           ),

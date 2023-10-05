@@ -31,7 +31,7 @@ class MasjidImam extends StatelessWidget {
                     BoxShadow(
                         blurRadius: 4,
                         offset: Offset(0,4),
-                        color: Colors.grey.shade400
+                        color: Get.theme.shadowColor
                     )
                   ]
               ),
@@ -56,7 +56,7 @@ class MasjidImam extends StatelessWidget {
                          blurRadius: 4,
                          spreadRadius: 1,
                          offset: Offset(2,2),
-                         color: Colors.grey.shade500
+                         color: Get.theme.shadowColor
                      )
                    ]
                ),
@@ -78,11 +78,11 @@ class MasjidImam extends StatelessWidget {
                        crossAxisAlignment: CrossAxisAlignment.start,
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
-                         Stxt(text: "Abdul Jabbar", size: f4, weight: FontWeight.w500,),
+                         Stxt(text: "Abdul Jabbar", size: f4, weight: FontWeight.w500, color: Get.theme.primaryColor,),
                          Space(4),
-                         Stxt(text: "abduljabbar@gmail.com", size: f1, weight: FontWeight.w300,),
+                         Stxt(text: "abduljabbar@gmail.com", size: f1, weight: FontWeight.w300, color: Get.theme.primaryColor,),
                          Space(4),
-                         Stxt(text: "+91 9876543210", size: f2, weight: FontWeight.w400,),
+                         Stxt(text: "+91 9876543210", size: f2, weight: FontWeight.w400, color: Get.theme.primaryColor,),
                        ],
                      ),
                      Spacer(),
@@ -112,7 +112,7 @@ class MasjidImam extends StatelessWidget {
                         blurRadius: 4,
                         spreadRadius: 2,
                         offset: Offset(0,4),
-                        color: Colors.grey.shade400
+                        color: Get.theme.shadowColor
                     )
                   ]
               ),
@@ -130,7 +130,7 @@ class MasjidImam extends StatelessWidget {
                             BoxShadow(
                                 blurRadius: 4,
                                 offset: Offset(0,4),
-                                color: Colors.grey.shade400
+                                color: Get.theme.shadowColor
                             )
                           ]
                       ),
@@ -156,11 +156,11 @@ class MasjidImam extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Stxt(text: "Abdul Jabbar", size: f4, weight: FontWeight.w500,),
+                            Stxt(text: "Abdul Jabbar", size: f4, weight: FontWeight.w500, color: Get.theme.primaryColor,),
                             Space(3),
-                            Stxt(text: "abduljabbar@gmail.com", size: f1, weight: FontWeight.w300,),
+                            Stxt(text: "abduljabbar@gmail.com", size: f1, weight: FontWeight.w300, color: Get.theme.primaryColor,),
                             Space(3),
-                            Stxt(text: "+91 9876543210", size: f2, weight: FontWeight.w400,),
+                            Stxt(text: "+91 9876543210", size: f2, weight: FontWeight.w400,color: Get.theme.primaryColor,),
                           ],
                         ),
                         Spacer(),

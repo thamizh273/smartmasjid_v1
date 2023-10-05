@@ -100,7 +100,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                         decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                  color: clr_gray,
+                                  color: Get.theme.shadowColor,
                                   blurRadius: .2,
                                   spreadRadius: .5)
                             ],
@@ -220,7 +220,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                             blurRadius: 4,
                             spreadRadius: 4,
                             offset: Offset(0, 4),
-                            color: Colors.grey.shade400) : BoxShadow()
+                            color:Get.theme.shadowColor) : BoxShadow()
                       ]),
                   child: Row(
                     children: [
@@ -246,6 +246,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                             text: e['name'].toString(),
                             size: f4,
                             weight: FontWeight.bold,
+                            color: Get.theme.primaryColor,
                           ),
                           Space(8),
                           Wrap(
@@ -267,7 +268,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
               ElevatedButton(
                   onPressed: () {
                     Get.bottomSheet(
-                      backgroundColor: clr_white,
+                      backgroundColor: Get.theme.scaffoldBackgroundColor,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
                       displayUpiApps(),

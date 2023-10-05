@@ -8,10 +8,10 @@ import 'package:smartmasjid_v1/widgets/stext.dart';
 import '../../language_page/controllers/language_page_controller.dart';
 
 class DuaDetail extends StatelessWidget {
-  DuaDetail({super.key});
+   DuaDetail({super.key});
 
 
-  DuapageController duactrl = Get.put(DuapageController());
+  final DuapageController duactrl = Get.put(DuapageController());
   final langCtrl=Get.put(LanguagePageController());
 
   @override
@@ -107,9 +107,7 @@ class DuaDetail extends StatelessWidget {
                         detaildua.duasNameEn.toString(),
                         size: f4,
                         weight: FontWeight.w500,
-                        color: Theme
-                            .of(context)
-                            .primaryColor,);
+                        color: Get.theme.hoverColor);
                     }),
                   ],
                 ),
@@ -125,9 +123,7 @@ class DuaDetail extends StatelessWidget {
                         double fontSize = 35.0;
                         return Column(
                           children: [
-                            Stxt(text: "#${index + 1}", size: f4, color: Theme
-                                .of(context)
-                                .primaryColor, weight: FontWeight.w600,),
+                            Stxt(text: "#${index + 1}", size: f4, color: Get.theme.hoverColor, weight: FontWeight.w600,),
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 8.0, bottom: 8),

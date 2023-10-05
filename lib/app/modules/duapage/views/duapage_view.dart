@@ -171,14 +171,14 @@ class DuapageView extends GetView<DuapageController> {
                                         : "See More",
                                     style: TextStyle(
                                         fontSize: 16,
-                                        color: Theme.of(context).primaryColor,
+                                        color: Get.theme.hoverColor,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Icon(
                                       c.isExpanded.value
                                           ? Icons.expand_less
                                           : Icons.expand_more,
-                                      color:Theme.of(context).primaryColor),
+                                      color:Get.theme.hoverColor),
                                 ],
                               ),
                             ),
@@ -243,7 +243,7 @@ class DuapageView extends GetView<DuapageController> {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4),
                                         border: Border.all(
-                                            color: Color(0xff17637D)),
+                                            color: Get.theme.hoverColor),
                                       ),
                                       child: Row(
                                         children: [
@@ -321,14 +321,14 @@ class DuapageView extends GetView<DuapageController> {
                                         : "See More",
                                     style: TextStyle(
                                         fontSize: 16,
-                                        color: Theme.of(context).primaryColor,
+                                        color: Get.theme.hoverColor,
                                         fontWeight: FontWeight.w600),
                                   ),
                                   Icon(
                                       c.isExpanded1.value
                                           ? Icons.expand_less
                                           : Icons.expand_more,
-                                      color:Theme.of(context).primaryColor),
+                                      color:Get.theme.hoverColor),
                                 ],
                               ),
                             ),
@@ -391,7 +391,7 @@ class DuapageView extends GetView<DuapageController> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(4),
                                       border:
-                                          Border.all(color: Color(0xff17637D)),
+                                          Border.all(color:Get.theme.hoverColor),
                                     ),
                                     child: Row(
                                       children: [
@@ -462,14 +462,14 @@ class DuapageView extends GetView<DuapageController> {
 }
 
 class CustomDialogBox extends StatelessWidget {
-  TextEditingController pass = TextEditingController();
-  TextEditingController c = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController c = TextEditingController();
   final duaCtrl = Get.put(DuapageController());
   final langCtrl = Get.put(LanguagePageController());
 
   CustomDialogBox(this.index);
 
-  int index;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -568,6 +568,7 @@ class CustomDialogBox extends StatelessWidget {
             text: "${title}",
             size: f5,
             weight: FontWeight.w500,
+            color: Get.theme.primaryColor,
           ),
           Space(16),
           Container(
@@ -604,6 +605,7 @@ class CustomDialogBox extends StatelessWidget {
                                   text: "${items[index]}",
                                   size: f3,
                                   overflow: TextOverflow.ellipsis,
+                                  color: Get.theme.primaryColor,
                                 )),
                             Spacer(),
                             Icon(
@@ -625,14 +627,14 @@ class CustomDialogBox extends StatelessWidget {
 }
 
 class CustomDialogBox1 extends StatelessWidget {
-  TextEditingController pass = TextEditingController();
-  TextEditingController c = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController c = TextEditingController();
   final duaCtrl = Get.put(DuapageController());
   final langCtrl = Get.put(LanguagePageController());
 
   CustomDialogBox1(this.index);
 
-  int index;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -735,6 +737,7 @@ class CustomDialogBox1 extends StatelessWidget {
             text: "${title}",
             size: f5,
             weight: FontWeight.w500,
+            color: Get.theme.primaryColor,
           ),
           Space(16),
           Container(
@@ -770,6 +773,7 @@ class CustomDialogBox1 extends StatelessWidget {
                                   text: "${items[index]}",
                                   size: f3,
                                   overflow: TextOverflow.ellipsis,
+                                  color: Get.theme.primaryColor,
                                 )),
                             Spacer(),
                             Icon(

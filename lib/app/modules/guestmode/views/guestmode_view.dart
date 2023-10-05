@@ -17,6 +17,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:smartmasjid_v1/app/modules/audioplayer/views/audioplayer_view.dart';
 import 'package:smartmasjid_v1/app/modules/duapage/views/duapage_view.dart';
+import 'package:smartmasjid_v1/app/modules/guestmode/views/prayer_page.dart';
+import 'package:smartmasjid_v1/app/modules/guestmode/widgets/prayertime.dart';
 import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
 import 'package:smartmasjid_v1/app/modules/home/Drawer_List/masjid_admins.dart';
@@ -183,6 +185,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
         ),
         key: controller.scaffoldKey,
         drawer: Drawer(
+          backgroundColor: Get.theme.scaffoldBackgroundColor,
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -190,9 +193,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                 padding: const EdgeInsets.all(8),
                 margin: EdgeInsets.only(bottom: 8),
                 decoration: BoxDecoration(
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
+                  color: Get.theme.hoverColor,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -212,7 +213,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                               text: "Ummati",
                               size: f5,
                               weight: FontWeight.w600,
-                              color: Colors.white,))
+                              color: Get.theme.scaffoldBackgroundColor,))
                       ],
                     ),
                   ],
@@ -224,7 +225,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset("assets/svg/thememode.svg"),
+                        SvgPicture.asset("assets/svg/thememode.svg", color: Get.theme.hoverColor,),
                         Space(16),
                         Text("dark_Mode".tr,
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -252,7 +253,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                       child: Container(
                         child: Row(
                           children: [
-                            SvgPicture.asset("assets/svg/language.svg"),
+                            SvgPicture.asset("assets/svg/language.svg", color: Get.theme.hoverColor,),
                             Space(16),
                             Text("language".tr,
                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -268,7 +269,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                     Space(16),
                     Row(
                       children: [
-                        SvgPicture.asset("assets/svg/feedback.svg"),
+                        SvgPicture.asset("assets/svg/feedback.svg",color: Get.theme.hoverColor,),
                         Space(16),
                         Text("feedback".tr,
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -282,7 +283,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                     Space(16),
                     Row(
                       children: [
-                        SvgPicture.asset("assets/svg/contact.svg"),
+                        SvgPicture.asset("assets/svg/contact.svg", color: Get.theme.hoverColor,),
                         Space(16),
                         Text("contact".tr,
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -300,7 +301,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                       },
                       child: Row(
                         children: [
-                          SvgPicture.asset("assets/svg/rating.svg"),
+                          SvgPicture.asset("assets/svg/rating.svg", color: Get.theme.hoverColor,),
                           const Space(16),
                           Text("rate_our_app".tr,
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -315,7 +316,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                     Space(16),
                     Row(
                       children: [
-                        SvgPicture.asset("assets/svg/version.svg"),
+                        SvgPicture.asset("assets/svg/version.svg", color: Get.theme.hoverColor,),
                         Space(16),
                         Text("version".tr,
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -329,7 +330,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                     Space(16),
                     Row(
                       children: [
-                        SvgPicture.asset("assets/svg/share.svg"),
+                        SvgPicture.asset("assets/svg/share.svg", color: Get.theme.hoverColor,),
                         Space(16),
                         Text("share".tr,
                           style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
@@ -355,13 +356,9 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                     Stxt(text: "Exit Guest".tr,
                       size: f3,
                       weight: FontWeight.w600,
-                      color: Theme
-                          .of(context)
-                          .primaryColor,),
+                      color: Get.theme.hoverColor),
                     Space(16),
-                    Icon(Icons.logout, color: Theme
-                        .of(context)
-                        .primaryColor)
+                    Icon(Icons.logout, color: Get.theme.hoverColor)
                   ],
                 ),
               )
@@ -403,8 +400,20 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                       Space(2),
                                       GestureDetector(
                                           onTap: () {
-                                            Get.toNamed(
-                                                Routes.NOTIFICATIONPAGE);
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return CustomDialogBox(
+                                                  title: 'Custom Dialog Title',
+                                                  content:
+                                                  'This is the content of the custom dialog box.',
+                                                  onPressed: () {
+                                                    Navigator.pop(
+                                                        context); // Closes the dialog box when the button is pressed.
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                           child: Container(
                                             height: 48.h,
@@ -446,7 +455,20 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                       ),
                                       GestureDetector(
                                           onTap: () {
-                                            //Get.toNamed(Routes.MESSAGEPAGE);
+                                            showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return CustomDialogBox(
+                                                  title: 'Custom Dialog Title',
+                                                  content:
+                                                  'This is the content of the custom dialog box.',
+                                                  onPressed: () {
+                                                    Navigator.pop(
+                                                        context); // Closes the dialog box when the button is pressed.
+                                                  },
+                                                );
+                                              },
+                                            );
                                           },
                                           child: Container(
                                             height: 48.h,
@@ -492,11 +514,12 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                   ),
                                   Space(20),
                                   Space(8),
-                                  // Obx(() {
-                                  //   return controller.isloading1.value
-                                  //       ? CupertinoActivityIndicator()
-                                  //       : PrayerTimes();
-                                  // }),
+                                  Obx(() {
+                                    return controller.isloading1.value
+                                        ? CupertinoActivityIndicator()
+                                        : PrayerTimes();
+                                  }),
+                                  Space(16),
                                   // Obx(() {
                                   //   return controller.isloadingEvent.value
                                   //       ? CupertinoActivityIndicator()
@@ -523,6 +546,24 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                   SizedBox(
                                     height: 10.h,
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 16, left: 16),
+                                    child: Center(
+                                      child: Obx(() {
+                                        return FadeTransition(
+                                          opacity: controller.animation,
+                                          child: controller.showFirstImage.value
+                                              ? Image.asset(
+                                            'assets/images/guestad1.png',
+                                          )
+                                              : Image.asset(
+                                            'assets/images/guestad2.png',
+                                          ),
+                                        );
+                                      }),
+                                    ),
+                                  ),
+                                  Space(16),
                                   // buildDivider(themeData),
                                   GestureDetector(
                                     onTap: () {
@@ -593,12 +634,12 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             image: 'prayer_time',
                                             title: 'prayer_time'.tr,
                                             onTap: () {
-                                              // Navigator.push(
-                                              //     context,
-                                              //     MaterialPageRoute(
-                                              //       builder: (context) =>
-                                              //           PrayerpageView(),
-                                              //     ));
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        PrayerPage(),
+                                                  ));
                                             },
                                           )
                                         ],
@@ -658,7 +699,21 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             image: 'events',
                                             title: 'events'.tr,
                                             onTap: () {
-                                              Get.toNamed(Routes.EVENTS);
+                                              //Get.toNamed(Routes.EVENTS);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return CustomDialogBox(
+                                                    title: 'Custom Dialog Title',
+                                                    content:
+                                                    'This is the content of the custom dialog box.',
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                          context); // Closes the dialog box when the button is pressed.
+                                                    },
+                                                  );
+                                                },
+                                              );
                                             },
                                           )
                                         ],
@@ -714,6 +769,24 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                     ),
                                     speed: 20,
                                   ),
+                                  Space(8),
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 16, left: 16),
+                                    child: Center(
+                                      child: Obx(() {
+                                        return FadeTransition(
+                                          opacity: controller.animation,
+                                          child: controller.showFirstImage.value
+                                              ? Image.asset(
+                                            'assets/images/guestad1.png',
+                                          )
+                                              : Image.asset(
+                                            'assets/images/guestad2.png',
+                                          ),
+                                        );
+                                      }),
+                                    ),
+                                  ),
                                   Space(4),
                                   Row(
                                     children: [
@@ -721,7 +794,20 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                         title: 'services'.tr,
                                         image: 'donation',
                                         onTap: () {
-
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return CustomDialogBox(
+                                                title: 'Custom Dialog Title',
+                                                content:
+                                                'This is the content of the custom dialog box.',
+                                                onPressed: () {
+                                                  Navigator.pop(
+                                                      context); // Closes the dialog box when the button is pressed.
+                                                },
+                                              );
+                                            },
+                                          );
                                         },
                                       ),
                                       Column(
@@ -732,14 +818,40 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             image: 'membership',
                                             title: 'membership'.tr,
                                             onTap: () {
-                                              //Get.toNamed(Routes.MEMBERSHIP);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return CustomDialogBox(
+                                                    title: 'Custom Dialog Title',
+                                                    content:
+                                                    'This is the content of the custom dialog box.',
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                          context); // Closes the dialog box when the button is pressed.
+                                                    },
+                                                  );
+                                                },
+                                              );
                                             },
                                           ),
                                           SmallCard(
                                             image: 'donation',
                                             title: 'donation'.tr,
                                             onTap: () {
-                                              // Get.toNamed(Routes.DONATIONPAGE);
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return CustomDialogBox(
+                                                    title: 'Custom Dialog Title',
+                                                    content:
+                                                    'This is the content of the custom dialog box.',
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                          context); // Closes the dialog box when the button is pressed.
+                                                    },
+                                                  );
+                                                },
+                                              );
                                             },
                                           )
                                         ],
@@ -774,10 +886,20 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             image: 'history',
                                             title: 'history'.tr,
                                             onTap: () {
-                                              // Navigator.of(context).push(
-                                              //     MaterialPageRoute(
-                                              //         builder: (_) =>
-                                              //             MasjidhistoryView()));
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return CustomDialogBox(
+                                                    title: 'Custom Dialog Title',
+                                                    content:
+                                                    'This is the content of the custom dialog box.',
+                                                    onPressed: () {
+                                                      Navigator.pop(
+                                                          context); // Closes the dialog box when the button is pressed.
+                                                    },
+                                                  );
+                                                },
+                                              );
                                             },
                                           ),
                                         ],
@@ -785,8 +907,8 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 30.h,
-                                  )
+                                    height: 70.h,
+                                  ),
                                 ],
                               ))
                         ]),
@@ -992,3 +1114,47 @@ class Location_permission extends StatelessWidget {
   }
 }
 
+class CustomDialogBox extends StatelessWidget {
+  TextEditingController pass = TextEditingController();
+  TextEditingController c = TextEditingController();
+  final String title;
+  final String content;
+  final VoidCallback onPressed;
+
+  CustomDialogBox({
+    required this.title,
+    required this.content,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      child: _buildDialogContent(context),
+    );
+  }
+
+  Widget _buildDialogContent(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Get.theme.primaryColor,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset("assets/images/guestmasjid.png", width: 200,),
+          Text("Register with your Masjid to Join \n➽ MemberShip,\n➽ Donation\n➽ Services of Masjid", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),),
+        ],
+      ),
+    );
+  }
+}

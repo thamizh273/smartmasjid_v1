@@ -32,16 +32,12 @@ class MasjidFacility extends StatelessWidget {
                     Stxt(text: "Masjid-e-Nooraniyah",
                       size: f3,
                       weight: FontWeight.w600,
-                      color: Theme
-                          .of(context)
-                          .primaryColor,),
+                      color: Get.theme.hoverColor,),
                     Space(4),
                     Stxt(text: "facilities_are_shown_here".tr,
                       size: f3,
                       weight: FontWeight.w600,
-                      color: Theme
-                          .of(context)
-                          .primaryColor,),
+                      color: Get.theme.hoverColor,),
                   ],
                 ),
                 20.verticalSpace,
@@ -73,7 +69,7 @@ class MasjidFacility extends StatelessWidget {
                                         blurRadius: 2,
                                         spreadRadius: 2,
                                         offset: Offset(0, 2),
-                                        color: Colors.grey.shade400,
+                                        color: Get.theme.shadowColor,
                                       )
                                     ],
                                   ),
@@ -88,6 +84,7 @@ class MasjidFacility extends StatelessWidget {
                                           text: "prayer_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
+                                          color: Get.theme.primaryColor,
                                         ),
                                         Spacer(),
                                         Obx(() {
@@ -95,7 +92,7 @@ class MasjidFacility extends StatelessWidget {
                                           return Transform.rotate(
                                             angle: math.pi * animationValue / 2,
                                             child: Icon(
-                                                Icons.arrow_right, size: 40),
+                                                Icons.arrow_right, size: 40, color: Get.theme.primaryColor,),
                                             alignment: Alignment.center,
                                           );
                                         })
@@ -368,7 +365,7 @@ class MasjidFacility extends StatelessWidget {
                                         blurRadius: 2,
                                         spreadRadius: 2,
                                         offset: Offset(0, 2),
-                                        color: Colors.grey.shade400,
+                                        color: Get.theme.shadowColor,
                                       )
                                     ],
                                   ),
@@ -383,6 +380,7 @@ class MasjidFacility extends StatelessWidget {
                                           text: "refresh_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
+                                          color: Get.theme.primaryColor,
                                         ),
                                         Spacer(),
                                         Obx(() {
@@ -393,7 +391,7 @@ class MasjidFacility extends StatelessWidget {
                                           return Transform.rotate(
                                             angle: math.pi * animationValue / 2,
                                             child: Icon(
-                                                Icons.arrow_right, size: 40),
+                                                Icons.arrow_right, size: 40, color: Get.theme.primaryColor,),
                                             alignment: Alignment.center,
                                           );
                                         }),
@@ -665,7 +663,7 @@ class MasjidFacility extends StatelessWidget {
                                         blurRadius: 2,
                                         spreadRadius: 2,
                                         offset: Offset(0, 2),
-                                        color: Colors.grey.shade400,
+                                        color: Get.theme.shadowColor,
                                       )
                                     ],
                                   ),
@@ -681,6 +679,7 @@ class MasjidFacility extends StatelessWidget {
                                           text: "appearance".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
+                                          color: Get.theme.primaryColor,
                                         ),
                                         Spacer(),
                                         Obx(() {
@@ -691,7 +690,7 @@ class MasjidFacility extends StatelessWidget {
                                           return Transform.rotate(
                                             angle: math.pi * animationValue / 2,
                                             child: Icon(
-                                                Icons.arrow_right, size: 40),
+                                                Icons.arrow_right, size: 40, color: Get.theme.primaryColor,),
                                             alignment: Alignment.center,
                                           );
                                         }),
@@ -963,7 +962,7 @@ class MasjidFacility extends StatelessWidget {
                                         blurRadius: 2,
                                         spreadRadius: 2,
                                         offset: Offset(0, 2),
-                                        color: Colors.grey.shade400,
+                                        color: Get.theme.shadowColor,
                                       )
                                     ],
                                   ),
@@ -979,6 +978,7 @@ class MasjidFacility extends StatelessWidget {
                                           text: "jamath_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
+                                          color: Get.theme.primaryColor,
                                         ),
                                         Spacer(),
                                         Obx(() {
@@ -989,7 +989,7 @@ class MasjidFacility extends StatelessWidget {
                                           return Transform.rotate(
                                             angle: math.pi * animationValue / 2,
                                             child: Icon(
-                                                Icons.arrow_right, size: 40),
+                                                Icons.arrow_right, size: 40, color: Get.theme.primaryColor,),
                                             alignment: Alignment.center,
                                           );
                                         }),
@@ -1261,7 +1261,7 @@ class MasjidFacility extends StatelessWidget {
                                         blurRadius: 2,
                                         spreadRadius: 2,
                                         offset: Offset(0, 2),
-                                        color: Colors.grey.shade400,
+                                        color: Get.theme.shadowColor,
                                       )
                                     ],
                                   ),
@@ -1277,6 +1277,7 @@ class MasjidFacility extends StatelessWidget {
                                           text: "education".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
+                                          color: Get.theme.primaryColor,
                                         ),
                                         Spacer(),
                                         Obx(() {
@@ -1287,7 +1288,7 @@ class MasjidFacility extends StatelessWidget {
                                           return Transform.rotate(
                                             angle: math.pi * animationValue / 2,
                                             child: Icon(
-                                                Icons.arrow_right, size: 40),
+                                                Icons.arrow_right, size: 40, color: Get.theme.primaryColor,),
                                             alignment: Alignment.center,
                                           );
                                         }),
@@ -1559,7 +1560,7 @@ class MasjidFacility extends StatelessWidget {
                                         blurRadius: 2,
                                         spreadRadius: 2,
                                         offset: Offset(0, 2),
-                                        color: Colors.grey.shade400,
+                                        color: Get.theme.shadowColor,
                                       )
                                     ],
                                   ),
@@ -1575,6 +1576,7 @@ class MasjidFacility extends StatelessWidget {
                                           text: "womens_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
+                                          color: Get.theme.primaryColor,
                                         ),
                                         Spacer(),
                                         Obx(() {
@@ -1585,7 +1587,7 @@ class MasjidFacility extends StatelessWidget {
                                           return Transform.rotate(
                                             angle: math.pi * animationValue / 2,
                                             child: Icon(
-                                                Icons.arrow_right, size: 40),
+                                                Icons.arrow_right, size: 40, color: Get.theme.primaryColor,),
                                             alignment: Alignment.center,
                                           );
                                         }),
@@ -1857,7 +1859,7 @@ class MasjidFacility extends StatelessWidget {
                                         blurRadius: 2,
                                         spreadRadius: 2,
                                         offset: Offset(0, 2),
-                                        color: Colors.grey.shade400,
+                                        color: Get.theme.shadowColor,
                                       )
                                     ],
                                   ),
@@ -1872,6 +1874,7 @@ class MasjidFacility extends StatelessWidget {
                                           text: "technical_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
+                                          color: Get.theme.primaryColor,
                                         ),
                                         Spacer(),
                                         Obx(() {
@@ -1882,7 +1885,7 @@ class MasjidFacility extends StatelessWidget {
                                           return Transform.rotate(
                                             angle: math.pi * animationValue / 2,
                                             child: Icon(
-                                                Icons.arrow_right, size: 40),
+                                                Icons.arrow_right, size: 40, color: Get.theme.primaryColor,),
                                             alignment: Alignment.center,
                                           );
                                         }),
@@ -2125,7 +2128,8 @@ class MasjidFacility extends StatelessWidget {
                       ),
                     ),
                   ),
-                ), ExpansionWidget(
+                ),
+                ExpansionWidget(
                   titleBuilder: (double animationValue, double easeInValue,
                       bool isExpanded,
                       dynamic Function({bool animated}) toggleFunction) {
@@ -2153,7 +2157,7 @@ class MasjidFacility extends StatelessWidget {
                                         blurRadius: 2,
                                         spreadRadius: 2,
                                         offset: Offset(0, 2),
-                                        color: Colors.grey.shade400,
+                                        color: Get.theme.shadowColor,
                                       )
                                     ],
                                   ),
@@ -2169,6 +2173,7 @@ class MasjidFacility extends StatelessWidget {
                                           text: "providing_facilities".tr,
                                           size: f4,
                                           weight: FontWeight.w600,
+                                          color: Get.theme.primaryColor,
                                         ),
                                         Spacer(),
                                         Obx(() {
@@ -2179,7 +2184,7 @@ class MasjidFacility extends StatelessWidget {
                                           return Transform.rotate(
                                             angle: math.pi * animationValue / 2,
                                             child: Icon(
-                                                Icons.arrow_right, size: 40),
+                                                Icons.arrow_right, size: 40, color: Get.theme.primaryColor,),
                                             alignment: Alignment.center,
                                           );
                                         }),

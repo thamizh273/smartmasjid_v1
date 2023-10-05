@@ -44,13 +44,13 @@ class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
   final HomeController controller = Get.find<HomeController>();
 
-  CarouselController _carouselController = CarouselController();
+  final CarouselController _carouselController = CarouselController();
   final List<String> items = ["Pondicherry", "villupuram"];
 
   // final List<String> imgList = ['fajr', 'dhuhar'];
 
-  List quranImg = ['quran_list_img1', 'quran_list_img2', 'quran_list_img3'];
-  List duaImg = ['dua_img1', 'dua_img2', 'dua_img3'];
+  final List quranImg = ['quran_list_img1', 'quran_list_img2', 'quran_list_img3'];
+  final List duaImg = ['dua_img1', 'dua_img2', 'dua_img3'];
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +134,7 @@ class HomeView extends StatelessWidget {
         ),
         key: controller.scaffoldKey,
         drawer: Drawer(
+          backgroundColor: Get.theme.scaffoldBackgroundColor,
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -141,9 +142,7 @@ class HomeView extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 margin: EdgeInsets.only(bottom: 8),
                 decoration: BoxDecoration(
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
+                  color: Get.theme.hoverColor,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -165,7 +164,7 @@ class HomeView extends StatelessWidget {
                                   .masjidName}",
                               size: f5,
                               weight: FontWeight.w600,
-                              color: Colors.white,))
+                              color: Get.theme.scaffoldBackgroundColor,))
                       ],
                     ),
                   ],
@@ -179,7 +178,7 @@ class HomeView extends StatelessWidget {
                 child: ListTile(
                   title: Row(
                     children: [
-                      SvgPicture.asset("assets/svg/Masjiddr.svg"),
+                      SvgPicture.asset("assets/svg/Masjiddr.svg", color: Get.theme.hoverColor,),
                       Space(16),
                       Stxt(text: "masjid_facilities".tr,
                         size: f3,
@@ -197,7 +196,7 @@ class HomeView extends StatelessWidget {
                 child: ListTile(
                   title: Row(
                     children: [
-                      SvgPicture.asset("assets/svg/Historydr.svg"),
+                      SvgPicture.asset("assets/svg/Historydr.svg", color: Get.theme.hoverColor),
                       Space(16),
                       Stxt(text: "masjid_history".tr,
                         size: f3,
@@ -216,7 +215,7 @@ class HomeView extends StatelessWidget {
                 child: ListTile(
                   title: Row(
                     children: [
-                      SvgPicture.asset("assets/svg/Admindr.svg"),
+                      SvgPicture.asset("assets/svg/Admindr.svg", color: Get.theme.hoverColor),
                       Space(16),
                       Stxt(text: "masjid_admins".tr,
                         size: f3,
@@ -235,7 +234,7 @@ class HomeView extends StatelessWidget {
                 child: ListTile(
                   title: Row(
                     children: [
-                      SvgPicture.asset("assets/svg/imamdr.svg"),
+                      SvgPicture.asset("assets/svg/imamdr.svg", color: Get.theme.hoverColor),
                       Space(16),
                       Stxt(text: "masjid_imams".tr,
                         size: f3,
@@ -254,7 +253,7 @@ class HomeView extends StatelessWidget {
                 child: ListTile(
                   title: Row(
                     children: [
-                      SvgPicture.asset("assets/svg/voldr.svg"),
+                      SvgPicture.asset("assets/svg/voldr.svg", color: Get.theme.hoverColor),
                       Space(16),
                       Stxt(text: "masjid_well_wishers".tr,
                         size: f3,
@@ -294,7 +293,7 @@ class HomeView extends StatelessWidget {
                                         blurRadius: 4,
                                         spreadRadius: 2,
                                         offset: Offset(4, 4),
-                                        color: Colors.grey.shade400
+                                        color: Get.theme.shadowColor
                                     )
                                   ],
                                   color: Color(0xffD8E4E8)
@@ -334,7 +333,7 @@ class HomeView extends StatelessWidget {
                                         blurRadius: 4,
                                         spreadRadius: 2,
                                         offset: Offset(-4, 4),
-                                        color: Colors.grey.shade400
+                                        color: Get.theme.shadowColor
                                     )
                                   ],
                                   color: Color(0xffD8E4E8)
@@ -380,7 +379,7 @@ class HomeView extends StatelessWidget {
                                         blurRadius: 4,
                                         spreadRadius: 2,
                                         offset: Offset(4, 4),
-                                        color: Colors.grey.shade400
+                                        color: Get.theme.shadowColor
                                     )
                                   ],
                                   color: Color(0xffD8E4E8)
@@ -420,7 +419,7 @@ class HomeView extends StatelessWidget {
                                         blurRadius: 4,
                                         spreadRadius: 2,
                                         offset: Offset(-4, 4),
-                                        color: Colors.grey.shade400
+                                        color: Get.theme.shadowColor
                                     )
                                   ],
                                   color: Color(0xffD8E4E8)
@@ -449,13 +448,9 @@ class HomeView extends StatelessWidget {
                   Stxt(text: "leave_masjid".tr,
                     size: f3,
                     weight: FontWeight.w600,
-                    color: Theme
-                        .of(context)
-                        .primaryColor,),
+                    color: Get.theme.hoverColor,),
                   Space(16),
-                  Icon(Icons.logout, color: Theme
-                      .of(context)
-                      .primaryColor)
+                  Icon(Icons.logout, color: Get.theme.hoverColor)
                 ],
               )
             ],
@@ -821,7 +816,7 @@ class HomeView extends StatelessWidget {
                                         children: [
                                           SmallCard(
                                             image: 'history',
-                                            title: 'history'.tr,
+                                            title: 'masjid_history'.tr,
                                             onTap: () {
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
@@ -834,7 +829,7 @@ class HomeView extends StatelessWidget {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 30.h,
+                                    height: 80.h,
                                   )
                                 ],
                               ))

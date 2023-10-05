@@ -83,7 +83,7 @@ class MessagepageView extends GetView<MessagepageController> {
                               blurRadius: 4,
                               spreadRadius: 2,
                               offset: Offset(-2, 4),
-                              color: Colors.grey.shade400)
+                              color: Get.theme.shadowColor)
                         ]),
                     child: Row(
                       children: [
@@ -115,6 +115,7 @@ class MessagepageView extends GetView<MessagepageController> {
                                 overflow: TextOverflow.ellipsis,
                                 size: f4,
                                 weight: FontWeight.w600,
+                                color: Get.theme.primaryColor,
                               ),
                               4.verticalSpace,
                               Stxt(

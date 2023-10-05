@@ -336,9 +336,7 @@ class QuranpageView extends StatelessWidget {
                                                       BorderRadius.circular(
                                                           4),
                                                       border: Border.all(
-                                                          color: Theme
-                                                              .of(context)
-                                                              .primaryColor)),
+                                                          color: Get.theme.hoverColor)),
                                                   child: Padding(
                                                     padding:
                                                     const EdgeInsets.all(4.0),
@@ -348,9 +346,7 @@ class QuranpageView extends StatelessWidget {
                                                           fontWeight:
                                                           FontWeight.w600,
                                                           fontSize: 14,
-                                                          color: Theme
-                                                              .of(context)
-                                                              .primaryColor),
+                                                          color: Get.theme.hoverColor),
                                                     ),
                                                   ),
                                                 ),
@@ -515,8 +511,7 @@ class QuranpageView extends StatelessWidget {
                                                               Alignment
                                                                   .center,
                                                               child: Text(
-                                                                  sura
-                                                                      .suraChapterNo!),
+                                                                  sura.suraChapterNo!, style: TextStyle(color: Get.theme.primaryColor),),
                                                             ),
                                                           ),
                                                         ],
@@ -818,7 +813,7 @@ class QuranpageView extends StatelessWidget {
                                                                   .center,
                                                               child: Text(
                                                                   "${juz
-                                                                      .juzChapterNo!}"),
+                                                                      .juzChapterNo!}", style: TextStyle( color: Get.theme.primaryColor),),
                                                             ),
                                                           ),
                                                         ],

@@ -90,26 +90,36 @@ class _HijriCalendarState extends State<HijripageView> {
 
 
       /// Without Bottom Bar
-      body:  Column(
+      body:  Stack(
         children: [
-          // Image.asset("assets/images/hijri.png"),
-          // Space(16),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Space(16),
-                // counter("", focusedDay.month),
-                // counters("", focusedDay.year, year: true)
-              ],
-            ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Image.asset("assets/images/hijribac.png"),
+            ],
           ),
-          Space(8),
-          SHijiriCalender(onChanged: (d){
-            focusedDay = d;
-          },),
-        ],
+          Column(
+          children: [
+            // Image.asset("assets/images/hijri.png"),
+            // Space(16),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Space(16),
+                  // counter("", focusedDay.month),
+                  // counters("", focusedDay.year, year: true)
+                ],
+              ),
+            ),
+            Space(8),
+            SHijiriCalender(onChanged: (d){
+              focusedDay = d;
+            },),
+          ],
+        ),
+        ]
       ),
 
 
@@ -376,7 +386,7 @@ class _SHijiriCalenderState extends State<SHijiriCalender> {
       //border: true,
       //radius: 5,
       decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(5),
           boxShadow: [
             BoxShadow(
@@ -386,7 +396,7 @@ class _SHijiriCalenderState extends State<SHijiriCalender> {
                 offset: Offset(0, 4))
           ],
           border:
-          Border.all(color: Theme.of(context).colorScheme.secondary, width: 0.5)
+          Border.all(color: Get.theme.primaryColor, width: 0.5)
         // border: Border(
         //     top: border,
         //     left: border,
@@ -407,7 +417,7 @@ class _SHijiriCalenderState extends State<SHijiriCalender> {
                   topLeft: Radius.circular(5),
                 ),
                 border: Border.all(
-                    color: Theme.of(context).colorScheme.secondary, width: 0.1)),
+                    color: Get.theme.primaryColor, width: 0.1)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -665,7 +675,7 @@ class _SHijiriCalenderState extends State<SHijiriCalender> {
             Text(
               '${d.day.toString().padLeft(2, '0')}',
               style: TextStyle(
-                  color: Theme.of(context).textTheme.bodySmall?.backgroundColor,
+                  color: Get.theme.hintColor,
                   fontWeight: FontWeight.w600),
             ),
             Spacer(),

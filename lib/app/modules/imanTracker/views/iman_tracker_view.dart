@@ -73,8 +73,10 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                         FlutterDatePickerTimeline(
                           // initialFocusedDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
                           unselectedItemTextStyle:
-                          TextStyle(fontWeight: FontWeight.w500),
+                          TextStyle(fontWeight: FontWeight.w500, color: Get.theme.primaryColor),
+                          selectedItemTextStyle: TextStyle(fontWeight: FontWeight.w500, color: Colors.white),
                           selectedItemBackgroundColor: Get.theme.primaryColor,
+                          //unselectedItemBackgroundColor: Get.theme.hoverColor,
                           unselectedItemWidth: 45,
                           startDate: DateTime(DateTime
                               .now()
@@ -97,6 +99,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       text: "prayers".tr,
                       size: f3,
                       weight: FontWeight.bold,
+
                     ),
                     Obx(() {
                       return controller.isloading.value
@@ -120,8 +123,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                 ? clr_blue
                                 : (col.status == "notprayed"
                                 ? clr_red
-                                : theme
-                                .colorScheme.secondary))),
+                                : Get.theme.primaryColor))),
                             suffixIcon: col.status == "late"
                                 ? Icons.history
                                 : (col.status == "injamaah"
@@ -146,7 +148,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                       SvgPicture.asset(
                                         "assets/icons/${k["icon"]}.svg",
                                         height: 25,
-                                        color: Get.theme.primaryColor,
+                                        color: Get.theme.hoverColor,
                                       ),
                                       Stxt(
                                         pad: EdgeInsets.symmetric(
@@ -261,7 +263,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                                     8.r)),
                                             title: Stxt(
                                                 text: "After Sunnah (2)",
-                                                size: f2),
+                                                size: f2, color: Get.theme.primaryColor,),
                                             activeColor:
                                             Get.theme.primaryColor,
                                             tileColor: clr_bg,
@@ -288,7 +290,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                                     8.r)),
                                             title: Stxt(
                                                 text: "Before Sunnah (2)",
-                                                size: f2),
+                                                size: f2, color: Get.theme.primaryColor,),
                                             activeColor:
                                             Get.theme.primaryColor,
                                             tileColor: clr_bg,
@@ -315,8 +317,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                                           txtClr: Colors.white)
                                     ],
                                   ),
-                                  backgroundColor:
-                                  Get.theme.colorScheme.secondary);
+                                  backgroundColor: Get.theme.scaffoldBackgroundColor);
                               print("click");
                             },
                           );
@@ -341,7 +342,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                             text: "change_goals".tr,
                             size: f0,
                             weight: FontWeight.bold,
-                            color: Get.theme.primaryColor,
+                            color: Get.theme.hoverColor,
                           ),
                         ],
                       ),
@@ -351,7 +352,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                         image: '${k["icon"]}',
                         title: '${k["name"]}',
                         // onTap: () {},
-                        color: null,
+                        color: Get.theme.primaryColor,
                         onTap: () {},
                         suffixIcon: Icons.add,
                         suffixonTap: () {
@@ -487,13 +488,14 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
           child: Stxt(
             text: 'prayers_summary'.tr,
             size: f2,
-            color: theme.primaryColor,
+            color: Get.theme.hoverColor,
             weight: FontWeight.w500,
           ),
         ),
         SizedBox(
           width: double.infinity,
           child: Card(
+            color: Colors.white,
             margin: EdgeInsets.all(8.sp),
             child: Padding(
               padding: EdgeInsets.all(12.sp),
@@ -534,11 +536,13 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
           child: Stxt(
             text: 'quran_summary'.tr,
             size: f2,
-            color: theme.primaryColor,
+            color: Get.theme.hoverColor,
             weight: FontWeight.w500,
+
           ),
         ),
         Card(
+          color: Get.theme.primaryColor,
           margin: EdgeInsets.all(8),
           child: Padding(
             padding: EdgeInsets.symmetric(vertical: 15.h),
@@ -552,6 +556,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                         size: f2,
                         weight: FontWeight.w500,
                         textAlign: TextAlign.center,
+                        color: Get.theme.focusColor,
                       ),
                       10.verticalSpace,
                       PieChart(
@@ -585,6 +590,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                         size: f2,
                         weight: FontWeight.w500,
                         textAlign: TextAlign.center,
+                        color: Get.theme.focusColor,
                       ),
                       10.verticalSpace,
                       PieChart(
@@ -634,6 +640,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
           text: title[0].toUpperCase() + title.substring(1),
           size: f3,
           weight: FontWeight.w500,
+          color: Get.theme.primaryColor,
         ),
         Column(
           children: [
@@ -686,7 +693,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       size: f3,
                       color: Colors.green,
                     ),
-                    Stxt(text: '${("${injamaah}")}%', size: f1),
+                    Stxt(text: '${("${injamaah}")}%', size: f1, color: Get.theme.primaryColor,),
                   ],
                 ),
                 Row(
@@ -696,7 +703,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       size: f3,
                       color: Colors.blueAccent,
                     ),
-                    Stxt(text: '${("${ontime}")}%', size: f1),
+                    Stxt(text: '${("${ontime}")}%', size: f1, color: Get.theme.primaryColor,),
                   ],
                 ),
                 Row(
@@ -706,7 +713,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       size: f3,
                       color: Colors.yellow.shade600,
                     ),
-                    Stxt(text: '${("${late}")}%', size: f1),
+                    Stxt(text: '${("${late}")}%', size: f1, color: Get.theme.primaryColor,),
                   ],
                 ),
                 Row(
@@ -716,7 +723,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                       size: f3,
                       color: Colors.red,
                     ),
-                    Stxt(text: '${("${notprayed}")}%', size: f1),
+                    Stxt(text: '${("${notprayed}")}%', size: f1, color: Get.theme.primaryColor,),
                   ],
                 ),
               ],
@@ -801,6 +808,7 @@ class imanCard extends StatelessWidget {
           text: '$title',
           size: f3,
           weight: FontWeight.w500,
+          color: Get.theme.primaryColor,
         ),
         trailing: GestureDetector(
           onTap: () => suffixonTap(),

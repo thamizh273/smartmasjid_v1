@@ -47,7 +47,7 @@ class HadithCard extends StatelessWidget {
             boxShadow: [
               BoxShadow(
                   blurRadius: 4,
-                  color: Colors.grey.shade400,
+                  color: Get.theme.shadowColor,
                   offset: Offset(0, 4)
               )
             ],

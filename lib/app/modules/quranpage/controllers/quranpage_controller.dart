@@ -444,13 +444,16 @@ query Query(\$chapterNo: String!) {
   quranjuzList() async {
     isLoadings.value = true;
     var header = """
-query Query(\$masjidId: ID) {
+query Get_Quran_Juz_Chapter(\$masjidId: ID) {
   Get_Quran_Juz_Chapter(masjid_id: \$masjidId) {
-    id
-    masjid_id
     juz_chapter_no
     juz_name_arb
     juz_name_en
+    juz_name_tamil
+    juz_name_hindi
+    juz_name_malayalam
+    juz_name_telugu
+    juz_name_urdu
     surah_verses_start
     surah_verses_end
     total_verses
@@ -468,7 +471,7 @@ query Query(\$masjidId: ID) {
     // print("lllll");
     log("data juz ${json.encode(res)}");
     isLoadings.value = false;
-    getquranjuz.value = quranjuzModelFromJson(json.encode(res));
+    getquranjuz.value = quranJuzModelFromJson(json.encode(res));
 
     update();
   }
@@ -476,7 +479,7 @@ query Query(\$masjidId: ID) {
   quranjuzdetailList(index) async {
     isLoadingsJuz.value = true;
     var header = """
-query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
+query Get_Quran_Juz_Verses_List(\$juzChapterNo: String) {
   Get_Quran_Juz_Verses_List(juz_chapter_no: \$juzChapterNo) {
     juz_chapter_no
     juz_name_arb
@@ -486,14 +489,22 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     total_verses
     ayah_list {
       sura_chapter_no
-      verses_key
-      arabic_text
-      arabic_audio
-      eng_translation
-      tamil_translation
-      hindi_translation
       ayah_no
+      arabic_text
+      verses_key
+      arabic_audio
+      tamil_translation
+      eng_translation
+      hindi_translation
+      malayalam_translation
+      telugu_translation
+      urdu_translation
     }
+    juz_name_tamil
+    juz_name_hindi
+    juz_name_malayalam
+    juz_name_telugu
+    juz_name_urdu
   }
 }
     """;
@@ -508,7 +519,7 @@ query Get_Quran_Juz_Chapter(\$juzChapterNo: String) {
     // print("lllll");
     log("data data ${json.encode(res)}");
     isLoadingsJuz.value = false;
-    getquranjuzdetail.value = quranjuzdetailModelFromJson(json.encode(res));
+    getquranjuzdetail.value = quranJuzDetailModelFromJson(json.encode(res));
     Get.to(QuranJuzDetails());
     update();
   }

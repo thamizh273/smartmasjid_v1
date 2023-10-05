@@ -34,9 +34,7 @@ class EventsView extends StatelessWidget {
                   text: 'upcoming_events'.tr,
                   size: f2,
                   weight: FontWeight.bold,
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
+                  color:Get.theme.hoverColor,
                 ),
                 Expanded(
                   child: ListView.builder(
@@ -47,6 +45,7 @@ class EventsView extends StatelessWidget {
                       var data=homectrl.eventsData.value.getMasjidEvents![index];
                       var image=base64Decode(data.image.toString());
                       return Card(
+                        color: Colors.white,
                         elevation: 5,
                         margin: EdgeInsets.symmetric(vertical: 5),
 
@@ -101,10 +100,12 @@ class EventsView extends StatelessWidget {
                                             Icon(
                                               Icons.location_on_sharp,
                                               size: f2,
+                                              color: Get.theme.primaryColor,
                                             ),
                                             Stxt(
                                               text: "${data.masjidId!.masjidName}",
                                               size: f0,
+                                              color: Get.theme.primaryColor,
                                             )
                                           ],
                                         ),
@@ -114,11 +115,13 @@ class EventsView extends StatelessWidget {
                                           Icon(
                                             Icons.access_time_sharp,
                                             size: f2,
+                                            color: Get.theme.primaryColor,
                                           ),
                                           5.horizontalSpace,
                                           Stxt(
                                             text:  DateFormat('MMM d, y - h:mm a').format(DateTime.parse("${data.startTime!.toLocal()}")),
                                             size: f0,
+                                            color: Get.theme.primaryColor,
                                           )
                                         ],
                                       ),
@@ -133,17 +136,17 @@ class EventsView extends StatelessWidget {
                                             width: 80.w,
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.circular(4),
-                                              border: Border.all(color: Get.theme.hoverColor),
+                                              border: Border.all(color: Get.theme.primaryColor),
                                               color: Colors.white
                                             ),
                                             child: Row(
                                               children: [
                                                 2.horizontalSpace,
-                                                Icon(Icons.notifications_active, size: 15,),
+                                                Icon(Icons.notifications_active, size: 15,color: Get.theme.primaryColor,),
                                                 3.horizontalSpace,
                                                 Stxt(text: 'Notify me'.tr,
                                                         size: f1,
-                                                        color: Get.theme.hoverColor, weight: FontWeight.bold,),
+                                                        color: Get.theme.primaryColor, weight: FontWeight.bold,),
                                               ],
                                             ),
 

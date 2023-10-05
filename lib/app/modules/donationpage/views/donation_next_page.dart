@@ -56,7 +56,7 @@ class DonationAmount extends StatelessWidget {
                   Stxt(
                     text: "$ago days left",
                     size: f1,
-                    color: Colors.black.withOpacity(0.5),
+                    color:Get.theme.hoverColor.withOpacity(0.5),
                   ),
                 ],
               ),
@@ -71,7 +71,7 @@ class DonationAmount extends StatelessWidget {
                 text: "₹${data.donationRaisedAmount!.round()}",
                 size: f5,
                 weight: FontWeight.w600,
-                color: Theme.of(context).primaryColor,
+                color: Get.theme.hoverColor,
               ),
               16.verticalSpace,
               LinearPercentIndicator(
@@ -91,7 +91,7 @@ class DonationAmount extends StatelessWidget {
                     text: "₹${data.collectionAmount!.round()}",
                     size: f3,
                     weight: FontWeight.w500,
-                    color: Theme.of(context).primaryColor,
+                    color: Get.theme.hoverColor,
                   ),
                   Spacer(),
                   Stxt(
@@ -129,14 +129,14 @@ class DonationAmount extends StatelessWidget {
                   Stxt(
                     text: "suggested".tr,
                     size: f4,
-                    color: Theme.of(context).primaryColor,
+                    color: Get.theme.hoverColor,
                     weight: FontWeight.w500,
                   ),
                   8.horizontalSpace,
                   Container(
                     decoration: BoxDecoration(
                         border:
-                            Border.all(color: Theme.of(context).primaryColor),
+                            Border.all(color: Get.theme.hoverColor),
                         borderRadius: BorderRadius.circular(4)),
                     child: Padding(
                       padding: const EdgeInsets.all(4),
@@ -149,7 +149,7 @@ class DonationAmount extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                         border:
-                            Border.all(color: Theme.of(context).primaryColor),
+                            Border.all(color: Get.theme.hoverColor),
                         borderRadius: BorderRadius.circular(4)),
                     child: Padding(
                       padding: const EdgeInsets.all(4),
@@ -162,7 +162,7 @@ class DonationAmount extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                         border:
-                            Border.all(color: Theme.of(context).primaryColor),
+                            Border.all(color: Get.theme.hoverColor),
                         borderRadius: BorderRadius.circular(4)),
                     child: Padding(
                       padding: const EdgeInsets.all(4),

@@ -56,7 +56,8 @@ class ThemeService {
     colorScheme: ColorScheme.fromSwatch(primarySwatch: primarycolor)
         .copyWith(background: Colors.white)
         .copyWith(secondary: Color(0xffD2D1D1))
-        .copyWith(primary: accentcolor),
+        .copyWith(primary: accentcolor)
+    .copyWith(primaryContainer: Color(0xff11323B)),
     primaryColor: primarycolor,
     hoverColor: primarycolor,
     highlightColor: Colors.grey.shade400,
@@ -68,13 +69,15 @@ class ThemeService {
     scaffoldBackgroundColor: Color(0xffD8E4E8),
     dividerColor: Colors.black12,
     shadowColor: Colors.black.withOpacity(0.07),
+
   );
 
   final darkTheme = ThemeData.dark().copyWith(
     colorScheme: ColorScheme.fromSwatch(primarySwatch: accentcolor)
-        .copyWith(background: Color(0xffD8E4E8))
+        .copyWith(background: primarycolor)
         .copyWith(secondary: Color(0xffD8E4E8))
-        .copyWith(primary: accentcolor),
+        .copyWith(primary: accentcolor)
+    .copyWith(primaryContainer:Color(0xffD8E4E8) ),
     hoverColor: Color(0xffD8E4E8),
     highlightColor: Colors.transparent,
     focusColor: Color(0xffD8E4E8),

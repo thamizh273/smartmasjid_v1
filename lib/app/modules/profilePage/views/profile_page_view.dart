@@ -36,7 +36,7 @@ class ProfilePageView extends GetView<EditProfileController> {
     {
       'name': "my_masjid".tr,
       'icon': SvgPicture.asset(
-        'assets/icons/masjid_icon.svg', color: Get.theme.primaryColor,),
+        'assets/icons/masjid_icon.svg', color: Get.theme.hoverColor,),
       "page": MymasjidpageView()
     },
     {'name': "activities".tr, 'icon': Icon(Icons.history),
@@ -263,7 +263,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                       .primaryColor,
                   leading: IconButton(onPressed: () {},
                     icon: i['icon'],
-                    color: Get.theme.primaryColor,),
+                    color: Get.theme.hoverColor,),
                   title: Stxt(
                     text: '${i['name']}',
                     size: f3,
@@ -274,6 +274,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                       icon: Icon(
                         Icons.arrow_forward_ios_rounded,
                         size: 20,
+                        color: Get.theme.hoverColor,
                       )),
                 ),
                 Divider(
@@ -378,7 +379,7 @@ class ProfilePageView extends GetView<EditProfileController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.login_outlined, color: Get.theme.primaryColor,),
+                Icon(Icons.login_outlined, color: Get.theme.hoverColor,),
                 SizedBox(
                   width: 5,
                 ),
@@ -389,7 +390,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                         : 'logout'.tr,
                     size: f3,
                     weight: FontWeight.bold,
-                    color: Get.theme.primaryColor,
+                    color: Get.theme.hoverColor,
                   );
                 }),
               ],

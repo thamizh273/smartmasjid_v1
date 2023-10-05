@@ -45,6 +45,7 @@ class QuranDetails extends StatelessWidget {
       return quranPageCtrl_.isLoadings.value ? loading(context) : Scaffold(
         key: quranPageCtrl_.scaffoldKey,
         endDrawer: Drawer(
+          backgroundColor: Get.theme.scaffoldBackgroundColor,
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: SingleChildScrollView(
@@ -68,7 +69,7 @@ class QuranDetails extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff16627C)),
+                        color: Get.theme.hoverColor),
                   ),
                   Space(8),
                   Column(
@@ -138,7 +139,7 @@ class QuranDetails extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff16627C)),
+                        color: Get.theme.hoverColor),
                   ),
                   Space(16),
                   Row(
@@ -244,7 +245,7 @@ class QuranDetails extends StatelessWidget {
                               List<RxBool> checkedStates = List.generate(featuredLanguages.length, (_) => RxBool(false));
                               return Container(
                               decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: Get.theme.scaffoldBackgroundColor,
                                   borderRadius:
                                   BorderRadius.only(
                                       topLeft: Radius
@@ -259,9 +260,7 @@ class QuranDetails extends StatelessWidget {
                                     Stxt(text: "Add Language",
                                       size: f4,
                                       weight: FontWeight.w600,
-                                      color: Theme
-                                          .of(context)
-                                          .primaryColor,),
+                                      color: Get.theme.hoverColor),
                                     Space(4),
                                     Safa_textfield(
                                       hint: "Search",
@@ -282,9 +281,7 @@ class QuranDetails extends StatelessWidget {
                                              Stxt(text: "Downloads",
                                                size: f4,
                                                weight: FontWeight.w600,
-                                               color: Theme
-                                                   .of(context)
-                                                   .primaryColor,),
+                                               color: Get.theme.hoverColor),
                                            ],
                                          ),
                                          Space(8),
@@ -399,9 +396,7 @@ class QuranDetails extends StatelessWidget {
                                              Stxt(text: "Featured Languages",
                                                size: f4,
                                                weight: FontWeight.w600,
-                                               color: Theme
-                                                   .of(context)
-                                                   .primaryColor,),
+                                               color: Get.theme.hoverColor),
                                            ],
                                          ),
                                          ListView.builder(
@@ -468,9 +463,7 @@ class QuranDetails extends StatelessWidget {
                     child: Center(
                       child: Stxt(
                         text: "+ Add Language", size: f2, weight: FontWeight
-                          .w600, color: Theme
-                          .of(context)
-                          .primaryColor,),
+                          .w600, color: Get.theme.hoverColor,),
                     ),
                   ),
                   Space(8),
@@ -483,7 +476,7 @@ class QuranDetails extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff16627C)),
+                        color: Get.theme.hoverColor),
                   ),
 
                   Column(
@@ -824,14 +817,16 @@ class QuranDetails extends StatelessWidget {
             ),
           ),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Get.theme.colorScheme.background,
         appBar: CustomAppbar(
           tittle: "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].titleArb}",
           action: [
             Row(
               children: [
                 GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      ThemeService().changeTheme();
+                    },
                     child: SvgPicture.asset("assets/svg/darkmode.svg")),
                 Space(20),
                 GestureDetector(
@@ -1138,9 +1133,7 @@ class QuranDetails extends StatelessWidget {
                                           Text(
                                             "${sura.versesKey}",
                                             style: TextStyle(
-                                                color: Theme
-                                                    .of(context)
-                                                    .primaryColor,
+                                                color: Get.theme.hoverColor,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 18),
                                           ),
@@ -1172,9 +1165,7 @@ class QuranDetails extends StatelessWidget {
                                           Space(40),
                                           Icon(
                                             Icons.play_circle,
-                                            color: Theme
-                                                .of(context)
-                                                .primaryColor,
+                                            color: Get.theme.hoverColor,
                                           ),
                                           Space(12),
                                           GestureDetector(
@@ -1216,12 +1207,8 @@ class QuranDetails extends StatelessWidget {
                                                         .getQuranAyahVerse![0]
                                                         .suraNameEn} ${sura
                                                         .versesKey}")
-                                                    ? Theme
-                                                    .of(context)
-                                                    .primaryColor
-                                                    : Theme
-                                                    .of(context)
-                                                    .primaryColor, // Use different colors for bookmarked and not bookmarked states
+                                                    ? Get.theme.hoverColor
+                                                    : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
                                               );
                                             }),
                                           ),
@@ -1568,6 +1555,7 @@ class QuranDetails extends StatelessWidget {
                                         "assets/images/qurandivider.png",
                                         scale: 4,
                                         width: 310.w,
+                                        color: Get.theme.hoverColor,
                                       )
                                     ],
                                   ),

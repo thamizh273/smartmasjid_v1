@@ -112,6 +112,7 @@ class SelectMonth extends StatelessWidget {
                                               text: DateFormat('MMM y').format(DateTime.parse("${data.monthDue!}").toLocal()),
                                               size: f2,
                                               weight: FontWeight.w500,
+                                              color: Get.theme.primaryColor,
                                             ),
                                             data.paymentStatus == 'paid'
                                                 ? Container()
@@ -126,6 +127,7 @@ class SelectMonth extends StatelessWidget {
                                                 child: Obx(() {
                                                   return IgnorePointer(
                                                     child: Checkbox(
+                                                      focusColor: Get.theme.primaryColor,
                                                       activeColor:
                                                       Get.theme.primaryColor,
                                                       checkColor: Colors.white,
@@ -159,7 +161,7 @@ class SelectMonth extends StatelessWidget {
                                         children: [
                                           Stxt(text: data.paymentStatus == 'paid'
                                               ? "Paid"
-                                              : "UnPaid", size: f2),
+                                              : "UnPaid", size: f2, color: Get.theme.primaryColor,),
                                           Space(8),
                                           SvgPicture.asset(
                                               "assets/svg/${data.paymentStatus}.svg",
@@ -197,7 +199,7 @@ class SelectMonth extends StatelessWidget {
                           blurRadius: 2,
                           spreadRadius: 2,
                           offset: Offset(0, 4),
-                          color: Colors.grey.shade400
+                          color: Get.theme.shadowColor
                       )
                     ]
                 ),

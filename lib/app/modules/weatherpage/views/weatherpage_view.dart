@@ -14,7 +14,7 @@ import '../../../../utils/color_utils.dart';
 class WeatherpageView extends StatelessWidget {
   WeatherpageView({super.key});
 
-  WeatherpageController c = Get.put(WeatherpageController());
+  final WeatherpageController c = Get.put(WeatherpageController());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class WeatherpageView extends StatelessWidget {
                         blurRadius: 6,
                         spreadRadius: 6,
                         offset: Offset(0, 4),
-                        color: Colors.grey.shade400)
+                        color: Get.theme.shadowColor)
                   ],
                   borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(32),
@@ -263,16 +263,12 @@ class WeatherpageView extends StatelessWidget {
                               text: "View all",
                               size: f3,
                               weight: FontWeight.w500,
-                              color: Theme
-                                  .of(context)
-                                  .primaryColor,
+                              color: Get.theme.hoverColor,
                             ),
                             Icon(
                               Icons.arrow_forward_ios_outlined,
                               size: 15,
-                              color: Theme
-                                  .of(context)
-                                  .primaryColor,
+                              color: Get.theme.hoverColor,
                             )
                           ],
                         )),
@@ -347,7 +343,7 @@ class FutureDay extends StatelessWidget {
       duration: Duration(milliseconds: 300),
       width: 80.w,
       decoration: BoxDecoration(
-        boxShadow: [BoxShadow(color: Colors.grey.shade400,spreadRadius: 1,blurRadius: 2,offset: Offset(2,4))],
+        boxShadow: [BoxShadow(color: Get.theme.shadowColor,spreadRadius: 1,blurRadius: 2,offset: Offset(2,4))],
           borderRadius: BorderRadius.circular(16), color: Color(0xffD9D9D9)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

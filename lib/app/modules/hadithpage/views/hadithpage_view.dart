@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/hadithpage/hadith_chapter.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
-import 'package:smartmasjid_v1/app/modules/home/widgets/mediumCard.dart';
-import 'package:smartmasjid_v1/app/modules/home/widgets/smallCard.dart';
 import 'package:smartmasjid_v1/widgets/hadith_card.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../widgets/space.dart';
-import '../../../routes/app_pages.dart';
 import '../controllers/hadithpage_controller.dart';
 
 class HadithpageView extends GetView<HadithpageController> {
@@ -29,7 +24,7 @@ class HadithpageView extends GetView<HadithpageController> {
           ],
         ),
         body: Obx(() {
-          return hadithcntrl.isLoadings1.value ? loading(context) : ListView.builder(
+          return hadithcntrl.isLoadings.value ? loading(context) : ListView.builder(
               physics: BouncingScrollPhysics(),
               itemCount: hadithcntrl.gethadithdata.value.getHadithsCollection!.length,
               itemBuilder: (context, index) {
@@ -51,8 +46,8 @@ class HadithpageView extends GetView<HadithpageController> {
                         color: Colors.red
                     ),
                     onTap: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => HadithChapter()));
+                      hadithcntrl.hadithChapters(hadith.collectionNameEn);
+                      Get.to(HadithChapter());
                     },),
                 );
               }

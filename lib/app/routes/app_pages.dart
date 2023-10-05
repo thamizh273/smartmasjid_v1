@@ -224,7 +224,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MASJIDHISTORY,
-      page: () => const MasjidhistoryView(),
+      page: () =>  MasjidhistoryView(),
       binding: MasjidhistoryBinding(),
     ),
     GetPage(

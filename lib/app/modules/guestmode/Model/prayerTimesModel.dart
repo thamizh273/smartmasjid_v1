@@ -1,101 +1,119 @@
 // To parse this JSON data, do
 //
-//     final prayerTimeModel = prayerTimeModelFromJson(jsonString);
+//     final guestPrayerModel = guestPrayerModelFromJson(jsonString);
 
 import 'dart:convert';
 
-PrayerTimeModel prayerTimeModelFromJson(String str) => PrayerTimeModel.fromJson(json.decode(str));
+GuestPrayerModel guestPrayerModelFromJson(String str) => GuestPrayerModel.fromJson(json.decode(str));
 
-String prayerTimeModelToJson(PrayerTimeModel data) => json.encode(data.toJson());
+String guestPrayerModelToJson(GuestPrayerModel data) => json.encode(data.toJson());
 
-class PrayerTimeModel {
+class GuestPrayerModel {
   String? typename;
-  GetTodayMasjidPrayerTime? getTodayMasjidPrayerTime;
+  GetPrayerTimeGuest? getPrayerTimeGuest;
 
-  PrayerTimeModel({
+  GuestPrayerModel({
     this.typename,
-    this.getTodayMasjidPrayerTime,
+    this.getPrayerTimeGuest,
   });
 
-  factory PrayerTimeModel.fromJson(Map<String, dynamic> json) => PrayerTimeModel(
+  factory GuestPrayerModel.fromJson(Map<String, dynamic> json) => GuestPrayerModel(
     typename: json["__typename"],
-    getTodayMasjidPrayerTime: json["Get_Today_Masjid_Prayer_Time"] == null ? null : GetTodayMasjidPrayerTime.fromJson(json["Get_Today_Masjid_Prayer_Time"]),
+    getPrayerTimeGuest: json["Get_Prayer_Time_guest"] == null ? null : GetPrayerTimeGuest.fromJson(json["Get_Prayer_Time_guest"]),
   );
 
   Map<String, dynamic> toJson() => {
     "__typename": typename,
-    "Get_Today_Masjid_Prayer_Time": getTodayMasjidPrayerTime?.toJson(),
+    "Get_Prayer_Time_guest": getPrayerTimeGuest?.toJson(),
   };
 }
 
-class GetTodayMasjidPrayerTime {
+class GetPrayerTimeGuest {
   String? typename;
-  List<TodayPrayerList>? todayPrayerList;
+  Prayer? prayer;
+  String? city;
+  String? currentDate;
   String? todayHijriDate;
 
-  GetTodayMasjidPrayerTime({
+  GetPrayerTimeGuest({
     this.typename,
-    this.todayPrayerList,
+    this.prayer,
+    this.city,
+    this.currentDate,
     this.todayHijriDate,
   });
 
-  factory GetTodayMasjidPrayerTime.fromJson(Map<String, dynamic> json) => GetTodayMasjidPrayerTime(
+  factory GetPrayerTimeGuest.fromJson(Map<String, dynamic> json) => GetPrayerTimeGuest(
     typename: json["__typename"],
-    todayPrayerList: json["today_prayer_list"] == null ? [] : List<TodayPrayerList>.from(json["today_prayer_list"]!.map((x) => TodayPrayerList.fromJson(x))),
+    prayer: json["prayer"] == null ? null : Prayer.fromJson(json["prayer"]),
+    city: json["city"],
+    currentDate: json["current_date"],
     todayHijriDate: json["today_hijri_date"],
   );
 
   Map<String, dynamic> toJson() => {
     "__typename": typename,
-    "today_prayer_list": todayPrayerList == null ? [] : List<dynamic>.from(todayPrayerList!.map((x) => x.toJson())),
+    "prayer": prayer?.toJson(),
+    "city": city,
+    "current_date": currentDate,
     "today_hijri_date": todayHijriDate,
   };
 }
 
-class TodayPrayerList {
-  String? typename;
-  DateTime? endTime;
-  String? id;
-  dynamic image;
-  String? masjidId;
-  bool? notification;
-  String? prayerName;
-  String? prayerStatus;
-  DateTime? startTime;
+class Prayer {
+  String? fajr;
+  String? sunrise;
+  String? dhuhr;
+  String? asr;
+  String? sunset;
+  String? maghrib;
+  String? isha;
+  String? imsak;
+  String? midnight;
+  String? firstthird;
+  String? lastthird;
 
-  TodayPrayerList({
-    this.typename,
-    this.endTime,
-    this.id,
-    this.image,
-    this.masjidId,
-    this.notification,
-    this.prayerName,
-    this.prayerStatus,
-    this.startTime,
+  Prayer({
+    this.fajr,
+    this.sunrise,
+    this.dhuhr,
+    this.asr,
+    this.sunset,
+    this.maghrib,
+    this.isha,
+    this.imsak,
+    this.midnight,
+    this.firstthird,
+    this.lastthird,
   });
 
-  factory TodayPrayerList.fromJson(Map<String, dynamic> json) => TodayPrayerList(
-    typename: json["__typename"],
-    endTime: json["end_time"] == null ? null : DateTime.parse(json["end_time"]),
-    id: json["id"],
-    image: json["image"],
-    masjidId: json["masjid_id"],
-    notification: json["notification"],
-    prayerName: json["prayer_name"],
-    prayerStatus: json["prayer_status"],
-    startTime: json["start_time"] == null ? null : DateTime.parse(json["start_time"]),
-  );
+  factory Prayer.fromJson(Map<String, dynamic> json) =>
+      Prayer(
+        fajr: json["Fajr"],
+        sunrise: json["Sunrise"],
+        dhuhr: json["Dhuhr"],
+        asr: json["Asr"],
+        sunset: json["Sunset"],
+        maghrib: json["Maghrib"],
+        isha: json["Isha"],
+        imsak: json["Imsak"],
+        midnight: json["Midnight"],
+        firstthird: json["Firstthird"],
+        lastthird: json["Lastthird"],
+      );
 
-  Map<String, dynamic> toJson() => {
-    "__typename": typename,
-    "end_time": endTime?.toIso8601String(),
-    "id": id,
-    "image": image,
-    "masjid_id": masjidId,
-    "notification": notification,
-    "prayer_name": prayerName,
-    "prayer_status": prayerStatus,
-    "start_time": startTime?.toIso8601String(),
-  };
+  Map<String, dynamic> toJson() =>
+      {
+        "Fajr": fajr,
+        "Sunrise": sunrise,
+        "Dhuhr": dhuhr,
+        "Asr": asr,
+        "Sunset": sunset,
+        "Maghrib": maghrib,
+        "Isha": isha,
+        "Imsak": imsak,
+        "Midnight": midnight,
+        "Firstthird": firstthird,
+        "Lastthird": lastthird,
+      };
 }

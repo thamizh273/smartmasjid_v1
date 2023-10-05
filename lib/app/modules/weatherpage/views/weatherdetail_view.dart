@@ -39,7 +39,7 @@ class WeatherdetailView extends StatelessWidget {
                             blurRadius: 6,
                             spreadRadius: 6,
                             offset: Offset(0, 4),
-                            color: Colors.grey.shade400)
+                            color: Get.theme.shadowColor)
                       ],
                       borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(32),
@@ -293,7 +293,7 @@ class WeatherdetailView extends StatelessWidget {
                   spreadRadius: 4,
                   blurRadius: 4,
                   offset: Offset(0, 4),
-                  color: Colors.grey.shade400)
+                  color: Get.theme.shadowColor)
             ]),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -327,7 +327,7 @@ class WeatherdetailView extends StatelessWidget {
                     weight: FontWeight.w600,
                   ),
                   Space(16),
-                  Stxt(text: "${wind}kph", size: f3),
+                  Stxt(text: "${wind}kph", size: f3, color: Get.theme.primaryColor,),
                 ],
               ),
               Space(16),
@@ -342,7 +342,7 @@ class WeatherdetailView extends StatelessWidget {
                     weight: FontWeight.w600,
                   ),
                   Space(16),
-                  Stxt(text: "${rain}%", size: f3),
+                  Stxt(text: "${rain}%", size: f3, color: Get.theme.primaryColor),
                 ],
               ),
               Space(16),
@@ -357,7 +357,7 @@ class WeatherdetailView extends StatelessWidget {
                     weight: FontWeight.w600,
                   ),
                   Space(16),
-                  Stxt(text: "${humidity}%", size: f3),
+                  Stxt(text: "${humidity}%", size: f3, color: Get.theme.primaryColor),
                 ],
               ),
               Spacer(),
@@ -373,7 +373,7 @@ class WeatherdetailView extends StatelessWidget {
                   SizedBox(width: 100,
                       child: Stxt(text: "${condition}",
                         size: f2,
-                        textAlign: TextAlign.center,))
+                        textAlign: TextAlign.center, color: Get.theme.primaryColor ))
                 ],
               )
             ],

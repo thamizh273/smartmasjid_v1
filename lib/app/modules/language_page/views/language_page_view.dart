@@ -24,7 +24,7 @@ class LanguagePageView extends GetView<LanguagePageController> {
               width: .9.sw,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color: Theme.of(context).colorScheme.secondary,
+                color: Colors.white,
               ),
               child: Padding(
                 padding: EdgeInsets.all(25.sp),
@@ -36,11 +36,19 @@ class LanguagePageView extends GetView<LanguagePageController> {
                       size: f5,
                       weight: FontWeight.w600,
                       maxLines: 1,
+                      color: Get.theme.primaryColor,
                     ),
 
                     Padding(
                       padding: EdgeInsets.only(top: 30.h, bottom: 8.h),
                       child: SafaDropdownButton2(
+                        dropdownDecoration: BoxDecoration(
+                          color: Get.theme.scaffoldBackgroundColor,
+
+                        ),
+                        buttonDecoration: BoxDecoration(
+                          color: Get.theme.primaryColor.withOpacity(0.3)
+                        ),
                         dropdownElevation: 10,
                         dropdownWidth: 260.w,
                         buttonHeight: 40.h,
@@ -140,7 +148,7 @@ class LanguagePageView extends GetView<LanguagePageController> {
                     //   hinttext: 'Select your language',
                     // ),
                     Space(16),
-                    Text("you can change it from settings anytime".tr),
+                    Text("you can change it from settings anytime".tr, style: TextStyle(color: Get.theme.primaryColor),),
                     Space(16),
                     Flexible(
                       flex: 1,
@@ -152,9 +160,8 @@ class LanguagePageView extends GetView<LanguagePageController> {
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(100, 30),
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          foregroundColor:
-                              Theme.of(context).colorScheme.secondary,
+                          backgroundColor: Get.theme.primaryColor,
+                          foregroundColor:Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),
