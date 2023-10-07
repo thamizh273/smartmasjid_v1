@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
+import 'package:smartmasjid_v1/app/routes/export.dart';
 
 import '../../home/controllers/home_controller.dart';
 
@@ -7,7 +8,7 @@ class SettingspageController extends GetxController {
   //TODO: Implement SettingspageController
 
 
-  RxBool switchValue = false.obs;
+  RxBool switchValue = ThemeService().isSavedDarkMode().obs;
   final langctl=Get.find<LanguagePageController>();
 
   @override

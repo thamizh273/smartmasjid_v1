@@ -190,8 +190,7 @@ class HomeView extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => MasjidHistory()));
+                  Get.to(MasjidhistoryView());
                 },
                 child: ListTile(
                   title: Row(
@@ -841,7 +840,7 @@ class HomeView extends StatelessWidget {
                         children: [
                           InkWell(
                               onTap: () {
-                                Get.toNamed(Routes.MASJIDNEARME);
+                               Get.to(CustomMarketInfoWindow());
                               },
                               child: SvgPicture.asset(
                                 "assets/svg/masjidbot.svg",

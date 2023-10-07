@@ -48,14 +48,14 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(width: 130.w, child: Stxt(text: "Masjid-e-nooraniya", size: f5, weight: FontWeight.w500,)),
+                              SizedBox(width: 130.w, child: Stxt(text: "Masjid-e-nooraniya", size: f5, weight: FontWeight.w500, color:Get.theme.primaryColor)),
                               Space(8),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Icon(Icons.location_on),
                                   Space(4),
-                                  Stxt(text: "Muthiyalpet", size: f3, ),
+                                  Stxt(text: "Muthiyalpet", size: f3, color:Get.theme.primaryColor),
                                 ],
                               ),
                             ],
@@ -69,15 +69,15 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
                         "KottakuppamBusthaniya Masjid for their prayers.On considering the difficulty, "
                         "Marhoom Janab Abdul Hammed was kind enough to spare a room of his house to convert "
                         "into a prayer hall for offering prayer. In the same room, a Madrassa for small children was also conducted."
-                    , size: f2, textAlign: TextAlign.start,),
+                    , size: f2, textAlign: TextAlign.start,color:Get.theme.primaryColor),
                     Space(16),
                     Row(
                       children: [
-                        Stxt(text: "joined_on".tr, size: f3, weight: FontWeight.w500,),
-                        Stxt(text: ": Jan 2020".tr, size: f3, weight: FontWeight.w500,),
+                        Stxt(text: "joined_on".tr, size: f3, weight: FontWeight.w500,color:Get.theme.primaryColor),
+                        Stxt(text: ": Jan 2020".tr, size: f3, weight: FontWeight.w500,color:Get.theme.primaryColor),
                         Spacer(),
-                        Stxt(text: "members".tr, size: f3, weight: FontWeight.w400,),
-                        Stxt(text: ": 198", size: f3, weight: FontWeight.w400,),
+                        Stxt(text: "members".tr, size: f3, weight: FontWeight.w400,color:Get.theme.primaryColor),
+                        Stxt(text: ": 198", size: f3, weight: FontWeight.w400,color:Get.theme.primaryColor),
                       ],
                     )
                   ],
@@ -99,7 +99,7 @@ class MymasjidpageView extends GetView<MymasjidpageController> {
             //     ),
             //     child: Text("Add Masjid", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
             Spacer(),
-            Stxt(text: "note:if_you_join_another_masjid_you_need_to_pay_membership_for_that_masjid_too".tr, size: f2, textAlign: TextAlign.center,)
+            Stxt(text: "note:if_you_join_another_masjid_you_need_to_pay_membership_for_that_masjid_too".tr, size: f2, textAlign: TextAlign.center,color:Get.theme.primaryColor)
           ],
         ),
       ),

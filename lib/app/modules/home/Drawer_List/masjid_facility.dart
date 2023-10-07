@@ -133,7 +133,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/prayerhall.svg"),
+                                          "assets/svg/prayer halls.svg"),
                                       Space(4),
                                       Stxt(text: "Prayer Halls",
                                         size: f3,
@@ -192,7 +192,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fullyfac.svg"),
+                                          "assets/svg/fully carpeted.svg"),
                                       Space(4),
                                       Stxt(text: "Fully Carpeted",
                                         size: f3,
@@ -219,7 +219,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/audiofac.svg"),
+                                          "assets/svg/audio system for salah.svg"),
                                       Space(4),
                                       Stxt(text: "Audio System",
                                         size: f3,
@@ -285,7 +285,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/acfac.svg"),
+                                          "assets/svg/air conditioned (ac).svg"),
                                       Space(6),
                                       Stxt(text: "Air Conditioned (AC)",
                                         size: f3,
@@ -318,7 +318,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fanfac.svg"),
+                                          "assets/svg/fans.svg"),
                                       Space(6),
                                       Stxt(text: "Fan & Light",
                                         size: f3,
@@ -431,7 +431,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/prayerhall.svg"),
+                                          "assets/svg/prayer halls.svg"),
                                       Space(4),
                                       Stxt(text: "Prayer Halls",
                                         size: f3,
@@ -490,7 +490,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fullyfac.svg"),
+                                          "assets/svg/fully carpeted.svg"),
                                       Space(4),
                                       Stxt(text: "Fully Carpeted",
                                         size: f3,
@@ -517,7 +517,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/audiofac.svg"),
+                                          "assets/svg/audio system for salah.svg"),
                                       Space(4),
                                       Stxt(text: "Audio System",
                                         size: f3,
@@ -583,7 +583,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/acfac.svg"),
+                                          "assets/svg/air conditioned (ac).svg"),
                                       Space(6),
                                       Stxt(text: "Air Conditioned (AC)",
                                         size: f3,
@@ -616,7 +616,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fanfac.svg"),
+                                          "assets/svg/fans.svg"),
                                       Space(6),
                                       Stxt(text: "Fan & Light",
                                         size: f3,
@@ -730,7 +730,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/prayerhall.svg"),
+                                          "assets/svg/prayer halls.svg"),
                                       Space(4),
                                       Stxt(text: "Prayer Halls",
                                         size: f3,
@@ -789,7 +789,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fullyfac.svg"),
+                                          "assets/svg/fully carpeted.svg"),
                                       Space(4),
                                       Stxt(text: "Fully Carpeted",
                                         size: f3,
@@ -816,7 +816,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/audiofac.svg"),
+                                          "assets/svg/audio system for salah.svg"),
                                       Space(4),
                                       Stxt(text: "Audio System",
                                         size: f3,
@@ -882,7 +882,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/acfac.svg"),
+                                          "assets/svg/air conditioned (ac).svg"),
                                       Space(6),
                                       Stxt(text: "Air Conditioned (AC)",
                                         size: f3,
@@ -915,7 +915,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fanfac.svg"),
+                                          "assets/svg/fans.svg"),
                                       Space(6),
                                       Stxt(text: "Fan & Light",
                                         size: f3,
@@ -1029,7 +1029,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/prayerhall.svg"),
+                                          "assets/svg/prayer halls.svg"),
                                       Space(4),
                                       Stxt(text: "Prayer Halls",
                                         size: f3,
@@ -1088,7 +1088,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fullyfac.svg"),
+                                          "assets/svg/fully carpeted.svg"),
                                       Space(4),
                                       Stxt(text: "Fully Carpeted",
                                         size: f3,
@@ -1115,7 +1115,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/audiofac.svg"),
+                                          "assets/svg/audio system for salah.svg"),
                                       Space(4),
                                       Stxt(text: "Audio System",
                                         size: f3,
@@ -1181,7 +1181,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/acfac.svg"),
+                                          "assets/svg/air conditioned (ac).svg"),
                                       Space(6),
                                       Stxt(text: "Air Conditioned (AC)",
                                         size: f3,
@@ -1214,7 +1214,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fanfac.svg"),
+                                          "assets/svg/fans.svg"),
                                       Space(6),
                                       Stxt(text: "Fan & Light",
                                         size: f3,
@@ -1328,7 +1328,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/prayerhall.svg"),
+                                          "assets/svg/prayer halls.svg"),
                                       Space(4),
                                       Stxt(text: "Prayer Halls",
                                         size: f3,
@@ -1387,7 +1387,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fullyfac.svg"),
+                                          "assets/svg/fully carpeted.svg"),
                                       Space(4),
                                       Stxt(text: "Fully Carpeted",
                                         size: f3,
@@ -1414,7 +1414,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/audiofac.svg"),
+                                          "assets/svg/audio system for salah.svg"),
                                       Space(4),
                                       Stxt(text: "Audio System",
                                         size: f3,
@@ -1480,7 +1480,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/acfac.svg"),
+                                          "assets/svg/air conditioned (ac).svg"),
                                       Space(6),
                                       Stxt(text: "Air Conditioned (AC)",
                                         size: f3,
@@ -1513,7 +1513,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fanfac.svg"),
+                                          "assets/svg/fans.svg"),
                                       Space(6),
                                       Stxt(text: "Fan & Light",
                                         size: f3,
@@ -1627,7 +1627,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/prayerhall.svg"),
+                                          "assets/svg/prayer halls.svg"),
                                       Space(4),
                                       Stxt(text: "Prayer Halls",
                                         size: f3,
@@ -1686,7 +1686,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fullyfac.svg"),
+                                          "assets/svg/fully carpeted.svg"),
                                       Space(4),
                                       Stxt(text: "Fully Carpeted",
                                         size: f3,
@@ -1713,7 +1713,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/audiofac.svg"),
+                                          "assets/svg/audio system for salah.svg"),
                                       Space(4),
                                       Stxt(text: "Audio System",
                                         size: f3,
@@ -1779,7 +1779,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/acfac.svg"),
+                                          "assets/svg/air conditioned (ac).svg"),
                                       Space(6),
                                       Stxt(text: "Air Conditioned (AC)",
                                         size: f3,
@@ -1812,7 +1812,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fanfac.svg"),
+                                          "assets/svg/fans.svg"),
                                       Space(6),
                                       Stxt(text: "Fan & Light",
                                         size: f3,
@@ -1925,7 +1925,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/prayerhall.svg"),
+                                          "assets/svg/prayer halls.svg"),
                                       Space(4),
                                       Stxt(text: "Prayer Halls",
                                         size: f3,
@@ -1984,7 +1984,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fullyfac.svg"),
+                                          "assets/svg/fully carpeted.svg"),
                                       Space(4),
                                       Stxt(text: "Fully Carpeted",
                                         size: f3,
@@ -2011,7 +2011,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/audiofac.svg"),
+                                          "assets/svg/audio system for salah.svg"),
                                       Space(4),
                                       Stxt(text: "Audio System",
                                         size: f3,
@@ -2077,7 +2077,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/acfac.svg"),
+                                          "assets/svg/air conditioned (ac).svg"),
                                       Space(6),
                                       Stxt(text: "Air Conditioned (AC)",
                                         size: f3,
@@ -2110,7 +2110,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fanfac.svg"),
+                                          "assets/svg/fans.svg"),
                                       Space(6),
                                       Stxt(text: "Fan & Light",
                                         size: f3,
@@ -2224,7 +2224,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/prayerhall.svg"),
+                                          "assets/svg/prayer halls.svg"),
                                       Space(4),
                                       Stxt(text: "Prayer Halls",
                                         size: f3,
@@ -2283,7 +2283,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fullyfac.svg"),
+                                          "assets/svg/fully carpeted.svg"),
                                       Space(4),
                                       Stxt(text: "Fully Carpeted",
                                         size: f3,
@@ -2310,7 +2310,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/audiofac.svg"),
+                                          "assets/svg/audio system for salah.svg"),
                                       Space(4),
                                       Stxt(text: "Audio System",
                                         size: f3,
@@ -2376,7 +2376,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/acfac.svg"),
+                                          "assets/svg/air conditioned (ac).svg"),
                                       Space(6),
                                       Stxt(text: "Air Conditioned (AC)",
                                         size: f3,
@@ -2409,7 +2409,7 @@ class MasjidFacility extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       SvgPicture.asset(
-                                          "assets/svg/fanfac.svg"),
+                                          "assets/svg/fans.svg"),
                                       Space(6),
                                       Stxt(text: "Fan & Light",
                                         size: f3,

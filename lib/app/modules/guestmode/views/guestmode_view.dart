@@ -30,6 +30,7 @@ import 'package:smartmasjid_v1/app/modules/masjidhistory/views/masjidhistory_vie
 import 'package:smartmasjid_v1/app/modules/mediapage/views/mediapage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/qiblafinderpage/views/qiblafinderpage_view.dart';
+import 'package:smartmasjid_v1/app/modules/register_login/views/register_login_view.dart';
 import 'package:smartmasjid_v1/app/modules/servicepage/views/servicepage_view.dart';
 import 'package:smartmasjid_v1/app/modules/specialdayspage/views/specialdayspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/zakathpage/views/zakathpage_view.dart';
@@ -185,184 +186,195 @@ class _GuestmodeViewState extends State<GuestmodeView> {
         ),
         key: controller.scaffoldKey,
         drawer: Drawer(
-          backgroundColor: Get.theme.scaffoldBackgroundColor,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                padding: const EdgeInsets.all(8),
-                margin: EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: Get.theme.hoverColor,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: SvgPicture.asset("assets/svg/slogonew.svg",
-                              height: 70.00, width: 80.00),
-                        ),
-                        Space(16),
-                        SizedBox(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            color: Get.theme.scaffoldBackgroundColor,
+            child: Column(
+              children: <Widget>[
+                DrawerHeader(
+                  padding: const EdgeInsets.all(8),
+                  margin: EdgeInsets.only(bottom: 8),
+                  decoration: BoxDecoration(
+                    color: Get.theme.hoverColor,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: SvgPicture.asset(
+                              "assets/svg/slogonew.svg",
+                              height: 70.00,
+                              width: 80.00,
+                            ),
+                          ),
+                          SizedBox(width: 16),
+                          SizedBox(
                             width: 0.45.sw,
-                            child: Stxt(
-                              text: "Ummati",
-                              size: f5,
-                              weight: FontWeight.w600,
-                              color: Get.theme.scaffoldBackgroundColor,))
-                      ],
-                    ),
-                  ],
+                            child: Text(
+                              "Ummati",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Get.theme.scaffoldBackgroundColor,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset("assets/svg/thememode.svg", color: Get.theme.hoverColor,),
-                        Space(16),
-                        Text("dark_Mode".tr,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                        Spacer(),
-                        Obx(() {
-                          return Switch(
-                            value: controller.switchValue.value,
-                            onChanged: (newValue) {
-                              controller.switchValue.value = newValue;
-                              ThemeService().changeTheme();
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset("assets/svg/thememode.svg", color: Get.theme.hoverColor,),
+                          Space(16),
+                          Text("dark_Mode".tr,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                          Spacer(),
+                          Obx(() {
+                            return Switch(
+                              value: controller.switchValue.value,
+                              onChanged: (newValue) {
+                                controller.switchValue.value = newValue;
+                                ThemeService().changeTheme();
 
-                            },
-                          );
-                        }),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Space(16),
-                    GestureDetector(
-                      onTap: (){
-                        Get.to(LanguageList());
-                      },
-                      child: Container(
+                              },
+                            );
+                          }),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Space(16),
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(LanguageList());
+                        },
+                        child: Container(
+                          child: Row(
+                            children: [
+                              SvgPicture.asset("assets/svg/language.svg", color: Get.theme.hoverColor,),
+                              Space(16),
+                              Text("language".tr,
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                              Spacer(),
+                              Icon(Icons.arrow_forward_ios),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Space(16),
+                      Row(
+                        children: [
+                          SvgPicture.asset("assets/svg/feedback.svg",color: Get.theme.hoverColor,),
+                          Space(16),
+                          Text("feedback".tr,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                          Spacer(),
+                          Icon(Icons.arrow_forward_ios),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Space(16),
+                      Row(
+                        children: [
+                          SvgPicture.asset("assets/svg/contact.svg", color: Get.theme.hoverColor,),
+                          Space(16),
+                          Text("contact".tr,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                          Spacer(),
+                          Icon(Icons.arrow_forward_ios),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Space(16),
+                      InkWell(
+                        onTap: (){
+                          showRatingDialog();
+                        },
                         child: Row(
                           children: [
-                            SvgPicture.asset("assets/svg/language.svg", color: Get.theme.hoverColor,),
-                            Space(16),
-                            Text("language".tr,
+                            SvgPicture.asset("assets/svg/rating.svg", color: Get.theme.hoverColor,),
+                            const Space(16),
+                            Text("rate_our_app".tr,
                               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                             Spacer(),
                             Icon(Icons.arrow_forward_ios),
                           ],
                         ),
                       ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Space(16),
-                    Row(
-                      children: [
-                        SvgPicture.asset("assets/svg/feedback.svg",color: Get.theme.hoverColor,),
-                        Space(16),
-                        Text("feedback".tr,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                        Spacer(),
-                        Icon(Icons.arrow_forward_ios),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Space(16),
-                    Row(
-                      children: [
-                        SvgPicture.asset("assets/svg/contact.svg", color: Get.theme.hoverColor,),
-                        Space(16),
-                        Text("contact".tr,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                        Spacer(),
-                        Icon(Icons.arrow_forward_ios),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Space(16),
-                    InkWell(
-                      onTap: (){
-                        showRatingDialog();
-                      },
-                      child: Row(
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Space(16),
+                      Row(
                         children: [
-                          SvgPicture.asset("assets/svg/rating.svg", color: Get.theme.hoverColor,),
-                          const Space(16),
-                          Text("rate_our_app".tr,
+                          SvgPicture.asset("assets/svg/versionew.svg", color: Get.theme.hoverColor,),
+                          Space(16),
+                          Text("version".tr,
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                           Spacer(),
                           Icon(Icons.arrow_forward_ios),
                         ],
                       ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Space(16),
-                    Row(
-                      children: [
-                        SvgPicture.asset("assets/svg/version.svg", color: Get.theme.hoverColor,),
-                        Space(16),
-                        Text("version".tr,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                        Spacer(),
-                        Icon(Icons.arrow_forward_ios),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Space(16),
-                    Row(
-                      children: [
-                        SvgPicture.asset("assets/svg/share.svg", color: Get.theme.hoverColor,),
-                        Space(16),
-                        Text("share".tr,
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                        Spacer(),
-                        Icon(Icons.arrow_forward_ios),
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                  ],
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Space(16),
+                      Row(
+                        children: [
+                          SvgPicture.asset("assets/svg/share.svg", color: Get.theme.hoverColor,),
+                          Space(16),
+                          Text("share".tr,
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                          Spacer(),
+                          Icon(Icons.arrow_forward_ios),
+                        ],
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              100.verticalSpace,
-              InkWell(
-                onTap: (){
-                  controller.guesttoken.remove("guest");
-                  Get.offAllNamed(AppPages.INITIAL);
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Stxt(text: "Exit Guest".tr,
-                      size: f3,
-                      weight: FontWeight.w600,
-                      color: Get.theme.hoverColor),
-                    Space(16),
-                    Icon(Icons.logout, color: Get.theme.hoverColor)
-                  ],
+               Spacer(),
+                InkWell(
+                  onTap: (){
+                    controller.guesttoken.remove("guest");
+                    Get.offAllNamed(AppPages.INITIAL);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Stxt(text: "Exit Guest".tr,
+                          size: f3,
+                          weight: FontWeight.w600,
+                          color: Get.theme.hoverColor),
+                      Space(16),
+                      Icon(Icons.logout, color: Get.theme.hoverColor)
+                    ],
+                  ),
                 ),
-              )
-            ],
+               Space(40)
+              ],
+            ),
           ),
         ),
         body: StreamBuilder<LocationData>(
@@ -408,8 +420,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                                   content:
                                                   'This is the content of the custom dialog box.',
                                                   onPressed: () {
-                                                    Navigator.pop(
-                                                        context); // Closes the dialog box when the button is pressed.
+                                                    Navigator.pop(context); // Closes the dialog box when the button is pressed.
                                                   },
                                                 );
                                               },
@@ -1115,8 +1126,9 @@ class Location_permission extends StatelessWidget {
 }
 
 class CustomDialogBox extends StatelessWidget {
-  TextEditingController pass = TextEditingController();
-  TextEditingController c = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController c = TextEditingController();
+  final GuestmodeController controller = Get.find<GuestmodeController>();
   final String title;
   final String content;
   final VoidCallback onPressed;
@@ -1153,6 +1165,48 @@ class CustomDialogBox extends StatelessWidget {
         children: [
           Image.asset("assets/images/guestmasjid.png", width: 200,),
           Text("Register with your Masjid to Join \n➽ MemberShip,\n➽ Donation\n➽ Services of Masjid", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),),
+          Space(16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: (){
+                  controller.guesttoken.remove("guest");
+                  Get.offAllNamed(Routes.REGISTER_LOGIN);
+                },
+                child: Container(
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: Get.theme.focusColor,
+                    borderRadius: BorderRadius.circular(4)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Center(child: Stxt(text: "Register", size: f3, color: Get.theme.primaryColor,)),
+                  ),
+                ),
+              ) ,
+              Space(16),
+              InkWell(
+                onTap: (){
+                  controller.guesttoken.remove("guest");
+                  Get.offAllNamed(Routes.REGISTER_LOGIN);
+                },
+                child: Container(
+                  width: 100.w,
+                  decoration: BoxDecoration(
+                    color: Get.theme.primaryColor,
+                    border: Border.all(color: Get.theme.focusColor),
+                      borderRadius: BorderRadius.circular(4)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Center(child: Stxt(text: "Login", size: f3, color: Get.theme.focusColor,)),
+                  ),
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

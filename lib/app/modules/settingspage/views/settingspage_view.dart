@@ -4,10 +4,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:rating_dialog/rating_dialog.dart';
+import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import 'package:smartmasjid_v1/app/modules/language_page/views/language_page_view.dart';
 
 import '../../../../theme/theme.dart';
 import '../../../../widgets/space.dart';
+import '../../guestmode/controllers/guestmode_controller.dart';
 import '../../home/widgets/appBar.dart';
 import '../../language_page/controllers/language_page_controller.dart';
 import '../controllers/settingspage_controller.dart';
@@ -24,9 +26,6 @@ class SettingsPageState extends State<SettingspageView> {
   final con = Get.put(LanguagePageController());
   final controller = Get.put(SettingspageController());
 
-  List<Settings> settingsList = [
-    Settings(image: "assets/svg/thememode.svg", text: "Language",)
-  ];
 
   void showRatingDialog() {
     // actual store listing review & rating
@@ -48,7 +47,9 @@ class SettingsPageState extends State<SettingspageView> {
     }
 
     final _dialog = RatingDialog(
-      starColor: Theme.of(context).primaryColor,
+      starColor: Theme
+          .of(context)
+          .primaryColor,
       initialRating: 1.0,
       // your app's name?
       title: Text(
@@ -93,144 +94,152 @@ class SettingsPageState extends State<SettingspageView> {
 
   @override
   Widget build(BuildContext context) {
+    var theme=Get.theme;
     return Scaffold(
       appBar: CustomAppbar(tittle: 'settings'.tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                SvgPicture.asset("assets/svg/thememode.svg", color: Get.theme.hoverColor,),
-                Space(16),
-                Text("dark_Mode".tr,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                Spacer(),
-                Obx(() {
-                  return Switch(
+        child: Obx(() {
+          return Column(
+            children: [
+              Row(
+                children: [
+
+                  SvgPicture.asset(
+
+                    "assets/svg/thememode.svg", color: theme.hoverColor,),
+                  Space(16),
+                  Text("dark_Mode".tr,
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),),
+                  Spacer(),
+                  Switch(
                     value: controller.switchValue.value,
                     onChanged: (newValue) {
                       controller.switchValue.value = newValue;
-                      ThemeService().changeTheme();
+                  ThemeService().changeTheme();
 
                     },
-                  );
-                }),
-              ],
-            ),
-            Divider(
-              thickness: 1,
-            ),
-            Space(16),
-            GestureDetector(
-              onTap: (){
-                Get.to(LanguageList());
-              },
-              child: Container(
+                  )
+                ],
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              Space(16),
+              GestureDetector(
+                onTap: () {
+                  Get.to(LanguageList());
+                },
+                child: Container(
+                  child: Row(
+                    children: [
+                      SvgPicture.asset("assets/svg/language.svg",
+                        color: theme.hoverColor,),
+                      Space(16),
+                      Text("language".tr,
+                        style: TextStyle(fontSize: 18,
+                            fontWeight: FontWeight.w500),),
+                      Spacer(),
+                      Icon(Icons.arrow_forward_ios),
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              Space(16),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/feedback.svg", color: theme.hoverColor,),
+                  Space(16),
+                  Text("feedback".tr,
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios),
+                ],
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              Space(16),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/contact.svg", color: theme.hoverColor,),
+                  Space(16),
+                  Text("contact".tr,
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios),
+                ],
+              ),
+              Divider(
+                thickness: 1,
+              ),
+              Space(16),
+              InkWell(
+                onTap: () {
+                  showRatingDialog();
+                },
                 child: Row(
                   children: [
-                    SvgPicture.asset("assets/svg/language.svg", color: Get.theme.hoverColor,),
-                    Space(16),
-                    Text("language".tr,
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                    SvgPicture.asset(
+                      "assets/svg/rating.svg", color: theme.hoverColor,),
+                    const Space(16),
+                    Text("rate_our_app".tr,
+                      style: TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w500),),
                     Spacer(),
                     Icon(Icons.arrow_forward_ios),
                   ],
                 ),
               ),
-            ),
-            Divider(
-              thickness: 1,
-            ),
-            Space(16),
-            Row(
-              children: [
-                SvgPicture.asset("assets/svg/feedback.svg",color: Get.theme.hoverColor,),
-                Space(16),
-                Text("feedback".tr,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                Spacer(),
-                Icon(Icons.arrow_forward_ios),
-              ],
-            ),
-            Divider(
-              thickness: 1,
-            ),
-            Space(16),
-            Row(
-              children: [
-                SvgPicture.asset("assets/svg/contact.svg", color: Get.theme.hoverColor,),
-                Space(16),
-                Text("contact".tr,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                Spacer(),
-                Icon(Icons.arrow_forward_ios),
-              ],
-            ),
-            Divider(
-              thickness: 1,
-            ),
-            Space(16),
-            InkWell(
-              onTap: (){
-                showRatingDialog();
-              },
-              child: Row(
+              Divider(
+                thickness: 1,
+              ),
+              Space(16),
+              Row(
                 children: [
-                  SvgPicture.asset("assets/svg/rating.svg", color: Get.theme.hoverColor,),
-                  const Space(16),
-                  Text("rate_our_app".tr,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+                  SvgPicture.asset(
+                    "assets/svg/versionew.svg", color: theme.hoverColor,),
+                  Space(16),
+                  Text("version".tr,
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),),
                   Spacer(),
                   Icon(Icons.arrow_forward_ios),
                 ],
               ),
-            ),
-            Divider(
-              thickness: 1,
-            ),
-            Space(16),
-            Row(
-              children: [
-                SvgPicture.asset("assets/svg/version.svg", color: Get.theme.hoverColor,),
-                Space(16),
-                Text("version".tr,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                Spacer(),
-                Icon(Icons.arrow_forward_ios),
-              ],
-            ),
-            Divider(
-              thickness: 1,
-            ),
-            Space(16),
-            Row(
-              children: [
-                SvgPicture.asset("assets/svg/share.svg", color: Get.theme.hoverColor,),
-                Space(16),
-                Text("share".tr,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
-                Spacer(),
-                Icon(Icons.arrow_forward_ios),
-              ],
-            ),
-            Divider(
-              thickness: 1,
-            ),
-          ],
-        ),
+              Divider(
+                thickness: 1,
+              ),
+              Space(16),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    "assets/svg/share.svg", color: theme.hoverColor,),
+                  Space(16),
+                  Text("share".tr,
+                    style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.w500),),
+                  Spacer(),
+                  Icon(Icons.arrow_forward_ios),
+                ],
+              ),
+              Divider(
+                thickness: 1,
+              ),
+            ],
+          );
+        }),
       ),
     );
   }
-}
-class Settings {
-  String? image;
-  String? text;
-
-  Settings({
-    this.image,
-    this.text,
-  });
 }
 

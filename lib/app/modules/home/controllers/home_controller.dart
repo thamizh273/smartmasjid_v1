@@ -30,6 +30,7 @@ import '../../../routes/app_pages.dart';
 import '../../Events/Model/eventsModel.dart';
 import '../../imanTracker/model/ImanTrakerEntryModel.dart';
 import '../../imanTracker/model/imanTrakerStatusModel.dart';
+import '../../masjidnearme/helper/custom_marker_info_window.dart';
 import '../Model/getUserModel.dart';
 
 class HomeController extends GetxController with GetSingleTickerProviderStateMixin{
@@ -198,10 +199,10 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
        Get.to(QiblaFinder());
      }
      else if (type == "masjid_near_me"){
-       Get.to(MasjidnearmeView());
+       Get.to(CustomMarketInfoWindow());
      }
      else if (type == "iman_tracker"){
-       Get.to(ImanTrackerView());
+       Get.toNamed(Routes.IMAN_TRACKER);
      }
    });
   }

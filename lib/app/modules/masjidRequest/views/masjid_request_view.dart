@@ -88,7 +88,7 @@ class MasjidRequestView extends GetView<MasjidRequestController> {
                         SizedBox(width: 30,),
                         ElevatedButton(
                             onPressed: (){
-                              Get.offAllNamed(Routes.HOME);
+                              Get.toNamed(Routes.GUESTMODE,arguments: [true]);
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 30),
@@ -99,7 +99,7 @@ class MasjidRequestView extends GetView<MasjidRequestController> {
                               ),
                               elevation: 4.0,
                             ),
-                            child: Text("Continue", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),)),
+                            child: Text("Continue as Guest", style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),)),
                       ],
                     )
                   ],

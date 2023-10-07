@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../widgets/safa_dropdown2.dart';
@@ -65,14 +66,11 @@ class SpecialdayspageView extends GetView<SpecialdayspageController> {
                           onChanged: (String? value) {
                             if (value == "This Month") {
                               spclcntrl.dropDownvalue.value = value!;
-                              var date = DateTime.now().month;
-                              spclcntrl.specialDays("$date");
+                              spclcntrl.specialDays("month");
                             } else {
                               spclcntrl.dropDownvalue.value = value!;
                               var date = DateTime.now().year;
-                              spclcntrl.specialDays(value == "This Year"
-                                  ? "$date"
-                                  : "${date + 1}");
+                              spclcntrl.specialDays(value == "This Year" ? "$date" : "${date + 1}");
                             }
                           },
                         );
