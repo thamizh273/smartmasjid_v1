@@ -4,11 +4,13 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
+import 'package:smartmasjid_v1/app/modules/membership/views/membership_view.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/utils/color_utils.dart';
 import 'package:upi_india/upi_app.dart';
 import 'package:upi_india/upi_india.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/membership_controller.dart';
 
 class PaymentMethodM extends StatefulWidget {
@@ -20,9 +22,8 @@ class PaymentMethodM extends StatefulWidget {
 
 class _PaymentMethodMState extends State<PaymentMethodM> {
   final MembershipController membrCtrl = Get.put(MembershipController());
-  Future<UpiResponse>? _transaction;
-  final UpiIndia _upiIndia = UpiIndia();
-  List<UpiApp>? apps;
+
+
 
   TextStyle header = const TextStyle(
     fontSize: 18,
@@ -36,34 +37,22 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
 
   @override
   void initState() {
-    _upiIndia.getAllUpiApps(mandatoryTransactionId: false).then((value) {
+    membrCtrl.upiIndia_.value.getAllUpiApps(mandatoryTransactionId: false).then((value) {
       setState(() {
-        apps = value;
+        membrCtrl.apps = value;
       });
     }).catchError((e) {
-      apps = [];
+      membrCtrl.apps = [];
     });
     super.initState();
   }
 
-  Future<UpiResponse> initiateTransaction(UpiApp app) async {
-    return _upiIndia.startTransaction(
-        app: app,
-        receiverUpiId: "masjidenooraniyya@sbi",
-        receiverName: "${membrCtrl.membershipPaymentMonthData.value
-            .membershipPayments!.masjidName}",
-        transactionRefId: DateTime
-            .now()
-            .millisecondsSinceEpoch
-            .toString(),
-        amount: membrCtrl.totalPayment.value.toDouble(),
-        merchantId: '19897398237982');
-  }
+
 
   Widget displayUpiApps() {
-    if (apps == null) {
+    if (membrCtrl.apps == null) {
       return const Center(child: CircularProgressIndicator());
-    } else if (apps!.isEmpty) {
+    } else if (membrCtrl.apps!.isEmpty) {
       return Center(
         child: Text(
           "No apps found to handle transaction.",
@@ -75,13 +64,13 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
         scrollDirection: Axis.horizontal,
         physics: const BouncingScrollPhysics(),
         child: Row(
-          children: apps!.map<Widget>((UpiApp app) {
+          children: membrCtrl.apps!.map<Widget>((UpiApp app) {
             return GestureDetector(
-              onTap: () {
-                membrCtrl.Pay_Membership_Payment_Gate_Way();
-                _transaction = initiateTransaction(app);
-                Navigator.pop(context);
-                setState(() {});
+              onTap: () async {
+              await  membrCtrl.Pay_Membership_Payment_Gate_Way(app);
+              setState(() {
+
+              });
               },
               child: Padding(
                 padding: EdgeInsets.only(left: 15.w),
@@ -267,6 +256,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
               10.verticalSpace,
               ElevatedButton(
                   onPressed: () {
+
                     Get.bottomSheet(
                       backgroundColor: Get.theme.scaffoldBackgroundColor,
                       shape: RoundedRectangleBorder(
@@ -294,7 +284,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                   )),
               10.verticalSpace,
               FutureBuilder(
-                future: _transaction,
+                future: membrCtrl.transaction_,
                 builder: (BuildContext context,
                     AsyncSnapshot<UpiResponse> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {

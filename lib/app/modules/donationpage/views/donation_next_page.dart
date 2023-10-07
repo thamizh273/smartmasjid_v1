@@ -180,7 +180,7 @@ class DonationAmount extends StatelessWidget {
                         if(donationamount_ctrl.amount.value.isNotEmpty){
                           ctxs.receiverName.value=data.masjidId!.masjidName.toString();
                           ctxs.amount.value=double.parse(donationamount_ctrl.amount.value);
-                          Get.to(PaymentsMethods(controllerMethod: () { donationamount_ctrl.donationPayment(); },  controllerMethod2: donationamount_ctrl.donationPaymentsuccess));
+                          Get.to(() => PaymentsMethods(controllerMethod: () { donationamount_ctrl.donationPayment(); },  controllerMethod2: donationamount_ctrl.donationPaymentsuccess));
                           return;
                         }
                         toast(error: "Hint", msg: "Enter Amount");

@@ -84,7 +84,7 @@ query Get_Masjid_Donations(\$userId: ID!) {
     isloadingDona.value=false;
 
     donationgetData.value=masjidDonationsModelFromJson(json.encode(res));
-
+     update();
     // print("gettrans");
     // log(json.encode(res));
     // print("gettrans");
@@ -122,7 +122,7 @@ query Payment_Gate_Way_(\$userId: String!, \$id: String, \$id2: String, \$masjid
     paymentGateWayDonationData.value=paymentGateWayDonationModelFromJson(json.encode(res));
     _paymentmethodsctrl.masjidupid.value=paymentGateWayDonationData.value.paymentGateWay!.paymentId.toString();
     _paymentmethodsctrl.merchantid.value=paymentGateWayDonationData.value.paymentGateWay!.merchantId.toString();
-
+    update();
     // print("gettrans");
     // log(json.encode(res));
     // print("gettrans");
@@ -159,7 +159,10 @@ mutation Payment_Gate_Way_Authentication(\$id: ID!, \$userId: String!, \$payment
     if (res.toString().contains("SUCCESS")) {
       getDonation();
       Get.close(2);
+      amount.value="";
 
+      update();
+      refresh();
 
       // var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "Successfully Donated");
@@ -195,7 +198,7 @@ query Get_Donation_Pay_list(\$userId: ID!) {
     isloadingPastD.value=false;
 
   pastDonationData.value=pastDonationModelFromJson(json.encode(res));
-
+    update();
 /*    print("getdona");
     log(json.encode(res));
     print("getdona");*/

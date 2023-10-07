@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:upi_india/upi_india.dart';
+
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
@@ -127,7 +129,8 @@ query Query(\$userId: String!) {
     isloading.value=false;
 
     membershipDetailData.value=membershipDetailModelFromJson(json.encode(res));
-
+     update();
+     refresh();
     print("getMEBER");
     log(json.encode(res));
     print("getMEBER");
@@ -161,44 +164,12 @@ query Query(\$userId: String!, \$type: String, \$status: String) {
     isloading1.value=false;
 
     membershipPaymentData.value=membershipPayementModelFromJson(json.encode(res));
-
-    print("getMEBER");
+    update();
+    print("getMEBER1");
     log(json.encode(res));
-    print("getMEBER");
+    print("getMEBER1");
   }
-  Pay_Membership_Payment_Gate_Way() async {
-    isloadingGateway.value=true;
-    var header="""
-query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$membership: String!, \$paymentId: String!, \$monthOfPay: [String!]!, \$totalAmount: Int!, \$senderId: String) {
-  Pay_Membership_Payment_Gate_Way(user_id: \$userId, masjid_id: \$masjidId, membership_: \$membership, payment_id: \$paymentId, month_of_pay: \$monthOfPay, total_amount: \$totalAmount, sender_id: \$senderId) {
-    _id
-    code
-    masjid_id
-    message
-    payment_id
-    token
-    user_id
-  }
-}
-    """;
-    var body ={  "userId": "${membershipPaymentMonthData.value.membershipPayments!.userId}",
-      "masjidId":  "${membershipPaymentMonthData.value.membershipPayments!.masjidId}",
-      "membership":  "${membershipPaymentMonthData.value.membershipPayments!.membershipid}",
-      "paymentId": "${membershipPaymentMonthData.value.membershipPayments!.masjidUpiId}",
-      "monthOfPay": listofmonthPay,
-      "totalAmount": totalPayment.value,
-      "senderId": "${homectrl.getUserData.value.getUserById!.id}"
-    };
 
-    var res = await  _restCallController.gql_query(header, body);
-    isloadingGateway.value=false;
-
-    payMembershipPaymentGateWayData.value=payMembershipPaymentGateWayModelFromJson(json.encode(res));
-
-    print("getMEBERs");
-    log(json.encode(res));
-    print("getMEBERs");
-  }
   membershipPayment(String type,bool checkbox,id) async {
     print("sssssssssss $id");
     totalPayment.value=0;
@@ -231,10 +202,10 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     var res = await  _restCallController.gql_query(header, body);
     isloadingPay.value=false;
     membershipPaymentMonthData.value=membershipPaymentMonthModelFromJson(json.encode(res));
-
-    // print("getMEBER");
-    // log(json.encode(res));
-    // print("getMEBER");
+    update();
+    print("getMEBER2");
+    log(json.encode(res));
+    print("getMEBER2");
     if(res.toString().contains("ERROR")){
      return toast(error: "Error", msg: "Register Mobile no/ Id Not Found");
     }
@@ -251,6 +222,12 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
   }
 
   membershipUpiPayment(String status, String txnId) async {
+    log("ddd1${payMembershipPaymentGateWayData.value.payMembershipPaymentGateWay!.id}");
+    log("ddd2${payMembershipPaymentGateWayData.value.payMembershipPaymentGateWay!.userId}");
+    log("ddd3${payMembershipPaymentGateWayData.value.payMembershipPaymentGateWay!.paymentId}");
+    log("ddd4${payMembershipPaymentGateWayData.value.payMembershipPaymentGateWay!.masjidId}");
+    log("ddd5${payMembershipPaymentGateWayData.value.payMembershipPaymentGateWay!.token}");
+    log("ddd6${payMembershipPaymentGateWayData.value.payMembershipPaymentGateWay!.code}");
     isloadingtrascomplete.value=true;
     var header =
     """mutation Membership_Payment_GateWay_Authentication_(\$id: ID!, \$userId: String!, \$paymentId: String!, \$masjidId: String!, \$token: String!, \$code: String!, \$transactionId: String, \$status: String) {
@@ -272,21 +249,89 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
       "status": "$status",
     };
     var res = await _restCallController.gql_mutation(header, body);
-    print(json.encode(res));
+    log("message");
+    log(json.encode(res));
+    log("message");
     isloadingtrascomplete.value=false;
 
     if (res.toString().contains("SUCCESS")) {
 
-     getMembershipDetails();
+
      payforOthers.value==true? Get.close(3):    Get.close(2);
+     getMembershipDetails();
+     totalPayment.value=0;
+     listofmonthPay.value=[];
+     update();
+     refresh();
         //Get.offAndToNamed(Routes.HOME);
 
       // var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "${status}");
+     transaction_=null;
     }
 
     return res;
   }
+  ///new
+  Future<UpiResponse>? transaction_;
+  final Rx<UpiIndia> upiIndia_ = UpiIndia().obs;
+  List<UpiApp>? apps;
+  Future<UpiResponse> initiateTransaction(UpiApp app) async {
+    return upiIndia_.value.startTransaction(
+        app: app,
+        receiverUpiId: "masjidenooraniyya@sbi",
+        receiverName: "${membershipPaymentMonthData.value
+            .membershipPayments!.masjidName}",
+        transactionRefId: DateTime
+            .now()
+            .millisecondsSinceEpoch
+            .toString(),
+        amount:totalPayment.value.toDouble(),
+        merchantId: '19897398237982');
+  }
 
 
+  Pay_Membership_Payment_Gate_Way(UpiApp app) async {
+    log("${membershipPaymentMonthData.value.membershipPayments!.userId}");
+    log("${listofmonthPay}");
+    log("${totalPayment.value}");
+    isloadingGateway.value=true;
+    var header="""
+query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$membership: String!, \$paymentId: String!, \$monthOfPay: [String!]!, \$totalAmount: Int!, \$senderId: String) {
+  Pay_Membership_Payment_Gate_Way(user_id: \$userId, masjid_id: \$masjidId, membership_: \$membership, payment_id: \$paymentId, month_of_pay: \$monthOfPay, total_amount: \$totalAmount, sender_id: \$senderId) {
+    _id
+    code
+    masjid_id
+    message
+    payment_id
+    token
+    user_id
+  }
+}
+    """;
+    var body ={  "userId": "${membershipPaymentMonthData.value.membershipPayments!.userId}",
+      "masjidId":  "${membershipPaymentMonthData.value.membershipPayments!.masjidId}",
+      "membership":  "${membershipPaymentMonthData.value.membershipPayments!.membershipid}",
+      "paymentId": "${membershipPaymentMonthData.value.membershipPayments!.masjidUpiId}",
+      "monthOfPay": listofmonthPay,
+      "totalAmount": totalPayment.value,
+      "senderId": "${homectrl.getUserData.value.getUserById!.id}"
+    };
+
+    var res = await  _restCallController.gql_query(header, body);
+    isloadingGateway.value=false;
+
+    payMembershipPaymentGateWayData.value=payMembershipPaymentGateWayModelFromJson(json.encode(res));
+    log("passed");
+    log(json.encode(res));
+    log("passed");
+    update();
+    if(res.toString().contains("ERROR")){
+      return toast(error: "Error", msg: "Failed");
+    }else{ transaction_= initiateTransaction(app);
+    Navigator.pop(Get.context!);}
+
+    // setState(() {});
+
+  }
 }

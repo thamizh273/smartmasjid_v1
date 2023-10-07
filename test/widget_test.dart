@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:quick_actions_android/quick_actions_android.dart';
 
 
 
