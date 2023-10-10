@@ -17,19 +17,13 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -52,11 +46,32 @@ class DefaultFirebaseOptions {
     }
   }
 
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyCszYSYOpyMNjGTySHnMKDGjJv_a1vqnZc',
+    appId: '1:231830520319:web:ca1170da75c7834353e7ca',
+    messagingSenderId: '231830520319',
+    projectId: 'smart-masjid-371016',
+    authDomain: 'smart-masjid-371016.firebaseapp.com',
+    storageBucket: 'smart-masjid-371016.appspot.com',
+    measurementId: 'G-1CXKEZ8Q98',
+  );
+
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBI5_oODLgQ9PpPSrPq2HSiD7sWRFqZVes',
-    appId: '1:231830520319:android:0c546ffeed7e73bb53e7ca',
+    appId: '1:231830520319:android:268786cec2d3903453e7ca',
     messagingSenderId: '231830520319',
     projectId: 'smart-masjid-371016',
     storageBucket: 'smart-masjid-371016.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDN69ppWUccXJ7JaKRxV7kaMLfqf3mrk5U',
+    appId: '1:231830520319:ios:0c7ba776485232a653e7ca',
+    messagingSenderId: '231830520319',
+    projectId: 'smart-masjid-371016',
+    storageBucket: 'smart-masjid-371016.appspot.com',
+    androidClientId: '231830520319-24mbvlqapf4coi58at7d4qr01ip1ngct.apps.googleusercontent.com',
+    iosClientId: '231830520319-fg2g8l33ln88t966l5uil6t887u7tmgo.apps.googleusercontent.com',
+    iosBundleId: 'com.safa.ummati',
   );
 }

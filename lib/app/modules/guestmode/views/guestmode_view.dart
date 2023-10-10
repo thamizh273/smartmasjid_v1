@@ -192,41 +192,44 @@ class _GuestmodeViewState extends State<GuestmodeView> {
             color: Get.theme.scaffoldBackgroundColor,
             child: Column(
               children: <Widget>[
-                DrawerHeader(
-                  padding: const EdgeInsets.all(8),
-                  margin: EdgeInsets.only(bottom: 8),
-                  decoration: BoxDecoration(
-                    color: Get.theme.hoverColor,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: SvgPicture.asset(
-                              "assets/svg/slogonew.svg",
-                              height: 70.00,
-                              width: 80.00,
-                            ),
-                          ),
-                          SizedBox(width: 16),
-                          SizedBox(
-                            width: 0.45.sw,
-                            child: Text(
-                              "Ummati",
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Get.theme.scaffoldBackgroundColor,
+                Container(
+                  height: 150.h,
+                  child: DrawerHeader(
+                    padding: const EdgeInsets.all(8),
+                    margin: EdgeInsets.only(bottom: 8),
+                    decoration: BoxDecoration(
+                      color: Get.theme.hoverColor,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: SvgPicture.asset(
+                                "assets/svg/slogonew.svg",
+                                height: 70.00,
+                                width: 80.00,
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                    ],
+                            SizedBox(width: 16),
+                            SizedBox(
+                              width: 0.45.sw,
+                              child: Text(
+                                "Ummati",
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600,
+                                  color: Get.theme.scaffoldBackgroundColor,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Padding(

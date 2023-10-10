@@ -71,8 +71,15 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "231830520319-2pdb26v9rj57mj7qsr18885850nl8dii.apps.googleusercontent.com",
+              "client_id": "231830520319-2nc13kh09qhhkufgbmm6na23e7kdnq4b.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "231830520319-fg2g8l33ln88t966l5uil6t887u7tmgo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.safa.ummati"
+              }
             }
           ]
         }

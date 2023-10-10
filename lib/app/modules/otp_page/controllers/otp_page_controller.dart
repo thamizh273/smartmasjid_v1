@@ -20,6 +20,7 @@ class OtpPageController extends GetxController {
   static OtpPageController get instance =>Get.find();
 
      var otpctrl ="".obs;
+     RxBool isAutoOtp =false.obs;
      var forgetpassotp=false.obs;
   void verifyOTP() async{
     var isverified = await AuthenticationRespository.instance.verifyOtp(otpctrl.value);

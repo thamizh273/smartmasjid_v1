@@ -167,8 +167,14 @@ class OtpPageView extends GetView<OtpPageController> {
                             validator: (s) {
                              // return authctrl.errorinotp.value == true ?'Pin is incorrect':null ;
                             },
+                           // onSubmitted: (pin) {
+                           //   controller.otpctrl.value = pin;
+                           //   OtpPageController.instance.verifyOTP();
+                           // },
                             onCompleted: (pin) {
-                              controller.otpctrl.value = pin;
+                              controller.otpctrl.value =  pin;
+                              OtpPageController.instance.verifyOTP();
+
                              // OtpPageController.instance.verifyOTP();
                              // debugPrint('onCompleted: $pin');
                             },
@@ -206,10 +212,7 @@ class OtpPageView extends GetView<OtpPageController> {
                                 foregroundColor: Colors.white,
                                 fixedSize: Size(120, 35)),
                             onPressed: () {
-                              OtpPageController.instance.verifyOTP();
-
-
-                              //OtpPageController.instance.verifyOTP(Controller.codes.value);
+                           //   OtpPageController.instance.verifyOTP();
                             },
                             child: Text(
                               "verify".tr,
