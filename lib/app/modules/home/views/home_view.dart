@@ -17,7 +17,6 @@ import 'package:smartmasjid_v1/app/modules/home/Drawer_List/masjid_admins.dart';
 import 'package:smartmasjid_v1/app/modules/home/Drawer_List/masjid_facility.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/events.dart';
 import 'package:smartmasjid_v1/app/modules/librarypage/views/librarypage_view.dart';
-import 'package:smartmasjid_v1/app/modules/loginPage/Model/GetUserIDModel.dart';
 import 'package:smartmasjid_v1/app/modules/masjidhistory/views/masjidhistory_view.dart';
 import 'package:smartmasjid_v1/app/modules/mediapage/views/mediapage_view.dart';
 import 'package:smartmasjid_v1/app/modules/prayerpage/views/prayerpage_view.dart';
@@ -25,14 +24,12 @@ import 'package:smartmasjid_v1/app/modules/qiblafinderpage/views/qiblafinderpage
 import 'package:smartmasjid_v1/app/modules/servicepage/views/servicepage_view.dart';
 import 'package:smartmasjid_v1/app/modules/specialdayspage/views/specialdayspage_view.dart';
 import 'package:smartmasjid_v1/app/modules/zakathpage/views/zakathpage_view.dart';
-import 'package:smartmasjid_v1/widgets/loading.dart';
 
-import '../../../../utils/ansomeNotification.dart';
-import '../../../../utils/fcm_notification/fcm_helper.dart';
+
+import '../../../../widgets/loading.dart';
 import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../../masjidnearme/helper/custom_marker_info_window.dart';
-import '../Drawer_List/masjid_history.dart';
 import '../Drawer_List/masjid_imam.dart';
 import '../Drawer_List/well_wisher.dart';
 import '../controllers/home_controller.dart';
@@ -492,7 +489,7 @@ class HomeView extends StatelessWidget {
       }),
       body: Obx(() {
         return controller.isloading.value
-            ? DialogHelper.showLoading()
+            ?DialogHelper.showLoading()
             : StreamBuilder<LocationData>(
           stream: Location.instance.onLocationChanged,
           builder: (context, snap) {
