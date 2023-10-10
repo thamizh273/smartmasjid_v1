@@ -54,6 +54,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
     final themeData = Theme.of(context);
     return Obx(() {
       return controller.isloading.value
@@ -134,325 +135,329 @@ class HomeView extends StatelessWidget {
         ),
         key: controller.scaffoldKey,
         drawer: Drawer(
-          backgroundColor: Get.theme.scaffoldBackgroundColor,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                padding: const EdgeInsets.all(8),
-                margin: EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: Get.theme.hoverColor,
+          child: Container(
+            width: MediaQuery.of(context).size.width / devicePixelRatio,
+            height: MediaQuery.of(context).size.height / devicePixelRatio,
+            color: Get.theme.scaffoldBackgroundColor,
+            child: Column(
+              children: <Widget>[
+                DrawerHeader(
+                  padding: const EdgeInsets.all(8),
+                  margin: EdgeInsets.only(bottom: 8),
+                  decoration: BoxDecoration(
+                    color: Get.theme.hoverColor,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(6.0),
+                            child: SvgPicture.asset("assets/svg/slogonew.svg",
+                                height: 70.00, width: 80.00),
+                          ),
+                          Space(16),
+                          SizedBox(
+                              width: 0.44.sw,
+                              child: Stxt(
+                                text: "${controller.getUserData.value.getUserById!
+                                    .masjidId!
+                                    .masjidName}",
+                                size: f5,
+                                weight: FontWeight.w600,
+                                color: Get.theme.scaffoldBackgroundColor,))
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => MasjidFacility()));
+                  },
+                  child: ListTile(
+                    title: Row(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: SvgPicture.asset("assets/svg/slogonew.svg",
-                              height: 70.00, width: 80.00),
-                        ),
+                        SvgPicture.asset("assets/svg/Masjiddr.svg", color: Get.theme.hoverColor,),
                         Space(16),
-                        SizedBox(
-                            width: 0.45.sw,
-                            child: Stxt(
-                              text: "${controller.getUserData.value.getUserById!
-                                  .masjidId!
-                                  .masjidName}",
-                              size: f5,
-                              weight: FontWeight.w600,
-                              color: Get.theme.scaffoldBackgroundColor,))
+                        Stxt(text: "masjid_facilities".tr,
+                          size: f3,
+                          weight: FontWeight.w500,)
                       ],
                     ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => MasjidFacility()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Masjiddr.svg", color: Get.theme.hoverColor,),
-                      Space(16),
-                      Stxt(text: "masjid_facilities".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Get.to(MasjidhistoryView());
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Historydr.svg", color: Get.theme.hoverColor),
-                      Space(16),
-                      Stxt(text: "masjid_history".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Get.to(MasjidhistoryView());
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/Historydr.svg", color: Get.theme.hoverColor),
+                        Space(16),
+                        Stxt(text: "masjid_history".tr,
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => MasjidAdmin()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/Admindr.svg", color: Get.theme.hoverColor),
-                      Space(16),
-                      Stxt(text: "masjid_admins".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => MasjidAdmin()));
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/Admindr.svg", color: Get.theme.hoverColor),
+                        Space(16),
+                        Stxt(text: "masjid_admins".tr,
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => MasjidImam()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/imamdr.svg", color: Get.theme.hoverColor),
-                      Space(16),
-                      Stxt(text: "masjid_imams".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => MasjidImam()));
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/imamdr.svg", color: Get.theme.hoverColor),
+                        Space(16),
+                        Stxt(text: "masjid_imams".tr,
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => WellWisher()));
-                },
-                child: ListTile(
-                  title: Row(
-                    children: [
-                      SvgPicture.asset("assets/svg/voldr.svg", color: Get.theme.hoverColor),
-                      Space(16),
-                      Stxt(text: "masjid_well_wishers".tr,
-                        size: f3,
-                        weight: FontWeight.w500,)
-                    ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => WellWisher()));
+                  },
+                  child: ListTile(
+                    title: Row(
+                      children: [
+                        SvgPicture.asset("assets/svg/voldr.svg", color: Get.theme.hoverColor),
+                        Space(16),
+                        Stxt(text: "masjid_well_wishers".tr,
+                          size: f3,
+                          weight: FontWeight.w500,)
+                      ],
+                    ),
+                    // onTap: controller.closeDrawer,
                   ),
-                  // onTap: controller.closeDrawer,
                 ),
-              ),
-              Space(16),
-              ListTile(
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Stxt(text: "quick_menu".tr, size: f4),
-                      Space(16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.PRAYERPAGE);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
-                              // height: 75.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                    topLeft: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(4, 4),
-                                        color: Get.theme.shadowColor
-                                    )
+                Space(16),
+                ListTile(
+                    title: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stxt(text: "quick_menu".tr, size: f4),
+                        Space(16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.PRAYERPAGE);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 8),
+                                // height: 75.h,
+                                width: 80.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                      topLeft: Radius.circular(16),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 2,
+                                          offset: Offset(4, 4),
+                                          color: Get.theme.shadowColor
+                                      )
+                                    ],
+                                    color: Color(0xffD8E4E8)
+                                ),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/svg/prayerdr.svg", width: 60,),
+                                    Stxt(text: "prayer_time".tr,
+                                      size: f1,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,
+                                      textAlign: TextAlign.center,)
                                   ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/prayerdr.svg", width: 60,),
-                                  Stxt(text: "prayer_time".tr,
-                                    size: f1,
-                                    color: Theme
-                                        .of(context)
-                                        .primaryColor,
-                                    textAlign: TextAlign.center,)
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                          Space(30),
-                          GestureDetector(
-                            onTap: () {
-                              Get.toNamed(Routes.MEMBERSHIP);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
-                              // height: 65.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                    topLeft: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(-4, 4),
-                                        color: Get.theme.shadowColor
-                                    )
+                            Space(30),
+                            GestureDetector(
+                              onTap: () {
+                                Get.toNamed(Routes.MEMBERSHIP);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 8),
+                                // height: 65.h,
+                                width: 80.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                      topLeft: Radius.circular(16),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 2,
+                                          offset: Offset(-4, 4),
+                                          color: Get.theme.shadowColor
+                                      )
+                                    ],
+                                    color: Color(0xffD8E4E8)
+                                ),
+                                child: Column(
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/svg/memberdr.svg", width: 80,),
+                                    Stxt(
+                                      text: "membership".tr,
+                                      size: f1,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,)
                                   ],
-                                  color: Color(0xffD8E4E8)
+                                ),
                               ),
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/memberdr.svg", width: 80,),
-                                  Stxt(
-                                    text: "membership".tr,
-                                    size: f1,
-                                    color: Theme
+                            ),
+                          ],
+                        ),
+                        Space(16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (_) => ServicepageView()));
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 8),
+                                // height: 65.h,
+                                width: 80.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(16),
+                                      bottomRight: Radius.circular(16),
+                                      topLeft: Radius.circular(16),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 2,
+                                          offset: Offset(4, 4),
+                                          color: Get.theme.shadowColor
+                                      )
+                                    ],
+                                    color: Color(0xffD8E4E8)
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/svg/servicedr.svg", width: 40,),
+                                    Stxt(
+                                      text: "services".tr, size: f1, color: Theme
                                         .of(context)
                                         .primaryColor,)
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Space(16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (_) => ServicepageView()));
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
-                              // height: 65.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(16),
-                                    bottomRight: Radius.circular(16),
-                                    topLeft: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(4, 4),
-                                        color: Get.theme.shadowColor
-                                    )
                                   ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/servicedr.svg", width: 40,),
-                                  Stxt(
-                                    text: "services".tr, size: f1, color: Theme
-                                      .of(context)
-                                      .primaryColor,)
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                          Space(30),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                              Get.toNamed(Routes.EVENTS);
-                            },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 8),
-                              // height: 65.h,
-                              width: 80.h,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(16),
-                                    bottomLeft: Radius.circular(16),
-                                    topRight: Radius.circular(16),
-                                  ),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 4,
-                                        spreadRadius: 2,
-                                        offset: Offset(-4, 4),
-                                        color: Get.theme.shadowColor
-                                    )
+                            Space(30),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                                Get.toNamed(Routes.EVENTS);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 8),
+                                // height: 65.h,
+                                width: 80.h,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomRight: Radius.circular(16),
+                                      bottomLeft: Radius.circular(16),
+                                      topRight: Radius.circular(16),
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 4,
+                                          spreadRadius: 2,
+                                          offset: Offset(-4, 4),
+                                          color: Get.theme.shadowColor
+                                      )
+                                    ],
+                                    color: Color(0xffD8E4E8)
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      "assets/svg/eventsdr.svg", width: 40,),
+                                    Stxt(text: "events".tr, size: f1, color: Theme
+                                        .of(context)
+                                        .primaryColor,)
                                   ],
-                                  color: Color(0xffD8E4E8)
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    "assets/svg/eventsdr.svg", width: 40,),
-                                  Stxt(text: "events".tr, size: f1, color: Theme
-                                      .of(context)
-                                      .primaryColor,)
-                                ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-              ),
-              Space(50),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Stxt(text: "leave_masjid".tr,
-                    size: f3,
-                    weight: FontWeight.w600,
-                    color: Get.theme.hoverColor,),
-                  Space(16),
-                  Icon(Icons.logout, color: Get.theme.hoverColor)
-                ],
-              )
-            ],
+                          ],
+                        ),
+                      ],
+                    )
+                ),
+               Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Stxt(text: "leave_masjid".tr,
+                      size: f2.h,
+                      weight: FontWeight.w600,
+                      color: Get.theme.hoverColor,),
+                    Space(16),
+                    Icon(Icons.logout, color: Get.theme.hoverColor)
+                  ],
+                ),
+                Space(10),
+              ],
+            ),
           ),
         ),
         body: StreamBuilder<LocationData>(

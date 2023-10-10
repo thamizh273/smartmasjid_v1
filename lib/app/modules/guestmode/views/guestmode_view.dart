@@ -1172,7 +1172,7 @@ class CustomDialogBox extends StatelessWidget {
               InkWell(
                 onTap: (){
                   controller.guesttoken.remove("guest");
-                  Get.offAllNamed(Routes.REGISTER_LOGIN);
+                  Get.offAllNamed(AppPages.INITIAL);
                 },
                 child: Container(
                   width: 100.w,
@@ -1190,7 +1190,7 @@ class CustomDialogBox extends StatelessWidget {
               InkWell(
                 onTap: (){
                   controller.guesttoken.remove("guest");
-                  Get.offAllNamed(Routes.REGISTER_LOGIN);
+                  Get.offAllNamed(AppPages.INITIAL);
                 },
                 child: Container(
                   width: 100.w,

@@ -100,9 +100,17 @@ class AuthenticationRespository extends GetxController {
     var credentails;
     try {
       errorinotp.value=false;
-      credentails = await auth_.signInWithCredential(
+       credentails = await auth_.signInWithCredential(
           PhoneAuthProvider.credential(
               verificationId: verificationid.value, smsCode: otp));
+      // if (credentails.user != null) {
+      //   return  toast(error: "user is signed in", msg: "OTP verification successful");
+      //   // OTP verification successful, user is signed in
+      // } else {
+      //   // OTP verification failed
+      //   return  toast(error: "Error", msg: "OTP verification failed");
+      // }
+
     } catch (e) {
       errorinotp.value=true;
       if (pinController.value.length == 0) {

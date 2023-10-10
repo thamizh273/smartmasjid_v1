@@ -7,38 +7,30 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:231830520319:android:0c546ffeed7e73bb53e7ca",
+        "mobilesdk_app_id": "1:231830520319:android:268786cec2d3903453e7ca",
         "android_client_info": {
           "package_name": "com.safa.ummati"
         }
       },
       "oauth_client": [
         {
-          "client_id": "231830520319-24mbvlqapf4coi58at7d4qr01ip1ngct.apps.googleusercontent.com",
+          "client_id": "231830520319-7u0oe445asplg90eeiip079ca48bcp3f.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.safa.ummati",
-            "certificate_hash": "eddea1e6dbfb098f91de97d51ede6ab02627d5f7"
+            "certificate_hash": "d1ab004431347f6deeb2f301b742a93d050b4788"
           }
         },
         {
-          "client_id": "231830520319-ijjj667mbj3ao5t4rle96lsthajpdvd9.apps.googleusercontent.com",
+          "client_id": "231830520319-91s9mp06lnm2om0tvt5v5r07s7ok84ot.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.safa.ummati",
-            "certificate_hash": "b5d2ef34f450bfe1b06d0b5d7c8c06e94cc9673c"
+            "certificate_hash": "170f6604c98917c70def877b347d11bcbdfe95f7"
           }
         },
         {
-          "client_id": "231830520319-kml63ntjhunlrpd1vuf8allidr0a1kds.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.safa.ummati",
-            "certificate_hash": "87fee3820d7af63a1d4e8f8f27f78e4bbb164441"
-          }
-        },
-        {
-          "client_id": "231830520319-sa5e7ddufmv84dbluccp68ffnn9tgk4s.apps.googleusercontent.com",
+          "client_id": "231830520319-fq0tbgvc3najc3ejtgaq3eqedpnu05po.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.safa.ummati",
@@ -46,11 +38,27 @@
           }
         },
         {
-          "client_id": "231830520319-ss9h11ofsbdqnnur6v5fdat49hgpgjg3.apps.googleusercontent.com",
+          "client_id": "231830520319-je4nv8lpepp661ht709b2agf4he57cbq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.safa.ummati",
-            "certificate_hash": "170f6604c98917c70def877b347d11bcbdfe95f7"
+            "certificate_hash": "b5d2ef34f450bfe1b06d0b5d7c8c06e94cc9673c"
+          }
+        },
+        {
+          "client_id": "231830520319-mih6j0vknkl0tshldqffv0buf4msfdjg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safa.ummati",
+            "certificate_hash": "eddea1e6dbfb098f91de97d51ede6ab02627d5f7"
+          }
+        },
+        {
+          "client_id": "231830520319-thm2rllggo5dfm2s36fbj3ups03d0rf4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.safa.ummati",
+            "certificate_hash": "87fee3820d7af63a1d4e8f8f27f78e4bbb164441"
           }
         }
       ],

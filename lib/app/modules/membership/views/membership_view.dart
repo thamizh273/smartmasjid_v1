@@ -33,8 +33,12 @@ class MembershipView extends GetView<MembershipController> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Obx(() {
+        double containerWidth = screenWidth > 768 ? 300 : screenWidth;
+        double containerHeight = screenWidth > 768 ? screenHeight : 150;
         return controller.isloading.value
             ? loading(context)
             : Column(
@@ -161,11 +165,13 @@ class MembershipView extends GetView<MembershipController> {
                                   border: Border.all(
                                       color: Theme.of(context).primaryColor)),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                data.currentPayment!.expireDate=="null"?14.verticalSpace:14.verticalSpace,
                                   Container(
                                    // decoration: BoxDecoration(borderRadius: BorderRadius.circular(2),color: clr_gray.shade300),
-                                    height: 40,width: 80,
+                                    width: MediaQuery.of(context).size.width,
+                                    height: MediaQuery.of(context).size.height / 30,
                                     child: Center(
                                       child: Stxt(
                                         text: "₹ ${data.currentPayment!.amount} ",
@@ -217,22 +223,22 @@ class MembershipView extends GetView<MembershipController> {
                                       controller.checkboxignore.value=false;
                                     },
                                     child: Container(
-                                      height: 29.h,
-                                      width: double.infinity,
                                       decoration: BoxDecoration(
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Stxt(
-                                            text: "pay_now".tr,
-                                            size: f3,
-                                            weight: FontWeight.w600,
-                                            color: Colors.white,
-                                          )
-                                        ],
+                                          color: Theme.of(context).primaryColor),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Stxt(
+                                              text: "pay_now".tr,
+                                              size: f3,
+                                              weight: FontWeight.w600,
+                                              color: Colors.white,
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
