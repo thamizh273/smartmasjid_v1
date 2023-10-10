@@ -146,7 +146,7 @@ class MasjidhistoryView extends StatelessWidget {
                                   child: SizedBox(
                                     height: 250.h,
                                     child: Obx(() {
-                                      return hiscntrl.isLoadings0.value? loading(context): ListView.builder(
+                                      return hiscntrl.isLoadings0.value? DialogHelper.showLoading(): ListView.builder(
                                           physics: BouncingScrollPhysics(),
                                           itemCount: hiscntrl.getmasjidfacility.value.getMasjidFacilitiesList!.length,
                                           itemBuilder: (context, index) {
