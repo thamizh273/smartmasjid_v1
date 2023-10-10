@@ -18,7 +18,7 @@ class PastPayments extends StatelessWidget {
           tittle: "past_donation".tr,
         ),
         body: Obx(() {
-          return donation_ctrl.isloadingPastD.value?loading(context):ListView.builder(
+          return donation_ctrl.isloadingPastD.value? DialogHelper.showLoading():ListView.builder(
               padding: EdgeInsets.symmetric(vertical: 20.h),
               physics: BouncingScrollPhysics(),
               itemCount: donation_ctrl.pastDonationData.value.getDonationPayList!.length,

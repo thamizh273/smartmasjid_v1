@@ -98,8 +98,7 @@ class AppPages {
         name: _Paths.HOME,
         page: () => HomeView(),
         binding: HomeBinding(),
-        transition: Transition.rightToLeftWithFade,
-        transitionDuration: Duration(milliseconds: 600)),
+    ),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
       page: () => SplashScreenView(),
@@ -231,8 +230,7 @@ class AppPages {
         name: _Paths.PROFILE_PAGE,
         page: () => ProfilePageView(),
         binding: ProfilePageBinding(),
-        transition: Transition.fade,
-        transitionDuration: const Duration(milliseconds: 600)),
+      ),
     GetPage(
       name: _Paths.AUDIOPLAYER,
       page: () => AudioPlayerScreen(),
@@ -312,8 +310,7 @@ class AppPages {
         name: _Paths.FAMILYTREE,
         page: () => const FamilytreeView(),
         binding: FamilytreeBinding(),
-        transition: Transition.downToUp,
-        transitionDuration: Duration(seconds: 5)),
+       ),
     GetPage(
       name: _Paths.GUESTMODE,
       page: () =>  GuestmodeView(),

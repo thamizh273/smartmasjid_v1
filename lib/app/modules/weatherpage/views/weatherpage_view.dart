@@ -18,11 +18,11 @@ class WeatherpageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return c.isLoadings.value
-          ? loading(context)
-          : Scaffold(
-        body: Column(
+    return Scaffold(
+      body: Obx(() {
+        return c.isLoadings.value
+            ?  DialogHelper.showLoading()
+            :Column(
           children: [
             Container(
                 height: 560.h,
@@ -97,9 +97,10 @@ class WeatherpageView extends StatelessWidget {
                                       text:
                                       "${c.getweathertest.value.location!
                                           .name} ,    ${c
-                                          .getweathertest.value.location!.region} ${c.getweathertest.value
+                                          .getweathertest.value.location!
+                                          .region} ${c.getweathertest.value
                                           .location!.country}",
-                                      size: f3,weight: FontWeight.w500,
+                                      size: f3, weight: FontWeight.w500,
                                       color: clr_white,
                                     )))),
                         Space(16),
@@ -142,7 +143,7 @@ class WeatherpageView extends StatelessWidget {
                             ? Image.asset(
                           "assets/images/rainybig.png",
                         )
-                            :  c
+                            : c
                             .getweathertest
                             .value
                             .current!.condition!.text ==
@@ -150,28 +151,33 @@ class WeatherpageView extends StatelessWidget {
                             ? Image.asset(
                           "assets/images/thunderbig.png",
 
-                        ):Image.asset(
+                        ) : Image.asset(
                           "assets/images/weather.png",
                         ),
                         Text(
-                          "${c.getweathertest.value.current!.tempC!.round()}\u00B0C",
+                          "${c.getweathertest.value.current!.tempC!
+                              .round()}\u00B0C",
                           style: TextStyle(
                               fontSize: 80.sp, color: Colors.white),
                         ),
                         Stxt(
                           text:
                           "${c.getweathertest.value.current!.condition!.text}",
-                          size: f4,weight: FontWeight.w500,
+                          size: f4, weight: FontWeight.w500,
                           color: Colors.white,
                         ),
                         Space(8),
                         Obx(() {
-                          return c.isLoadings1.value?CupertinoActivityIndicator():Stxt(
+                          return c.isLoadings1.value
+                              ? CupertinoActivityIndicator()
+                              : Stxt(
                             text:
                             "${c.getweatherdata.value
                                 .getWeatherReportFutureDate!
-                                .hijriDate }  (${DateFormat('yyyy-MM-dd, ').add_EEEE().format(DateTime.now())})",
-                            size: f2,weight: FontWeight.w600,
+                                .hijriDate }  (${DateFormat('yyyy-MM-dd, ')
+                                .add_EEEE()
+                                .format(DateTime.now())})",
+                            size: f2, weight: FontWeight.w600,
                             color: Colors.white,
                           );
                         }),
@@ -318,9 +324,9 @@ class WeatherpageView extends StatelessWidget {
               );
             }),
           ],
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 }
 
@@ -343,7 +349,12 @@ class FutureDay extends StatelessWidget {
       duration: Duration(milliseconds: 300),
       width: 80.w,
       decoration: BoxDecoration(
-        boxShadow: [BoxShadow(color: Get.theme.shadowColor,spreadRadius: 1,blurRadius: 2,offset: Offset(2,4))],
+          boxShadow: [
+            BoxShadow(color: Get.theme.shadowColor,
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: Offset(2, 4))
+          ],
           borderRadius: BorderRadius.circular(16), color: Color(0xffD9D9D9)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),

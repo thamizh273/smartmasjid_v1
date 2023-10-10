@@ -77,6 +77,7 @@ void main() async{
               locale: initialLocale,
               title: "Application",
               theme: ThemeService().lightTheme,
+               defaultTransition:Transition.cupertinoDialog,
               darkTheme: ThemeService().darkTheme,
               themeMode: ThemeService().getThemeMode(),
               initialRoute:AppPages.INITIAL,

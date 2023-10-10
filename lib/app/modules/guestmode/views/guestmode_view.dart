@@ -133,7 +133,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
     final themeData = Theme.of(context);
     return Obx(() {
       return controller.isloading.value
-          ? loading(context)
+          ?  DialogHelper.showLoading()
           : Scaffold(
         backgroundColor: themeData.scaffoldBackgroundColor,
         appBar: AppBar(

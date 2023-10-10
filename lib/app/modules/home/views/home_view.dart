@@ -49,95 +49,109 @@ class HomeView extends StatelessWidget {
 
   // final List<String> imgList = ['fajr', 'dhuhar'];
 
-  final List quranImg = ['quran_list_img1', 'quran_list_img2', 'quran_list_img3'];
+  final List quranImg = [
+    'quran_list_img1',
+    'quran_list_img2',
+    'quran_list_img3'
+  ];
   final List duaImg = ['dua_img1', 'dua_img2', 'dua_img3'];
 
   @override
   Widget build(BuildContext context) {
-    final double devicePixelRatio = MediaQuery.of(context).devicePixelRatio;
+    final double devicePixelRatio = MediaQuery
+        .of(context)
+        .devicePixelRatio;
     final themeData = Theme.of(context);
-    return Obx(() {
-      return controller.isloading.value
-          ? loading(context)
-          : Scaffold(
-        backgroundColor: themeData.scaffoldBackgroundColor,
-        appBar: AppBar(
-          titleSpacing: 10,
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-              //color: Color(0xffD8E4E8),
-            ),
+    return Scaffold(
+      backgroundColor: themeData.scaffoldBackgroundColor,
+      appBar: AppBar(
+        titleSpacing: 10,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            //color: Color(0xffD8E4E8),
           ),
-          leading: Padding(
-            padding: EdgeInsets.only(top: 10, left: 10, bottom: 6),
-            child: GestureDetector(
-              onTap: () {
-                controller.openDrawer();
-              },
+        ),
+        leading: Padding(
+          padding: EdgeInsets.only(top: 10, left: 10, bottom: 6),
+          child: GestureDetector(
+            onTap: () {
+              controller.openDrawer();
+            },
 
-              child: Image.asset("assets/images/slogonw.png",),
-            ),
+            child: Image.asset("assets/images/slogonw.png",),
           ),
-          title: Text(
+        ),
+        title: Obx(() {
+          return  controller.isloading.value?CupertinoActivityIndicator():Text(
             "${controller.getUserData.value.getUserById!.masjidId!
                 .masjidName}",
             style: TextStyle(color: Get.theme.hoverColor),
-          ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 10),
-              child: GestureDetector(
-                onTap: () {
-                  // List<int> imageBytes =  base64Decode("${controller.getUserData.value.getUserById!.profileImage!.data}");
-                  // print("${controller.getUserData.value.getUserById!.profileImage!.data}");
-                  // print('wwww $imageBytes');
-                  Get.toNamed(Routes.PROFILE_PAGE);
-                },
-                child: Hero(
-                  //  transitionOnUserGestures : true,
-                  tag: 'avatarTag',
-                  child: CircleAvatar(
-                    radius: 21.5,
-                    backgroundColor: themeData.primaryColor,
-                    child: Obx(() {
-                      // var imageBytes = base64Decode(controller
-                      //     .getUserData.value.getUserById!.profileImage
-                      //     .toString());
-                      var guestnull = controller.getUserData.value
-                          .getUserById == null;
-                      return (guestnull ||
-                          controller.getUserData.value.getUserById!
-                              .profileImage == "null")
-                          ? CircleAvatar(
-                        foregroundImage:
-                        AssetImage("assets/images/avathar.png"),
-                        radius: 20,
-                        backgroundColor: Colors.white,
-                      )
-                          : CircleAvatar(
-                        // foregroundImage: AssetImage("assets/images/avathar.png"),
-                        foregroundImage: MemoryImage(base64Decode(controller
-                            .getUserData.value.getUserById!.profileImage
-                            .toString())),
-                        radius: 20,
-                        backgroundColor: Colors.white,
-                      );
-                    }),
-                  ),
+          );
+        }),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: () {
+                // List<int> imageBytes =  base64Decode("${controller.getUserData.value.getUserById!.profileImage!.data}");
+                // print("${controller.getUserData.value.getUserById!.profileImage!.data}");
+                // print('wwww $imageBytes');
+                Get.toNamed(Routes.PROFILE_PAGE);
+              },
+              child: Hero(
+                //  transitionOnUserGestures : true,
+                tag: 'avatarTag',
+                child: CircleAvatar(
+                  radius: 21.5,
+                  backgroundColor: themeData.primaryColor,
+                  child: Obx(() {
+                    // var imageBytes = base64Decode(controller
+                    //     .getUserData.value.getUserById!.profileImage
+                    //     .toString());
+                    var guestnull = controller.getUserData.value
+                        .getUserById == null;
+                    return (guestnull ||
+                        controller.getUserData.value.getUserById!
+                            .profileImage == "null")
+                        ? CircleAvatar(
+                      foregroundImage:
+                      AssetImage("assets/images/avathar.png"),
+                      radius: 20,
+                      backgroundColor: Colors.white,
+                    )
+                        :  controller.isloading.value?CupertinoActivityIndicator():CircleAvatar(
+                      // foregroundImage: AssetImage("assets/images/avathar.png"),
+                      foregroundImage: MemoryImage(base64Decode(controller
+                          .getUserData.value.getUserById!.profileImage
+                          .toString())),
+                      radius: 20,
+                      backgroundColor: Colors.white,
+                    );
+                  }),
                 ),
               ),
-            )
+            ),
+          )
 
 //             ),
 //           )
-          ],
-          bottom: buildPreferredSize(context),
-        ),
-        key: controller.scaffoldKey,
-        drawer: Drawer(
+        ],
+        bottom: buildPreferredSize(context),
+      ),
+      key: controller.scaffoldKey,
+      drawer: Obx(() {
+        return controller.isloading.value
+            ? CupertinoActivityIndicator()
+            : Drawer(
           child: Container(
-            width: MediaQuery.of(context).size.width / devicePixelRatio,
-            height: MediaQuery.of(context).size.height / devicePixelRatio,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width / devicePixelRatio,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height / devicePixelRatio,
             color: Get.theme.scaffoldBackgroundColor,
             child: Column(
               children: <Widget>[
@@ -162,7 +176,8 @@ class HomeView extends StatelessWidget {
                           SizedBox(
                               width: 0.44.sw,
                               child: Stxt(
-                                text: "${controller.getUserData.value.getUserById!
+                                text: "${controller.getUserData.value
+                                    .getUserById!
                                     .masjidId!
                                     .masjidName}",
                                 size: f5,
@@ -181,7 +196,8 @@ class HomeView extends StatelessWidget {
                   child: ListTile(
                     title: Row(
                       children: [
-                        SvgPicture.asset("assets/svg/Masjiddr.svg", color: Get.theme.hoverColor,),
+                        SvgPicture.asset("assets/svg/Masjiddr.svg",
+                          color: Get.theme.hoverColor,),
                         Space(16),
                         Stxt(text: "masjid_facilities".tr,
                           size: f3,
@@ -198,7 +214,8 @@ class HomeView extends StatelessWidget {
                   child: ListTile(
                     title: Row(
                       children: [
-                        SvgPicture.asset("assets/svg/Historydr.svg", color: Get.theme.hoverColor),
+                        SvgPicture.asset("assets/svg/Historydr.svg",
+                            color: Get.theme.hoverColor),
                         Space(16),
                         Stxt(text: "masjid_history".tr,
                           size: f3,
@@ -217,7 +234,8 @@ class HomeView extends StatelessWidget {
                   child: ListTile(
                     title: Row(
                       children: [
-                        SvgPicture.asset("assets/svg/Admindr.svg", color: Get.theme.hoverColor),
+                        SvgPicture.asset("assets/svg/Admindr.svg",
+                            color: Get.theme.hoverColor),
                         Space(16),
                         Stxt(text: "masjid_admins".tr,
                           size: f3,
@@ -236,7 +254,9 @@ class HomeView extends StatelessWidget {
                   child: ListTile(
                     title: Row(
                       children: [
-                        SvgPicture.asset("assets/svg/imamdr.svg", color: Get.theme.hoverColor),
+                        SvgPicture.asset(
+                            "assets/svg/imamdr.svg",
+                            color: Get.theme.hoverColor),
                         Space(16),
                         Stxt(text: "masjid_imams".tr,
                           size: f3,
@@ -255,7 +275,9 @@ class HomeView extends StatelessWidget {
                   child: ListTile(
                     title: Row(
                       children: [
-                        SvgPicture.asset("assets/svg/voldr.svg", color: Get.theme.hoverColor),
+                        SvgPicture.asset(
+                            "assets/svg/voldr.svg",
+                            color: Get.theme.hoverColor),
                         Space(16),
                         Stxt(text: "masjid_well_wishers".tr,
                           size: f3,
@@ -392,9 +414,11 @@ class HomeView extends StatelessWidget {
                                     SvgPicture.asset(
                                       "assets/svg/servicedr.svg", width: 40,),
                                     Stxt(
-                                      text: "services".tr, size: f1, color: Theme
-                                        .of(context)
-                                        .primaryColor,)
+                                      text: "services".tr,
+                                      size: f1,
+                                      color: Theme
+                                          .of(context)
+                                          .primaryColor,)
                                   ],
                                 ),
                               ),
@@ -431,7 +455,8 @@ class HomeView extends StatelessWidget {
                                   children: [
                                     SvgPicture.asset(
                                       "assets/svg/eventsdr.svg", width: 40,),
-                                    Stxt(text: "events".tr, size: f1, color: Theme
+                                    Stxt(
+                                      text: "events".tr, size: f1, color: Theme
                                         .of(context)
                                         .primaryColor,)
                                   ],
@@ -443,7 +468,7 @@ class HomeView extends StatelessWidget {
                       ],
                     )
                 ),
-               Spacer(),
+                Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -459,8 +484,12 @@ class HomeView extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        body: StreamBuilder<LocationData>(
+        );
+      }),
+      body: Obx(() {
+        return controller.isloading.value
+            ? DialogHelper.showLoading()
+            : StreamBuilder<LocationData>(
           stream: Location.instance.onLocationChanged,
           builder: (context, snap) {
             // if(snap.data == null) return CupertinoActivityIndicator();
@@ -605,7 +634,7 @@ class HomeView extends StatelessWidget {
                                       Get.toNamed(Routes.QURANPAGE);
                                     },
                                     child: LargerCard(
-                                    ignorOntap: true,
+                                      ignorOntap: true,
                                       quranImg: quranImg,
                                       buttonTxt: 'continue'.tr,
                                       image: 'quran',
@@ -845,7 +874,7 @@ class HomeView extends StatelessWidget {
                         children: [
                           InkWell(
                               onTap: () {
-                               Get.to(CustomMarketInfoWindow());
+                                Get.to(CustomMarketInfoWindow());
                               },
                               child: SvgPicture.asset(
                                 "assets/svg/masjidbot.svg",
@@ -877,9 +906,9 @@ class HomeView extends StatelessWidget {
                                   color: Get.theme.focusColor)),
                         ])));
           },
-        ),
-      );
-    });
+        );
+      }),
+    );
   }
 
   Divider buildDivider(ThemeData themeData) {
@@ -898,7 +927,7 @@ class HomeView extends StatelessWidget {
         child: Container(
           height: 35,
           color: Get.theme.hoverColor,
-          child:Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Space(16),

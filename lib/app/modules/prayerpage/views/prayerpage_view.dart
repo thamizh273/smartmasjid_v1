@@ -123,36 +123,35 @@ class PrayerpageView extends StatelessWidget {
                 ))
           ],
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(left: 10, right: 10, top: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+        body: Obx(() {
+          return ctrl.isLoading.value? DialogHelper.showLoading(): Padding(
+            padding: const EdgeInsets.only(left: 10, right: 10, top: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-              Stxt(
-                text: 'farz_prayer_time'.tr,
-                size: f4,
-                weight: FontWeight.bold,
-                color: Get.theme.hoverColor,
-              ),
-              // for(var prayertime in ctrl.prayerpageData.value
-              //     .getMasjidPrayerTimeFilter!)
-              //   PrayerCard(
-              //     prayerName: prayertime.prayerName.toString(),
-              //     icon: getdata[prayertime.prayerName!.length + 1]["icon"],
-              //     start_time: DateFormat('hh:mm a').format(
-              //         DateTime.parse("${prayertime.startTime}")),
-              //     endTime: DateFormat('hh:mm a').format(
-              //         DateTime.parse("${prayertime.endTime}")),
-              //     colors: Color(0xffA8A8A8),
-              //     remainingTime: getdata[0]["remaining"],
-              //     txtClr: Colors.black.withOpacity(.8),
-              //   ),
+                Stxt(
+                  text: 'farz_prayer_time'.tr,
+                  size: f4,
+                  weight: FontWeight.bold,
+                  color: Get.theme.hoverColor,
+                ),
+                // for(var prayertime in ctrl.prayerpageData.value
+                //     .getMasjidPrayerTimeFilter!)
+                //   PrayerCard(
+                //     prayerName: prayertime.prayerName.toString(),
+                //     icon: getdata[prayertime.prayerName!.length + 1]["icon"],
+                //     start_time: DateFormat('hh:mm a').format(
+                //         DateTime.parse("${prayertime.startTime}")),
+                //     endTime: DateFormat('hh:mm a').format(
+                //         DateTime.parse("${prayertime.endTime}")),
+                //     colors: Color(0xffA8A8A8),
+                //     remainingTime: getdata[0]["remaining"],
+                //     txtClr: Colors.black.withOpacity(.8),
+                //   ),
 
 
-              Obx(() {
-
-                return ctrl.isLoading.value?loading(context): Flexible(
+                Flexible(
                   child: ListView.builder(
                     shrinkWrap: true,
                     itemCount: ctrl.prayerpageData.value
@@ -160,61 +159,68 @@ class PrayerpageView extends StatelessWidget {
                         .length, itemBuilder: (context, index) {
                     var prayertime = ctrl.prayerpageData.value
                         .getMasjidPrayerTimeFilter![index];
-              print(prayertime.startTime);
-              print("llllllll");
+                    print(prayertime.startTime);
+                    print("llllllll");
 
-                     ctrl.rrr.value=prayertime.startTime!;
-                      ctrl.update();
+                    ctrl.rrr.value = prayertime.startTime!;
+                    ctrl.update();
                     return
 
                       PrayerCard(
-                      prayerName: prayertime.prayerName.toString().tr,
-                      icon: getdata[index]["icon"],
-                      start_time: DateFormat('hh:mm a').format(DateTime.parse("${prayertime.startTime}").toLocal()),
-                      endTime: DateFormat('hh:mm a').format(DateTime.parse("${prayertime.endTime}").toLocal()),
-                      colors: Colors.white,
-                       remainingTime: prayertime.prayerStatus=="future"? ctrl.remainTime():"null",
-                      txtClr: Get.theme.primaryColor,
-                    );
+                        prayerName: prayertime.prayerName
+                            .toString()
+                            .tr,
+                        icon: getdata[index]["icon"],
+                        start_time: DateFormat('hh:mm a').format(DateTime.parse(
+                            "${prayertime.startTime}").toLocal()),
+                        endTime: DateFormat('hh:mm a').format(DateTime.parse(
+                            "${prayertime.endTime}").toLocal()),
+                        colors: Colors.white,
+                        remainingTime: prayertime.prayerStatus == "future"
+                            ? ctrl.remainTime()
+                            : "null",
+                        txtClr: Get.theme.primaryColor,
+                      );
                   },),
-                );
-              }),
+                ),
 
-              // PrayerCard(
-              //   prayerName: k['name'],
-              //   icon: k['icon'],
-              //   start_time: k['start'],
-              //   endTime: k['end'],
-              //   colors: Color(0xffA8A8A8),
-              //   remainingTime: k['remaining'],
-              //   txtClr: Colors.black.withOpacity(.8),
-              // ),
-              Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 10),
-                child: Stxt(
-                  text: 'prohibited_prayer_time'.tr,
-                  size: f4,
-                  weight: FontWeight.bold,
-                  color: Get.theme.primaryColor,
+
+                // PrayerCard(
+                //   prayerName: k['name'],
+                //   icon: k['icon'],
+                //   start_time: k['start'],
+                //   endTime: k['end'],
+                //   colors: Color(0xffA8A8A8),
+                //   remainingTime: k['remaining'],
+                //   txtClr: Colors.black.withOpacity(.8),
+                // ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20, bottom: 10),
+                  child: Stxt(
+                    text: 'prohibited_prayer_time'.tr,
+                    size: f4,
+                    weight: FontWeight.bold,
+                    color: Get.theme.primaryColor,
+                  ),
                 ),
-              ),
-              for (var i in getdataProhibited)
-                PrayerCard(
-                  remainingTime:"null",
-                  prayerName: i['name'],
-                  icon: i['icon'],
-                  start_time: i['start'],
-                  endTime: i['end'],
-                  colors: Colors.red.withOpacity(0.8),
-                ),
-            ],
-          ),
-        ));
+                for (var i in getdataProhibited)
+                  PrayerCard(
+                    remainingTime: "null",
+                    prayerName: i['name'],
+                    icon: i['icon'],
+                    start_time: i['start'],
+                    endTime: i['end'],
+                    colors: Colors.red.withOpacity(0.8),
+                  ),
+              ],
+            ),
+          );
+        }));
   }
 }
 
 class PrayerCard extends StatelessWidget {
-   PrayerCard({
+  PrayerCard({
     super.key,
     required this.prayerName,
     required this.icon,
@@ -233,6 +239,7 @@ class PrayerCard extends StatelessWidget {
   final Color colors;
   final Color? txtClr;
   final ctrl = Get.put(PrayerpageController());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -281,12 +288,12 @@ class PrayerCard extends StatelessWidget {
                 weight: FontWeight.bold,
                 color: txtClr ?? colors,
               ),
-            remainingTime =="null"?Container()  :Container(
+              remainingTime == "null" ? Container() : Container(
                 padding: EdgeInsets.all(2),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
                     color: clr_green.shade50),
-                child:  Stxt(
+                child: Stxt(
                   text: 'Remaining time : ${remainingTime}',
                   size: f0,
                   color: Colors.green,
@@ -295,7 +302,7 @@ class PrayerCard extends StatelessWidget {
 
             ],
           ),
-         12.horizontalSpace,
+          12.horizontalSpace,
           Container(
             width: 8,
             decoration: BoxDecoration(

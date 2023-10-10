@@ -26,7 +26,7 @@ class ChatUserListPage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: Obx(() {
                 return chatUserListCtrl_.isLoadingschatUserList.value
-                    ? loading(context)
+                    ?  DialogHelper.showLoading()
                     : Column(
                         children: [
                           Safa_textfield(

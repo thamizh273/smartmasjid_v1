@@ -103,7 +103,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
                     ),
                     Obx(() {
                       return controller.isloading.value
-                          ? loading(context)
+                          ?  DialogHelper.showLoading()
                           : ListView.builder(
                         shrinkWrap: true,
                         itemCount: prayerList.length,
@@ -501,7 +501,7 @@ class ImanTrackerView extends GetView<ImanTrackerController> {
               padding: EdgeInsets.all(12.sp),
               child: Obx(() {
                 return controller.isloading1.value
-                    ? loading(context)
+                    ?  DialogHelper.showLoading()
                     : ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,

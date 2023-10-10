@@ -22,7 +22,7 @@ class EventsView extends StatelessWidget {
     return Scaffold(
         appBar: CustomAppbar(tittle: "events".tr),
         body: Obx(() {
-          return homectrl.isloadingEvent.value?loading(context): Padding(
+          return homectrl.isloadingEvent.value? DialogHelper.showLoading(): Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

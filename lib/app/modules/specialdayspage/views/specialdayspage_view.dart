@@ -83,7 +83,7 @@ class SpecialdayspageView extends GetView<SpecialdayspageController> {
                     padding: const EdgeInsets.all(8.0),
                     child: Obx(() {
                       if (spclcntrl.isLoadings0.value) {
-                        return loading(context);
+                        return  DialogHelper.showLoading();
                       } else {
                         final holyDays = spclcntrl.getspecialdays.value.getHolyDays!;
                         if (holyDays.isEmpty) {

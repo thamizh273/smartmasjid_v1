@@ -24,7 +24,7 @@ class QuranJuzDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return juzquranCtrl_.isLoading.value ? loading(context) : Scaffold(
+      return juzquranCtrl_.isLoading.value ?  DialogHelper.showLoading() : Scaffold(
           key: juzquranCtrl_.scaffoldKey,
           endDrawer: Drawer(
             backgroundColor: Get.theme.scaffoldBackgroundColor,
@@ -843,7 +843,7 @@ class QuranJuzDetails extends StatelessWidget {
             itemBuilder: (context, pageIndex) {
                print("plpl${pageIndex}");
               return Obx(() {
-                return (juzquranCtrl_.isLoadingsJuz.value)?loading(context):Padding(
+                return (juzquranCtrl_.isLoadingsJuz.value)? DialogHelper.showLoading():Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
@@ -989,7 +989,7 @@ class QuranJuzDetails extends StatelessWidget {
                       Flexible(
                         flex: 1,
                           child: juzquranCtrl_.isLoadingsJuz.value
-                                ? loading(context)
+                                ?  DialogHelper.showLoading()
                                 : Scrollbar(
                               interactive: true,
                               thumbVisibility: false,

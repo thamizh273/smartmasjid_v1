@@ -42,7 +42,7 @@ class SelectMonth extends StatelessWidget {
             30.verticalSpace,
             Obx(() {
               return memcntrl.isloadingPay.value
-                  ? loading(context)
+                  ? DialogHelper.showLoading()
                   : Expanded(
                     child: GridView.builder(
 

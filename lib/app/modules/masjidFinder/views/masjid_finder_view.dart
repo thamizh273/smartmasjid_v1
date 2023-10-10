@@ -315,7 +315,7 @@ class MasjidFinderView extends StatelessWidget {
                                       ? Image.asset(
                                       "assets/images/selectmasjid_img.png")
                                       : c.isLoading.value
-                                      ? loading(context)
+                                      ?  DialogHelper.showLoading()
                                       : ((c.masjidListdata.value
                                       .getMasjidFilter == null)
                                       ? Center(

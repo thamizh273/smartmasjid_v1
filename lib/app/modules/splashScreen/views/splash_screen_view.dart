@@ -25,9 +25,9 @@ class _SplashScreenViewState extends State<SplashScreenView> {
     Future.delayed(Duration(seconds: 4), () {
       // if( ctrl.getUserData.value.getUserById!.id==null){return Get.offAllNamed(Routes.LANGUAGE_PAGE);}
       if(SplashScreenView.homectrl.box1.read('fruits')!=null){
-          Get.toNamed(Routes.HOME);
+          Get.offAllNamed(Routes.HOME);
       } else if(widget.guestctrl.guesttoken.read('guest')!=null){
-        Get.toNamed(Routes.GUESTMODE);
+        Get.offAllNamed(Routes.GUESTMODE);
       }
       else {
         print("dddddd ${SplashScreenView.homectrl.box1.read('fruits')}");

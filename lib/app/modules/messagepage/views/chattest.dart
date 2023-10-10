@@ -90,7 +90,7 @@ class ChatScreen extends StatelessWidget {
               ''',
             );
             return logic.isLoadingschatmessage.value
-                ? loading(context)
+                ?  DialogHelper.showLoading()
                 : Container(
               child: Subscription(
                 options: SubscriptionOptions(document: subscriptionDocument),

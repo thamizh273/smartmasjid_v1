@@ -1,10 +1,16 @@
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
 import '../app/routes/export.dart';
 
-Widget loading(context) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Center(child: Image.asset("assets/gif/loading.gif",height: 100,width: 100,)),
-    ],
-  );
-}
+class DialogHelper {
+static Widget showLoading() {
+
+  return  Center(
+      child: LoadingAnimationWidget.flickr(
+        leftDotColor: Get.theme.colorScheme.secondary,
+        rightDotColor: Get.theme.primaryColor,
+        size: 80.w,
+      ),
+    );
+
+ }}

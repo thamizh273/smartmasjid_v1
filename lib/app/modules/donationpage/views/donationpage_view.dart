@@ -38,7 +38,7 @@ class DonationpageView extends GetView<DonationpageController> {
         ),
         body: Obx(() {
           return controller.isloadingDona.value
-              ? loading(context)
+              ? DialogHelper.showLoading()
               : Padding(
                   padding:  EdgeInsets.symmetric(horizontal: 10.w),
                   child: Column(

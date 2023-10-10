@@ -53,7 +53,7 @@ class PastPaymentsMembership extends GetView<MembershipController> {
             10.verticalSpace,
             Obx(() {
               return controller.isloading1.value
-                  ? loading(context)
+                  ? DialogHelper.showLoading()
                   :controller.membershipPaymentData.value
                   .getMembershipPaymentDetail!.length==0?SizedBox(height:.7.sh,child: Center(child: Stxt(text: "No Record Found", size: f4))):  ListView.builder(
                 physics: NeverScrollableScrollPhysics(),

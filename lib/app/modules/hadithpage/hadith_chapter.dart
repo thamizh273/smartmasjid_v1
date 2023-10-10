@@ -21,7 +21,7 @@ class HadithChapter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return hadchap_cntrl.isLoadings2.value ? loading(context) : Scaffold(
+      return hadchap_cntrl.isLoadings2.value ?  DialogHelper.showLoading() : Scaffold(
         appBar: CustomAppbar(
           tittle: "Hadith",
           action: [

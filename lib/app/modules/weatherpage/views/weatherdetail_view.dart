@@ -21,7 +21,7 @@ class WeatherdetailView extends StatelessWidget {
     return Scaffold(
         body: Obx(() {
           return c.isLoadings1.value
-              ? loading(context)
+              ?  DialogHelper.showLoading()
               : Column(
             children: [
               Obx(() {

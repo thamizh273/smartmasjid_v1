@@ -24,7 +24,7 @@ class HadithpageView extends GetView<HadithpageController> {
           ],
         ),
         body: Obx(() {
-          return hadithcntrl.isLoadings.value ? loading(context) : ListView.builder(
+          return hadithcntrl.isLoadings.value ?  DialogHelper.showLoading() : ListView.builder(
               physics: BouncingScrollPhysics(),
               itemCount: hadithcntrl.gethadithdata.value.getHadithsCollection!.length,
               itemBuilder: (context, index) {

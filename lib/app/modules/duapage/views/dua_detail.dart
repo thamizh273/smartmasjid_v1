@@ -84,7 +84,7 @@ class DuaDetail extends StatelessWidget {
           ],
         ),
         body: Obx(() {
-          return duactrl.isLoadings1.value ? loading(context) : Padding(
+          return duactrl.isLoadings1.value ?  DialogHelper.showLoading() : Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [

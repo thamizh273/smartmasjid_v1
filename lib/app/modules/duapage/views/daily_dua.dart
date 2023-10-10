@@ -89,7 +89,7 @@ class DailyDua extends StatelessWidget {
             ],
           ),
           body: Obx(() {
-            return duactrl.isLoadings2.value ? loading(context) : Padding(
+            return duactrl.isLoadings2.value ?  DialogHelper.showLoading() : Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [

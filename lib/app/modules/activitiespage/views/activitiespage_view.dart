@@ -20,7 +20,7 @@ class ActivitiespageView extends GetView<ActivitiespageController> {
         ),
         body: Obx(() {
           return activityCtrl_.isloadingtrans.value
-              ? loading(context)
+              ? DialogHelper.showLoading()
               : Padding(
                   padding: EdgeInsets.only(top: 10),
                   child: StickyGroupedListView(

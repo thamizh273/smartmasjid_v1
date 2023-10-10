@@ -45,7 +45,7 @@ class MessagepageView extends GetView<MessagepageController> {
       ),
       body: Obx(() {
         return controller.isLoadings.value
-            ? loading(context)
+            ?  DialogHelper.showLoading()
             : controller.chatroomData.value.getChatroom!.chat!.isEmpty
             ? NoMeassage()
             : ListView.builder(

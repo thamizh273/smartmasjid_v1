@@ -42,7 +42,7 @@ class QuranDetails extends StatelessWidget {
     //       int.parse(c.result.value) - 1);
     // });
     return Obx(() {
-      return quranPageCtrl_.isLoadings.value ? loading(context) : Scaffold(
+      return quranPageCtrl_.isLoadings.value ?  DialogHelper.showLoading(): Scaffold(
         key: quranPageCtrl_.scaffoldKey,
         endDrawer: Drawer(
           backgroundColor: Get.theme.scaffoldBackgroundColor,
@@ -867,7 +867,7 @@ class QuranDetails extends StatelessWidget {
             // print(pageIndex + 1);
 
             return Obx(() {
-              return (quranPageCtrl_.isLoadings1.value) ? loading(context) : Padding(
+              return (quranPageCtrl_.isLoadings1.value) ?  DialogHelper.showLoading() : Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
@@ -1024,7 +1024,7 @@ class QuranDetails extends StatelessWidget {
                     Flexible(
                       flex: 1,
                       child: quranPageCtrl_.isLoadings1.value
-                          ? loading(context)
+                          ? DialogHelper.showLoading()
                           : Scrollbar(
                         interactive: true,
                         thumbVisibility: false,

@@ -77,7 +77,7 @@ class ChatPage extends StatelessWidget {
           // ],
         ),
         body: Obx(() {
-          return messageCtrl.isLoadingschatmessage.value?loading(context):StickyGroupedListView(
+          return messageCtrl.isLoadingschatmessage.value? DialogHelper.showLoading():StickyGroupedListView(
             physics: BouncingScrollPhysics(),
             elements: messageCtrl.readChatMessageData.value.readChatMessage!.message!,
             order: StickyGroupedListOrder.ASC,

@@ -20,7 +20,7 @@ class MasjidFacility extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return facicntrl.isLoadings0.value? loading(context): Scaffold(
+      return facicntrl.isLoadings0.value?  DialogHelper.showLoading(): Scaffold(
         appBar: CustomAppbar(
           tittle: "facilities".tr,
         ),

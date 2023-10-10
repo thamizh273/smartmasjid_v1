@@ -36,7 +36,7 @@ class DuapageView extends GetView<DuapageController> {
       body: Center(
         child: Obx(() {
           return c.isLoadings.value
-              ? loading(context)
+              ?  DialogHelper.showLoading()
               : Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: SingleChildScrollView(

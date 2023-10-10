@@ -37,7 +37,7 @@ class QuranpageView extends StatelessWidget {
         length: 2,
         child: Obx(() {
           return quranCtrl.isLoadings0.value
-              ? loading(context)
+              ?  DialogHelper.showLoading()
               : Scaffold(
               appBar: AppBar(
                 // backgroundColor: Color(0xff16627C),
@@ -414,8 +414,7 @@ class QuranpageView extends StatelessWidget {
                                 ),
                                 Space(8),
                                 Obx(() {
-                                  return quranCtrl.isLoadings.value ? loading(
-                                      context) : ListView.builder(
+                                  return quranCtrl.isLoadings.value ?  DialogHelper.showLoading() : ListView.builder(
                                     shrinkWrap: true,
                                     physics: BouncingScrollPhysics(),
                                     key: PageStorageKey<String>("page"),

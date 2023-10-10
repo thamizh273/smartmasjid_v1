@@ -24,7 +24,7 @@ class Hadithchapterdetail extends GetView<HadithpageController> {
             Space(16)
           ],
         ),
-        body:  detail_cntrl.isLoadings5.value? loading(context) :Padding(
+        body:  detail_cntrl.isLoadings5.value? DialogHelper.showLoading():Padding(
           padding: const EdgeInsets.all(16),
           child: Scrollbar(
             controller: detail_cntrl.scrollControllerd,

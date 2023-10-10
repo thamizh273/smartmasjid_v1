@@ -40,7 +40,7 @@ class MembershipView extends GetView<MembershipController> {
         double containerWidth = screenWidth > 768 ? 300 : screenWidth;
         double containerHeight = screenWidth > 768 ? screenHeight : 150;
         return controller.isloading.value
-            ? loading(context)
+            ?  DialogHelper.showLoading()
             : Column(
                 children: [
                   Container(
