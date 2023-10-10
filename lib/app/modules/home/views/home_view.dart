@@ -155,37 +155,41 @@ class HomeView extends StatelessWidget {
             color: Get.theme.scaffoldBackgroundColor,
             child: Column(
               children: <Widget>[
-                DrawerHeader(
-                  padding: const EdgeInsets.all(8),
-                  margin: EdgeInsets.only(bottom: 8),
-                  decoration: BoxDecoration(
-                    color: Get.theme.hoverColor,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(6.0),
-                            child: SvgPicture.asset("assets/svg/slogonew.svg",
-                                height: 70.00, width: 80.00),
-                          ),
-                          Space(16),
-                          SizedBox(
-                              width: 0.44.sw,
-                              child: Stxt(
-                                text: "${controller.getUserData.value
-                                    .getUserById!
-                                    .masjidId!
-                                    .masjidName}",
-                                size: f5,
-                                weight: FontWeight.w600,
-                                color: Get.theme.scaffoldBackgroundColor,))
-                        ],
-                      ),
-                    ],
+
+                Container(
+                  height: 130.h,
+                  child: DrawerHeader(
+                    padding: const EdgeInsets.all(8),
+                    margin: EdgeInsets.only(bottom:8),
+                    decoration: BoxDecoration(
+                      color: Get.theme.hoverColor,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(6.0),
+                              child: SvgPicture.asset("assets/svg/slogonew.svg",
+                                  height: 70.00, width: 80.00),
+                            ),
+                            Space(16),
+                            SizedBox(
+                                width: 0.44.sw,
+                                child: Stxt(
+                                  text: "${controller.getUserData.value.getUserById!
+                                      .masjidId!
+                                      .masjidName}",
+                                  size: f5,
+                                  weight: FontWeight.w600,
+                                  color: Get.theme.scaffoldBackgroundColor,))
+                          ],
+                        ),
+                      ],
+                    ),
+
                   ),
                 ),
                 GestureDetector(
@@ -480,7 +484,7 @@ class HomeView extends StatelessWidget {
                     Icon(Icons.logout, color: Get.theme.hoverColor)
                   ],
                 ),
-                Space(10),
+                Space(30),
               ],
             ),
           ),

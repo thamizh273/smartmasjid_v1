@@ -4,6 +4,7 @@ import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/working.dart';
 import 'package:smartmasjid_v1/app/modules/masjidhistory/controllers/masjidhistory_controller.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
+import 'package:smartmasjid_v1/widgets/loading.dart';
 
 class MasjidhistoryView extends StatelessWidget {
   MasjidhistoryView({super.key});
@@ -145,7 +146,7 @@ class MasjidhistoryView extends StatelessWidget {
                                   child: SizedBox(
                                     height: 250.h,
                                     child: Obx(() {
-                                      return ListView.builder(
+                                      return hiscntrl.isLoadings0.value? loading(context): ListView.builder(
                                           physics: BouncingScrollPhysics(),
                                           itemCount: hiscntrl.getmasjidfacility.value.getMasjidFacilitiesList!.length,
                                           itemBuilder: (context, index) {
