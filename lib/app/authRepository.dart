@@ -83,7 +83,7 @@ class AuthenticationRespository extends GetxController {
         if (error == "invalid-phone-number") {
           toast(error: "Error", msg: 'The provided phone number is not valid');
         } else {
-          toast(error: "Error", msg: 'Something went wrong. Try again.');
+          toast(error: "Failed", msg: 'Maximum OTP reached, Try again later');
         }
       },
       codeSent: (verificationId, forceResendingToken) {

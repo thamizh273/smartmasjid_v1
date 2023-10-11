@@ -249,6 +249,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                               onChanged: (newValue) {
                                 controller.switchValue.value = newValue;
                                 ThemeService().changeTheme();
+                                controller.update();
 
                               },
                             );
@@ -1020,6 +1021,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                         // Get.changeTheme(ThemeData.dark());
 
                         ThemeService().changeTheme();
+                        controller.update();
 
                         print("DDDD${Get.isDarkMode}");
                       },

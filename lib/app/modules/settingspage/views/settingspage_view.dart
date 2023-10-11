@@ -100,8 +100,7 @@ class SettingsPageState extends State<SettingspageView> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Obx(() {
-          return Column(
+        child:  Column(
             children: [
               Row(
                 children: [
@@ -114,14 +113,17 @@ class SettingsPageState extends State<SettingspageView> {
                     style: TextStyle(
                         fontSize: 18, fontWeight: FontWeight.w500),),
                   Spacer(),
-                  Switch(
-                    value: controller.switchValue.value,
-                    onChanged: (newValue) {
-                      controller.switchValue.value = newValue;
-                  ThemeService().changeTheme();
+                  Obx(() {
+                    return Switch(
+                      value: controller.switchValue.value,
+                      onChanged: (newValue) {
+                        controller.switchValue.value = newValue;
+                        ThemeService().changeTheme();
+                        controller.update();
 
-                    },
-                  )
+                      },
+                    );
+                  }),
                 ],
               ),
               Divider(
@@ -236,8 +238,8 @@ class SettingsPageState extends State<SettingspageView> {
                 thickness: 1,
               ),
             ],
-          );
-        }),
+          ),
+
       ),
     );
   }
