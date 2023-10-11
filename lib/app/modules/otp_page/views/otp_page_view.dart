@@ -164,16 +164,18 @@ class OtpPageView extends GetView<OtpPageController> {
                             androidSmsAutofillMethod: AndroidSmsAutofillMethod.none,
                             listenForMultipleSmsOnAndroid: false,
                             controller: authctrl.pinController.value,
-                            validator: (s) {
-                             // return authctrl.errorinotp.value == true ?'Pin is incorrect':null ;
-                            },
-                           // onSubmitted: (pin) {
-                           //   controller.otpctrl.value = pin;
-                           //   OtpPageController.instance.verifyOTP();
-                           // },
+                            // validator: (s) {
+                            //  // return authctrl.errorinotp.value == true ?'Pin is incorrect':null ;
+                            // },
+                          //  onSubmitted: (pin) {
+                          //   controller.otpctrl.value = pin;
+                          //   OtpPageController.instance.verifyOTP();
+                          // },
                             onCompleted: (pin) {
-                              controller.otpctrl.value =  pin;
+                             controller.otpctrl.value =  pin;
+                             OtpPageController.instance.update();
                               OtpPageController.instance.verifyOTP();
+                             OtpPageController.instance.update();
 
                              // OtpPageController.instance.verifyOTP();
                              // debugPrint('onCompleted: $pin');
@@ -211,8 +213,11 @@ class OtpPageView extends GetView<OtpPageController> {
                                     .primary,
                                 foregroundColor: Colors.white,
                                 fixedSize: Size(120, 35)),
-                            onPressed: () {
-                           //   OtpPageController.instance.verifyOTP();
+                            onPressed: ()  {
+                              // controller.otpctrl.value = authctrl.pinController.value.toString();
+                              // controller.update();
+                              // Future.delayed(Duration(milliseconds: 200),(){ OtpPageController.instance.verifyOTP();});
+
                             },
                             child: Text(
                               "verify".tr,
@@ -223,8 +228,7 @@ class OtpPageView extends GetView<OtpPageController> {
                             )),
                         Obx(() {
                           return Stxt(
-                            text: "Remaining Time: ${authctrl.secondsRemaining
-                                .value } sec",
+                            text: "Remaining Time: ${authctrl.secondsRemaining.value} sec",
                             size: f3,
                             weight: FontWeight.w500,
                             color: Get.theme.colorScheme.secondary,);
