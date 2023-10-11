@@ -7,8 +7,8 @@ static Widget showLoading() {
 
   return  Center(
       child: LoadingAnimationWidget.flickr(
-        leftDotColor: Get.theme.colorScheme.secondary,
-        rightDotColor: Get.theme.primaryColor,
+        leftDotColor: Get.theme.primaryColor,
+        rightDotColor: Color(0xff7bbfcb),
         size: 80.w,
       ),
     );

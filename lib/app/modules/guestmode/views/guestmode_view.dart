@@ -42,6 +42,7 @@ import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../../home/widgets/mediumCard.dart';
 import '../../masjidnearme/helper/custom_marker_info_window.dart';
+import '../../settingspage/controllers/settingspage_controller.dart';
 import '../../settingspage/views/languageList.dart';
 import '../controllers/guestmode_controller.dart';
 
@@ -55,6 +56,7 @@ class GuestmodeView extends StatefulWidget {
 
 class _GuestmodeViewState extends State<GuestmodeView> {
   final GuestmodeController controller = Get.find<GuestmodeController>();
+  final  sctrl = Get.put(SettingspageController());
 
   CarouselController _carouselController = CarouselController();
 
@@ -148,6 +150,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
             child: GestureDetector(
               onTap: () {
                 controller.openDrawer();
+                controller.update();
               },
 
               child: Image.asset("assets/images/slogonw.png",),
@@ -243,16 +246,19 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                           Text("dark_Mode".tr,
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
                           Spacer(),
-                          Obx(() {
-                            return Switch(
-                              value: controller.switchValue.value,
+                          Switch(
+                              value: sctrl.switchValue.value ,
                               onChanged: (newValue) {
-                                controller.switchValue.value = newValue;
+                                sctrl.switchValue.value = newValue;
+
+
                                 ThemeService().changeTheme();
+                                sctrl.update();
+
 
                               },
-                            );
-                          }),
+                            ),
+
                         ],
                       ),
                       Divider(
@@ -1020,7 +1026,7 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                         // Get.changeTheme(ThemeData.dark());
 
                         ThemeService().changeTheme();
-
+                        sctrl.switchValue.value =  !sctrl.switchValue.value;
                         print("DDDD${Get.isDarkMode}");
                       },
                       icon: Container(

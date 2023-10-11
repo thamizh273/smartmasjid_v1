@@ -88,7 +88,7 @@ class MasjidRequestView extends GetView<MasjidRequestController> {
                         SizedBox(width: 30,),
                         ElevatedButton(
                             onPressed: (){
-                              Get.toNamed(Routes.GUESTMODE,arguments: [true]);
+                              Get.offAllNamed(Routes.GUESTMODE,arguments: [true]);
                             },
                             style: ElevatedButton.styleFrom(
                               minimumSize: Size(100, 30),

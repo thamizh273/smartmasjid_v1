@@ -149,9 +149,13 @@ class AuthenticationRespository extends GetxController {
       // Once signed in, return the UserCredential
       return userCredential;
     } on FirebaseAuthException catch (e) {
+      await GoogleSignIn().signOut();
+      await FirebaseAuth.instance.signOut();
       print('Firebase Auth Error: ${e.code} - ${e.message}');
       throw e.message.toString();
     } catch (e) {
+      await GoogleSignIn().signOut();
+      await FirebaseAuth.instance.signOut();
       print('Unexpected error occurred: $e');
       throw e.toString();
     }
@@ -182,6 +186,8 @@ query Login_With_Gmail(\$authId: String, \$deviceId: String!) {
 
       Get.toNamed(Routes.SIGNUP_PAGE);
       if(res.toString().contains("ERROR")){
+        await GoogleSignIn().signOut();
+        await FirebaseAuth.instance.signOut();
         toast(error: "Error", msg: "${res["ERROR"]}");
       }
       return;

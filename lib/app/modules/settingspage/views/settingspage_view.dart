@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -6,6 +9,7 @@ import 'package:in_app_review/in_app_review.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:smartmasjid_v1/app/modules/home/controllers/home_controller.dart';
 import 'package:smartmasjid_v1/app/modules/language_page/views/language_page_view.dart';
+import 'package:smartmasjid_v1/widgets/loading.dart';
 
 import '../../../../theme/theme.dart';
 import '../../../../widgets/space.dart';
@@ -94,21 +98,20 @@ class SettingsPageState extends State<SettingspageView> {
 
   @override
   Widget build(BuildContext context) {
-    var theme=Get.theme;
+
     return Scaffold(
       appBar: CustomAppbar(tittle: 'settings'.tr,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Obx(() {
-          return Column(
+
+          return controller.load.value==true?Center(child: CupertinoActivityIndicator()):Column(
             children: [
               Row(
                 children: [
 
-                  SvgPicture.asset(
-
-                    "assets/svg/thememode.svg", color: theme.hoverColor,),
+                  SvgPicture.asset("assets/svg/thememode.svg", color: Get.theme.hoverColor,),
                   Space(16),
                   Text("dark_Mode".tr,
                     style: TextStyle(
@@ -116,9 +119,21 @@ class SettingsPageState extends State<SettingspageView> {
                   Spacer(),
                   Switch(
                     value: controller.switchValue.value,
-                    onChanged: (newValue) {
+                    onChanged: (newValue) async {
                       controller.switchValue.value = newValue;
-                  ThemeService().changeTheme();
+                      ThemeService().changeTheme();
+                      controller.load.value=true;
+                      controller.update();
+                      Future.delayed(Duration(milliseconds: 200),() async{
+
+                    controller.load.value=false;
+                    controller.update();
+
+                      });
+                      controller.update();
+
+
+
 
                     },
                   )
@@ -136,7 +151,7 @@ class SettingsPageState extends State<SettingspageView> {
                   child: Row(
                     children: [
                       SvgPicture.asset("assets/svg/language.svg",
-                        color: theme.hoverColor,),
+                        color: Get.theme.hoverColor,),
                       Space(16),
                       Text("language".tr,
                         style: TextStyle(fontSize: 18,
@@ -154,7 +169,7 @@ class SettingsPageState extends State<SettingspageView> {
               Row(
                 children: [
                   SvgPicture.asset(
-                    "assets/svg/feedback.svg", color: theme.hoverColor,),
+                    "assets/svg/feedback.svg", color: Get.theme.hoverColor,),
                   Space(16),
                   Text("feedback".tr,
                     style: TextStyle(
@@ -170,7 +185,7 @@ class SettingsPageState extends State<SettingspageView> {
               Row(
                 children: [
                   SvgPicture.asset(
-                    "assets/svg/contact.svg", color: theme.hoverColor,),
+                    "assets/svg/contact.svg", color: Get.theme.hoverColor,),
                   Space(16),
                   Text("contact".tr,
                     style: TextStyle(
@@ -190,7 +205,7 @@ class SettingsPageState extends State<SettingspageView> {
                 child: Row(
                   children: [
                     SvgPicture.asset(
-                      "assets/svg/rating.svg", color: theme.hoverColor,),
+                      "assets/svg/rating.svg", color: Get.theme.hoverColor,),
                     const Space(16),
                     Text("rate_our_app".tr,
                       style: TextStyle(
@@ -207,7 +222,7 @@ class SettingsPageState extends State<SettingspageView> {
               Row(
                 children: [
                   SvgPicture.asset(
-                    "assets/svg/versionew.svg", color: theme.hoverColor,),
+                    "assets/svg/versionew.svg", color: Get.theme.hoverColor,),
                   Space(16),
                   Text("version".tr,
                     style: TextStyle(
@@ -223,7 +238,7 @@ class SettingsPageState extends State<SettingspageView> {
               Row(
                 children: [
                   SvgPicture.asset(
-                    "assets/svg/share.svg", color: theme.hoverColor,),
+                    "assets/svg/share.svg", color: Get.theme.hoverColor,),
                   Space(16),
                   Text("share".tr,
                     style: TextStyle(

@@ -165,7 +165,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                         onPressed: () {
                           //Get.offAllNamed(Routes.HOME);
                           // Navigator.of(context).push(MaterialPageRoute(builder: (_) => FaceAuth()));
-                          Get.toNamed(Routes.GUESTMODE,arguments: [true]);
+                          Get.offAllNamed(Routes.GUESTMODE,arguments: [true]);
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(50, 20),

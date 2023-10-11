@@ -68,7 +68,7 @@ class GuestmodeController extends GetxController with GetTickerProviderStateMixi
 
   final RxBool isExpanded = false.obs;
   final RxBool status = false.obs;
-  RxBool switchValue = false.obs;
+
 
   void toggleFunction() {
     isExpanded.value = !isExpanded.value; // Toggle the state

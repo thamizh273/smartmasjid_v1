@@ -1,8 +1,6 @@
-import 'package:get/get.dart';
 import 'package:smartmasjid_v1/app/modules/language_page/controllers/language_page_controller.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
 
-import '../../home/controllers/home_controller.dart';
 
 class SettingspageController extends GetxController {
   //TODO: Implement SettingspageController
@@ -10,7 +8,15 @@ class SettingspageController extends GetxController {
 
   RxBool switchValue = ThemeService().isSavedDarkMode().obs;
   final langctl=Get.find<LanguagePageController>();
-
+    var load=false.obs;
+    loading(){
+      load.value=true;
+      update();
+      Future.delayed(Duration(milliseconds: 200),() async{
+       load.value=false;
+       update();
+      });
+    }
   @override
   void onInit() {
     langctl.selectedRadioIndex.value = langctl.langStore.read('selectedindex') ?? 0;

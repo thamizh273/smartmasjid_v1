@@ -1,4 +1,3 @@
-
 import 'package:floating_frosted_bottom_bar/app/frosted_bottom_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,113 +34,113 @@ class QuranpageView extends StatelessWidget {
       },
       child: DefaultTabController(
         length: 2,
-        child: Obx(() {
-          return quranCtrl.isLoadings0.value
-              ?  DialogHelper.showLoading()
-              : Scaffold(
-              appBar: AppBar(
-                // backgroundColor: Color(0xff16627C),
-                leading: GestureDetector(
-                    onTap: () {
-                      if (quranCtrl.isSearchEnabled.value) {
-                        quranCtrl
-                            .clearSearch(); // Clear search and show all items
-                      } else {
-                        // quranCtrl.toggleSearch(); // Toggle search field
-                        Navigator.of(context).pop(MaterialPageRoute(builder: (
-                            _) => HomeView()));
-                      }
+        child: Scaffold(
+            appBar: AppBar(
+              // backgroundColor: Color(0xff16627C),
+              leading: GestureDetector(
+                  onTap: () {
+                    if (quranCtrl.isSearchEnabled.value) {
+                      quranCtrl
+                          .clearSearch(); // Clear search and show all items
+                    } else {
+                      // quranCtrl.toggleSearch(); // Toggle search field
+                      Navigator.of(context).pop(
+                          MaterialPageRoute(builder: (_) => HomeView()));
+                    }
+                  },
+                  child: SvgPicture.asset("assets/svg/backnew.svg",
+                      fit: BoxFit.scaleDown,
+                      color: quranCtrl.isSearchEnabled.value
+                          ? Colors.black
+                          : Colors
+                          .white)),
+              backgroundColor: quranCtrl.isSearchEnabled.value
+                  ? Colors.white
+                  : Color(0xff16627C),
+              // backgroundColor: isSearchEnabled ? Colors.transparent : Color(0xff16627C),
+              title: Obx(() {
+                if (quranCtrl.isSearchEnabled.value) {
+                  return TextField(
+                    // controller: TextEditingController(text: quranCtrl.isSearchEnabled.value ? quranCtrl.savedSearchQuery.value : ''), // Set the initial text
+                    controller: quranCtrl.searchController,
+                    keyboardType: TextInputType.text,
+                    showCursor: true,
+                    decoration: InputDecoration(
+                        hintText: "search_sura".tr
+                    ),
+                    onChanged: (value) {
+                      quranCtrl.searchQuery.value = value;
+                      quranCtrl.savedSearchQuery.value =
+                          value; // Save the search query
+                      quranCtrl.filterItems();
+                      quranCtrl.filterjuzItems();
                     },
-                    child: SvgPicture.asset("assets/svg/backnew.svg",
-                        fit: BoxFit.scaleDown,
+                  );
+                } else {
+                  return Text(
+                    "holy_quran".tr,
+                    style: TextStyle(color: Colors.white),
+                  );
+                }
+              }),
+              actions: [
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          if (quranCtrl.isSearchEnabled.value) {
+                            quranCtrl
+                                .clearSearch(); // Clear search and show all items
+                          } else {
+                            quranCtrl.toggleSearch(); // Toggle search field
+                          }
+                        },
+                        icon: quranCtrl.isSearchEnabled.value
+                            ? Icon(Icons.close)
+                            : Icon(Icons.search),
                         color: quranCtrl.isSearchEnabled.value
                             ? Colors.black
                             : Colors
-                            .white)),
-                backgroundColor: quranCtrl.isSearchEnabled.value
-                    ? Colors.white
-                    : Color(0xff16627C),
-                // backgroundColor: isSearchEnabled ? Colors.transparent : Color(0xff16627C),
-                title: Obx(() {
-                  if (quranCtrl.isSearchEnabled.value) {
-                    return TextField(
-                      // controller: TextEditingController(text: quranCtrl.isSearchEnabled.value ? quranCtrl.savedSearchQuery.value : ''), // Set the initial text
-                      controller: quranCtrl.searchController,
-                      keyboardType: TextInputType.text,
-                      showCursor: true,
-                      decoration: InputDecoration(
-                          hintText: "search_sura".tr
-                      ),
-                      onChanged: (value) {
-                        quranCtrl.searchQuery.value = value;
-                        quranCtrl.savedSearchQuery.value =
-                            value; // Save the search query
-                        quranCtrl.filterItems();
-                        quranCtrl.filterjuzItems();
-                      },
-                    );
-                  } else {
-                    return Text(
-                      "holy_quran".tr,
-                      style: TextStyle(color: Colors.white),
-                    );
-                  }
-                }),
-                actions: [
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            if (quranCtrl.isSearchEnabled.value) {
-                              quranCtrl
-                                  .clearSearch(); // Clear search and show all items
-                            } else {
-                              quranCtrl.toggleSearch(); // Toggle search field
-                            }
-                          },
-                          icon: quranCtrl.isSearchEnabled.value
-                              ? Icon(Icons.close)
-                              : Icon(Icons.search),
-                          color: quranCtrl.isSearchEnabled.value
-                              ? Colors.black
-                              : Colors
-                              .white
-                      ),
-                      // Image.asset(
-                      //   "assets/images/bookmark.png",
-                      //   width: 18,
-                      // ),
-                      Space(20)
-                    ],
-                  )
-                ],
-                bottom: quranCtrl.isSearchEnabled.value
-                    ? null
-                    : TabBar(
-                  tabs: [
-                    Tab(
-                      text: 'surah'.tr,
+                            .white
                     ),
-                    Tab(
-                      text: 'juz'.tr,
-                    ),
+                    // Image.asset(
+                    //   "assets/images/bookmark.png",
+                    //   width: 18,
+                    // ),
+                    Space(20)
                   ],
-                ),
+                )
+              ],
+              bottom: quranCtrl.isSearchEnabled.value
+                  ? null
+                  : TabBar(
+                tabs: [
+                  Tab(
+                    text: 'surah'.tr,
+                  ),
+                  Tab(
+                    text: 'juz'.tr,
+                  ),
+                ],
               ),
-              body: FrostedBottomBar(
-                width: 330.w,
-                opacity: .8,
-                sigmaX: 10,
-                sigmaY: 10,
-                bottomBarColor: Theme
-                    .of(context)
-                    .colorScheme
-                    .primary,
-                borderRadius: BorderRadius.circular(500),
-                duration: const Duration(milliseconds: 800),
-                hideOnScroll: true,
-                body: (BuildContext context, ScrollController controller) {
-                  return TabBarView(children: [
+            ),
+            body: FrostedBottomBar(
+              width: 330.w,
+              opacity: .8,
+              sigmaX: 10,
+              sigmaY: 10,
+              bottomBarColor: Theme
+                  .of(context)
+                  .colorScheme
+                  .primary,
+              borderRadius: BorderRadius.circular(500),
+              duration: const Duration(milliseconds: 800),
+              hideOnScroll: true,
+              body: (BuildContext context, ScrollController controller) {
+                return Obx(() {
+                  return  quranCtrl.isLoadings0.value
+                      ?  DialogHelper.showLoading()
+                      : TabBarView(children: [
                     Scrollbar(
                       interactive: true,
                       // thumbVisibility: true,
@@ -206,9 +205,11 @@ class QuranpageView extends StatelessWidget {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              if (quranCtrl.lastReadIndex != -1) {
+                                              if (quranCtrl.lastReadIndex !=
+                                                  -1) {
                                                 quranCtrl.quranDetailList(
-                                                    quranCtrl.lastReadIndex + 1);
+                                                    quranCtrl.lastReadIndex +
+                                                        1);
                                                 // quranCtrl.scrollToCurrentIndex(
                                                 //     quranCtrl.lastReadIndex);
                                               }
@@ -267,7 +268,8 @@ class QuranpageView extends StatelessWidget {
                                             onTap: () {
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
-                                                      builder: (_) => QuranNotes()));
+                                                      builder: (_) =>
+                                                          QuranNotes()));
                                             },
                                             child: Container(
                                               height: 50,
@@ -336,17 +338,20 @@ class QuranpageView extends StatelessWidget {
                                                       BorderRadius.circular(
                                                           4),
                                                       border: Border.all(
-                                                          color: Get.theme.hoverColor)),
+                                                          color: Get.theme
+                                                              .hoverColor)),
                                                   child: Padding(
                                                     padding:
                                                     const EdgeInsets.all(4.0),
                                                     child: Text(
-                                                      "${sura[index].suraNameEn}",
+                                                      "${sura[index]
+                                                          .suraNameEn}",
                                                       style: TextStyle(
                                                           fontWeight:
                                                           FontWeight.w600,
                                                           fontSize: 14,
-                                                          color: Get.theme.hoverColor),
+                                                          color: Get.theme
+                                                              .hoverColor),
                                                     ),
                                                   ),
                                                 ),
@@ -356,33 +361,42 @@ class QuranpageView extends StatelessWidget {
                                                           .suraNameEn}");
                                                   if (sura[index].suraNameEn ==
                                                       "Ya-Sin") {
-                                                    quranCtrl.quranDetailList(36);
+                                                    quranCtrl.quranDetailList(
+                                                        36);
                                                   } else if (sura[index]
                                                       .suraNameEn ==
                                                       'Ar-Rahman') {
-                                                    quranCtrl.quranDetailList(55);
+                                                    quranCtrl.quranDetailList(
+                                                        55);
                                                   } else if (sura[index]
                                                       .suraNameEn ==
                                                       'Al-Kahf') {
-                                                    quranCtrl.quranDetailList(18);
+                                                    quranCtrl.quranDetailList(
+                                                        18);
                                                   }
-                                                  else if (sura[index].suraNameEn ==
+                                                  else
+                                                  if (sura[index].suraNameEn ==
                                                       "Al-Waqi'ah") {
-                                                    quranCtrl.quranDetailList(56);
+                                                    quranCtrl.quranDetailList(
+                                                        56);
                                                   } else if (sura[index]
                                                       .suraNameEn ==
                                                       'Al-Mulk') {
-                                                    quranCtrl.quranDetailList(67);
+                                                    quranCtrl.quranDetailList(
+                                                        67);
                                                   } else if (sura[index]
                                                       .suraNameEn ==
                                                       'Al-Ikhlas') {
-                                                    quranCtrl.quranDetailList(112);
+                                                    quranCtrl.quranDetailList(
+                                                        112);
                                                   } else if (sura[index]
                                                       .suraNameEn ==
                                                       'Al-Falaq') {
-                                                    quranCtrl.quranDetailList(113);
+                                                    quranCtrl.quranDetailList(
+                                                        113);
                                                   } else {
-                                                    quranCtrl.quranDetailList(18);
+                                                    quranCtrl.quranDetailList(
+                                                        18);
                                                   }
                                                 },
                                               );
@@ -414,7 +428,9 @@ class QuranpageView extends StatelessWidget {
                                 ),
                                 Space(8),
                                 Obx(() {
-                                  return quranCtrl.isLoadings.value ?  DialogHelper.showLoading() : ListView.builder(
+                                  return quranCtrl.isLoadings.value
+                                      ? DialogHelper.showLoading()
+                                      : ListView.builder(
                                     shrinkWrap: true,
                                     physics: BouncingScrollPhysics(),
                                     key: PageStorageKey<String>("page"),
@@ -422,13 +438,15 @@ class QuranpageView extends StatelessWidget {
                                     ///store the current page in the list items
                                     //  primary: true,
                                     padding: EdgeInsets.all(0),
-                                   // controller: quranCtrl.scrollController,
+                                    // controller: quranCtrl.scrollController,
                                     itemCount: quranCtrl.filteredItems.length,
                                     itemBuilder: (context, index) {
                                       var sura = quranCtrl.filteredItems[index];
                                       return Padding(
                                         padding: EdgeInsets.only(
-                                            bottom: index < quranCtrl.filteredItems.length - 1
+                                            bottom: index <
+                                                quranCtrl.filteredItems.length -
+                                                    1
                                                 ? 10.0
                                                 : 0.0),
                                         child: Stack(children: [
@@ -438,15 +456,19 @@ class QuranpageView extends StatelessWidget {
                                             title: GestureDetector(
                                               onTap: () {
                                                 print("bbbbb ${index}");
-                                                quranCtrl.quranDetailList(index + 1);
-                                                quranCtrl.qurandetsilIndex.value = (index + 1);
-                                                quranCtrl.result.value = 0.toString();
+                                                quranCtrl.quranDetailList(
+                                                    index + 1);
+                                                quranCtrl.qurandetsilIndex
+                                                    .value = (index + 1);
+                                                quranCtrl.result.value =
+                                                    0.toString();
                                                 quranCtrl.passint.value =
                                                 (index + 1);
                                                 print("dddd${quranCtrl.passint
                                                     .value}");
                                                 // quranCtrl.scrollToCurrentIndex(index);
-                                                quranCtrl.setLastReadIndex(index);
+                                                quranCtrl.setLastReadIndex(
+                                                    index);
                                               },
                                               child: Align(
                                                 alignment: Alignment.topCenter,
@@ -510,7 +532,12 @@ class QuranpageView extends StatelessWidget {
                                                               Alignment
                                                                   .center,
                                                               child: Text(
-                                                                  sura.suraChapterNo!, style: TextStyle(color: Get.theme.primaryColor),),
+                                                                sura
+                                                                    .suraChapterNo!,
+                                                                style: TextStyle(
+                                                                    color: Get
+                                                                        .theme
+                                                                        .primaryColor),),
                                                             ),
                                                           ),
                                                         ],
@@ -519,13 +546,18 @@ class QuranpageView extends StatelessWidget {
                                                       SingleChildScrollView(
                                                         child: Padding(
                                                           padding:
-                                                          const EdgeInsets.only(bottom: 8.0),
+                                                          const EdgeInsets.only(
+                                                              bottom: 8.0),
                                                           child: Column(
-                                                            mainAxisAlignment: MainAxisAlignment.center,
-                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            mainAxisAlignment: MainAxisAlignment
+                                                                .center,
+                                                            crossAxisAlignment: CrossAxisAlignment
+                                                                .start,
                                                             children: [
                                                               Text(
-                                                                ('sura_name_en_${sura.suraNameEn}').tr,
+                                                                ('sura_name_en_${sura
+                                                                    .suraNameEn}')
+                                                                    .tr,
                                                                 style: const TextStyle(
                                                                     color: Color(
                                                                         0xff16627C),
@@ -549,10 +581,13 @@ class QuranpageView extends StatelessWidget {
                                                                   ),
                                                                   Space(8),
                                                                   SizedBox(
-                                                                    width: 100.w,
+                                                                    width: 100
+                                                                        .w,
                                                                     child: Stxt(
                                                                       // text:langCtrl.selectedLang.value=="ENGLISH"?"${sura.titleEn}":sura.titleTamil.toString(),
-                                                                      text: ("sura_name_title_${sura.titleEn}").tr,
+                                                                      text: ("sura_name_title_${sura
+                                                                          .titleEn}")
+                                                                          .tr,
                                                                       size: f1,
                                                                       color: Color(
                                                                           0xff16627C),
@@ -657,7 +692,8 @@ class QuranpageView extends StatelessWidget {
                                                             ),
                                                             Space(8),
                                                             Text(
-                                                              "${sura.totalVerses}",
+                                                              "${sura
+                                                                  .totalVerses}",
                                                               style: TextStyle(
                                                                   color: Color(
                                                                       0xff16627C),
@@ -721,10 +757,13 @@ class QuranpageView extends StatelessWidget {
                                             title: GestureDetector(
                                               onTap: () {
                                                 print("mmmmmmmm ${index}");
-                                                print("lolo ${ quranCtrl.qurandetsilIndex1.value}");
+                                                print("lolo ${ quranCtrl
+                                                    .qurandetsilIndex1.value}");
 
-                                                quranCtrl.quranjuzdetailList(index + 1);
-                                                quranCtrl.qurandetsilIndex1.value == (index + 1);
+                                                quranCtrl.quranjuzdetailList(
+                                                    index + 1);
+                                                quranCtrl.qurandetsilIndex1
+                                                    .value == (index + 1);
                                                 // Navigator.of(context).push(
                                                 //     MaterialPageRoute(
                                                 //         builder: (_) =>
@@ -811,8 +850,12 @@ class QuranpageView extends StatelessWidget {
                                                               Alignment
                                                                   .center,
                                                               child: Text(
-                                                                  "${juz
-                                                                      .juzChapterNo!}", style: TextStyle( color: Get.theme.primaryColor),),
+                                                                "${juz
+                                                                    .juzChapterNo!}",
+                                                                style: TextStyle(
+                                                                    color: Get
+                                                                        .theme
+                                                                        .primaryColor),),
                                                             ),
                                                           ),
                                                         ],
@@ -922,37 +965,38 @@ class QuranpageView extends StatelessWidget {
                       ),
                     ),
                   ]);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SvgPicture.asset("assets/svg/masjidbot.svg"),
-                      Space(8),
-                      GestureDetector(
-                          onTap: () {
-                            Get.toNamed(Routes.QURANPAGE);
-                          },
-                          child:
-                          SvgPicture.asset("assets/svg/quranbot.svg")),
-                      Space(8),
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).pop(MaterialPageRoute(
-                                builder: (_) => HomeView()));
-                          },
-                          child:
-                          SvgPicture.asset("assets/svg/homebot.svg")),
-                      Space(8),
-                      SvgPicture.asset("assets/svg/mediabot.svg"),
-                      Space(8),
-                      SvgPicture.asset("assets/svg/donatebot.svg"),
-                    ],
-                  ),
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SvgPicture.asset("assets/svg/masjidbot.svg"),
+                    Space(8),
+                    GestureDetector(
+                        onTap: () {
+                          Get.toNamed(Routes.QURANPAGE);
+                        },
+                        child:
+                        SvgPicture.asset("assets/svg/quranbot.svg")),
+                    Space(8),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop(MaterialPageRoute(
+                              builder: (_) => HomeView()));
+                        },
+                        child:
+                        SvgPicture.asset("assets/svg/homebot.svg")),
+                    Space(8),
+                    SvgPicture.asset("assets/svg/mediabot.svg"),
+                    Space(8),
+                    SvgPicture.asset("assets/svg/donatebot.svg"),
+                  ],
                 ),
-              ));
-        }),
+              ),
+            )),
+
       ),
     );
   }
