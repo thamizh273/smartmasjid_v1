@@ -194,6 +194,7 @@ class QuranpageView extends StatelessWidget {
                                             // onTap: () => quranCtrl.openDrawer()
                                             onTap: () {
                                               GotoVerse(context);
+
                                             },
                                           ),
                                           Space(4),

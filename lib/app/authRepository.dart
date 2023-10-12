@@ -96,34 +96,46 @@ class AuthenticationRespository extends GetxController {
     );
   }
 
+  // Future<bool> verifyOtp(String otp) async {
+  //   var credentails;
+  //   try {
+  //     errorinotp.value=false;
+  //      credentails = await auth_.signInWithCredential(
+  //         PhoneAuthProvider.credential(
+  //             verificationId: verificationid.value, smsCode: otp));
+  //   } catch (e) {
+  //     errorinotp.value=true;
+  //     if (pinController.value.length == 0) {
+  //     return  toast(error: "Error", msg: "Enter 6-digit Otp");
+  //   }
+  //
+  //
+  // toast(error: "Error", msg: "Invalid Otp");
+  //
+  //   }
+  //
+  //   return credentails.user != null ? true : false;
+  // }
   Future<bool> verifyOtp(String otp) async {
-    var credentails;
+    var credentials;
     try {
-      errorinotp.value=false;
-       credentails = await auth_.signInWithCredential(
+      errorinotp.value = false;
+      credentials = await auth_.signInWithCredential(
           PhoneAuthProvider.credential(
               verificationId: verificationid.value, smsCode: otp));
-      // if (credentails.user != null) {
-      //   return  toast(error: "user is signed in", msg: "OTP verification successful");
-      //   // OTP verification successful, user is signed in
-      // } else {
-      //   // OTP verification failed
-      //   return  toast(error: "Error", msg: "OTP verification failed");
-      // }
 
+      return credentials.user != null; // This will return true if the user is not null.
     } catch (e) {
-      errorinotp.value=true;
-      if (pinController.value.length == 0) {
-      return  toast(error: "Error", msg: "Enter 6-digit Otp");
+      errorinotp.value = true;
+      if (pinController.value.text.isEmpty) {
+        toast(error: "Error", msg: "Enter 6-digit OTP");
+      } else {
+        toast(error: "Error", msg: "Invalid OTP");
+      }
+      return false; // Return false in case of an error.
     }
-
-
-  toast(error: "Error", msg: "Invalid Otp");
-
-    }
-
-    return credentails.user != null ? true : false;
   }
+
 
   Future<UserCredential> signInWithGoogle() async {
     try {

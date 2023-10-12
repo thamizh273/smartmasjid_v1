@@ -42,6 +42,7 @@ class QuranpageController extends GetxController {
     await controllerff.scrollToIndex(result.value, preferPosition: AutoScrollPosition.begin);
   }
   final _restCallController = Get.put(restCallController());
+  RxInt gotoSura=0.obs;
   RxInt currentSelected = 1.obs;
   RxBool isLoadings0 = false.obs;
   RxBool isLoadings = false.obs;
@@ -413,24 +414,25 @@ query Quran_Filter(\$getChapterByMsId: String) {
     var header = """
 query Query(\$chapterNo: String!) {
   Get_Quran_Ayah_Verse(chapter_no: \$chapterNo) {
+    makki_madina
     sura_chapter_no
     sura_name_en
-    makki_madina
-    title_arb
     title_en
+    title_arb
     total_verses
     arabic_starting_text
     ayah_list {
       verses_key
       ayah_no
       arabic_text
+      arabic_audio
       eng_translation
       tamil_translation
       hindi_translation
       malayalam_translation
       telugu_translation
-      arabic_audio
       urdu_translation
+      page_
     }
   }
 }
