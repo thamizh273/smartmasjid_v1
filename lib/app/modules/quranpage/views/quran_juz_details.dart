@@ -1,4 +1,5 @@
 
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
@@ -986,488 +987,494 @@ class QuranJuzDetails extends StatelessWidget {
                               interactive: true,
                               thumbVisibility: false,
                               thickness: 10,
-                              controller: juzquranCtrl_.scrollControllera,
+                              //controller: juzquranCtrl_.scrollControllera,
+                              controller: juzquranCtrl_.controllerff,
                               radius: Radius.circular(20),
                                   child: ListView.builder(
                                     shrinkWrap: true,
                                       physics: BouncingScrollPhysics(),
-                                      controller: juzquranCtrl_.scrollControllera,
+                                      controller: juzquranCtrl_.controllerff,
                                   itemCount: juzquranCtrl_.getquranjuzdetail.value
                                       .getQuranJuzVersesList![0].ayahList!.length,
                                   itemBuilder: (context, index) {
                                     var juz = juzquranCtrl_.getquranjuzdetail.value
                                         .getQuranJuzVersesList![0]
                                         .ayahList![index];
-                                    return Container(
-                                        width: double.infinity,
-                                        // color: Colors.red,
-                                        child: Row(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.all(10.r),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                                children: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .end,
-                                                    children: [
-                                                      // Space(8),
-                                                      ...juzquranCtrl_.pages.map((e) =>
-                                                      e['verse'] == juz.versesKey
-                                                          ? Center(
-                                                        child: Container(
-                                                          decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius
-                                                                  .circular(
-                                                                  4),
-                                                              color: Theme
-                                                                  .of(context)
-                                                                  .primaryColor
+                                    return  AutoScrollTag(
+                                      key: ValueKey(index),
+                                      controller: quranPageCtrl_.controllerff,
+                                      index: index,
+                                      child: Container(
+                                          width: double.infinity,
+                                          // color: Colors.red,
+                                          child: Row(
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsets.all(10.r),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment
+                                                          .end,
+                                                      children: [
+                                                        // Space(8),
+                                                        ...juzquranCtrl_.pages.map((e) =>
+                                                        e['verse'] == juz.versesKey
+                                                            ? Center(
+                                                          child: Container(
+                                                            decoration: BoxDecoration(
+                                                                borderRadius: BorderRadius
+                                                                    .circular(
+                                                                    4),
+                                                                color: Theme
+                                                                    .of(context)
+                                                                    .primaryColor
+                                                            ),
+                                                            height: 30,
+                                                            width: 70,
+                                                            child: Center(
+                                                                child: Text(
+                                                                  "Page ${e['no']}",
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight: FontWeight
+                                                                          .w600),)),
                                                           ),
-                                                          height: 30,
-                                                          width: 70,
-                                                          child: Center(
-                                                              child: Text(
-                                                                "Page ${e['no']}",
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontWeight: FontWeight
-                                                                        .w600),)),
+                                                        )
+                                                            : Container()).toList(),
+                                                        Space(40),
+                                                        Icon(
+                                                          Icons.play_circle,
+                                                          color: Get.theme.hoverColor,
                                                         ),
-                                                      )
-                                                          : Container()).toList(),
-                                                      Space(40),
-                                                      Icon(
-                                                        Icons.play_circle,
-                                                        color: Get.theme.hoverColor,
-                                                      ),
-                                                      Space(12),
-                                                      GestureDetector(
+                                                        Space(12),
+                                                        GestureDetector(
 
-                                                        onTap: () {
-                                                          print('ssss${juzquranCtrl_
-                                                              .getquranjuzdetail
-                                                              .value
-                                                              .getQuranJuzVersesList![0]
-                                                              .juzNameEn}');
-                                                          // if(c.passint.value==sura.versesKey![0]){
-                                                          //   print("ggg");
-                                                          //   c.toogle(index);
-                                                          // }
-                                                          juzquranCtrl_.toogle(
-                                                              "${juzquranCtrl_
-                                                                  .getquranjuzdetail
-                                                                  .value
-                                                                  .getQuranJuzVersesList![0]
-                                                                  .juzNameEn} ${juz
-                                                                  .versesKey}",'juz',index,juzquranCtrl_
-                                                              .getquranjuzdetail
-                                                              .value
-                                                              .getQuranJuzVersesList![0].juzChapterNo!);
+                                                          onTap: () {
+                                                            print('ssss${juzquranCtrl_
+                                                                .getquranjuzdetail
+                                                                .value
+                                                                .getQuranJuzVersesList![0]
+                                                                .juzNameEn}');
+                                                            // if(c.passint.value==sura.versesKey![0]){
+                                                            //   print("ggg");
+                                                            //   c.toogle(index);
+                                                            // }
+                                                            juzquranCtrl_.toogle(
+                                                                "${juzquranCtrl_
+                                                                    .getquranjuzdetail
+                                                                    .value
+                                                                    .getQuranJuzVersesList![0]
+                                                                    .juzNameEn} ${juz
+                                                                    .versesKey}",'juz',index,juzquranCtrl_
+                                                                .getquranjuzdetail
+                                                                .value
+                                                                .getQuranJuzVersesList![0].juzChapterNo!);
 
-                                                          //   c.toggleBookmark();
-                                                        },
+                                                            //   c.toggleBookmark();
+                                                          },
 
-                                                        child:
-                                                        //   print("eeee${c.objectList}");
-                                                        // print("eeee${sura.versesKey
-                                                        //     .toString()}");
-                                                        // final isBookmarked = c.isBookmarked.value;
-                                                        Obx(() {
+                                                          child:
                                                           //   print("eeee${c.objectList}");
-                                                          print(
-                                                              "eeee${juz.versesKey
-                                                                  .toString()}");
+                                                          // print("eeee${sura.versesKey
+                                                          //     .toString()}");
                                                           // final isBookmarked = c.isBookmarked.value;
-                                                          return Icon(
-                                                              juzquranCtrl_.buttonsSelected
+                                                          Obx(() {
+                                                            //   print("eeee${c.objectList}");
+                                                            print(
+                                                                "eeee${juz.versesKey
+                                                                    .toString()}");
+                                                            // final isBookmarked = c.isBookmarked.value;
+                                                            return Icon(
+                                                                juzquranCtrl_.buttonsSelected
+                                                                    .any((item) => item['name'] == "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}")
+
+                                                                  ? Icons.bookmark
+                                                                  : Icons
+                                                                  .bookmark_outline,
+                                                              color: juzquranCtrl_.buttonsSelected
                                                                   .any((item) => item['name'] == "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}")
+                                                                  ? Get.theme.hoverColor
+                                                                  : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
+                                                            );
+                                                          }),
 
-                                                                ? Icons.bookmark
-                                                                : Icons
-                                                                .bookmark_outline,
-                                                            color: juzquranCtrl_.buttonsSelected
-                                                                .any((item) => item['name'] == "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}")
-                                                                ? Get.theme.hoverColor
-                                                                : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
-                                                          );
-                                                        }),
-
-                                                      ),
-                                                      PopupMenuButton(
-                                                          shadowColor: Colors.grey
-                                                              .shade400,
-                                                          itemBuilder: (
-                                                              BuildContext context) {
-                                                            return [
-                                                              // PopupMenuItem(child: Row(
-                                                              //   children: [
-                                                              //     Image.asset(
-                                                              //       "assets/images/bookmark.png",
-                                                              //       width: 20,
-                                                              //       color: Colors.black,),
-                                                              //     Space(12),
-                                                              //     Text("Bookmark"),
-                                                              //   ],
-                                                              // )),
-                                                              PopupMenuItem(
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Icon(Icons
-                                                                          .copy),
-                                                                      Space(12),
-                                                                      Text(
-                                                                          "Copy"),
-                                                                    ],
-                                                                  )),
-                                                              PopupMenuItem(
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Icon(Icons
-                                                                          .share),
-                                                                      Space(12),
-                                                                      Text(
-                                                                          "Share"),
-                                                                    ],
-                                                                  )),
-                                                              PopupMenuItem(
-                                                                  child: GestureDetector(
-                                                                    onTap: () {
-                                                                      showDialog(
-                                                                        context: context,
-                                                                        builder: (
-                                                                            BuildContext context) {
-                                                                          return CustomDialogBox1(
-                                                                            // title: 'Custom Dialog Title',
-                                                                            // content:
-                                                                            // 'This is the content of the custom dialog box.',
-                                                                            // onPressed: () {
-                                                                            //   Navigator
-                                                                            //       .pop(
-                                                                            //       context); // Closes the dialog box when the button is pressed.
-                                                                            // },
-                                                                          );
-                                                                        },
-                                                                      );
-                                                                    },
+                                                        ),
+                                                        PopupMenuButton(
+                                                            shadowColor: Colors.grey
+                                                                .shade400,
+                                                            itemBuilder: (
+                                                                BuildContext context) {
+                                                              return [
+                                                                // PopupMenuItem(child: Row(
+                                                                //   children: [
+                                                                //     Image.asset(
+                                                                //       "assets/images/bookmark.png",
+                                                                //       width: 20,
+                                                                //       color: Colors.black,),
+                                                                //     Space(12),
+                                                                //     Text("Bookmark"),
+                                                                //   ],
+                                                                // )),
+                                                                PopupMenuItem(
                                                                     child: Row(
                                                                       children: [
-                                                                        Image
-                                                                            .asset(
-                                                                          "assets/images/notes.png",
-                                                                          width: 20,
-                                                                          color: Colors
-                                                                              .black,),
+                                                                        Icon(Icons
+                                                                            .copy),
                                                                         Space(12),
                                                                         Text(
-                                                                            "Create Notes"),
+                                                                            "Copy"),
                                                                       ],
-                                                                    ),
-                                                                  )),
-                                                            ];
-                                                          }
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .start,
-                                                    children: [
-                                                      // Space(12),
-                                                      Text(
-                                                        "${juz.versesKey}",
-                                                        style: TextStyle(
-                                                            color: Get.theme.hoverColor,
-                                                            fontWeight: FontWeight
-                                                                .w600,
-                                                            fontSize: 18),
-                                                      ),
-                                                      28.horizontalSpace,
-                                                      Space(20.w),
-                                                      Align(
-                                                          alignment:
-                                                          Alignment.centerLeft,
-                                                          child: Obx(() {
-                                                            double fontSize = 40.0;
-                                                            String fontFamily = juzquranCtrl_
-                                                                .fontFamily
-                                                                .value;
-                                                            double sliderValue = juzquranCtrl_
-                                                                .sliderValue
-                                                                .value;
-                                                            if (sliderValue ==
-                                                                1) {
-                                                              // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                              fontSize = 45.0;
-                                                            } else
-                                                            if (sliderValue ==
-                                                                2) {
-                                                              // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                              fontSize = 55.0;
+                                                                    )),
+                                                                PopupMenuItem(
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Icon(Icons
+                                                                            .share),
+                                                                        Space(12),
+                                                                        Text(
+                                                                            "Share"),
+                                                                      ],
+                                                                    )),
+                                                                PopupMenuItem(
+                                                                    child: GestureDetector(
+                                                                      onTap: () {
+                                                                        showDialog(
+                                                                          context: context,
+                                                                          builder: (
+                                                                              BuildContext context) {
+                                                                            return CustomDialogBox1(
+                                                                              // title: 'Custom Dialog Title',
+                                                                              // content:
+                                                                              // 'This is the content of the custom dialog box.',
+                                                                              // onPressed: () {
+                                                                              //   Navigator
+                                                                              //       .pop(
+                                                                              //       context); // Closes the dialog box when the button is pressed.
+                                                                              // },
+                                                                            );
+                                                                          },
+                                                                        );
+                                                                      },
+                                                                      child: Row(
+                                                                        children: [
+                                                                          Image
+                                                                              .asset(
+                                                                            "assets/images/notes.png",
+                                                                            width: 20,
+                                                                            color: Colors
+                                                                                .black,),
+                                                                          Space(12),
+                                                                          Text(
+                                                                              "Create Notes"),
+                                                                        ],
+                                                                      ),
+                                                                    )),
+                                                              ];
                                                             }
-                                                            TextStyle textStyle = TextStyle(
-                                                              wordSpacing: 10,
-                                                              fontSize: fontSize,
-                                                              fontFamily: juzquranCtrl_.fontFamily.value == "indopak" ? "Indopak"
-                                                                  : juzquranCtrl_.fontFamily
-                                                                  .value ==
-                                                                  "qalam"
-                                                                  ? "Qalam" : juzquranCtrl_
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment
+                                                          .start,
+                                                      children: [
+                                                        // Space(12),
+                                                        Text(
+                                                          "${juz.versesKey}",
+                                                          style: TextStyle(
+                                                              color: Get.theme.hoverColor,
+                                                              fontWeight: FontWeight
+                                                                  .w600,
+                                                              fontSize: 18),
+                                                        ),
+                                                        28.horizontalSpace,
+                                                        Space(20.w),
+                                                        Align(
+                                                            alignment:
+                                                            Alignment.centerLeft,
+                                                            child: Obx(() {
+                                                              double fontSize = 40.0;
+                                                              String fontFamily = juzquranCtrl_
                                                                   .fontFamily
+                                                                  .value;
+                                                              double sliderValue = juzquranCtrl_
+                                                                  .sliderValue
+                                                                  .value;
+                                                              if (sliderValue ==
+                                                                  1) {
+                                                                // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                                fontSize = 45.0;
+                                                              } else
+                                                              if (sliderValue ==
+                                                                  2) {
+                                                                // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                                fontSize = 55.0;
+                                                              }
+                                                              TextStyle textStyle = TextStyle(
+                                                                wordSpacing: 10,
+                                                                fontSize: fontSize,
+                                                                fontFamily: juzquranCtrl_.fontFamily.value == "indopak" ? "Indopak"
+                                                                    : juzquranCtrl_.fontFamily
+                                                                    .value ==
+                                                                    "qalam"
+                                                                    ? "Qalam" : juzquranCtrl_
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "uthami"
+                                                                    ? "Uthami" : juzquranCtrl_
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "amiri"
+                                                                    ? "Amiri" : juzquranCtrl_
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "noorehira"
+                                                                    ? "Noorehira"
+                                                                    : juzquranCtrl_
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "noorehuda"
+                                                                    ? "Noorehuda"
+                                                                    : juzquranCtrl_
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "noorehidayat"
+                                                                    ? "Noorehidayat"
+                                                                    : juzquranCtrl_
+                                                                    .fontFamily
+                                                                    .value ==
+                                                                    "arabictit"
+                                                                    ? "Arabictitle"
+                                                                    : null, // Use the default font if "Amiri" is not selected
+                                                              );
+                                                              return SizedBox(
+                                                                width: juzquranCtrl_
+                                                                    .screenWidth *
+                                                                    0.65,
+                                                                child: juzquranCtrl_
+                                                                    .isCheckedArabic
+                                                                    .value == true
+                                                                    ? Text(
+                                                                  "${juz
+                                                                      .arabicText}ِ",
+                                                                  style: textStyle,
+                                                                  textAlign:
+                                                                  TextAlign.end,
+                                                                )
+                                                                    : SizedBox(),
+                                                              );
+                                                            })
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Space(8),
+                                                    Space(16),
+                                                    Obx(() {
+                                                      double fontSize = 18.0;
+                                                      double sliderValue = juzquranCtrl_
+                                                          .sliderValue1
+                                                          .value;
+                                                      if (sliderValue == 1) {
+                                                        // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                        fontSize = 22.0;
+                                                      } else if (sliderValue == 2) {
+                                                        // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                        fontSize = 25.0;
+                                                      }
+                                                      return SizedBox(
+                                                          width: .9.sw,
+                                                          child: Align(
+                                                              alignment: Alignment
+                                                                  .center,
+                                                              child:
+                                                              juzquranCtrl_.isCheckedEnglish
                                                                   .value ==
-                                                                  "uthami"
-                                                                  ? "Uthami" : juzquranCtrl_
-                                                                  .fontFamily
-                                                                  .value ==
-                                                                  "amiri"
-                                                                  ? "Amiri" : juzquranCtrl_
-                                                                  .fontFamily
-                                                                  .value ==
-                                                                  "noorehira"
-                                                                  ? "Noorehira"
-                                                                  : juzquranCtrl_
-                                                                  .fontFamily
-                                                                  .value ==
-                                                                  "noorehuda"
-                                                                  ? "Noorehuda"
-                                                                  : juzquranCtrl_
-                                                                  .fontFamily
-                                                                  .value ==
-                                                                  "noorehidayat"
-                                                                  ? "Noorehidayat"
-                                                                  : juzquranCtrl_
-                                                                  .fontFamily
-                                                                  .value ==
-                                                                  "arabictit"
-                                                                  ? "Arabictitle"
-                                                                  : null, // Use the default font if "Amiri" is not selected
-                                                            );
-                                                            return SizedBox(
-                                                              width: juzquranCtrl_
-                                                                  .screenWidth *
-                                                                  0.65,
-                                                              child: juzquranCtrl_
-                                                                  .isCheckedArabic
-                                                                  .value == true
+                                                                  true
                                                                   ? Text(
                                                                 "${juz
-                                                                    .arabicText}ِ",
-                                                                style: textStyle,
-                                                                textAlign:
-                                                                TextAlign.end,
+                                                                    .engTranslation}",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontSize: fontSize),
                                                               )
-                                                                  : SizedBox(),
-                                                            );
-                                                          })
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Space(8),
-                                                  Space(16),
-                                                  Obx(() {
-                                                    double fontSize = 18.0;
-                                                    double sliderValue = juzquranCtrl_
-                                                        .sliderValue1
-                                                        .value;
-                                                    if (sliderValue == 1) {
-                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                      fontSize = 22.0;
-                                                    } else if (sliderValue == 2) {
-                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                      fontSize = 25.0;
-                                                    }
-                                                    return SizedBox(
-                                                        width: .9.sw,
-                                                        child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child:
-                                                            juzquranCtrl_.isCheckedEnglish
-                                                                .value ==
-                                                                true
-                                                                ? Text(
-                                                              "${juz
-                                                                  .engTranslation}",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  fontSize: fontSize),
-                                                            )
-                                                                : SizedBox()));
-                                                  }),
-                                                  Space(16),
-                                                  Obx(() {
-                                                    double fontSize = 18.0;
-                                                    double sliderValue = juzquranCtrl_
-                                                        .sliderValue1
-                                                        .value;
-                                                    if (sliderValue == 1) {
-                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                      fontSize = 22.0;
-                                                    } else if (sliderValue == 2) {
-                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                      fontSize = 25.0;
-                                                    }
-                                                    return SizedBox(
-                                                        width: .9.sw,
-                                                        child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: juzquranCtrl_
-                                                                .isCheckedTamil
-                                                                .value
-                                                                ? Text(
-                                                              "${juz
-                                                                  .tamilTranslation}",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  fontSize: fontSize),
-                                                            )
-                                                                : SizedBox
-                                                                .shrink()));
-                                                  }),
-                                                  Obx(() {
-                                                    double fontSize = 18.0;
-                                                    double sliderValue = juzquranCtrl_
-                                                        .sliderValue1
-                                                        .value;
-                                                    if (sliderValue == 1) {
-                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                      fontSize = 22.0;
-                                                    } else if (sliderValue == 2) {
-                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                      fontSize = 25.0;
-                                                    }
-                                                    return SizedBox(
-                                                        width: .9.sw,
-                                                        child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: juzquranCtrl_
-                                                                .isCheckedUrdu
-                                                                .value
-                                                                ? Text(
-                                                              "${juz.urduTranslation}",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  fontSize: fontSize),
-                                                            )
-                                                                : SizedBox
-                                                                .shrink()));
-                                                  }),  Obx(() {
-                                                    double fontSize = 18.0;
-                                                    double sliderValue = juzquranCtrl_
-                                                        .sliderValue1
-                                                        .value;
-                                                    if (sliderValue == 1) {
-                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                      fontSize = 22.0;
-                                                    } else if (sliderValue == 2) {
-                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                      fontSize = 25.0;
-                                                    }
-                                                    return SizedBox(
-                                                        width: .9.sw,
-                                                        child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: juzquranCtrl_
-                                                                .isCheckedHindi
-                                                                .value
-                                                                ? Text(
-                                                              "${juz
-                                                                  .hindiTranslation}",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  fontSize: fontSize),
-                                                            )
-                                                                : SizedBox
-                                                                .shrink()));
-                                                  }),  Obx(() {
-                                                    double fontSize = 18.0;
-                                                    double sliderValue = juzquranCtrl_
-                                                        .sliderValue1
-                                                        .value;
-                                                    if (sliderValue == 1) {
-                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                      fontSize = 22.0;
-                                                    } else if (sliderValue == 2) {
-                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                      fontSize = 25.0;
-                                                    }
-                                                    return SizedBox(
-                                                        width: .9.sw,
-                                                        child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: juzquranCtrl_
-                                                                .isCheckedMalayalam
-                                                                .value
-                                                                ? Text(
-                                                              "${juz
-                                                                  .malayalamTranslation}",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  fontSize: fontSize),
-                                                            )
-                                                                : SizedBox
-                                                                .shrink()));
-                                                  }),  Obx(() {
-                                                    double fontSize = 18.0;
-                                                    double sliderValue = juzquranCtrl_
-                                                        .sliderValue1
-                                                        .value;
-                                                    if (sliderValue == 1) {
-                                                      // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                      fontSize = 22.0;
-                                                    } else if (sliderValue == 2) {
-                                                      // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                      fontSize = 25.0;
-                                                    }
-                                                    return SizedBox(
-                                                        width: .9.sw,
-                                                        child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child: juzquranCtrl_
-                                                                .isCheckedTelugu
-                                                                .value
-                                                                ? Text(
-                                                              "${juz
-                                                                  .teluguTranslation}",
-                                                              style: TextStyle(
-                                                                  fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                                  fontSize: fontSize),
-                                                            )
-                                                                : SizedBox
-                                                                .shrink()));
-                                                  }),
-                                                  Space(16),
-                                                  Image.asset(
-                                                    "assets/images/qurandivider.png",
-                                                    scale: 4,
-                                                    width: 310.w,
-                                                     color: Get.theme.hoverColor
-                                                  )
-                                                ],
+                                                                  : SizedBox()));
+                                                    }),
+                                                    Space(16),
+                                                    Obx(() {
+                                                      double fontSize = 18.0;
+                                                      double sliderValue = juzquranCtrl_
+                                                          .sliderValue1
+                                                          .value;
+                                                      if (sliderValue == 1) {
+                                                        // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                        fontSize = 22.0;
+                                                      } else if (sliderValue == 2) {
+                                                        // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                        fontSize = 25.0;
+                                                      }
+                                                      return SizedBox(
+                                                          width: .9.sw,
+                                                          child: Align(
+                                                              alignment: Alignment
+                                                                  .center,
+                                                              child: juzquranCtrl_
+                                                                  .isCheckedTamil
+                                                                  .value
+                                                                  ? Text(
+                                                                "${juz
+                                                                    .tamilTranslation}",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontSize: fontSize),
+                                                              )
+                                                                  : SizedBox
+                                                                  .shrink()));
+                                                    }),
+                                                    Obx(() {
+                                                      double fontSize = 18.0;
+                                                      double sliderValue = juzquranCtrl_
+                                                          .sliderValue1
+                                                          .value;
+                                                      if (sliderValue == 1) {
+                                                        // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                        fontSize = 22.0;
+                                                      } else if (sliderValue == 2) {
+                                                        // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                        fontSize = 25.0;
+                                                      }
+                                                      return SizedBox(
+                                                          width: .9.sw,
+                                                          child: Align(
+                                                              alignment: Alignment
+                                                                  .center,
+                                                              child: juzquranCtrl_
+                                                                  .isCheckedUrdu
+                                                                  .value
+                                                                  ? Text(
+                                                                "${juz.urduTranslation}",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontSize: fontSize),
+                                                              )
+                                                                  : SizedBox
+                                                                  .shrink()));
+                                                    }),  Obx(() {
+                                                      double fontSize = 18.0;
+                                                      double sliderValue = juzquranCtrl_
+                                                          .sliderValue1
+                                                          .value;
+                                                      if (sliderValue == 1) {
+                                                        // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                        fontSize = 22.0;
+                                                      } else if (sliderValue == 2) {
+                                                        // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                        fontSize = 25.0;
+                                                      }
+                                                      return SizedBox(
+                                                          width: .9.sw,
+                                                          child: Align(
+                                                              alignment: Alignment
+                                                                  .center,
+                                                              child: juzquranCtrl_
+                                                                  .isCheckedHindi
+                                                                  .value
+                                                                  ? Text(
+                                                                "${juz
+                                                                    .hindiTranslation}",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontSize: fontSize),
+                                                              )
+                                                                  : SizedBox
+                                                                  .shrink()));
+                                                    }),  Obx(() {
+                                                      double fontSize = 18.0;
+                                                      double sliderValue = juzquranCtrl_
+                                                          .sliderValue1
+                                                          .value;
+                                                      if (sliderValue == 1) {
+                                                        // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                        fontSize = 22.0;
+                                                      } else if (sliderValue == 2) {
+                                                        // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                        fontSize = 25.0;
+                                                      }
+                                                      return SizedBox(
+                                                          width: .9.sw,
+                                                          child: Align(
+                                                              alignment: Alignment
+                                                                  .center,
+                                                              child: juzquranCtrl_
+                                                                  .isCheckedMalayalam
+                                                                  .value
+                                                                  ? Text(
+                                                                "${juz
+                                                                    .malayalamTranslation}",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontSize: fontSize),
+                                                              )
+                                                                  : SizedBox
+                                                                  .shrink()));
+                                                    }),  Obx(() {
+                                                      double fontSize = 18.0;
+                                                      double sliderValue = juzquranCtrl_
+                                                          .sliderValue1
+                                                          .value;
+                                                      if (sliderValue == 1) {
+                                                        // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                        fontSize = 22.0;
+                                                      } else if (sliderValue == 2) {
+                                                        // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                        fontSize = 25.0;
+                                                      }
+                                                      return SizedBox(
+                                                          width: .9.sw,
+                                                          child: Align(
+                                                              alignment: Alignment
+                                                                  .center,
+                                                              child: juzquranCtrl_
+                                                                  .isCheckedTelugu
+                                                                  .value
+                                                                  ? Text(
+                                                                "${juz
+                                                                    .teluguTranslation}",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontSize: fontSize),
+                                                              )
+                                                                  : SizedBox
+                                                                  .shrink()));
+                                                    }),
+                                                    Space(16),
+                                                    Image.asset(
+                                                      "assets/images/qurandivider.png",
+                                                      scale: 4,
+                                                      width: 310.w,
+                                                       color: Get.theme.hoverColor
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        )
+                                            ],
+                                          )
+                                      ),
                                     );
                                   }
                             ),
