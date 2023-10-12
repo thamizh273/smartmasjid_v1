@@ -83,25 +83,7 @@ class Bookmark extends StatelessWidget {
                           size: f2,
                           weight: FontWeight.bold,
                         ), onTap: () {
-                        // var symbolIndex = qcontroller.buttonsSelected[index]["name"].indexOf(
-                        //     symbol);
-                        // if (symbolIndex != -1 && symbolIndex <
-                        //     qcontroller.buttonsSelected[index]["name"].length - 1) {
-                        //   qcontroller.result.value = qcontroller.buttonsSelected[index]["name"]
-                        //       .substring(symbolIndex + 1)
-                        //       .trim();
-                        //   print(qcontroller.result.value.toString()); // Output: "12"
-                       // }
-                       //  var spaceIndex = qcontroller.buttonsSelected[index]["name"].indexOf(
-                       //      space);
-                       //  var symbol1Index = qcontroller.buttonsSelected[index]["name"].indexOf(
-                       //      symbol);
-                       //
-                       //  if (spaceIndex != -1 && symbol1Index != -1 &&
-                       //      spaceIndex < symbol1Index) {
-                       //    qcontroller.result1.value = qcontroller.buttonsSelected[index]["name"]
-                       //        .substring(spaceIndex + 1, symbol1Index)
-                       //        .trim();
+
                           print("weeeew${qcontroller.result1.value}");
                           qcontroller.result.value =  qcontroller.buttonsSelected[index]["index"];// Output: "17"
                           qcontroller.result1.value =  qcontroller.buttonsSelected[index]["no"];// Output: "17"
@@ -159,6 +141,7 @@ class Bookmark extends StatelessWidget {
                             print(qcontroller.result1.value); // Output: "17"
                             print(qcontroller.result.value); // Output: "17"
                           }
+
                           //  Get.to(QuranDetails());
                           qcontroller.buttonsSelected[index]["type"]=="sura"?qcontroller.quranDetailList(qcontroller.result1.value):qcontroller.quranjuzdetailList(qcontroller.result1.value);
                         }, trailing: IconButton(onPressed: () {

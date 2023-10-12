@@ -193,10 +193,20 @@ copyText(var index){
 void setLastReadIndex(int index) {
     lastReadIndex = index;
   }
-
+  //  toggleSura(int index) {
+  //   if (buttonsSelected.contains(index)) {
+  //     buttonsSelected.remove(index);
+  //   } else {
+  //     buttonsSelected.add(index);
+  //   }
+  //   homectrl.box1.write('buttonsSelectedSura', buttonsSelected.toList());
+  //   update();
+  // }
 
  var passint=0.obs;
   var buttonsSelected = [].obs;
+  // var buttonsSelectedSura = [].obs;
+  // var buttonsSelectedJuz = [].obs;
  // var buttonsSelected1 = [].obs;
   var result=0.obs;
   var result1=0.obs;

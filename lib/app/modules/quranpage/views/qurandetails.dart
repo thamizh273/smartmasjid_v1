@@ -1189,12 +1189,14 @@ class QuranDetails extends StatelessWidget {
                                                 print("eeee${sura.versesKey
                                                     .toString()}");
                                                 return Icon(
-                                                  quranPageCtrl_.buttonsSelected.contains(index)
+                                                  quranPageCtrl_.buttonsSelected
+                                                      .any((item) => item['name'] == "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn} ${sura.versesKey}")
 
                                                       ? Icons.bookmark
                                                       : Icons
                                                       .bookmark_outline,
-                                                  color:     quranPageCtrl_.buttonsSelected.contains(index)
+                                                  color:      quranPageCtrl_.buttonsSelected
+                                                      .any((item) => item['name'] == "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn} ${sura.versesKey}")
                                                       ? Get.theme.hoverColor
                                                       : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
                                                 );

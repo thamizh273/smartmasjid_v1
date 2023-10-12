@@ -687,9 +687,12 @@ class QuranpageView extends StatelessWidget {
                                                           MainAxisAlignment
                                                               .center,
                                                           children: [
-                                                            Image.asset(
-                                                              "assets/images/bookmarkout.png",
-                                                              width: 16,
+                                                            InkWell(
+                                                              onTap: (){
+                                                              //  quranCtrl.toggleSura(index);
+                                                              },
+                                                              child: Icon(Icons.bookmarks_outlined,size: 20,)
+
                                                             ),
                                                             Space(8),
                                                             Text(

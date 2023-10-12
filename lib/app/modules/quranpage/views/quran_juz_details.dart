@@ -1083,26 +1083,14 @@ class QuranJuzDetails extends StatelessWidget {
                                                                   .toString()}");
                                                           // final isBookmarked = c.isBookmarked.value;
                                                           return Icon(
-                                                            juzquranCtrl_.buttonsSelected
-                                                                .contains(
-                                                                "${juzquranCtrl_
-                                                                    .getquranjuzdetail
-                                                                    .value
-                                                                    .getQuranJuzVersesList![0]
-                                                                    .juzNameEn} ${juz
-                                                                    .versesKey}")
+                                                              juzquranCtrl_.buttonsSelected
+                                                                  .any((item) => item['name'] == "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}")
+
                                                                 ? Icons.bookmark
                                                                 : Icons
                                                                 .bookmark_outline,
-                                                            color: juzquranCtrl_
-                                                                .buttonsSelected
-                                                                .contains(
-                                                                "${juzquranCtrl_
-                                                                    .getquranjuzdetail
-                                                                    .value
-                                                                    .getQuranJuzVersesList![0]
-                                                                    .juzNameEn} ${juz
-                                                                    .versesKey}")
+                                                            color: juzquranCtrl_.buttonsSelected
+                                                                .any((item) => item['name'] == "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}")
                                                                 ? Get.theme.hoverColor
                                                                 : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
                                                           );
