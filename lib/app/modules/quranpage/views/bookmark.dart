@@ -50,6 +50,7 @@ class Bookmark extends StatelessWidget {
                     Space(16),
                     ElevatedButton(
                         onPressed: () {
+
                           Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
                         },
                         style: ElevatedButton.styleFrom(
@@ -77,37 +78,42 @@ class Bookmark extends StatelessWidget {
                   child: Card(
                       elevation: 5,
                       child: ListTile(
-                        title: Stxt(
-                          text: "${qcontroller.buttonsSelected[index]}",
+                        title:  Stxt(
+                          text: "${qcontroller.buttonsSelected[index]["name"]}",
                           size: f2,
                           weight: FontWeight.bold,
                         ), onTap: () {
-                        var symbolIndex = qcontroller.buttonsSelected[index].indexOf(
-                            symbol);
-                        if (symbolIndex != -1 && symbolIndex <
-                            qcontroller.buttonsSelected[index].length - 1) {
-                          qcontroller.result.value = qcontroller.buttonsSelected[index]
-                              .substring(symbolIndex + 1)
-                              .trim();
-                          print(qcontroller.result.value.toString()); // Output: "12"
-                        }
-                        var spaceIndex = qcontroller.buttonsSelected[index].indexOf(
-                            space);
-                        var symbol1Index = qcontroller.buttonsSelected[index].indexOf(
-                            symbol);
-
-                        if (spaceIndex != -1 && symbol1Index != -1 &&
-                            spaceIndex < symbol1Index) {
-                          qcontroller.result1.value = qcontroller.buttonsSelected[index]
-                              .substring(spaceIndex + 1, symbol1Index)
-                              .trim();
-                          print(qcontroller.result1.value); // Output: "17"
-                        }
+                        // var symbolIndex = qcontroller.buttonsSelected[index]["name"].indexOf(
+                        //     symbol);
+                        // if (symbolIndex != -1 && symbolIndex <
+                        //     qcontroller.buttonsSelected[index]["name"].length - 1) {
+                        //   qcontroller.result.value = qcontroller.buttonsSelected[index]["name"]
+                        //       .substring(symbolIndex + 1)
+                        //       .trim();
+                        //   print(qcontroller.result.value.toString()); // Output: "12"
+                       // }
+                       //  var spaceIndex = qcontroller.buttonsSelected[index]["name"].indexOf(
+                       //      space);
+                       //  var symbol1Index = qcontroller.buttonsSelected[index]["name"].indexOf(
+                       //      symbol);
+                       //
+                       //  if (spaceIndex != -1 && symbol1Index != -1 &&
+                       //      spaceIndex < symbol1Index) {
+                       //    qcontroller.result1.value = qcontroller.buttonsSelected[index]["name"]
+                       //        .substring(spaceIndex + 1, symbol1Index)
+                       //        .trim();
+                          print("weeeew${qcontroller.result1.value}");
+                          qcontroller.result.value =  qcontroller.buttonsSelected[index]["index"];// Output: "17"
+                          qcontroller.result1.value =  qcontroller.buttonsSelected[index]["no"];// Output: "17"
+                          print("weeeeeer${qcontroller.result.value}"); // Output: "17"
+                      //  }
+                        qcontroller.update();
                         //  Get.to(QuranDetails());
-                        qcontroller.quranDetailList(qcontroller.result1.value);
+                        qcontroller.buttonsSelected[index]["type"]=="sura"?qcontroller.quranDetailList(qcontroller.result1.value):qcontroller.quranjuzdetailList(qcontroller.result1.value);
                       }, trailing: IconButton(onPressed: () {
                         qcontroller.buttonsSelected.removeAt(index);
                         qcontroller.deleteIndex(index);
+
                         qcontroller.update();
                       }, icon: Icon(Icons.delete)),
                       )),
@@ -119,42 +125,46 @@ class Bookmark extends StatelessWidget {
               return qcontroller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
                 itemCount: qcontroller.buttonsSelected.length,
                 itemBuilder: (context, index) {
-                  return Padding(
+                  return  Padding(
                     padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
                     child: Card(
                         elevation: 5,
                         child: ListTile(
-                          title: Stxt(
-                            text: "${qcontroller.buttonsSelected[index]}",
+                          title:  Stxt(
+                            text: "${qcontroller.buttonsSelected[index]["name"]}",
                             size: f2,
                             weight: FontWeight.bold,
                           ), onTap: () {
-                          var symbolIndex = qcontroller.buttonsSelected[index].indexOf(
-                              symbol);
-                          if (symbolIndex != -1 && symbolIndex <
-                              qcontroller.buttonsSelected[index].length - 1) {
-                            qcontroller.result.value = qcontroller.buttonsSelected[index]
-                                .substring(symbolIndex + 1)
-                                .trim();
-                            print(qcontroller.result.value.toString()); // Output: "12"
-                          }
-                          var spaceIndex = qcontroller.buttonsSelected[index].indexOf(
+                          // var symbolIndex = qcontroller.buttonsSelected[index]["name"].indexOf(
+                          //     symbol);
+                          // if (symbolIndex != -1 && symbolIndex <
+                          //     qcontroller.buttonsSelected[index]["name"].length - 1) {
+                          //   qcontroller.result.value = qcontroller.buttonsSelected[index]["name"]
+                          //       .substring(symbolIndex + 1)
+                          //       .trim();
+                          //   print(qcontroller.result.value.toString()); // Output: "12"
+                          // }
+                          var spaceIndex = qcontroller.buttonsSelected[index]["name"].indexOf(
                               space);
-                          var symbol1Index = qcontroller.buttonsSelected[index].indexOf(
+                          var symbol1Index = qcontroller.buttonsSelected[index]["name"].indexOf(
                               symbol);
 
                           if (spaceIndex != -1 && symbol1Index != -1 &&
                               spaceIndex < symbol1Index) {
-                            qcontroller.result1.value = qcontroller.buttonsSelected[index]
+                            qcontroller.result1.value = qcontroller.buttonsSelected[index]["name"]
                                 .substring(spaceIndex + 1, symbol1Index)
                                 .trim();
+                            qcontroller.result.value =  qcontroller.buttonsSelected[index]["index"];
+                            qcontroller.update();
                             print(qcontroller.result1.value); // Output: "17"
+                            print(qcontroller.result.value); // Output: "17"
                           }
                           //  Get.to(QuranDetails());
-                          qcontroller.quranDetailList(qcontroller.result1.value);
+                          qcontroller.buttonsSelected[index]["type"]=="sura"?qcontroller.quranDetailList(qcontroller.result1.value):qcontroller.quranjuzdetailList(qcontroller.result1.value);
                         }, trailing: IconButton(onPressed: () {
                           qcontroller.buttonsSelected.removeAt(index);
                           qcontroller.deleteIndex(index);
+
                           qcontroller.update();
                         }, icon: Icon(Icons.delete)),
                         )),

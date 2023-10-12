@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
@@ -12,8 +8,7 @@ import 'package:smartmasjid_v1/app/routes/export.dart';
 import 'package:smartmasjid_v1/widgets/Stextfield.dart';
 import 'package:smartmasjid_v1/widgets/gotoverse.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
-import '../../../../widgets/space.dart';
-import '../../audioplayer/controllers/audioplayer_controller.dart';
+
 import '../controllers/quranpage_controller.dart';
 import 'dart:math' as math;
 
@@ -853,6 +848,7 @@ class QuranDetails extends StatelessWidget {
             )
           ],
         ),
+
         body: PageView.builder(
           scrollBehavior: ScrollBehavior(),
           pageSnapping: true,
@@ -1029,537 +1025,533 @@ class QuranDetails extends StatelessWidget {
                         interactive: true,
                         thumbVisibility: false,
                         thickness: 10,
-                        controller: quranPageCtrl_.scrollControllern,
+                        controller: quranPageCtrl_.controllerff,
                         radius: Radius.circular(20),
                         child: ListView.builder(
                           shrinkWrap: true,
                           physics: BouncingScrollPhysics(),
-                          controller: quranPageCtrl_.scrollControllern,
+                          controller: quranPageCtrl_.controllerff,
                           itemCount: quranPageCtrl_.getqurandetail.value
                               .getQuranAyahVerse![0].ayahList!.length,
                           itemBuilder: (context, index) {
                             var sura = quranPageCtrl_.getqurandetail.value
                                 .getQuranAyahVerse![0].ayahList![index];
                             print("versess${sura.versesKey}");
-                            return Container(
-                                width: double.infinity,
-                                // color: Colors.red,
-                                child: Padding(
-                                  padding: EdgeInsets.all(10.r),
-                                  child: Column(
-                                    // crossAxisAlignment:
-                                    // CrossAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Obx(() {
-                                                double fontSize = 40.0;
-                                                String fontFamily = quranPageCtrl_
-                                                    .fontFamily
-                                                    .value;
-                                                double sliderValue = quranPageCtrl_
-                                                    .sliderValue.value;
-                                                if (sliderValue == 1) {
-                                                  // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                  fontSize = 45.0;
-                                                } else if (sliderValue == 2) {
-                                                  // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                  fontSize = 55.0;
-                                                }
-                                                TextStyle textStyle = TextStyle(
-                                                  wordSpacing: 10,
-                                                  fontSize: fontSize,
-                                                  fontFamily: quranPageCtrl_.fontFamily
-                                                      .value == "indopak"
-                                                      ? "Indopak"
-                                                      : quranPageCtrl_.fontFamily
-                                                      .value ==
-                                                      "qalam"
-                                                      ? "Qalam" : quranPageCtrl_
+                            return AutoScrollTag(
+                              key: ValueKey(index),
+                              controller: quranPageCtrl_.controllerff,
+                              index: index,
+                              child: Container(
+                                  width: double.infinity,
+                                  // color: Colors.red,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10.r),
+                                    child: Column(
+                                      // crossAxisAlignment:
+                                      // CrossAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Obx(() {
+                                                  double fontSize = 40.0;
+                                                  String fontFamily = quranPageCtrl_
                                                       .fontFamily
-                                                      .value == "uthami"
-                                                      ? "Uthami" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value == "amiri"
-                                                      ? "Amiri" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value == "noorehira"
-                                                      ? "Noorehira" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value == "noorehuda"
-                                                      ? "Noorehuda" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value ==
-                                                      "noorehidayat"
-                                                      ? "Noorehidayat" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value == "arabictit"
-                                                      ? "Arabictitle"
-                                                      : null, // Use the default font if "Amiri" is not selected
-                                                );
-                                                return SizedBox(
-                                                  width: 280.sp,
-                                                  child: quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn == "Al-Fatihah"
-                                                      ? Container():
-                                                     quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn == "At-Tawbah"
-                                                ? Container() :
-                                                  quranPageCtrl_.isCheckedArabic
-                                                      .value == true && sura.versesKey!.startsWith(RegExp(r'^[1-9][0-9]*:1$'))
-                                                      ? Text(
-                                                    "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].arabicStartingText}",
-                                                    style: textStyle,
-                                                    textAlign:
-                                                    TextAlign.end,
-                                                  )
-                                                     :SizedBox(),
-                                                );
-                                              })
-                                          ),
-                                          // if (sura.versesKey!.startsWith(RegExp(r'^[1-9][0-9]*:1$')))
-                                          //   Stxt(
-                                          //   text: "${c.getqurandetail.value.getQuranAyahVerse![0].arabicStartingText}",
-                                          //   size: f5,
-                                          // ),
-                                        ],
-                                      ),
-                                      16.verticalSpace,
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment
-                                            .start,
-                                        children: [
-                                          Text(
-                                            "${sura.versesKey}",
-                                            style: TextStyle(
-                                                color: Get.theme.hoverColor,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18),
-                                          ),
-                                          Spacer(),
-                                          ...quranPageCtrl_.pages.map((e) =>
-                                          e['verse'] == sura.versesKey
-                                              ? Center(
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(
-                                                      4),
-                                                  color: Theme
-                                                      .of(context)
-                                                      .primaryColor
-                                              ),
-                                              height: 30,
-                                              width: 70,
-                                              child: Center(
-                                                  child: Text(
-                                                    "Page ${e['no']}",
-                                                    style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontWeight: FontWeight
-                                                            .w600),)),
+                                                      .value;
+                                                  double sliderValue = quranPageCtrl_
+                                                      .sliderValue.value;
+                                                  if (sliderValue == 1) {
+                                                    // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                    fontSize = 45.0;
+                                                  } else if (sliderValue == 2) {
+                                                    // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                    fontSize = 55.0;
+                                                  }
+                                                  TextStyle textStyle = TextStyle(
+                                                    wordSpacing: 10,
+                                                    fontSize: fontSize,
+                                                    fontFamily: quranPageCtrl_.fontFamily
+                                                        .value == "indopak"
+                                                        ? "Indopak"
+                                                        : quranPageCtrl_.fontFamily
+                                                        .value ==
+                                                        "qalam"
+                                                        ? "Qalam" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "uthami"
+                                                        ? "Uthami" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "amiri"
+                                                        ? "Amiri" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "noorehira"
+                                                        ? "Noorehira" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "noorehuda"
+                                                        ? "Noorehuda" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value ==
+                                                        "noorehidayat"
+                                                        ? "Noorehidayat" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "arabictit"
+                                                        ? "Arabictitle"
+                                                        : null, // Use the default font if "Amiri" is not selected
+                                                  );
+                                                  return SizedBox(
+                                                    width: 280.sp,
+                                                    child: quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn == "Al-Fatihah"
+                                                        ? Container():
+                                                       quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn == "At-Tawbah"
+                                                  ? Container() :
+                                                    quranPageCtrl_.isCheckedArabic
+                                                        .value == true && sura.versesKey!.startsWith(RegExp(r'^[1-9][0-9]*:1$'))
+                                                        ? Text(
+                                                      "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].arabicStartingText}",
+                                                      style: textStyle,
+                                                      textAlign:
+                                                      TextAlign.end,
+                                                    )
+                                                       :SizedBox(),
+                                                  );
+                                                })
                                             ),
-                                          )
-                                              : Container()).toList(),
-                                          Space(40),
-                                          Icon(
-                                            Icons.play_circle,
-                                            color: Get.theme.hoverColor,
-                                          ),
-                                          Space(12),
-                                          GestureDetector(
+                                            // if (sura.versesKey!.startsWith(RegExp(r'^[1-9][0-9]*:1$')))
+                                            //   Stxt(
+                                            //   text: "${c.getqurandetail.value.getQuranAyahVerse![0].arabicStartingText}",
+                                            //   size: f5,
+                                            // ),
+                                          ],
+                                        ),
+                                        16.verticalSpace,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment
+                                              .start,
+                                          children: [
+                                            Text(
+                                              "${sura.versesKey}",
+                                              style: TextStyle(
+                                                  color: Get.theme.hoverColor,
+                                                  fontWeight: FontWeight.w600,
+                                                  fontSize: 18),
+                                            ),
+                                            Spacer(),
+                                            ...quranPageCtrl_.pages.map((e) =>
+                                            e['verse'] == sura.versesKey
+                                                ? Center(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius
+                                                        .circular(
+                                                        4),
+                                                    color: Theme
+                                                        .of(context)
+                                                        .primaryColor
+                                                ),
+                                                height: 30,
+                                                width: 70,
+                                                child: Center(
+                                                    child: Text(
+                                                      "Page ${e['no']}",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight
+                                                              .w600),)),
+                                              ),
+                                            )
+                                                : Container()).toList(),
+                                            Space(40),
+                                            Icon(
+                                              Icons.play_circle,
+                                              color: Get.theme.hoverColor,
+                                            ),
+                                            Space(12),
+                                            GestureDetector(
 
-                                            onTap: () {
-                                              print('ssss${quranPageCtrl_.getqurandetail
-                                                  .value
-                                                  .getQuranAyahVerse![0]
-                                                  .suraNameEn}');
-                                              // if(c.passint.value==sura.versesKey![0]){
-                                              //   print("ggg");
-                                              //   c.toogle(index);
-                                              // }
-                                              quranPageCtrl_.toogle(
-                                                  "${quranPageCtrl_.getqurandetail.value
-                                                      .getQuranAyahVerse![0]
-                                                      .suraNameEn} ${sura
-                                                      .versesKey}");
-                                            },
-
-                                            child: Obx(() {
-                                              //   print("eeee${c.objectList}");
-                                              print("eeee${sura.versesKey
-                                                  .toString()}");
-                                              return Icon(
-                                                quranPageCtrl_.buttonsSelected.contains(
-                                                    "${quranPageCtrl_.getqurandetail
-                                                        .value
+                                              onTap: () {
+                                                print('ssss${quranPageCtrl_.getqurandetail
+                                                    .value
+                                                    .getQuranAyahVerse![0]
+                                                    .suraNameEn}');
+                                                // if(c.passint.value==sura.versesKey![0]){
+                                                //   print("ggg");
+                                                //   c.toogle(index);
+                                                // }
+                                                quranPageCtrl_.toogle(
+                                                    "${quranPageCtrl_.getqurandetail.value
                                                         .getQuranAyahVerse![0]
                                                         .suraNameEn} ${sura
-                                                        .versesKey}")
-                                                    ? Icons.bookmark
-                                                    : Icons
-                                                    .bookmark_outline,
-                                                color: quranPageCtrl_.buttonsSelected
-                                                    .contains(
-                                                    "${quranPageCtrl_.getqurandetail
-                                                        .value
-                                                        .getQuranAyahVerse![0]
-                                                        .suraNameEn} ${sura
-                                                        .versesKey}")
-                                                    ? Get.theme.hoverColor
-                                                    : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
-                                              );
-                                            }),
-                                          ),
-                                          PopupMenuButton(
-                                              shadowColor: Colors.grey
-                                                  .shade400,
-                                              itemBuilder: (
-                                                  BuildContext context) {
-                                                return [
-                                                  PopupMenuItem(
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          quranPageCtrl_.copyToClipboard(
-                                                              index);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            Obx(() {
-                                                              return Icon(
-                                                                  quranPageCtrl_.copy
-                                                                      .contains(
-                                                                      "${quranPageCtrl_
-                                                                          .getqurandetail
-                                                                          .value
-                                                                          .getQuranAyahVerse![0]
-                                                                          .ayahList![0]
-                                                                          .arabicText} ${sura
-                                                                          .versesKey} ${sura
-                                                                          .engTranslation}")
-                                                                      ? Icons
-                                                                      .copy
-                                                                      : Icons
-                                                                      .copy);
-                                                            }),
-                                                            Space(12),
-                                                            Text("Copy"),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                  PopupMenuItem(
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          quranPageCtrl_.shareMessage(
-                                                              index);
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            Icon(Icons
-                                                                .share),
-                                                            Space(12),
-                                                            Text("Share"),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                  PopupMenuItem(
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          showDialog(
-                                                            context: context,
-                                                            builder: (
-                                                                BuildContext context) {
-                                                              return CustomDialogBox1(
-                                                                // title: 'Custom Dialog Title',
-                                                                // content:
-                                                                // 'This is the content of the custom dialog box.',
-                                                                // onPressed: () {
-                                                                //   Navigator
-                                                                //       .pop(
-                                                                //       context); // Closes the dialog box when the button is pressed.
-                                                                // },
-                                                              );
-                                                            },
-                                                          );
-                                                        },
-                                                        child: Row(
-                                                          children: [
-                                                            Image.asset(
-                                                              "assets/images/notes.png",
-                                                              width: 20,
-                                                              color: Colors
-                                                                  .black,),
-                                                            Space(12),
-                                                            Text(
-                                                                "Create Notes"),
-                                                          ],
-                                                        ),
-                                                      )),
-                                                ];
-                                              }
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          // 50.horizontalSpace,
-                                          Space(20.w),
-                                          Align(
-                                              alignment:
-                                              Alignment.centerLeft,
+                                                        .versesKey}",'sura',index,int.parse(quranPageCtrl_.getqurandetail.value
+                                                    .getQuranAyahVerse![0].suraChapterNo!));
+                                              },
+
                                               child: Obx(() {
-                                                double fontSize = 40.0;
-                                                String fontFamily = quranPageCtrl_
-                                                    .fontFamily
-                                                    .value;
-                                                double sliderValue = quranPageCtrl_
-                                                    .sliderValue.value;
-                                                if (sliderValue == 1) {
-                                                  // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                                  fontSize = 45.0;
-                                                } else if (sliderValue == 2) {
-                                                  // Set font size to 40.0 when sliderValue is 2 (Large)
-                                                  fontSize = 55.0;
+                                                //   print("eeee${c.objectList}");
+                                                print("eeee${sura.versesKey
+                                                    .toString()}");
+                                                return Icon(
+                                                  quranPageCtrl_.buttonsSelected.contains(index)
+
+                                                      ? Icons.bookmark
+                                                      : Icons
+                                                      .bookmark_outline,
+                                                  color:     quranPageCtrl_.buttonsSelected.contains(index)
+                                                      ? Get.theme.hoverColor
+                                                      : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
+                                                );
+                                              }),
+                                            ),
+                                            PopupMenuButton(
+                                                shadowColor: Colors.grey
+                                                    .shade400,
+                                                itemBuilder: (
+                                                    BuildContext context) {
+                                                  return [
+                                                    PopupMenuItem(
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            quranPageCtrl_.copyToClipboard(
+                                                                index);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Row(
+                                                            children: [
+                                                              Obx(() {
+                                                                return Icon(
+                                                                    quranPageCtrl_.copy
+                                                                        .contains(
+                                                                        "${quranPageCtrl_
+                                                                            .getqurandetail
+                                                                            .value
+                                                                            .getQuranAyahVerse![0]
+                                                                            .ayahList![0]
+                                                                            .arabicText} ${sura
+                                                                            .versesKey} ${sura
+                                                                            .engTranslation}")
+                                                                        ? Icons
+                                                                        .copy
+                                                                        : Icons
+                                                                        .copy);
+                                                              }),
+                                                              Space(12),
+                                                              Text("Copy"),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                    PopupMenuItem(
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            quranPageCtrl_.shareMessage(
+                                                                index);
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Row(
+                                                            children: [
+                                                              Icon(Icons
+                                                                  .share),
+                                                              Space(12),
+                                                              Text("Share"),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                    PopupMenuItem(
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            showDialog(
+                                                              context: context,
+                                                              builder: (
+                                                                  BuildContext context) {
+                                                                return CustomDialogBox1(
+                                                                  // title: 'Custom Dialog Title',
+                                                                  // content:
+                                                                  // 'This is the content of the custom dialog box.',
+                                                                  // onPressed: () {
+                                                                  //   Navigator
+                                                                  //       .pop(
+                                                                  //       context); // Closes the dialog box when the button is pressed.
+                                                                  // },
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                          child: Row(
+                                                            children: [
+                                                              Image.asset(
+                                                                "assets/images/notes.png",
+                                                                width: 20,
+                                                                color: Colors
+                                                                    .black,),
+                                                              Space(12),
+                                                              Text(
+                                                                  "Create Notes"),
+                                                            ],
+                                                          ),
+                                                        )),
+                                                  ];
                                                 }
-                                                TextStyle textStyle = TextStyle(
-                                                  wordSpacing: 10,
-                                                  fontSize: fontSize,
-                                                  fontFamily: quranPageCtrl_.fontFamily
-                                                      .value == "kitab"
-                                                      ? "Kitab"
-                                                      : quranPageCtrl_.fontFamily
-                                                      .value ==
-                                                      "qalam"
-                                                      ? "Qalam" : quranPageCtrl_
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            // 50.horizontalSpace,
+                                            Space(20.w),
+                                            Align(
+                                                alignment:
+                                                Alignment.centerLeft,
+                                                child: Obx(() {
+                                                  double fontSize = 40.0;
+                                                  String fontFamily = quranPageCtrl_
                                                       .fontFamily
-                                                      .value == "uthami"
-                                                      ? "Uthami" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value == "amiri"
-                                                      ? "Amiri" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value == "noorehira"
-                                                      ? "Noorehira" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value == "noorehuda"
-                                                      ? "Noorehuda" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value ==
-                                                      "noorehidayat"
-                                                      ? "Noorehidayat" : quranPageCtrl_
-                                                      .fontFamily
-                                                      .value == "arabictit"
-                                                      ? "Arabictitle"
-                                                      : null, // Use the default font if "Amiri" is not selected
-                                                );
-                                                return SizedBox(
-                                                  width: 300.sp,
-                                                  child: quranPageCtrl_.isCheckedArabic
-                                                      .value == true
+                                                      .value;
+                                                  double sliderValue = quranPageCtrl_
+                                                      .sliderValue.value;
+                                                  if (sliderValue == 1) {
+                                                    // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                                    fontSize = 45.0;
+                                                  } else if (sliderValue == 2) {
+                                                    // Set font size to 40.0 when sliderValue is 2 (Large)
+                                                    fontSize = 55.0;
+                                                  }
+                                                  TextStyle textStyle = TextStyle(
+                                                    wordSpacing: 10,
+                                                    fontSize: fontSize,
+                                                    fontFamily: quranPageCtrl_.fontFamily
+                                                        .value == "kitab"
+                                                        ? "Kitab"
+                                                        : quranPageCtrl_.fontFamily
+                                                        .value ==
+                                                        "qalam"
+                                                        ? "Qalam" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "uthami"
+                                                        ? "Uthami" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "amiri"
+                                                        ? "Amiri" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "noorehira"
+                                                        ? "Noorehira" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "noorehuda"
+                                                        ? "Noorehuda" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value ==
+                                                        "noorehidayat"
+                                                        ? "Noorehidayat" : quranPageCtrl_
+                                                        .fontFamily
+                                                        .value == "arabictit"
+                                                        ? "Arabictitle"
+                                                        : null, // Use the default font if "Amiri" is not selected
+                                                  );
+                                                  return SizedBox(
+                                                    width: 300.sp,
+                                                    child: quranPageCtrl_.isCheckedArabic
+                                                        .value == true
+                                                        ? Text(
+                                                      "${sura.arabicText}",
+                                                      style: textStyle,
+                                                      textAlign:
+                                                      TextAlign.end,
+                                                    )
+                                                        : SizedBox(),
+                                                  );
+                                                })
+                                            ),
+                                          ],
+                                        ),
+                                        Space(8),
+                                        Space(16),
+                                        Obx(() {
+                                          double fontSize = 18.0;
+                                          double sliderValue = quranPageCtrl_.sliderValue1
+                                              .value;
+                                          if (sliderValue == 1) {
+                                            // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                            fontSize = 22.0;
+                                          } else if (sliderValue == 2) {
+                                            // Set font size to 40.0 when sliderValue is 2 (Large)
+                                            fontSize = 25.0;
+                                          }
+                                          return SizedBox(
+                                              width: .9.sw,
+                                              child: Align(
+                                                  alignment: Alignment
+                                                      .centerLeft,
+                                                  child:
+                                                  quranPageCtrl_.isCheckedEnglish.value ==
+                                                      true
                                                       ? Text(
-                                                    "${sura.arabicText}",
-                                                    style: textStyle,
-                                                    textAlign:
-                                                    TextAlign.end,
+                                                    "${sura.engTranslation}",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        fontSize: fontSize),
                                                   )
-                                                      : SizedBox(),
-                                                );
-                                              })
-                                          ),
-                                        ],
-                                      ),
-                                      Space(8),
-                                      Space(16),
-                                      Obx(() {
-                                        double fontSize = 18.0;
-                                        double sliderValue = quranPageCtrl_.sliderValue1
-                                            .value;
-                                        if (sliderValue == 1) {
-                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                          fontSize = 22.0;
-                                        } else if (sliderValue == 2) {
-                                          // Set font size to 40.0 when sliderValue is 2 (Large)
-                                          fontSize = 25.0;
-                                        }
-                                        return SizedBox(
-                                            width: .9.sw,
-                                            child: Align(
-                                                alignment: Alignment
-                                                    .centerLeft,
-                                                child:
-                                                quranPageCtrl_.isCheckedEnglish.value ==
-                                                    true
-                                                    ? Text(
-                                                  "${sura.engTranslation}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w500,
-                                                      fontSize: fontSize),
-                                                )
-                                                    : SizedBox()));
-                                      }),
-                                      Space(16),
-                                      Obx(() {
-                                        double fontSize = 18.0;
-                                        double sliderValue = quranPageCtrl_.sliderValue1
-                                            .value;
-                                        if (sliderValue == 1) {
-                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                          fontSize = 22.0;
-                                        } else if (sliderValue == 2) {
-                                          // Set font size to 40.0 when sliderValue is 2 (Large)
-                                          fontSize = 25.0;
-                                        }
-                                        return SizedBox(
-                                            width: .9.sw,
-                                            child: Align(
-                                                alignment: Alignment.center,
-                                                child: quranPageCtrl_.isCheckedTamil
-                                                    .value
-                                                    ? Text(
-                                                  "${sura
-                                                      .tamilTranslation}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w500,
-                                                      fontSize: fontSize),
-                                                )
-                                                    : SizedBox.shrink()));
-                                      }),
-                                      Space(16),
-                                      Obx(() {
-                                        double fontSize = 18.0;
-                                        double sliderValue = quranPageCtrl_.sliderValue1
-                                            .value;
-                                        if (sliderValue == 1) {
-                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                          fontSize = 22.0;
-                                        } else if (sliderValue == 2) {
-                                          // Set font size to 40.0 when sliderValue is 2 (Large)
-                                          fontSize = 25.0;
-                                        }
-                                        return SizedBox(
-                                            width: .9.sw,
-                                            child: Align(
-                                                alignment: Alignment.center,
-                                                child: quranPageCtrl_.isCheckedUrdu
-                                                    .value
-                                                    ? Text(
-                                                  "${sura
-                                                      .urduTranslation}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w500,
-                                                      fontSize: fontSize),
-                                                )
-                                                    : SizedBox.shrink()));
-                                      }),
-                                      Space(16),
-                                      Obx(() {
-                                        double fontSize = 18.0;
-                                        double sliderValue = quranPageCtrl_.sliderValue1
-                                            .value;
-                                        if (sliderValue == 1) {
-                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                          fontSize = 22.0;
-                                        } else if (sliderValue == 2) {
-                                          // Set font size to 40.0 when sliderValue is 2 (Large)
-                                          fontSize = 25.0;
-                                        }
-                                        return SizedBox(
-                                            width: .9.sw,
-                                            child: Align(
-                                                alignment: Alignment.center,
-                                                child: quranPageCtrl_.isCheckedHindi
-                                                    .value
-                                                    ? Text(
-                                                  "${sura
-                                                      .hindiTranslation}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w500,
-                                                      fontSize: fontSize),
-                                                )
-                                                    : SizedBox.shrink()));
-                                      }),
-                                      Space(16),
-                                      Obx(() {
-                                        double fontSize = 18.0;
-                                        double sliderValue = quranPageCtrl_.sliderValue1
-                                            .value;
-                                        if (sliderValue == 1) {
-                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                          fontSize = 22.0;
-                                        } else if (sliderValue == 2) {
-                                          // Set font size to 40.0 when sliderValue is 2 (Large)
-                                          fontSize = 25.0;
-                                        }
-                                        return SizedBox(
-                                            width: .9.sw,
-                                            child: Align(
-                                                alignment: Alignment.center,
-                                                child: quranPageCtrl_.isCheckedMalayalam
-                                                    .value
-                                                    ? Text(
-                                                  "${sura
-                                                      .malayalamTranslation}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w500,
-                                                      fontSize: fontSize),
-                                                )
-                                                    : SizedBox.shrink()));
-                                      }),
-                                      Space(16),
-                                      Obx(() {
-                                        double fontSize = 18.0;
-                                        double sliderValue = quranPageCtrl_.sliderValue1
-                                            .value;
-                                        if (sliderValue == 1) {
-                                          // Set font size to 35.0 when sliderValue is 1 (Medium)
-                                          fontSize = 22.0;
-                                        } else if (sliderValue == 2) {
-                                          // Set font size to 40.0 when sliderValue is 2 (Large)
-                                          fontSize = 25.0;
-                                        }
-                                        return SizedBox(
-                                            width: .9.sw,
-                                            child: Align(
-                                                alignment: Alignment.center,
-                                                child: quranPageCtrl_.isCheckedTelugu
-                                                    .value
-                                                    ? Text(
-                                                  "${sura
-                                                      .teluguTranslation}",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                      FontWeight
-                                                          .w500,
-                                                      fontSize: fontSize),
-                                                )
-                                                    : SizedBox.shrink()));
-                                      }),
-                                      Space(8),
-                                      Image.asset(
-                                        "assets/images/qurandivider.png",
-                                        scale: 4,
-                                        width: 310.w,
-                                        color: Get.theme.hoverColor,
-                                      )
-                                    ],
-                                  ),
-                                ));
+                                                      : SizedBox()));
+                                        }),
+                                        Space(16),
+                                        Obx(() {
+                                          double fontSize = 18.0;
+                                          double sliderValue = quranPageCtrl_.sliderValue1
+                                              .value;
+                                          if (sliderValue == 1) {
+                                            // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                            fontSize = 22.0;
+                                          } else if (sliderValue == 2) {
+                                            // Set font size to 40.0 when sliderValue is 2 (Large)
+                                            fontSize = 25.0;
+                                          }
+                                          return SizedBox(
+                                              width: .9.sw,
+                                              child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: quranPageCtrl_.isCheckedTamil
+                                                      .value
+                                                      ? Text(
+                                                    "${sura
+                                                        .tamilTranslation}",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        fontSize: fontSize),
+                                                  )
+                                                      : SizedBox.shrink()));
+                                        }),
+                                        Space(16),
+                                        Obx(() {
+                                          double fontSize = 18.0;
+                                          double sliderValue = quranPageCtrl_.sliderValue1
+                                              .value;
+                                          if (sliderValue == 1) {
+                                            // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                            fontSize = 22.0;
+                                          } else if (sliderValue == 2) {
+                                            // Set font size to 40.0 when sliderValue is 2 (Large)
+                                            fontSize = 25.0;
+                                          }
+                                          return SizedBox(
+                                              width: .9.sw,
+                                              child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: quranPageCtrl_.isCheckedUrdu
+                                                      .value
+                                                      ? Text(
+                                                    "${sura
+                                                        .urduTranslation}",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        fontSize: fontSize),
+                                                  )
+                                                      : SizedBox.shrink()));
+                                        }),
+                                        Space(16),
+                                        Obx(() {
+                                          double fontSize = 18.0;
+                                          double sliderValue = quranPageCtrl_.sliderValue1
+                                              .value;
+                                          if (sliderValue == 1) {
+                                            // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                            fontSize = 22.0;
+                                          } else if (sliderValue == 2) {
+                                            // Set font size to 40.0 when sliderValue is 2 (Large)
+                                            fontSize = 25.0;
+                                          }
+                                          return SizedBox(
+                                              width: .9.sw,
+                                              child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: quranPageCtrl_.isCheckedHindi
+                                                      .value
+                                                      ? Text(
+                                                    "${sura
+                                                        .hindiTranslation}",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        fontSize: fontSize),
+                                                  )
+                                                      : SizedBox.shrink()));
+                                        }),
+                                        Space(16),
+                                        Obx(() {
+                                          double fontSize = 18.0;
+                                          double sliderValue = quranPageCtrl_.sliderValue1
+                                              .value;
+                                          if (sliderValue == 1) {
+                                            // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                            fontSize = 22.0;
+                                          } else if (sliderValue == 2) {
+                                            // Set font size to 40.0 when sliderValue is 2 (Large)
+                                            fontSize = 25.0;
+                                          }
+                                          return SizedBox(
+                                              width: .9.sw,
+                                              child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: quranPageCtrl_.isCheckedMalayalam
+                                                      .value
+                                                      ? Text(
+                                                    "${sura
+                                                        .malayalamTranslation}",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        fontSize: fontSize),
+                                                  )
+                                                      : SizedBox.shrink()));
+                                        }),
+                                        Space(16),
+                                        Obx(() {
+                                          double fontSize = 18.0;
+                                          double sliderValue = quranPageCtrl_.sliderValue1
+                                              .value;
+                                          if (sliderValue == 1) {
+                                            // Set font size to 35.0 when sliderValue is 1 (Medium)
+                                            fontSize = 22.0;
+                                          } else if (sliderValue == 2) {
+                                            // Set font size to 40.0 when sliderValue is 2 (Large)
+                                            fontSize = 25.0;
+                                          }
+                                          return SizedBox(
+                                              width: .9.sw,
+                                              child: Align(
+                                                  alignment: Alignment.center,
+                                                  child: quranPageCtrl_.isCheckedTelugu
+                                                      .value
+                                                      ? Text(
+                                                    "${sura
+                                                        .teluguTranslation}",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .w500,
+                                                        fontSize: fontSize),
+                                                  )
+                                                      : SizedBox.shrink()));
+                                        }),
+                                        Space(8),
+                                        Image.asset(
+                                          "assets/images/qurandivider.png",
+                                          scale: 4,
+                                          width: 310.w,
+                                          color: Get.theme.hoverColor,
+                                        )
+                                      ],
+                                    ),
+                                  )),
+                            );
                           }
                           ),
                       ),

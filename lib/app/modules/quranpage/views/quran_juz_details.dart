@@ -1,19 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/tajweed_rules.dart';
 import 'package:smartmasjid_v1/widgets/loading.dart';
-
-import '../../../../global.dart';
 import '../../../../widgets/Stextfield.dart';
 import '../../../../widgets/gotoverse.dart';
-import '../../../../widgets/space.dart';
-import '../../../../widgets/stext.dart';
+import '../../../routes/export.dart';
 import '../../home/widgets/appBar.dart';
 import '../controllers/quranpage_controller.dart';
 
@@ -41,7 +33,7 @@ class QuranJuzDetails extends StatelessWidget {
                     Space(20),
                     Text(
                       "customize_your_quran".tr,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w600
                       ),
                     ),
@@ -1071,10 +1063,12 @@ class QuranJuzDetails extends StatelessWidget {
                                                                   .value
                                                                   .getQuranJuzVersesList![0]
                                                                   .juzNameEn} ${juz
-                                                                  .versesKey}");
+                                                                  .versesKey}",'juz',index,juzquranCtrl_
+                                                              .getquranjuzdetail
+                                                              .value
+                                                              .getQuranJuzVersesList![0].juzChapterNo!);
 
                                                           //   c.toggleBookmark();
-
                                                         },
 
                                                         child:

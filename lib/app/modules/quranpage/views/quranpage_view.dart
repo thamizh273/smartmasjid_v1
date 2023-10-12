@@ -461,7 +461,7 @@ class QuranpageView extends StatelessWidget {
                                                 quranCtrl.qurandetsilIndex
                                                     .value = (index + 1);
                                                 quranCtrl.result.value =
-                                                    0.toString();
+                                                    0;
                                                 quranCtrl.passint.value =
                                                 (index + 1);
                                                 print("dddd${quranCtrl.passint
