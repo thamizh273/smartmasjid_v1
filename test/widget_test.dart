@@ -1,187 +1,96 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    GetMaterialApp(
+      home: PageListView(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Quick Actions Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home:
-      CustomSwitchState(), // Use Obx to observe the state
-    );
-  }
-}
 
-const double borderRadius = 25.0;
 
-class CustomSwitchState extends StatefulWidget {
-  @override
-  _CustomSwitchStateState createState() => _CustomSwitchStateState();
-}
+class PageListView extends StatelessWidget {
+  final pages = [
+    {
+      'name': "1",
+      'verses': ["1", "2", "3", "4", "5", "6", "7"],
+      'no': "1",
+    },
+    {
+      'name': "2",
+      'verses': ["8", "9", "10", "11", "12"],
+      'no': "2",
+    },
+    {
+      'name': "3",
+      'verses': ["13", "14", "15", "16", "17", "18"],
+      'no': "3",
+    },
+  ];
 
-class _CustomSwitchStateState extends State<CustomSwitchState> with SingleTickerProviderStateMixin {
-
-  late PageController _pageController;
-  int activePageIndex = 0;
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          child: GestureDetector(
-            onTap: () {
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+      appBar: AppBar(
+        title: Text('Page List'),
+      ),
+      body: ListView.builder(
+          itemCount: pages.length,
+          itemBuilder: (context, index) {
+            final page = pages[index];
+            return GestureDetector(
+              onTap: () {
+                // Handle page item tap here
+                _handlePageTap(page);
+              },
               child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: _menuBar(context),
+                children: [
+                  ListTile(
+                    title: Text("${page['name']}"),
                   ),
-                  Expanded(
-                    flex: 2,
-                    child: PageView(
-                      controller: _pageController,
-                      physics: const ClampingScrollPhysics(),
-                      onPageChanged: (int i) {
-                        FocusScope.of(context).requestFocus(FocusNode());
-                        setState(() {
-                          activePageIndex = i;
-                        });
-                      },
-                      children: <Widget>[
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: Center(child: Text("Place Bid"),),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount:"${ page['verses']}".length,
+                    itemBuilder: (context, verseIndex) {
+                      final verseNumber = "${ page['verses']}"[verseIndex];
+                      return GestureDetector(
+                        onTap: () {
+                          // Handle verse item tap here
+                          _handleVerseTap(page, verseNumber, verseIndex);
+                        },
+                        child: ListTile(
+                          title: Text(verseNumber),
                         ),
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: Center(child: Text("Buy Now"),),
-                        ),
-                        ConstrainedBox(
-                          constraints: const BoxConstraints.expand(),
-                          child: Center(child: Text("Buy Now"),),
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ],
               ),
-            ),
-          ),
-        ));
-  }
+            );
+          },
+        )
 
-  Widget _menuBar(BuildContext context) {
-    return Container(
-      width: 300.0,
-      height: 50.0,
-      decoration: const BoxDecoration(
-        color: Color(0XFFE0E0E0),
-        borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Expanded(
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-              onTap: _onPlaceBidButtonPress,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 15),
-                alignment: Alignment.center,
-                decoration: (activePageIndex == 0) ? const BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                ) : null,
-                child: Text(
-                  "Place Bid",
-                  style: (activePageIndex == 0) ? TextStyle(color: Colors.white) : TextStyle(color: Colors.black),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-              onTap: _onBuyNowButtonPress,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 15),
-                alignment: Alignment.center,
-                decoration: (activePageIndex == 1) ? const BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                ) : null,
-                child: Text(
-                  "Buy Now",
-                  style: (activePageIndex == 1) ? TextStyle(color: Colors.white, fontWeight: FontWeight.bold) : TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-              onTap: _onBuyButtonPress,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 15),
-                alignment: Alignment.center,
-                decoration: (activePageIndex == 2) ? const BoxDecoration(
-                  color: Colors.green,
-                  borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-                ) : null,
-                child: Text(
-                  "Buy Now",
-                  style: (activePageIndex == 2) ? TextStyle(color: Colors.white, fontWeight: FontWeight.bold) : TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 
-  void _onPlaceBidButtonPress() {
-    _pageController.animateToPage(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
+  void _handlePageTap(Map<String, dynamic> page) {
+    // Access the details of the tapped page, including page number and name
+    final pageNumber = page['no'];
+    final name = page['name'];
+
+    print("Tapped on page $pageNumber - Name: $name");
   }
 
-  void _onBuyNowButtonPress() {
-    _pageController.animateToPage(1,
-        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
-  }
-  void _onBuyButtonPress() {
-    _pageController.animateToPage(2,
-        duration: const Duration(milliseconds: 500), curve: Curves.decelerate);
-  }
+  void _handleVerseTap(Map<String, dynamic> page, String verse, int verseIndex) {
+    // Access the details of the tapped verse, including verse number, page number, and name
+    final pageNumber = page['no'];
+    final name = page['name'];
 
+    print("Tapped on verse $verse (Index: $verseIndex) - Page: $pageNumber - Name: $name");
+  }
 }
+

@@ -43,7 +43,7 @@ class QuranpageController extends GetxController {
   }
   final _restCallController = Get.put(restCallController());
   RxInt gotoSura=0.obs;
-  RxInt currentSelected = 1.obs;
+  RxInt currentSelected = 0.obs;
   RxBool isLoadings0 = false.obs;
   RxBool isLoadings = false.obs;
   RxBool isLoadings1 = false.obs;
