@@ -22,17 +22,25 @@ class OtpPageController extends GetxController {
      var otpctrl ="".obs;
      RxBool isAutoOtp =false.obs;
      var forgetpassotp=false.obs;
-  void verifyOTP() async{
+
+  void verifyOTP() async {
     var isverified = await AuthenticationRespository.instance.verifyOtp(otpctrl.value);
-    if( forgetpassotp.value==true){
-      isverified?Get.to(ForgetPassword()):Get.back();
-    }else{
-      isverified?Get.toNamed(Routes.MASJID_FINDER):Get.back();
-      isverified?authctrl.pinController.value.text="":Get.back();
+    if (forgetpassotp.value == true) {
+      if (isverified) {
+        Get.to(ForgetPassword());
+      } else {
+        Get.back();
+      }
+    } else {
+      if (isverified) {
+        Get.toNamed(Routes.MASJID_FINDER);
+        authctrl.pinController.value.text = "";
+      } else {
+        Get.back();
+      }
     }
-
-
   }
+
 
 
   void resendCode() {

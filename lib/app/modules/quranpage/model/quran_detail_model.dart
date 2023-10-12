@@ -30,22 +30,22 @@ class QuranDetailModel {
 
 class GetQuranAyahVerse {
   String? typename;
+  String? makkiMadina;
   String? suraChapterNo;
   String? suraNameEn;
-  String? makkiMadina;
-  String? titleArb;
   String? titleEn;
+  String? titleArb;
   String? totalVerses;
   String? arabicStartingText;
   List<AyahList>? ayahList;
 
   GetQuranAyahVerse({
     this.typename,
+    this.makkiMadina,
     this.suraChapterNo,
     this.suraNameEn,
-    this.makkiMadina,
-    this.titleArb,
     this.titleEn,
+    this.titleArb,
     this.totalVerses,
     this.arabicStartingText,
     this.ayahList,
@@ -53,11 +53,11 @@ class GetQuranAyahVerse {
 
   factory GetQuranAyahVerse.fromJson(Map<String, dynamic> json) => GetQuranAyahVerse(
     typename: json["__typename"],
+    makkiMadina: json["makki_madina"],
     suraChapterNo: json["sura_chapter_no"],
     suraNameEn: json["sura_name_en"],
-    makkiMadina: json["makki_madina"],
-    titleArb: json["title_arb"],
     titleEn: json["title_en"],
+    titleArb: json["title_arb"],
     totalVerses: json["total_verses"],
     arabicStartingText: json["arabic_starting_text"],
     ayahList: json["ayah_list"] == null ? [] : List<AyahList>.from(json["ayah_list"]!.map((x) => AyahList.fromJson(x))),
@@ -65,11 +65,11 @@ class GetQuranAyahVerse {
 
   Map<String, dynamic> toJson() => {
     "__typename": typename,
+    "makki_madina": makkiMadina,
     "sura_chapter_no": suraChapterNo,
     "sura_name_en": suraNameEn,
-    "makki_madina": makkiMadina,
-    "title_arb": titleArb,
     "title_en": titleEn,
+    "title_arb": titleArb,
     "total_verses": totalVerses,
     "arabic_starting_text": arabicStartingText,
     "ayah_list": ayahList == null ? [] : List<dynamic>.from(ayahList!.map((x) => x.toJson())),
@@ -81,26 +81,28 @@ class AyahList {
   String? versesKey;
   int? ayahNo;
   String? arabicText;
+  ArabicAudio? arabicAudio;
   String? engTranslation;
   String? tamilTranslation;
   String? hindiTranslation;
   String? malayalamTranslation;
   String? teluguTranslation;
-  ArabicAudio? arabicAudio;
   String? urduTranslation;
+  String? page;
 
   AyahList({
     this.typename,
     this.versesKey,
     this.ayahNo,
     this.arabicText,
+    this.arabicAudio,
     this.engTranslation,
     this.tamilTranslation,
     this.hindiTranslation,
     this.malayalamTranslation,
     this.teluguTranslation,
-    this.arabicAudio,
     this.urduTranslation,
+    this.page,
   });
 
   factory AyahList.fromJson(Map<String, dynamic> json) => AyahList(
@@ -108,13 +110,14 @@ class AyahList {
     versesKey: json["verses_key"],
     ayahNo: json["ayah_no"],
     arabicText: json["arabic_text"],
+    arabicAudio: json["arabic_audio"] == null ? null : ArabicAudio.fromJson(json["arabic_audio"]),
     engTranslation: json["eng_translation"],
     tamilTranslation: json["tamil_translation"],
     hindiTranslation: json["hindi_translation"],
     malayalamTranslation: json["malayalam_translation"],
     teluguTranslation: json["telugu_translation"],
-    arabicAudio: json["arabic_audio"] == null ? null : ArabicAudio.fromJson(json["arabic_audio"]),
     urduTranslation: json["urdu_translation"],
+    page: json["page_"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -122,13 +125,14 @@ class AyahList {
     "verses_key": versesKey,
     "ayah_no": ayahNo,
     "arabic_text": arabicText,
+    "arabic_audio": arabicAudio?.toJson(),
     "eng_translation": engTranslation,
     "tamil_translation": tamilTranslation,
     "hindi_translation": hindiTranslation,
     "malayalam_translation": malayalamTranslation,
     "telugu_translation": teluguTranslation,
-    "arabic_audio": arabicAudio?.toJson(),
     "urdu_translation": urduTranslation,
+    "page_": page,
   };
 }
 

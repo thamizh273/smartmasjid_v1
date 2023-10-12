@@ -1138,10 +1138,8 @@ class QuranDetails extends StatelessWidget {
                                                 fontSize: 18),
                                           ),
                                           Spacer(),
-                                          ...quranPageCtrl_.pages.map((e) =>
-                                          e['verse'] == sura.versesKey
-                                              ? Center(
-                                            child: Container(
+                                          Center(
+                                            child:"${sura.page}"== ""? Container(): Container(
                                               decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
                                                       .circular(
@@ -1154,14 +1152,14 @@ class QuranDetails extends StatelessWidget {
                                               width: 70,
                                               child: Center(
                                                   child: Text(
-                                                    "Page ${e['no']}",
+                                                    "Page ${sura.page}",
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontWeight: FontWeight
                                                             .w600),)),
                                             ),
                                           )
-                                              : Container()).toList(),
+                                              ,
                                           Space(40),
                                           Icon(
                                             Icons.play_circle,
