@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/controllers/quranpage_controller.dart';
 import 'package:smartmasjid_v1/widgets/space.dart';
 
@@ -89,6 +90,7 @@ Future GotoVerse(BuildContext context) {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+
                   ///surah
                   Obx(() {
                     return SizedBox(
@@ -109,16 +111,19 @@ Future GotoVerse(BuildContext context) {
                               ),
                             ),
                             ListWheelScrollView(
-                             // useMagnifier: true,
+                              useMagnifier: true,
                               magnification: 1.1,
                               physics: FixedExtentScrollPhysics(),
                               itemExtent: 50,
                               // Adjust the item height as needed
                               diameterRatio: 2.0,
-                    onSelectedItemChanged:(v){
-                      quranPageCtrl_.gotoSura.value=int.parse(quranPageCtrl_.getqurandata.value.quranFilter![v].totalVerses!);
-                      quranPageCtrl_.update();
-                    },
+                              onSelectedItemChanged: (v) {
+                                quranPageCtrl_.gotoSura.value = int.parse(
+                                    quranPageCtrl_.getqurandata.value
+                                        .quranFilter![v].totalVerses!);
+                                quranPageCtrl_.currentSelected.value = v;
+                                quranPageCtrl_.update();
+                              },
                               // Adjust as needed
                               children: List.generate(
                                 quranPageCtrl_
@@ -160,6 +165,7 @@ Future GotoVerse(BuildContext context) {
                           ],
                         ));
                   }),
+
                   ///ayah
                   Obx(() {
                     return SizedBox(
@@ -187,12 +193,14 @@ Future GotoVerse(BuildContext context) {
                               // Adjust the item height as needed
                               diameterRatio: 2.0,
                               // Adjust as needed
+                              onSelectedItemChanged: (v) {
+                                quranPageCtrl_.result.value = v;
+                                quranPageCtrl_.update();
+                              },
                               children: List.generate(
                                 quranPageCtrl_.gotoSura.value,
-                                (index) {
-                                //  var sura = int.parse(quranPageCtrl_.getqurandata.value.quranFilter![0].totalVerses!);
-
-                                   
+                                    (index) {
+                                  //  var sura = int.parse(quranPageCtrl_.getqurandata.value.quranFilter![0].totalVerses!);
                                   return Container(
                                     height: 50, // Adjust the height as needed
                                     child: ListTile(
@@ -200,7 +208,7 @@ Future GotoVerse(BuildContext context) {
                                       title: Row(
                                         children: [
                                           Text(
-                                            "${index+1}",
+                                            "${index + 1}",
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 15,
@@ -216,59 +224,58 @@ Future GotoVerse(BuildContext context) {
                           ],
                         ));
                   }),
-                  // Obx(() {
-                  //   return SizedBox(
-                  //       width: quranPageCtrl_.screenWidth * 0.17,
-                  //       height: 250.h,
-                  //       child: Stack(
-                  //         children: [
-                  //           Positioned.fill(
-                  //             child: Center(
-                  //               child: Container(
-                  //                 width: 150, // Adjust the width as needed
-                  //                 height: 40, // Adjust the height as needed
-                  //                 decoration: BoxDecoration(
-                  //                   color: Colors.black.withOpacity(0.1),
-                  //                   shape: BoxShape.rectangle,
-                  //                 ),
-                  //               ),
-                  //             ),
-                  //           ),
-                  //           ListWheelScrollView(
-                  //             useMagnifier: true,
-                  //             magnification: 1.1,
-                  //             physics: FixedExtentScrollPhysics(),
-                  //             itemExtent: 50,
-                  //             // Adjust the item height as needed
-                  //             diameterRatio: 2.0,
-                  //             // Adjust as needed
-                  //             children: List.generate(
-                  //               quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].ayahList![0].page!.length,
-                  //                   (index) {
-                  //                 var page = quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].ayahList![0].page![index];
-                  //                 return Container(
-                  //                   height: 50, // Adjust the height as needed
-                  //                   child: ListTile(
-                  //                     dense: true,
-                  //                     title: Row(
-                  //                       children: [
-                  //                         Text(
-                  //                           page,
-                  //                           style: TextStyle(
-                  //                             color: Colors.white,
-                  //                             fontSize: 15,
-                  //                           ),
-                  //                         ),
-                  //                       ],
-                  //                     ),
-                  //                   ),
-                  //                 );
-                  //               },
-                  //             ),
-                  //           ),
-                  //         ],
-                  //       ));
-                  // }),
+
+                  ///pages
+                  SizedBox(width: 15,),
+                  SizedBox(
+                         width: quranPageCtrl_.screenWidth * 0.17,
+                         height: 250.h,
+                         child: Stack(
+                           children: [
+                             Positioned.fill(
+                               child: Center(
+                                 child: Container(
+                                   width: 150, // Adjust the width as needed
+                                   height: 40, // Adjust the height as needed
+                                   decoration: BoxDecoration(
+                                     color: Colors.black.withOpacity(0.1),
+                                     shape: BoxShape.rectangle,
+                                   ),
+                                 ),
+                               ),
+                             ),
+                             ListWheelScrollView(
+                               useMagnifier: true,
+                               magnification: 1.1,
+                               physics: FixedExtentScrollPhysics(),
+                               itemExtent: 50,
+                               // Adjust the item height as needed
+                               diameterRatio: 2.0,
+                               // Adjust as needed
+                               children: List.generate(
+                                604, (index) {
+                                 return Container(
+                                   height: 50, // Adjust the height as needed
+                                   child: ListTile(
+                                     dense: true,
+                                     title: Row(
+                                       children: [
+                                         Text(
+                                           "${index + 1}",
+                                           style: TextStyle(
+                                             color: Colors.white,
+                                             fontSize: 15,
+                                           ),
+                                         ),
+                                       ],
+                                     ),
+                                   ),
+                                 );
+                               },
+                               ),
+                             ),
+                           ],
+                         ))
                 ],
               ),
               Padding(
@@ -278,12 +285,16 @@ Future GotoVerse(BuildContext context) {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          // c.quranDetailList(c.currentSelected.value+1);
+                          quranPageCtrl_.quranDetailList(quranPageCtrl_
+                              .currentSelected.value + 1);
                         },
                         style: ElevatedButton.styleFrom(
                           minimumSize: Size(130, 30),
                           backgroundColor:
-                              Theme.of(context).colorScheme.secondary,
+                          Theme
+                              .of(context)
+                              .colorScheme
+                              .secondary,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -295,7 +306,9 @@ Future GotoVerse(BuildContext context) {
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
-                              color: Theme.of(context).primaryColor),
+                              color: Theme
+                                  .of(context)
+                                  .primaryColor),
                         ))
                   ],
                 ),
