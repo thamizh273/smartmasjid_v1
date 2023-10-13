@@ -56,7 +56,7 @@ class ChatUserListPage extends StatelessWidget {
                                     chatUserListCtrl_.get_chatMessage(data.userId!.id,data.userName.toString(),"${data.profileImage}");
                                   },
                                   hoverColor: Colors.brown,
-                                  splashColor: Colors.red,
+                                  splashColor: Get.theme.primaryColor,
                                   selectedColor: Colors.yellow,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8)),
@@ -68,7 +68,7 @@ class ChatUserListPage extends StatelessWidget {
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
                                       ),
-                                      child:data.profileImage== "null"
+                                      child:(data.profileImage== "null"||data.profileImage =="")
                                           ? Image.asset("assets/images/app_logo.png")
                                           : Image(
                                           image: MemoryImage(base64Decode(data.profileImage

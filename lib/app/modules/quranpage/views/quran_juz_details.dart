@@ -913,8 +913,9 @@ class QuranJuzDetails extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Center(
-                              heightFactor: 1.5.sp,
+                            Positioned(
+                              top: 15.h,
+                              left: .23.sw,
                               child: Container(
                                 height: 50.sp,
                                 width: 180.sp,
@@ -1054,27 +1055,15 @@ class QuranJuzDetails extends StatelessWidget {
                                                         GestureDetector(
 
                                                           onTap: () {
-                                                            print('ssss${juzquranCtrl_
-                                                                .getquranjuzdetail
-                                                                .value
-                                                                .getQuranJuzVersesList![0]
-                                                                .juzNameEn}');
-                                                            // if(c.passint.value==sura.versesKey![0]){
-                                                            //   print("ggg");
-                                                            //   c.toogle(index);
-                                                            // }
-                                                            juzquranCtrl_.toogle(
-                                                                "${juzquranCtrl_
-                                                                    .getquranjuzdetail
-                                                                    .value
-                                                                    .getQuranJuzVersesList![0]
-                                                                    .juzNameEn} ${juz
-                                                                    .versesKey}",'juz',index,juzquranCtrl_
-                                                                .getquranjuzdetail
-                                                                .value
-                                                                .getQuranJuzVersesList![0].juzChapterNo!);
 
-                                                            //   c.toggleBookmark();
+                                                            final bookmarkdata = {
+                                                              "name": "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}",
+                                                              "type": 'juz',
+                                                              "index": index,
+                                                              "no": juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzChapterNo!,
+                                                            };
+                                                            juzquranCtrl_.toogle(bookmarkdata);
+                                                            juzquranCtrl_.update();
                                                           },
 
                                                           child:
@@ -1087,17 +1076,16 @@ class QuranJuzDetails extends StatelessWidget {
                                                             print(
                                                                 "eeee${juz.versesKey
                                                                     .toString()}");
+                                                        final  isBookmarked =   juzquranCtrl_.buttonsSelected
+                                                                .any((item) => item['name'] == "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}");
+
                                                             // final isBookmarked = c.isBookmarked.value;
                                                             return Icon(
-                                                                juzquranCtrl_.buttonsSelected
-                                                                    .any((item) => item['name'] == "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}")
 
-                                                                  ? Icons.bookmark
+                                                              isBookmarked ? Icons.bookmark
                                                                   : Icons
                                                                   .bookmark_outline,
-                                                              color: juzquranCtrl_.buttonsSelected
-                                                                  .any((item) => item['name'] == "${juzquranCtrl_.getquranjuzdetail.value.getQuranJuzVersesList![0].juzNameEn} ${juz.versesKey}")
-                                                                  ? Get.theme.hoverColor
+                                                              color: isBookmarked? Get.theme.hoverColor
                                                                   : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
                                                             );
                                                           }),

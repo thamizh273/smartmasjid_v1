@@ -11,8 +11,6 @@ class Bookmark extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String symbol = ':';
-    String space = ' ';
 
     return DefaultTabController(
       length: 3,
@@ -39,36 +37,35 @@ class Bookmark extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Scaffold(
-              body:  Center(
-                child: Column(
-                  children: [
-                    Space(100),
-                    Image.asset("assets/images/bookui.png", width: 250,),
-                    Space(16),
-                    Stxt(text: "no_bookmarks_yet".tr, size: f5, weight: FontWeight.w600,),
-                    Space(16),
-                    ElevatedButton(
-                        onPressed: () {
+            Obx(() {
+              return qcontroller.buttonsSelectedSura.isEmpty? NoBookmark() : ListView.builder(
+                itemCount: qcontroller.buttonsSelectedSura.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
+                    child: Card(
+                        elevation: 5,
+                        child: ListTile(
+                          title:  Stxt(
+                            text: "${qcontroller.buttonsSelectedSura[index]["index"]}.${qcontroller.buttonsSelectedSura[index]["name"]}",
+                            size: f2,
+                            weight: FontWeight.bold,
+                          ), onTap: () {
+                       print('quran pass index${qcontroller.buttonsSelectedSura[index]["index"]}');
+                       qcontroller.result.value =0;
+                          // final quranindex = ;// Output: "17"
+                          qcontroller.quranDetailList(qcontroller.buttonsSelectedSura[index]["index"]);
+                        }, trailing: IconButton(onPressed: () {
+                          qcontroller.buttonsSelectedSura.removeAt(index);
+                          qcontroller.deleteIndexSura(index);
 
-                          Navigator.of(context).push(MaterialPageRoute(builder: (_) => QuranDetails()));
-                        },
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(150, 40),
-                          backgroundColor: Theme.of(context).primaryColor,
-                          foregroundColor: Color(0xff11323B),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          elevation: 4.0,
-                        ),
-                        child: Text("read_holy_quran".tr, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18, color: Colors.white),)),
-                    Space(16),
-                    Stxt(text: "read_and_add_your_favourite_to_bookmarks_that_will_appear_here".tr, size: f2, color: Colors.black.withOpacity(0.4),textAlign: TextAlign.center,)
-                  ],
-                ),
-              )
-            ),
+                          qcontroller.update();
+                        }, icon: Icon(Icons.delete)),
+                        )),
+                  );
+                },
+              );
+            }),
             Obx(() {
             return qcontroller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
               itemCount: qcontroller.buttonsSelected.length,
@@ -84,59 +81,54 @@ class Bookmark extends StatelessWidget {
                           weight: FontWeight.bold,
                         ), onTap: () {
 
-                          print("weeeew${qcontroller.result1.value}");
+
                           qcontroller.result.value =  qcontroller.buttonsSelected[index]["index"];// Output: "17"
                           qcontroller.result1.value =  qcontroller.buttonsSelected[index]["no"];// Output: "17"
-                          print("weeeeeer${qcontroller.result.value}"); // Output: "17"
-                      //  }
+
+
                         qcontroller.update();
-                        //  Get.to(QuranDetails());
+
                         qcontroller.buttonsSelected[index]["type"]=="sura"?qcontroller.quranDetailList(qcontroller.result1.value):qcontroller.quranjuzdetailList(qcontroller.result1.value);
                       }, trailing: IconButton(onPressed: () {
                         qcontroller.buttonsSelected.removeAt(index);
                         qcontroller.deleteIndex(index);
 
                         qcontroller.update();
-                      }, icon: Icon(Icons.delete)),
+                      }, icon: const Icon(Icons.delete)),
                       )),
                 );
               },
             );
           }),
             Obx(() {
-            return qcontroller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
-              itemCount: qcontroller.buttonsSelected.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
-                  child: Card(
-                      elevation: 5,
-                      child: ListTile(
-                        title:  Stxt(
-                          text: "${qcontroller.buttonsSelected[index]["name"]}",
-                          size: f2,
-                          weight: FontWeight.bold,
-                        ), onTap: () {
+              return qcontroller.buttonsSelectedJuz.isEmpty? NoBookmark() : ListView.builder(
+                itemCount: qcontroller.buttonsSelectedJuz.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
+                    child: Card(
+                        elevation: 5,
+                        child: ListTile(
+                          title:  Stxt(
+                            text: "${qcontroller.buttonsSelectedJuz[index]["index"]}.${qcontroller.buttonsSelectedJuz[index]["name"]}",
+                            size: f2,
+                            weight: FontWeight.bold,
+                          ), onTap: () {
+                          print('quran pass index${qcontroller.buttonsSelectedJuz[index]["index"]}');
+                          qcontroller.result.value =0;
+                          // final quranindex = ;// Output: "17"
+                          qcontroller.quranjuzdetailList(qcontroller.buttonsSelectedJuz[index]["index"]);
+                        }, trailing: IconButton(onPressed: () {
+                          qcontroller.buttonsSelectedJuz.removeAt(index);
+                          qcontroller.deleteIndexJuz(index);
 
-                          print("weeeew${qcontroller.result1.value}");
-                          qcontroller.result.value =  qcontroller.buttonsSelected[index]["index"];// Output: "17"
-                          qcontroller.result1.value =  qcontroller.buttonsSelected[index]["no"];// Output: "17"
-                          print("weeeeeer${qcontroller.result.value}"); // Output: "17"
-                      //  }
-                        qcontroller.update();
-                        //  Get.to(QuranDetails());
-                        qcontroller.buttonsSelected[index]["type"]=="sura"?qcontroller.quranDetailList(qcontroller.result1.value):qcontroller.quranjuzdetailList(qcontroller.result1.value);
-                      }, trailing: IconButton(onPressed: () {
-                        qcontroller.buttonsSelected.removeAt(index);
-                        qcontroller.deleteIndex(index);
-
-                        qcontroller.update();
-                      }, icon: Icon(Icons.delete)),
-                      )),
-                );
-              },
-            );
-          }),
+                          qcontroller.update();
+                        }, icon: Icon(Icons.delete)),
+                        )),
+                  );
+                },
+              );
+            }),
 
           ]
         ),

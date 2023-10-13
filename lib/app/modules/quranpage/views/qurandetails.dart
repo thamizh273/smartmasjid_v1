@@ -1176,27 +1176,30 @@ class QuranDetails extends StatelessWidget {
                                                 //   print("ggg");
                                                 //   c.toogle(index);
                                                 // }
-                                                quranPageCtrl_.toogle(
-                                                    "${quranPageCtrl_.getqurandetail.value
-                                                        .getQuranAyahVerse![0]
-                                                        .suraNameEn} ${sura
-                                                        .versesKey}",'sura',index,int.parse(quranPageCtrl_.getqurandetail.value
-                                                    .getQuranAyahVerse![0].suraChapterNo!));
+                                                final bookmarkdata = {
+                                                  "name": "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn} ${sura.versesKey}",
+                                                  "type": 'sura',
+                                                  "index": index,
+                                                  "no": int.parse(quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraChapterNo!),
+                                                };
+                                                quranPageCtrl_.toogle(bookmarkdata);
+
+                                                     quranPageCtrl_.update();
                                               },
 
                                               child: Obx(() {
                                                 //   print("eeee${c.objectList}");
                                                 print("eeee${sura.versesKey
                                                     .toString()}");
+                                              final isBookmarked =  quranPageCtrl_.buttonsSelected
+                                                    .any((item) => item['name'] == "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn} ${sura.versesKey}");
                                                 return Icon(
-                                                  quranPageCtrl_.buttonsSelected
-                                                      .any((item) => item['name'] == "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn} ${sura.versesKey}")
 
-                                                      ? Icons.bookmark
+
+                                                  isBookmarked ? Icons.bookmark
                                                       : Icons
                                                       .bookmark_outline,
-                                                  color:      quranPageCtrl_.buttonsSelected
-                                                      .any((item) => item['name'] == "${quranPageCtrl_.getqurandetail.value.getQuranAyahVerse![0].suraNameEn} ${sura.versesKey}")
+                                                  color:      isBookmarked
                                                       ? Get.theme.hoverColor
                                                       : Get.theme.hoverColor, // Use different colors for bookmarked and not bookmarked states
                                                 );

@@ -97,7 +97,7 @@ class MessagepageView extends GetView<MessagepageController> {
                                 color: Get.theme.hoverColor,
                                 borderRadius: BorderRadius.circular(50.r),
                               ),
-                              child: data.messagingId!.profileImage == "null"
+                              child: (data.messagingId!.profileImage == "null"||data.messagingId!.profileImage =="")
                                   ? Image.asset("assets/images/app_logo.png")
                                   : Image(
                                   image: MemoryImage(base64Decode(data

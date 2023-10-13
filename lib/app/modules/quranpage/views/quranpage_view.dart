@@ -138,8 +138,8 @@ class QuranpageView extends StatelessWidget {
               hideOnScroll: true,
               body: (BuildContext context, ScrollController controller) {
                 return Obx(() {
-                  return  quranCtrl.isLoadings0.value
-                      ?  DialogHelper.showLoading()
+                  return quranCtrl.isLoadings0.value
+                      ? DialogHelper.showLoading()
                       : TabBarView(children: [
                     Scrollbar(
                       interactive: true,
@@ -194,7 +194,6 @@ class QuranpageView extends StatelessWidget {
                                             // onTap: () => quranCtrl.openDrawer()
                                             onTap: () {
                                               GotoVerse(context);
-
                                             },
                                           ),
                                           Space(4),
@@ -462,7 +461,7 @@ class QuranpageView extends StatelessWidget {
                                                 quranCtrl.qurandetsilIndex
                                                     .value = (index + 1);
                                                 quranCtrl.result.value =
-                                                    0;
+                                                0;
                                                 quranCtrl.passint.value =
                                                 (index + 1);
                                                 print("dddd${quranCtrl.passint
@@ -688,10 +687,25 @@ class QuranpageView extends StatelessWidget {
                                                               .center,
                                                           children: [
                                                             InkWell(
-                                                              onTap: (){
-                                                              //  quranCtrl.toggleSura(index);
-                                                              },
-                                                              child: Icon(Icons.bookmarks_outlined,size: 20,)
+                                                                onTap: () {
+                                                                  final bookmarkdata = {
+                                                                    "name": "${sura.suraNameEn}",
+                                                                    "index": index+1,
+                                                                  };
+                                                                  quranPageCtrl_.toogleSura(bookmarkdata);
+                                                                  quranPageCtrl_.update();
+                                                                },
+                                                                child: Obx(() {
+                                                                  final isBookmarked =  quranPageCtrl_.buttonsSelectedSura
+                                                                      .any((item) => item['name'] == "${quranCtrl.getqurandata.value.quranFilter![index].suraNameEn}");
+                                                                  return Icon(
+                                                                    isBookmarked?
+                                                                        Icons.bookmarks:Icons.bookmarks_outlined,
+                                                                    size: 20,
+                                                                  color:  isBookmarked
+                                                                      ? Get.theme.hoverColor
+                                                                      : Get.theme.hoverColor,);
+                                                                })
 
                                                             ),
                                                             Space(8),
@@ -760,18 +774,13 @@ class QuranpageView extends StatelessWidget {
                                             dense: true,
                                             title: GestureDetector(
                                               onTap: () {
-                                                print("mmmmmmmm ${index}");
-                                                print("lolo ${ quranCtrl
-                                                    .qurandetsilIndex1.value}");
 
+                                                quranCtrl.result.value =0;
                                                 quranCtrl.quranjuzdetailList(
                                                     index + 1);
                                                 quranCtrl.qurandetsilIndex1
                                                     .value == (index + 1);
-                                                // Navigator.of(context).push(
-                                                //     MaterialPageRoute(
-                                                //         builder: (_) =>
-                                                //             QuranJuzDetails()));
+                                                quranCtrl.update();
                                               },
                                               child: Align(
                                                 alignment:
@@ -789,7 +798,7 @@ class QuranpageView extends StatelessWidget {
                                                   // width: double.infinity,
                                                   decoration: BoxDecoration(
                                                     borderRadius:
-                                                    BorderRadius.only(
+                                                    const BorderRadius.only(
                                                       // topRight: Radius.circular(8),
                                                       topLeft:
                                                       Radius.circular(12),
@@ -814,24 +823,7 @@ class QuranpageView extends StatelessWidget {
                                                   ),
                                                   child: Row(
                                                     children: [
-                                                      // Column(
-                                                      //   mainAxisAlignment: MainAxisAlignment
-                                                      //       .center,
-                                                      //   children: [
-                                                      //     Image(
-                                                      //       image: "${sura
-                                                      //           .quranType}" ==
-                                                      //           "Makki"
-                                                      //           ? AssetImage(
-                                                      //           'assets/images/makka.png')
-                                                      //           : AssetImage(
-                                                      //           'assets/images/madina.png'),
-                                                      //       width: 18,
-                                                      //     ),
-                                                      //     Stxt(text: "${juz.quranType}", size: f0)
-                                                      //   ],
-                                                      // ),
-                                                      // Space(8),
+
                                                       Column(
                                                         crossAxisAlignment:
                                                         CrossAxisAlignment
@@ -841,8 +833,7 @@ class QuranpageView extends StatelessWidget {
                                                             height: 48.h,
                                                             width: 50.h,
                                                             decoration:
-                                                            BoxDecoration(
-                                                              // color: Colors.red,
+                                                            const BoxDecoration(
                                                               image: DecorationImage(
                                                                   image: AssetImage(
                                                                       "assets/images/quranneww.png"),
@@ -864,7 +855,7 @@ class QuranpageView extends StatelessWidget {
                                                           ),
                                                         ],
                                                       ),
-                                                      Space(8),
+                                                      const Space(8),
                                                       Padding(
                                                         padding:
                                                         const EdgeInsets
@@ -885,7 +876,7 @@ class QuranpageView extends StatelessWidget {
                                                                   0.3,
                                                               child: Text(
                                                                 juz.juzNameEn!,
-                                                                style: TextStyle(
+                                                                style: const TextStyle(
                                                                     color: Color(
                                                                         0xff16627C),
                                                                     fontSize:
@@ -932,9 +923,27 @@ class QuranpageView extends StatelessWidget {
                                                           MainAxisAlignment
                                                               .center,
                                                           children: [
-                                                            Image.asset(
-                                                              "assets/images/bookmarkout.png",
-                                                              width: 16,
+                                                            InkWell(
+                                                                onTap: () {
+                                                                  final bookmarkdata = {
+                                                                    "name": "${juz.juzNameEn}",
+                                                                    "index": index+1,
+                                                                  };
+                                                                  quranPageCtrl_.toogleJuz(bookmarkdata);
+                                                                  quranPageCtrl_.update();
+                                                                },
+                                                                child: Obx(() {
+                                                                  final isBookmarked =  quranPageCtrl_.buttonsSelectedJuz
+                                                                      .any((item) => item['name'] == "${quranCtrl.getquranjuz.value.getQuranJuzChapter![index].juzNameEn}");
+                                                                  return Icon(
+                                                                    isBookmarked?
+                                                                    Icons.bookmarks:Icons.bookmarks_outlined,
+                                                                    size: 20,
+                                                                    color:  isBookmarked
+                                                                        ? Get.theme.hoverColor
+                                                                        : Get.theme.hoverColor,);
+                                                                })
+
                                                             ),
                                                             Space(8),
                                                             Text(

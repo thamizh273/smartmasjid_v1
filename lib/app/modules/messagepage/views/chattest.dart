@@ -161,7 +161,7 @@ class ChatScreen extends StatelessWidget {
                     featureActiveConfig: const FeatureActiveConfig(
                       enableOtherUserProfileAvatar: false,
                       enablePagination: true,
-                      lastSeenAgoBuilderVisibility: true,
+                      lastSeenAgoBuilderVisibility: false,
                       receiptsBuilderVisibility: true,
                     ),
                     chatViewState: ChatViewState.hasMessages,
@@ -209,7 +209,7 @@ class ChatScreen extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50.r),
                                 ),
-                                child: profileImg == "null"
+                                child: (profileImg == "null"||profileImg == "")
                                     ? Image.asset("assets/images/app_logo.png")
                                     : Image(
                                     image: MemoryImage(
@@ -290,7 +290,7 @@ class ChatScreen extends StatelessWidget {
                       closeIconColor: logic.theme.closeIconColor,
                       textFieldConfig: TextFieldConfiguration(
                         onMessageTyping: (status) {
-                          _showHideTypingIndicator();
+                       //   _showHideTypingIndicator();
 
                           /// Do with status
                           print(status.toString());

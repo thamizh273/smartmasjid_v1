@@ -17,6 +17,7 @@ import '../../../routes/app_pages.dart';
 import '../../../routes/export.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../language_page/controllers/language_page_controller.dart';
+import '../../quranpage/views/bookmark.dart';
 import '../controllers/profile_page_controller.dart';
 
 class ProfilePageView extends GetView<EditProfileController> {
@@ -31,7 +32,7 @@ class ProfilePageView extends GetView<EditProfileController> {
       "page": EditProfileView()
     },
     {'name': "bookmarks".tr, 'icon': Icon(Icons.bookmarks_outlined),
-      "page": BookmarkpageView()
+      "page": Bookmark()
     },
     {
       'name': "my_masjid".tr,

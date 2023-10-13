@@ -32,15 +32,10 @@ class QuranpageController extends GetxController {
   ScrollController scrollControllern = ScrollController();
   late AutoScrollController controllerff;
 
-  // final ItemScrollController  itemScrollController = ItemScrollController();
-  //
-  // final ItemScrollController  itemScrollControllerjuz = ItemScrollController();
 
   final ScrollController scrollControllerjuz = ScrollController();
   final ScrollController scrollControllera = ScrollController();
-  Future scrollToIndex() async {
-    await controllerff.scrollToIndex(result.value, preferPosition: AutoScrollPosition.begin);
-  }
+
   final _restCallController = Get.put(restCallController());
   RxInt gotoSura=0.obs;
   RxInt currentSelected = 0.obs;
@@ -75,8 +70,6 @@ class QuranpageController extends GetxController {
   var view = "sura".obs;
   final media = Get.mediaQuery;
   final padExtend = 16.0;
-  var bookmarks = [].obs;
-  var isBookmarked = false.obs;
   RxList<int> clickedItems = <int>[].obs;
   RxBool switchValue = false.obs;
   int lastReadIndex = -1;
@@ -112,7 +105,56 @@ class QuranpageController extends GetxController {
   late final String courseName;
   var isDownloadStarted = false.obs; // Use RxBool for reactive boolean
   var isDownloadFinish = false.obs;
+  @override
+  void onInit() async {
+    final storedButtonsSelected = homectrl.box1.read<List<dynamic>>('buttonsSelected');
+    if (storedButtonsSelected != null) {
+      buttonsSelected.assignAll(storedButtonsSelected);
+    }
+    final storedButtonsSelectedSura = homectrl.box1.read<List<dynamic>>('buttonsSelectedSura');
+    if (storedButtonsSelectedSura != null) {
+      buttonsSelectedSura.assignAll(storedButtonsSelectedSura);
+    }
+    final storedButtonsSelectedJuz = homectrl.box1.read<List<dynamic>>('buttonsSelectedJuz');
+    if (storedButtonsSelectedJuz != null) {
+      buttonsSelectedJuz.assignAll(storedButtonsSelectedJuz);
+    }
+    await quranChapterList();
+    await quranjuzList();
 
+    pageController = PageController(initialPage: 0);
+    pageControllerjuz = PageController(initialPage: 0);
+
+    filteredItems.assignAll(getqurandata.value.quranFilter!);
+    filteredjuzItems.assignAll(getquranjuz.value.getQuranJuzChapter!);
+    searchController.addListener(filteredItems);
+    searchjuzController.addListener(filteredjuzItems);
+    super.onInit();
+    scrollController_.value.addListener(_scrollListener);
+    controllerff =  AutoScrollController(
+        viewportBoundaryGetter: () =>
+            Rect.fromLTRB(0, 0, 0, MediaQuery.of(Get.context!).padding.bottom),
+        axis: Axis.vertical);
+  }
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+
+    super.onClose();
+  }
+  @override
+  void dispose() {
+    scrollController_.value.removeListener(_scrollListener);
+    scrollController_.value.dispose();
+    scrollController.dispose();
+    scrollControllerq.dispose();
+    scrollControllern.dispose();
+    super.dispose();
+  }
 
   void downloadCourse() async {
     isDownloadStarted.value = true;
@@ -179,37 +221,70 @@ copyText(var index){
       duration: Duration(seconds: 1));
 }
 
-  toogle(var index, String type, int indexofList, int ChapterNo) {
-    if (buttonsSelected.contains(index)) {
-      buttonsSelected.remove(index);
+  var passint=0.obs;
+  var buttonsSelected = [].obs;
+  var buttonsSelectedSura = [].obs;
+  var buttonsSelectedJuz = [].obs;
+
+  var result=0.obs;
+  var result1=0.obs;
+  Future scrollToIndex() async {
+    await controllerff.scrollToIndex(result.value, preferPosition: AutoScrollPosition.begin);
+  }
+  toogle(Map<String, dynamic> data) {
+    final index = data['name'];
+    if (buttonsSelected.any((item) => item['name'] == index)) {
+      buttonsSelected.removeWhere((item) => item['name'] == index);
     } else {
-      buttonsSelected.add({"name": "$index","type":'$type',"index":indexofList,'no':ChapterNo});
+      buttonsSelected.add(data);
     }
-    homectrl.box1.write('buttonsSelected',  buttonsSelected.toList());
+    homectrl.box1.write('buttonsSelected',  buttonsSelected);
     update();
   }
-
+  toogleSura(Map<String, dynamic> data) {
+    final indexsura = data['name'];
+    if (buttonsSelectedSura.any((item) => item['name'] == indexsura)) {
+      buttonsSelectedSura.removeWhere((item) => item['name'] == indexsura);
+    } else {
+      buttonsSelectedSura.add(data);
+    }
+    homectrl.box1.write('buttonsSelectedSura',  buttonsSelectedSura);
+    update();
+  }
+  toogleJuz(Map<String, dynamic> data) {
+    final indexjuz = data['name'];
+    if (buttonsSelectedJuz.any((item) => item['name'] == indexjuz)) {
+      buttonsSelectedJuz.removeWhere((item) => item['name'] == indexjuz);
+    } else {
+      buttonsSelectedJuz.add(data);
+    }
+    homectrl.box1.write('buttonsSelectedJuz',  buttonsSelectedJuz);
+    update();
+  }
+  void deleteIndex(int index) {
+    buttonsSelected.remove(index);
+    // Convert to a regular List before updating GetStorage
+    homectrl.box1.write('buttonsSelected', buttonsSelected.toList());
+    update(); // Notify GetX that the state has changed
+  }
+  void deleteIndexSura(int index) {
+    buttonsSelectedSura.remove(index);
+    // Convert to a regular List before updating GetStorage
+    homectrl.box1.write('buttonsSelectedSura', buttonsSelectedSura.toList());
+    update(); // Notify GetX that the state has changed
+  }
+  void deleteIndexJuz(int index) {
+    buttonsSelectedJuz.remove(index);
+    // Convert to a regular List before updating GetStorage
+    homectrl.box1.write('buttonsSelectedJuz', buttonsSelectedJuz.toList());
+    update(); // Notify GetX that the state has changed
+  }
 
 void setLastReadIndex(int index) {
     lastReadIndex = index;
   }
-  //  toggleSura(int index) {
-  //   if (buttonsSelected.contains(index)) {
-  //     buttonsSelected.remove(index);
-  //   } else {
-  //     buttonsSelected.add(index);
-  //   }
-  //   homectrl.box1.write('buttonsSelectedSura', buttonsSelected.toList());
-  //   update();
-  // }
 
- var passint=0.obs;
-  var buttonsSelected = [].obs;
-  // var buttonsSelectedSura = [].obs;
-  // var buttonsSelectedJuz = [].obs;
- // var buttonsSelected1 = [].obs;
-  var result=0.obs;
-  var result1=0.obs;
+
 
 
  
@@ -259,32 +334,7 @@ void changeFontFamily(String family) {
     savedSearchQuery.value = '';
   }
 
-  @override
-  void onInit() async {
-    final storedButtonsSelected = homectrl.box1.read<List<dynamic>>('buttonsSelected');
-    if (storedButtonsSelected != null) {
-      buttonsSelected.assignAll(storedButtonsSelected);
-    }
 
-   await quranChapterList();
-    await quranjuzList();
-    // quranDetailList(1);
-    pageController = PageController(initialPage: 0);
-    pageControllerjuz = PageController(initialPage: 0);
-    // quranjuzdetailList();
-    // quranjuzdetailList();
-    // debounce(searchQuery, (_) => filterList(), time: Duration(milliseconds: 500));
-    filteredItems.assignAll(getqurandata.value.quranFilter!);
-    filteredjuzItems.assignAll(getquranjuz.value.getQuranJuzChapter!);
-    searchController.addListener(filteredItems);
-    searchjuzController.addListener(filteredjuzItems);
-    super.onInit();
-    scrollController_.value.addListener(_scrollListener);
-    controllerff =  AutoScrollController(
-        viewportBoundaryGetter: () =>
-            Rect.fromLTRB(0, 0, 0, MediaQuery.of(Get.context!).padding.bottom),
-        axis: Axis.vertical);
-  }
 
   void filterItems() {
     final query = searchController.text.toLowerCase();
@@ -314,16 +364,6 @@ void changeFontFamily(String family) {
 
 
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-
-    super.onClose();
-  }
 
   void openDrawer() {
     scaffoldKey.currentState?.openDrawer();
@@ -332,15 +372,6 @@ void changeFontFamily(String family) {
     scaffoldKey.currentState?.openEndDrawer();
   }
 
-  @override
-  void dispose() {
-    scrollController_.value.removeListener(_scrollListener);
-    scrollController_.value.dispose();
-   scrollController.dispose();
-   scrollControllerq.dispose();
-   scrollControllern.dispose();
-    super.dispose();
-  }
 
   void _scrollListener() {
     if (scrollController_.value.position.extentAfter < itemHeight_ * 2) {
@@ -352,25 +383,6 @@ void changeFontFamily(String family) {
   }
 
 
-
-
-  // void scrollToIndex(int index) {
-  //   itemScrollController.scrollTo(
-  //     index: index,
-  //     duration: Duration(milliseconds: 500),
-  //     curve: Curves.easeInOut,
-  //   );
-  // }
-
-
-
-
-  void deleteIndex(int index) {
-    buttonsSelected.remove(index);
-    // Convert to a regular List before updating GetStorage
-    homectrl.box1.write('buttonsSelected', buttonsSelected.toList());
-    update(); // Notify GetX that the state has changed
-  }
   Future<bool> loadMore() async {
     print("onLoadMore");
     await Future.delayed(Duration(seconds: 0, milliseconds: 100));
