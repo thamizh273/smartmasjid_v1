@@ -58,12 +58,15 @@ class _PaymentsMethodsState extends State<PaymentsMethods> {
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
+        widget.controllerMethod2(status, txnId);
         print('Transaction Submitted');
         break;
       case UpiPaymentStatus.FAILURE:
+        toast(error: "Failure", msg: "Transaction Failed");
         print('Transaction Failed');
         break;
       default:
+        toast(error: "Failed", msg: "Something went wrong, Try again");
         print('Received an Unknown transaction status');
     }
   }

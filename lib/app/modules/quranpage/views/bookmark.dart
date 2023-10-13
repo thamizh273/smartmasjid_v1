@@ -44,15 +44,22 @@ class Bookmark extends StatelessWidget {
                 itemCount: qcontroller.buttonsSelectedSura.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only( right: 8, left: 8),
-                    child: Card(
+                    padding: const EdgeInsets.only( right: 8, left: 8, top: 2, bottom: 2),
+                    child: Container(
                       margin: EdgeInsets.all(1),
-                        elevation: 10,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          border:Border.all(color: Get.theme.primaryColor),
+                          color: Colors.white
+                        ),
                         child: ListTile(
                           title:  Stxt(
-                            text: "${qcontroller.buttonsSelectedSura[index]["index"]}. ${qcontroller.buttonsSelectedSura[index]["name"]}",
+                            text:
+                            // "${qcontroller.buttonsSelectedSura[index]["index"]}. "
+                                "Surah ${qcontroller.buttonsSelectedSura[index]["name"]}",
                             size: f3,
-                            weight: FontWeight.w500,
+                            weight: FontWeight.w600,
+                            color: Get.theme.primaryColor,
                           ), onTap: () {
                        print('quran pass index${qcontroller.buttonsSelectedSura[index]["index"]}');
                        qcontroller.result.value =0;
@@ -75,15 +82,20 @@ class Bookmark extends StatelessWidget {
               itemCount: qcontroller.buttonsSelected.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.only( right: 8, left: 8),
-                  child: Card(
+                  padding: const EdgeInsets.only( right: 8, left: 8, top: 2, bottom: 2),
+                  child: Container(
                       margin: EdgeInsets.all(1),
-                      elevation: 5,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          border:Border.all(color: Get.theme.primaryColor),
+                          color: Colors.white
+                      ),
                       child: ListTile(
                         title:  Stxt(
                           text: "${qcontroller.buttonsSelected[index]["name"]}",
-                          size: f2,
+                          size: f3,
                           weight: FontWeight.bold,
+                          color: Get.theme.primaryColor,
                         ), onTap: () {
 
 
@@ -99,7 +111,7 @@ class Bookmark extends StatelessWidget {
                         qcontroller.deleteIndex(index);
 
                         qcontroller.update();
-                      }, icon: const Icon(Icons.delete)),
+                      }, icon:  Icon(Icons.delete, color: Get.theme.primaryColor,)),
                       )),
                 );
               },
@@ -111,15 +123,22 @@ class Bookmark extends StatelessWidget {
                 itemCount: qcontroller.buttonsSelectedJuz.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only( right: 8, left: 8),
-                    child: Card(
+                    padding: const EdgeInsets.only( right: 8, left: 8, top: 2, bottom: 2),
+                    child: Container(
                         margin: EdgeInsets.all(1),
-                        elevation: 5,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            border:Border.all(color: Get.theme.primaryColor),
+                            color: Colors.white
+                        ),
                         child: ListTile(
                           title:  Stxt(
-                            text: "${qcontroller.buttonsSelectedJuz[index]["index"]}.${qcontroller.buttonsSelectedJuz[index]["name"]}",
-                            size: f2,
+                            text:
+                            // "${qcontroller.buttonsSelectedJuz[index]["index"]}."
+                                "${qcontroller.buttonsSelectedJuz[index]["name"]}",
+                            size: f3,
                             weight: FontWeight.bold,
+                            color: Get.theme.primaryColor,
                           ), onTap: () {
                           print('quran pass index${qcontroller.buttonsSelectedJuz[index]["index"]}');
                           qcontroller.result.value =0;
@@ -130,7 +149,7 @@ class Bookmark extends StatelessWidget {
                           qcontroller.deleteIndexJuz(index);
 
                           qcontroller.update();
-                        }, icon: Icon(Icons.delete)),
+                        }, icon: Icon(Icons.delete, color: Get.theme.primaryColor,)),
                         )),
                   );
                 },

@@ -139,12 +139,15 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
+        await membrCtrl.membershipUpiPayment(status, txnId);
         print('Transaction Submitted');
         break;
       case UpiPaymentStatus.FAILURE:
+        toast(error: "Failure", msg: "Transaction Failed");
         print('Transaction Failed');
         break;
       default:
+        toast(error: "Failed", msg: "Something went wrong, Try again");
         print('Received an Unknown transaction status');
     }
   }
