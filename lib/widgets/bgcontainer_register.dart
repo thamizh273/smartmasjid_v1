@@ -14,8 +14,8 @@ class BGContainerRegister extends StatelessWidget {
    // final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       color: Get.theme.colorScheme.primary,
-      height:context.height,
-      width: context.width,
+      height:MediaQuery.sizeOf(context).height,
+      width:MediaQuery.sizeOf(context).width,
       padding: padding,
       child: Column(
         children: [

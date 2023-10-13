@@ -19,14 +19,13 @@ class SignupPageView extends GetView<SignupPageController> {
         key: formkey_,
         child: BGContainerRegister(
           child: Flexible(
-            flex: 1,
             child: ListView(
+              shrinkWrap: true,
               children: [
                 SizedBox(
-                  height: .74.sh,
+                  height: .70.sh,
                   child: Column(
                     children: [
-
                        Text(
                         "register".tr,
                         style: const TextStyle(
@@ -246,26 +245,24 @@ class SignupPageView extends GetView<SignupPageController> {
                               .secondary),
                         ),
                       ),
-                      Flexible(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: GestureDetector(
-                              onTap: () {
-                                Get.toNamed(Routes.LOGIN_PAGE);
-                                //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
-                              },
-                              child: Text(
-                                "login".tr,
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    color: Theme
-                                        .of(context)
-                                        .colorScheme
-                                        .secondary),
-                              )),
-                        ),
-                      )
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: GestureDetector(
+                            onTap: () {
+                              Get.toNamed(Routes.LOGIN_PAGE);
+                              //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
+                            },
+                            child: Text(
+                              "login".tr,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme
+                                      .of(context)
+                                      .colorScheme
+                                      .secondary),
+                            )),
+                      ),
+                      Space(10),
                     ],
                   ),
                 ),
