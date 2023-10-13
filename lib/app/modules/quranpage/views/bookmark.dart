@@ -1,6 +1,7 @@
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/controllers/quranpage_controller.dart';
 import 'package:smartmasjid_v1/app/modules/quranpage/views/qurandetails.dart';
+import 'package:smartmasjid_v1/utils/color_utils.dart';
 
 import '../../../routes/export.dart';
 
@@ -39,17 +40,19 @@ class Bookmark extends StatelessWidget {
           children: [
             Obx(() {
               return qcontroller.buttonsSelectedSura.isEmpty? NoBookmark() : ListView.builder(
+                padding: EdgeInsets.only(top: 8),
                 itemCount: qcontroller.buttonsSelectedSura.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
+                    padding: const EdgeInsets.only( right: 8, left: 8),
                     child: Card(
-                        elevation: 5,
+                      margin: EdgeInsets.all(1),
+                        elevation: 10,
                         child: ListTile(
                           title:  Stxt(
-                            text: "${qcontroller.buttonsSelectedSura[index]["index"]}.${qcontroller.buttonsSelectedSura[index]["name"]}",
-                            size: f2,
-                            weight: FontWeight.bold,
+                            text: "${qcontroller.buttonsSelectedSura[index]["index"]}. ${qcontroller.buttonsSelectedSura[index]["name"]}",
+                            size: f3,
+                            weight: FontWeight.w500,
                           ), onTap: () {
                        print('quran pass index${qcontroller.buttonsSelectedSura[index]["index"]}');
                        qcontroller.result.value =0;
@@ -60,7 +63,7 @@ class Bookmark extends StatelessWidget {
                           qcontroller.deleteIndexSura(index);
 
                           qcontroller.update();
-                        }, icon: Icon(Icons.delete)),
+                        }, icon: Icon(Icons.delete,color: Get.theme.primaryColor,)),
                         )),
                   );
                 },
@@ -68,11 +71,13 @@ class Bookmark extends StatelessWidget {
             }),
             Obx(() {
             return qcontroller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
+              padding: EdgeInsets.only(top: 8),
               itemCount: qcontroller.buttonsSelected.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
+                  padding: const EdgeInsets.only( right: 8, left: 8),
                   child: Card(
+                      margin: EdgeInsets.all(1),
                       elevation: 5,
                       child: ListTile(
                         title:  Stxt(
@@ -102,11 +107,13 @@ class Bookmark extends StatelessWidget {
           }),
             Obx(() {
               return qcontroller.buttonsSelectedJuz.isEmpty? NoBookmark() : ListView.builder(
+                padding: EdgeInsets.only(top: 8),
                 itemCount: qcontroller.buttonsSelectedJuz.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(top: 8, right: 8, left: 8),
+                    padding: const EdgeInsets.only( right: 8, left: 8),
                     child: Card(
+                        margin: EdgeInsets.all(1),
                         elevation: 5,
                         child: ListTile(
                           title:  Stxt(
