@@ -18,7 +18,12 @@ class OtpPageController extends GetxController {
 
 
   static OtpPageController get instance =>Get.find();
-
+@override
+  void onInit() {
+ otpctrl.value="";
+    // TODO: implement onInit
+    super.onInit();
+  }
      var otpctrl ="".obs;
      RxBool isAutoOtp =false.obs;
      var forgetpassotp=false.obs;
@@ -40,8 +45,6 @@ class OtpPageController extends GetxController {
       }
     }
   }
-
-
 
   void resendCode() {
     //other code here

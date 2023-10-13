@@ -12,8 +12,8 @@ class BGContainerAuth extends StatelessWidget {
   Widget build(BuildContext context) {
    // final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
-       height: context.height,
-       width: double.infinity,
+      height:MediaQuery.sizeOf(context).height,
+      width:MediaQuery.sizeOf(context).width,
       decoration: BoxDecoration(
         color: color??Get.theme.colorScheme.primary,
         image: DecorationImage(
