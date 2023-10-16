@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -122,7 +123,17 @@ Future GotoVerse(BuildContext context) {
                                     quranPageCtrl_.getqurandata.value
                                         .quranFilter![v].totalVerses!);
                                 quranPageCtrl_.currentSelected.value = v;
+                                quranPageCtrl_.currentSelectedpassaya.value = v;
+                                print(quranPageCtrl_.currentSelected.value);
+
+
+                                    quranPageCtrl_.pagesint.value= quranPageCtrl_.pagesSura[v]-1;
+                                    quranPageCtrl_.scrollToPage();
+
+
                                 quranPageCtrl_.update();
+
+
                               },
                               // Adjust as needed
                               children: List.generate(
@@ -169,113 +180,128 @@ Future GotoVerse(BuildContext context) {
                   ///ayah
                   Obx(() {
                     return SizedBox(
-                        width: quranPageCtrl_.screenWidth * 0.17,
-                        height: 250.h,
-                        child: Stack(
-                          children: [
-                            Positioned.fill(
-                              child: Center(
-                                child: Container(
-                                  width: 150, // Adjust the width as needed
-                                  height: 40, // Adjust the height as needed
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.1),
-                                    shape: BoxShape.rectangle,
-                                  ),
+                      width: quranPageCtrl_.screenWidth * 0.17,
+                      height: 250.h,
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: Center(
+                              child: Container(
+                                width: 150,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.1),
+                                  shape: BoxShape.rectangle,
                                 ),
                               ),
                             ),
-                            ListWheelScrollView(
-                              useMagnifier: true,
-                              magnification: 1.1,
-                              physics: FixedExtentScrollPhysics(),
-                              itemExtent: 50,
-                              // Adjust the item height as needed
-                              diameterRatio: 2.0,
-                              // Adjust as needed
-                              onSelectedItemChanged: (v) {
-                                quranPageCtrl_.result.value = v;
-                                quranPageCtrl_.update();
-                              },
-                              children: List.generate(
-                                quranPageCtrl_.gotoSura.value,
-                                    (index) {
-                                  //  var sura = int.parse(quranPageCtrl_.getqurandata.value.quranFilter![0].totalVerses!);
-                                  return Container(
-                                    height: 50, // Adjust the height as needed
-                                    child: ListTile(
-                                      dense: true,
-                                      title: Row(
-                                        children: [
-                                          Text(
-                                            "${index + 1}",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                            ),
+                          ),
+                          ListWheelScrollView(
+                            useMagnifier: true,
+                            magnification: 1.1,
+                            itemExtent: 50,
+                            diameterRatio: 2.0,
+                            physics: FixedExtentScrollPhysics(),
+                            onSelectedItemChanged: (v) async{
+                              quranPageCtrl_.result.value = v;
+
+
+                                      //quranPageCtrl_.pagesint.value=surano==(quranPageCtrl_.pages[int.parse('${quranPageCtrl_.currentSelectedpassaya.value}${v-1}')]["verse"].toString())?(pagenoss):0;
+
+
+
+                                quranPageCtrl_.scrollToPage();
+
+                              quranPageCtrl_.update();
+                              // Synchronize the "pages" ListWheelScrollView
+                            },
+                            children: List.generate(
+                              quranPageCtrl_.gotoSura.value,
+                                  (index) {
+                                return Container(
+                                  height: 50,
+                                  child: ListTile(
+                                    dense: true,
+                                    title: Row(
+                                      children: [
+                                        Text(
+                                          "${index + 1}",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                  );
-                                },
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                  ///pages
+                  SizedBox(
+                    width: 15,
+                  ),
+                  SizedBox(
+                    width: quranPageCtrl_.screenWidth * 0.17,
+                    height: 250.h,
+                    child: Stack(
+                      children: [
+                        Positioned.fill(
+                          child: Center(
+                            child: Container(
+                              width: 150,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.1),
+                                shape: BoxShape.rectangle,
                               ),
                             ),
-                          ],
-                        ));
-                  }),
+                          ),
+                        ),
+                        ListWheelScrollView(
+                          controller:quranPageCtrl_.controllerffPage ,
+                          useMagnifier: true,
+                          magnification: 1.1,
+                          itemExtent: 50,
+                          diameterRatio: 2.0,
+                          children: List.generate(
+                            604,
+                                (index) {
 
-                  ///pages
-                  SizedBox(width: 15,),
-                  SizedBox(
-                         width: quranPageCtrl_.screenWidth * 0.17,
-                         height: 250.h,
-                         child: Stack(
-                           children: [
-                             Positioned.fill(
-                               child: Center(
-                                 child: Container(
-                                   width: 150, // Adjust the width as needed
-                                   height: 40, // Adjust the height as needed
-                                   decoration: BoxDecoration(
-                                     color: Colors.black.withOpacity(0.1),
-                                     shape: BoxShape.rectangle,
-                                   ),
-                                 ),
-                               ),
-                             ),
-                             ListWheelScrollView(
-                               useMagnifier: true,
-                               magnification: 1.1,
-                               physics: FixedExtentScrollPhysics(),
-                               itemExtent: 50,
-                               // Adjust the item height as needed
-                               diameterRatio: 2.0,
-                               // Adjust as needed
-                               children: List.generate(
-                                604, (index) {
-                                 return Container(
-                                   height: 50, // Adjust the height as needed
-                                   child: ListTile(
-                                     dense: true,
-                                     title: Row(
-                                       children: [
-                                         Text(
-                                           "${index + 1}",
-                                           style: TextStyle(
-                                             color: Colors.white,
-                                             fontSize: 15,
-                                           ),
-                                         ),
-                                       ],
-                                     ),
-                                   ),
-                                 );
-                               },
-                               ),
-                             ),
-                           ],
-                         ))
+                              return  AutoScrollTag(
+                                key: ValueKey(index),
+                                controller: quranPageCtrl_.controllerffPage,
+                                index: index,
+                                child: Container(
+                                  height: 50,
+                                  child: ListTile(
+                                    dense: true,
+                                    title: Row(
+                                      children: [
+                                        Text(
+                                          "${index + 1}",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                 ],
               ),
               Padding(

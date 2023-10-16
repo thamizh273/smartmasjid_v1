@@ -179,21 +179,12 @@ class QuranpageView extends StatelessWidget {
                                                   width: 25,
                                                 ),
                                               ),
-
-                                              // Row(
-                                              //   children: [
-                                              //     Space(8),
-                                              //     Text(
-                                              //         "Go to verse", style: TextStyle(
-                                              //         color: Colors.white)),
-                                              //     Space(8),
-                                              //
-                                              //   ],
-                                              // ),
                                             ),
-                                            // onTap: () => quranCtrl.openDrawer()
                                             onTap: () {
                                               GotoVerse(context);
+
+                                              quranCtrl.pagesint.value=0;
+
                                             },
                                           ),
                                           Space(4),
@@ -403,26 +394,6 @@ class QuranpageView extends StatelessWidget {
                                             }),
                                       ),
 
-                                      // Space(8),
-                                      // Container(
-                                      //   decoration: BoxDecoration(
-                                      //       borderRadius: BorderRadius.circular(
-                                      //           4),
-                                      //       border: Border.all(color: Theme
-                                      //           .of(context)
-                                      //           .primaryColor)
-                                      //   ),
-                                      //   child: Padding(
-                                      //     padding: const EdgeInsets.all(4.0),
-                                      //     child: Text("Ar Rahaman",
-                                      //       style: TextStyle(
-                                      //           fontWeight: FontWeight.w600,
-                                      //           fontSize: 14,
-                                      //           color: Theme
-                                      //               .of(context)
-                                      //               .primaryColor),),
-                                      //   ),
-                                      // ),
                                     ],
                                   ),
                                 ),
@@ -519,7 +490,7 @@ class QuranpageView extends StatelessWidget {
                                                             height: 48.h,
                                                             width: 50.h,
                                                             decoration:
-                                                            BoxDecoration(
+                                                            const BoxDecoration(
                                                               // color: Colors.red,
                                                               image: DecorationImage(
                                                                   image: AssetImage(
@@ -691,20 +662,24 @@ class QuranpageView extends StatelessWidget {
                                                                   final bookmarkdata = {
                                                                     "name": "${sura.suraNameEn}",
                                                                     "index": index+1,
+                                                                    "type": 'sura',
+                                                                    "no": int.parse(quranCtrl.getqurandata.value.quranFilter![0].suraChapterNo!),
                                                                   };
-                                                                  quranPageCtrl_.toogleSura(bookmarkdata);
-                                                                  quranPageCtrl_.update();
+
+                                                                  quranCtrl.toogleSura(bookmarkdata);
+                                                                  quranCtrl.update();
                                                                 },
                                                                 child: Obx(() {
-                                                                  final isBookmarked =  quranPageCtrl_.buttonsSelectedSura
+                                                                  final isBookmarked =  quranCtrl.buttonsSelectedSura
                                                                       .any((item) => item['name'] == "${quranCtrl.getqurandata.value.quranFilter![index].suraNameEn}");
                                                                   return Icon(
-                                                                    isBookmarked?
+                                                                    isBookmarked ?
                                                                         Icons.bookmarks:Icons.bookmarks_outlined,
                                                                     size: 20,
                                                                   color:  isBookmarked
                                                                       ? Get.theme.hoverColor
-                                                                      : Get.theme.hoverColor,);
+                                                                      : Get.theme.hoverColor,
+                                                                  );
                                                                 })
 
                                                             ),
@@ -929,11 +904,11 @@ class QuranpageView extends StatelessWidget {
                                                                     "name": "${juz.juzNameEn}",
                                                                     "index": index+1,
                                                                   };
-                                                                  quranPageCtrl_.toogleJuz(bookmarkdata);
-                                                                  quranPageCtrl_.update();
+                                                                  quranCtrl.toogleJuz(bookmarkdata);
+                                                                  quranCtrl.update();
                                                                 },
                                                                 child: Obx(() {
-                                                                  final isBookmarked =  quranPageCtrl_.buttonsSelectedJuz
+                                                                  final isBookmarked =  quranCtrl.buttonsSelectedJuz
                                                                       .any((item) => item['name'] == "${quranCtrl.getquranjuz.value.getQuranJuzChapter![index].juzNameEn}");
                                                                   return Icon(
                                                                     isBookmarked?

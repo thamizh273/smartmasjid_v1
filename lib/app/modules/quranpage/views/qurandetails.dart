@@ -2058,7 +2058,7 @@ class CustomDialogBox1 extends StatelessWidget {
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              labelText: 'Type ypur notes...',
+              labelText: 'Type your notes...',
             ),
             keyboardType: TextInputType.text,
             style: TextStyle(

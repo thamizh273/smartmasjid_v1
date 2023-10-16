@@ -38,44 +38,48 @@ class Bookmark extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
+            ///sura
             Obx(() {
-              return qcontroller.buttonsSelectedSura.isEmpty? NoBookmark() : ListView.builder(
+              return qcontroller.buttonsSelectedSura.isEmpty ? NoBookmark() : ListView.builder(
                 padding: EdgeInsets.only(top: 8),
                 itemCount: qcontroller.buttonsSelectedSura.length,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only( right: 8, left: 8, top: 2, bottom: 2),
+                    padding: const EdgeInsets.only(right: 8, left: 8, top: 2, bottom: 2),
                     child: Container(
                       margin: EdgeInsets.all(1),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          border:Border.all(color: Get.theme.primaryColor),
-                          color: Colors.white
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: Get.theme.primaryColor),
+                        color: Colors.white,
+                      ),
+                      child: ListTile(
+                        title: Stxt(
+                          text: "Surah ${qcontroller.buttonsSelectedSura[index]["name"]}",
+                          size: f3,
+                          weight: FontWeight.w600,
+                          color: Get.theme.primaryColor,
                         ),
-                        child: ListTile(
-                          title:  Stxt(
-                            text:
-                            // "${qcontroller.buttonsSelectedSura[index]["index"]}. "
-                                "Surah ${qcontroller.buttonsSelectedSura[index]["name"]}",
-                            size: f3,
-                            weight: FontWeight.w600,
-                            color: Get.theme.primaryColor,
-                          ), onTap: () {
-                       print('quran pass index${qcontroller.buttonsSelectedSura[index]["index"]}');
-                       qcontroller.result.value =0;
-                          // final quranindex = ;// Output: "17"
-                          qcontroller.quranDetailList(qcontroller.buttonsSelectedSura[index]["index"]);
-                        }, trailing: IconButton(onPressed: () {
-                          qcontroller.buttonsSelectedSura.removeAt(index);
-                          qcontroller.deleteIndexSura(index);
-
+                        onTap: () {
+                          qcontroller.result.value = 0;// Output: "17"
                           qcontroller.update();
-                        }, icon: Icon(Icons.delete,color: Get.theme.primaryColor,)),
-                        )),
+                          qcontroller.quranDetailList(qcontroller.buttonsSelectedSura[index]["index"]);
+                        },
+                        trailing: IconButton(
+                          onPressed: () {
+                            qcontroller.buttonsSelectedSura.removeAt(index);
+                            qcontroller.deleteIndexSura(index);
+                            qcontroller.update();
+                          },
+                          icon: Icon(Icons.delete, color: Get.theme.primaryColor),
+                        ),
+                      ),
+                    ),
                   );
                 },
               );
             }),
+            ///ayah
             Obx(() {
             return qcontroller.buttonsSelected.isEmpty? NoBookmark() : ListView.builder(
               padding: EdgeInsets.only(top: 8),
@@ -97,15 +101,10 @@ class Bookmark extends StatelessWidget {
                           weight: FontWeight.bold,
                           color: Get.theme.primaryColor,
                         ), onTap: () {
-
-
                           qcontroller.result.value =  qcontroller.buttonsSelected[index]["index"];// Output: "17"
                           qcontroller.result1.value =  qcontroller.buttonsSelected[index]["no"];// Output: "17"
-
-
-                        qcontroller.update();
-
-                        qcontroller.buttonsSelected[index]["type"]=="sura"?qcontroller.quranDetailList(qcontroller.result1.value):qcontroller.quranjuzdetailList(qcontroller.result1.value);
+                          qcontroller.update();
+                          qcontroller.buttonsSelected[index]["type"]=="sura"?qcontroller.quranDetailList(qcontroller.result1.value):qcontroller.quranjuzdetailList(qcontroller.result1.value);
                       }, trailing: IconButton(onPressed: () {
                         qcontroller.buttonsSelected.removeAt(index);
                         qcontroller.deleteIndex(index);
@@ -117,6 +116,7 @@ class Bookmark extends StatelessWidget {
               },
             );
           }),
+            ///juz
             Obx(() {
               return qcontroller.buttonsSelectedJuz.isEmpty? NoBookmark() : ListView.builder(
                 padding: EdgeInsets.only(top: 8),
