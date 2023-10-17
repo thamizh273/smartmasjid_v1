@@ -40,6 +40,8 @@ import '../widgets/prayerTimes.dart';
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
   final HomeController controller = Get.find<HomeController>();
+ final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+  GlobalKey<RefreshIndicatorState>();
 
   final CarouselController _carouselController = CarouselController();
   final List<String> items = ["Pondicherry", "villupuram"];
@@ -509,364 +511,368 @@ class HomeView extends StatelessWidget {
                         dragStartBehavior: DragStartBehavior.down,
                         physics: BouncingScrollPhysics(),
                         children: [
-                          SingleChildScrollView(
-                            // controller: tabController,
-                            //   padding: EdgeInsets.only(left: 10),
-                              physics: BouncingScrollPhysics(),
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Space(2),
-                                      GestureDetector(
-                                          onTap: () {
-                                            Get.toNamed(
-                                                Routes.NOTIFICATIONPAGE);
-                                          },
-                                          child: Container(
-                                            height: 48.h,
-                                            width: 48.h,
-                                            decoration: BoxDecoration(
-                                                color: Get.theme.hoverColor,
-                                                borderRadius: BorderRadius
-                                                    .circular(50)
-                                            ),
-                                            child: Image.asset(
-                                              "assets/images/notifydark.png",
-                                              color: Get.theme.appBarTheme
-                                                  .backgroundColor, scale: 3,),
-                                          )
-                                        // SvgPicture.asset(
-                                        //     "assets/svg/notifynew.svg",
-                                        //     height: 65.h),
-                                      ),
-                                      GestureDetector(
-                                          onTap: () {
-                                            Get.toNamed(Routes.WEATHERPAGE);
-                                          },
-                                          child: Container(
-                                            height: 48.h,
-                                            width: 48.h,
-                                            decoration: BoxDecoration(
-                                                color: Get.theme.hoverColor,
-                                                borderRadius: BorderRadius
-                                                    .circular(50)
-                                            ),
-                                            child: Image.asset(
-                                              "assets/images/weatherdark.png",
-                                              color: Get.theme.appBarTheme
-                                                  .backgroundColor, scale: 3,),
-                                          )
-                                        // SvgPicture.asset(
-                                        //     "assets/svg/weathernew.svg",
-                                        //     height: 65.h),
-                                      ),
-                                      GestureDetector(
-                                          onTap: () {
-                                            Get.toNamed(Routes.MESSAGEPAGE);
-                                          },
-                                          child: Container(
-                                            height: 48.h,
-                                            width: 48.h,
-                                            decoration: BoxDecoration(
-                                                color: Get.theme.hoverColor,
-                                                borderRadius: BorderRadius
-                                                    .circular(50)
-                                            ),
-                                            child: Image.asset(
-                                              "assets/images/messagedark.png",
-                                              color: Get.theme.appBarTheme
-                                                  .backgroundColor, scale: 3,),
-                                          )
+                          RefreshIndicator(
+                            key: refreshIndicatorKey,
+                            onRefresh: homecntrll.refreshData,
+                            child: SingleChildScrollView(
+                              // controller: tabController,
+                              //   padding: EdgeInsets.only(left: 10),
+                                physics: BouncingScrollPhysics(),
+                                child:  Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20.h,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Space(2),
+                                        GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(
+                                                  Routes.NOTIFICATIONPAGE);
+                                            },
+                                            child: Container(
+                                              height: 48.h,
+                                              width: 48.h,
+                                              decoration: BoxDecoration(
+                                                  color: Get.theme.hoverColor,
+                                                  borderRadius: BorderRadius
+                                                      .circular(50)
+                                              ),
+                                              child: Image.asset(
+                                                "assets/images/notifydark.png",
+                                                color: Get.theme.appBarTheme
+                                                    .backgroundColor, scale: 3,),
+                                            )
+                                          // SvgPicture.asset(
+                                          //     "assets/svg/notifynew.svg",
+                                          //     height: 65.h),
+                                        ),
+                                        GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(Routes.WEATHERPAGE);
+                                            },
+                                            child: Container(
+                                              height: 48.h,
+                                              width: 48.h,
+                                              decoration: BoxDecoration(
+                                                  color: Get.theme.hoverColor,
+                                                  borderRadius: BorderRadius
+                                                      .circular(50)
+                                              ),
+                                              child: Image.asset(
+                                                "assets/images/weatherdark.png",
+                                                color: Get.theme.appBarTheme
+                                                    .backgroundColor, scale: 3,),
+                                            )
+                                          // SvgPicture.asset(
+                                          //     "assets/svg/weathernew.svg",
+                                          //     height: 65.h),
+                                        ),
+                                        GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(Routes.MESSAGEPAGE);
+                                            },
+                                            child: Container(
+                                              height: 48.h,
+                                              width: 48.h,
+                                              decoration: BoxDecoration(
+                                                  color: Get.theme.hoverColor,
+                                                  borderRadius: BorderRadius
+                                                      .circular(50)
+                                              ),
+                                              child: Image.asset(
+                                                "assets/images/messagedark.png",
+                                                color: Get.theme.appBarTheme
+                                                    .backgroundColor, scale: 3,),
+                                            )
 
-                                        // SvgPicture.asset(
-                                        //     "assets/svg/messagenew.svg",color: Get.theme.hoverColor,
-                                        //     height: 65.h),
+                                          // SvgPicture.asset(
+                                          //     "assets/svg/messagenew.svg",color: Get.theme.hoverColor,
+                                          //     height: 65.h),
+                                        ),
+                                        GestureDetector(
+                                            onTap: () {
+                                              Get.toNamed(Routes.SETTINGSPAGE);
+                                            },
+                                            child: Container(
+                                              height: 48.h,
+                                              width: 48.h,
+                                              decoration: BoxDecoration(
+                                                  color: Get.theme.hoverColor,
+                                                  borderRadius: BorderRadius
+                                                      .circular(50)
+                                              ),
+                                              child: Image.asset(
+                                                "assets/images/settingsdark.png",
+                                                color: Get.theme.appBarTheme
+                                                    .backgroundColor, scale: 3,),
+                                            )
+                                          // SvgPicture.asset(
+                                          //     "assets/svg/settingsnew.svg",
+                                          //     height: 65.h),
+                                        ),
+                                        Space(2),
+                                      ],
+                                    ),
+                                    Space(20),
+                                    Space(8),
+                                    Obx(() {
+                                      return controller.isloading1.value
+                                          ? CupertinoActivityIndicator()
+                                          : PrayerTimes();
+                                    }),
+                                    Obx(() {
+                                      return controller.isloadingEvent.value
+                                          ? CupertinoActivityIndicator()
+                                          : Events(
+                                          carouselController:
+                                          _carouselController);
+                                    }),
+                                    SizedBox(
+                                      height: 5.h,
+                                    ),
+                                    buildDivider(themeData),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed(Routes.QURANPAGE);
+                                      },
+                                      child: LargerCard(
+                                        ignorOntap: true,
+                                        quranImg: quranImg,
+                                        buttonTxt: 'continue'.tr,
+                                        image: 'quran',
+                                        title: 'quran'.tr,
+                                        subtitle: '114_surah_30_juz'.tr,
+                                        lastseen: 'last_read_13_hrs_ago'.tr,
+                                        // onPressed: getQuranChaptersList,
                                       ),
-                                      GestureDetector(
+                                    ),
+                                    buildDivider(themeData),
+                                    Row(
+                                      children: [
+                                        SmallCard(
+                                          image: 'hadith',
+                                          title: 'hadith'.tr,
                                           onTap: () {
-                                            Get.toNamed(Routes.SETTINGSPAGE);
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        HadithpageView()));
                                           },
-                                          child: Container(
-                                            height: 48.h,
-                                            width: 48.h,
-                                            decoration: BoxDecoration(
-                                                color: Get.theme.hoverColor,
-                                                borderRadius: BorderRadius
-                                                    .circular(50)
+                                        ),
+                                        SmallCard(
+                                          image: 'library',
+                                          title: 'library'.tr,
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        LibrarypageView()));
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    buildDivider(themeData),
+                                    Row(
+                                      children: [
+                                        MediumCard(
+                                          color:
+                                          themeData.colorScheme.secondary,
+                                          title: 'masjid_near_me'.tr,
+                                          image: 'masjidFinder',
+                                          onTap: () {
+                                            Get.to(CustomMarketInfoWindow());
+                                          },
+                                        ),
+                                        Column(
+                                          children: [
+                                            SmallCard(
+                                              color: themeData
+                                                  .colorScheme.secondary,
+                                              image: 'qibla_finder',
+                                              title: 'qibla_finder'.tr,
+                                              onTap: () {
+                                                Get.to(QiblaFinder());
+                                              },
                                             ),
-                                            child: Image.asset(
-                                              "assets/images/settingsdark.png",
-                                              color: Get.theme.appBarTheme
-                                                  .backgroundColor, scale: 3,),
-                                          )
-                                        // SvgPicture.asset(
-                                        //     "assets/svg/settingsnew.svg",
-                                        //     height: 65.h),
-                                      ),
-                                      Space(2),
-                                    ],
-                                  ),
-                                  Space(20),
-                                  Space(8),
-                                  Obx(() {
-                                    return controller.isloading1.value
-                                        ? CupertinoActivityIndicator()
-                                        : PrayerTimes();
-                                  }),
-                                  Obx(() {
-                                    return controller.isloadingEvent.value
-                                        ? CupertinoActivityIndicator()
-                                        : Events(
-                                        carouselController:
-                                        _carouselController);
-                                  }),
-                                  SizedBox(
-                                    height: 5.h,
-                                  ),
-                                  buildDivider(themeData),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Get.toNamed(Routes.QURANPAGE);
-                                    },
-                                    child: LargerCard(
-                                      ignorOntap: true,
-                                      quranImg: quranImg,
-                                      buttonTxt: 'continue'.tr,
-                                      image: 'quran',
-                                      title: 'quran'.tr,
-                                      subtitle: '114_surah_30_juz'.tr,
-                                      lastseen: 'last_read_13_hrs_ago'.tr,
-                                      // onPressed: getQuranChaptersList,
+                                            SmallCard(
+                                              color: themeData
+                                                  .colorScheme.secondary,
+                                              image: 'prayer_time',
+                                              title: 'prayer_time'.tr,
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          PrayerpageView(),
+                                                    ));
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  buildDivider(themeData),
-                                  Row(
-                                    children: [
-                                      SmallCard(
-                                        image: 'hadith',
-                                        title: 'hadith'.tr,
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      HadithpageView()));
-                                        },
+                                    buildDivider(themeData),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (_) => DuapageView()));
+                                      },
+                                      child: LargerCard(
+                                        ignorOntap: true,
+                                        quranImg: duaImg,
+                                        buttonTxt: 'view_all'.tr,
+                                        image: 'dua',
+                                        title: 'dua'.tr,
+                                        subtitle:
+                                        'dua_for_ease_and_success_in_life'.tr,
+                                        lastseen: 'Opened 13 hrs ago',
                                       ),
-                                      SmallCard(
-                                        image: 'library',
-                                        title: 'library'.tr,
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      LibrarypageView()));
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  buildDivider(themeData),
-                                  Row(
-                                    children: [
-                                      MediumCard(
-                                        color:
-                                        themeData.colorScheme.secondary,
-                                        title: 'masjid_near_me'.tr,
-                                        image: 'masjidFinder',
-                                        onTap: () {
-                                          Get.to(CustomMarketInfoWindow());
-                                        },
-                                      ),
-                                      Column(
-                                        children: [
-                                          SmallCard(
-                                            color: themeData
-                                                .colorScheme.secondary,
-                                            image: 'qibla_finder',
-                                            title: 'qibla_finder'.tr,
-                                            onTap: () {
-                                              Get.to(QiblaFinder());
-                                            },
-                                          ),
-                                          SmallCard(
-                                            color: themeData
-                                                .colorScheme.secondary,
-                                            image: 'prayer_time',
-                                            title: 'prayer_time'.tr,
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        PrayerpageView(),
-                                                  ));
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  buildDivider(themeData),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (_) => DuapageView()));
-                                    },
-                                    child: LargerCard(
-                                      ignorOntap: true,
-                                      quranImg: duaImg,
-                                      buttonTxt: 'view_all'.tr,
-                                      image: 'dua',
-                                      title: 'dua'.tr,
-                                      subtitle:
-                                      'dua_for_ease_and_success_in_life'.tr,
-                                      lastseen: 'Opened 13 hrs ago',
                                     ),
-                                  ),
-                                  buildDivider(themeData),
-                                  Row(
-                                    children: [
-                                      MediumCard(
-                                        color:
-                                        themeData.colorScheme.secondary,
-                                        title: 'special_days'.tr,
-                                        image: 'special_days',
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      SpecialdayspageView()));
-                                        },
-                                      ),
-                                      Column(
-                                        children: [
-                                          SmallCard(
-                                            color: themeData
-                                                .colorScheme.secondary,
-                                            image: 'hijri_calender',
-                                            title: 'hijri_calender'.tr,
-                                            onTap: () {
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (_) =>
-                                                          HijripageView()));
-                                            },
-                                          ),
-                                          SmallCard(
-                                            color: themeData
-                                                .colorScheme.secondary,
-                                            image: 'events',
-                                            title: 'events'.tr,
-                                            onTap: () {
-                                              Get.toNamed(Routes.EVENTS);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  buildDivider(themeData),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (_) => MediapageView()));
-                                    },
-                                    child: LargerCard(
-                                      ignorOntap: true,
-                                      quranImg: quranImg,
-                                      buttonTxt: 'view_all'.tr,
-                                      image: 'media',
-                                      title: 'media'.tr,
-                                      subtitle:
-                                      'islamic_videos_for_ease_and_success_in_life'
-                                          .tr,
-                                      lastseen: 'Opened 13 hrs ago',
+                                    buildDivider(themeData),
+                                    Row(
+                                      children: [
+                                        MediumCard(
+                                          color:
+                                          themeData.colorScheme.secondary,
+                                          title: 'special_days'.tr,
+                                          image: 'special_days',
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        SpecialdayspageView()));
+                                          },
+                                        ),
+                                        Column(
+                                          children: [
+                                            SmallCard(
+                                              color: themeData
+                                                  .colorScheme.secondary,
+                                              image: 'hijri_calender',
+                                              title: 'hijri_calender'.tr,
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (_) =>
+                                                            HijripageView()));
+                                              },
+                                            ),
+                                            SmallCard(
+                                              color: themeData
+                                                  .colorScheme.secondary,
+                                              image: 'events',
+                                              title: 'events'.tr,
+                                              onTap: () {
+                                                Get.toNamed(Routes.EVENTS);
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  buildDivider(themeData),
-                                  Row(
-                                    children: [
-                                      MediumCard(
-                                        title: 'services'.tr,
-                                        image: 'donation',
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(builder: (_) =>
-                                                  ServicepageView()));
-                                        },
+                                    buildDivider(themeData),
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder: (_) => MediapageView()));
+                                      },
+                                      child: LargerCard(
+                                        ignorOntap: true,
+                                        quranImg: quranImg,
+                                        buttonTxt: 'view_all'.tr,
+                                        image: 'media',
+                                        title: 'media'.tr,
+                                        subtitle:
+                                        'islamic_videos_for_ease_and_success_in_life'
+                                            .tr,
+                                        lastseen: 'Opened 13 hrs ago',
                                       ),
-                                      Column(
-                                        children: [
-                                          SmallCard(
-                                            rightpad: 3,
-                                            maxLines: 1,
-                                            image: 'membership',
-                                            title: 'membership'.tr,
-                                            onTap: () {
-                                              Get.toNamed(Routes.MEMBERSHIP);
-                                            },
-                                          ),
-                                          SmallCard(
-                                            image: 'donation',
-                                            title: 'donation'.tr,
-                                            onTap: () {
-                                              Get.toNamed(Routes.DONATIONPAGE);
-                                            },
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  buildDivider(themeData),
-                                  Obx(() {
-                                    return controller.isloadingiman.value
-                                        ? CupertinoActivityIndicator()
-                                        : ImanTracker_widget(
-                                        themeData: themeData);
-                                  }),
-                                  buildDivider(themeData),
-                                  Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      MediumCard(
-                                        title: 'zakath'.tr,
-                                        image: 'zakath',
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      ZakathpageView()));
-                                        },
-                                      ),
-                                      Column(
-                                        children: [
-                                          SmallCard(
-                                            image: 'history',
-                                            title: 'masjid_history'.tr,
-                                            onTap: () {
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (_) =>
-                                                          MasjidhistoryView()));
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 80.h,
-                                  )
-                                ],
-                              ))
+                                    ),
+                                    buildDivider(themeData),
+                                    Row(
+                                      children: [
+                                        MediumCard(
+                                          title: 'services'.tr,
+                                          image: 'donation',
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(builder: (_) =>
+                                                    ServicepageView()));
+                                          },
+                                        ),
+                                        Column(
+                                          children: [
+                                            SmallCard(
+                                              rightpad: 3,
+                                              maxLines: 1,
+                                              image: 'membership',
+                                              title: 'membership'.tr,
+                                              onTap: () {
+                                                Get.toNamed(Routes.MEMBERSHIP);
+                                              },
+                                            ),
+                                            SmallCard(
+                                              image: 'donation',
+                                              title: 'donation'.tr,
+                                              onTap: () {
+                                                Get.toNamed(Routes.DONATIONPAGE);
+                                              },
+                                            )
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    buildDivider(themeData),
+                                    Obx(() {
+                                      return controller.isloadingiman.value
+                                          ? CupertinoActivityIndicator()
+                                          : ImanTracker_widget(
+                                          themeData: themeData);
+                                    }),
+                                    buildDivider(themeData),
+                                    Row(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: [
+                                        MediumCard(
+                                          title: 'zakath'.tr,
+                                          image: 'zakath',
+                                          onTap: () {
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (_) =>
+                                                        ZakathpageView()));
+                                          },
+                                        ),
+                                        Column(
+                                          children: [
+                                            SmallCard(
+                                              image: 'history',
+                                              title: 'masjid_history'.tr,
+                                              onTap: () {
+                                                Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                        builder: (_) =>
+                                                            MasjidhistoryView()));
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                      height: 80.h,
+                                    )
+                                  ],
+                                )),
+                          )
                         ]),
                 child: Padding(
                     padding: const EdgeInsets.all(16),

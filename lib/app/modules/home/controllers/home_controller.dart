@@ -73,6 +73,8 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   final RxBool status = false.obs;
   late PageController pageController;
   RxInt activePageIndex = 0.obs;
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+  GlobalKey<RefreshIndicatorState>();
 
   void toggleFunction() {
     isExpanded.value = !isExpanded.value; // Toggle the state
@@ -165,7 +167,6 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
     tabController = TabController(length: 1, vsync: this);
     tabController.animation!.addListener(
           () {
-        final value =  tabController.animation!.value.round();
         // if (value != currentPage && mounted) {
         //   changePage(value);
         // }
@@ -211,6 +212,19 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   void initializeQuickActions() {
 
 
+
+  }
+
+  Future<void> refreshData() async {
+    // Simulating an API request or data refresh
+    await  Future.delayed(const Duration(seconds: 2));
+    if(hh==null&&box1.read('fruits')==null){
+      return;
+    }
+
+      getUserDetails( box1.read('fruits'),box1.read('token'));
+      getPrayerTime( box1.read('masjidId'));
+      getUpcomingEvents(box1.read('masjidId'));
 
   }
 
