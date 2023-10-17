@@ -182,6 +182,7 @@ class SelectMonth extends StatelessWidget {
               onTap: (){
                 if(memcntrl.totalPayment.value==0)
                   return toast(error: "Message", msg: "Please Select atleast 1 month");
+                memcntrl.transaction_=null;
                 Get.to(() =>PaymentMethodM());
 
 

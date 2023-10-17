@@ -262,12 +262,12 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
      totalPayment.value=0;
      listofmonthPay.value=[];
      update();
-     refresh();
+
         //Get.offAndToNamed(Routes.HOME);
 
       // var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "${status}");
-     transaction_=null;
+    // transaction_!.whenComplete(() => null);
     }
 
     return res;

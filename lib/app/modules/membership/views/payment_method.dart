@@ -1,20 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:smartmasjid_v1/app/modules/home/widgets/appBar.dart';
-import 'package:smartmasjid_v1/app/modules/membership/views/membership_view.dart';
 import 'package:smartmasjid_v1/app/routes/export.dart';
-import 'package:smartmasjid_v1/utils/color_utils.dart';
-import 'package:upi_india/upi_app.dart';
 import 'package:upi_india/upi_india.dart';
-
-import '../../../routes/app_pages.dart';
 import '../controllers/membership_controller.dart';
 
 class PaymentMethodM extends StatefulWidget {
-  PaymentMethodM({super.key});
+  const PaymentMethodM({super.key});
 
   @override
   State<PaymentMethodM> createState() => _PaymentMethodMState();
@@ -37,6 +27,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
 
   @override
   void initState() {
+    membrCtrl.transaction_=null;
     membrCtrl.upiIndia_.value.getAllUpiApps(mandatoryTransactionId: false).then((value) {
       setState(() {
         membrCtrl.apps = value;
@@ -139,7 +130,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
-        await membrCtrl.membershipUpiPayment(status, txnId);
+       await membrCtrl.membershipUpiPayment(status, txnId);
         print('Transaction Submitted');
         break;
       case UpiPaymentStatus.FAILURE:
@@ -153,6 +144,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
   }
 
   Widget displayTransactionData(title, body) {
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -211,7 +203,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                         e['enable'] == true ? BoxShadow(
                             blurRadius: 4,
                             spreadRadius: 4,
-                            offset: Offset(0, 4),
+                            offset: const Offset(0, 4),
                             color:Get.theme.shadowColor) : BoxShadow()
                       ]),
                   child: Row(
@@ -280,7 +272,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                   ),
                   child: Text(
                     "pay_now".tr,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 18,
                         color: Colors.white),
@@ -307,29 +299,30 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                     String status = _upiResponse.status ?? 'N/A';
                     String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
                     _checkTxnStatus(status, txnId);
-                    //  print('trans  $status');
-                    //    if(status=="SUCCESS"){
-                    // membrCtrl.membershipUpiPayment("dfghj","dfghj");
-                    //    }
+                     print('trans  $status');
+
                     //
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
+
                           // displayTransactionData('Transaction Id', txnId),
                           // displayTransactionData('Response Code', resCode),
                           // displayTransactionData('Reference Id', txnRef),
                           displayTransactionData(
                               'Status', status.toUpperCase()),
+
                           // displayTransactionData('Approval No', approvalRef),
                         ],
                       ),
                     );
-                  } else
-                    return Center(
+                  } else {
+                    return const Center(
                       child: Text(''),
                     );
+                  }
                 },
               ),
             ],
