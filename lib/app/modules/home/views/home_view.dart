@@ -307,7 +307,7 @@ class HomeView extends StatelessWidget {
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 8),
-                                // height: 75.h,
+                                height: 65.h,
                                 width: 80.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
@@ -328,7 +328,7 @@ class HomeView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     SvgPicture.asset(
-                                      "assets/svg/prayerdr.svg", width: 60,),
+                                      "assets/svg/prayerdr.svg", width: 50,),
                                     Stxt(text: "prayer_time".tr,
                                       size: f1,
                                       color: Theme
@@ -347,7 +347,7 @@ class HomeView extends StatelessWidget {
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 8),
-                                // height: 65.h,
+                                height: 65.h,
                                 width: 80.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
@@ -368,7 +368,7 @@ class HomeView extends StatelessWidget {
                                 child: Column(
                                   children: [
                                     SvgPicture.asset(
-                                      "assets/svg/memberdr.svg", width: 80,),
+                                      "assets/svg/memberdr.svg", width: 60,),
                                     Stxt(
                                       text: "membership".tr,
                                       size: f1,
@@ -393,7 +393,7 @@ class HomeView extends StatelessWidget {
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 8),
-                                // height: 65.h,
+                                height: 65.h,
                                 width: 80.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
@@ -435,7 +435,7 @@ class HomeView extends StatelessWidget {
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 8),
-                                // height: 65.h,
+                                height: 65.h,
                                 width: 80.h,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(

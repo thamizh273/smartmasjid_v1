@@ -333,7 +333,7 @@ query Query(\$masjidId: ID!) {
 
   }
   getImanTrakerStatus(id) async {
-
+print("dfdf $id");
     isloadingiman.value=true;
     var header="""
 query Query(\$userId: ID!, \$trackerType: String, \$status: String) {

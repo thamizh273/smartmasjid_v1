@@ -70,7 +70,7 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Container(
-                        height: 30.h,
+                        // height: 50.h,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
@@ -78,7 +78,7 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
                             color: Theme.of(context).primaryColor.withOpacity(0.3)
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(12),
                           child: Row(
                             children: [
                               Text('Latitude :', style: TextStyle(color:  Get.theme.hoverColor, fontWeight: FontWeight.bold),),
@@ -99,7 +99,6 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Container(
-                        height: 30.h,
                         width: double.infinity,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
@@ -107,7 +106,7 @@ class _QiblaFinderPageState extends State<QiblaFinder> {
                             color: Theme.of(context).primaryColor.withOpacity(0.3)
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(12),
                           child: Row(
                             children: [
                               Text('Longitude :', style: TextStyle(color:  Get.theme.hoverColor, fontWeight: FontWeight.bold),),

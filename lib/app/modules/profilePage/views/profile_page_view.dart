@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
@@ -112,6 +113,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                       label: GestureDetector(
                         onTap: () {
                           showModalBottomSheet(
+                            backgroundColor: Colors.white,
                             context: context,
                             builder: (BuildContext context) {
                               return Padding(
@@ -121,7 +123,7 @@ class ProfilePageView extends GetView<EditProfileController> {
                                   children: <Widget>[
                                     Text("Profile Photo", style: TextStyle(
                                         fontSize: 20,
-                                        fontWeight: FontWeight.w600),),
+                                        fontWeight: FontWeight.w600, color: Get.theme.primaryColor),),
                                     Padding(
                                       padding: const EdgeInsets.all(16),
                                       child: Row(
@@ -137,16 +139,13 @@ class ProfilePageView extends GetView<EditProfileController> {
                                             child: Column(
                                               children: [
                                                 Image.asset(
-                                                    "assets/images/camera.png"),
+                                                    "assets/images/camera.png", color: Get.theme.primaryColor,),
                                                 Text("Camera",
                                                   style: TextStyle(
                                                       fontWeight: FontWeight
                                                           .w600,
                                                       fontSize: 20,
-                                                      color: Theme
-                                                          .of(context)
-                                                          .colorScheme
-                                                          .secondary),)
+                                                      color: Get.theme.primaryColor),)
                                               ],
                                             ),
                                           ),
@@ -160,16 +159,13 @@ class ProfilePageView extends GetView<EditProfileController> {
                                             child: Column(
                                               children: [
                                                 Image.asset(
-                                                    "assets/images/gallery.png"),
+                                                    "assets/images/gallery.png",color: Get.theme.primaryColor),
                                                 Text("Gallery",
                                                   style: TextStyle(
                                                       fontWeight: FontWeight
                                                           .w600,
                                                       fontSize: 20,
-                                                      color: Theme
-                                                          .of(context)
-                                                          .colorScheme
-                                                          .secondary),)
+                                                      color: Get.theme.primaryColor),)
                                               ],
                                             ),
                                           )
@@ -182,33 +178,73 @@ class ProfilePageView extends GetView<EditProfileController> {
                             },
                           );
                         },
-                        child: Icon(Icons.edit,
-                        ),
+                        child: CircleAvatar(
+                          radius: 10,
+                            foregroundColor: Get.theme.primaryColor,
+                            backgroundColor: Colors.white,
+                            child: const Icon(Icons.edit, size: 20,)),
                       ),
                       backgroundColor: Colors.white,
                       alignment: Alignment.bottomRight,
                       smallSize: 25,
                       largeSize: 25,
-                      child: homectrl.profileImage == "null" ? CircleAvatar(
-                        // foregroundImage:
-                        // AssetImage('assets/images/avathar.png',),
-                        foregroundImage: AssetImage(
-                          'assets/images/avathar.png',),
-
-                        radius: 50,
-                        backgroundColor: Colors.white,
-                      ) : Obx(() {
+                      child:homectrl.profileImage == "null"
+                          ? Scaffold(
+                        body: GestureDetector(
+                          onTap: () {
+                            // Handle the tap gesture to view the image in full screen
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return const Scaffold(
+                                  backgroundColor: Colors.black,
+                                  body: Center(
+                                    child: CircleAvatar(
+                                      foregroundImage: AssetImage(
+                                        'assets/images/avathar.png',),
+                                      radius: 50,
+                                      backgroundColor: Colors.white,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ));
+                          },
+                          child: const CircleAvatar(
+                            foregroundImage: AssetImage('assets/images/avathar.png'),
+                            radius: 50,
+                            backgroundColor: Colors.white,
+                          ),
+                        ),
+                      )
+                          : Obx(() {
                         return controller.isLoadingPic.value
                             ? CircularProgressIndicator()
-                            : CircleAvatar(
-                          // foregroundImage:
-                          // AssetImage('assets/images/avathar.png',),
-                          foregroundImage: MemoryImage(base64Decode(homectrl
-                              .profileImage.toString())),
-                          radius: 50,
-                          backgroundColor: Colors.white,
-                        );
+                            : GestureDetector(
+                              onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return Scaffold(
+                                  backgroundColor: Colors.black,
+                                  body: Center(
+                                    child: Image(
+                                      width: double.infinity,
+                                      image: MemoryImage(base64Decode(homectrl.profileImage.toString())),
+                                      fit: BoxFit.fill, // Set the width to occupy the entire screen width
+                                    ),
+                                  ),
+                                );
+                              },
+                            ));
+                          },
+                              child: CircleAvatar(
+                                foregroundImage: MemoryImage(base64Decode(homectrl
+                                    .profileImage.toString())),
+                                radius: 50,
+                                backgroundColor: Colors.white,
+                              ),
+                            );
                       }),
+
                     ),
                   ),
                 ),

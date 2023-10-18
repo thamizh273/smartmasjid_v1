@@ -58,10 +58,10 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
           children: membrCtrl.apps!.map<Widget>((UpiApp app) {
             return GestureDetector(
               onTap: () async {
-              await  membrCtrl.Pay_Membership_Payment_Gate_Way(app);
-              setState(() {
+                await  membrCtrl.Pay_Membership_Payment_Gate_Way(app);
+                setState(() {
 
-              });
+                });
               },
               child: Padding(
                 padding: EdgeInsets.only(left: 15.w),
@@ -126,11 +126,11 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
   Future<void> _checkTxnStatus(String status, String txnId) async {
     switch (status) {
       case UpiPaymentStatus.SUCCESS:
-       await membrCtrl.membershipUpiPayment(status, txnId);
+        await membrCtrl.membershipUpiPayment(status, txnId);
         print('Transaction Successful');
         break;
       case UpiPaymentStatus.SUBMITTED:
-       await membrCtrl.membershipUpiPayment(status, txnId);
+        await membrCtrl.membershipUpiPayment(status, txnId);
         print('Transaction Submitted');
         break;
       case UpiPaymentStatus.FAILURE:
@@ -299,7 +299,7 @@ class _PaymentMethodMState extends State<PaymentMethodM> {
                     String status = _upiResponse.status ?? 'N/A';
                     String approvalRef = _upiResponse.approvalRefNo ?? 'N/A';
                     _checkTxnStatus(status, txnId);
-                     print('trans  $status');
+                    print('trans  $status');
 
                     //
                     return Padding(

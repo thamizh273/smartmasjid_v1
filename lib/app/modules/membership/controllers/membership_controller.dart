@@ -10,6 +10,7 @@ import '../model/PayMembershipPaymentGateWayModel.dart';
 import '../model/membershipDetailModel.dart';
 import '../model/membershipPayDetailModel.dart';
 import '../model/membershipPaymentMonthModel.dart';
+import '../model/payment_invoice_model.dart';
 import '../views/payment_method.dart';
 import '../views/select_month.dart';
 
@@ -22,10 +23,12 @@ class MembershipController extends GetxController {
   var membershipPaymentData=MembershipPayementModel().obs;
   var membershipPaymentMonthData=MembershipPaymentMonthModel().obs;
   var payMembershipPaymentGateWayData=PayMembershipPaymentGateWayModel().obs;
+  var getpaymentinvoice = PaymentInvoiceModel().obs;
   Rx<TextEditingController> payPhone_ = TextEditingController().obs;
   Rx<TextEditingController> paymemberId_ = TextEditingController().obs;
   RxBool isloading = false.obs;
   RxBool isloading1 = false.obs;
+  RxBool invoiceloading = false.obs;
   RxBool isloadingtrascomplete = false.obs;
   RxBool upiLoading = false.obs;
   RxBool isloadingPay = false.obs;
@@ -41,10 +44,10 @@ class MembershipController extends GetxController {
 
   // Rx<FocusNode> quickpayFocusNode = FocusNode().obs;
 
-   RxList expand = [].obs;
-   RxList paid = [].obs;
+  RxList expand = [].obs;
+  RxList paid = [].obs;
 
-    RxInt totalPayment=0.obs;
+  RxInt totalPayment=0.obs;
 
   RxInt  passindexamount=0.obs;  RxInt selectedRadioIndex = 0.obs;
   RxString dropDownvalue="This Year".obs;
@@ -55,6 +58,7 @@ class MembershipController extends GetxController {
   @override
   void onInit() {
     getMembershipDetails();
+    paymentInvoice();
     super.onInit();
 
 
@@ -87,8 +91,8 @@ class MembershipController extends GetxController {
   // }
 
   getMembershipDetails() async {
- payforOthers.value=false;
-print("rrrrr ${homectrl.getUserData.value.getUserById!.id}");
+    payforOthers.value=false;
+    print("rrrrr ${homectrl.getUserData.value.getUserById!.id}");
     isloading.value=true;
     var header="""
 query Query(\$userId: String!) {
@@ -129,8 +133,8 @@ query Query(\$userId: String!) {
     isloading.value=false;
 
     membershipDetailData.value=membershipDetailModelFromJson(json.encode(res));
-     update();
-     refresh();
+    update();
+    refresh();
     print("getMEBER");
     log(json.encode(res));
     print("getMEBER");
@@ -207,15 +211,15 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     log(json.encode(res));
     print("getMEBER2");
     if(res.toString().contains("ERROR")){
-     return toast(error: "Error", msg: "Register Mobile no/ Id Not Found");
+      return toast(error: "Error", msg: "Register Mobile no/ Id Not Found");
     }
 
 
-      //
-      Get.to(SelectMonth());
+    //
+    Get.to(SelectMonth());
 
-   checkedStates.value = List.generate(
-     membershipPaymentMonthData.value
+    checkedStates.value = List.generate(
+      membershipPaymentMonthData.value
           .membershipPayments!.monthList!.length,
           (index) =>checkbox,
     );
@@ -231,7 +235,7 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     isloadingtrascomplete.value=true;
     var header =
     """mutation Membership_Payment_GateWay_Authentication_(\$id: ID!, \$userId: String!, \$paymentId: String!, \$masjidId: String!, \$token: String!, \$code: String!, \$transactionId: String, \$status: String) {
-  Membership_Payment_GateWay_Authentication_(_id: \$id, user_id: \$userId, payment_id: \$paymentId, masjid_id: \$masjidId, token: \$token, code: \$code, transaction_id: \$transactionId, status_: \$status) {
+  Membership_Payment_GateWay_Authentication_(id: \$id, user_id: \$userId, payment_id: \$paymentId, masjid_id: \$masjidId, token: \$token, code: \$code, transaction_id: \$transactionId, status: \$status) {
     amount
     expire_date
     payment_month
@@ -257,17 +261,17 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     if (res.toString().contains("SUCCESS")) {
 
 
-     payforOthers.value==true? Get.close(3):    Get.close(2);
-     getMembershipDetails();
-     totalPayment.value=0;
-     listofmonthPay.value=[];
-     update();
+      payforOthers.value==true? Get.close(3):    Get.close(2);
+      getMembershipDetails();
+      totalPayment.value=0;
+      listofmonthPay.value=[];
+      update();
 
-        //Get.offAndToNamed(Routes.HOME);
+      //Get.offAndToNamed(Routes.HOME);
 
       // var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "${status}");
-    // transaction_!.whenComplete(() => null);
+      // transaction_!.whenComplete(() => null);
     }
 
     return res;
@@ -333,5 +337,57 @@ query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$
 
     // setState(() {});
 
+  }
+
+
+  paymentInvoice() async {
+    invoiceloading.value = true;
+    var header = """
+query View__Payment__Receipt(\$userId: ID!, \$masjidId: ID!, \$receiptNo: Float, \$type: String) {
+  View__Payment__Receipt(user_id: \$userId, masjid_id: \$masjidId, receipt_no: \$receiptNo, type_: \$type) {
+    amount
+    bill_collector
+    expire_date
+    in_words_
+    masjid_id {
+      masjid_name
+      phone_number
+      pin_code
+      state
+      address
+      area
+      city
+      country
+      district
+    }
+    receipt_no
+    payment_date
+    user_id {
+      first_name
+      user_unique_id
+    }
+    payment_type
+    payment_month
+    payment_method
+    secretary_
+  }
+}
+    """;
+
+    var body = {
+      "userId": "5b52cef8-1c88-48ac-bd76-a092cd5ad200",
+      "masjidId": "38890dfb-5990-4dd3-ae5b-16dd3c27896e",
+      "type": "membership",
+      "receiptNo": 20231141
+
+    };
+    var res = await _restCallController.gql_query(header, body);
+    // print("lllll");
+    // print(json.encode(res));
+    // print("lllll");
+    log("data invoice ${json.encode(res)}");
+    invoiceloading.value = false;
+    getpaymentinvoice.value = paymentInvoiceModelFromJson(json.encode(res));
+    update();
   }
 }

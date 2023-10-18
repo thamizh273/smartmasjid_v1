@@ -168,16 +168,16 @@ class Hadithchapterdetail extends GetView<HadithpageController> {
                                   ),
                                   Text(
                                     "${detail.arabicHadiths}",
-                                    style: TextStyle(fontSize: 20,
+                                    style: TextStyle(fontSize: 25,
                                         fontWeight: FontWeight.w400, color: Get.theme.primaryColor),),
                                   Space(8),
                                   Text("${detail.narrated}:",
                                     style: TextStyle(
                                         color: Colors.black.withOpacity(0.5),
-                                        fontSize: 16),),
+                                        fontSize: 18),),
                                   Space(8),
                                   Text(
-                                      "${detail.englishHadiths}", style: TextStyle(color: Get.theme.primaryColor),),
+                                      "${detail.englishHadiths}", style: TextStyle(color: Get.theme.primaryColor, fontSize: 16),),
                                   Space(8),
                                   Text("${detail.collectionNameEn}, ${detail.chapterNo}", style: TextStyle(
                                       color: Colors.black.withOpacity(0.6)),)
@@ -200,8 +200,8 @@ class Hadithchapterdetail extends GetView<HadithpageController> {
 }
 
 class CustomDialogBox extends StatelessWidget {
-  TextEditingController pass = TextEditingController();
-  TextEditingController c = TextEditingController();
+  final TextEditingController pass = TextEditingController();
+  final TextEditingController c = TextEditingController();
   final String title;
   final String content;
   final VoidCallback onPressed;
