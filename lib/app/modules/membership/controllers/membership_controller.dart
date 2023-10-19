@@ -58,7 +58,7 @@ class MembershipController extends GetxController {
   @override
   void onInit() {
     getMembershipDetails();
-    paymentInvoice();
+    // paymentInvoice();
     super.onInit();
 
 
@@ -106,6 +106,7 @@ query Query(\$userId: String!) {
       amount
       payment_month
       payment_status
+      receipt_no
     }
    
     current_payment {
@@ -234,8 +235,8 @@ query Membership_Payments_(\$mobileOrMemberid: String, \$payType: String) {
     log("ddd6${payMembershipPaymentGateWayData.value.payMembershipPaymentGateWay!.code}");
     isloadingtrascomplete.value=true;
     var header =
-    """mutation Membership_Payment_GateWay_Authentication_(\$id: ID!, \$userId: String!, \$paymentId: String!, \$masjidId: String!, \$token: String!, \$code: String!, \$transactionId: String, \$status: String) {
-  Membership_Payment_GateWay_Authentication_(id: \$id, user_id: \$userId, payment_id: \$paymentId, masjid_id: \$masjidId, token: \$token, code: \$code, transaction_id: \$transactionId, status: \$status) {
+    """mutation Mutation(\$id: ID!, \$userId: String!, \$paymentId: String!, \$masjidId: String!, \$token: String!, \$code: String!, \$status: String, \$transactionId: String) {
+  Membership_Payment_GateWay_Authentication_(_id: \$id, user_id: \$userId, payment_id: \$paymentId, masjid_id: \$masjidId, token: \$token, code: \$code, status_: \$status, transaction_id: \$transactionId) {
     amount
     expire_date
     payment_month
@@ -340,7 +341,7 @@ query Pay_Membership_Payment_Gate_Way(\$userId: String!, \$masjidId: String!, \$
   }
 
 
-  paymentInvoice() async {
+  paymentInvoice(int receipt) async {
     invoiceloading.value = true;
     var header = """
 query View__Payment__Receipt(\$userId: ID!, \$masjidId: ID!, \$receiptNo: Float, \$type: String) {
@@ -378,7 +379,7 @@ query View__Payment__Receipt(\$userId: ID!, \$masjidId: ID!, \$receiptNo: Float,
       "userId": "5b52cef8-1c88-48ac-bd76-a092cd5ad200",
       "masjidId": "38890dfb-5990-4dd3-ae5b-16dd3c27896e",
       "type": "membership",
-      "receiptNo": 20231141
+      "receiptNo": receipt
 
     };
     var res = await _restCallController.gql_query(header, body);

@@ -137,12 +137,14 @@ class MonthChart {
   String? amount;
   DateTime? paymentMonth;
   String? paymentStatus;
+  int? receiptNo;
 
   MonthChart({
     this.typename,
     this.amount,
     this.paymentMonth,
     this.paymentStatus,
+    this.receiptNo,
   });
 
   factory MonthChart.fromJson(Map<String, dynamic> json) => MonthChart(
@@ -150,6 +152,7 @@ class MonthChart {
     amount: json["amount"],
     paymentMonth: json["payment_month"] == null ? null : DateTime.parse(json["payment_month"]),
     paymentStatus: json["payment_status"],
+    receiptNo: json["receipt_no"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -157,6 +160,7 @@ class MonthChart {
     "amount": amount,
     "payment_month": paymentMonth?.toIso8601String(),
     "payment_status": paymentStatus,
+    "receipt_no": receiptNo,
   };
 }
 

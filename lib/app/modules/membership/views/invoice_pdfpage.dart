@@ -136,7 +136,7 @@ class PdfPreviewPage extends StatelessWidget {
                               pw.SizedBox(
                                   width: 30
                               ),
-                              pw.Text("Receipt No.", style: pw.TextStyle(
+                              pw.Text("Receipt No. ", style: pw.TextStyle(
                                   fontWeight: pw.FontWeight.bold,
                                   fontSize: 12)),
                               pw.Text(
@@ -172,10 +172,11 @@ class PdfPreviewPage extends StatelessWidget {
                                 style: pw.TextStyle(fontSize: 14),
                               ),
                               pw.SizedBox(
-                                  width: 5
+                                  width: 20
                               ),
                               pw.Column(
                                   mainAxisAlignment: pw.MainAxisAlignment.end,
+                                  crossAxisAlignment: pw.CrossAxisAlignment.start,
                                   children: [
                                     pw.Text(
                                       "${invoice.userId!.firstName}",
@@ -185,7 +186,7 @@ class PdfPreviewPage extends StatelessWidget {
                                           .bold,),
                                     ),
                                     pw.Text(
-                                        "..........................................................................................................")
+                                        "·········································································································")
                                   ]
                               )
                             ]
@@ -212,7 +213,7 @@ class PdfPreviewPage extends StatelessWidget {
                                             fontSize: 14, fontWeight: pw
                                             .FontWeight.bold)),
                                     pw.Text(
-                                      "...........................................",)
+                                      "·····················································",)
                                   ]
                               ),
                               pw.SizedBox(
@@ -232,7 +233,7 @@ class PdfPreviewPage extends StatelessWidget {
                                             fontSize: 14, fontWeight: pw
                                             .FontWeight.bold)),
                                     pw.Text(
-                                        "................................................")
+                                        "·········································")
                                   ]
                               )
 
@@ -261,7 +262,7 @@ class PdfPreviewPage extends StatelessWidget {
                                             fontSize: 14, fontWeight: pw
                                             .FontWeight.bold)),
                                     pw.Text(
-                                      "...........................................",)
+                                      "······································",)
                                   ]
                               ),
                               pw.SizedBox(
@@ -281,7 +282,7 @@ class PdfPreviewPage extends StatelessWidget {
                                             fontSize: 14, fontWeight: pw
                                             .FontWeight.bold)),
                                     pw.Text(
-                                        "................................................")
+                                        "··························································")
                                   ]
                               )
 
@@ -305,6 +306,7 @@ class PdfPreviewPage extends StatelessWidget {
                                   width: 10
                               ),
                               pw.Column(
+                                  crossAxisAlignment: pw.CrossAxisAlignment.start,
                                   children: [
                                     pw.Text(
                                         "${invoice.inWords}",
@@ -312,7 +314,7 @@ class PdfPreviewPage extends StatelessWidget {
                                             fontSize: 14, fontWeight: pw
                                             .FontWeight.bold)),
                                     pw.Text(
-                                        "...................................................................................................................")
+                                        "·······················································································································")
                                   ]
                               )
 

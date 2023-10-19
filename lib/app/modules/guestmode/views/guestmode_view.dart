@@ -441,7 +441,15 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             decoration: BoxDecoration(
                                                 color: Get.theme.hoverColor,
                                                 borderRadius: BorderRadius
-                                                    .circular(50)
+                                                    .circular(50),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  offset: Offset(0,2),
+                                                  blurRadius: 4,
+                                                  spreadRadius: 3,
+                                                  color: Get.theme.highlightColor
+                                                )
+                                              ]
                                             ),
                                             child: Image.asset(
                                               "assets/images/notifydark.png",
@@ -462,7 +470,15 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             decoration: BoxDecoration(
                                                 color: Get.theme.hoverColor,
                                                 borderRadius: BorderRadius
-                                                    .circular(50)
+                                                    .circular(50),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      offset: Offset(0,2),
+                                                      blurRadius: 4,
+                                                      spreadRadius: 3,
+                                                      color: Get.theme.highlightColor
+                                                  )
+                                                ]
                                             ),
                                             child: Image.asset(
                                               "assets/images/weatherdark.png",
@@ -496,7 +512,15 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             decoration: BoxDecoration(
                                                 color: Get.theme.hoverColor,
                                                 borderRadius: BorderRadius
-                                                    .circular(50)
+                                                    .circular(50),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      offset: Offset(0,2),
+                                                      blurRadius: 4,
+                                                      spreadRadius: 3,
+                                                      color: Get.theme.highlightColor
+                                                  )
+                                                ]
                                             ),
                                             child: Image.asset(
                                               "assets/images/messagedark.png",
@@ -518,7 +542,15 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                             decoration: BoxDecoration(
                                                 color: Get.theme.hoverColor,
                                                 borderRadius: BorderRadius
-                                                    .circular(50)
+                                                    .circular(50),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                      offset: Offset(0,2),
+                                                      blurRadius: 5,
+                                                      spreadRadius: 4,
+                                                      color: Get.theme.highlightColor
+                                                  )
+                                                ]
                                             ),
                                             child: Image.asset(
                                               "assets/images/settingsdark.png",

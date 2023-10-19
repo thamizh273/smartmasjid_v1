@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:smartmasjid_v1/app/modules/home/Drawer_List/masjid_history.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/past_payments.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/quick_pay.dart';
 
@@ -27,6 +28,7 @@ import 'invoice_pdfpage.dart';
 class MembershipView extends GetView<MembershipController> {
   MembershipView({Key? key}) : super(key: key);
  final HomeController homeCtrl = Get.find<HomeController>();
+ final membercntl = Get.put(MembershipController());
  final List<Member> memberList = [
     Member(amount: "500", month: "Jan", image: "assets/images/download.png")
   ];
@@ -381,7 +383,8 @@ class MembershipView extends GetView<MembershipController> {
                                         Space(8),
                                         GestureDetector(
                                           onTap: () {
-                                            Navigator.of(context).push(MaterialPageRoute(builder: (_) => PdfPreviewPage("")));
+                                            data.monthChart![index].paymentStatus =="paid"? membercntl.paymentInvoice(data.monthChart![index].receiptNo!):null;
+                                            data.monthChart![index].paymentStatus =="paid"? Navigator.of(context).push(MaterialPageRoute(builder: (_) => PdfPreviewPage(""))): null;
                                           },
                                           child: Container(
                                             width: 25,
