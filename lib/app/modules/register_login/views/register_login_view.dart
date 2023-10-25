@@ -47,24 +47,6 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
                     AuthenticationRespository.instance.gsignBool.value=false;
                     Get.toNamed(Routes.FACE_AUTH);
                     FirebaseAuth.instance.signOut();
-
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (_) => FaceAuth()));
-                    // Navigator.push(
-                    //   context,
-                    //   PageRouteBuilder(
-                    //     transitionDuration: Duration(milliseconds: 400), // Set the duration of the transition animation
-                    //     pageBuilder: (_, __, ___) => HomePage(), // Destination screen
-                    //     transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
-                    //       return SlideTransition(
-                    //         position: Tween<Offset>(
-                    //           begin: Offset(1.0, 0.0), // Start position of the screen (slide from right)
-                    //           end: Offset.zero, // End position of the screen (slide to center)
-                    //         ).animate(animation),
-                    //         child: child,
-                    //       );
-                    //     },
-                    //   ),
-                    // );
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(200, 45),
@@ -88,24 +70,7 @@ class RegisterLoginView extends GetView<RegisterLoginController> {
               15.verticalSpace,
               OutlinedButton(
                   onPressed: () {
-                    // Navigator.of(context).push(MaterialPageRoute(builder: (_) => const LoginPage()));
                     Get.toNamed(Routes.LOGIN_PAGE);
-                    // Navigator.push(
-                    //   context,
-                    //   PageRouteBuilder(
-                    //     transitionDuration: Duration(milliseconds: 500), // Set the duration of the transition animation
-                    //     pageBuilder: (_, __, ___) => HomePage(), // Destination screen
-                    //     transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
-                    //       return SlideTransition(
-                    //         position: Tween<Offset>(
-                    //           begin: Offset(1.0, 0.0), // Start position of the screen (slide from right)
-                    //           end: Offset.zero, // End position of the screen (slide to center)
-                    //         ).animate(animation),
-                    //         child: child,
-                    //       );
-                    //     },
-                    //   ),
-                    // );
                   },
                   style: OutlinedButton.styleFrom(
                     foregroundColor: Color(0xffD9D9D9), minimumSize: Size(200, 45),

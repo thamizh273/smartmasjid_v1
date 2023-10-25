@@ -24,6 +24,7 @@ class SignupPageController extends GetxController {
     var checkuserData=CheckUserModel().obs;
   final _restCallController = Get.put(restCallController());
   final _logincontrl = Get.put(LoginPageController());
+  ScrollController scrollControllersign = ScrollController();
 
   @override
   void onInit() {

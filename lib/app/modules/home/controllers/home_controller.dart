@@ -10,6 +10,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server/gmail.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:quick_actions_android/quick_actions_android.dart';
 
@@ -79,27 +81,7 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
   void toggleFunction() {
     isExpanded.value = !isExpanded.value; // Toggle the state
   }
-  // void openLocationSetting() async {
-  //   const AndroidIntent intent = AndroidIntent(
-  //     action: 'android.settings.LOCATION_SOURCE_SETTINGS',
-  //   );
-  //   await intent.launch();
-  // }
-  //
-  // Future<bool> checkLocationEnabled() async {
-  //   final AndroidIntent intent = AndroidIntent(
-  //     action: 'android.settings.LOCATION_SOURCE_SETTINGS',
-  //   );
-  //
-  //   try {
-  //     await intent.launch();
-  //     // Location settings were opened, assume location services will be enabled
-  //     return true;
-  //   } catch (e) {
-  //     // Location settings could not be opened, assume location services are disabled
-  //     return false;
-  //   }
-  // }
+
 
   List timeList=["0","0","0","0","0"].obs ;
 
@@ -209,11 +191,6 @@ class HomeController extends GetxController with GetSingleTickerProviderStateMix
    });
   }
 
-  void initializeQuickActions() {
-
-
-
-  }
 
   Future<void> refreshData() async {
     // Simulating an API request or data refresh

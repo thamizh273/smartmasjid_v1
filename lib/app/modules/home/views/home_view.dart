@@ -171,8 +171,7 @@ class HomeView extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(6.0),
-                              child: SvgPicture.asset("assets/svg/slogonew.svg",
-                                  height: 70.00, width: 80.00),
+                              child: Image.asset("assets/images/slogonw.png", height: 70, width: 80,),
                             ),
                             Space(16),
                             SizedBox(

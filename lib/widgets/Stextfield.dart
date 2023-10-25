@@ -102,7 +102,7 @@ class Safa_textfield extends StatefulWidget {
       this.label,
       this.fillColor,
       this.length, this.readOnly, this.height, this.contentPad, this.contentHPad, this.focusNode,
-      this.onChanged, this.validator, this.errorText
+      this.onChanged, this.validator, this.errorText, this.vert
       });
 
   final TextEditingController? controller;
@@ -117,7 +117,7 @@ class Safa_textfield extends StatefulWidget {
   final double? contentHPad;
   final double? height;
   final bool? obscureText;
-  final bool? readOnly;
+  final bool? readOnly, vert;
   final int? length;
   final Color? fillColor;
   final TextInputType? keyboardType;

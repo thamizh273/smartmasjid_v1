@@ -105,6 +105,10 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   scroll_to_index: any
   photo_view: ^0.14.0
+  file_picker:
+  document_file_save_plus: ^2.0.0
+  mailer: ^6.0.1
+  url_launcher: ^6.1.14
 
 
 
@@ -248,6 +252,10 @@ flutter:
     - family: Kitab
       fonts:
         - asset: assets/fonts/Kitab.ttf
+          weight: 500
+    - family: Bismillah
+      fonts:
+        - asset: assets/fonts/Bismillah.ttf
           weight: 500
 
 

@@ -1,5 +1,11 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:document_file_save_plus/document_file_save_plus.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:upi_india/upi_india.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
@@ -11,8 +17,10 @@ import '../model/membershipDetailModel.dart';
 import '../model/membershipPayDetailModel.dart';
 import '../model/membershipPaymentMonthModel.dart';
 import '../model/payment_invoice_model.dart';
+import '../views/invoice_pdfpage.dart';
 import '../views/payment_method.dart';
 import '../views/select_month.dart';
+import 'package:pdf/widgets.dart' as pw;
 
 class MembershipController extends GetxController {
   //TODO: Implement MembershipController
@@ -51,8 +59,28 @@ class MembershipController extends GetxController {
 
   RxInt  passindexamount=0.obs;  RxInt selectedRadioIndex = 0.obs;
   RxString dropDownvalue="This Year".obs;
+  RxString fileName="example.pdf".obs;
   void setSelectedRadio(int index) {
     selectedRadioIndex.value = index;
+  }
+
+  Future<Future<Uint8List>> downloadPDF() async {
+    final pdf = pw.Document();
+    final directory = await getExternalStorageDirectory();
+    final file = File("${directory?.path}/$PdfPreviewPage");
+
+
+    final pdfBytes = await pdf.save();
+    await file.writeAsBytes(pdfBytes.toList());
+
+
+
+    DocumentFileSavePlus().saveMultipleFiles(
+      dataList: [pdfBytes,],
+      fileNameList: ["example.pdf",],
+      mimeTypeList: ["example/pdf",],
+    );
+    return pdf.save();
   }
 
   @override

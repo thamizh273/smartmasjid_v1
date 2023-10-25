@@ -101,27 +101,23 @@ class Events extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         5.verticalSpace,
-                        //  Text(
-                        //   '${e.description}',
-                        //   style: TextStyle(
-                        //       fontSize: f0,
-                        //       color: Colors.indigo,
-                        //       fontWeight: FontWeight.bold,),
-                        // ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 2),
                           child: Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.location_on_sharp,
                                 color: ThemeService.accentcolor,
                                 size: f2,
                               ),
-                              stxtN(
-                                text: " ${e.masjidId!.masjidName}",
-                                size: f1,
-                                color: ThemeService.accentcolor,
-                                weight: FontWeight.w500,
+                              SizedBox(
+                                width: 90.h,
+                                child: stxtN(
+                                  text: "${e.masjidId!.masjidName}",
+                                  size: f1,
+                                  color: ThemeService.accentcolor,
+                                  weight: FontWeight.w500,
+                                ),
                               )
                             ],
                           ),
@@ -155,9 +151,6 @@ class Events extends StatelessWidget {
               }).toList(),
               options: CarouselOptions(
                 autoPlay: true,
-                // enlargeStrategy: CenterPageEnlargeStrategy.height,
-                // enlargeCenterPage: true,
-                // enlargeFactor: .4,
                 disableCenter: true,
                 enableInfiniteScroll: true,
                 initialPage: 1,

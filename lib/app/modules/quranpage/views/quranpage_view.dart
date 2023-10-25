@@ -924,7 +924,7 @@ class QuranpageView extends StatelessWidget {
                                                             Text(
                                                               "${juz
                                                                   .totalVerses}",
-                                                              style: TextStyle(
+                                                              style: const TextStyle(
                                                                   color: Color(
                                                                       0xff16627C),
                                                                   fontSize:
@@ -960,14 +960,14 @@ class QuranpageView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SvgPicture.asset("assets/svg/masjidbot.svg"),
+                    SvgPicture.asset("assets/svg/masjidbot.svg", color: Get.theme.focusColor),
                     Space(8),
                     GestureDetector(
                         onTap: () {
                           Get.toNamed(Routes.QURANPAGE);
                         },
                         child:
-                        SvgPicture.asset("assets/svg/quranbot.svg")),
+                        SvgPicture.asset("assets/svg/quranbot.svg", color: Get.theme.focusColor)),
                     Space(8),
                     GestureDetector(
                         onTap: () {
@@ -975,11 +975,11 @@ class QuranpageView extends StatelessWidget {
                               builder: (_) => HomeView()));
                         },
                         child:
-                        SvgPicture.asset("assets/svg/homebot.svg")),
+                        SvgPicture.asset("assets/svg/homebot.svg", color: Get.theme.focusColor)),
                     Space(8),
-                    SvgPicture.asset("assets/svg/mediabot.svg"),
+                    SvgPicture.asset("assets/svg/mediabot.svg", color: Get.theme.focusColor),
                     Space(8),
-                    SvgPicture.asset("assets/svg/donatebot.svg"),
+                    SvgPicture.asset("assets/svg/qiblabot.svg", color: Get.theme.focusColor),
                   ],
                 ),
               ),

@@ -602,16 +602,13 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                     padding: const EdgeInsets.only(right: 16, left: 16),
                                     child: Center(
                                       child: Obx(() {
-                                        return FadeTransition(
-                                          opacity: controller.animation,
-                                          child: controller.showFirstImage.value
-                                              ? Image.asset(
-                                            'assets/images/guestad1.png',
-                                          )
-                                              : Image.asset(
-                                            'assets/images/guestad2.png',
-                                          ),
-                                        );
+                                        if (controller.showFirstImage.value) {
+                                          return Image.asset('assets/images/guestad1new.png');
+                                        } else if (controller.showSecondImage.value) {
+                                          return Image.asset('assets/images/guestad2.png');
+                                        } else {
+                                          return Image.asset('assets/images/guestad3.png');
+                                        }
                                       }),
                                     ),
                                   ),
@@ -826,16 +823,13 @@ class _GuestmodeViewState extends State<GuestmodeView> {
                                     padding: const EdgeInsets.only(right: 16, left: 16),
                                     child: Center(
                                       child: Obx(() {
-                                        return FadeTransition(
-                                          opacity: controller.animation,
-                                          child: controller.showFirstImage.value
-                                              ? Image.asset(
-                                            'assets/images/guestad1.png',
-                                          )
-                                              : Image.asset(
-                                            'assets/images/guestad2.png',
-                                          ),
-                                        );
+                                        if (controller.showFirstImage.value) {
+                                          return Image.asset('assets/images/guestad1new.png');
+                                        } else if (controller.showSecondImage.value) {
+                                          return Image.asset('assets/images/guestad2.png');
+                                        } else {
+                                          return Image.asset('assets/images/guestad3.png');
+                                        }
                                       }),
                                     ),
                                   ),
@@ -1204,7 +1198,8 @@ class CustomDialogBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Image.asset("assets/images/guestmasjid.png", width: 200,),
+          Image.asset("assets/images/guestmasjidnew.png", width: 150,),
+          Space(8),
           Text("Register with your Masjid to Join \n➽ MemberShip,\n➽ Donation\n➽ Services of Masjid", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white),),
           Space(16),
           Row(

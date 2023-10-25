@@ -1,65 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
-void main() {
-  runApp(const PullToRefreshApp());
-}
+void main() => runApp(MyApp());
 
-class PullToRefreshApp extends StatelessWidget {
-  const PullToRefreshApp({super.key});
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pull to Refresh Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  List<String> items = List.generate(20, (index) => 'Item ${index + 1}');
-  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
-  GlobalKey<RefreshIndicatorState>();
-
-  Future<void> refreshData() async {
-    // Simulating an API request or data refresh
-    await  Future.delayed(const Duration(seconds: 2));
-
-    setState(() {
-      // Update the list with new data
-      items = List.generate(20, (index) => 'New item  ${index + 1}');
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Pull to Refresh'),
-      ),
-      body: RefreshIndicator(
-        key: refreshIndicatorKey,
-        onRefresh: refreshData,
-        child: ListView.builder(
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(items[index]),
-            );
-          },
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Share Play Store Link Example'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Image.asset(
+                'assets/play_store_logo.png', // Replace with the path to your app's Play Store logo image
+                width: 100,
+                height: 100,
+              ),
+              SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  _sharePlayStoreLink();
+                },
+                child: Text('Share Play Store Link'),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
-}
 
+  _sharePlayStoreLink() async {
+    final String appStoreLink = "https://play.google.com/store/apps/details?id=your_app_package_name";
+    final String message = "Check out our app on the Play Store: $appStoreLink";
+
+    await Share.share(
+      message,
+      subject: "Check out this app",
+    );
+  }
+}

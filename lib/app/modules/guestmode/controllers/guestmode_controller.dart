@@ -64,7 +64,9 @@ class GuestmodeController extends GetxController with GetTickerProviderStateMixi
   var uid=FirebaseAuth.instance.currentUser;
   late AnimationController animationController;
   late Animation<double> animation;
-  RxBool showFirstImage = true.obs; // Use RxBool for observable
+  RxBool showFirstImage = true.obs;
+  RxBool showSecondImage = true.obs;
+  RxBool showThirdImage = true.obs;
 
   final RxBool isExpanded = false.obs;
   final RxBool status = false.obs;
@@ -134,20 +136,29 @@ class GuestmodeController extends GetxController with GetTickerProviderStateMixi
       reverseDuration: const Duration(seconds: 1),
     )..addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        showFirstImage.value = !showFirstImage.value; // Toggle between images
+        if (showFirstImage.value) {
+          showFirstImage.value = false;
+          showSecondImage.value = true;
+        } else if (showSecondImage.value) {
+          showSecondImage.value = false;
+          showThirdImage.value = true;
+        } else {
+          showThirdImage.value = false;
+          showFirstImage.value = true;
+        }
         animationController.reverse(); // Reverse the animation
       } else if (status == AnimationStatus.dismissed) {
         animationController.forward(); // Start the animation again
       }
     });
 
-    // Create a CurvedAnimation that uses the animationController and applies an ease-in curve.
+// Create a CurvedAnimation that uses the animationController and applies an ease-in curve.
     animation = CurvedAnimation(
       parent: animationController,
       curve: Curves.fastLinearToSlowEaseIn,
     );
 
-    // Start the animation when the controller is first initialized.
+// Start the animation when the controller is first initialized.
     animationController.forward();
     carouselController = CarouselController();
     getPrayerTime();
@@ -194,7 +205,6 @@ class GuestmodeController extends GetxController with GetTickerProviderStateMixi
   void onClose() {
     // Dispose of the animation controller when it's no longer needed to avoid memory leaks.
     animationController.dispose();
-
     timer!.cancel();
 
     super.onClose();

@@ -1,5 +1,14 @@
 
 
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:document_file_save_plus/document_file_save_plus.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +16,8 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:printing/printing.dart';
 import 'package:smartmasjid_v1/app/modules/home/Drawer_List/masjid_history.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/past_payments.dart';
 import 'package:smartmasjid_v1/app/modules/membership/views/quick_pay.dart';
@@ -20,6 +31,7 @@ import '../../../../widgets/space.dart';
 import '../../../../widgets/stext.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../home/views/home_view.dart';
+import '../../home/widgets/appBar.dart';
 import '../controllers/membership_controller.dart';
 import 'invoice_pdfpage.dart';
 
@@ -29,9 +41,8 @@ class MembershipView extends GetView<MembershipController> {
   MembershipView({Key? key}) : super(key: key);
  final HomeController homeCtrl = Get.find<HomeController>();
  final membercntl = Get.put(MembershipController());
- final List<Member> memberList = [
-    Member(amount: "500", month: "Jan", image: "assets/images/download.png")
-  ];
+  final invoicecntrl = Get.put(MembershipController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -385,6 +396,7 @@ class MembershipView extends GetView<MembershipController> {
                                           onTap: () {
                                             data.monthChart![index].paymentStatus =="paid"? membercntl.paymentInvoice(data.monthChart![index].receiptNo!):null;
                                             data.monthChart![index].paymentStatus =="paid"? Navigator.of(context).push(MaterialPageRoute(builder: (_) => PdfPreviewPage(""))): null;
+                                            //membercntl.downloadPDF();
                                           },
                                           child: Container(
                                             width: 25,
@@ -403,6 +415,7 @@ class MembershipView extends GetView<MembershipController> {
                                             ),
                                           ),
                                         ),
+
                                         // Image.asset(
                                         //   "assets/images/download.png", width: 25,color: data.monthChart![index]
                                         //     .paymentStatus == "paid" ?null:Get.theme.primaryColor.withOpacity(.8),)
@@ -501,14 +514,5 @@ class MembershipView extends GetView<MembershipController> {
   }
 }
 
-class Member {
-  String? month;
-  String? amount;
-  String? image;
 
-  Member({
-    this.month,
-    this.amount,
-    this.image,
-  });
-}
+
