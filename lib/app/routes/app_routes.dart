@@ -50,6 +50,8 @@ abstract class Routes {
   static const ACTIVITIESPAGE = _Paths.ACTIVITIESPAGE;
   static const FAMILYTREE = _Paths.FAMILYTREE;
   static const GUESTMODE = _Paths.GUESTMODE;
+  static const INHERITANCE = _Paths.INHERITANCE;
+  static const INHERITANCE_RESULT = _Paths.INHERITANCE_RESULT;
 }
 
 abstract class _Paths {
@@ -101,4 +103,6 @@ abstract class _Paths {
   static const ACTIVITIESPAGE = '/activitiespage';
   static const FAMILYTREE = '/familytree';
   static const GUESTMODE = '/guestmode';
+  static const INHERITANCE = '/inheritance';
+  static const INHERITANCE_RESULT = '/inheritance-result';
 }

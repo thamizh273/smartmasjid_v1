@@ -21,6 +21,7 @@ import '../../language_page/controllers/language_page_controller.dart';
 
 class EditProfileController extends GetxController {
   static HomeController get homectrl => Get.find();
+
   static AuthenticationRespository get authen => Get.find();
 
   RxBool isLoading = false.obs;
@@ -30,10 +31,13 @@ class EditProfileController extends GetxController {
   final lanctrl = Get.put(LanguagePageController());
   Rx<XFile> image = XFile('').obs;
   String? base64Image;
-  RxString name= "${homectrl.getUserData.value.getUserById!.firstName}" "${homectrl.getUserData.value.getUserById!.lastName}".obs;
+  RxString name = "${homectrl.getUserData.value.getUserById!.firstName}"
+          "${homectrl.getUserData.value.getUserById!.lastName}"
+      .obs;
   RxBool isPicked = false.obs;
   RxBool dummy = false.obs;
-  RxBool ontap =false.obs;
+  RxBool ontap = false.obs;
+
   //TODO: Implement EditProfileController
   var selectedDate = DateTime.now().obs;
   var dobController = TextEditingController();
@@ -60,8 +64,9 @@ class EditProfileController extends GetxController {
 
   @override
   void onInit() {
-   // homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id);
-   homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id,"${homectrl.box1.read('token')}");
+    // homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id);
+    homectrl.getUserDetails(homectrl.getUserData.value.getUserById!.id,
+        "${homectrl.box1.read('token')}");
     super.onInit();
     dobController.text =
         "${selectedDate.value.day}/${selectedDate.value.month}/${selectedDate.value.year}";
@@ -88,27 +93,25 @@ class EditProfileController extends GetxController {
     }
     if (_file != null) {
       // Perform image cropping
-      CroppedFile? croppedFile = await ImageCropper().cropImage(
-          sourcePath: _file.path,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-            CropAspectRatioPreset.ratio3x2,
-            CropAspectRatioPreset.original,
-            CropAspectRatioPreset.ratio4x3,
-            CropAspectRatioPreset.ratio16x9
-          ],
-          uiSettings: [
-            AndroidUiSettings(
-              toolbarTitle: 'Crop Image',
-              toolbarColor: Colors.deepOrange,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false,
-            ),
-            IOSUiSettings(
-              minimumAspectRatio: 1.0,
-            ),]
-      );
+      CroppedFile? croppedFile = await ImageCropper()
+          .cropImage(sourcePath: _file.path, aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ], uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: Colors.deepOrange,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(
+          minimumAspectRatio: 1.0,
+        ),
+      ]);
 
       if (croppedFile != null) {
         _file = XFile(croppedFile.path);
@@ -117,7 +120,6 @@ class EditProfileController extends GetxController {
     if (_file != null) {
       image.value = _file;
       isPicked.value = true;
-
 
       Uint8List bytes = await image.value.readAsBytes();
       base64Image = base64Encode(bytes);
@@ -147,11 +149,11 @@ class EditProfileController extends GetxController {
     //   print("Image not Selected");
     // }
   }
+
   logout() async {
     isLoadingLogout.value = true;
 
-    var header =
-    """mutation Log_Out_User(\$userId: ID!,\$deviceId: String) {
+    var header = """mutation Log_Out_User(\$userId: ID!,\$deviceId: String) {
   Log_Out_User(user_id_: \$userId, device_id: \$deviceId) {
     message
     user_id
@@ -170,20 +172,20 @@ class EditProfileController extends GetxController {
     homectrl.box1.remove('fruits');
     homectrl.box1.remove('masjidId');
     homectrl.box1.remove('token');
-   // homectrl.hh[0]=false;
+    // homectrl.hh[0]=false;
 
     // lanctrl.langStore.remove('selectedindex');
     // lanctrl.langStore.remove('selectedLang');
-  //  lanctrl.selectedRadioIndex.value=0;
+    //  lanctrl.selectedRadioIndex.value=0;
 
     lanctrl.update();
-      // Convert to a regular List before updating GetStorage
+    // Convert to a regular List before updating GetStorage
 
     update(); // Notify GetX that the state has changed
 
-    homectrl.getUserData.value.getUserById!.id='';
-    homectrl.getUserData.value.getUserById!.liveStatus=false;
-    homectrl.getUserData.value.getUserById=null;
+    homectrl.getUserData.value.getUserById!.id = '';
+    homectrl.getUserData.value.getUserById!.liveStatus = false;
+    homectrl.getUserData.value.getUserById = null;
 
     homectrl.update();
 
@@ -193,9 +195,8 @@ class EditProfileController extends GetxController {
 
       toast(error: "SUCCESS", msg: "${hh}");
       Get.offAllNamed(AppPages.INITIAL);
-
     }
-    return ;
+    return;
   }
 
   DateTime sixtyYearsAgo = DateTime.now().subtract(
@@ -285,12 +286,11 @@ class EditProfileController extends GetxController {
     var res = await _restcallController.gql_mutation(header, body);
     print(json.encode(res));
 
-  
     // homectrl.update();
 
     isLoading.value = false;
-    homectrl.getUserData.value.getUserById!.firstName =  firstnamectrl.text;
-    name.value =  firstnamectrl.text+lastnamectrl.text;
+    homectrl.getUserData.value.getUserById!.firstName = firstnamectrl.text;
+    name.value = firstnamectrl.text + lastnamectrl.text;
 
     homectrl.getUserData.value.getUserById!.lastName = lastnamectrl.text;
     homectrl.getUserData.value.getUserById!.address![0].streetName =
@@ -307,14 +307,10 @@ class EditProfileController extends GetxController {
     homectrl.refresh();
     homectrl.update();
 
-
     if (res.toString().contains("SUCCESS")) {
-
       var hh = res["SUCCESS"]["Update_User"];
       toast(error: "SUCCESS", msg: "${hh}");
-    Get.close(1);
-
-
+      Get.close(1);
     }
     return res;
   }

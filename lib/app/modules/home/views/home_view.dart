@@ -862,6 +862,13 @@ class HomeView extends StatelessWidget {
                                                             MasjidhistoryView()));
                                               },
                                             ),
+                                            SmallCard(
+                                              image: 'history',
+                                              title: 'Inheritace'.tr,
+                                              onTap: () {
+                                   Get.toNamed(Routes.INHERITANCE);
+                                              },
+                                            ),
                                           ],
                                         ),
                                       ],

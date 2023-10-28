@@ -30,6 +30,10 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/imanTracker/bindings/iman_tracker_binding.dart';
 import '../modules/imanTracker/views/iman_tracker_view.dart';
+import '../modules/inheritance/bindings/inheritance_binding.dart';
+import '../modules/inheritance/views/inheritance_view.dart';
+import '../modules/inheritanceResult/bindings/inheritance_result_binding.dart';
+import '../modules/inheritanceResult/views/inheritance_result_view.dart';
 import '../modules/language_page/bindings/language_page_binding.dart';
 import '../modules/language_page/views/language_page_view.dart';
 import '../modules/librarypage/bindings/librarypage_binding.dart';
@@ -95,9 +99,9 @@ class AppPages {
   static const INITIAL = Routes.SPLASH_SCREEN;
   static final routes = [
     GetPage(
-        name: _Paths.HOME,
-        page: () => HomeView(),
-        binding: HomeBinding(),
+      name: _Paths.HOME,
+      page: () => HomeView(),
+      binding: HomeBinding(),
     ),
     GetPage(
       name: _Paths.SPLASH_SCREEN,
@@ -223,14 +227,14 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.MASJIDHISTORY,
-      page: () =>  MasjidhistoryView(),
+      page: () => MasjidhistoryView(),
       binding: MasjidhistoryBinding(),
     ),
     GetPage(
-        name: _Paths.PROFILE_PAGE,
-        page: () => ProfilePageView(),
-        binding: ProfilePageBinding(),
-      ),
+      name: _Paths.PROFILE_PAGE,
+      page: () => ProfilePageView(),
+      binding: ProfilePageBinding(),
+    ),
     GetPage(
       name: _Paths.AUDIOPLAYER,
       page: () => AudioPlayerScreen(),
@@ -307,14 +311,24 @@ class AppPages {
       binding: ActivitiespageBinding(),
     ),
     GetPage(
-        name: _Paths.FAMILYTREE,
-        page: () => const FamilytreeView(),
-        binding: FamilytreeBinding(),
-       ),
+      name: _Paths.FAMILYTREE,
+      page: () => const FamilytreeView(),
+      binding: FamilytreeBinding(),
+    ),
     GetPage(
       name: _Paths.GUESTMODE,
-      page: () =>  GuestmodeView(),
+      page: () => GuestmodeView(),
       binding: GuestmodeBinding(),
+    ),
+    GetPage(
+      name: _Paths.INHERITANCE,
+      page: () => InheritanceView(),
+      binding: InheritanceBinding(),
+    ),
+    GetPage(
+      name: _Paths.INHERITANCE_RESULT,
+      page: () => const InheritanceResultView(),
+      binding: InheritanceResultBinding(),
     ),
   ];
 }
