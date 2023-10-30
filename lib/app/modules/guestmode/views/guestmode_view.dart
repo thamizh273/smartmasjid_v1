@@ -1,19 +1,11 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:awesome_notifications/awesome_notifications.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:location/location.dart';
-import 'package:location_platform_interface/location_platform_interface.dart';
-import 'package:lottie/lottie.dart';
 import 'package:marquee_text/marquee_direction.dart';
 import 'package:marquee_text/marquee_text.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:smartmasjid_v1/app/modules/audioplayer/views/audioplayer_view.dart';
 import 'package:smartmasjid_v1/app/modules/duapage/views/duapage_view.dart';

@@ -198,7 +198,7 @@ class PrayerTimes extends StatelessWidget {
                                       color: Colors.white,
                                     ),
                                     Container(
-                                      height: 20,
+                                      height: 19,
                                       child: Transform.scale(
                                         scale: .9,
                                         child: Switch(
@@ -235,8 +235,8 @@ class PrayerTimes extends StatelessWidget {
                                   ],
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 2),
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 1),
                                   child: Stxt(
                                     text:
                                     '${controller.prayerTimeData.value
@@ -259,6 +259,19 @@ class PrayerTimes extends StatelessWidget {
                                   color: Colors.white,
                                   weight: FontWeight.bold,
                                 ),
+                                2.verticalSpace,
+                                Stxt(
+                                  text:
+                                  "Iqamah : ${DateFormat('hh:mm a').format(
+                                      DateTime.parse(
+                                          "${controller.prayerTimeData.value
+                                              .getTodayMasjidPrayerTime!
+                                              .todayPrayerList![index]
+                                              .endTime}").toLocal())}",
+                                  size: 15,
+                                  color: Colors.white,
+                                  weight: FontWeight.bold,
+                                ),
                                 Padding(
                                     padding: const EdgeInsets.only(
                                         right: 5),
@@ -270,17 +283,17 @@ class PrayerTimes extends StatelessWidget {
                                       var isha=controller.timeList[4]=="00:00:00";
                                       var praytime=controller.prayerTimeData.value.getTodayMasjidPrayerTime!.todayPrayerList!;
                                       final formatter = DateFormat('hh:mm:a');
-                                      if(fajr){
-                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[0].prayerName}", body: "Started at ${formatter.format(praytime[0].endTime!.toLocal())}", id: 1);
-                                      }else if(jma){
-                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[1].prayerName}", body: "Started at ${formatter.format(praytime[1].endTime!.toLocal())}", id: 2);
-                                      }else if(asr){
-                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[2].prayerName}", body: "Started at ${formatter.format(praytime[2].endTime!.toLocal())}", id: 3);
-                                      }else if(mag){
-                                       AwesomeNotificationsHelper.showNotification(title: "${praytime[3].prayerName}", body: "Started at ${formatter.format(praytime[3].endTime!.toLocal())}", id: 4);
-                                      }else if(isha){
-                                        AwesomeNotificationsHelper.showNotification(title: "${praytime[4].prayerName}", body: "Started at ${formatter.format(praytime[4].endTime!.toLocal())}", id: 5);
-                                      }
+                                      // if(fajr){
+                                      //   AwesomeNotificationsHelper.showNotification(title: "${praytime[0].prayerName}", body: "Started at ${formatter.format(praytime[0].endTime!.toLocal())}", id: 1);
+                                      // }else if(jma){
+                                      //   AwesomeNotificationsHelper.showNotification(title: "${praytime[1].prayerName}", body: "Started at ${formatter.format(praytime[1].endTime!.toLocal())}", id: 2);
+                                      // }else if(asr){
+                                      //   AwesomeNotificationsHelper.showNotification(title: "${praytime[2].prayerName}", body: "Started at ${formatter.format(praytime[2].endTime!.toLocal())}", id: 3);
+                                      // }else if(mag){
+                                      //  AwesomeNotificationsHelper.showNotification(title: "${praytime[3].prayerName}", body: "Started at ${formatter.format(praytime[3].endTime!.toLocal())}", id: 4);
+                                      // }else if(isha){
+                                      //   AwesomeNotificationsHelper.showNotification(title: "${praytime[4].prayerName}", body: "Started at ${formatter.format(praytime[4].endTime!.toLocal())}", id: 5);
+                                      // }
                                       return Stxt(
                                         text:
                                         "Start in  ${controller

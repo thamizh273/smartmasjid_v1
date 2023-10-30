@@ -2,13 +2,10 @@ import 'dart:convert';
 import 'dart:developer';
 
 
-import 'package:chatview/chatview.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../../../rest_call_controller/rest_call_controller.dart';
 import '../../../routes/export.dart';
-import '../../../server/config.dart';
 import '../../home/controllers/home_controller.dart';
 import '../model/chatUserListModel.dart';
 import '../model/chatroomModel.dart';
@@ -16,14 +13,13 @@ import '../model/read_Chat_Message_Model.dart';
 import '../model/theme.dart';
 import '../views/chattest.dart';
 
-class MessagepageController extends GetxController {
+class MessagepageController extends GetxController with WidgetsBindingObserver{
   //TODO: Implement MessagepageController
 
 var userNames="".obs;
 var limit=50.obs;
   var datestatus="".obs;
   RxInt indexof=0.obs;
-
   var isLoadings = false.obs;
   var isLoadingschatUserList = false.obs;
   var isLoadingschatmessage = false.obs;
@@ -39,15 +35,23 @@ var limit=50.obs;
 
 @override
   void onInit() {
-
     get_chatroom();
     super.onInit();
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void onReady() {
+
     super.onReady();
   }
+@override
+void didChangeAppLifecycleState(AppLifecycleState state) {
+  if (state == AppLifecycleState.paused) {
+    // Call your function when the app is paused (minimized or closed)
+    leaveChat(); // Replace 'yourFunction' with the function you want to call
+  }
+}
 
   @override
   void onClose() {
@@ -57,6 +61,7 @@ var limit=50.obs;
   }
 @override
 void dispose() {
+  WidgetsBinding.instance.removeObserver(this);
   //scrollControllermesage_.dispose(); // Dispose of the ScrollController
   super.dispose();
 }

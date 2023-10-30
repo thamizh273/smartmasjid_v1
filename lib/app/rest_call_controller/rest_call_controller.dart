@@ -42,7 +42,7 @@ class restCallController extends GetxController {
             backgroundColor: Colors.red,
             borderRadius: 3,
             shouldIconPulse: false,
-            icon: Icon(
+            icon: const Icon(
               Icons.message,
               color: Colors.red,
             ),
@@ -153,13 +153,6 @@ class restCallController extends GetxController {
     }
     else if (result.data != null) {
       // print("rese dod ${result.data}");
-
-
-
-
-
-
-
       //
       var res = {"SUCCESS": result.data};
       // var  ee =result.data![0]['message'];

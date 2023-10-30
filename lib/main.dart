@@ -43,7 +43,7 @@ void main() async{
   //   options: DefaultFirebaseOptions.currentPlatform,
   // ).then((value) => Get.put(AuthenticationRespository()));
   await initHiveForFlutter();
-  await AwesomeNotificationsHelper.init();
+  // await AwesomeNotificationsHelper.init();
   await MySharedPref.init();
   await FcmHelper.initFcm();
   LocalNotificationHelper.initializeNotifications();

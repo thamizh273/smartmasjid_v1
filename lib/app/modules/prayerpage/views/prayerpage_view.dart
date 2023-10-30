@@ -175,7 +175,7 @@ class PrayerpageView extends StatelessWidget {
                             "${prayertime.startTime}").toLocal()),
                         endTime: DateFormat('hh:mm a').format(DateTime.parse(
                             "${prayertime.endTime}").toLocal()),
-                        colors: Colors.white,
+                        colors:  prayertime.prayerStatus == "future"?clr_green:clr_blue,
                         remainingTime: prayertime.prayerStatus == "future"
                             ? ctrl.remainTime()
                             : "null",
@@ -244,7 +244,7 @@ class PrayerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
-      height: 45,
+      height: 52,
       decoration: BoxDecoration(
           color: colors.withOpacity(.25),
           borderRadius: BorderRadius.circular(10)),
@@ -288,15 +288,17 @@ class PrayerCard extends StatelessWidget {
                 weight: FontWeight.bold,
                 color: txtClr ?? colors,
               ),
+              2.verticalSpace,
               remainingTime == "null" ? Container() : Container(
                 padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: clr_green.shade50),
+                // decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(5),
+                //     color: clr_gray.shade200),
                 child: Stxt(
                   text: 'Remaining time : ${remainingTime}',
-                  size: f0,
-                  color: Colors.green,
+                  weight: FontWeight.w500,
+                  size: f1,
+                  color: txtClr,
                 ),
               )
 

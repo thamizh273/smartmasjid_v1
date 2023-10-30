@@ -1,15 +1,8 @@
 import 'dart:convert';
-import 'dart:io';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/services.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
-import 'package:location_platform_interface/location_platform_interface.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:smartmasjid_v1/app/modules/audioplayer/views/audioplayer_view.dart';
 import 'package:smartmasjid_v1/app/modules/duapage/views/duapage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hadithpage/views/hadithpage_view.dart';
 import 'package:smartmasjid_v1/app/modules/hijripage/views/hijripage_view.dart';
